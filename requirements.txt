@@ -1,0 +1,7 @@
+jupyter
+numpy
+pandas
+matplotlib
+sklearn
+scipy
+wheel
