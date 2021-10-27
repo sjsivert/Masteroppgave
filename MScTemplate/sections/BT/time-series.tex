@@ -1,0 +1,43 @@
+\subsection{Time Series}
+\label{sec:time-series}
+\begin{quote}
+    A time series is a sequence of data
+    points that occur in successive order over some period of time.
+\end{quote}
+\cite{Hayes}
+
+In a time series, time is often the independent variable.
+A time series has several properties worth mentioning.
+Is it stationary?
+A stationary time series if its statistical properties do not change over time.
+In other words, if it has a variance, mean and covariance which is independent of time.
+
+Does the time series have seasonality?
+If it follows periodic fluctuations, like how electricity usage varies during a 24-hour period,
+then it has seasonality.
+
+If a time series has a strong autocorrelation then there is a big
+correlation between observations with a time lag between them.
+
+\subsection{Modeling time series}
+A naive approach to time series modeling is predicting that the next observation will be the
+mean of all past observations. A better approach is to is to define a smaller window, and
+apply the moving average across the whole series. Longer window size equals a smoother graph.
+
+Exponential smoothing uses the same approach,
+but assigns a different decreasing weight is assigned to each observation.
+
+\begin{equation}
+    \label{eq:exponential_smoothing}
+    y = \alpha x_t + (1 - \alpha)y_{y-1}, t > 0
+\end{equation}
+
+\autoref{eq:exponential_smoothing}
+shows exponential smoothing, where $\alpha$ smoothing factor
+that takes values between 0 and 1. It determines how fast the weight decreases with time.
+
+% TODO: Fortsette https://towardsdatascience.com/the-complete-guide-to-time-series-analysis-and-forecasting-70d476bfe775
+
+
+
+
