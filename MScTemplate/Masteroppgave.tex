@@ -7,6 +7,7 @@
 %\usepackage{fancyheadings}						% Nice header and footer
 \usepackage[linktocpage,colorlinks]{hyperref}			% PDF hyperlink
 \usepackage{geometry} 							% Better geometry
+\usepackage{import}
 %\usepackage[center]					% For cropping documents
 \usepackage{import}
 
@@ -16,7 +17,7 @@
 % Author
 % Fill in here, and use commands in the text. 
 \newcommand{\thesisAuthor}{Sindre J.I Sivertsen \& Sander Kilen}
-\newcommand{\thesisTitle}{The best title in the world}
+\newcommand{\thesisTitle}{The title in the world}
 \newcommand{\thesisType}{master project}
 \newcommand{\thesisDate}{spring 2018}
 
@@ -43,6 +44,7 @@
 % Citation format
 \bibliographystyle{apalike}
 \bibpunct{[}{]}{;}{a}{,}{,}
+
 
 \begin{document}
 
@@ -99,7 +101,7 @@
 \backmatter
 
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{bibtex/bibliography}
+\bibliography{bibtex/library}
 
 \chapter{Appendices}
 \label{cha:appendices}
