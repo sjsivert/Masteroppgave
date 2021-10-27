@@ -3,3 +3,5 @@ venv/
 .idea/
 datasets/
 .ipynb_checkpoints/
+Masteroppgave.*
+!Masteroppgave.tex
