@@ -39,5 +39,30 @@ that takes values between 0 and 1. It determines how fast the weight decreases w
 % TODO: Fortsette https://towardsdatascience.com/the-complete-guide-to-time-series-analysis-and-forecasting-70d476bfe775
 
 
+\subsubsection{SARIMA}
+SARIMA is an extension to an Autoregressive Integrated Moving Average (ARIMA) model that supports the direct modeling of a seasonal component.
+
+SARIMA is an combination of simpler models to make a complex model that can model time series.
+The main idea is to apply different transformations to a non stationary seasonal time series,
+in order to remove seasonality and any non-stationary behaviors.
+\citet[p. 327-385]{Utlaut2008}.
+The first part of SARIMA is the autoregression model
+$AR(p)$ where $p$ is the maximum lag.
+
+The second part is the moving average model $MA(q)$ where $q$ is the maximum lag.
+
+The third part is the order of integraion $I(d)$ where $d$ is the number of
+differences required to make the series stationary.
+
+The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
+of the season.
+$s$ is dependent on $P$ and $Q$ which are equal to $q$ and $q$ but for the seasonal component.
+$D$ is the number of differences required to remove seasonality from the series.
+
+The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
+
+
+
+
 
 
