@@ -9,6 +9,7 @@
 In a time series, time is often the independent variable.
 Examples of time series are weather data, stock markets, sound level samples.
 The times $t$ usually range over a discrete index set, and is often equally spaced.
+% "The times t", eller blir det mer rett med "Time t"?
 
 \subsubsection{Properties}
 A time series has several properties:
@@ -16,6 +17,7 @@ A time series has several properties:
 \textbf{Stationarity}
 A stationary time series if its statistical properties do not change over time.
 In other words, if it has a variance, mean, and covariance which is independent of time.
+% A time series is stationary if ... ?
 
 \cite{RobJHyndman2014} defines stationarity more formally:
 \begin{definition}
@@ -27,6 +29,7 @@ In other words, if it has a variance, mean, and covariance which is independent 
 \textbf{Seasonality}
 If it follows periodic fluctuations, like how electricity usage varies during a 24-hour period,
 then it has seasonality.
+% Is it clear that "it" = "time series" ? Change to "time series" ?
 
 \textbf{Autocorrelation}
 If a time series has a strong autocorrelation then there is a big
@@ -37,7 +40,7 @@ When a time series has a deterministic component that is proportionate to the ti
 In simpler terms, if a time series plot seems to center around an increasing or decreasing line it suggests the presence of a trend.
 
 \textbf{Cycles}
-Cypcles differ from seasonality because the period does not have to be fixed.
+Cycles differ from seasonality because the period does not have to be fixed.
 
 
 \textbf{Level}
@@ -48,14 +51,20 @@ then the level is changing.
 \subsection{Modeling of time series}
 Let  $Y = \{y_1, y_2, ..., y_n\}$ denote a time series.
 Forecasting is prediction the next time step $y_n+h$ where $h$ is the forecasting horizon.
+% Overskriften sier "modeling of time series", men det første du gjør er å definere forecasting?
+% Skal det være y_(n+h)? Og burde det ikke isåfall være en serie, ikke en variabel? Mulig jeg misforstår.
 
 There are two main categories within time series forecsasting. \textit{univariate} and \textit{multivariate}. 
 An \textit{univariate} time series consists of one input variable and one output variable. These methods use the time series past to predict its future.
 In a multivariate time series, there are many time dependent variables used as explanatory variables that all help predict one output variable.
 
+% Kanskje vurdere å sette opp Univariate og Multivariate i BOLD slik at det er lett å se hvor de er.
+% Spessielt viktig siden vi sikkert skal snakke om disse senere.
+
 Many time series methods focus on predicting just one step ahead ($y_n+1$). When forecasting many steps into the future this becomes a 
 \textit{Multi-step forecasting} problem. One simple to predict many steps ahead is to reccursively predict one step ahead, and use past predicted steps 
 in the calculation.
+% Sikkert egentlig bare jeg som er litt uenig, men kanskje legge til en settning ekstra her for at det blir mer naturlig?
 
 
 Given a stationary time series a naive approach to time series modeling is predicting that the next observation will be the
@@ -74,9 +83,18 @@ but assigns a different decreasing weight is assigned to each observation.
 shows exponential smoothing, where $\alpha$ smoothing factor
 that takes values between 0 and 1. It determines how fast the weight decreases with time.
 
+% Det er jo ikke feil! Men virker som det er veldig mye crammet inn på veldig liten plass.
+% Vi har ikke dårlig plass så du har råd til å bruke et par ord ekstra hvis du vil ;)
+
 % TODO: Fortsette https://towardsdatascience.com/the-complete-guide-to-time-series-analysis-and-forecasting-70d476bfe775
 
 
+
+
+% Kanskje lage en egen fil for SARIMA?
+% Jeg ville kanskje vurdert å dele dette litt mer opp. Definer ARMA, supert, ingen innvendinger.
+% Kanskje da ha en egen overskrift for ARMA, og en egen for SARIMA. Du sier også at SARIMA er en utvidelse av ARIMA, men hva er ARIMA? Det er ikke forklart.
+% Du kan fint slenge på en setning eller 2 om hva ARIMA er i forhold til SARIMA, spessielt siden vi kommer til å måtte lage en ARIMA eller SARIMA modell senere.
 \subsubsection{SARIMA}
 Auto-Regressive Moving Average \textbf{ARMA} is one of the most commonly used methods for univariate time series forecasting [SOURCE]
 ARMA $ARMA(p, q)$is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
@@ -123,6 +141,7 @@ The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
 of the season.
 $s$ is dependent on $P$ and $Q$ which are equal to $q$ and $q$ but for the seasonal component.
 $D$ is the number of differences required to remove seasonality from the series.
+% Is it correct that it is equal to q and q? Should both be q?
 
 The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
 
