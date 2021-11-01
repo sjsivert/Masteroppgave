@@ -1,11 +1,13 @@
 
+\subsection{Autoencoder}
+
 Autoencoders are neural networks used to learn efficient representations of data.
 Through unsupervised learning, autoencoders do not need labeled data to function.
 Autoencoders accomplish this by lowering the dimensional complexity of the data, enabling it to store data representations more efficiently.
 Due to this ability, autoencoders are well suited for dimensional reduction of data.
 Autoencoders learn to represent data in a \textit{coding}.
 This \textit{coding} has a much lower dimensionality than the original data.
-
+\cite[p.~506-508]{Geron2017}
 
 Autoencoders are composed of 2 parts; the encoder and the decoder.
 The encoder maps the input data representation to the \textit{coding}, while the decoder maps the coding values back through data reconstruction.
@@ -13,14 +15,14 @@ The encoder takes the input data and reduces the feature mapping to store the re
 The data is then sent from the coding layer to the decoder, where the decoder attempts to reverse the mapped data back to the original input data.
 By doing this, the encoder efficiently maps the most important data features in the coding layer, using far lower dimensionality than the original data.
 The decoder becomes efficient at reconstructing the input data using only the dimensionally reduced data in the coding layer.
+\cite[p.~506-508]{Geron2017}
+
+\todo{Add image? Just create somethin in GIMP}
 
 Through the feature mapping, the encoder becomes an efficient feature detector and extractor.
 Due to the reduced dimensionality of the coding, the encoder becomes sufficient at reducing the noise within the data, extracting the most important features.
 As a future extractor, autoencoders are well suited for use in pretraining neural networks, extracting the most important features.
-
 At the same time, autoencoders are able to become fairly successful generative models.
 As the decoder is proficient at reconstructing input data from the coding layer representation, meaning it can also generate new data.
 The reconstructive abilities of the decoder enable the generative model to create new data, similar to the training data used when creating the model.
-
-
-\todo{Add source: "Hands on machine learning"}
+\cite[p.~506-508]{Geron2017}
