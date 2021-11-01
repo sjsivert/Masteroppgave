@@ -7,24 +7,60 @@
 \cite{Hayes}
 
 In a time series, time is often the independent variable.
-A time series has several properties worth mentioning.
-Is it stationary?
-A stationary time series if its statistical properties do not change over time.
-In other words, if it has a variance, mean and covariance which is independent of time.
+Examples of time series are weather data, stock markets, sound level samples.
+The times $t$ usually range over a discrete index set, and is often equally spaced.
 
-Does the time series have seasonality?
+\subsubsection{Properties}
+A time series has several properties:
+
+\textbf{Stationarity}
+A stationary time series if its statistical properties do not change over time.
+In other words, if it has a variance, mean, and covariance which is independent of time.
+
+\cite{RobJHyndman2014} defines stationarity more formally:
+\begin{definition}
+   $X_t$ is a stationary time series 
+   $x_1, ..., x_n, if \forall_s \in \mathbb{R} :$
+   the distribution of $(x_t, ..., x_{t+s})$ is equal
+\end{definition}
+
+\textbf{Seasonality}
 If it follows periodic fluctuations, like how electricity usage varies during a 24-hour period,
 then it has seasonality.
 
+\textbf{Autocorrelation}
 If a time series has a strong autocorrelation then there is a big
 correlation between observations with a time lag between them.
 
-\subsection{Modeling time series}
-A naive approach to time series modeling is predicting that the next observation will be the
+\textbf{Trends}
+When a time series has a deterministic component that is proportionate to the time period it has a trend.
+In simpler terms, if a time series plot seems to center around an increasing or decreasing line it suggests the presence of a trend.
+
+\textbf{Cycles}
+\todo[inline]{TODO}
+
+\textbf{Level}
+\todo[inline]{TODO}
+
+
+\subsection{Modeling of time series}
+Let  $Y = \{y_1, y_2, ..., y_n\}$ denote a time series.
+Forecasting is prediction the next time step $y_n+h$ where $h$ is the forecasting horizon.
+
+There are two main categories within time series forecsasting. \textit{univariate} and \textit{multivariate}. 
+An \textit{univariate} time series consists of one input variable and one output variable. These methods use the time series past to predict its future.
+In a multivariate time series, there are many time dependent variables used as explanatory variables that all help predict one output variable.
+
+Many time series methods focus on predicting just one step ahead ($y_n+1$). When forecasting many steps into the future this becomes a 
+\textit{Multi-step forecasting} problem. One simple to predict many steps ahead is to reccursively predict one step ahead, and use past predicted steps 
+in the calculation.
+
+
+Given a stationary time series a naive approach to time series modeling is predicting that the next observation will be the
 mean of all past observations. A better approach is to is to define a smaller window, and
 apply the moving average across the whole series. Longer window size equals a smoother graph.
 
-Exponential smoothing uses the same approach,
+A different well known technique is \textbf{exponential smoothing}. It uses the same approach,
 but assigns a different decreasing weight is assigned to each observation.
 
 \begin{equation}
@@ -40,10 +76,37 @@ that takes values between 0 and 1. It determines how fast the weight decreases w
 
 
 \subsubsection{SARIMA}
-SARIMA is an extension to an Autoregressive Integrated Moving Average (ARIMA) model that supports the direct modeling of a seasonal component.
+Auto-Regressive Moving Average \textbf{ARMA} is one of the most commonly used methods for univariate time series forecasting [SOURCE]
+ARMA $ARMA(p, q)$is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
 
-SARIMA is an combination of simpler models to make a complex model that can model time series.
-The main idea is to apply different transformations to a non stationary seasonal time series,
+The $AR(p)$ model is built on the assumption that the value of a given time series $y_n$ can be estimated using a linear combination
+of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$ as seen in \autoref{eq:arma_ar(p)} \cite{Box2016}.
+
+\begin{equation}
+    \label{eq:arma_ar(p)}
+    y_n = c + \sum_{i=1}^{p} \phi_i y_{n-1 + \epsilon_n}
+\end{equation}
+  where $\phi_i, \forall i \in \{1, ..., p\} $ denote the model parameters, and $p$ is the order of the model.
+
+The second part $MA(q)$ uses the past errors in a similar fasion \autoref{eq_arma_ma(q)}.
+\begin{equation}
+    \label{eq_arma_ma(q)}
+    y_n = \mu + \sum_{i=1}^{p} \theta_i \epsilon_{n-1} + \epsilon_n
+\end{equation}
+Here $\mu$ represents the mean of observations. $q$ is the order of the model. $\theta_i, \forall i \in \{1, ..., q\}$ represents the parameters of the model.
+
+Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \autoref{eq_arma_ma(q)} we get the $ARMA(p,q)$ model in \autoref{eq:arma}.
+
+\begin{equation}
+    \label{eq:arma}
+    y_n = c + \sum_{i=1}^{p} \phi_i y_{n-1 + \epsilon_n} + \mu + \sum_{i=1}^{p} \theta_i \epsilon_{n-1} + \epsilon_n
+\end{equation}
+
+SARIMA is an extension to ARIMA model that supports the direct modeling of a seasonal component and incorporates a parameter $d$
+to transform a non-stationary time series into a stationary one.
+
+SARIMA is a combination of simpler models to make a complex model that can model time series.
+The main idea is to apply different transformations to a nonstationary seasonal time series,
 in order to remove seasonality and any non-stationary behaviors.
 \citet[p. 327-385]{Utlaut2008}.
 The first part of SARIMA is the autoregression model
@@ -51,7 +114,7 @@ $AR(p)$ where $p$ is the maximum lag.
 
 The second part is the moving average model $MA(q)$ where $q$ is the maximum lag.
 
-The third part is the order of integraion $I(d)$ where $d$ is the number of
+The third part is the order of integration $I(d)$ where $d$ is the number of
 differences required to make the series stationary.
 
 The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
@@ -61,8 +124,12 @@ $D$ is the number of differences required to remove seasonality from the series.
 
 The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
 
-
-
-
-
-
+\subsubsection{Limitations of statistical methods}
+If a time series is stationary, then using its statistical properties is shown to be an effective and computationally cheap method \cite{Makridakis2018}.
+\todo[inline]{Skrive om limitations til statistiske metoder and
+* Univariate
+* stationary time series
+* Dealing with extreme values
+https://towardsdatascience.com/limitations-of-arima-dealing-with-outliers-30cc0c6ddf33
+}
+Pro ML: size matters \cite{Cerqueira2019}
