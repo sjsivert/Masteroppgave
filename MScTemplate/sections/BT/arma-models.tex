@@ -1,0 +1,65 @@
+
+% Kanskje lage en egen fil for SARIMA?
+% Jeg ville kanskje vurdert å dele dette litt mer opp. Definer ARMA, supert, ingen innvendinger.
+% Kanskje da ha en egen overskrift for ARMA, og en egen for SARIMA. Du sier også at SARIMA er en utvidelse av ARIMA, men hva er ARIMA? Det er ikke forklart.
+% Du kan fint slenge på en setning eller 2 om hva ARIMA er i forhold til SARIMA, spessielt siden vi kommer til å måtte lage en ARIMA eller SARIMA modell senere.
+\subsubsection{ARMA}
+Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time series prediction. It is one of the most commonly used methods for univariate time series forecasting [SOURCE]
+ARMA $ARMA(p, q)$is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
+
+The $AR(p)$ model is built on the assumption that the value of a given time series $y_n$ can be estimated using a linear combination
+of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$ as seen in \autoref{eq:arma_ar(p)} \cite{Box2016}.
+
+\begin{equation}
+    \label{eq:arma_ar(p)}
+    y_n = c + \sum_{i=1}^{p} \phi_i y_{n-1 + \epsilon_n}
+\end{equation}
+  where $\phi_i, \forall i \in \{1, ..., p\} $ denote the model parameters, and $p$ is the order of the model.
+
+The second part $MA(q)$ uses the past errors in a similar fasion \autoref{eq_arma_ma(q)}.
+\begin{equation}
+    \label{eq_arma_ma(q)}
+    y_n = \mu + \sum_{i=1}^{p} \theta_i \epsilon_{n-1} + \epsilon_n
+\end{equation}
+Here $\mu$ represents the mean of observations. $q$ is the order of the model. $\theta_i, \forall i \in \{1, ..., q\}$ represents the parameters of the model.
+
+Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \autoref{eq_arma_ma(q)} we get the $ARMA(p,q)$ model in \autoref{eq:arma}.
+
+\begin{equation}
+    \label{eq:arma}
+    y_n = c + \sum_{i=1}^{p} \phi_i y_{n-1 + \epsilon_n} + \mu + \sum_{i=1}^{p} \theta_i \epsilon_{n-1} + \epsilon_n
+\end{equation}
+
+\subsubsection{SARIMA}
+SARIMA is an extension to ARMA model that supports the direct modeling of a seasonal component and incorporates a parameter $d$
+to transform a non-stationary time series into a stationary one.
+
+SARIMA is a combination of simpler models to make a complex model that can model time series.
+The main idea is to apply different transformations to a nonstationary seasonal time series,
+in order to remove seasonality and any non-stationary behaviors.
+\citet[p. 327-385]{Utlaut2008}.
+The first part of SARIMA is the autoregression model
+$AR(p)$ where $p$ is the maximum lag.
+
+The second part is the moving average model $MA(q)$ where $q$ is the maximum lag.
+
+The third part is the order of integration $I(d)$ where $d$ is the number of
+differences required to make the series stationary.
+
+The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
+of the season.
+$s$ is dependent on $P$ and $Q$ which are equal to $q$ and $q$ but for the seasonal component.
+$D$ is the number of differences required to remove seasonality from the series.
+% Is it correct that it is equal to q and q? Should both be q?
+
+The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
+
+\subsubsection{Limitations of statistical methods}
+If a time series is stationary, then using its statistical properties is shown to be an effective and computationally cheap method \cite{Makridakis2018}.
+\todo[inline]{Skrive om limitations til statistiske metoder and
+* Univariate
+* stationary time series
+* Dealing with extreme values
+https://towardsdatascience.com/limitations-of-arima-dealing-with-outliers-30cc0c6ddf33
+}
+Pro ML: size matters \cite{Cerqueira2019}
