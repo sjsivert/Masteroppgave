@@ -1,7 +1,7 @@
 
 \subsection{Recurrent neural networks}
 
-A recurrent neural network (RNN) is an artificial neural network architecture that can work with data sequences of arbitrary length.
+A \textit{Recurrent Neural Network} (RNN) is an artificial neural network architecture that can work with data sequences of arbitrary length.
 Unlike feed-forward networks, RNNs consider the input data in conjunction with state information from a previous timestep.
 To accomplish this the network uses feedback connections.
 The feedback connections serve state information from the previous time step to the intended node.
@@ -11,6 +11,12 @@ In the basic RNN, these memory cells retain minimal information, saving data onl
 As the RNN memory cell is defined by the newest data introduced to the cell, previous information is encoded only in its effect on that data.
 Due to this, information is not stored for long in these memory cells, only retaining short-term memory data.
 This results in the RNN often suffering from the vanishing gradient problem, as well as the exploding gradient problem.
+\todo{Hva er vanishing gradient problem? Kunne trengt en kilde her kanskje?}
+
+% Prøvde meg litt på denne setningen:
+The RNNs ability to retain information from previous inputs means it is especially
+good at finding temporal relationship in data. For example, in a time series, wher
+the next step is dependent on previous steps
 
 \todo{What is a RNN used for - Prediction, NLP, ...}
 s
@@ -22,7 +28,7 @@ One such model is the Long-Short Term Memory model (LSTM).
 
 \subsection{Long-Short Term Memory}
 
-Long-Short term memory (LSTM) is a type of recurrent neural network addressing some of its shortcomings
+\textit{Long-Short Term Memory} (LSTM) is a type of recurrent neural network addressing some of its shortcomings
 The LSTM introduces a new memory cell, adding Long-term memory to the network.
 
 The LSTM memory cells are comprised of two vectors, one for long-term and one for short-term memory,
