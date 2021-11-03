@@ -49,21 +49,3 @@ $D$ is the number of differences required to remove seasonality from the series.
 % Is it correct that it is equal to q and q? Should both be q?
 
 The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
-
-\subsubsection{Limitations of statistical methods}
-If a time series is stationary, then using its statistical properties is shown to be an effective and computationally cheap method \cite{Makridakis2018}.
-\todo[inline]{Skrive om limitations til statistiske metoder and
-* Univariate
-* stationary time series
-* Dealing with extreme values
-https://towardsdatascience.com/limitations-of-arima-dealing-with-outliers-30cc0c6ddf33
-}
-Pro ML: size matters \cite{Cerqueira2019}
-
-From \cite{Guen2019}:
-Traditional methods for time series forecasting include linear autoregressive models, such as
-ARIMA odel, and exponential smoothing, which both fall into the broad category of of linear 
-state space models (SSMs). These methods handle linear
-dynamics and stationary time series (or made stationary by temporal differences).
-However the stationarity assumption is not satisfied for many real world tmie series that can present
-abrupt changes of distribution...
