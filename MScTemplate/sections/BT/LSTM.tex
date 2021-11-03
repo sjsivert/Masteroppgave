@@ -1,4 +1,3 @@
-
 \subsection{Recurrent neural networks}
 
 A \textit{Recurrent Neural Network} (RNN) is an artificial neural network architecture that can work with data sequences of arbitrary length.
@@ -10,16 +9,20 @@ This connection works as a short-term memory for the recurrent layers, saving in
 In the basic RNN, these memory cells retain minimal information, saving data only from the previous instance.
 As the RNN memory cell is defined by the newest data introduced to the cell, previous information is encoded only in its effect on that data.
 Due to this, information is not stored for long in these memory cells, only retaining short-term memory data.
-This results in the RNN often suffering from the vanishing gradient problem, as well as the exploding gradient problem.
-\todo{Hva er vanishing gradient problem? Kunne trengt en kilde her kanskje?}
+
+%This results in the RNN often suffering from the vanishing gradient problem, as well as the exploding gradient problem.
+%\todo{Hva er vanishing gradient problem? Kunne trengt en kilde her kanskje?}
 
 % Prøvde meg litt på denne setningen:
-The RNNs ability to retain information from previous inputs means it is especially
-good at finding temporal relationship in data. For example, in a time series, wher
-the next step is dependent on previous steps
+%The RNNs ability to retain information from previous inputs means it is especially
+%good at finding temporal relationship in data. For example, in a time series, wher
+%the next step is dependent on previous steps
 
-\todo{What is a RNN used for - Prediction, NLP, ...}
-s
+The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time series analysis and similar problems.
+In addition, the memory retained in the RNN makes it well suited to extract temporal relations in the data.
+
+\todo{Add image of RNN feedback cells}
+
 In order to improve the performance of the RNN, new models have been created to address some of its shortcomings.
 One such model is the Long-Short Term Memory model (LSTM).
 
@@ -34,12 +37,14 @@ The LSTM introduces a new memory cell, adding Long-term memory to the network.
 The LSTM memory cells are comprised of two vectors, one for long-term and one for short-term memory,
 as well as an input gate, output gate and a forget gate.
 The forget gate allows for the memory cell to remove unneeded parts of the memory in order to replace it with new data from the input gate.
-The long term memory therefor retains some of its information, while replacing other parts.
+The long-term memory therefore retains some of its information, while replacing other parts.
 
 The long-term memory of the LSTM enables it to solve the RNN problem of vanishing gradients.
 The long-term memory enables the LSTM to store data at arbitrary intervals, as well as detect long term dependencies in the data.
 
-\todo{What are the usecases of the LSTM}
+The LSTM, as the RNN, is well suited for working on series of data.
+The LSTM is able to analyze and predict long-term relations in a series of data, making it well suited for applications such as time series prediction or anomaly detection,
+as well as natural language processing and more.
 
 \todo{Add LSTM cell architecture from the book!}
 
@@ -50,8 +55,11 @@ The long-term memory enables the LSTM to store data at arbitrary intervals, as w
 
 
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
 \subsection{Long-Short Term Memory}

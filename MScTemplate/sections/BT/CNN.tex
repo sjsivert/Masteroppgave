@@ -1,4 +1,4 @@
-\subsection{Convolution}
+\subsection{Convolutional Neural Network}
 A \textit{Convolutional Neural Network} (CNN) is a neural network architecture built using convolutional layers in order to extract information.
 Unlike fully connected neural networks, convolutional layers interpret data using perceptive fields.
 These perceptive fields evaluate only sections of the input at a time until the whole input is processed.
@@ -9,18 +9,23 @@ The first layer extracts low-level features, while the next layer extracts highe
 
 \todo{Add image for visuals!}
 
-Multiple kernels, or filters, are used to extract data from the input.
+Multiple kernels, or filters, are used to extract features from the data.
 The result of applying these filters is known as the feature map, the extracted data features.
+These feature maps extract lower and higher lever features from the original data by
+extracting spatial features, retaining the spatial relationship within the data.
+Such spatial features could be the curvature of the ears of a dog in an image, or the correlation of timestep data in a time series.
+As a result, convolutional networks have several applications within image classification,
+image recognition, natural language processing, and time series analysis.
 
+
+
+\iffalse
 % Kunne det vært nice å skrive noe om hva CNNs er gode på?
 % Å se mønstre på tvers av noder. Eller i vår sammenheng the spatial featuress?
 % Prøvde meg litt på setningen under:
 The use of this feature map means that CNNs are good with data that has a spatial
 relationship. For example, there is a relationship of order between the words in a sentence.
 And there is an ordered relationship in the time steps of a time series.
-
-Convolutional layers have several applications within image classification,
-image recognition, natural language processing, and time series analysis.
-
+\fi
 
 % [Se kilder wikipedia? Eller bare bruke Boka? Dobbelt sjekke]
