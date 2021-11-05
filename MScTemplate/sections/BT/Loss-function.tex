@@ -1,9 +1,16 @@
 \subsection{Loss functions}
 \label{loss-functions}
+\cite{Russel2012} defines loss functions as such:
 A \textit{loss function} $L(x, y, \hat{y})$ is defined as the amount of utility lost by predicting 
-$(h(x)=\hat{y})$ when the correct answer is $f(x) = y$ and $h$ is the heuristic function.
+$h(x)=\hat{y}$ when the correct answer is $f(x) = y$ and $h$ is the heuristic function.
 This is the most general formulation of the loss function. Often a simplified version is used,
-$L(y, \hat{y})$, that is independent of x \cite{Russel2012}.
+$L(y, \hat{y})$, that is independent of x.
+
+This means, that the loss function is the function that calculates the error between the 
+models prediction, and the actual target value.
+This chapter will breafly give an explanation for common loss functions.
+
+
 \todo[inline]{Burde vi skrive litt mer på hvert avsnitt?}
 \subsubsection{MSE}
 % Common loss functions
