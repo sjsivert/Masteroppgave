@@ -21,7 +21,15 @@ Due to this, information is not stored for long in these memory cells, only reta
 The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time series analysis and similar problems.
 In addition, the memory retained in the RNN makes it well suited to extract temporal relations in the data.
 
-\todo{Add image of RNN feedback cells}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./sections/BT/figures/RNN_neuron_hands_on.png}
+    \hfill
+    \caption{Figure of RNN feedback-cell from \cite[p.~472]{Geron2017}.}
+    \label{fig:rnn-cell}
+\end{figure}
+
+
 
 In order to improve the performance of the RNN, new models have been created to address some of its shortcomings.
 One such model is the Long-Short Term Memory model (LSTM).
@@ -46,7 +54,14 @@ The LSTM, as the RNN, is well suited for working on series of data.
 The LSTM is able to analyze and predict long-term relations in a series of data, making it well suited for applications such as time series prediction or anomaly detection,
 as well as natural language processing and more.
 
-\todo{Add LSTM cell architecture from the book!}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./sections/BT/figures/lstm_cell_hands_on.png}
+    \hfill
+    \caption{Figure of LSTM memory cell from \cite[p.~492]{Geron2017}.}
+    \label{fig:lstm-memory-cell}
+\end{figure}
+
 
 
 \cite[p.~492-493]{Geron2017}

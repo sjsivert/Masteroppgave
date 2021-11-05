@@ -17,7 +17,14 @@ By doing this, the encoder efficiently maps the most important data features in 
 The decoder becomes efficient at reconstructing the input data using only the dimensionally reduced data in the coding layer.
 \cite[p.~506-508]{Geron2017}
 
-\todo{Add image? Just create somethin in GIMP}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./sections/BT/figures/stacked_autoencoder_hands_on.png}
+    \hfill
+    \caption{Figure of a Stacked Autoencoder architecture from \cite[p.~511]{Geron2017}.}
+    \label{fig:stacked_autoencoder_arch}
+\end{figure}
 
 Through the feature mapping, the encoder becomes an efficient feature detector and extractor.
 Due to the reduced dimensionality of the coding, the encoder becomes sufficient at reducing the noise within the data, extracting the most important features.
