@@ -1,0 +1,29 @@
+% https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8996842&tag=1
+
+\section{Convolutional Autoencoder and LSTM}
+
+% This is a new type of time series forecasting method
+% Other more simple methods are also used.
+% LSTM is one of them, as well as some basic ARIMA and SVR (Suport vector regression?)
+
+In an efort to increase the predictive accuracy and decrese the error metric in time series prediction,
+new predictive methods are devised and tested.
+
+One such method is proposed in the paper \cite{Khan2020}.
+In order to decrease the predictive error, this paper explores the use of a Convolutional Autoencoder and LSTM.
+Conducting experiments using this method, in comparison with a standard LSTM model,
+the paper found that the propsed method resulted in predictions with lower error, using MAPE and RMSE as error metrics.
+\todo[inline]{Add links to MAPE and RMSE from the Background and Theory chapter.}
+Using datasets containing information about traffic flow, as well as factory equipment fault information,
+the proposed method clearly outperformes the LSTM method.
+
+The proposed method was created in order to properly deal with time series with high noise and fluctuations.
+Due to the feature extraction ability of the convolutional network,
+and the ability of the autoencoder to ignore noise data, the proposed model should be well suited for time series prediction with high noise data.
+
+
+The paper also adds a comparison of the proposed method against and ARIMA model, and a SVR model, in addition to the LSTM model.
+This shows a clear difference in the predicitve error of the different methods, in favor of the CNN-AE with LSTM.
+The propsed method is much better at processing the higly fluctuating data features in the propsed datasets.
+% TODO -> Last sentence = Meh
+
