@@ -5,7 +5,5 @@ datasets/
 .ipynb_checkpoints/
 Masteroppgave.*
 !Masteroppgave.tex
-!Masteroppgave.pdf
 sections/*.auxindent.log
 *indent.log
-*.pdf
