@@ -1,7 +1,7 @@
 
 \section{Loss functions}
 TODO: Write an introduction
-\subsection{ DILATE }
+\subsection{DILATE}
 
 % Time and shape distortion
 Both MAE and MSE are proven to be robust loss functions for regular regression problems,
@@ -47,11 +47,16 @@ supporting precise shape and temporal change detection.
 The paper concludes that DILATE is comparable to the standard MSE loss when evaluated on MSE,
 and far better when evaluated on time and shape metrics.
 
+The DILATE loss function does seem promising for our problem. Predicting anomalies and their behavior
+is both a time-sensitive and shape-sensitive problem. However adding another neural network as a loss function
+might complicate an already complicated model even further.
+If we have enough data to train such a complicated model remains to be seen. 
+
 
 % Extreme value loss functions
 \subsection{EVL}
 \citeauthor{Ding2019} wrote a paper in 2019 regarding modern deep learning methods and their
-weak perfomance when applied to real world time series, because their inability to predict extreme values.
+weak performance when applied to real world time series, because their inability to predict extreme values.
 
 Their deduction of why modern methods are unsatisfactory is bevause of the quadratic loss in 
 the MSE loss function.
@@ -60,8 +65,13 @@ which they call \textbf{Extreme Value Loss (EVL)}.
 They employ a memory network in order to memorize extreme events in historical records.
 
 \autoref{fig:evl} show two fitted time series from the papers results. They conclude
-that the method is superior to state of the art methods in extreme event detection, and 
+that the method is superior to state-of-the-art methods in extreme event detection, and 
 in time series prediction.
+
+This loss function seem to capture our need to predict anomalies.
+It does however has a few drawbacks. Mainly it that is complicates our model, and it needs training data for it's memory network. 
+Which in our case is currently missing. 
+
 \todo{Skrive litt mer detaljert om dette?}
 
 \begin{figure}[h!]

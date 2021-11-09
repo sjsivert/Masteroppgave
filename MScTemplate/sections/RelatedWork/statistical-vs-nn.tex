@@ -44,11 +44,11 @@ Statistical methods outperformed ML methods up to around a sample size of 130. A
 in general outperformed the simpler methods.
 
 % Skal refleksjon mot vår situasjon diskuteres her?
-This is good news for us, as our datasets does have a sample size of well above 660 at this moment.
+This is good news for us, as our datasets do have a sample size of well above 660 at this moment.
 Depending on when we conduct the experiment, the number will grow to the range of 1095 to 1860,
 as data is being gathered every day as we speak.
 
-One drawback of the \cite{Makridakis2018} study is that it does not test any of our choicen ML methods.
+One drawback of the \cite{Makridakis2018} study is that it does not test any of our chosen ML methods.
 They tested:
 \begin{itemize}
   \item \textit{A rule-based model (RBR)}
@@ -57,7 +57,7 @@ They tested:
   \item \textit{The Multivariate adative regression (MARS)}
   \item \textit{Generalized linear model (GLM)}
 \end{itemize}
-But the paper \cite{Hewamalage2021} did a thourough analysis of state of the art RNNs, including LSTM.
+But the paper \cite{Hewamalage2021} did a thorough analysis of state-of-the-art RNNs, including LSTM.
 They concluded that complex methods now have benefits over simpler statistical benchmarks in many forecasting situations.
 
 
@@ -71,18 +71,18 @@ useful for forecast, as underlying patterns and relationships will have changed 
 In the previes section we discussed how statistical methods can outperform ML methods on
 time series without a large enough sample size.
 However, \cite{Bandara2017} points out that statistical methods, like ARIMA, are bound to
-univariate time series. in the world of Big Data and lots of time series that correlate with each other,
-treating each time series separately, and forecast each in isoltation might miss the big picture.
-The paper argues that the ability to to make models that can be trained globally across all series
+univariate time series. In the world of Big Data and lots of time series that correlate with each other,
+treating each time series separately, and forecasting each in isolation might miss the big picture.
+The paper argues that the ability to make models that can be trained globally across all series
 holds a competitive advantage over models like ARIMA and ETS.
 
-The paper argues that when building global models for a time series database, the models are
+The paper argues that when building global models for a time-series database, the models are
 potentially trained across disparate series, which may be detrimental to the overall accuracy.
 They suggest to build separate models for subgroups of time series.
 These groups can be based on domain knowledge, which proved to be the best option. With absence of 
 domain knowledge they propose an automatic grouping mechanism to cluster series togheter.
 
-The paper test their model on two competition datasets, and achieves competitive results.
+The paper tests their model on two competition datasets, and achieves competitive results.
 On the CIF2016 dataset, the model outperforms all other models.
 On the NN5 competition it ranks 6th overall, and achieves consistent improvements over the baseline LSTM model.
 They conclude that exploiting similarities of multiple time series in one model
@@ -92,13 +92,13 @@ The paper \cite{Rabanser2020} has some good arguments when comparing univariate 
 Both multivariate and global univariate methods work on groups of time series, but global methods
 has the advantage of being more applicable because it does not require observartions of multiple
 time series at the time of forecasting.
-Also multivariate time series models works on groups that are suppost to have som e form of 
+Also multivariate time series models works on groups that are supposed to have some form of 
 dependence between them, while global models work on any group.
 But when there exist shuch a dependency the global method will not capture it directly.
 \cite{Hewamalage2021} states in their \textit{7. Future directions} chapter that complex
 forecasting scenarios, shuch as a retail sales forecast, the sales of different products
 may be interdependent.
-Forecasting in such a context may require a miltivariate model.
+Forecasting in such a context may require a multivariate model.
 
 
 \subsubsection{Global vs Local methods}
@@ -112,8 +112,7 @@ that requires human intervention. Forecasting a cluster of time series in this m
 
 A univariate alternative to a local approach is \textit{the global approach}
 \citep{Rabanser2020}.
-The global approach works by pooling the data of all series togheter and fit a single univariate 
-forecasting function. It prevents over-fitting because of the larger sample size.
+The global approach works by pooling the data of all series togheter and fit a single univariate forecasting function. It prevents over-fitting because of the larger sample size.
 % source slainas, flunkert, gasthaus & Januschowski 2020
 The global approach has been introduced to exploit the natural scenario where all series
 in the set are similare or related. An example given by the authors are the demand of fictional
@@ -123,7 +122,7 @@ come from the same process.
 And even when this assumption not true, it will pay off in foreasting accuracy.
 %As recent studies show puzzlingly good performance of time series that cannot be considered related.
 The paper \cite{Rabanser2020} concludes that global and local methods for forecasting
-sets of time seires are equally general. The global method is neither restrictive nor requires
+sets of time series are equally general. The global method is neither restrictive nor requires
 similarity or relatedness in the set.
 But they point out that generalization of global models assumes groups of independent time series.
 Under heave dependence, global models lose their beneficial perfomance guarantees. 
@@ -133,7 +132,6 @@ even on datasets that involve many heterogeneous series, the strong modelling ca
 them to perform competitevely in terms of forecasting accuracy.
 \todo[]{Skrive om paperet hvor klustering er gjort på tidsserier}
 
-% TODO: Write about the paradox of multidimensionality
 
 %\subsubsection{Limitations of statistical methods}
 %\todo[inline]{Skrive om limitations til statistiske metoder and
