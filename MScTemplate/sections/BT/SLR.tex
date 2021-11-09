@@ -45,7 +45,7 @@ Our method for adding literatur to the Notion database was:
 \subsubsection{Devations}
 We did end up with some deviations to the algorithm above.
 Some papers we found by accident when researching the topic. 
-They were too important to not add, but they were too general of it to be worth
+They were seemed too important to not add, but they were too general of it to be worth
 a change to our search terms without including a big set of non-relevant papers.
 All papers found by accident was also added with a search term table row documenting 
 how the paper was found.
@@ -53,7 +53,7 @@ how the paper was found.
 Some of the best papers we found referenced some really good papers. These were also 
 added to Notion.
 
-The term \textit{Anomaly detection} was removed as a term after our goals shifted away from anomaly detection and towards prediction.
+The term \textit{Anomaly detection} was removed (11.10.2021) as a term after our goals shifted away from anomaly detection and towards prediction.
 This change was documented in our \textit{Decision Matrix}, which is publicly available here:
 \cite{decisionmatrix}.
 
@@ -83,3 +83,37 @@ Term 3& &&\\ \hline
     \end{center}
 \end{table}%
 
+\subsection{Filtering by Title and Abstract}
+Working with 6 different sources and using a manual but orderly template for processing papers,
+we decided to do the rough filtering while searching for papers in order to avoid adding too many irrelevant
+papers to our Notion database, and saving time.
+
+In order to filter out papers we had three inclusion criteria (IC).
+\begin{description}
+    \item[IC1] The studies main concern is time series forecasting.
+    \item[IC2] The studies should not be older than from 2015.
+    \item[IC3] The study focus on CNN, autoencoder or LSTM. Or a statistical method.
+\end{description}
+IC1 is to exclude all papers that are not relevant to our goal, such astime series classification and anomaly detection.
+We added IC2 because we had to scope down the amount of papers to read. Also time series prediction 
+using neural networks really had a boom after 2015. Some exceptions to this inclusion criteria was made,
+when papers we found referenced papers before 2015.
+IC3 was added to keep the papers within our defined scope of methods. 12.10.2021 we added "Or a statistical method"
+to IC3 \citep{decisionmatrix}.
+
+After this step we had 70 papers listed.
+
+\subsection{Quality Assessment}
+\todo[inline]{TODO: Når vi har kommet lenger på SLR}
+%QC 1	The study abstract is concise and describes the aim and results of the study.
+%QC 2	The publisher of the paper / study is a respectable scientific source.
+%QC 3	Is there is a clear statement of the aim of the research?
+%QC 4	Is the study is put into context of other studies and research?
+%QC 5	Are system or algorithmic design decisions justified?
+%QC 6	Is the test data set reproducible?
+%QC 7	Is the test data set reproducible?
+%QC 8	Is the experimental procedure throughly explained and reproducible?
+%QC 9	Is it clearly stated in the study which other algorithms the study’s algorithm(s) have been compared with?
+%QC 10	Are the performance metrics used in the study explained and justified?
+%QC 11	Are the test results thoroughly analysed?
+%QC 12	Does the test evidence support the findings presented?
