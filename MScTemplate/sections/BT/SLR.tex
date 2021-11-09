@@ -1,11 +1,21 @@
 
 \section{Structured Literature Review Protocol}
+\todo[inline]{Skrive alt i presens!}
 \todo[inline]{
 Here you need to include your structured review protocol including search engine, search words, research questions  (for search, not the masters research questions), inclusion createrias and evaluation Criterias. 
 }
 
-A structural literature review was conducted to find related work for this project.
-Search engines used:
+A structural literature review (SLR) was conducted to find related work for this project.
+The SLR process is based on \cite{AndersKofod-Petersen2018}.
+This section will briefly describe our process, deveations from the process,
+and changes made during the process.
+
+\subsection{Step 1: Idendification of research}
+In order to retrieve all relevant literature to the topic we defined our
+research questions and terms.
+
+We included the most known search engines as our sources:
+
 \textit{
 ACM digital library,
 IEEE Xplore,
@@ -17,8 +27,35 @@ Google Scholar
 }
 
 Our search terms are listen in \autoref{tab:search-terms-table-1} and \autoref{tab:search-terms-table-2}.
+We used a Notion database to keep track of all the papers. The whole database is available here: \cite{slrdatabase}.
+%[\href{https://northern-leech-f32.notion.site/Academic-Writing-ca43d0467e5c40149343d8a85136290f}{Notion SRL database}].
+We used another Notion Database to keep track of our searches, and track where how we found each Research Paper
+\cite{searchtermtable}
+
+Our method for adding literatur to the Notion database was:
+\begin{enumerate}
+    \item Pick a source search engine
+    \item Search the search engine applying AND $\wedge$ and OR $\vee$ using our search terms
+    \item Add the Search Term and Source combination to the Search Term Database.
+    \item Title and abstract inclusion screening. Add all remotely relevant papers to Notion, and link them with the correct Search Term Database.
+    \item Continue until relevant papers are far in between
+    \item Repeat whole process with a new search engine
+\end{enumerate}
+
+\subsubsection{Devations}
+We did end up with some deviations to the algorithm above.
+Some papers we found by accident when researching the topic. 
+They were too important to not add, but they were too general of it to be worth
+a change to our search terms without including a big set of non-relevant papers.
+All papers found by accident was also added with a search term table row documenting 
+how the paper was found.
+
+Some of the best papers we found referenced some really good papers. These were also 
+added to Notion.
+
 The term \textit{Anomaly detection} was removed as a term after our goals shifted away from anomaly detection and towards prediction.
-This change was documented in our \textit{Decision Matrix}\autoref{cha:decision_matrix}.
+This change was documented in our \textit{Decision Matrix}, which is publicly available here:
+\cite{decisionmatrix}.
 
 \begin{table}[htbp]
     \begin{center}
@@ -46,5 +83,3 @@ Term 3& &&\\ \hline
     \end{center}
 \end{table}%
 
-\subsection{Specifying research questions}
-In order to carry out the SLR we defined our problem and research questions 
