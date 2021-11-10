@@ -1,5 +1,8 @@
+\chapter{Related work}
+\label{section:RelatedWork}
 
-\chapter{Related work}\label{RelatedWorkMain}
+\iffalse
+% Sindre forslag Related Work introduction
 Our problem can be composed into two main categories.
 time series forecasting, and e-commerce trend forecasting.
 What is the characteristics of e-commerce trend forecasting?
@@ -8,12 +11,25 @@ The time series contains multiple periods, for example users shop
 online ofter on sundays than on mondays. 
 Some categories are popular in the spring, others in the fall.
 Mabye online shopping spikes around common paydays?
+\fi
 
 
+In order to find a fitting solution to the goal proposed in \ref{section:Introduction:Goal} and its related research questions,
+we need to assess what advences has beed done in the problem space earlier.
+We assess state-of-the-art methods in time series prediction and loss functions.
+With this, we are able to compare current solutions and methodolody in order to ansewer our research questions.
+
+We start by looking at loss funtions, before we look into the current state of statistical and deep learning methods for accurate time series prediciton.
+From there we discuss the current solutions that exist in the problem space of e-commerce and sales, related to our problem space,
+before we look into hybrid frameworks as a way reducing the predictive error in time series forecasting.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Related work sections %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \import{./sections/RelatedWork/}{Financial-forecasting.tex}
 
-\import{./sections/RelatedWork/}{multivariate-time-series.tex}
 \import{./sections/RelatedWork/}{statistical-vs-nn.tex}
 
 \import{./sections/RelatedWork/}{Hybrid-Framework.tex}
