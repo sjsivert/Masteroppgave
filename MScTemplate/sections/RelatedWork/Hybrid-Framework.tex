@@ -1,0 +1,69 @@
+
+\section{Hybrid frameworks for Time series forecasting}
+\label{section:RelatedWork:Hybrid}
+
+% CNN = Feature extraction
+% LSTM = Sequence learning
+
+% Introduce hybrid methods and why they are a thing.
+% -> Write about the ARIMA and BP Hybrid model.
+% Introduce the two new methods
+% -> CNN-AE and LSTM
+% -> CNN and LSTM-AE
+
+Improvements in time series forecasting have emerged in the last few years with the introduction of deep learning.
+Previous state-of-the-art methods, such as the ARIMA model, have been exchanged for deep learning methods using convolution and recurrent networks to improve accuracy.
+One such improvement strategy has been to introduce hybrid models.
+These models are comprised of different models with unique abilities, helping to increase the accuracy of the connected model.
+
+
+One example of such a hybrid model is the ARIMA-BP model explored in \cite{Bowen2020}.
+This paper explores the predictive abilities of the ARIMA model and a Back-Propagation Neural network on a time series problem of sales forecasting.
+The ARIMA and BP models were applied to the problem, with the ARIMA somewhat outperforming the BP model.
+However, by combining the two models, the hybrid model was able to achieve a lower predictive accuracy than any of the two models on their own.
+This hybrid model is heavily based on the state-of-the-art statistical method of ARIMA.
+As we have explored in \ref{section:RelatedWork:Statistical-NN}, the introduction of more advanced neural networks often achieves better predictive results than the old state-of-the-art ARIMA model.
+We, therefore, argue that it should make sense to look further into other hybrid models, utilizing these new and improved models.
+By combining methods such as Convolution and Recurrent networks in a hybrid model, it should yield a better result than they would on their own.
+% ARIMA-BP er en hybrid model som gir bedre resultater enn de enktelte delene alene. Gir et godt grunnlag for at hybrid modeller er bra!
+
+
+This combination of models is explored in a few different ways.
+One such hybrid model is the "CNN and LSTM-Autoencoder" method explored in \cite{Khan2020}.
+This method is used to explore the predictive ability of the hybrid model on electricity forecasting in residential and commercial buildings.
+The findings of the paper conclude with the same result as we propose above.
+The aforementioned method is a hybrid framework based on convolution, LSTM, and Autoencoder.
+Convolution was used to extract features from the input data before the LSTM-Autoencoder attempt to extract temporal dependencies between the sequences.
+The proposed method was applied to the electricity forecasting problem alongside other models such as ARMA, SVM, SVR, and others.
+The framework outperformed the state-of-the-art models at prediction using several different performance metrics such as MSE, MAE, RMSE, and MAPE.
+
+
+Similar to the framework described above, yet another method utilizing the same methods was defined in \cite{Zaho2019}.
+% TODO! Add correct citation!!!!
+This model differs in the selected architecture, creating a Convolutional Autoencoder instead of the previous LSTM Autoencoder.
+The Convolutional Autoencoder is used to extract and reduce dimensional features before the LSTM extracts the temporal features.
+Similar to the previously mentioned method, this "CNN-AE LSTM" hybrid method is tested against several other current predictive models.
+The proposed method outperforms methods such as LSTM, ARIMA, and SVR, achieving a much lower predictive error than the other methods.
+
+
+% TODO: -> Update the section reference to "Statistical vs NN"
+\ref{section:RelatedWork:Statistical-NN} explores the predictive ability of statistical methods in comparison to deep learning methods.
+This section discusses how deep learning methods such as LSTM and Convolution work well in order to predict in cases where there is enough data.
+Considering our problem space and available data, this applies in this case.
+Thus, the usage of deep learning methods such as LSTM and Convolution is to be preferred.
+The proposed hybrid frameworks outperform deep learning methods such as LSTM.
+With this in mind, it is clear that a hybrid method is well suited for predictions in our problem space.
+A hybrid framework has already been shown to exceed the predictive capabilities of its individual parts.
+This was done with the ARIMA-BP model explored in \cite{Bowen2020}, showing that the connected hybrid method performed better than the ARIMA or BP models could on their own.
+It is likely that this would also be the case for a hybrid CNN and LSTM model.
+
+The proposed problem-space results in data with high fluctuations and noise.
+In order to increase the predictive abilities, a method well suited for working with data with high noise should be selected.
+A CNN-AE model should be able to solve this problem.
+The CNN is able to extract the spatial features of the data while the AE can filter out the noise and fluctuations in the data.
+One such hybrid framework should therefore be well suited for the task at hand.
+% It is therefor well suited...
+\todo[inline]{Stemmer det at det er mye noise i dataen? Eller burde vi kalle det noe annet?}
+
+
+%The proposed methods for hybrid networks using CNN, Autoencoder and LSTM, has shown to excide the predicite capabilities of methods such as ARIMA and LSTM.
