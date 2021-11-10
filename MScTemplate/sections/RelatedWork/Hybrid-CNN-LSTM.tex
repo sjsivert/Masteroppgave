@@ -1,0 +1,65 @@
+
+\section{Hybrid Network for Time series forecasting}
+\label{section:RelatedWork:Hybrid}
+
+% TODO! -> Check that this is actually a hybrid model! What is a hybrid model! And is it CNN + LSTM?
+% CNN = Feature extraction
+% LSTM = Sequence learning
+
+% Introduce hybrid methods and why they are a thing.
+% -> Write about the ARIMA and BP Hybrid model.
+% Introduce the two new methods
+% -> CNN-AE and LSTM
+% -> CNN and LSTM-AE
+
+Improvements in time series forecsating has emerged the last few years with the introduction of deep learning.
+Previous state if the art methods, such as the ARIMA model, has been exchanged for deep learning methods using convolution and recurrent networks to improve accuracy.
+One such improvement strategy has been to introduce hybrid models.
+These models are comprised of different models with uniqe abilities, helping to increase the accuracy of the connected model.
+
+
+One example of such a hybrid model is the ARIMA-BP model explored in [Add Citation!].
+This paper explores the predictive abilities of the ARIMA model and a Back-Propagation Neural network on a time series problem of sales forecasting.
+The ARIMA and BP models were applied to the problem, with the ARIMA somewhat outperforming the BP model.
+Howerver, by combining the two models, the hybrid model was able to acchieve a lower predicitve accuracy than any of the two models on their own.
+This hybrid model is heavily based on the state of the art statistical method of ARIMA.
+However, as we have explored in [Add referance to "Statistical methods vs Neural Networks"], the introduction of more advanced neural networks often achieve better predicitive results than the old state of the art ARIMA model.
+We therefore argue that it should make sense to look further into other hybrid models, utilizing these new and improved models.
+By combining methods such as Convolution and Recurrent networks in a hybrid model, it should yeald a better result than they would on their own.
+% ARIMA-BP er en hybrid model som gir bedre resultater enn de enktelte delene alene. Gir et godt grunnlag for at hybrid modeller er bra!
+
+
+
+This propsed combination of models is explored in a few different ways.
+One such hybrid model is the "CNN and LSTM-Autoencoder" method explored in \cite{Khan2020}.
+This method was used to explore the predictive ability of the hybrid model on electricity forecasting in residential and comercial buildings.
+The findings of the paper concludes with the same result as we propose in above.
+The afformentioned method is a hybrid framework based on a convolutional networs, LSTM and Autoencoder.
+Convolution was used to extract features from the input data, before the LSTM-Autoencoder attempt to extract temporal dependencies between the sequences.
+The propsed method was applied to the electricity forecasting problem alongside other models such as ARMA, SVM, SVR and others.
+The framework outperformed the state-of-the-art models at prediction using several different performance metrics such as MSE, MAE RMSE and MAPE.
+
+
+Similar to the framework described above, yet another method utilizing the same methods was defined in \cite{Khan2020}.
+% TODO! Add correct citation!!!!
+This model differs in the selected architecture, creating a Convolutional Autoencoder insted of the previous LSTM Autoencoder.
+The Convolutional Autoencoder is used to extract ...
+
+
+
+
+
+
+
+% Snakke om at LSTM og Convolusjon er gode modeller som har vist gode resultater tidliger. Her kan vi refferere til related work seksjonen som kommer over.
+% NB: Denne related work biten er ikke skrevet ennå, men bir det. Så ta forbehold om at noe endrer seg.
+
+
+
+% Dette er helt nye modeller og viser seg å være bedre enn tidligere state of the art, samt current state of the art LSTM (i guess)
+% Forklare at denne nye metoden som tidliger er brukt til tids-serie analyse, kan anvendes i vårt domene og burde fungere bra.
+% Sette dette sammen med gruppering av data blant annet, refferer tilbake til der det skrives i Related work, og forklare at det detfor kan anvendes her.
+
+% Add the argument or grouping here! Adding this should give better predictions and hopefully find connections between data and trends.
+% This is only a hunch, and something the domain expert (Prisguiden) thought could be exploited!
+
