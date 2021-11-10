@@ -1,8 +1,66 @@
-\section{Financial forecasting}
-\label{section:RelatedWork:FinancialForecasting}
+\section{Forecasting e-commerce}
+\label{section:RelatedWork:forecasting-ecommerce}
+User click rate on consumer e-commerce goods is a really narrow domain, and no
+research has yet been done on this particular field.
+However one can argue that user interest in consumer goods follow the same distribution
+online as retail sales.
+Both domains will have the same weekly, and yearly periodic fluctuations.
+Both domains contain the same kind of products.
+And both domains are driven by the same external factors, such as media, commercials 
+and trends.
+Forecasting retail sales should translate nicely to e-commerce klicks.
+
+\cite{Ramos2015} did a comparitive study on exponential smoothing 
+methods bases on stace space models called ETS models, and ARIMA.
+Their goal was to measure the forecasting perfomance of these two modeling frameworks
+when they are applied to retail sales data
+five different cateogries of univariate womans footware time series.
+The domain was difficult because of the strong trend and seasonal patterns.
+% What are their results
+Their results was ETS and ARIMA evaluated via RMSE, MAE and MAPE is quite similar on both
+one-step and multi-step forecasts. Multi-step forecasts are generally better
+because multistep incorporate information that is more updated.
+When an automatic algorithm is applied to the overall out-of-sample
+forecasting perfomance of ARIMA models is not better than ETS models.
+Neither is best for all circumstances.
+For each retail series they had to identify an appropriate ARIMA model.
+Deciding the required transformations for variance stabilization, and making unit-root
+tests to select the decrees of differencing to achieve stationarity.
+
+%% What are they doing?
+%Comparing ARIMA and ETS to eachother on a univariate retail time series.
+%% Why are they doing it?
+%They aim to test two ETS and ARIMA on the consumer retail forecasting domain. 
+%Which is a difficult domain due to strong trend and seasonal patterns.
+%Comapre the forecasting perfomance of ETS and ARIMA models when
+%applied to a case study of retail sales of five different categories of woman footwar
+%from the Portuguese retailer Foreva.
+
+% Skrive om. Finne kilde
+[Forecasting aggregate retail sales: a comparison of ANN and traditional methods. I. ALON]
+Winters exponential smoothing and ARIMA perform well when macro-economic
+conditions are relatively stable. When economic conditions are volatile
+ANNs outperform linear methods and multi-step regression is preferred.
+
+% Skrive om. Finne kilde
+[Zhang and Qi...] and [Kuvalmaz et al.]
+Investigated the use of ANNs in forecasting time series with a strong trend and seasonality.
+They concluded that the overall out-of-sample forecasting perfomance of ANNs, 
+evaluated via RMSE, MAE and MAPE is not better than ARIMA models in predicting
+retail sales without appropriate data preprocessing,
+namely detrending and deseasonalization.
+
+[Pan et al.]
+Tested a hybrid forecasting method of integrating MED and NN and compares them with direct NN models.
+and vs the ARIMA model for aggregate retail sales forecasting.
+Different macroeconomic conditions were studied.
+Hybrid NN model is more stable compared to direct NN and arima during volatile economy.
+ARIMA performs consistently well during stable economic activity.
 
 % This section should describe earlier work done within the field of E-commerce and Sales prediciton!
 % This is the main explainer for why we need do any work, and why we cant just apply a model.
 % What can be done to improve the models and take the most important pars from the different approaches.
 % This will more or less be what i though motivation was going to become!
 % Thus; Se Motivation_prev.tex for reference
+
+\cite{Bowen2020} ....
