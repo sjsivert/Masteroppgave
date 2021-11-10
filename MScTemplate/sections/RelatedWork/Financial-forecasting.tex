@@ -63,4 +63,37 @@ ARIMA performs consistently well during stable economic activity.
 % This will more or less be what i though motivation was going to become!
 % Thus; Se Motivation_prev.tex for reference
 
-\cite{Bowen2020} ....
+\cite{Weng2020} writes that ARIMA, SARIMA and Holt Winter's
+Exponential Smoothing model etc. are inconsistent with the actual changes in the sales
+of retail stores and usually the results are unstable due to their in-applicability
+in the processing of nonlinear relationships.
+However statistical methods have the advantage of interpretability.
+\cite{Bowen2020} wanted to use machine learning to maintain
+the trade-off between interpretability and consistency with actual
+changes of retail sales.
+To solve this they tried two new machine learning models.
+\todo[]{Need reference to XGB model}
+One called LightGBM which is a further optimization of the XGB model.
+And one model called Prophet \citep{Zunic2020}.
+
+% What results did they get?
+The study finds that traditional models such as ARIMA has trouble forecasting
+because the fast moving domain of consumer retail buying patterns and 
+their connection to external factors, such as holdays and price changes.
+The machine learning models performed better, with smaller prediction errors
+and good interpretability.
+However the LightGDM model outperformed the Prophet model because the prophet
+models limitation to univariate time series.
+
+% What do they do?
+%Using the machine learning model lightGBM to predict Walmart supermarket sales
+%from 2011 to 2016. Using Root Mean Square Error (RMSE) as metric.
+%Prophet model [8]
+%LightGBM which is a further optimization of the XGB model.
+%
+%
+%% Why are they doing it?
+%The objective is to develop an effective sales forecasting model maintaining the 
+%trade-off between interpretation and consistency with actual changes of retail sales.
+
+
