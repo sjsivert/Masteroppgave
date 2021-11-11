@@ -1,5 +1,16 @@
 
 \section{Model Structure}
+Since our problem domain consists of multiple product categories and sub-categories,
+and we want to forecast all these categories at the same time,
+we have multiple possible ways to construct a forecasting model.
+
+A simple approach would be to make one model for each product category.
+One could make the assumption that each category of products is independent of the other.
+This assumption will not hold water for all cases. People who buy shaving cream 
+probably also buy a razer, as shaving cream will not have much use of its own.
+An alternative is to build a more complex model, that looks at a bigger picture.
+This section will explore different state-of-the-art model structure approaches.
+
 
 % TODO: Introduksjon om model struktur...
 
@@ -8,42 +19,7 @@
 % En sub-section for Local vs Global
 
 % En sub-section som fokuserer på diskusjon rundt de ulike kombinasjonene og hva som er relevant i vår oppgave / problemstilling
-
-\subsection{Univariate vs Multivariate time series}
-In the previes section we discussed how statistical methods can outperform ML methods on
-time series without a large enough sample size.
-However, \cite{Bandara2017} points out that statistical methods, like ARIMA, are bound to
-univariate time series. In the world of Big Data and lots of time series that correlate with each other,
-treating each time series separately, and forecasting each in isolation might miss the big picture.
-The paper argues that the ability to make models that can be trained globally across all series
-holds a competitive advantage over models like ARIMA and ETS.
-
-The paper argues that when building global models for a time-series database, the models are
-potentially trained across disparate series, which may be detrimental to the overall accuracy.
-They suggest to build separate models for subgroups of time series.
-These groups can be based on domain knowledge, which proved to be the best option. With absence of 
-domain knowledge they propose an automatic grouping mechanism to cluster series togheter.
-
-The paper tests their model on two competition datasets, and achieves competitive results.
-On the CIF2016 dataset, the model outperforms all other models.
-On the NN5 competition it ranks 6th overall, and achieves consistent improvements over the baseline LSTM model.
-They conclude that exploiting similarities of multiple time series in one model
-is a competitive method.
-
-The paper \cite{Rabanser2020} has some good arguments when comparing univariate vs multivariate models.
-Both multivariate and global univariate methods work on groups of time series, but global methods
-has the advantage of being more applicable because it does not require observartions of multiple
-time series at the time of forecasting.
-Also multivariate time series models works on groups that are supposed to have some form of 
-dependence between them, while global models work on any group.
-But when there exist shuch a dependency the global method will not capture it directly.
-\cite{Hewamalage2021} states in their \textit{7. Future directions} chapter that complex
-forecasting scenarios, shuch as a retail sales forecast, the sales of different products
-may be interdependent.
-Forecasting in such a context may require a multivariate model.
-\todo[inline]{Multivariate methods are when different values and correlating data is used. Global is when the same model is used on several datasets of the same type. Should clear that up, or I might have misread.}
-
-\subsubsection{Global vs Local methods}
+\subsection{Global vs Local methods}
 On the topic of having to foract many time series as a group this paper has a good overview 
 \cite{Montero-Manso2021}.
 The paper points to two big disadvantages for univariate time series on a cluster of series.
@@ -61,18 +37,121 @@ in the set are similare or related. An example given by the authors are the dema
 books follows a similar pattern for all subgenres, stores or cover designs.
 The idea behind is the strong assumption that all the time series in the set
 come from the same process.
-And even when this assumption not true, it will pay off in foreasting accuracy.
+
+This exact method was used by \cite{Bandara2017}. However they argue that 
+when building global models for a time-series database, the models are
+potentially trained across disparate series, which may be detrimental to the overall accuracy.
+They suggest to build separate models for subgroups of time series.
+These groups can be based on domain knowledge, which proved to be the best option. With absence of 
+domain knowledge they propose an automatic grouping mechanism to cluster series togheter.
+Their method achieves consistent improvements over a the baseline LSTM model.
+And conclude that expoiting similarities of multiple time series in one model is a competitiv method.
+
+%The paper tests their model on two competition datasets, and achieves competitive results.
+%On the CIF2016 dataset, the model outperforms all other models.
+%On the NN5 competition it ranks 6th overall, and achieves consistent improvements over the baseline LSTM model.
+%They conclude that exploiting similarities of multiple time series in one model
+%is a competitive method.
+
+
 %As recent studies show puzzlingly good performance of time series that cannot be considered related.
-The paper \cite{Rabanser2020} concludes that global and local methods for forecasting
+
+\cite{Rabanser2020} show that even if the strong assumption that all the time series analysed by a global
+method is generated by the same process, is false, the global method will pay off in forecasting accuracy.
+The paper argues that global and local methods for forecasting
 sets of time series are equally general. The global method is neither restrictive nor requires
 similarity or relatedness in the set.
 But they point out that generalization of global models assumes groups of independent time series.
-Under heave dependence, global models lose their beneficial perfomance guarantees. 
+Under heavy dependence, global models lose their beneficial perfomance guarantees. 
 
 The paper \cite{Hewamalage2021} comes to the same conclusion. Stating that 
 even on datasets that involve many heterogeneous series, the strong modelling capabilities of RNNs can drive
 them to perform competitevely in terms of forecasting accuracy.
 \todo[]{Skrive om paperet hvor klustering er gjort på tidsserier}
+
+\subsection{Univariate vs Multivariate time series}
+%In the previes section we discussed how statistical methods can outperform ML methods on
+%time series without a large enough sample size.
+\cite{Bandara2017} points out that statistical methods, like ARIMA, are bound to
+univariate time series. In the world of Big Data and lots of time series that correlate with each other,
+treating each time series separately and forecasting each in isolation might miss the big picture.
+The paper argues that the ability to make models that can be trained globally across all series
+holds a competitive advantage over models like ARIMA and ETS.
+
+The paper \cite{Rabanser2020} has some good arguments when comparing univariate vs multivariate models.
+Both multivariate and global univariate methods work on groups of time series, but global methods
+has the advantage of being more applicable because it does not require observations of multiple
+time series at the time of forecasting.
+Also, multivariate time series models work on groups that are supposed to have some form of 
+dependence between them, while global models work on any group.
+But when there exists such a dependency the global method will not capture it directly.
+\cite{Hewamalage2021} states in their \textit{7. Future directions} chapter that complex
+forecasting scenarios, such as a retail sales forecast, the sales of different products
+may be interdependent.
+Forecasting in such a context may require a multivariate model.
+
+\subsection{Discussion}
+A local univariate approach would be similar to how an ARIMA model would work.
+It would have the benefit of being simple, but in order to forecast $n$ product categories, 
+on would need $n$ models.
+The benefit of having $n$ models is that consumer product categories are a dynamic set, constantly changing.
+When a new category of products are created, a forecasting model are created with it. It's forecasting ability
+would be limited, but would gradually improve as more data would accumulate.
+
+The greatest drawback of a local univariate approach would be it's the assumption that all product categories
+are indendent. We can expect some groups to correlate with each other. These interdependent relationships
+could greatly improve forecasting ability.
+
+A multivariate approach will capture these relationships.
+However, one needs a thorough understanding of the underlying data, in order to build meaningful models.
+A thorough covariance analysis to identify correlating groups of product categories would be best.
+However, this might be outside the scope of what is possible for a master's project.
+
+A multivariate model do have some drawbacks on a ever-changing product category domain.
+First, its the issue that not alle categories has the same life of existens, and thus a variable
+amound of history data, which would amount to a lot of null values.
+Second, each time a category is added, or changed a covariance analysis has to be done in order to identify
+which covariance group the category belongs to. Then that model has to be retrained.
+Depending on the amount of changes to the category tree, this might be a hindrance.
+
+The univariate global approach has the benefit of overcoming many of the hindrances of a multivariate model.
+As it do not care which product category you feed it, it is very scalable. The argument that \cite{Bandara2017}
+give, that a single global model might be detrimental to overall accurecy, could be overcome by clustering product categories together. This is true even if \cite{Rabanser2020}
+shows that global models will improve accuracy, even if the global model assumption is not satisfied.
+
+How such a clustering of product categories is to be made is another question.
+\cite{Bandara2017} suggests a K-means clustering technuiqe
+which looks at several time series characteristics, such as 
+strength of trend, strength of spikiniess, strength of curvature,
+and sales quantile.
+
+The global method will not capture interdependent relationships directly,
+but might do so indirectly. It also has the potential to build a lot more complicated model,
+as the amount of traning data will drasticly increase, which again will make the model less prone to 
+overfitting.
+
+\todo[inline]{
+
+A global multivariate model, is this possible?
+}
+
+
+%This apprach would also be hard to scale. If one 
+
+% Global models
+% + scalable
+% + Can use complicated models because of a lot of training data
+% + Has seen some promesing results resently
+% - Might miss interdependent relationships
+% - A single global model might be too general
+% Could split into sub groups
+
+% Multivariate models
+% + Can see interdependent relationships between time series
+% - Difficult to scale, as adding one category means changing the models 
+% shape
+% Will maximize the effectiveness of CNN?
+
 
 
 %\subsubsection{Limitations of statistical methods}
