@@ -1,17 +1,14 @@
 
 \section{Model Structure}
 Since our problem domain consists of multiple product categories and sub-categories,
-and we want to forecast all these categories at the same time,
+and we want to forecast all these categories,
 we have multiple possible ways to construct a forecasting model.
-\todo[inline]{"at the same time" implies that we predict everything at once, and not use the same model for everything. Drop this.}
 
 A simple approach would be to make one model for each product category.
-One could make the assumption that each category of products is independent of the other.
-This assumption will not hold water for all cases. People who buy shaving cream 
-probably also buy a razer, as shaving cream will not have much use of its own.
+One could assume that each category of products is independent of the other.
+This assumption will probably not hold water for all cases. People who buy shaving cream probably also buy a razer, as shaving cream will not have much use of its own.
 An alternative is to build a more complex model, that looks at a bigger picture.
 This section will explore different state-of-the-art model structure approaches.
-\todo[inline]{"not hold water" = "It can be proven that this is not the case". Can we prove this, or do we just think it makes sense?}
 
 % TODO: Introduksjon om model struktur...
 
@@ -21,9 +18,7 @@ This section will explore different state-of-the-art model structure approaches.
 
 % En sub-section som fokuserer på diskusjon rundt de ulike kombinasjonene og hva som er relevant i vår oppgave / problemstilling
 \subsection{Global vs Local methods}
-On the topic of having to foract many time series as a group this paper has a good overview 
-\cite{Montero-Manso2021}.
-\todo[inline]{"... this paper...", it is not clear what paper it is until after this. Restructure the sentence?}
+On the topic of having to forecast many time series as a group \cite{Montero-Manso2021} paper has a good overview.
 The paper points to two big disadvantages for univariate time series on a cluster of series.
 The number one shortcomming is sample size. The second is scalability.
 Scalability is a problem when you have a group of time series as each series require a seperate model
@@ -35,7 +30,7 @@ A univariate alternative to a local approach is \textit{the global approach}
 The global approach works by pooling the data of all series togheter and fit a single univariate forecasting function. It prevents over-fitting because of the larger sample size.
 % source slainas, flunkert, gasthaus & Januschowski 2020
 The global approach has been introduced to exploit the natural scenario where all series
-in the set are similare or related. An example given by the authors are the demand of fictional
+in the set are similar or related. An example given by the authors are the demand of fictional
 books follows a similar pattern for all subgenres, stores or cover designs.
 The idea behind is the strong assumption that all the time series in the set
 come from the same process.
@@ -79,6 +74,8 @@ univariate time series. In the world of Big Data and lots of time series that co
 treating each time series separately and forecasting each in isolation might miss the big picture.
 The paper argues that the ability to make models that can be trained globally across all series
 holds a competitive advantage over models like ARIMA and ETS.
+A model like this would be a multi-input-multi-output model, which forecasts multiple time series
+at the same time.
 
 The paper \cite{Rabanser2020} has some good arguments when comparing univariate vs multivariate models.
 Both multivariate and global univariate methods work on groups of time series, but global methods
@@ -91,6 +88,7 @@ But when there exists such a dependency the global method will not capture it di
 forecasting scenarios, such as a retail sales forecast, the sales of different products
 may be interdependent.
 Forecasting in such a context may require a multivariate model.
+
 
 \subsection{Discussion}
 A local univariate approach would be similar to how an ARIMA model would work.
@@ -107,8 +105,7 @@ could greatly improve forecasting ability.
 A multivariate approach will capture these relationships.
 However, one needs a thorough understanding of the underlying data, in order to build meaningful models.
 A thorough covariance analysis to identify correlating groups of product categories would be best.
-However, this might be outside the scope of what is possible for a master's project.
-\todo[inline]{Do we need to specify that this is to much for a masters thesis?}
+However, this might be outside of scope.
 
 A multivariate model do have some drawbacks on a ever-changing product category domain.
 First, its the issue that not alle categories has the same life of existens, and thus a variable
@@ -133,10 +130,17 @@ but might do so indirectly. It also has the potential to build a lot more compli
 as the amount of traning data will drasticly increase, which again will make the model less prone to 
 overfitting.
 
-\todo[inline]{
-
-A global multivariate model, is this possible?
-}
+% Should this be under multi vs univariate section?
+% Currently it does not have any references
+One last approach is to build a multivariate, multi-input-single output model which only forecasts a single product category
+at the time. The input to such a model might be a decomposition of the target time series. 
+For example decomposing a time series into a component that show how the trend of the series behaves over time.
+One component for the cycles, and one for noise.
+Another option is to rely on external data sources which correlate with the target series.
+For example it is to be expected that if a product category group suddenly spikes in interest at Prisguiden.no,
+then a similar spike would happen at Google.
+Or bad weather might have an effect on interest rates at Prisguiden because people are inside on the computer more.
+Such a multi-input-single-output model can also have the additional benefit of being a global model.
 
 
 %This apprach would also be hard to scale. If one 
