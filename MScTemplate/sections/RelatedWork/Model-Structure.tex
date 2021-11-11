@@ -3,6 +3,7 @@
 Since our problem domain consists of multiple product categories and sub-categories,
 and we want to forecast all these categories at the same time,
 we have multiple possible ways to construct a forecasting model.
+\todo[inline]{"at the same time" implies that we predict everything at once, and not use the same model for everything. Drop this.}
 
 A simple approach would be to make one model for each product category.
 One could make the assumption that each category of products is independent of the other.
@@ -10,7 +11,7 @@ This assumption will not hold water for all cases. People who buy shaving cream
 probably also buy a razer, as shaving cream will not have much use of its own.
 An alternative is to build a more complex model, that looks at a bigger picture.
 This section will explore different state-of-the-art model structure approaches.
-
+\todo[inline]{"not hold water" = "It can be proven that this is not the case". Can we prove this, or do we just think it makes sense?}
 
 % TODO: Introduksjon om model struktur...
 
@@ -22,6 +23,7 @@ This section will explore different state-of-the-art model structure approaches.
 \subsection{Global vs Local methods}
 On the topic of having to foract many time series as a group this paper has a good overview 
 \cite{Montero-Manso2021}.
+\todo[inline]{"... this paper...", it is not clear what paper it is until after this. Restructure the sentence?}
 The paper points to two big disadvantages for univariate time series on a cluster of series.
 The number one shortcomming is sample size. The second is scalability.
 Scalability is a problem when you have a group of time series as each series require a seperate model
@@ -106,6 +108,7 @@ A multivariate approach will capture these relationships.
 However, one needs a thorough understanding of the underlying data, in order to build meaningful models.
 A thorough covariance analysis to identify correlating groups of product categories would be best.
 However, this might be outside the scope of what is possible for a master's project.
+\todo[inline]{Do we need to specify that this is to much for a masters thesis?}
 
 A multivariate model do have some drawbacks on a ever-changing product category domain.
 First, its the issue that not alle categories has the same life of existens, and thus a variable
