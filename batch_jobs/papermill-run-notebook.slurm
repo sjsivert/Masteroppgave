@@ -9,7 +9,7 @@
 #SBATCH --output=batch_jobs/output/sbatch_job.log
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
-OUTPUT_DIR=${SLURM_SUBMIT_DIR}/Masteroppgave/batch_jobs/output
+OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
 
