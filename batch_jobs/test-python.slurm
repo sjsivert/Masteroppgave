@@ -13,4 +13,9 @@ echo "Hello World"
 module purge
 module load Anaconda3/2020.07
 
-python "../code/test-python.py"
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install papermill
+
+python batch_jobs/test-job.py
