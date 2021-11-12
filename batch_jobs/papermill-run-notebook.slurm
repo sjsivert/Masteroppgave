@@ -9,6 +9,8 @@
 #SBATCH --output=papermill.log
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
+OUTPUT_DIR=${SLURM_SUBMIT_DIR}/Masteroppgave/batch_jobs/output
+
 cd ${WORKDIR}
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
@@ -20,6 +22,7 @@ echo "We are using $SLURM_CPUS_ON_NODE cores"
 echo "We are using $SLURM_CPUS_ON_NODE cores per node"
 echo "Total of $SLURM_NTASKS cores"
 
+echo "--Files in current directory--"
 ls
 module purge
 module load Anaconda3/2020.07
@@ -30,5 +33,5 @@ pip install -r requirements.txt
 pip install papermill
 
 cd notebooks
-papermill sindre_anomely_detection.ipynb ../output/sindre_anomely_detection.ipynb
+papermill sindre_anomely_detection.ipynb ${OUTPUT_DIR}/sindre_anomely_detection.ipynb
 
