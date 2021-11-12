@@ -107,4 +107,48 @@ models limitation to univariate time series.
 %The objective is to develop an effective sales forecasting model maintaining the 
 %trade-off between interpretation and consistency with actual changes of retail sales.
 
+The best example of related work we could find on our domain was 
+\cite{Bandara2019}
+% What did they do?
+They generate an accurate E-commerce sales forecasting model using LSTM  Neural Network.
+They pool similar time series into clusters and train a univariate, global model on each of these 
+clusters.
+% Why did they do it?
+They wanted to improve E-commerce sales forecasting by 
+exploiting sales correlations and relationships available in an E-commerce hierarchyeploit sales correlations and relationships available in an E-commerce hierarchy.
+
+Of data preprocessing they used a forward-filling strategy to impute missing sales
+observations in the dataset. They normalized the data to accomodate the high
+sales volume ranges. They used the mean of the sales of a product as the scaling factor.
+
+They tried to approaches for grouping. One based on domain knowledge.
+They used the sales ranking and the percentage of zero sales as primary business metrics
+to form groups of products. Group 1 represents their most popular products (67\% of sales), group 2 represents
+their more unpopular products (33\% of sales) and group 3 represents the rest.
+
+The second approach was based on time series clustering, where they performed K-means
+clustering on a set of time series features to identify groupings. The first two features
+were business specific features, namly sales.quantile and zero.sales.percentage.
+The rest of the features were time series specific.
+%They extracted features with the \textit{tsfeatures} package.
+They also did a silhouette analysis to determine the optimal number of clusters in the K-means algorithm.
+
+ % What results did they get?
+Their results outperformed the state-of-the-art univariate forecasting techniques.
+They conclude that E-commerce product hierarchies contani various cross-product demand
+patterns and correlations. Exploiting these relationships are necessary to improve the sales forecasting
+accuracy in this domain.
+
+The \cite{Bandara2019} differ from our situation in the sense that they model
+induvidual product interests. The authors example of related time series are how
+all subcategories under the genre fictional books will follow similar patterns.
+
+We are interested in the category level, and will pool the interests of all products under
+a category into one time series. It is not yet clear if we can assume that similar categories 
+will follow similar patterns. 
+For example computer screens and laptops are childs of the same category parent, 
+but interests in these products will be generated from two different processes, as their 
+use case are different.
+Even though we can not use the same assumptions on our domain, their results are still relevant
+for our work.
 
