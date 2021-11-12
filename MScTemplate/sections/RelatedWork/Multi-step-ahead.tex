@@ -1,2 +1,18 @@
 \section{Multi-step ahead}
 \label{section:RelatedWork:multi-step-ahead}
+We are interested in forecasting longer than one time step in the future.
+As stated in \autoref{section:B&T:forecasting-time-series} this is called a multi-step-ahead forecast.
+
+\cite{Hewamalage2021} has section regarding multi-step-ahead forecasting.
+They cite \cite{BenTaieb2011} works and their findings that 
+using a multip-input multi-output (MIMO) strategy is 
+advantagious over the recursive single-step-ahed. This is because the MIMO strategy
+incoroporates the inter-dependencies between each time step, rather than forecasting
+each time step in isolation. They also found that the MIMO strategy voids error 
+accumulation over the prediction time steps.
+\cite{Ramos2015} findings also support the MIMO strategy over the recursive
+single-step-ahead strategy.
+
+\cite{Hewamalage2021} suggests that the best input-to-output size ratio
+is $window_input_size = 1.25 * output_window_size$.
+\todo[inline]{Do we need to write more here?}
