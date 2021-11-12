@@ -7,3 +7,4 @@ Masteroppgave.*
 !Masteroppgave.tex
 sections/*.auxindent.log
 *indent.log
+.env
