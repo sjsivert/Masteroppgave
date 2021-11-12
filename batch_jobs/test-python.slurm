@@ -10,6 +10,7 @@
 #SBATCH --mail-user=sindrejohan1@gmail.com
 
 echo "Hello World"
+ls
 module purge
 module load Anaconda3/2020.07
 
@@ -18,4 +19,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 pip install papermill
 
-python batch_jobs/test-job.py
+
+python /cluster/home/sjsivert/Masteroppgave/code/test-job.py
