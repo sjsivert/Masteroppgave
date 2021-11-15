@@ -1,10 +1,10 @@
 venv/
 .venv/
 .idea/
-datasets/
 .ipynb_checkpoints/
 Masteroppgave.*
 !Masteroppgave.tex
 sections/*.auxindent.log
 *indent.log
 .env
+datasets/market_insights_overview_all.csv
