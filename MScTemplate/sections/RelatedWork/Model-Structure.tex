@@ -89,6 +89,36 @@ forecasting scenarios, such as a retail sales forecast, the sales of different p
 may be interdependent.
 Forecasting in such a context may require a multivariate model.
 
+% What did they do?
+\cite{Laptev}
+Wanted to make a single time series model to
+accurately make time series predictions during special events.
+Extreme event prediction depends on numerous external factors,
+that can include weather, city population growth or marketing
+changes.
+They propose a global, multivariate, autoencoder, LSTM network.
+Their results are promising. They outperform their existing
+proprietary model by up to 18\% on Uber data.
+They also show the models generalization power, by training on Uber data
+but then testing it on the public M3 dataset, where they achieve an above average result.
+
+% Discussion
+In \cite{Laptev} discussion they point out three scriteria for 
+choosing a neural network over a statistical method:
+(a) number of time series to model are high, (b) Length of the 
+times series are high, and (c) correlation among the time series.
+Our problem domain meets all these criteria. 
+
+%% Statistical vs nn
+%\cite{Laptev}  points out that 
+%%[ original source: Ye & Keogh, 2009 ]
+%classical statistical time-series models usually require manual tuning
+%to set seasonality and other parameters.
+%A LSTM will 
+
+
+% What results did they get?
+
 
 \subsection{Discussion}
 A local univariate approach would be similar to how an ARIMA model would work.
@@ -141,6 +171,7 @@ For example it is to be expected that if a product category group suddenly spike
 then a similar spike would happen at Google.
 Or bad weather might have an effect on interest rates at Prisguiden because people are inside on the computer more.
 Such a multi-input-single-output model can also have the additional benefit of being a global model.
+This is exaclty what \cite{Laptev} did, and they achieved a promising result.
 
 
 %This apprach would also be hard to scale. If one 

@@ -8,3 +8,4 @@ sections/*.auxindent.log
 *indent.log
 .env
 datasets/market_insights_overview_all.csv
+todos.md

@@ -62,6 +62,11 @@ Based on this, we propose that a hybrid model would achieve higher predictive ac
 Despite the LSTM beeing a well suited method for forecsating prioblems, it is clear that it can be improved upon in several different ways.
 We propose that a framework using a Convoltional-Autoencoder and LSTM would achieve better accuracy than either of its parts could alone.
 
+% Hybrid networks
+\cite{Laptev} found that a vanilla LSTM-network performed worse than
+state-of-the-art statistical univariate models. But adding
+an autoencoder for feature extraction to the network achieved better results
+
 
 % It is likely that this would also be the case for a hybrid CNN and LSTM model.
 
@@ -72,6 +77,7 @@ A CNN-AE model should be able to solve this problem.
 The CNN is able to extract the spatial features of the data while the AE can filter out the noise and fluctuations in the data.
 By then adding a LSTM network at the end, the model should be able to extract the temoral featrues from the data.
 This hybrid framework should therefore be well suited for the task at hand.
+
 
 
 %The proposed methods for hybrid networks using CNN, Autoencoder and LSTM, has shown to excide the predicite capabilities of methods such as ARIMA and LSTM.
