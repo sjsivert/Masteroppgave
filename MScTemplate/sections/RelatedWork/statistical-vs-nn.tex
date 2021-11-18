@@ -16,6 +16,7 @@ Among the the machine learning methods they evaluate are
 \end{itemize}
 
 Among the statistical methods evaluated are
+
 \begin{itemize}
   \item \textit{Naive2}
   \item \textit{ETS}
@@ -39,7 +40,7 @@ They hypothesize that these datasets are too small for machine learning methods 
 
 Their contribution is doing a similar study on 90 univariate time series, in which 
 all the datasets have a sample size above 1000. They evaluate statistical methods vs ML methods
-at different sample sizes, to test weather the sample size matters.
+at different sample sizes, to test whether the sample size matters.
 
 The paper \cite{Cerqueira2019} concludes that sample size does matter a whole lot for ML methods.
 Statistical methods outperformed ML methods up to around a sample size of 130. After that ML methods
@@ -63,11 +64,16 @@ They tested:
 But the paper \cite{Hewamalage2021} did a thorough analysis of state-of-the-art RNNs, including LSTM.
 They concluded that complex methods now have benefits over simpler statistical benchmarks in many forecasting situations.
 
-
-\todo[]{Skrive om dette i motivation}
-The paper \citet{Bandara2017} points out a that in non-stationary time series, the distant past is typically less
+The paper \cite{Bandara2017} points out that in non-stationary time series, the distant past is typically less
 useful for forecast, as underlying patterns and relationships will have changed in the meantime.
 % TODO: This hopefully not apply to us as our time seires do seem to have consistency
 
-\todo[inline]{DIscussion? Should probably have a bit more clearly defined discussion regarding the findings here.}
-
+In \autoref{section:RelatedWork:forecasting-ecommerce}
+we highlighted ANNs ability to outperform statistical methods when macro-economic 
+conditions were unstable.
+In \autoref{section:RelatedWork:Model-structure} we mentioned how statistical models
+potentially missed the bigger picture in a domain of many related time series.
+These findings makes it clear to us that limiting our solution to a statistical method
+will be a mistake, and exploring a more complicated ANN model seems beneficial.
+However, a need for a baseline model in order to compare the results of the ANN model,
+a statistical method, like SARIMA could be useful.

@@ -21,7 +21,7 @@ The domain proved difficult due to strong trends and seasonal patterns.
 % What are their results?
 The models forecasting ability were evaluated through the loss functions RMSE, MAE and MAPE.
 Both ETS and ARIMA achieved quite similar results with both one-step and multi-step forecastign.
-Multi-step forecasts are generally more acurate.
+Multi-step forecasts are generally more accurate.
 This is because it is able to incorporate information that is more up to date.
 When an automatic algorithm is applied to the overall out-of-sample
 forecasting the ARIMA models does not achieve better results than the ETS models.
@@ -41,30 +41,26 @@ Transformations for variance stabilization, as well as making unit-root tests to
 %from the Portuguese retailer Foreva.
 
 
-% Skrive om. Finne kilde
-\todo[inline]{Rewrite! Do NOT cite directly from the text, always rewrite!}
-\todo[]{Bør denne ligge under statistics vs ann seksjon?}
-[Forecasting aggregate retail sales: a comparison of ANN and traditional methods. I. ALON]
-Winters exponential smoothing and ARIMA perform well when macro-economic
-conditions are relatively stable. When economic conditions are volatile
+\cite{Chu2003} showed that winters exponential smoothing and ARIMA perform well when macro-economic
+conditions are relatively stable. However, when economic conditions are volatile
 ANNs outperform linear methods and multi-step regression is preferred.
 
 % Skrive om. Finne kilde
-\todo[]{Bør ligge under en seksjon med preprossesering?}
-[Zhang and Qi...] and [Kuvalmaz et al.]
-Investigated the use of ANNs in forecasting time series with a strong trend and seasonality.
-They concluded that the overall out-of-sample forecasting perfomance of ANNs, 
-evaluated via RMSE, MAE and MAPE is not better than ARIMA models in predicting
-retail sales without appropriate data preprocessing,
-namely detrending and deseasonalization.
+%\todo[]{Bør ligge under en seksjon med preprossesering?}
+%[Zhang and Qi...] and [Kuvalmaz et al.]
+%Investigated the use of ANNs in forecasting time series with a strong trend and seasonality.
+%They concluded that the overall forecasting perfomance of ANNs, 
+%evaluated via RMSE, MAE and MAPE is not better than ARIMA models in predicting
+%retail sales without appropriate data preprocessing,
+%namely detrending and deseasonalization.
 
 % Skrive om. Finne kilde
-[Pan et al.]
-Tested a hybrid forecasting method of integrating MED and NN and compares them with direct NN models.
-and vs the ARIMA model for aggregate retail sales forecasting.
-Different macroeconomic conditions were studied.
-Hybrid NN model is more stable compared to direct NN and arima during volatile economy.
-ARIMA performs consistently well during stable economic activity.
+%[Pan et al.]
+%Tested a hybrid forecasting method of integrating EMD and NN and compares them with direct NN models.
+%and vs the ARIMA model for aggregate retail sales forecasting.
+%Different macroeconomic conditions were studied.
+%Hybrid NN model is more stable compared to direct NN and arima during volatile economy.
+%ARIMA performs consistently well during stable economic activity.
 
 % This section should describe earlier work done within the field of E-commerce and Sales prediciton!
 % This is the main explainer for why we need do any work, and why we cant just apply a model.
