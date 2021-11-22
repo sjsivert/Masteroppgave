@@ -130,13 +130,17 @@ When a new category of products are created, a forecasting model are created wit
 would be limited, but would gradually improve as more data would accumulate.
 
 The greatest drawback of a local univariate approach would be it's the assumption that all product categories
-are indendent. We can expect some groups to correlate with each other. These interdependent relationships
+are independent. We can expect some groups to correlate with each other. These interdependent relationships
 could greatly improve forecasting ability.
 
 A multivariate approach will capture these relationships.
 However, one needs a thorough understanding of the underlying data, in order to build meaningful models.
 A thorough covariance analysis to identify correlating groups of product categories would be best.
-However, this might be outside of scope.
+However, this might be outside of scope(?).
+The work proposed by \cite{Sen2019} has the advantage of capturing interdependent time series features, and dealing with
+some of the drawbacks of a multivariate model. However, their model is intended for as many time series as up to millions.
+This is to vastly over ingenier our problem.
+%They solution is also based on a temoral convolution network.
 
 A multivariate model do have some drawbacks on a ever-changing product category domain.
 First, its the issue that not alle categories has the same life of existens, and thus a variable
