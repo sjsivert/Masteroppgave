@@ -103,8 +103,22 @@ proprietary model by up to 18\% on Uber data.
 They also show the models generalization power, by training on Uber data
 but then testing it on the public M3 dataset, where they achieve an above average result.
 
+
+%Our problem is similar to the DeepGLO model made by \cite{Sen2019}. 
+
+\cite{Sen2019} propeses a method to handle predictions of thousands of interdependent correlating time series.
+Their propes method is largely based on two components. The first components is based on the work of
+\cite{Yu}, which proposes a Temporal regularized matrix factorization (TRM) for high-dimensional time series prediction.
+The idea is that the TRM can look at all the time series and capture the global patterns during prediction.
+The TRM can supposedly handle as much as 50.000 time series.
+%The drawback of the TRM is that it only captures linear dependencies between the series.
+% In order to capture non-linear depndencies 
+The output of the global model is used as a covariate to a final, local temporal convolution network. This final model
+will then focus on local per time series properties, as well as properties from the global dataset.
+
+
 % Discussion
-In \cite{Laptev} discussion they point out three scriteria for 
+In \cite{Laptev} discussion, they point out three scriteria for 
 choosing a neural network over a statistical method:
 (a) number of time series to model are high, (b) Length of the 
 times series are high, and (c) correlation among the time series.

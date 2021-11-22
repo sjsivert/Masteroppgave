@@ -3,9 +3,9 @@
 
 \todo[inline]{Model architectrue}
 
-We propse a prediction framework similar to the one propsed in \cite{Zhao2019}.
-Conbining convolution with autoencoders and LSTM in order to make predictions should have some benefits.
-Primarily, the combination of methods should help with increasing the prediciton accuracy in data with high fluctuatios.
+We propose a prediction framework similar to the one proposed in \cite{Zhao2019}.
+Combining convolution with autoencoders and LSTM in order to make predictions should have some benefits.
+Primarily, the combination of methods should help with increasing the prediction accuracy in data with high fluctuations.
 
 The proposed framework is comprised of two parts.
 The convolutional autoencoder, and the LSTM.
@@ -13,20 +13,20 @@ The convolutional autoencoder, and the LSTM.
 \todo[inline]{Add image of the Convolutional autoencder}
 \todo[inline]{Add image of the LSTM}
 
-The convolutional autoender process the input data, extracting a feature set by deconstrucing the data.
-This is done through the encoder. Afther this, the decoder is used to reconstruct the input data.
-By doing this, the noise in the input data should be descreased to some extent.
+The convolutional autoencoder process the input data, extracting a feature set by deconstructing the data.
+This is done through the encoder. After this, the decoder is used to reconstruct the input data.
+By doing this, the noise in the input data should be decreased to some extent.
 
-The secound part of the architecure is the LSTM module.
+The second part of the architecture is the LSTM module.
 This module is intended to extract the temporal features of the dataset,
 in order to predict future values in the time series.
 
-\todo[inline]{Add image of the combine method with CNN-AE and LSTM}
+\todo[inline]{Add image of the combined method with CNN-AE and LSTM}
 
-Finaly, the complete framework propsed in this paper connects these two models,
+Finally, the complete framework proposed in this paper connects these two models,
 creating a convolutional autoencoder and LSTM framework for making predictions.
 These predictions are intended to function on time series data with high fluctuations,
 making accurate and less error prone predictions than simple statistical or deep learning methods.
 
-The motivation behind the propsed framework is explored in further detail later in section \ref{section:Discussion}.
+The motivation behind the proposed framework is explored in further detail later in section \ref{section:Discussion}.
 
