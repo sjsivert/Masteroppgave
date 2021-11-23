@@ -14,14 +14,15 @@ When shopping online, a user will often consider the pricing of the product to b
 In order to easily and effectively compare prices of products amongst retailers, 
 \textit{Prisguiden} was created.
 Products and product categories were introduced to the site, collecting the pricing information of the products from several different retailers.
-Different product categories have different retailers, and thus the collection of the information is somewhat distributed.
+% Different product categories have different retailers, and thus the collection of the information is somewhat distributed.
 When new products hit the market, these products are introduced to the product portfolio, in order for uses to compare the prices.
 Operating such an online service has enabled \textit{Prisguden} to accumulate user data such as product and product category interest, and more.
-This is highly fluctuating time series data, regarding user trends and use patterns, yet the data is not used for anything.
-The collected time series data could hold a lot of relevant information.
+
+The data regarding product user interests is currently unused, despite being collected for years.
+The data is highly fluctuating and with high variance.
+The collected time series data could hold relevant information currently unused.
 \textit{Prisguiden} intend to use this data in order to predict future product and category trends.
-With this information, they would be able to effectively know where to put their resources in regards to introducing and updating product listings and pricing for product categories 
-that are on the rice in popularity.
+With this information, they would be able to effectively know where to allocate their resources in regards to introducing and updating product listings and pricing for product categories.
 \linebreak
 
 % Prisguiden was created to check prices of products between retailers
@@ -29,6 +30,9 @@ that are on the rice in popularity.
 % Prisguiden is thus able to collect a lot of data about what products and product categories are searched and thus popular
 % This creates a time series of data
 
+\todo[inline]{Under this is not motivation, but how we approach the problem. Should be altered}
+\todo[inline]{Add section about the data and what it contains. How time series prediction is a fitting approach to solving a predictive problem such as this.}
+\todo[inline]{This section should not contain references to data from "Background and Theory", but stand on its own, only introducing relevant information and pressent why we are doing this work.}
 
 
 In order to explore the information in the time series data, we need to explore the possibility of time series analysis.
@@ -37,7 +41,7 @@ Statistical methods such as ARIMA have long been the de facto state-of-the-art m
 \todo[inline]{Add a reference to ARIMA background and Theory? Add a reference to paper?}
 In newer research deep-learning has been explored more in-depth in order to make time-series predictions.
 Methods such as Convolutional neural networks \ref{section:BT:CNN} and Long-Short Term Memory \ref{section:BT:LSTM}.
-These methods have shown great promise in time series forecasting du to their ability to extract dimensional and temporal features respectively.
+These methods have shown great promise in time series forecasting due to their ability to extract dimensional and temporal features respectively.
 In this paper, we wish to explore new and modern approaches to time series forecasting in order to improve the predictive ability in the E-commerce problem space.
 By applying new methods to this well-known problem space, we wish to improve upon the current state of the art and contribute to increasing the predictive accuracy of forecasting.
 
