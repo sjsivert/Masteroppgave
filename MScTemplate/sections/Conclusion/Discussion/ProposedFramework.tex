@@ -12,3 +12,39 @@
 % Få frem hvorfor dette er en god ide, og hvordan det relaterer til andre løsninger!
 
 \todo[inline]{}
+
+
+With the aim of answering the goal presented in section \ref{section:Introduction:Goal} a model framework is proposed.
+The proposed method is intended to achieve higher predictive ability than other state-of-the-art methods on the presented dataset.
+The presented model is a Convolutional autoencoder with and LSTM.
+With the ARIMA model and the LSTM model as benchmarks, the proposed model aims at achieving lower predictive error than these methods.
+The attained dataset presented in section ... is a part of the e-commerce domain, containing highly fluctuating data, seasonality, and more.
+Such a dataset presents difficulties in prediction with high accuracy, and specific models might therefore attain better results than standard state-of-the-art methods.
+
+Section \ref{sections:RelatedWork:Hybrid} discusses the improvements in predictive accuracy achivable with the use of hybrid models.
+Utilizing methods for extracting borth temproal and spacial values apeared to yeald improvements.
+With the available dataset containing large fluctuations in values, the designed framework would need to be able to achieve predictions despite this.
+Therefor the proposed model is heavily influenced by the time series prediction model presented in \cite{Zhao2019}.
+The model is intended to work with highly fluctuating datasets, as the paper supplies results showing a decrease in predictive error with the hybrid method over a LSTM model.
+Similarly, the available dataset described in section ... share these atributes.
+Therefor, the assertion is made that the same concepts applied in \cite{Zhao2019} can be applied in this problem space.
+Such a hybrid model would then be introduced to a new problemspce, the e-commerce sector, in order to make predictions.
+As far as we can tell, such a model has not previously been applied with e-commerce prediction.
+
+% Why are we not using a regular LSTM method?
+Section ... referes to the previously applied LSTM networks used in e-commerce time series prediciton.
+Despite the ARIMA beeing commonly used in time series prediction, the LSTM network has shown great predictive accuracy.
+The aim of the method arcitecture therefor to explore an improved LSTM model in order to achieve better results.
+Section ... discusses how complex hybrid models are able to achieve higher accuracy than their individual parts.
+One such example is the use of LSTM in \cite{Zhao2019}, achieving higher prediction error than the propsed hybrid model, using multiple loss metrics.
+In order to increase predictive accuracy, and reduce error, such hybrid methods is thereofr worth considering.
+
+
+% Why are we using this CNN-AE + LSTM, insted of another method?
+There are multiple different types of hybrid methods, all with different specialisations and usecases.
+Du to the data distribution of the dataset, the method presented in \cite{Zhao2019} was selected as the basis for the model.
+Although the proposed CNN-AE and LSTM model has already been applied to other datasets, the aim of this paper is to evaluate the use of it on a new e-commerce problem space.
+The the following sections, other aspects of the framework will be introduced.
+This includes the model structure selected, discussing the implications of a global method, or a multivariate approach.
+These alterations from the model proposed in \cite{Zhao2019} is intended to improve the applicability of the model on this e-commerce problemspace.
+
