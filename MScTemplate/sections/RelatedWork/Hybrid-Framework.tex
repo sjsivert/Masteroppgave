@@ -28,7 +28,7 @@ One such hybrid model is the "CNN and LSTM-Autoencoder" method explored in \cite
 This method is used to explore the predictive ability of the hybrid model on electricity forecasting in residential and commercial buildings.
 The findings of the paper conclude with the same result as we propose above.
 The aforementioned method is a hybrid framework based on convolution, LSTM, and Autoencoder.
-Convolution is used to extract features from the input data before the LSTM-Autoencoder extract temporal dependencies between the sequences.
+Convolution is used to extract features from the input data while the LSTM-Autoencoder extracts temporal dependencies between the sequences.
 The proposed method is applied to the electricity forecasting problem alongside other models such as ARMA, SVM, SVR, and others.
 The framework outperformed the state-of-the-art models at prediction using several different performance metrics such as MSE, MAE, RMSE, and MAPE,
 as well as other hybrid deep learning methods such as a CNN-LSTM.
@@ -45,7 +45,7 @@ The proposed method outperforms methods such as LSTM, ARIMA, and SVR, achieving 
 This section discusses how deep learning methods such as LSTM and Convolution work well in order to predict in cases where there is enough data.
 Thus, the usage of deep learning methods such as LSTM and Convolution is to be preferred when enough data is attained.
 The proposed hybrid frameworks outperform deep learning methods such as LSTM.
-With this in mind, it is clear that a hybrid method is well suited for predictions in our problem space.
+With this in mind, it is clear that a hybrid method should be well suited in applications with enough data.
 A hybrid framework has already been shown to exceed the predictive capabilities of its individual parts.
 This was done with the ARIMA-BP model explored in \cite{Bowen2020}, showing that the connected hybrid method performed better than the ARIMA or BP models could on their own.
 \cite{Zhao2019} also concludes with this, achieving much lower predictive error with the propsed method in comparsion to a pure LSTM network.
@@ -63,22 +63,16 @@ Based on this, we propose that a hybrid model would achieve higher predictive ac
 Despite the LSTM beeing a well suited method for forecsating prioblems, it is clear that it can be improved upon in several different ways.
 We propose that a framework using a Convoltional-Autoencoder and LSTM would achieve better accuracy than either of its parts could alone.
 
-% Hybrid networks
-\cite{Laptev} found that a vanilla LSTM-network performed worse than
-state-of-the-art statistical univariate models. But adding
-an autoencoder for feature extraction to the network achieved better results
-
-
 % It is likely that this would also be the case for a hybrid CNN and LSTM model.
 
-
+\iffalse
 The proposed problem-space has data with high fluctuations and noise.
 In order to increase the predictive abilities of a model, a method well suited for working with data with high noise should be selected.
 A CNN-AE model should be able to solve this problem.
 The CNN is able to extract the spatial features of the data while the AE can filter out the noise and fluctuations in the data.
 By then adding a LSTM network at the end, the model should be able to extract the temoral featrues from the data.
 This hybrid framework should therefore be well suited for the task at hand.
-
+\fi
 
 
 %The proposed methods for hybrid networks using CNN, Autoencoder and LSTM, has shown to excide the predicite capabilities of methods such as ARIMA and LSTM.
