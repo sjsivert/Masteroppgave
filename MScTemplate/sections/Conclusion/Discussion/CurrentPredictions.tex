@@ -9,28 +9,25 @@
 % Legge spessiel vekt på "statistical vs deep learning", dette er kanskje det viktigste punktet her, og da se dette i forhold til e-commerce prediciton
 
 Our research has found that the current state-of-the-art time series forecasting is highly dependent
-on the given domain. The good old statistical methods, such as ARIMA and exponential smoothing 
+on the given domain. Statistical methods, such as ARIMA and exponential smoothing 
 are still relevant today. They are simple and easily explainable, and they do not require 
 too much expertise.
-\todo[inline]{"God old..." ville kanskje omformulert. Holder det å si simple, eller blir det å underdrive? Kanskje heller kjapt peke på feilene slik som under?}
 
 The statistical methods fall short in volatile domains, which are prone to sudden changes,
 or changes affected by external changes. They are also limited by their univariate nature, which fails to 
-incorporate interdependent relationships in domains with many time series.
-\todo[inline]{Legge til refferanse til dette. Er forklart i teorien, så å referere til det sammtidig som dette er gull.}
+incorporate interdependent relationships in domains with many time series [\autoref{section:RelatedWork:forecasting-ecommerce}, \autoref{section:RelatedWork:Statistical-NN}]
 
-Neural Networks, have shown to exceed in complex data-rich, domains. Recurrent neural networks, such as LSTMs being the most
-prominent method of choice. However, LSTMs are often used in conjunction with other methods, such as CNNs or Autoencoders,
-resulting in a hybrid model.
-\todo[inline]{Alt dette er forklart tidligere. Fantastisk skrevet, kort og konsist og akkurat sånn det bør være. Men legg til refferanser til tidligere seksjoner når vi kommer med klart testbare påstander!}
+As we uncover in section \autoref{section:RelatedWork} Neural Networks, have shown to exceed in complex data-rich, domains. Recurrent neural networks, such as LSTMs being the most
+prominent method of choice [\autoref{section:RelatedWork:forecasting-ecommerce}]. However, LSTMs are often used in conjunction with other methods, such as CNNs or Autoencoders,
+resulting in a hybrid model [\autoref{section:RelatedWork:Hybrid}].
 
 E-commerce is an especially notoriously difficult domain to forecast. The domain in consists of a multitude of time series,
 some which correlate, others who don't. And the scale of the different series can be of several magnitudes in difference.
-The time series are often noisy and can consist of several recurrent periods.
+The time series are often noisy and can consist of several recurrent periods [\autoref{section:RelatedWork:forecasting-ecommerce}].
 
 One method that has seen some promising results in the E-commerce domain, has been to train a global LSTM model across multiple,
 related, but not interdependent, time series.
 
-\todo[inline]{Har lite å lage på. Litt språk på første avsnitt jeg ville endret, men annet enn det mangler det bare en setning eller 2 om hvordan vi vet det vi påstår.}
-\todo[inline]{Eks: "As we uncover in section ... deep learning methods have shown to achieve supperior performence over statistical methods when the domain contains enought data. However..." etc. Bare et forslag. }
+%\todo[inline]{Har lite å lage på. Litt språk på første avsnitt jeg ville endret, men annet enn det mangler det bare en setning eller 2 om hvordan vi vet det vi påstår.}
+%\todo[inline]{Eks: "As we uncover in section ... deep learning methods have shown to achieve supperior performence over statistical methods when the domain contains enought data. However..." etc. Bare et forslag. }
 
