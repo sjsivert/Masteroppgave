@@ -1,4 +1,52 @@
-
 \section{Data Exploration}
 \label{section:Architecture:DataExploration}
-\import{./tables/code_generated/data_exploration/}{market_insights_overview.tex}
+In this section we will describe the main dataset given to us 
+by Prisguiden.no. The full Jupyter notebook exploration
+is located at [TODO Add source]. This section will only
+describe the highlights from that Notebook.
+
+As of \textit{23-11-2021} the dataset consists of 35966868 entries.
+The oldest recorded data are from the beginning of 2019.
+It consists of 9 features.
+as shown in \autoref{table:features_market_insight_dataset}.
+\begin{table}[htbp]
+  \centering
+  \caption{Features of the Market insight dataset}
+  \label{table:features_market_insight_dataset}
+  \begin{tabular}{|c|l|c|l|}\hline\hline
+   Nr & Name & Type & Description \\ \hline 
+   1 &id &(int64) & Unique identifier \\ \hline
+  2 & product id & (int64) & Associated Product id \\ \hline
+  3 & manufacturer id & (int64) & Manufacturer id \\ \hline
+  4 &cat id & (int64) & Associated category id \\ \hline
+  5 & root cat id & (int64) & Associated root category id \\ \hline
+  6 & date & (datetime64[ns]) & The date the data was captured \\ \hline
+  7 & hits & (int64) & How many times the product page was visited \\ \hline
+  8 &clicks & (int64) & How many times users clicked to a retailer \\ \hline
+  9 & last modified & (object) & When the row was last modified \\ \hline
+  \end{tabular}
+\end{table}
+
+The dataset consists of 1325 unique categories and 310499 unique products.
+Each product is associated with a product category, for example
+all CPUs are associated with the category
+\textit{Prosessor (CPU)}.
+Each product category is a leaf node of a category hierarchy.
+The category \textit{Prosessor (CPU)} is a child of the parent category 
+\textit{Datakomponenter}, which itself is a child of \textit{Data}.
+
+Prisguiden.no are not interested in insight on the product level, but on the product category level.
+Summing togheter all product clicks and hits to its closest parent category
+gives us a table on the format shown in \autoref{table:market_insights_overview_11-12-21}.
+
+\import{./tables/code_generated/data_exploration/}{market_insights_overview_11-12-21.tex}
+
+Plotting some 
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_1135    MediaspillerName: title, dtype: object.png}
+%    \hfill
+%    \caption{}
+%    \label{fig:}
+%\end{figure}
+
