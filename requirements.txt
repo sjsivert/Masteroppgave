@@ -6,3 +6,4 @@ sklearn
 scipy
 wheel
 seaborn
+notebook-to-pdf
