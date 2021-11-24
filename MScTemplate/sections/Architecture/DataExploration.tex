@@ -31,16 +31,16 @@ as shown in \autoref{table:features_market_insight_dataset}.
 The dataset consists of 1325 unique categories and 310499 unique products.
 Each product is associated with a product category, for example
 all CPUs are associated with the category
-\textit{Prosessor (CPU)}.
+\textit{"Prosessor (CPU)"s}.
 Each product category is a leaf node of a category hierarchy.
-The category \textit{Prosessor (CPU)} is a child of the parent category 
-\textit{Datakomponenter}, which itself is a child of \textit{Data}.
+The category \textit{"Prosessor (CPU)"} is a child of the parent category 
+\textit{"Datakomponenter"}, which itself is a child of \textit{"Data"}.
 
-Prisguiden.no are not interested in insight on the product level, but on the product category level.
+% Prisguiden.no are not interested in insight on the product level, but on the product category level.
 Summing togheter all product clicks and hits to its closest parent category
 gives us a table on the format shown in \autoref{table:market_insights_overview_11-12-21}.
 
-\todo{Update table when we get new data from Prisguiden}
+\todo[inline]{Update table when we get new data from Prisguiden}
 \import{./tables/code_generated/data_exploration/}{market_insights_overview_11-12-21.tex}
 
 \subsection{Category plot analysis}
@@ -50,16 +50,17 @@ Most of the plots show a clear yearly periodic pattern, as shown in
 \autoref{fig:lineplot-Hodetelefoner},
 \autoref{fig:lineplot-Mobiltelefon},
 \autoref{fig:lineplot-Julekalender}.
-The scales between the categories are different,
-\textit{Varmepumpe} \autoref{fig:lineplot-Varmepumpe} hower around 1000 hits a day,
-while \textit{Mobiltelefon} \autoref{fig:lineplot-Mobiltelefon} gets around 7500 hits a day.
-The scale within each category can differ vastly.
-Spillkonsoller \autoref{fig:lineplot-Spillkonsoller} has a hit peak around 60000,
-while it usually gets around 5000 hits a day.
+The scale of values differs between categories.
+While \textit{"Varmepumpe"} \autoref{fig:lineplot-Varmepumpe} hower around 1000 hits per day,
+the category \textit{"Mobiltelefon"} \autoref{fig:lineplot-Mobiltelefon} gets around 7500 hits per day.
+Meanwhile, the values within each category can differ vastly.
+\textit{"Spillkonsoller"} \autoref{fig:lineplot-Spillkonsoller} has a hit peak around 60000,
+while it usually gets around 5000 hits per day.
 
-Some categories, like \textit{Grafikkort GPU} \autoref{fig:lineplot-GPU}
-breaks its relativly stable characterstics around christmas 2020,
-and completely changes its behavior from that day forth.
+Some categories experience extreme variations in traffic at different intervals.
+One example of this is the category \textit{"Grafikkort GPU"}.
+The traffic tracked before and after Christmas 2020 differs vastly,
+and the data changes its behavior and distribution from then on.
 
 \autoref{table:Mobiltelefon_statistics} shows some basic statistics of \textit{Mobiltelefoner}.
 It has a mean of 6453 hits and a standard deviation of 1881 which is
@@ -122,10 +123,10 @@ around 30\% of the mean. This is quite a big variance in the dataset.
 \end{figure}
 
 \subsection{Correlation among categories}
-A basic correlation analysis of all categories that has at least 100 data points to compare with each other,
-gives us a correlation matrix, as shown in \autoref{fig:category_corelation_matrix}.
-The ligher areas indicate a correlation closer to 1.0.
-Darker areas indicate correlation closer to -1.0.
+Through a correlation analysis of the data, a correlation matrix is created.
+Analyzing all categories with more than 100 datapoints, the values are compared and used to create the correlation matrix.
+The matrix is shown in \autoref{fig:category_corelation_matrix}.
+The lighter areas of the matrix indicate a correlation towards 1.0, while the darker areas indicate a correlation towards -1.0.
 
 Based on the color spectrum from the matrix it is clear that categories cover almost the whole spectrum of correlation relationships.
 The overall bright colors indicate a bias towards positive correlation.
