@@ -5,6 +5,7 @@ by Prisguiden.no. The full Jupyter notebook exploration
 is located at [TODO Add source]. This section will only
 describe the highlights from that Notebook.
 
+\subsection{Basic data structure}
 As of \textit{23-11-2021} the dataset consists of 35966868 entries.
 The oldest recorded data are from the beginning of 2019.
 It consists of 9 features.
@@ -39,14 +40,105 @@ Prisguiden.no are not interested in insight on the product level, but on the pro
 Summing togheter all product clicks and hits to its closest parent category
 gives us a table on the format shown in \autoref{table:market_insights_overview_11-12-21}.
 
+\todo{Update table when we get new data from Prisguiden}
 \import{./tables/code_generated/data_exploration/}{market_insights_overview_11-12-21.tex}
 
-Plotting some 
-%\begin{figure}[h!]
-%    \centering
-%    \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_1135    MediaspillerName: title, dtype: object.png}
-%    \hfill
-%    \caption{}
-%    \label{fig:}
-%\end{figure}
+\subsection{Category plot analysis}
+\autoref{fig:lineplot1} and \autoref{fig:lineplot2} show hits and clicks
+from a random sample of categories from 2019 to 2021.
+Most of the plots show a clear yearly periodic pattern, as shown in 
+\autoref{fig:lineplot-Hodetelefoner},
+\autoref{fig:lineplot-Mobiltelefon},
+\autoref{fig:lineplot-Julekalender}.
+The scales between the categories are different,
+\textit{Varmepumpe} \autoref{fig:lineplot-Varmepumpe} hower around 1000 hits a day,
+while \textit{Mobiltelefon} \autoref{fig:lineplot-Mobiltelefon} gets around 7500 hits a day.
+The scale within each category can differ vastly.
+Spillkonsoller \autoref{fig:lineplot-Spillkonsoller} has a hit peak around 60000,
+while it usually gets around 5000 hits a day.
+
+Some categories, like \textit{Grafikkort GPU} \autoref{fig:lineplot-GPU}
+breaks its relativly stable characterstics around christmas 2020,
+and completely changes its behavior from that day forth.
+
+\autoref{table:Mobiltelefon_statistics} shows some basic statistics of \textit{Mobiltelefoner}.
+It has a mean of 6453 hits and a standard deviation of 1881 which is
+around 30\% of the mean. This is quite a big variance in the dataset.
+
+% Mobiltelefon stats table
+\import{./tables/code_generated/data_exploration/}{Mobiltelefon_statistics.tex}
+
+
+\begin{figure}[h!]
+  \centering
+  \caption{Category plots of hits and click rate from 2019-2021}
+  \label{fig:lineplot1}
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_51_Hodetelefoner og ørepropper.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Hodetelefoner og ørepropper}}
+      \label{fig:lineplot-Hodetelefoner}
+  \end{subfigure}
+
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_19_Mobiltelefon.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Mobiltelefon}}
+      \label{fig:lineplot-Mobiltelefon}
+  \end{subfigure}
+
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_11781_Julekalender og adventskalender.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Julekalender}}
+      \label{fig:lineplot-Julekalender}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \caption{Category plots of hits and click rate from 2019-2021}
+  \label{fig:lineplot2}
+
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_43_Spillkonsoller.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Spillkonsoller}}
+      \label{fig:lineplot-Spillkonsoller}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_30_gpu.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Grafikkort GPU}}
+      \label{fig:lineplot-GPU}
+  \end{subfigure}
+  
+  \begin{subfigure}[b]{\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/lineplot_11054_Varmepumpe.png}
+      \hfill
+      \caption{Hits and clicks rate for \textit{Varmepumpe}}
+      \label{fig:lineplot-Varmepumpe}
+  \end{subfigure}
+\end{figure}
+
+\subsection{Correlation among categories}
+A basic correlation analysis of all categories that has at least 100 data points to compare with each other,
+gives us a correlation matrix, as shown in \autoref{fig:category_corelation_matrix}.
+The ligher areas indicate a correlation closer to 1.0.
+Darker areas indicate correlation closer to -1.0.
+
+Based on the color spectrum from the matrix it is clear that categories cover almost the whole spectrum of correlation relationships.
+The overall bright colors indicate a bias towards positive correlation.
+
+  \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_correlation_matrix.png}
+      \hfill
+      \caption{Category correlation matrix}
+      \label{fig:category_corelation_matrix}
+  \end{figure}
+
+
+
+
 
