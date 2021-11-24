@@ -47,30 +47,46 @@ The level of a time series is equal to the mean. If a time series has a trend
 then the level is changing.
 
 
+
+
+
+
+
 \subsection{Forecasting time series}
 \label{section:B&T:forecasting-time-series}
 Let  $Y = \{y_1, y_2, ..., y_n\}$ denote a time series.
-Forecasting is prediction the next time step $y_{n+h}$ where $h$ is the forecasting horizon.
-% Overskriften sier "modeling of time series", men det første du gjør er å definere forecasting?
-% Skal det være y_(n+h)? Og burde det ikke isåfall være en serie, ikke en variabel? Mulig jeg misforstår.
+Forecasting is predicting the next time step $y_{n+h}$ where $h$ is the forecasting horizon.
 
-There are two main categories within time series forecsasting. \textbf{univariate} and \textbf{multivariate}. 
-An \textit{univariate} time series consists of one input variable and one output variable. These methods use the time series past to predict its future.
-In a multivariate time series, there are many time dependent variables used as explanatory variables that all help predict one or more output variables.
-
-
-Many time series methods focus on predicting just one step ahead ($y_n+1$). When forecasting many steps into the future this becomes a 
-\textit{Multi-step forecasting} problem. One simple to predict many steps ahead is to reccursively predict one step ahead, and use past predicted steps 
-in the calculation.
-% Sikkert egentlig bare jeg som er litt uenig, men kanskje legge til en settning ekstra her for at det blir mer naturlig?
+There are two main categories within time series forecsasting, \textbf{univariate} and \textbf{multivariate}. 
+An \textit{univariate} time series prediction consists of only one value or observation over a time period.
+Methods for prediction using univariate time series is called a univariate time series model.
+The model uses only the one value as the input sequence, making predictions solely based on the historic data.
+A multivariate time series is a set of multiple values spanning a period of time.
+To make predictions with such data, multivariate time series models are required.
+These models evaluate the input sequences in relation to each other, as well as their historic values, in order to make predictions.
+The multivariate forecasting can result in the prediction of values for one of the observations or multiple observations.
 
 
-Given a stationary time series, a naive approach to time series modeling is predicting that the next observation will be the
-mean of all past observations. A better approach is to define a smaller window, and
-apply the moving average across the whole series. Longer window size equals a smoother graph.
+% Introduce 'Single step' and 'Multi-step' as keywords
+% What is Single step
+% What is multi step
+% How can single step be used to create multistep
+Predictive models attempt to forecast values either as a single, or multiple steps forward in time.
+Due to this, forecasting is categorized as \textit{Single step prediction} and \textit{Multi step predition}.
+\textbf{Single step prediction} forecasts values only one time step forward in time.
+\textbf{Multi-step prediction} forcasting values multiple time steps forward in time at once.
+Despite the difference, multistep forecasting can be accomplished using single-step forecasting.
+By forecasting a single step forward in time several times, a singe-step forecasting method is able to recursively accomplish multi-step prediction.
 
-A different well-known technique is \textbf{exponential smoothing}. It uses the same approach,
-but assigns a different decreasing weight is assigned to each observation.
+
+Assuming a stationarity time series, several approaches to time series modeling are available.
+A naive method is through the use of mean values, predicting the next value to be the mean of all past observations.
+Additionally, a smaller subset of past observations can be used, applying a moving average across the time series.
+Longer subsets result in a smoother prediction graph.
+
+Another viable prediction technique is \textbf{exponential smoothing}.
+It uses the same approach as the moving average method, but differs through the use of
+a decreasing weight assigned to each observation.
 
 \begin{equation}
     \label{eq:exponential_smoothing}
@@ -81,13 +97,8 @@ but assigns a different decreasing weight is assigned to each observation.
 shows exponential smoothing, where $\alpha$ smoothing factor
 that takes values between 0 and 1. It determines how fast the weight decreases with time.
 
-\todo{
- TODO:
- Det er jo ikke feil! Men virker som det er veldig mye crammet inn på veldig liten plass.
- Vi har ikke dårlig plass så du har råd til å bruke et par ord ekstra hvis du vil ;)
-}
 
 % TODO: Fortsette https://towardsdatascience.com/the-complete-guide-to-time-series-analysis-and-forecasting-70d476bfe775
-
+\todo[inline]{Continue this?}
 
 
