@@ -62,12 +62,42 @@ One example of this is the category \textit{"Grafikkort GPU"}.
 The traffic tracked before and after Christmas 2020 differs vastly,
 and the data changes its behavior and distribution from then on.
 
-\autoref{table:Mobiltelefon_statistics} shows some basic statistics of \textit{Mobiltelefoner}.
-It has a mean of 6453 hits and a standard deviation of 1881 which is
+\autoref{table:Mobiltelefon_statistics} shows some basic statistics for \textit{Mobiltelefoner}.
+This exact category was chosen at random just to get an idea of how one-time series might behave.
+The time series has a mean of 6453 hits and a standard deviation of 1881, which is
 around 30\% of the mean. This is quite a big variance in the dataset.
 
 % Mobiltelefon stats table
 \import{./tables/code_generated/data_exploration/}{Mobiltelefon_statistics.tex}
+
+It is interesting to see how many categories receive zero values and undefined values each day.
+A zero value count in this context means how many days a given category has gotten 0 hits, but it has gotten some clicks.
+A NaN value in this context means that the given category has gotten 0 clicks and 0 hits on the given day.
+\autoref{fig:category_0_and_NaN_values} shows a lineplot of the different distributions.
+In general, relatively few categories have 0-values. 
+Some of the first categories created, the ones with id 0-500 there are some days with 0 interest.
+However, the vast majority of categories has at least 1 click and 1 hit each day.
+Categories with id above 10000 start to see a lot more zero values.
+The most likely explanation for this is that these categories are created at a later point in time.
+The steadily growing line at the end of \autoref{fig:category_NaN_values} near id 12000 supports this theory.
+\begin{figure}[h!]
+  \centering
+  \caption{Counting how many categories have days with 0 hits or NaN values}
+  \label{fig:category_0_and_NaN_values}
+  \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_0_values.png}
+      \hfill
+      \caption{0-values}
+      \label{fig:category_0_values}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_NaN_values.png}
+      \hfill
+      \caption{NaN-values}
+      \label{fig:category_NaN_values}
+  \end{subfigure}
+\end{figure}
+
 
 
 \begin{figure}[h!]
