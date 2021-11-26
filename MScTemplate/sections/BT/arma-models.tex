@@ -1,7 +1,8 @@
 
 \subsubsection{ARMA}
-Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time series prediction. It is one of the most commonly used methods for univariate time series forecasting [SOURCE]
-ARMA $ARMA(p, q)$is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
+Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time series prediction. It is one of the most commonly used methods for univariate time series forecasting [SOURCE].
+\textit{ARMA}$(p, q)$ is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
+\todo[inline]{Add source!}
 
 The $AR(p)$ model is built on the assumption that the value of a given time series $y_n$ can be estimated using a linear combination
 of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$ as seen in \autoref{eq:arma_ar(p)} \cite{Box2016}.
@@ -19,7 +20,7 @@ The second part $MA(q)$ uses the past errors in a similar fasion \autoref{eq_arm
 \end{equation}
 Here $\mu$ represents the mean of observations. $q$ is the order of the model. $\theta_i, \forall i \in \{1, ..., q\}$ represents the parameters of the model.
 
-Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \autoref{eq_arma_ma(q)} we get the $ARMA(p,q)$ model in \autoref{eq:arma}.
+Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \autoref{eq_arma_ma(q)} we get the \textit{ARMA}$(p,q)$ model in \autoref{eq:arma}.
 
 \begin{equation}
     \label{eq:arma}
@@ -44,8 +45,9 @@ differences required to make the series stationary.
 
 The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
 of the season.
-$s$ is dependent on $P$ and $Q$ which are equal to $q$ and $q$ but for the seasonal component.
+$s$ is dependent on $P$ and $Q$ which are equal to $p$ and $q$ but for the seasonal component.
 $D$ is the number of differences required to remove seasonality from the series.
 % Is it correct that it is equal to q and q? Should both be q?
 
-The combination of all these parts is the SARIMA model $SARIMA(p, d, q)(P, D, Q, s)$
+The combination of all these parts is the SARIMA model,
+$SARIMA(p, d, q)(P, D, Q, s)$.
