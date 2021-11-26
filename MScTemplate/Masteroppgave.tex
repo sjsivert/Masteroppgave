@@ -25,6 +25,8 @@
 \usepackage{pdfpages}
 % For table \toprule, improved version of \hline
 \usepackage{booktabs}
+% To get \text{} within math mode
+\usepackage{amsmath}
 
 % B5 (uncomment to convert to B5 format)
  \geometry{b5paper}
@@ -36,6 +38,11 @@
 \newcommand{\thesisType}{master project}
 \newcommand{\thesisDate}{Fall 2021}
 
+% Inspiration take from https://tex.stackexchange.com/questions/95838/how-to-write-a-perfect-equation-parameters-description
+%\newenvironment{conditions*}
+%  {\par\vspace{\abovedisplayskip}\noindent
+%   \tabularx{\columnwidth}{>{$}l<{$} @{${}={}$} >{\raggedright\arraybackslash}X}}
+%  {\endtabularx\par\vspace{\belowdisplayskip}}
 % PDF info
 \hypersetup{pdfauthor={\thesisAuthor}}
 \hypersetup{pdftitle={\thesisTitle}}
@@ -66,21 +73,21 @@
 
 %Title page (This is generate automatically from the commands above)
 \begin{titlepage}
-    \noindent {\large \textbf{\thesisAuthor}}
-    \vspace{2cm}
+  \noindent {\large \textbf{\thesisAuthor}}
+  \vspace{2cm}
 
-    \noindent {\Huge \thesisTitle}
-    \vspace{2cm}
+  \noindent {\Huge \thesisTitle}
+  \vspace{2cm}
 
-    \noindent \thesisType, \thesisDate
-    \vspace{2cm}
+  \noindent \thesisType, \thesisDate
+  \vspace{2cm}
 
-    \noindent Artificial Intelligence Group\\ Department of Computer and Information Science\\ Faculty of Information Technology, Mathematics and Electrical Engineering\\
+  \noindent Artificial Intelligence Group\\ Department of Computer and Information Science\\ Faculty of Information Technology, Mathematics and Electrical Engineering\\
 
-    \vfill
-    \begin{center}
-        \includegraphics[width=3cm]{figs/NTNUlogo.pdf}
-    \end{center}
+  \vfill
+  \begin{center}
+    \includegraphics[width=3cm]{figs/NTNUlogo.pdf}
+  \end{center}
 \end{titlepage}
 
 \thispagestyle{empty}
