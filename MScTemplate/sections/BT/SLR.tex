@@ -12,7 +12,7 @@ This section will briefly describe our process, deviations from the process,
 and changes made during the process.
 
 \subsection{Step 1: Idendification of research}
-In order to retrieve all relevant literature to the topic, we defined our
+In order to retrieve all relevant literature on the topic at hand, we defined our
 research questions and terms.
 
 We included the most known search engines as our sources:
@@ -30,7 +30,7 @@ Google Scholar
 Our search terms are listen in \autoref{tab:search-terms-table-1} and \autoref{tab:search-terms-table-2}.
 We used a Notion database to keep track of all the papers. The whole database is available here: \cite{slrdatabase}.
 %[\href{https://northern-leech-f32.notion.site/Academic-Writing-ca43d0467e5c40149343d8a85136290f}{Notion SRL database}].
-We used another Notion Database to keep track of our searches, and track where how we found each Research Paper
+We used another Notion Database to keep track of our searches and track where how we found each Research Paper
 \cite{searchtermtable}
 
 Our method for adding literature to the Notion database was:
@@ -46,15 +46,16 @@ Our method for adding literature to the Notion database was:
 \subsubsection{Devations}
 We did end up with some deviations to the algorithm above.
 Some papers we found by accident when researching the topic. 
-They were seemed too important to not add, but they were too general of it to be worth
-a change to our search terms without including a big set of non-relevant papers.
-All papers found by accident was also added with a search term table row documenting 
-how the paper was found.
+They were deemed too important not to add.
+Their search terms were too general for us to consider adding to the search terms without including several other non-relevant papers.
+All papers found by accident were similarly linked with a search term table row documenting 
+how the paper was discovered.
 
-Some of the best papers we found referenced some really good papers. These were also 
-added to Notion.
+Some of the best papers we found through the structured review contained references to other relevant papers,
+some of which were of high enough quality to add to our list of sources.
+These were also added to Notion.
 
-The term \textit{Anomaly detection} was removed (11.10.2021) as a term after our goals shifted away from anomaly detection and towards prediction.
+The term \textit{Anomaly detection} was removed (11.10.2021) as a search term after our goals shifted away from anomaly detection and towards time series prediction.
 This change was documented in our \textit{Decision Matrix}, which is publicly available here:
 \cite{decisionmatrix}.
 
@@ -85,9 +86,9 @@ Term 3& &&\\ \hline
 \end{table}%
 
 \subsection{Filtering by Title and Abstract}
-Working with 6 different sources and using a manual but orderly template for processing papers,
-we decided to do the rough filtering while searching for papers in order to avoid adding too many irrelevant
-papers to our Notion database, and saving time.
+Working with 6 different sources and using a manual but an orderly template for processing papers,
+we decided to do the rough filtering while searching for papers in order to avoid adding a vast amount of irrelevant
+papers to our Notion database, thus saving time.
 
 In order to filter out papers we had three inclusion criteria (IC).
 \begin{description}
@@ -95,50 +96,49 @@ In order to filter out papers we had three inclusion criteria (IC).
     \item[IC2] The studies should not be older than from 2015.
     \item[IC3] The study focus on CNN, autoencoder or LSTM. Or a statistical method.
 \end{description}
-IC1 is to exclude all papers that are not relevant to our goal, such astime series classification and anomaly detection.
-We added IC2 because we had to scope down the amount of papers to read.
-%Also time series prediction 
-%using neural networks really had a boom after 2015. 
-After our initial research on the topic at hand. We found very few relevant papers from before 2015.
-In order to limit the research scope because of time limitations, we added this criteria.
-However some exceptions to this inclusion criteria was made,
-when papers we found referenced papers before 2015.
-IC3 was added to keep the papers within our defined scope of methods. 12.10.2021 we added "Or a statistical method"
+IC1 excludes papers with a topic not relevant to our goal, such as time series classification and anomaly detection.
+IC2 was then added to reduce the number of relevant papers, thus reducing the scope of the structured literature review.
+Through initial research on the topic of time series prediction, we found few relevant papers from before 2015.
+Newer research was usually more relevant due to the more modern approaches applied, and thus this criterion was introduced.
+However, a small number of relevant papers published prior to 2015 were found to have relevance, and an exception was made for these papers.
+Lastly, IC3 was added to keep the papers within our defined scope of methods. 12.10.2021 we added "Or a statistical method"
 to IC3 \citep{decisionmatrix}.
 
 Each Inclusion criteria passed gave the paper a maximum of 1 point. For IC3, if the paper just covered one of the 
 four listed methods, it would get 0.25 points. If a paper scored 0 points on either of the Inclusion Criterias then
 it would be filtered out.
 
-After this step we had 55 papers listed.
+After filtering through the use of the inclusion criteria, we were left with 55 papers.
+\todo[inline]{Stemmer dette?}
 
 \subsection{Quality Assessment}
-In the final filtering stage the goal is to asses the quality of the work. This was done using a set of 
+In the final stage of filtering, the goal is to assess the quality of the work.
+This was done using a set of quality criteria for further screening. 
 %Quality Criteria (QC) which is taken from \cite{AndersKofod-Petersen2018}.
-\todo[]{Fix itemize breaking compile}
 \begin{itemize}
     \item QC 1	The study abstract is concise and describes the aim and results of the study.
     \item QC 2	The publisher of the paper / study is a respectable scientific source.
-    \item QC 3	Is there is a clear statement of the aim of the research?
-    \item QC 4	Is the study is put into context of other studies and research?
+    \item QC 3	Is there a clear statement of the aim of the research?
+    \item QC 4	Is the study put into the context of other studies and research?
     \item QC 5	Are system or algorithmic design decisions justified?
     \item QC 6	Is the test data set reproducible?
-    \item QC 8	Is the experimental procedure throughly explained and reproducible?
+    \item QC 8	Is the experimental procedure thoroughly explained and reproducible?
     \item QC 9	Is it clearly stated in the study which other algorithms the studys algorithms have been compared with?
     \item QC 10	Are the performance metrics used in the study explained and justified?
-    \item QC 11	Are the test results thoroughly analysed?
+    \item QC 11	Are the test results thoroughly analyzed?
     \item QC 12 Does the test evidence support the findings presented?
 \end{itemize}
 
-The criteria was used with a scoring system. Yes (1 point), to some degree (0.5 points), and no(0 points).
-The maximum possible sum from the Quality Assesment is 12. Adding the points from Inclusion Criteria 
+The criteria is used with a scoring system.
+Yes (1 point), to some degree (0.5 points), and no(0 points).
+The maximum possible sum from the Quality Assessment is 12. Adding the points from Inclusion Criteria 
 increases the maximum possible sum to 15.
 
 \todo[inline]{Add table of included papers from Notion}
 The quality assessment resulted in a score range of [7.33, 15]. All papers below 7 were filtered out before 
-the Quality Assesmment stage. 
+the Quality Assessment.
 The overall list is public at this URL \cite{SLR-cutoff}.
 In order to limit the scope of papers and ensure the quality of the selected, a threshold of minimum 10 points
 was set for a paper to be included.
 
-The final list of encluded papers had a size of 23.
+The final list of included papers contain 23 papers.
