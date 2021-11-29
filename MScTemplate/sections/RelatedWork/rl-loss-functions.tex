@@ -4,19 +4,19 @@
 
 The loss function is critical in order to assess the error of a deep learning model.
 Different loss functions, such as those defined in \ref{section:BT:Loss},
-are commonly used as a preformance metric in artificial inteligence.
-Dependent on the application of the machine learning problem, different loss functions suite different usecases.
+are commonly used as a performance metric in artificial intelligence.
+Dependent on the application of the machine learning problem, different loss functions suit different use-cases.
 
-In order to find a fitting loss function for our problem, we need to assess other loss funtions as well.
-This section will focus on a few specialized loss functions, spesificaly designed to work well with extreme values, such as thos we might incounter in our problem.
+In order to find a proper loss function for our problem, we need to assess other loss functions as well.
+This section will focus on a few specialized loss functions specifically designed to work well with extreme values, such as those we might encounter in our problem.
 
 \subsection{DILATE}
 
 % Time and shape distortion
 Both MAE and MSE are proven to be robust loss functions for regular regression problems,
-but a paper published by \citeauthor{Guen2019} highligts some problems when the shape of the target function matters
+but a paper published by \citeauthor{Guen2019} highlights some problems when the shape of the target function matters
 such as in time series.
-\autoref{fig:dilate} shows three different fits to the same target function, that all have
+\autoref{fig:dilate} shows three different fits to the same target function that all have
 the same MSE error.
 
 \begin{figure}[h!]
@@ -47,41 +47,41 @@ the same MSE error.
   \label{fig:dilate}
 \end{figure}
 
-In order to battle this problem they introduce a new loss function they call 
+In order to correct this problem, a new loss function is introduced, named 
 \textbf{DILATE (Distrortion Loss including Shape and Time)} \cite{Guen2019}.
-DILATE uses a Neural Network instead of a mathematical function. 
-It aims at accurately predicting sudden chanes, and explicitly incorporates two terms
+DILATE utilize a Neural Network method as an alternative to a mathematical function. 
+It aims to accurately predict sudden changes and explicitly incorporates two terms
 supporting precise shape and temporal change detection.
 
 The paper concludes that DILATE is comparable to the standard MSE loss when evaluated on MSE,
 and far better when evaluated on time and shape metrics.
 
-The DILATE loss function does seem promising for our problem. Predicting anomalies and their behavior
-is both a time-sensitive and shape-sensitive problem. However adding another neural network as a loss function
-might complicate an already complicated model even further.
-If we have enough data to train such a complicated model remains to be seen. 
-
+The DILATE loss function does seem promising for the e-commerce problem space.
+Predicting anomalies and their behavior is both a time-sensitive and shape-sensitive problem.
+However, adding another neural network as a loss function could complicate an already complicated model even further.
+Whether such a loss function is favorable to a standard loss function within the e-commerce domain remains to be seen,
+but this is a problem space that could be favorable to explore further.
 
 % Extreme value loss functions
 \subsection{EVL}
-\citeauthor{Ding2019} wrote a paper in 2019 regarding modern deep learning methods and their
-weak performance when applied to real world time series, because their inability to predict extreme values.
+\citeauthor{Ding2019} explores, in a 2019 paper, the weak performance of deep learning methods on real-world problems.
+The inability of the methods to predict extreme values is presented as the leading argument for this.
+This is argued as a result of the quadratic loss in the MSE loss function.
 
-Their deduction of why modern methods are unsatisfactory is bevause of the quadratic loss in 
-the MSE loss function.
-They take inspiration from \textit{Extreme Value Theory}, and develops a new kind of loss function
-which they call \textbf{Extreme Value Loss (EVL)}.
-They employ a memory network in order to memorize extreme events in historical records.
+Taking inspiration from \textit{Extreme Value Theory} a new loss function is proposed.
+The loss function, \textbf{Extreme Value Loss (EVL)},
+employs a memory network in order to memorize extreme events in historical records.
 
-\autoref{fig:evl} show two fitted time series from the papers results. They conclude
-that the method is superior to state-of-the-art methods in extreme event detection, and 
+\autoref{fig:evl} show two fitted time series from the results of the paper. They conclude
+that the method is superior to the state-of-the-art methods in extreme event detection, and 
 in time series prediction.
 
-This loss function seem to capture our need to predict anomalies.
-It does however has a few drawbacks. Mainly it that is complicates our model, and it needs training data for it's memory network. 
-Which in our case is currently missing. 
-
-\todo{Skrive litt mer detaljert om dette?}
+This loss function appears to address the predictive problem of forecasting anomalies,
+something that could prove very useful.
+It does, however, have a few drawbacks.
+The increased complexity of the loss function would increase the computational complexity of a predictive framework.
+Additionally, additional training data is needed for the training of the memory network,
+making it less applicable in cases where there is not an abundance of data.
 
 \begin{figure}[h!]
   \centering
