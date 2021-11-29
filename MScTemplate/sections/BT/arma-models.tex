@@ -1,5 +1,6 @@
 
 \subsubsection{ARMA}
+
 Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time series prediction. It is one of the most commonly used methods for univariate time series forecasting [SOURCE].
 \textit{ARMA}$(p, q)$ is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
 \todo[inline]{Add source!}
@@ -26,6 +27,8 @@ Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \au
     \label{eq:arma}
     y_n = c + \sum_{i=1}^{p} \phi_i y_{n-1 + \epsilon_n} + \mu + \sum_{i=1}^{p} \theta_i \epsilon_{n-1} + \epsilon_n
 \end{equation}
+
+
 
 \subsubsection{SARIMA}
 SARIMA is an extension to ARMA model that supports the direct modeling of a seasonal component and incorporates a parameter $d$
