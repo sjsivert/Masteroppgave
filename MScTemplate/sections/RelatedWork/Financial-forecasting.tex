@@ -1,34 +1,37 @@
 \section{Forecasting E-commerce}
 \label{section:RelatedWork:forecasting-ecommerce}
-User click rate on consumer e-commerce goods is a really narrow domain,
-and we are unable to find any research that has yet been done on this particular field.
-However one can argue that user interest in consumer goods follows the same distribution
+
+User click rate on consumer e-commerce goods is a narrow domain,
+and we are unable to find any research that has yet been done within this particular field.
+However, one can argue that user interest in consumer goods follows the same distribution
 as online retail sales.
 Both domains will have the same seasonality with weekly and yearly periodic fluctuations.
 Additionally, the domains contain the same kind of products and categories.
 Both domains are dictated by the same external factors, such as media, commercials, 
 and trends.
-Forecasting retail sales should translate well to e-commerce klicks.
+Forecasting retail sales should translate well to e-commerce click rate.
 
 
 \cite{Ramos2015} did a comparative study on exponential smoothing methods
 based on state-space models such as ETS and ARIMA.
 The aim was to measure the forecasting performance of the two modeling frameworks
 when applied to retail sales data of five different categories,
-containing univariate time series regarding sales of womans footware.
+containing univariate time series regarding sales of womans footwear.
 The domain proved difficult due to strong trends and seasonal patterns.
 
 % What are their results?
-The models forecasting ability were evaluated through the loss functions RMSE, MAE and MAPE.
-Both ETS and ARIMA achieved quite similar results with both one-step and multi-step forecastign.
+The models forecasting ability were evaluated through the loss functions RMSE, MAE, and MAPE.
+Both ETS and ARIMA achieved quite similar results with both one-step and multi-step forecasting.
 Multi-step forecasts are generally more accurate.
-This is because it is able to incorporate information that is more up to date.
-When an automatic algorithm is applied to the overall out-of-sample
-forecasting the ARIMA models does not achieve better results than the ETS models.
-Neither of the models is best for all circumstances.
-Each timeseries would need identify a appropriate ARIMA model.
-With differing data, identifying models would require data analysis of the different time series.
-Transformations for variance stabilization, as well as making unit-root tests to select the decrees of differnecing in order to achieve stationarity.
+This is because it is able to incorporate information that is more up-to-date.
+When an automatic algorithm is applied to the overall out-of-sample forecasting,
+the ARIMA models do not achieve better results than the ETS models.
+Neither model is best suited for all circumstances.
+Each time series would need to identify an appropriate ARIMA model.
+With differing data, identifying models would require data analysis of all the different time series.
+% - No clue what this attempts to say, so if it does not contribute enough, it is removed
+%Transformations for variance stabilization, as well as making unit-root tests, would be needed to select the degrees of differnecing in order to achieve stationarity.
+\todo[inline]{A sentence is commented out. Evaluate if it should be added.}
 
 
 %% What are they doing?
@@ -41,9 +44,10 @@ Transformations for variance stabilization, as well as making unit-root tests to
 %from the Portuguese retailer Foreva.
 
 
-\cite{Chu2003} showed that winters exponential smoothing and ARIMA perform well when macro-economic
+\cite{Chu2003} showed that Holt-Winters exponential smoothing and ARIMA perform well when macro-economic
 conditions are relatively stable. However, when economic conditions are volatile
-ANNs outperform linear methods and multi-step regression is preferred.
+ANNs outperform linear methods.
+Multi-step regression is preferred.
 
 % Skrive om. Finne kilde
 %\todo[]{Bør ligge under en seksjon med preprossesering?}
@@ -68,29 +72,30 @@ ANNs outperform linear methods and multi-step regression is preferred.
 % This will more or less be what i though motivation was going to become!
 % Thus; Se Motivation_prev.tex for reference
 
-\cite{Weng2020} writes that ARIMA, SARIMA and Holt Winter's
+\cite{Weng2020} writes that ARIMA, SARIMA and Holt-Winter's
 Exponential Smoothing model etc. are inconsistent with the actual changes in the sales
-of retail stores and usually the results are unstable due to their in-applicability
+of retail stores.
+Therefore the results are usually unstable due to their in-applicability
 in the processing of nonlinear relationships.
-However statistical methods have the advantage of interpretability.
+However, statistical methods have the advantage of interpretability.
 \cite{Bowen2020} wanted to use machine learning to maintain
 the trade-off between interpretability and consistency with actual
-changes of retail sales.
-To solve this they tried two new machine learning models.
+changes in retail sales.
+Two new machine learning models were applied in order to solve this.
 \todo[]{Need reference to XGB model}
-One called LightGBM which is a further optimization of the XGB model.
+LightGBM, an ensemble learning method, which is a further optimization of the XGB model.
 And one model called Prophet \citep{Zunic2020}.
 
 % What results did they get?
-The study finds that traditional models such as ARIMA has trouble forecasting
-because the fast moving domain of consumer retail buying patterns and 
-their connection to external factors, such as holdays and price changes.
-The machine learning models performed better, with smaller prediction errors
+The study finds that traditional models such as ARIMA have trouble forecasting
+due to the fast-moving domain of consumer retail buying patterns.
+Additionally, their connection to external factors,
+such as holidays and price changes, increases the complexity further.
+The machine learning models performed better, with lower predictive error
 and good interpretability.
-However the LightGDM model outperformed the Prophet model because the prophet
+However, the LightGDM model outperformed the Prophet model because of the prophet
 models limitation to univariate time series.
 
-\todo[inline]{This whole section is lacking in drøfting og refleksjoner}
 
 % What do they do?
 %Using the machine learning model lightGBM to predict Walmart supermarket sales
@@ -104,39 +109,49 @@ models limitation to univariate time series.
 %trade-off between interpretation and consistency with actual changes of retail sales.
 
 The best example of related work we could find on our domain was 
-\cite{Bandara2019}
+\cite{Bandara2019}.
 % What did they do?
 They generate an accurate E-commerce sales forecasting model using LSTM  Neural Network.
-They pool similar time series into clusters and train a univariate, global model on each of these 
-clusters.
+They pool similar time series into clusters and train univariate, global models on each cluster.
 % Why did they do it?
-They wanted to improve E-commerce sales forecasting by 
-exploiting sales correlations and relationships available in an E-commerce hierarchyeploit sales correlations and relationships available in an E-commerce hierarchy.
+The aim was to improve E-commerce sales forecasting by exploiting sales correlations and relationships
+available in an E-commerce hierarchy.
 
-Of data preprocessing they used a forward-filling strategy to impute missing sales
-observations in the dataset. They normalized the data to accomodate the high
-sales volume ranges. They used the mean of the sales of a product as the scaling factor.
+Data preprocessing was done using a forward-filling strategy to impute missing sales
+observations in the dataset.
+The data was then normalized to accommodate the high sales volume ranges.
+They then used the mean of the sales of a product as the scaling factor.
 
-They tried to approaches for grouping. One based on domain knowledge.
-They used the sales ranking and the percentage of zero sales as primary business metrics
-to form groups of products. Group 1 represents their most popular products (67\% of sales), group 2 represents
-their more unpopular products (33\% of sales) and group 3 represents the rest.
+Two approaches to groupings were explored.
+The first approach was based on domain knowledge.
+Sales ranking and the percentage of zero sales were used as the primary business metrics
+to form groups of products.
+Group 1 represents their most popular products (67\% of sales), group 2 represents
+their more unpopular products (33\% of sales), and group 3 represents the rest.
 
-The second approach was based on time series clustering, where they performed K-means
-clustering on a set of time series features to identify groupings. The first two features
-were business specific features, namly sales.quantile and zero.sales.percentage.
-The rest of the features were time series specific.
+The second approach was based on time series clustering.
+K-means clustering was used on a set of time-series features to identify groupings.
+The first two features were business-specific features, namely "sales.quantile" and "zero.sales.percentage".
+The rest of the features were time-series specific.
 %They extracted features with the \textit{tsfeatures} package.
-They also did a silhouette analysis to determine the optimal number of clusters in the K-means algorithm.
+A silhouette analysis was utilized to determine the optimal number of clusters in the K-means algorithm.
 
  % What results did they get?
-Their results outperformed the state-of-the-art univariate forecasting techniques.
-They conclude that E-commerce product hierarchies contani various cross-product demand
-patterns and correlations. Exploiting these relationships are necessary to improve the sales forecasting
+The results outperformed the state-of-the-art univariate forecasting techniques.
+Thereby concluding that E-commerce product hierarchies contain various cross-product demand
+patterns and correlations.
+Exploiting these relationships are necessary to improve the sales forecasting
 accuracy in this domain.
 
-The \cite{Bandara2019} differ from our situation in the sense that they model
-induvidual product interests. The authors example of related time series are how
+With the effort to advance the predictive capabilities of models in e-commerce,
+previous work done within the problem space is highly relevant as a starting point.
+This shows what has already been accomplished and what new methods have not yet been attempted.
+
+
+\iffalse
+% ---- Litt rotete og hører mer hjemme i diskusjons biten
+The \cite{Bandara2019} differ from our situation in the sense that individual product interests are modeled.
+The authors example of related time series are how
 all subcategories under the genre fictional books will follow similar patterns.
 
 We are interested in the category level, and will pool the interests of all products under
@@ -147,3 +162,4 @@ but interests in these products will be generated from two different processes, 
 use case are different.
 Even though we can not use the same assumptions on our domain, their results are still relevant
 for our work.
+\fi
