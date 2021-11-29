@@ -14,13 +14,13 @@ research questions and terms.
 We included the most known search engines as our sources:
 
 \textit{
-ACM digital library,
-IEEE Xplore,
-ISI web of knowledge,
-ScienceDirect,
-CiteSeer,
-SpringerLink and,
-Google Scholar
+    ACM digital library,
+    IEEE Xplore,
+    ISI web of knowledge,
+    ScienceDirect,
+    CiteSeer,
+    SpringerLink and,
+    Google Scholar
 }
 
 Our search terms are listen in \autoref{tab:search-terms-table-1} and \autoref{tab:search-terms-table-2}.
@@ -41,10 +41,10 @@ Our method for adding literature to the Notion database was:
 
 \subsubsection{Devations}
 We did end up with some deviations to the algorithm above.
-Some papers we found by accident when researching the topic. 
+Some papers we found by accident when researching the topic.
 They were deemed too important not to add.
 Their search terms were too general for us to consider adding to the search terms without including several other non-relevant papers.
-All papers found by accident were similarly linked with a search term table row documenting 
+All papers found by accident were similarly linked with a search term table row documenting
 how the paper was discovered.
 
 Some of the best papers we found through the structured review contained references to other relevant papers,
@@ -55,34 +55,33 @@ The term \textit{Anomaly detection} was removed (11.10.2021) as a search term af
 This change was documented in our \textit{Decision Matrix}, which is publicly available here:
 \cite{decisionmatrix}.
 
-\begin{table}[htbp]
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|}\hline\hline
-Name&Group 1&Group 2&Group 3\\ \hline
-Term 1&CNN&\sout{Anomaly detection}&Autoencoder\\ \hline
-Term 2&Convolution Neural Networks&\sout{Extreme values}&Encoder Decoder networks\\ \hline
-Term 3&&\sout{Outliers}&  \\ \hline
-        \end{tabular}
-        \caption{Search Terms table 1}
-        \label{tab:search-terms-table-1}
-    \end{center}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}\hline\hline
+        Name   & Group 1                     & Group 2                  & Group 3                  \\ \hline
+        Term 1 & CNN                         & \sout{Anomaly detection} & Autoencoder              \\ \hline
+        Term 2 & Convolution Neural Networks & \sout{Extreme values}    & Encoder Decoder networks \\ \hline
+        Term 3 &                             & \sout{Outliers}          &                          \\ \hline
+    \end{tabular}
+    \caption{Search Terms table 1}
+    \label{tab:search-terms-table-1}
 \end{table}%
 
-\begin{table}[htbp]
+\begin{table}[h]
     \begin{center}
         \begin{tabular}{|c|c|c|c|}\hline\hline
-Name &Group 4&Group 5&Group 6 \\ \hline
-Term 1&Time series&LSTM&E-commerce \\ \hline
-Term 2 &&Long short term memory&Sales \\ \hline
-Term 3& &&\\ \hline 
+            Name   & Group 4     & Group 5                & Group 6    \\ \hline
+            Term 1 & Time series & LSTM                   & E-commerce \\ \hline
+            Term 2 &             & Long short term memory & Sales      \\ \hline
+            Term 3 &             &                        &            \\ \hline
         \end{tabular}
         \caption{Search Terms table 2}
-    \label{tab:search-terms-table-2}
+        \label{tab:search-terms-table-2}
     \end{center}
 \end{table}%
 
 \subsection{Filtering by Title and Abstract}
-Working with 6 different sources and using a manual but an orderly template for processing papers,
+Working with six different sources and using a manual but an orderly template for processing papers,
 we decided to do the rough filtering while searching for papers in order to avoid adding a vast amount of irrelevant
 papers to our Notion database, thus saving time.
 
@@ -100,17 +99,17 @@ However, a small number of relevant papers published prior to 2015 were found to
 Lastly, IC3 was added to keep the papers within our defined scope of methods. 12.10.2021 we added "Or a statistical method"
 to IC3 \citep{decisionmatrix}.
 
-Each Inclusion criteria passed gave the paper a maximum of 1 point. For IC3, if the paper just covered one of the 
+Each Inclusion criteria passed gave the paper a maximum of 1 point. For IC3, if the paper just covered one of the
 four listed methods, it would get 0.25 points. If a paper scored 0 points on either of the Inclusion Criterias then
 it would be filtered out.
 
 \subsection{Quality Assessment}
 In the final stage of filtering, the goal is to assess the quality of the work.
-This was done using a set of quality criteria for further screening. 
+This was done using a set of quality criteria for further screening.
 %Quality Criteria (QC) which is taken from \cite{AndersKofod-Petersen2018}.
 \begin{itemize}
     \item QC 1	The study abstract is concise and describes the aim and results of the study.
-    \item QC 2	The publisher of the paper / study is a respectable scientific source.
+    \item QC 2	The publisher of the paper/study is a reputable scientific source.
     \item QC 3	Is there a clear statement of the aim of the research?
     \item QC 4	Is the study put into the context of other studies and research?
     \item QC 5	Are system or algorithmic design decisions justified?
@@ -124,13 +123,13 @@ This was done using a set of quality criteria for further screening.
 
 The criteria are used with a scoring system.
 Yes (1 point), to some degree (0.5 points), and no(0 points).
-The maximum possible sum from the Quality Assessment is 12. Adding the points from Inclusion Criteria 
+The maximum possible sum from the Quality Assessment is 12. Adding the points from Inclusion Criteria
 increases the maximum possible sum to 15.
 
-\todo[inline]{Add table of included papers from Notion! Make sure the link is to a static page that can not be altered!}
-The quality assessment resulted in a score range of [7.33, 15]. All papers below 7 were filtered out before 
+The quality assessment resulted in a score range of [7.33, 15]. All papers below 7 were filtered out before
 the Quality Assessment.
-The overall list is public at this URL \cite{SLR-cutoff}.
+The overall list is public here [https://northern-leech-f32.notion.site/0565316ebb3944fcb2aae22527b7c376?v=51a2b4567aca405b92967f2312eeb15c]
+\cite{SLR-cutoff}.
 In order to limit the scope of papers and ensure the quality of the selected, a threshold of minimum 10 points
 was set for a paper to be included.
 

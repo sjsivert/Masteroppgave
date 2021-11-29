@@ -48,7 +48,7 @@ def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_
         multirow=True,
         multicolumn_format="c",
         # Dont know if this works yet
-        position="htbp",
+        position="h",
         )
     table_split = table_string.split("\n")
     table_join = "\n".join(table_split)
