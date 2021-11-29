@@ -19,7 +19,7 @@ Due to this, information is not stored for long in these memory cells, only reta
 %good at finding temporal relationship in data. For example, in a time series, wher
 %the next step is dependent on previous steps
 
-The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time series analysis and similar problems.
+The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time series analysis, and similar problems.
 In addition, the memory retained in the RNN makes it well suited to extract temporal relations in the data.
 
 \begin{figure}[h!]
@@ -46,14 +46,14 @@ One such model is the Long-Short Term Memory model (LSTM).
 The LSTM introduces a new memory cell, adding Long-term memory to the network.
 
 The LSTM memory cells are comprised of two vectors, one for long-term and one for short-term memory,
-as well as an input gate, output gate and a forget gate.
+as well as an input gate, output gate, and a forget gate.
 The forget gate allows for the memory cell to remove unneeded parts of the memory in order to replace it with new data from the input gate.
-The long-term memory therefore retains some of its information, while replacing other parts.
+The long-term memory retains some of its information while replacing other parts.
 
 The long-term memory of the LSTM enables it to solve the RNN problem of vanishing gradients.
-The long-term memory enables the LSTM to store data at arbitrary intervals, as well as detect long term dependencies in the data.
+The long-term memory enables the LSTM to store data at arbitrary intervals, as well as to detect long-term dependencies in the data.
 
-The LSTM, as the RNN, is well suited for working on series of data.
+The LSTM, as the RNN, is well suited for working on a series of data.
 The LSTM is able to analyze and predict long-term relations in a series of data, making it well suited for applications such as time series prediction or anomaly detection,
 as well as natural language processing and more.
 

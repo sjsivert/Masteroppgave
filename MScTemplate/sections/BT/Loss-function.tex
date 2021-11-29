@@ -6,9 +6,9 @@ $h(x)=\hat{y}$ when the correct answer is $f(x) = y$ and $h$ is the heuristic fu
 This is the most general formulation of the loss function. Often a simplified version is used,
 $L(y, \hat{y})$, that is independent of x.
 
-This means, that the loss function is the function that calculates the error between the
+This means that the loss function is the function that calculates the error between the
 models prediction, and the actual target value.
-This chapter will breafly give an explanation for common loss functions.
+This chapter will briefly give an explanation for common loss functions.
 
 
 \todo[inline]{Burde vi skrive litt mer på hvert avsnitt?}
@@ -16,10 +16,9 @@ This chapter will breafly give an explanation for common loss functions.
 % Common loss functions
 The most commonly used loss function for regression problem is the
 \textbf{Mean Squared Error (MSE)} function in \autoref{eq:mean-squared-error}.
-It is the mathematically preferred function if the target distribution is Guassian.
-It punishes large errors much more harshly than smaller errors, due to its squaring of the error.
-Here $e = y - \hat{y}$, where $y$ is the actual value and $\hat{y}$
-is the predicted value.
+It is the mathematically preferred function if the target distribution is Gaussian.
+It punishes large errors much more harshly than smaller errors due to its squaring of the error.
+Here $e = y - \hat{y}$, where $y$ is the actual value and $\hat{y}$ is the predicted value.
 
 \begin{equation}
   \label{eq:mean-squared-error}
@@ -38,8 +37,7 @@ as it does not punish the outliers too much.
 
 \subsubsection{MAPE}
 % TODO: Need source
-The Mean Absolute Percentage Error \autoref{eq:Mape} (MAPE)
-is a popular metric for evaluating forecasting perfomance.
+The Mean Absolute Percentage Error \autoref{eq:Mape} (MAPE) is a popular metric for evaluating forecasting performance.
 $y$ is the actual target value of the target we are trying to forecast, and $\hat{y}$ is the predicted value.
 $t$ is the time index.
 
@@ -51,23 +49,23 @@ A percentage scale is also easily explainable.
   SMAPE = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{(y_t)}
 \end{equation}
 
-A big shortcomming of MAPE is that it is undefined when the actual value $y$ is 0.
+A big shortcoming of MAPE is that it is undefined when the actual value $y$ is 0.
 It will also take extreme values if the value is close to 0.
 
-MAPE is also asymmetric, and puts a higher penalty on errors where the predicted
+MAPE is also asymmetric and puts a higher penalty on errors where the predicted
 $\hat{y}$ is higher than the actual value $y$.
 This is because as long as we are dealing with positive numbers,
 the highest bound for a low forecast is 100\%. But there is no upper limit
-for forecasts that are too high. As a result the error function will
+for forecasts that are too high. As a result, the error function will
 favor models that under-predict rather than over-predict a forecast.
 
 \subsubsection{SMAPE}
 Symmetric Mean Absolute Percentage Error (SMAPE) shown in \autoref{eq:sMape}
-is an error function made to overcome some of the shortcommings of MAPE.
+is an error function made to overcome some of the shortcomings of the MAPE function.
 By incorporating $\hat{y}$ to the denominator SMAPE is symmetrical,
-with both a lower bound of 0\% and a upper bound for 200\%.
+with both a lower bound of 0\% and an upper bound for 200\%.
 
-SMAPE is one of the most used perfomance measures, and is used in many forecasting competitions.
+SMAPE is one of the most used performance measures and is used in many forecasting competitions.
 
 SMAPE is still vulnerable to denominator values close to zero.
 \cite{Hewamalage2021} solves the zero problem by changing the denominator
@@ -85,7 +83,7 @@ constant for the denominator when the forecasting values are too small.
 
 \subsection{MASE}
 The Mean Absolute Scaled Error \textbf{MASE}
-proposed by \cite{Hyndman2006}, is scale free
+proposed by \cite{Hyndman2006}, is scale-free
 error metric that compares the predictions with
 the output to the Naive Forecast.
 
@@ -94,12 +92,12 @@ the output to the Naive Forecast.
   MASE = \frac{MAE}{MAE_{in-sample, naive}}
 \end{displaymath}
 where $MAE$ is the mean absolute error
-produced by the actial forecast and
+produced by the actual forecast and
 $MAE_{in-sample, naive} $
 is the mean absolute error produced by
 a naive forecast, calculated on the in-sample data.
 The naive forecast is predicting that the next
-time step is equal to the actual value of the current time-step.
+time step is equal to the actual value of the current time step.
 
 %\begin{displaymath}
 %  MAE_{naive} = \frac{1}{N-1} \sum_{t=2}^N |y_t - y_{t-1}|
@@ -134,14 +132,14 @@ The main difference is the denominator is MAE
 of the one-step seasonal naive forecast method on the training set.
 
 MASE is a scale-independent measure, which makes it
-a good choie for domains with multiple time series of
+a good choice for domains with multiple time series of
 different scales.
 
-MASE is normalised by the average in-sample one-step
+MASE is normalized by the average in-sample one-step
 seasonal forecast error. So a MASE value greater than
-1 indicates that the model testet is worse compared
+1 indicates that the model tested is worse compared
 to the naive benchmark.
-The closer the MASE error is to 0 the better the model.
+The closer the MASE error is to 0, the better the model.
 
 
 
