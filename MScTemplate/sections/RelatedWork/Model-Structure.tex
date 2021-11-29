@@ -10,7 +10,7 @@ This assumption will probably not hold water for all cases. People who buy shavi
 An alternative is to build a more complex model that looks at a bigger picture.
 This section will explore different state-of-the-art model structure approaches.
 
-% TODO: Introduksjon om model struktur...
+\todo[inline]{Rewrite this introduction!}
 
 % En sub-section for Univariate vs Multivariate tidligere arbeid
 
@@ -18,7 +18,7 @@ This section will explore different state-of-the-art model structure approaches.
 
 % En sub-section som fokuserer på diskusjon rundt de ulike kombinasjonene og hva som er relevant i vår oppgave / problemstilling
 \subsection{Global vs Local methods}
-On the topic of having to forecast many time series as a group \cite{Montero-Manso2021} paper has a good overview.
+On the topic of having to forecast many time series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
 The article points to two significant disadvantages for univariate time series on a cluster of series.
 The number one shortcoming is the sample size. The second is scalability.
 Scalability is a problem when you have a group of time series as each series requires a separate model
@@ -76,8 +76,7 @@ univariate time series. In the world of Big Data and lots of time series that co
 treating each time series separately and forecasting each in isolation might miss the big picture.
 The paper argues that the ability to make models that can be trained globally across all series
 holds a competitive advantage over models like ARIMA and ETS.
-A model like this would be a multi-input-multi-output model, which forecasts multiple time series
-at the same time.
+Such a model would simultaneously use multiple time series as input to predict future values for the time series.
 
 The paper \cite{Rabanser2020} has some good arguments when comparing univariate versus multivariate models.
 Both multivariate and global univariate methods work on groups of time series, but global methods
