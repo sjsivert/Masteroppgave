@@ -6,5 +6,6 @@ sklearn
 scipy
 wheel
 seaborn
-notebook-to-pdf
 statsmodels
+qbstyles
+dataenforce
