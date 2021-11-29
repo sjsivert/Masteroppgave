@@ -62,15 +62,15 @@ overfitting.
 
 % Should this be under multi vs univariate section?
 % Currently it does not have any references
-One last approach is to build a multivariate, multi-input-single output model which only forecasts a single product category
-at the time. The input to such a model might be a decomposition of the target time series. 
+One last approach is to build a multivariate model which only forecasts a single product category at the time.
+The input to such a model might be a decomposition of the target time series. 
 For example decomposing a time series into a component that show how the trend of the series behaves over time.
 One component for the cycles, and one for noise.
 Another option is to rely on external data sources which correlate with the target series.
 For example it is to be expected that if a product category group suddenly spikes in interest at Prisguiden.no,
 then a similar spike would happen at Google.
 Or bad weather might have an effect on interest rates at Prisguiden because people are inside on the computer more.
-Such a multi-input-single-output model can also have the additional benefit of being a global model.
+Such a method can also have the additional benefit of being a global model.
 This is exaclty what \cite{Laptev} did, and they achieved a promising result.
 
 To conclude it is unclear what the best model would be for our case.
