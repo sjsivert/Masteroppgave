@@ -9,3 +9,4 @@ seaborn
 statsmodels
 qbstyles
 dataenforce
+pyyaml

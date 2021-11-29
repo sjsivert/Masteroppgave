@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 #from qbstyles import mpl_style
 import pandas as pd
 
+# TODO: Replace with config value
 figure_save_location = "../MScTemplate/figs/code_generated/data_exploration/"
 def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
   """
@@ -24,6 +25,7 @@ def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
   return ax.get_figure().savefig(f"{figure_save_location}/{name}.png", bbox_inches='tight', facecolor='w', edgecolor='w')
 
 
+# TODO: Replace with config value
 table_save_location = "../MScTemplate/tables/code_generated/data_exploration/"
 def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_index=False) -> pd.DataFrame:
     """

@@ -1,0 +1,3 @@
+notebooks:
+  table_save_location: "../MScTemplate/tables/code_generated/data_exploration/"
+  figure_save_location: "../MScTemplate/figs/code_generated/data_exploration/"
