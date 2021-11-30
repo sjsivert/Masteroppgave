@@ -15,16 +15,9 @@ The ARIMA and BP models were applied to the problem, with the ARIMA outperformin
 However, by combining the two models, the hybrid model was able to achieve higher predictive accuracy than any of the two models on their own.
 This hybrid model is heavily based on the state-of-the-art statistical method of ARIMA.
 
-\todo[inline]{Removed. Too much discussion for RW}
-%As we have explored in \autoref{section:RelatedWork:Statistical-NN}, the introduction of more advanced neural networks often achieves better predictive results than the old state-of-the-art ARIMA model.
-%We, therefore, argue that it should make sense to look further into other hybrid models, utilizing these new and improved models.
-%By combining methods such as Convolution and Recurrent networks in a hybrid model, it should yield a better result than they would on their own.
+As we have explored in \autoref{section:RelatedWork:Statistical-NN}, the introduction of more advanced neural networks often achieves better predictive results than the old state-of-the-art ARIMA model.
+We, therefore, argue that it should make sense to look further into other hybrid models, exploring these new and improved models.
 
-% ARIMA-BP er en hybrid model som gir bedre resultater enn de enktelte delene alene. Gir et godt grunnlag for at hybrid modeller er bra!
-
-% TODO -> Refference to when LSTM or LSTM-Autoencoder works well!
-% TODO -> Discuss why it makes sense for a hybrid model!
-% TODO -> Make it more clear that LSTM is also explored in the Hybrid models, but it is not as well suited.
 
 %This combination of models is explored in a few different ways.
 The hybrid combination of different ANNs is explored by \cite{Khan2020}, which uses a CNN combined with an LSTM-Autoencoder.
@@ -45,19 +38,6 @@ Similar to the previously mentioned method, this "CNN-AE LSTM" hybrid method is 
 The proposed method outperforms methods such as LSTM, ARIMA, and SVR, achieving a much lower predictive error than the other methods.
 
 
-\todo[inline]{Removed, is this discussed in Discussion?}
-%\ref{section:RelatedWork:Statistical-NN} explores the predictive ability of statistical methods in comparison to deep learning methods.
-%This section discusses how deep learning methods such as LSTM and Convolution work well in order to predict in cases where there is enough data.
-%Thus, the usage of deep learning methods such as LSTM and Convolution is to be preferred when enough data is attained.
-%The proposed hybrid frameworks outperform deep learning methods such as LSTM.
-%With this in mind, it is clear that a hybrid method should be well suited in applications with enough data.
-%A hybrid framework has already been shown to exceed the predictive capabilities of its individual parts.
-%This was done with the ARIMA-BP model explored in \cite{Bowen2020}, showing that the connected hybrid method performed better than the ARIMA or BP models could on their own.
-%\cite{Zhao2019} also concludes with this, achieving much lower predictive error with the propsed method in comparsion to a pure LSTM network.
-
-% TODO -> Ser ikke helt vitsen med denne seksjonen annet enn å legge til flere kilder
-% https://dl.acm.org/doi/10.1145/3460179.3460184
-% https://ieeexplore.ieee.org/document/8947933
 Other methods attempting to improve predictive forecasting have also shown promising results.
 Frameworks such as with the proposed AE-LSTM from \cite{VanHoa2021} have shown the use of an autoencoder to increase the accuracy of the predictions over a basic LSTM method.
 This paper focuses on foreign exchange rate forecasting and shows the increased accuracy achieved using an Autoencoder and LSTM over a basic CNN or LSTM network.
@@ -65,7 +45,10 @@ Similarly, \cite{Zhang2020} uses a Gated Dialated Causal Convolutional Encoder-D
 It shows the decrease in predictive error with an advanced Convolutional Autoencoder compared to a more simple deep learning method like an LSTM.
 
 The literature seems to favor a more complex hybrid ANN over a simpler network.
-\todo[inline]{Removed}
+
+
+% \todo[inline]{Add discussion of the referenced methods?}
+% ---- Removed ---- 
 %With this in mind, we should consider more complex models than basic LSTM and CNN networks to increase predictive accuracy.
 %Based on this, we propose that a hybrid model would achieve higher predictive accuracy than the individual parts that it is comprised of.
 %Despite the LSTM beeing a well suited method for forecsating prioblems, it is clear that it can be improved upon in several different ways.
@@ -81,10 +64,3 @@ The literature seems to favor a more complex hybrid ANN over a simpler network.
   By then adding a LSTM network at the end, the model should be able to extract the temoral featrues from the data.
   This hybrid framework should therefore be well suited for the task at hand.
 \fi
-
-
-%The proposed methods for hybrid networks using CNN, Autoencoder and LSTM, has shown to excide the predicite capabilities of methods such as ARIMA and LSTM.
-
-% TODO: Jeg savner kilder til papers som har fått til time series forecasting med 
-% LSTM, og med autoencoder, og CNN så kan vi dra argumentet at alle sammen 
-% bare må bli enda bedre!
