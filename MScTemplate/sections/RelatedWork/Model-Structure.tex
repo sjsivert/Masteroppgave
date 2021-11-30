@@ -9,7 +9,7 @@ people who buy shaving cream probably also buy a razer, as shaving cream will no
 An alternative is to build a more complex model that looks at a bigger picture.
 This section will explore different state-of-the-art model structure approaches.
 
-\subsection{Global vs Local methods}
+\subsection{Global versus Local methods}
 On the topic of having to forecast many time series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
 The article points to two significant disadvantages for univariate time series on a cluster of series.
 The number one shortcoming is the sample size. The second is scalability.
@@ -33,10 +33,10 @@ from Walmart.com.
 They argue that when building global models for a time-series database, the models are
 potentially trained across disparate series, which may be detrimental to the overall accuracy.
 They suggest building separate models for subgroups of time series.
-These groups can be based on domain knowledge, which proved to be the best option. With absence of
-domain knowledge they propose an automatic grouping mechanism to cluster series togheter.
-Their method achieves consistent improvements over a the baseline LSTM model.
-And conclude that expoiting similarities of multiple time series in one model is a competitiv method.
+These groups can be based on domain knowledge, which proved to be the best option. With the absence of
+domain knowledge, they propose an automatic grouping mechanism to cluster series together.
+Their method achieves consistent improvements over the baseline LSTM model.
+And conclude that exploiting similarities of multiple time series in one model is a competitive method.
 
 %The paper tests their model on two competition datasets, and achieves competitive results.
 %On the CIF2016 dataset, the model outperforms all other models.
@@ -47,8 +47,8 @@ And conclude that expoiting similarities of multiple time series in one model is
 
 %As recent studies show puzzlingly good performance of time series that cannot be considered related.
 
-\cite{Rabanser2020} show that even if the strong assumption that the same process generates all the time series analysed by a global
-method is false, the global method will pay off in forecasting accuracy.
+\cite{Rabanser2020} show that even if the strong assumption that the same process generates all the time series analyzed by a global
+the method is false; the global method will pay off in forecasting accuracy.
 The paper argues that global and local methods for forecasting
 sets of time series are equally general. The global method is neither restrictive nor requires
 similarity or relatedness in the set.
@@ -86,8 +86,7 @@ Forecasting in such a context may require a multivariate model.
 \cite{Laptev}
 Wanted to make a single time series model to
 accurately make time series predictions during special events.
-Extreme event prediction depends on numerous external factors,
-that can include weather, city population growth or marketing
+Extreme event prediction depends on numerous external factors, including weather, city population growth, or marketing
 changes.
 They propose a global, multivariate, autoencoder, LSTM network.
 Their results are promising. They outperform their existing
@@ -97,7 +96,7 @@ but then testing it on the public M3 dataset, where they achieve an above-averag
 % Discussion
 In \cite{Laptev} discussion, they point out three criteria for
 choosing a neural network over a statistical method:
-(a) number of time series to the model are high, (b) Length of the
+(a) number of time series to the model is high, (b) Length of the
 times series are high, and (c) correlation among the time series.
 Our problem domain meets all these criteria.
 The third (c) criteria are worth mentioning because it directly
