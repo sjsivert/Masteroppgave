@@ -1,22 +1,14 @@
 \section{Model Structure}
 \label{section:RelatedWork:Model-structure}
-Since our problem domain consists of multiple product categories and sub-categories,
-and we want to forecast all these categories,
-we have multiple possible ways to construct a forecasting model.
-
-A simple approach would be to make one model for each product category.
-One could assume that each category of product is independent of the other.
-This assumption will probably not hold water for all cases. People who buy shaving cream probably also buy a razer, as shaving cream will not have much use of its own.
+The structure of the forecasting model is an important aspect when the goal is to forecast
+multiple time series.
+A simple approach would be to make one model for each time series.
+One could assume that each series are independent, but this assumption will probably not hold water for all domains.
+For example, in the E-commerce domain,
+people who buy shaving cream probably also buy a razer, as shaving cream will not have much use of its own.
 An alternative is to build a more complex model that looks at a bigger picture.
 This section will explore different state-of-the-art model structure approaches.
 
-\todo[inline]{Rewrite this introduction!}
-
-% En sub-section for Univariate vs Multivariate tidligere arbeid
-
-% En sub-section for Local vs Global
-
-% En sub-section som fokuserer på diskusjon rundt de ulike kombinasjonene og hva som er relevant i vår oppgave / problemstilling
 \subsection{Global vs Local methods}
 On the topic of having to forecast many time series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
 The article points to two significant disadvantages for univariate time series on a cluster of series.
@@ -38,10 +30,10 @@ come from the same process.
 This exact method was used by \cite{Bandara2017}.
 Their domain has similarities to ours. They want to forecast a database of E-commerce time series
 from Walmart.com.
-They argue that when building global models for a time-series database, the models are 
+They argue that when building global models for a time-series database, the models are
 potentially trained across disparate series, which may be detrimental to the overall accuracy.
 They suggest building separate models for subgroups of time series.
-These groups can be based on domain knowledge, which proved to be the best option. With absence of 
+These groups can be based on domain knowledge, which proved to be the best option. With absence of
 domain knowledge they propose an automatic grouping mechanism to cluster series togheter.
 Their method achieves consistent improvements over a the baseline LSTM model.
 And conclude that expoiting similarities of multiple time series in one model is a competitiv method.
@@ -61,9 +53,9 @@ The paper argues that global and local methods for forecasting
 sets of time series are equally general. The global method is neither restrictive nor requires
 similarity or relatedness in the set.
 But they point out that generalization of global models assumes groups of independent time series.
-Under heavy dependence, global models lose their beneficial performance guarantees. 
+Under heavy dependence, global models lose their beneficial performance guarantees.
 
-The paper \cite{Hewamalage2021} comes to the same conclusion. Stating that 
+The paper \cite{Hewamalage2021} comes to the same conclusion. Stating that
 even on datasets that involve many heterogeneous series, the strong modeling capabilities of RNNs can drive
 them to perform competitively in forecasting accuracy.
 \todo[]{Skrive om paperet hvor klustering er gjort på tidsserier}
@@ -82,7 +74,7 @@ The paper \cite{Rabanser2020} has some good arguments when comparing univariate 
 Both multivariate and global univariate methods work on groups of time series, but global methods
 have the advantage of being more applicable because it does not require observations of multiple
 time series at the time of forecasting.
-Also, multivariate time series models work on groups that are supposed to have some form of 
+Also, multivariate time series models work on groups that are supposed to have some form of
 dependence between them, while global models work on any group.
 But when such a dependency exists, the global method will not capture it directly.
 \cite{Hewamalage2021} states in their \textit{7. Future directions} chapter that complex
@@ -103,11 +95,11 @@ proprietary model by up to 18\% on Uber data.
 They also show the model's generalization power by training on Uber data
 but then testing it on the public M3 dataset, where they achieve an above-average result.
 % Discussion
-In \cite{Laptev} discussion, they point out three criteria for 
+In \cite{Laptev} discussion, they point out three criteria for
 choosing a neural network over a statistical method:
-(a) number of time series to the model are high, (b) Length of the 
+(a) number of time series to the model are high, (b) Length of the
 times series are high, and (c) correlation among the time series.
-Our problem domain meets all these criteria. 
+Our problem domain meets all these criteria.
 The third (c) criteria are worth mentioning because it directly
 contradicts the argument proposed by \cite{Montero-Manso2021}%\cite{Hewamalage2021}
 which states that in a set of interdependent time series,
