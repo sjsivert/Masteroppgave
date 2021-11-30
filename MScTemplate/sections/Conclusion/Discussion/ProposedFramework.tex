@@ -14,15 +14,13 @@
 With the aim of answering the goal presented in section \ref{section:Introduction:Goal} a model framework is proposed.
 The proposed method is intended to achieve a higher predictive ability than other state-of-the-art methods on the presented dataset.
 The presented model is a Convolutional autoencoder with an LSTM.
-\todo[inline]{Write about why we have chosen these metrics for benchmarkings.}
-With the ARIMA model and the LSTM model as benchmarks, the proposed model aims at achieving lower predictive error than these methods.
-The attained dataset presented in
-\autoref{section:Architecture:DataExploration}
+%With the ARIMA model and the LSTM model as benchmarks, the proposed model aims at achieving lower predictive error than these methods.
+The attained dataset presented in \autoref{section:Architecture:DataExploration}
 is a part of the E-commerce domain, containing highly fluctuating data, seasonality, and more.
-Such a dataset presents difficulties in prediction with high accuracy. The specified models might therefore attain better results than standard state-of-the-art methods.
+Such a dataset presents difficulties in prediction with high accuracy. The specified model should attain better results than standard state-of-the-art methods.
 
 Section \ref{section:RelatedWork:Hybrid} discusses the improvements in predictive accuracy achievable with the use of hybrid models.
-Utilizing methods for extracting both temporal and spacial values appeared to yield improvements.
+Utilizing methods for extracting both temporal and spatial values appeared to yield improvements.
 With the available dataset containing large fluctuations in values, the designed framework would need to be able to achieve predictions despite this.
 Therefore the proposed model is heavily influenced by the time series prediction model presented in \cite{Zhao2019}.
 The model is intended to work with highly fluctuating datasets, as the paper supplies result shows a decrease in predictive error with the hybrid method over an LSTM model.
@@ -48,7 +46,19 @@ In order to increase predictive accuracy and reduce error, such hybrid methods a
 There are multiple different types of hybrid methods, all with different specializations and use cases.
 Due to the distribution in the dataset, the method presented in \cite{Zhao2019} was selected as the basis for the model.
 Although the proposed CNN-AE and LSTM model has already been applied to other datasets, this paper aims to evaluate its use in a new E-commerce problem space.
-The following sections, other aspects of the framework will be introduced.
+In the following sections, other aspects of the framework will be introduced.
 This includes the model structure selected, discussing the implications of a global method or a multivariate approach.
 These alterations from the model proposed in \cite{Zhao2019} is intended to improve the applicability of the model on this E-commerce problemspace.
+
+
+Although the proposed framework is intended to surpass previously utilized methods,
+the improvements need to be validated.
+As a means to validate the improved predictive capability of the hybrid framework,
+baseline predictions should be created using current state-of-the-art methods.
+In order to attain a well-suited benchmark, both a statistical and deep learning method should be used.
+The statistical method SARIMA would supply an explainable prediction on our dataset, making it easy to compare.
+Additionally, as the method selection aims to improve the accuracy of the LSTM method,
+an LSTM benchmark should be established to verify that the new model indeed surpasses the LSTM method.
+With both an explainable statistical method and a current state-of-the-art method to benchmark the model performance,
+we believe this should be an acceptable way of verifying the accuracy of the proposed method.
 
