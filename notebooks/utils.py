@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-#from qbstyles import mpl_style
+# from qbstyles import mpl_style
 import pandas as pd
 
 # TODO: Replace with config value
@@ -15,8 +15,8 @@ def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
   Returns:
     MplAxes: Original figure
   """
-  #mpl_style()
-  #plt.style.use('seaborn-poster')
+  # mpl_style(dark=False)
+  plt.style.use('seaborn-poster')
   plt.figure()
   ax = fig
   plt.rcParams['font.size'] = '20'

@@ -11,3 +11,4 @@ datasets/market_insights_overview_all.csv
 todos.md
 datasets/market_insights_overview_all_2021_11_12.csv
 **/__pycache__/**
+env/
