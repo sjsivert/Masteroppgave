@@ -18,13 +18,13 @@ From what we learned from \autoref{section:RelatedWork:Model-structure}
 there are many possible ways of constructuring a model.
 
 A local univariate approach would be similar to how an ARIMA model would work.
-It would have the benefit of being simple, but in order to forecast $n$ product categories, 
+It would have the benefit of being simple, but in order to forecast $n$ product categories,
 on would need $n$ models.
 The benefit of having $n$ models is that consumer product categories are a dynamic set, constantly changing.
 When a new category of products are created, a forecasting model are created with it. It's forecasting ability
 would be limited, but would gradually improve as more data would accumulate.
 
-The greatest drawback of a local univariate approach would be it's the assumption that all product categories
+The greatest drawback of a local univariate approach would be the assumption that all product categories
 are independent. We can expect some groups to correlate with each other. These interdependent relationships
 could greatly improve forecasting ability.
 
@@ -51,19 +51,19 @@ shows that global models will improve accuracy, even if the global model assumpt
 
 How such a clustering of product categories is to be made is another question.
 \cite{Bandara2017} suggests a K-means clustering technuiqe
-which looks at several time series characteristics, such as 
+which looks at several time series characteristics, such as
 strength of trend, strength of spikiniess, strength of curvature,
 and sales quantile.
 
 The global method will not capture interdependent relationships directly,
 but might do so indirectly. It also has the potential to build a lot more complicated model,
-as the amount of traning data will drasticly increase, which again will make the model less prone to 
+as the amount of traning data will drasticly increase, which again will make the model less prone to
 overfitting.
 
 % Should this be under multi vs univariate section?
 % Currently it does not have any references
 One last approach is to build a multivariate model which only forecasts a single product category at the time.
-The input to such a model might be a decomposition of the target time series. 
+The input to such a model might be a decomposition of the target time series.
 For example decomposing a time series into a component that show how the trend of the series behaves over time.
 One component for the cycles, and one for noise.
 Another option is to rely on external data sources which correlate with the target series.

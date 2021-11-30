@@ -7,7 +7,7 @@ However, one can argue that user interest in consumer goods follows the same dis
 as online retail sales.
 Both domains will have the same seasonality with weekly and yearly periodic fluctuations.
 Additionally, the domains contain the same kind of products and categories.
-Both domains are dictated by the same external factors, such as media, commercials, 
+Both domains are dictated by the same external factors, such as media, commercials,
 and trends.
 Forecasting retail sales should translate well to e-commerce click rate.
 
@@ -22,16 +22,13 @@ The domain proved difficult due to strong trends and seasonal patterns.
 % What are their results?
 The models forecasting ability were evaluated through the loss functions RMSE, MAE, and MAPE.
 Both ETS and ARIMA achieved quite similar results with both one-step and multi-step forecasting.
-Multi-step forecasts are generally more accurate.
-This is because it is able to incorporate information that is more up-to-date.
-When an automatic algorithm is applied to the overall out-of-sample forecasting,
-the ARIMA models do not achieve better results than the ETS models.
+Their results show that multi-step forecasts are generally more accurate.
+This is because it can incorporate information that is more up-to-date.
+%When an automatic algorithm is applied to the overall out-of-sample forecasting,
+%the ARIMA models do not achieve better results than the ETS models.
 Neither model is best suited for all circumstances.
 Each time series would need to identify an appropriate ARIMA model.
 With differing data, identifying models would require data analysis of all the different time series.
-% - No clue what this attempts to say, so if it does not contribute enough, it is removed
-%Transformations for variance stabilization, as well as making unit-root tests, would be needed to select the degrees of differnecing in order to achieve stationarity.
-\todo[inline]{A sentence is commented out. Evaluate if it should be added.}
 
 
 %% What are they doing?
@@ -47,7 +44,7 @@ With differing data, identifying models would require data analysis of all the d
 \cite{Chu2003} showed that Holt-Winters exponential smoothing and ARIMA perform well when macro-economic
 conditions are relatively stable. However, when economic conditions are volatile
 ANNs outperform linear methods.
-Multi-step regression is preferred.
+Their findings also support multi-step forecasting.
 
 % Skrive om. Finne kilde
 %\todo[]{Bør ligge under en seksjon med preprossesering?}
@@ -107,7 +104,7 @@ models limitation to univariate time series.
 %The objective is to develop an effective sales forecasting model maintaining the 
 %trade-off between interpretation and consistency with actual changes of retail sales.
 
-The best example of related work we could find on our domain was 
+The best example of related work we could find on our domain was
 \cite{Bandara2019}.
 % What did they do?
 They generate an accurate E-commerce sales forecasting model using LSTM  Neural Network.
@@ -135,7 +132,7 @@ The rest of the features were time-series specific.
 %They extracted features with the \textit{tsfeatures} package.
 A silhouette analysis was utilized to determine the optimal number of clusters in the K-means algorithm.
 
- % What results did they get?
+% What results did they get?
 The results outperformed the state-of-the-art univariate forecasting techniques.
 Thereby concluding that E-commerce product hierarchies contain various cross-product demand
 patterns and correlations.
@@ -148,17 +145,17 @@ This shows what has already been accomplished and what new methods have not yet 
 
 
 \iffalse
-% ---- Litt rotete og hører mer hjemme i diskusjons biten
-The \cite{Bandara2019} differ from our situation in the sense that individual product interests are modeled.
-The authors example of related time series are how
-all subcategories under the genre fictional books will follow similar patterns.
+  % ---- Litt rotete og hører mer hjemme i diskusjons biten
+  The \cite{Bandara2019} differ from our situation in the sense that individual product interests are modeled.
+  The authors example of related time series are how
+  all subcategories under the genre fictional books will follow similar patterns.
 
-We are interested in the category level, and will pool the interests of all products under
-a category into one time series. It is not yet clear if we can assume that similar categories 
-will follow similar patterns. 
-For example computer screens and laptops are childs of the same category parent, 
-but interests in these products will be generated from two different processes, as their 
-use case are different.
-Even though we can not use the same assumptions on our domain, their results are still relevant
-for our work.
+  We are interested in the category level, and will pool the interests of all products under
+  a category into one time series. It is not yet clear if we can assume that similar categories
+  will follow similar patterns.
+  For example computer screens and laptops are childs of the same category parent,
+  but interests in these products will be generated from two different processes, as their
+  use case are different.
+  Even though we can not use the same assumptions on our domain, their results are still relevant
+  for our work.
 \fi
