@@ -1,8 +1,6 @@
 \section{Model architecture}
 \label{section:Architecture:Model}
 
-\todo[inline]{Model architectrue}
-
 We propose a prediction framework similar to the one proposed in \cite{Zhao2019}.
 Combining convolution with autoencoders and LSTM in order to make predictions should have some benefits.
 Primarily, the combination of methods should help with increasing the prediction accuracy in data with high fluctuations.
@@ -26,6 +24,9 @@ Finally, the complete framework proposed in this paper connects these two models
 creating a convolutional autoencoder and LSTM framework for making predictions.
 These predictions are intended to function on time series data with high fluctuations,
 making accurate and less error-prone predictions than simple statistical or deep learning methods.
+
+\todo[inline]{List the use of local, global and multivariate methods that should be used.}
+\todo[inline]{Reference the use of benchmarks! Add a paragraph about what methods should be used for benchmarks. As statistical method, use ARIMA, as ML method use LSTM}
 
 The motivation behind the proposed framework is explored in further detail later in section \ref{section:Discussion}.
 
