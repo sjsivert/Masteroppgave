@@ -9,21 +9,21 @@
 % Legge spessiel vekt på "statistical vs deep learning", dette er kanskje det viktigste punktet her, og da se dette i forhold til e-commerce prediciton
 
 Our research has found that the current state-of-the-art time series forecasting is highly dependent
-on the given domain. Statistical methods, such as ARIMA and exponential smoothing 
-are still relevant today. They are simple and easily explainable, and they do not require 
+on the given domain. Statistical methods, such as ARIMA and exponential smoothing
+are still relevant today. They are simple and easily explainable, and they do not require
 too much expertise.
 
 The statistical methods fall short in volatile domains, which are prone to sudden changes,
-or changes affected by external changes. They are also limited by their univariate nature, which fails to 
+or changes affected by external changes. They are also limited by their univariate nature, which fails to
 incorporate interdependent relationships in domains with many time series [\autoref{section:RelatedWork:forecasting-ecommerce}, \autoref{section:RelatedWork:Statistical-NN}]
 
-As we uncover in section \autoref{section:RelatedWork} Neural Networks, have shown to exceed in complex data-rich, domains. Recurrent neural networks, such as LSTMs being the most
+As we uncover in \autoref{section:RelatedWork} Neural Networks, have shown to exceed in complex data-rich, domains. Recurrent neural networks, such as LSTMs being the most
 prominent method of choice [\autoref{section:RelatedWork:forecasting-ecommerce}]. However, LSTMs are often used in conjunction with other methods, such as CNNs or Autoencoders,
 resulting in a hybrid model [\autoref{section:RelatedWork:Hybrid}].
 
-E-commerce is an especially notoriously difficult domain to forecast. The domain in consists of a multitude of time series,
+E-commerce is a notoriously tricky domain to forecast. The environment consists of a multitude of time series,
 some which correlate, others who don't. And the scale of the different series can be of several magnitudes in difference.
-The time series are often noisy and can consist of several recurrent periods [\autoref{section:RelatedWork:forecasting-ecommerce}].
+The time series are often noisy and can consist of several recurrent seasons [\autoref{section:RelatedWork:forecasting-ecommerce}].
 
 One method that has seen some promising results in the E-commerce domain, has been to train a global LSTM model across multiple,
 related, but not interdependent, time series.
