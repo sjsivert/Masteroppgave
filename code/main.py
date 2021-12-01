@@ -1,27 +1,34 @@
-from config_parser import config
 import click
+import sys
+import logging
 from prefect import task, Flow
+from config_parser import config, get_absolute_path
+import data.data_loader as data_loader
 
-@task
-def print_experiment_description(experiment_name):
-  print("experiment_name: {}".format(experiment_name))
 
-@task
-def print_data_loaction():
-  print("hei")
-  print(config['data']['data_path'].get())
-
-def main_flow(experiment_description):
-  with Flow("main") as flow:
-    print_experiment_description(experiment_description)
-    print_data_loaction()
+def pipeline():
+  with Flow("Main Pipeline") as flow:
+    file_name = get_absolute_path(config['data']['data_path'].get())
+    data = data_loader.load_data(file_name)
     return flow
 
 @click.command()
 @click.option('--experiment_description', '-e', default='', required=False, help='Experiment description.')
 def main(experiment_description):
-  flow = main_flow(experiment_description)
-  flow.run()
+  config['experiment_description'] = experiment_description
+  logging.basicConfig(
+    # filename='main.log',
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
+    datefmt='%Y-%m-%d,%H:%M:%S:%f'
+    )
+
+  logging.info('Started')
+
+  pipeline_flow = pipeline()
+  pipeline_flow.run()
+
+  logging.info('Finished')
 
 if __name__ == '__main__':
   main()

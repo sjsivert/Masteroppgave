@@ -3,4 +3,4 @@ raport:
   figure_save_location: '../MScTemplate/figs/code_generated/data_exploration/'
 
 data:
-  data_path: './datasets/market_insights_overview_all.csv'
+  data_path: './datasets/categories_1000.csv'
