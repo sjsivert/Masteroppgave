@@ -3,10 +3,11 @@
 
 If a time series is stationary, then using its statistical properties is shown to be an effective and computationally cheap method for forecasting
 \cite{Makridakis2018}.
-In a paper written by \citeauthor{Makridakis2018} statistical methods are tested against machine learning methods for 
+In a paper written by \citeauthor{Makridakis2018} statistical methods are tested against machine learning methods for
 forecasting time series.
-Perfomance is evaluated across multiple forecasting horizons using a large subset of 1045 montly time seires.
-Among the the evaluated machine learning methods are 
+Performance is evaluated across multiple forecasting horizons using a large subset of 1045 monthly time series.
+Among the evaluated machine learning methods are
+
 \begin{itemize}
   \item \textit{Bayesian Neural Network (BNN)}
   \item \textit{Multi-Layer Perceptron (MLP)}
@@ -22,47 +23,47 @@ Among the statistical methods evaluated are
   \item \textit{ETS}
   \item \textit{ARIMA}
 \end{itemize}
-The methodss are evaluated with different loss functions and metrics, with simple one-step-ahead and multiple steps ahead methods.
+The methods are evaluated with different loss functions and metrics, with simple one-step-ahead and multiple steps ahead methods.
 
 Their findings conclude that all the simple statistical methods outperformed all the ML methods in terms of accuracy.
 The statistical methods also had a lot less model complexity and computational cost for training.
 The best performing model was ETS with a sMAPE score of 7.12.
-The second-best model was ARIMA with a score of 7.19.
-The third worst model was LSTM with a score of 11.67.
+The second-best model was ARIMA, with a score of 7.19.
+The third worst model was LSTM, with a score of 11.67.
 
 The paper \cite{Makridakis2018} highlights some of the drawbacks of ML methods. Especially, their complexity,
 their lack of explainability and their inability to show certainty in their predictions.
-However, the study has gotten some well-defined critic. The authors \citeauthor*{Cerqueira2019} points 
+However, the study has gotten some well-defined critic. The authors \citeauthor*{Cerqueira2019} points
 out that \cite{Makridakis2018} does their experiments on datasets of too-small sample size.
-Their largest time series sample size among the 1045 datasets is 144 points, while the smallest contain 118.
+Their largest time series sample size among the 1045 datasets is 144 points, while the smallest contains 118.
 They hypothesize that these datasets are too small for machine learning methods to generalize properly.
 
-\cite{Cerqueira2019} therefor conduct a similar studdy on 90 univariate time series, in which 
+\cite{Cerqueira2019} therefor conduct a similar study on 90 univariate time series, in which
 all the datasets have a sample size above 1000.
-Statistical methods are evaluated aginst machine learning methods at different sample sizes,
-in order to test whether the sample size has a impact on performance.
+Statistical methods are evaluated against machine learning methods at different sample sizes,
+in order to test whether the sample size has an impact on performance.
 
-The paper \cite{Cerqueira2019} concludes that sample size impact machine learning methods drasticly.
-Statistical methods outperformed ML methods up to around a sample size of 130 datapoints.
-In cases with larger sample sets, the machine learning methods were shown to generally outperforme the statistical methods.
+The paper \cite{Cerqueira2019} concludes that sample size impacts machine learning methods drastically.
+Statistical methods outperformed ML methods up to around a sample size of 130 data points.
+In cases with larger sample sets, the machine learning methods were shown to generally outperform the statistical methods.
 
 
 \iffalse
-% Dette er mye mer relevant for diskusjon. Dette nevnes senere.
-This is good news for us, as our datasets do have a sample size of well above 660 at this moment.
-Depending on when we conduct the experiment, the number will grow to the range of 1000 to 1200,
-as data is being gathered every day as we speak.
-\todo[inline]{Should this be described when we dont describe out data? Should have section with data information if we are to inluce this!}
+  % Dette er mye mer relevant for diskusjon. Dette nevnes senere.
+  This is good news for us, as our datasets do have a sample size of well above 660 at this moment.
+  Depending on when we conduct the experiment, the number will grow to the range of 1000 to 1200,
+  as data is being gathered every day as we speak.
+  \todo[inline]{Should this be described when we don't describe out data? Should have section with data information if we are to inluce this!}
 
-One drawback of the \cite{Makridakis2018} study is that it does not test any of our chosen ML methods.
-They tested:
-\begin{itemize}
-  \item \textit{A rule-based model (RBR)}
-  \item \textit{A random Forest method (RF)}
-  \item \textit{Guassion Process regression (GP)}
-  \item \textit{The Multivariate adative regression (MARS)}
-  \item \textit{Generalized linear model (GLM)}
-\end{itemize}
+  One drawback of the \cite{Makridakis2018} study is that it does not test any of our chosen ML methods.
+  They tested:
+  \begin{itemize}
+    \item \textit{A rule-based model (RBR)}
+    \item \textit{A random Forest method (RF)}
+    \item \textit{Guassion Process regression (GP)}
+    \item \textit{The Multivariate adative regression (MARS)}
+    \item \textit{Generalized linear model (GLM)}
+  \end{itemize}
 \fi
 
 
@@ -70,7 +71,7 @@ From the discussion originating with the two papers described above,
 it should be clear that in the event of sufficient data, machine learning methods are to be preferred.
 However, modern deep learning methods are excluded from these papers.
 With this in mind, we take into consideration the work done in \cite{Hewamalage2021}.
-Here a thorough analysis is done of the current state-of-the-art recurrent neural networks, such as the LSTM. 
+Here a thorough analysis is done of the current state-of-the-art recurrent neural networks, such as the LSTM.
 The paper concluded that complex deep learning methods now have benefits over simpler statistical methods in many forecasting situations.
 Although such statistical methods are reliable and produce a relevant explainable predictive baseline,
 modern deep learning methods are able to accomplish higher predictive accuracy.
@@ -88,18 +89,18 @@ A baseline should therefore be a meaningful way of evaluating more complex metho
 
 
 \iffalse
-% --- Kommentert ut ---- Refererer veldig til hva som gjøres videre. Sammenligning av Related work som dette hører mer hjemme i discussion under konklusjon
-The paper \cite{Bandara2017} points out that in non-stationary time series, the distant past is typically less
-useful for forecast, as underlying patterns and relationships will have changed in the meantime.
-% TODO: This hopefully not apply to us as our time seires do seem to have consistency
+  % --- Kommentert ut ---- Refererer veldig til hva som gjøres videre. Sammenligning av Related work som dette hører mer hjemme i discussion under konklusjon
+  The paper \cite{Bandara2017} points out that in non-stationary time series, the distant past is typically less
+  useful for forecast, as underlying patterns and relationships will have changed in the meantime.
+  % TODO: This hopefully not apply to us as our time seires do seem to have consistency
 
-In \autoref{section:RelatedWork:forecasting-ecommerce}
-we highlighted ANNs ability to outperform statistical methods when macro-economic 
-conditions were unstable.
-In \autoref{section:RelatedWork:Model-structure} we mentioned how statistical models
-potentially missed the bigger picture in a domain of many related time series.
-These findings makes it clear to us that limiting our solution to a statistical method
-will be a mistake, and exploring a more complicated ANN model seems beneficial.
-However, a need for a baseline model in order to compare the results of the ANN model,
-a statistical method, like SARIMA could be useful.
+  In \autoref{section:RelatedWork:forecasting-ecommerce}
+  we highlighted ANNs ability to outperform statistical methods when macro-economic
+  conditions were unstable.
+  In \autoref{section:RelatedWork:Model-structure} we mentioned how statistical models
+  potentially missed the bigger picture in a domain of many related time series.
+  These findings makes it clear to us that limiting our solution to a statistical method
+  will be a mistake, and exploring a more complicated ANN model seems beneficial.
+  However, a need for a baseline model in order to compare the results of the ANN model,
+  a statistical method, like SARIMA could be useful.
 \fi
