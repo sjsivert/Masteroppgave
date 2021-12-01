@@ -13,12 +13,14 @@
 \usepackage{import}
 %\usepackage[center]					% For cropping documents
 \usepackage{import}
-\usepackage{todonotes}
+% \usepackage{todonotes}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage{tcolorbox}
 \usepackage{amsfonts}
 % For images and subimages
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
 % For strikethrough across characters \sout command
 \usepackage{ulem}
 % For including pdfs in appendix
@@ -128,6 +130,7 @@
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibtex/library}
 \import{./sections/}{appendix.tex}
+\listoftodos[Notes]
 
 
 \end{document}
