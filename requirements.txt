@@ -13,3 +13,4 @@ confuse
 click
 prefect
 genpipes
+neptune-client
