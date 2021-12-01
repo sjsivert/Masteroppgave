@@ -3,4 +3,5 @@ raport:
   figure_save_location: '../MScTemplate/figs/code_generated/data_exploration/'
 
 data:
-  data_path: './datasets/categories_1000.csv'
+  data_path: './datasets/market_insights_overview_5p.csv'
+  categories_path: './datasets/solr_categories_2021_11_29.csv'
