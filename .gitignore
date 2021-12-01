@@ -13,3 +13,4 @@ datasets/market_insights_overview_all_2021_11_12.csv
 **/__pycache__/**
 env/
 MScTemplate/pdflatex92299.fls
+**__init__.py**

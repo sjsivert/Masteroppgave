@@ -7,6 +7,8 @@ scipy
 wheel
 seaborn
 statsmodels
-qbstyles
 dataenforce
 pyyaml
+confuse
+click
+prefect

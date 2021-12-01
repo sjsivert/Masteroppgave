@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-import yaml
+import confuse
+from pathlib import Path
+current_dir = Path(__file__)
 
-with open("../config.yaml", "r") as stream:
-    try:
-        print(yaml.safe_load(stream))
-    except yaml.YAMLError as exc:
-        print(exc)
+config = confuse.Configuration('Masteroppgave', __name__)
+config.set_file(f'{current_dir}/../../config.yaml')
+figure_save_location = config['raport']['figure_save_location'].get()
+
