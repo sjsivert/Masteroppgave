@@ -6,6 +6,7 @@ from typing import Iterable
 from prefect import task, Flow
 from utils.config_parser import config, get_absolute_path
 from pipelines import market_insight_pipelines as pipelines
+from utils import neptune
 
 @click.command()
 @click.option('--experiment_description', '-e', default='', required=False, help='Experiment description.')
@@ -22,11 +23,22 @@ def main(experiment_description):
 
   split_data_to_train_and_test(processed_data)
 
+  # TODO: Build model
+
   # TODO: Train model
 
   # TODO: Validata model
+  neptune_run = neptune.init_neptune()
   
-  print(processed_data)
+  # params = {"learning_rate": 0.001, "optimizer": "Adam"}
+  # neptune_run["parameters"] = params
+
+  # for epoch in range(10):
+  #     neptune_run["train/loss"].log(0.9 ** epoch)
+
+  # neptune_run["eval/f1_score"] = 0.66
+
+  neptune_run.stop()
 
 
   logging.info('Finished')

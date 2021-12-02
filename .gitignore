@@ -6,7 +6,7 @@ Masteroppgave.*
 !Masteroppgave.tex
 sections/*.auxindent.log
 *indent.log
-.env
+*.env*
 datasets/raw/market_insights_overview_all.csv
 todos.md
 datasets/raw/market_insights_overview_all_2021_11_12.csv
@@ -14,3 +14,5 @@ datasets/raw/market_insights_overview_all_2021_11_12.csv
 env/
 MScTemplate/pdflatex92299.fls
 **__init__.py**
+**.env
+.neptune

@@ -3,6 +3,16 @@
 2. Add or tune a .slurm file in batch_Jobs/
 3. Run ´./git_update_hpc.sh <job-file.slurm> <Job Name>´
 
+# Environment variables
+Create a .env file in root folder to configure project related environment variables
+
+```
+# Email used to send HPC batch job status emails
+EMAIL=<email>
+LOG_FILE=<batch_job_log_file> default: batch_jobs/output/sbatch_job.txt
+NEPTUNE_API_TOKEN=<api-token>
+```
+
 # Folder structure
 
 ```

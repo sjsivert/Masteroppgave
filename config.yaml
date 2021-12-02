@@ -5,3 +5,7 @@ raport:
 data:
   data_path: './datasets/raw/market_insights_overview_5p.csv'
   categories_path: './datasets/raw/solr_categories_2021_11_29.csv'
+
+neptune:
+  project: 'sjsivertandsanderkk/Masteroppgave'
+  api_token: ${NEPTUNE_API_TOKEN}
