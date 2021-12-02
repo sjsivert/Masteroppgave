@@ -7,9 +7,6 @@ Primarily, the combination of methods should help with increasing the prediction
 
 The proposed framework is comprised of two parts: the convolutional autoencoder and the LSTM.
 
-\todo[inline]{Add image of the Convolutional autoencder}
-\todo[inline]{Add image of the LSTM}
-
 The convolutional autoencoder process the input data, extracting a feature set by deconstructing the data.
 This is done through the encoder. After this, the decoder is used to reconstruct the input data.
 By doing this, the noise in the input data should be decreased to some extent.
@@ -18,7 +15,13 @@ The second part of the architecture is the LSTM module.
 This module is intended to extract the temporal features of the dataset
 in order to predict future values in the time series.
 
-\todo[inline]{Add image of the combined method with CNN-AE and LSTM}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./sections/Architecture/figures/CNN-AE + LSTM.png}
+    \hfill
+    \caption{Illustration of a CNN-AE + LSTM network.}
+    \label{fig:stacked_autoencoder_arch}
+\end{figure}
 
 Finally, the complete framework proposed in this paper connects these two models,
 creating a convolutional autoencoder and LSTM framework for making predictions.
