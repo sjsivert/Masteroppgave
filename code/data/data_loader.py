@@ -1,7 +1,6 @@
 import pandas as pd
 import logging
 from prefect import task
-from config_parser import config
 from genpipes import declare, compose
 
 @declare.generator()
@@ -25,14 +24,3 @@ def load_csv_data(path: str) -> pd.DataFrame:
     :return: pandas dataframe containing the data
     """
     return pd.read_csv(path)
-
-@task
-def load_data(filename: str) -> pd.DataFrame:
-    """
-    Loads data from a file.
-
-    :param filename: name of the file to load data from
-    :return: pandas dataframe containing the data
-    """
-    logging.info("Loading data from file: {}".format(filename))
-    return pd.read_csv(filename)

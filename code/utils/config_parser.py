@@ -3,7 +3,7 @@
 import confuse
 from pathlib import Path
 current_dir = Path(__file__)
-root_dir = Path(current_dir.parent.parent)
+root_dir = Path(current_dir.parent.parent.parent)
 
 config = confuse.Configuration('Masteroppgave', __name__)
 config.set_file(f'{root_dir}/config.yaml')
