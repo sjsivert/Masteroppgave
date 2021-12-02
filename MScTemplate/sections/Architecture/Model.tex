@@ -1,9 +1,13 @@
 \section{Model architecture}
 \label{section:Architecture:Model}
 
-We propose a prediction framework similar to the one proposed in \cite{Zhao2019}.
-Combining convolution with autoencoders and LSTM in order to make predictions should have some benefits.
+We propose a prediction framework based on the one proposed in \cite{Zhao2019}.
+Creating a Convolutional autoencoder and LSTM method for time series prediction should provide some benifits.
 Primarily, the combination of methods should help with increasing the prediction accuracy in data with high fluctuations.
+Unlike the univariate method used in \cite{Zhao2019} we intend to improve opon the method by applying as bot a global method and a multivariate method.
+Such a method have never been explored in the E-commerce forecasting domain, warrenting the exploration of the method applicability to the problem space.
+% Add explainer to why we do this?
+% Add line as to explain that this is a new method in E-commerce forecasting?
 
 The proposed framework is comprised of two parts: the convolutional autoencoder and the LSTM.
 
