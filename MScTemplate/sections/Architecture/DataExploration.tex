@@ -160,13 +160,30 @@ The steadily growing line at the end of \Cref{fig:category_NaN_values} near id 1
 \end{figure}
 
 \subsection{Correlation among categories}
-Through a correlation analysis of the data, a correlation matrix is created.
-Analyzing all categories with more than 100 datapoints, the values are compared and used to create the correlation matrix.
+We did a correlation analysis to get an idea of how the categories correlate.
+We can create a correlation matrix by aggregating the dataset to a pivot table, using dates as row index and the products id's as columns.
+We limited the matrix to categories with more than 100 common data points to get reliable results.
+Because of the large number of categories, we created two matrixes. The small matrix in [AUTOREF], made of a smaller, random subset of categories.
+This small one should be easy to read and understand.
+We also made a matrix of all the categories. This matrix is too complex to read details from, but gives a full picture of the data.
+The lighter cells of the matrix indicate a correlation towards 1.0, while the darker cells indicate a correlation towards -1.0.
+A purple color indicates a very low correlation.
+
+Using the smaller matrix, we can read how much category 2 correlate with the other categories by following the row.
 The matrix is shown in \Cref{fig:category_corelation_matrix}.
-The lighter areas of the matrix indicate a correlation towards 1.0, while the darker areas indicate a correlation towards -1.0.
+
+
+%Analyzing all categories with more than 100 common datapoints, the values are compared and used to create the correlation matrix.
+%The matrix is shown in \autoref{fig:category_corelation_matrix}.
+%The lighter areas of the matrix indicate a correlation towards 1.0, while the darker areas indicate a correlation towards -1.0.
 
 Based on the matrix's color spectrum, it is clear that categories cover almost the whole spectrum of correlation relationships.
 The overall bright colors indicate a bias towards positive correlation.
+
+Also worth noticing from the big correlation matrix is an indication of more purple lines and areas to the lower right corner of the matrix.
+Tech-related categories dominated Prisguiden's product category in its early years. In recent years they have expanded their reach to include more common household
+products. It makes sense that these new products do not correlate much with technology products.
+
 
 \begin{figure}[h!]
   \centering
