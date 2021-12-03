@@ -1,3 +1,15 @@
 {
-    "jupyter.jupyterServerType": "local"
+  "jupyter.jupyterServerType": "local",
+  "grammarly.overrides": [
+    {
+      "files": ["**/MScTemplate/sections/RelatedWork/statistical-vs-nn.tex"],
+      "config": {
+        "audience": "expert",
+        "dialect": "american",
+        "domain": "academic",
+        "emotions": ["neutral", "confident", "analytical"],
+        "goals": ["inform", "describe"]
+      }
+    }
+  ]
 }
