@@ -11,7 +11,7 @@ This section will explore different state-of-the-art model structure approaches.
 
 \subsection{Global versus Local methods}
 On the topic of having to forecast many time series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
-The article points to two significant disadvantages for univariate time series on a cluster of series.
+The article points to two significant disadvantages for univariate models on a cluster of series.
 The number one shortcoming is the sample size. The second is scalability.
 Scalability is a problem when you have a group of time series as each series requires a separate model
 that requires human intervention. Forecasting a cluster of time series in this manner is called
@@ -19,9 +19,9 @@ that requires human intervention. Forecasting a cluster of time series in this m
 
 A univariate alternative to a local approach is \textit{the global approach}
 \citep{Rabanser2020}.
-The global approach works by pooling the data of all series together, fitting a single univariate forecasting function. It prevents over-fitting because of the larger sample size.
+The global approach works by pooling all series data together, fitting a single univariate forecasting function. It prevents over-fitting because of the larger sample size.
 % source slainas, flunkert, gasthaus & Januschowski 2020
-The global approach has been introduced to exploit the natural scenario where all series
+The global method has been introduced to exploit the natural scenario where all series
 in the set are similar or related. An example given by the authors is the demand for fictional
 books follows a similar pattern for all subgenres, stores, or cover designs.
 The idea behind this is the strong assumption that all the time series in the set
