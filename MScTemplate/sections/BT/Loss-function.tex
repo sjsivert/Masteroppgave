@@ -14,7 +14,7 @@ This chapter will briefly give an explanation for common loss functions.
 \subsubsection{MSE}
 % Common loss functions
 The most commonly used loss function for regression problem is the
-\textbf{Mean Squared Error (MSE)} function in \autoref{eq:mean-squared-error}.
+\textbf{Mean Squared Error (MSE)} function in \Cref{eq:mean-squared-error}.
 It is the mathematically preferred function if the target distribution is Gaussian.
 It punishes large errors much more harshly than smaller errors due to its squaring of the error.
 Here $e = y - \hat{y}$, where $y$ is the actual value and $\hat{y}$ is the predicted value.
@@ -26,7 +26,7 @@ Here $e = y - \hat{y}$, where $y$ is the actual value and $\hat{y}$ is the predi
 
 \subsubsection{MAE}
 If the target distribution consists of outliers, then the
-\textbf{Mean Absolute Error (MAE)} in \autoref{eq:mean-absolute-error} is more appropriate
+\textbf{Mean Absolute Error (MAE)} in \Cref{eq:mean-absolute-error} is more appropriate
 as it does not punish the outliers too much.
 
 \begin{equation}
@@ -36,7 +36,7 @@ as it does not punish the outliers too much.
 
 \subsubsection{MAPE}
 % TODO: Need source
-The Mean Absolute Percentage Error \autoref{eq:Mape} (MAPE) is a popular metric for evaluating forecasting performance.
+The Mean Absolute Percentage Error \Cref{eq:Mape} (MAPE) is a popular metric for evaluating forecasting performance.
 $y$ is the actual target value of the target we are trying to forecast, and $\hat{y}$ is the predicted value.
 $t$ is the time index.
 
@@ -59,7 +59,7 @@ for forecasts that are too high. As a result, the error function will
 favor models that under-predict rather than over-predict a forecast.
 
 \subsubsection{SMAPE}
-Symmetric Mean Absolute Percentage Error (SMAPE) shown in \autoref{eq:sMape}
+Symmetric Mean Absolute Percentage Error (SMAPE) shown in \Cref{eq:sMape}
 is an error function made to overcome some of the shortcomings of the MAPE function.
 By incorporating $\hat{y}$ to the denominator SMAPE is symmetrical,
 with both a lower bound of 0\% and an upper bound for 200\%.

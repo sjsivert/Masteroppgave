@@ -5,7 +5,7 @@ Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time ser
 \textit{ARMA}$(p, q)$ is defined for stationary data and consists of two components $AR(p)$ and $MA(q)$.
 
 The $AR(p)$ model is built on the assumption that the value of a given time series $y_n$ can be estimated using a linear combination
-of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$ as seen in \autoref{eq:arma_ar(p)} \citep{Box2016}.
+of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$ as seen in \Cref{eq:arma_ar(p)} \citep{Box2016}.
 
 \begin{equation}
     \label{eq:arma_ar(p)}
@@ -13,14 +13,14 @@ of the $p$ past observations, an error term $\epsilon_n$ and a constant term $c$
 \end{equation}
 where $\phi_i, \forall i \in \{1, ..., p\} $ denote the model parameters, and $p$ is the order of the model.
 
-The second part $MA(q)$ uses the past errors in a similar fasion \autoref{eq_arma_ma(q)}.
+The second part $MA(q)$ uses the past errors in a similar fasion \Cref{eq_arma_ma(q)}.
 \begin{equation}
     \label{eq_arma_ma(q)}
     y_n = \mu + \sum_{i=1}^{q} \theta_i \epsilon_{n-1} + \epsilon_n
 \end{equation}
 Here $\mu$ represents the mean of observations. $q$ is the order of the model. $\theta_i, \forall i \in \{1, ..., q\}$ represents the parameters of the model.
 
-Combining the past observations \autoref{eq:arma_ar(p)} and past error terms \autoref{eq_arma_ma(q)} we get the \textit{ARMA}$(p,q)$ model in \autoref{eq:arma}.
+Combining the past observations \Cref{eq:arma_ar(p)} and past error terms \Cref{eq_arma_ma(q)} we get the \textit{ARMA}$(p,q)$ model in \Cref{eq:arma}.
 
 \begin{equation}
     \label{eq:arma}
