@@ -16,10 +16,10 @@ def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
     MplAxes: Original figure
   """
   # mpl_style(dark=False)
-  plt.style.use('seaborn-poster')
+  # plt.style.use('seaborn-poster')
   plt.figure()
   ax = fig
-  plt.rcParams['font.size'] = '20'
+  plt.rcParams['font.size'] = '16'
   plt.tick_params(labelsize=20)
   ax.set_title(name, fontsize=20)
   return ax.get_figure().savefig(f"{figure_save_location}/{name}.png", bbox_inches='tight', facecolor='w', edgecolor='w')
