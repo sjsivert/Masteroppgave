@@ -9,3 +9,15 @@ data:
 neptune:
   project: 'sjsivertandsanderkk/Masteroppgave'
   api_token: ${NEPTUNE_API_TOKEN}
+
+model:
+  model_type: 'local_univariate_arima'
+  arima:
+    order:
+      - 5 # p
+      - 2 # d
+      - 0 # q
+    # seasonal_order:
+    #   - 5 # p
+    #   - 2 # d
+    #   - 0 # q

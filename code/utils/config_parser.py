@@ -8,6 +8,7 @@ root_dir = Path(current_dir.parent.parent.parent)
 config = confuse.Configuration('Masteroppgave', __name__)
 config.set_file(f'{root_dir}/config.yaml')
 config.set_env()
+print(config['model'].get()['model_type'])
 figure_save_location = config['raport']['figure_save_location'].get()
 
 def get_absolute_path(path):

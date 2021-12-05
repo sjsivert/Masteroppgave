@@ -1,3 +1,4 @@
+from __future__ import annotations
 import click
 import logging
 import pandas as pd
@@ -7,6 +8,7 @@ from prefect import task, Flow
 from utils.config_parser import config, get_absolute_path
 from pipelines import market_insight_pipelines as pipelines
 from utils import neptune
+from experiment import Experiment
 
 @click.command()
 @click.option('--experiment_description', '-e', default='', required=False, help='Experiment description.')
@@ -16,19 +18,16 @@ def main(experiment_description):
 
   logging.info('Started')
 
-  # Load and preprocess data
-  pipeline = pipelines.build_load_and_process_data_pipeline()
-  logging.info(pipeline.__str__())
-  processed_data = pipeline.run() 
+  experiment = Experiment(experiment_description)
+  experiment.choose_model_structure(config['model'].get())
 
-  split_data_to_train_and_test(processed_data)
+  experiment.load_and_process_data(pipelines.market_insight_pipeline())
 
-  # TODO: Build model
+  experiment.train_model()
+  experiment.test_model()
+  experiment.save_model()
 
-  # TODO: Train model
-
-  # TODO: Validata model
-  neptune_run = neptune.init_neptune()
+  # neptune_run = neptune.init_neptune()
   
   # params = {"learning_rate": 0.001, "optimizer": "Adam"}
   # neptune_run["parameters"] = params
@@ -38,19 +37,16 @@ def main(experiment_description):
 
   # neptune_run["eval/f1_score"] = 0.66
 
-  neptune_run.stop()
+  # neptune_run.stop()
 
 
   logging.info('Finished')
 
 
 
-def split_data_to_train_and_test(data: pd.DataFrame):
-  # TODO: Implement
-  return (data, data)
 
 def run_build_and_load_data_pipeline():
-  pipeline = pipelines.build_load_and_process_data_pipeline()
+  pipeline = pipelines.market_insight_pipeline()
   logging.info(pipeline.__str__())
   pipeline.run() 
 
