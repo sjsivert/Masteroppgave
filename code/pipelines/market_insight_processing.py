@@ -1,7 +1,7 @@
 
 from genpipes import declare, compose
 import pandas as pd
-from typing import Iterable
+from typing import Iterable, List
 
 @declare.processor()
 def drop_columns(stream: Iterable[pd.DataFrame], columns: Iterable[str]) -> Iterable[pd.DataFrame]:
@@ -30,7 +30,7 @@ def print_df(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:
         yield df
         
 @declare.processor()
-def group_by(stream: Iterable[pd.DataFrame], group_by: list[str]) -> Iterable[pd.DataFrame]:
+def group_by(stream: Iterable[pd.DataFrame], group_by: List[str]) -> Iterable[pd.DataFrame]:
     """
     Group the data by a given column.
     """

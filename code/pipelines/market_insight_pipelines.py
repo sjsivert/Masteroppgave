@@ -1,11 +1,10 @@
 from prefect.utilities.tasks import task
 from utils.config_parser import config, get_absolute_path
-import data.data_loader as data_loader
+import pipelines.data_loader as data_loader
 from genpipes import declare, compose
-from features import market_insight_processing as p
-import logging
+from pipelines import market_insight_processing as p
 
-def build_load_and_process_data_pipeline():
+def market_insight_pipeline() -> compose.Pipeline:
   pipeline = compose.Pipeline(steps=[
     ("load market insight data and categories and merge them", data_loader.load_and_merge_market_insight_and_categories, 
       {"market_insight_path": get_absolute_path(config['data']['data_path'].get()), 
