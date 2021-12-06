@@ -19,60 +19,61 @@ when applied to retail sales data of five different categories,
 containing univariate time series regarding sales of women's footwear.
 The domain proved difficult due to strong trends and seasonal patterns.
 
-% What are their results?
 The models forecasting ability were evaluated through several loss functions, such as RMSE, MAE, and MAPE.
 Both ETS and ARIMA achieved similar results with both one-step and multi-step forecasting.
 Their results show that multi-step forecasts are generally more accurate.
 This is argued to be a result of multistep to incorporate more up-to-date information.
-%When an automatic algorithm is applied to the overall out-of-sample forecasting,
-%the ARIMA models do not achieve better results than the ETS models.
 Neither of the models is best suited for all circumstances.
 Each time series would need to identify an appropriate ARIMA model.
 With differing data, identifying models would require data analysis of all the different time series.
 
 
-\todo[inline]{Rewrite so that it is comparison to the one above.}
-\cite{Chu2003} showed that Holt-Winters exponential smoothing and ARIMA perform well when macro-economic
-conditions are relatively stable. However, when economic conditions are volatile
-ANNs outperform linear methods.
-Their findings also support multi-step forecasting.
 
-
-\todo[inline]{The same methdos as the two above. Write this in context with the other and refer to these.}
+These models have also been shown to be effective in other instances.
+\cite{Chu2003} shows that Holt-Winters exponential smoothing and ARIMA perform well when macro-economic
+conditions are relatively stable.
+However, when economic conditions are volatile ANNs outperform linear methods.
+Despite this, the existence of stable data is not guaranteed.
+Often, the data contain nonlinear characteristics, increasing the complexity of the problem.
 \cite{Weng2020} writes that ARIMA, SARIMA and Holt-Winter's
 Exponential Smoothing model etc. are inconsistent with the actual changes in the sales
 of retail stores.
-Therefore the results are usually unstable due to their in-applicability
+Results are usually unstable due to their in-applicability
 in the processing of nonlinear relationships.
-However, statistical methods have the advantage of interpretability.
-\cite{Bowen2020} wanted to use machine learning to maintain
-the trade-off between interpretability and consistency with actual
+Despite this, statistical methods have the advantage of high interpretability,
+whereas more complex machine learning methods are limited by the high complexity and reduced interpretability.
+
+
+
+In comparison to \cite{Weng2020}, the paper \cite{Bowen2020} wanted to use machine learning to maintain
+the tradeoff between interpretability and consistency with actual
 changes in retail sales.
-Two new machine learning models were applied in order to solve this.
-LightGBM, an ensemble learning method, which is a further optimization of the XGB model.
-And one model called Prophet \citep{Zunic2020}.
+Using a hybrid ARIMA and Back-propagation method, increased forecasting was achieved through
+giving up the interpretability of the pure statistical methods.
+The same tradeoff was achieved through the use of other machine learning methods.
+Methods such as the LightGBM, an enable learning method based on the XGB model,
+and the Prophet method were introduced in \citep{Zunic2020}.
 
 % What results did they get?
-The study finds that traditional models such as ARIMA have trouble forecasting
+The study finds that traditional models such as ARIMA have trouble forecasting E-commerce
 due to the fast-moving domain of consumer retail buying patterns.
 Additionally, their connection to external factors,
 such as holidays and price changes, increases the complexity further.
 The machine learning models performed better, with lower predictive error
 and good interpretability.
-However, the LightGDM model outperformed the Prophet model because of the prophet
+However, the LightGDM model outperformed the Prophet model because of the
 models limitation to univariate time series.
 
 
 
-\todo[inline]{Just a lot of details. Grouping can be explored, but the other is not needed I think. Write it comparision with the text listed above. Is it a continuation or a response to what has been done?}
-The best example of related work we could find on our domain was
-\cite{Bandara2019}.
-They generate an accurate E-commerce sales forecasting model using LSTM  Neural Network.
-They pool similar time series into clusters and train univariate, global models on each cluster.
+Further experimentation with machine learning methods is done by \cite{Bandara2019},
+through the use of deep learning methods.
+An accurate E-commerce sales forecasting model is generated using LSTM  Neural Network.
+Similar time series are pooled into clusters where univariate and global models are trained on each cluster.
 The aim was to improve E-commerce sales forecasting by exploiting sales correlations and relationships
 available in an E-commerce hierarchy.
 
-Data preprocessing was done using a forward-filling strategy to impute missing sales
+Data preprocessing is done using a forward-filling strategy to impute missing sales
 observations in the dataset.
 The data was then normalized to accommodate the high sales volume ranges.
 They then used the mean of the sales of a product as the scaling factor.
