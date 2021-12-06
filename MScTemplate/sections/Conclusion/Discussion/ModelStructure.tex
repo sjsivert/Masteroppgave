@@ -16,17 +16,19 @@
 % Hvorfor er vår data godt egnet, og mulig ikke godt egnet til dette'
 From what we learned from \Cref{section:RelatedWork:Model-structure}
 there are many possible ways of constructuring a model.
+\Cref{fig:model-structure-examples} shows three example-models for forecasting a set of $n$ time-series.
+In the figure each arrow indicates a time-series.
 
 A local univariate approach would be similar to how an ARIMA model would work.
 It would benefit from being simple, but to forecast $n$ product categories,
-one would need $n$ models.
+one would need $n$ models as seen in \cref{fig:model-example-local-univariate}.
 The benefit of having $n$ models is that consumer product categories are a dynamic set, constantly changing.
 When a new category of products is created, a forecasting model is created with it. Its forecasting ability
 would be limited but would gradually improve as more data accumulated.
 
 \begin{figure}[h!]
   \centering
-  \caption{TODO}
+  \caption{Three model-structure examples. Each arrow is a time-series.}
   \label{fig:model-structure-examples}
   \begin{subfigure}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{./figs/illustrations/illustration_local_univariate.png}
@@ -67,12 +69,15 @@ amount of history data would amount to many null values.
 Second, each time a category is added or changed, a covariance analysis has to be done to identify
 which covariance group the category belongs to. Then that model has to be retrained.
 Depending on the number of changes to the category tree, this might hinder.
+\Cref{fig:model-example-local-multivariate} shows an example-model where the time-series set it split into two arbitrary buckets,
+and one multivariate model is made for each bucket.
 
 The univariate global approach has the benefit of overcoming many of the hindrances of a multivariate model.
 It does not care which product category you feed it, so it is very scalable. The argument given by\cite{Bandara2017},
 that a single global model might be detrimental to overall accuracy, could be overcome by clustering product categories together.
 This is true even if \cite{Rabanser2020}
 shows that global models will improve accuracy, even if the global model assumption is not satisfied.
+\Cref{fig:model-example-global-univariate} show a single global model, which is trained on the whole time-series-set.
 
 Another question is how such a cluster of product categories is to be made.
 \cite{Bandara2017} suggests a K-means clustering technique
