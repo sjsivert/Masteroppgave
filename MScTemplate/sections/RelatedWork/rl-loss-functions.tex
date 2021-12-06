@@ -15,7 +15,7 @@ This section will focus on a few specialized loss functions specifically designe
 % Time and shape distortion
 Both MAE and MSE are proven to be robust loss functions for regular regression problems,
 but a paper published by \citeauthor{Guen2019} highlights some problems when the shape of the target function matters
-such as in time series.
+such as in time-series.
 \Cref{fig:dilate} shows three different fits to the same target function that all have
 the same MSE error.
 
@@ -47,9 +47,9 @@ the same MSE error.
   \label{fig:dilate}
 \end{figure}
 
-In order to correct this problem, a new loss function is introduced, named 
+In order to correct this problem, a new loss function is introduced, named
 \textbf{DILATE (Distrortion Loss including Shape and Time)} \cite{Guen2019}.
-DILATE utilize a Neural Network method as an alternative to a mathematical function. 
+DILATE utilize a Neural Network method as an alternative to a mathematical function.
 It aims to accurately predict sudden changes and explicitly incorporates two terms
 supporting precise shape and temporal change detection.
 
@@ -72,9 +72,9 @@ Taking inspiration from \textit{Extreme Value Theory} a new loss function is pro
 The loss function, \textbf{Extreme Value Loss (EVL)},
 employs a memory network in order to memorize extreme events in historical records.
 
-\Cref{fig:evl} show two fitted time series from the results of the paper. They conclude
-that the method is superior to the state-of-the-art methods in extreme event detection, and 
-in time series prediction.
+\Cref{fig:evl} show two fitted time-series from the results of the paper. They conclude
+that the method is superior to the state-of-the-art methods in extreme event detection, and
+in time-series prediction.
 
 This loss function appears to address the predictive problem of forecasting anomalies,
 something that could prove very useful.

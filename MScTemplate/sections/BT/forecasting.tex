@@ -1,15 +1,15 @@
 
-\subsection{Forecasting time series}
+\subsection{Forecasting time-series}
 \label{section:BT:forecasting-time-series}
-Let  $Y = \{y_1, y_2, ..., y_n\}$ denote a time series.
+Let  $Y = \{y_1, y_2, ..., y_n\}$ denote a time-series.
 Forecasting is predicting the next time step $y_{n+h}$ where $h$ is the forecasting horizon.
 
-There are two main categories within time series forecsasting, \textbf{univariate} and \textbf{multivariate}.
-An \textit{univariate} time series prediction consists of only one value or observation over a time period.
-Methods for prediction using univariate time series is called a univariate time series model.
+There are two main categories within time-series forecsasting, \textbf{univariate} and \textbf{multivariate}.
+An \textit{univariate} time-series prediction consists of only one value or observation over a time period.
+Methods for prediction using univariate time-series is called a univariate time-series model.
 The model uses only one value series as the input sequence, making predictions solely based on the historical data.
-A multivariate time series is a set of multiple values spanning a period of time.
-To make predictions with such data, multivariate time series models are required.
+A multivariate time-series is a set of multiple values spanning a period of time.
+To make predictions with such data, multivariate time-series models are required.
 These models evaluate the input sequences in relation to each other, as well as their historic values, in order to make predictions.
 Multivariate forecasting can result in the prediction of values for one of the observations or multiple observations.
 
@@ -26,9 +26,9 @@ Despite the difference, multi-step forecasting can be accomplished using single-
 By forecasting a single step forward in time several times, a single-step forecasting method is able to recursively accomplish multi-step prediction.
 
 
-Assuming a stationarity time series, several approaches to time series modeling are available.
+Assuming a stationarity time-series, several approaches to time-series modeling are available.
 A naive method is through the use of mean values, predicting the next value to be the mean of all past observations.
-Additionally, a smaller subset of past observations can be used, applying a moving average across the time series.
+Additionally, a smaller subset of past observations can be used, applying a moving average across the time-series.
 Longer subsets result in a smoother prediction graph.
 
 Another viable prediction technique is \textbf{exponential smoothing}.
@@ -36,8 +36,8 @@ It uses the same approach as the moving average method but differs through the u
 a decreasing weight assigned to each observation.
 
 \begin{equation}
-    \label{eq:exponential_smoothing}
-    y = \alpha x_t + (1 - \alpha)y_{y-1}, t > 0
+  \label{eq:exponential_smoothing}
+  y = \alpha x_t + (1 - \alpha)y_{y-1}, t > 0
 \end{equation}
 
 \Cref{eq:exponential_smoothing}

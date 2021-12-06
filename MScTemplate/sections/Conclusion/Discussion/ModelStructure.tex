@@ -59,7 +59,7 @@ However, one needs a thorough understanding of the underlying data to build mean
 A thorough covariance analysis to identify correlating groups of product categories would be best.
 %However, this might be outside of scope(?).
 The work proposed by \cite{Sen2019} has the advantage of capturing interdependent time-series features and dealing with
-some of the drawbacks of a multivariate model. However, their model is intended for as many time series as up to millions.
+some of the drawbacks of a multivariate model. However, their model is intended for as many time-series as up to millions.
 This is to vastly over-engineer our problem.
 %They solution is also based on a temoral convolution network.
 
@@ -81,7 +81,7 @@ shows that global models will improve accuracy, even if the global model assumpt
 
 Another question is how such a cluster of product categories is to be made.
 \cite{Bandara2017} suggests a K-means clustering technique
-which looks at several time series characteristics, such as
+which looks at several time-series characteristics, such as
 strength of a trend, the strength of spikiness, strength of curvature,
 and sales quantile.
 
@@ -93,8 +93,8 @@ overfitting.
 % Should this be under multi vs univariate section?
 % Currently it does not have any references
 One last approach is to build a multivariate model which only forecasts a single product category at the time.
-The input to such a model might be a decomposition of the target time series.
-For example, decomposing a time series into a component that shows how the series's trend behaves over time,
+The input to such a model might be a decomposition of the target time-series.
+For example, decomposing a time-series into a component that shows how the series's trend behaves over time,
 one component for the cycles, and one for noise.
 Another option is to rely on external data sources which correlate with the target series.
 For example, it is to be expected that if a product category group suddenly spikes in interest at Prisguiden.no,
@@ -117,7 +117,7 @@ To conclude, it is unclear what the best model would be for our case.
 % Could split into sub groups
 
 % Multivariate models
-% + Can see interdependent relationships between time series
+% + Can see interdependent relationships between time-series
 % - Difficult to scale, as adding one category means changing the models 
 % shape
 % Will maximize the effectiveness of CNN?

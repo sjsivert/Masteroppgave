@@ -16,18 +16,18 @@ Due to this, information is not stored for long in these memory cells, only reta
 
 % Prøvde meg litt på denne setningen:
 %The RNNs ability to retain information from previous inputs means it is especially
-%good at finding temporal relationship in data. For example, in a time series, wher
+%good at finding temporal relationship in data. For example, in a time-series, wher
 %the next step is dependent on previous steps
 
-The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time series analysis, and similar problems.
+The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time-series analysis, and similar problems.
 In addition, the memory retained in the RNN makes it well suited to extract temporal relations in the data.
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./sections/BT/figures/RNN.png}
-    \hfill
-    \caption{Figure of RNN feedback-cell.}
-    \label{fig:rnn-cell}
+  \centering
+  \includegraphics[width=0.5\textwidth]{./sections/BT/figures/RNN.png}
+  \hfill
+  \caption{Figure of RNN feedback-cell.}
+  \label{fig:rnn-cell}
 \end{figure}
 
 
@@ -54,15 +54,15 @@ The long-term memory of the LSTM enables it to solve the RNN problem of vanishin
 The long-term memory enables the LSTM to store data at arbitrary intervals, as well as to detect long-term dependencies in the data.
 
 The LSTM, as the RNN, is well suited for working on a series of data.
-The LSTM is able to analyze and predict long-term relations in a series of data, making it well suited for applications such as time series prediction or anomaly detection,
+The LSTM is able to analyze and predict long-term relations in a series of data, making it well suited for applications such as time-series prediction or anomaly detection,
 as well as natural language processing and more.
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./sections/BT/figures/lstm_cell_hands_on.png}
-    \hfill
-    \caption{Figure of LSTM memory cell from \cite[p.~492]{Geron2017}.}
-    \label{fig:lstm-memory-cell}
+  \centering
+  \includegraphics[width=0.7\textwidth]{./sections/BT/figures/lstm_cell_hands_on.png}
+  \hfill
+  \caption{Figure of LSTM memory cell from \cite[p.~492]{Geron2017}.}
+  \label{fig:lstm-memory-cell}
 \end{figure}
 
 
@@ -80,49 +80,49 @@ as well as natural language processing and more.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
-\subsection{Long-Short Term Memory}
+  \subsection{Long-Short Term Memory}
 
-Long-Short Term Memory (LSTM) is a type of recurrent neural network (RNN) used in deep learning.
-Unlike a feed-forward network, recurrent neural networks has feedback connections.
-The feedback connections serve state information from the pervious time step.
-This connection works as a short term memory for the recurrent layers, saving information from the previous time step in so called memory cells.
+  Long-Short Term Memory (LSTM) is a type of recurrent neural network (RNN) used in deep learning.
+  Unlike a feed-forward network, recurrent neural networks have feedback connections.
+  The feedback connections serve state information from the previous time step.
+  This connection works as a short-term memory for the recurrent layers, saving information from the previous timestep in so-called memory cells.
 
-Whereas an RNN use memory cells that retain minimal information, only the previous time step data, the LSTM utilize more complex memory cells in order to increase the complexity of the behaviour.
+  Whereas an RNN uses memory cells that retain minimal information, only the previous time step data, the LSTM utilizes more complex memory cells to increase the complexity of the behavior.
 
-While the RNN often suffer from the vanishing gradient problem, due to the fact that the memory cells is primarily defined by the newest time step data, the LSTM solves this problem by adding long-term memory to the memory cell.
+  While the RNN often suffers from the vanishing gradient problem because the memory cells are primarily defined by the newest time step data, the LSTM solves this problem by adding long-term memory to the memory cell.
 
-The LSTM memory cells are comprised of two vectors, the cell functioning as the long term memory, and the short term memory.
-The LSTM cell also contain a input and output gates, as well as a forget gate.
-The forget gate function to remove unneeded features from the memory, before new features are added thorugh the input gate.
+  The LSTM memory cells are comprised of two vectors, the cell functioning as the long term memory and the short term memory.
+  The LSTM cell also contain a input and output gates, as well as a forget gate.
+  The forget gate function removes unneeded features from memory before new features are added through the input gate.
 
-\todo{Add LSTM cell architecture from the book!}
-[Hands on machine learning - book]
+  \todo{Add LSTM cell architecture from the book!}
+  [Hands on machine learning - book]
 
-The memory of the LSTM enables it to remember information over arbitrary intervals, making it a good fit for tasks such as making predictions on time-series data.
+  The memory of the LSTM enables it to remember information over arbitrary intervals, making it a good fit for tasks such as making predictions on time-series data.
 
-[Wikipedia - Source]
-
-
+    [Wikipedia - Source]
 
 
 
-The state information is seved in memory cells.
-The architecture of the memory cell might differ with different architectures, such as with the LSTM.
-
-In an RNN, the memory cell is simple, using the state information of the cell with data from the previous time step.
-This works like a short term memory.
-
-Building on the RNN, the LSTM is composed of more complex memory cells.
 
 
+  The state information is saved in memory cells.
+  The architecture of the memory cell might differ with different architectures, such as with the LSTM.
 
-where the output data of a neuron (node) is used as part of the input of a node in the same layer.
-This is refered to as memory.
+  In an RNN, the memory cell is simple, using the state information of the cell with data from the previous time step.
+  This works like a short-term memory.
 
-[What is the RNN memory module]
+  Building on the RNN, the LSTM is composed of more complex memory cells.
 
-[What is the LSTM memory module, how does it differ from the RNN]
 
-[What are the applications of the LSTM - Time series analysis, analysing sound and voice...]
+
+  where the output data of a neuron (node) is used as part of the input of a node in the same layer.
+  This is refered to as memory.
+
+    [What is the RNN memory module]
+
+    [What is the LSTM memory module, how does it differ from the RNN]
+
+    [What are the applications of the LSTM - Time-series analysis, analysing sound and voice...]
 
 \fi

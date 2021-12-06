@@ -14,13 +14,13 @@ research questions and terms.
 We included the most known search engines as our sources:
 
 \textit{
-    ACM digital library,
-    IEEE Xplore,
-    ISI web of knowledge,
-    ScienceDirect,
-    CiteSeer,
-    SpringerLink and,
-    Google Scholar
+  ACM digital library,
+  IEEE Xplore,
+  ISI web of knowledge,
+  ScienceDirect,
+  CiteSeer,
+  SpringerLink and,
+  Google Scholar
 }
 
 Our search terms are listen in \Cref{tab:search-terms-table-1} and \Cref{tab:search-terms-table-2}.
@@ -31,12 +31,12 @@ We used another Notion Database to keep track of our searches and track where ho
 
 Our method for adding literature to the Notion database was:
 \begin{enumerate}
-    \item Pick a source search engine
-    \item Search the search engine applying AND $\wedge$ and OR $\vee$ using our search terms
-    \item Add the Search Term and Source combination to the Search Term Database.
-    \item Title and abstract inclusion screening. Add all remotely relevant papers to Notion, and link them with the correct Search Term Database.
-    \item Continue until relevant papers are far in between
-    \item Repeat the whole process with a new search engine
+  \item Pick a source search engine
+  \item Search the search engine applying AND $\wedge$ and OR $\vee$ using our search terms
+  \item Add the Search Term and Source combination to the Search Term Database.
+  \item Title and abstract inclusion screening. Add all remotely relevant papers to Notion, and link them with the correct Search Term Database.
+  \item Continue until relevant papers are far in between
+  \item Repeat the whole process with a new search engine
 \end{enumerate}
 
 \subsubsection{Devations}
@@ -51,33 +51,33 @@ Some of the best papers we found through the structured review contained referen
 some of which were of high enough quality to add to our list of sources.
 These were also added to Notion.
 
-The term \textit{Anomaly detection} was removed (11.10.2021) as a search term after our goals shifted away from anomaly detection and towards time series prediction.
+The term \textit{Anomaly detection} was removed (11.10.2021) as a search term after our goals shifted away from anomaly detection and towards time-series prediction.
 This change was documented in our \textit{Decision Matrix}, which is publicly available here:
 \cite{decisionmatrix}.
 
 \begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|}\hline\hline
-        Name   & Group 1                     & Group 2                  & Group 3                  \\ \hline
-        Term 1 & CNN                         & \sout{Anomaly detection} & Autoencoder              \\ \hline
-        Term 2 & Convolution Neural Networks & \sout{Extreme values}    & Encoder Decoder networks \\ \hline
-        Term 3 &                             & \sout{Outliers}          &                          \\ \hline
-    \end{tabular}
-    \caption{Search Terms table 1}
-    \label{tab:search-terms-table-1}
+  \centering
+  \begin{tabular}{|c|c|c|c|}\hline\hline
+    Name   & Group 1                     & Group 2                  & Group 3                  \\ \hline
+    Term 1 & CNN                         & \sout{Anomaly detection} & Autoencoder              \\ \hline
+    Term 2 & Convolution Neural Networks & \sout{Extreme values}    & Encoder Decoder networks \\ \hline
+    Term 3 &                             & \sout{Outliers}          &                          \\ \hline
+  \end{tabular}
+  \caption{Search Terms table 1}
+  \label{tab:search-terms-table-1}
 \end{table}%
 
 \begin{table}[h]
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|}\hline\hline
-            Name   & Group 4     & Group 5                & Group 6    \\ \hline
-            Term 1 & Time series & LSTM                   & E-commerce \\ \hline
-            Term 2 &             & Long short term memory & Sales      \\ \hline
-            Term 3 &             &                        &            \\ \hline
-        \end{tabular}
-        \caption{Search Terms table 2}
-        \label{tab:search-terms-table-2}
-    \end{center}
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}\hline\hline
+      Name   & Group 4     & Group 5                & Group 6    \\ \hline
+      Term 1 & Time-series & LSTM                   & E-commerce \\ \hline
+      Term 2 &             & Long short term memory & Sales      \\ \hline
+      Term 3 &             &                        &            \\ \hline
+    \end{tabular}
+    \caption{Search Terms table 2}
+    \label{tab:search-terms-table-2}
+  \end{center}
 \end{table}%
 
 \subsection{Filtering by Title and Abstract}
@@ -87,13 +87,13 @@ papers to our Notion database, thus saving time.
 
 In order to filter out papers, we had three inclusion criteria (IC).
 \begin{description}
-    \item[IC1] The studies main concern is time series forecasting.
-    \item[IC2] The studies should not be older than from 2015.
-    \item[IC3] The study focus on CNN, autoencoder, or LSTM. Or a statistical method.
+  \item[IC1] The studies main concern is time-series forecasting.
+  \item[IC2] The studies should not be older than from 2015.
+  \item[IC3] The study focus on CNN, autoencoder, or LSTM. Or a statistical method.
 \end{description}
-IC1 excludes papers with a topic not relevant to our goal, such as time series classification and anomaly detection.
+IC1 excludes papers with a topic not relevant to our goal, such as time-series classification and anomaly detection.
 IC2 was then added to reduce the number of relevant papers, thus reducing the scope of the structured literature review.
-Through initial research on the topic of time series prediction, we found few relevant papers from before 2015.
+Through initial research on the topic of time-series prediction, we found few relevant papers from before 2015.
 Newer research was usually more relevant due to the more modern approaches applied, and thus this criterion was introduced.
 However, a small number of relevant papers published prior to 2015 were found to have relevance, and an exception was made for these papers.
 Lastly, IC3 was added to keep the papers within our defined scope of methods. 12.10.2021 we added "Or a statistical method"
@@ -108,17 +108,17 @@ In the final stage of filtering, the goal is to assess the quality of the work.
 This was done using a set of quality criteria for further screening.
 %Quality Criteria (QC) which is taken from \cite{AndersKofod-Petersen2018}.
 \begin{itemize}
-    \item QC 1	The study abstract is concise and describes the aim and results of the study.
-    \item QC 2	The publisher of the paper/study is a reputable scientific source.
-    \item QC 3	Is there a clear statement of the aim of the research?
-    \item QC 4	Is the study put into the context of other studies and research?
-    \item QC 5	Are system or algorithmic design decisions justified?
-    \item QC 6	Is the test data set reproducible?
-    \item QC 8	Is the experimental procedure thoroughly explained and reproducible?
-    \item QC 9	Is it clearly stated in the study which other algorithms the studys algorithms have been compared with?
-    \item QC 10	Are the performance metrics used in the study explained and justified?
-    \item QC 11	Are the test results thoroughly analyzed?
-    \item QC 12 Does the test evidence support the findings presented?
+  \item QC 1	The study abstract is concise and describes the aim and results of the study.
+  \item QC 2	The publisher of the paper/study is a reputable scientific source.
+  \item QC 3	Is there a clear statement of the aim of the research?
+  \item QC 4	Is the study put into the context of other studies and research?
+  \item QC 5	Are system or algorithmic design decisions justified?
+  \item QC 6	Is the test data set reproducible?
+  \item QC 8	Is the experimental procedure thoroughly explained and reproducible?
+  \item QC 9	Is it clearly stated in the study which other algorithms the studys algorithms have been compared with?
+  \item QC 10	Are the performance metrics used in the study explained and justified?
+  \item QC 11	Are the test results thoroughly analyzed?
+  \item QC 12 Does the test evidence support the findings presented?
 \end{itemize}
 
 The criteria are used with a scoring system.

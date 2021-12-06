@@ -18,7 +18,7 @@ Operating such an online service has enabled \textit{Prisguden} to accumulate us
 
 The data regarding product user interests is currently unused, despite being collected for years.
 The data is highly fluctuating and with high variance.
-The collected time series data could hold relevant information currently unused.
+The collected time-series data could hold relevant information currently unused.
 \textit{Prisguiden} intend to use this data in order to predict future product and category trends.
 With this information, they would effectively know where to allocate their resources regarding introducing and updating product listings and pricing for product categories.
 \linebreak
@@ -26,9 +26,47 @@ With this information, they would effectively know where to allocate their resou
 % Prisguiden was created to check prices of products between retailers
 % It has made it easies to compare prices.
 % Prisguiden is thus able to collect a lot of data about what products and product categories are searched and thus popular
-% This creates a time series of data
+% This creates a time-series of data
 
-In order to make such time-series predictions, methods for time series forecasting are used.
-Utilizing methods to evaluate historical data, the aim is to predict future values.
-Several methods have therefore been introduced to achieve this.
+In order to make such time-series predictions, methods for time-series forecasting are used.
+Using methods to evaluate historical data in an attempt to predict future values.
+Methods have therefore been introduced to achieve this.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\iffalse
+
+  \todo[inline]{Under this is not motivation, but how we approach the problem. Should be altered}
+  \todo[inline]{Add section about the data and what it contains. How time-series prediction is a fitting approach to solving a predictive problem such as this.}
+  \todo[inline]{This section should not contain references to data from "Background and Theory", but stand on its own, only introducing relevant information and pressent why we are doing this work.}
+
+
+  In order to explore the information in the time-series data, we need to explore the possibility of time-series analysis.
+  Forecasting future values, such as future trends, in time-series data is not a new concept, and a lot of work has been done in this area.
+  Statistical methods such as ARIMA have long been the de facto state-of-the-art method for time-series forecasting.
+  \todo[inline]{Add a reference to ARIMA background and Theory? Add a reference to paper?}
+  In newer research deep-learning has been explored more in-depth in order to make time-series predictions.
+  Methods such as Convolutional neural networks \Cref{section:BT:CNN} and Long-Short Term Memory \Cref{section:BT:LSTM}.
+  These methods have shown great promise in time-series forecasting due to their ability to extract dimensional and temporal features respectively.
+  In this paper, we wish to explore new and modern approaches to time-series forecasting in order to improve the predictive ability in the E-commerce problem space.
+  By applying new methods to this well-known problem space, we wish to improve upon the current state of the art and contribute to increasing the predictive accuracy of forecasting.
+
+  % New section --
+  % In order to explore the data in the time-series, we wish to predict future values in the time-series
+  % Time-series forecasting
+  % Previous state of the art ARIMA (link to Arima from Background and Theory)
+  % Current solutions are based on deep learning. Wish to explore new and more accurate versions of DL time-series preditors
+  % Thus, we need to do analysis of the data and the current literature
+  % We end up looking into improvements in the field of time-series predictive forecating
+
+\fi
+
+
+
+\iffalse
+  Having a template to work from provides a starting point. However, for a given project, a slight variation in the template may be required due to the nature of the given project. Further, the order in which the various chapters and sections will be written will also vary from project to project but will seldom start at the abstract and sequentially follow the chapters of the report. One critical reason for this, is that you need to start writing as early as possible and you will begin to write up where you are currently focusing. However, do not leave the abstract until the end. The abstract is the first thing anyone reads of an article or thesis --- after the title; and thus it is important that it is very well written. Abstracts are hard to write so create revisions throughout the course of your project as your project progresses.
+
+  This introduction to background and motivation should state where this project is situated in the field and what the key driving forces motivating this research are. However, keep this section brief as it is still part of the introduction. The motivation will be further extended in \Cref{T-B}, presenting your complete state-of-the-art.
+
+  Note that this template uses italics to highlight where latin wording is inserted to represent text and the text of the template that we wish to draw your attention to. The italics themself are not an indication that such sections should use italics.
+\fi
