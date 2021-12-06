@@ -1,23 +1,10 @@
 \subsection{Model structure}
 
-% Teksten vår presenterer et vitkig punkt med model structure
-% Her er det spessielt vekt på lokale vs globale metoder
-% I tillegg til univariate vs multivariate
 
-% Vi reffererer bare til teori bak dette, og denne er litt uklar
-% Pressisere at vi ikke har noe perfekt data på om data henger sammen eller ikke
-% Det er mulig at noe av dataen vi har har en sterk korrelasjon, mens andre deler av dataen ikke hører sammen i det hele tatt.
-% Det kan være vanskelig å si.
-% Vi har teori bak hvorfor de ulike methodene kan være gunstige og ugunstige
-% Det blir viktig å få frem begge disse aspektene når det skal diskuteres
-
-% For at dette skal skilde seg ut fra "related work" er det viktigere at vi ser dette i forhold til vår foreslåtte oppgave / framework
-% Hvorfor vil disse ulike data modellene utgjøre en forskjell når det kommer til vår modell
-% Hvorfor er vår data godt egnet, og mulig ikke godt egnet til dette'
 From what we learned from \Cref{section:RelatedWork:Model-structure}
-there are many possible ways of constructuring a model.
+there are many possible ways of constructing a model.
 \Cref{fig:model-structure-examples} shows three example-models for forecasting a set of $n$ time-series.
-In the figure each arrow indicates a time-series.
+In the figure, each arrow indicates a time-series.
 
 A local univariate approach would be similar to how an ARIMA model would work.
 It would benefit from being simple, but to forecast $n$ product categories,
@@ -69,7 +56,7 @@ amount of history data would amount to many null values.
 Second, each time a category is added or changed, a covariance analysis has to be done to identify
 which covariance group the category belongs to. Then that model has to be retrained.
 Depending on the number of changes to the category tree, this might hinder.
-\Cref{fig:model-example-local-multivariate} shows an example-model where the time-series set it split into two arbitrary buckets,
+\Cref{fig:model-example-local-multivariate} shows an example-model where the time-series set is split into two arbitrary buckets,
 and one multivariate model is made for each bucket.
 
 The univariate global approach has the benefit of overcoming many of the hindrances of a multivariate model.
@@ -77,7 +64,7 @@ It does not care which product category you feed it, so it is very scalable. The
 that a single global model might be detrimental to overall accuracy, could be overcome by clustering product categories together.
 This is true even if \cite{Rabanser2020}
 shows that global models will improve accuracy, even if the global model assumption is not satisfied.
-\Cref{fig:model-example-global-univariate} show a single global model, which is trained on the whole time-series-set.
+\Cref{fig:model-example-global-univariate} shows a single global model, which is trained on the whole time-series-set.
 
 Another question is how such a cluster of product categories is to be made.
 \cite{Bandara2017} suggests a K-means clustering technique
@@ -106,18 +93,3 @@ This is precisely what \cite{Laptev} did, and they achieved a promising result.
 To conclude, it is unclear what the best model would be for our case.
 
 
-%This apprach would also be hard to scale. If one 
-
-% Global models
-% + scalable
-% + Can use complicated models because of a lot of training data
-% + Has seen some promesing results resently
-% - Might miss interdependent relationships
-% - A single global model might be too general
-% Could split into sub groups
-
-% Multivariate models
-% + Can see interdependent relationships between time-series
-% - Difficult to scale, as adding one category means changing the models 
-% shape
-% Will maximize the effectiveness of CNN?
