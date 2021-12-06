@@ -3,31 +3,15 @@
 
 This section will cover the underlying motivation for the inclusion of the different methods and theories in the literature review.
 
-%\subsection{Time-series}
-% TODO: Usikker på om denne er nødvendig å ha med! Ganske selv forklarende tror jeg!
-% Problemet vårt er et tids serie problem og et forecasting problem
-% Vi ønsket ikke å se på anomaly detection.
-% Det ligner til en viss grad, men det er ikke samme type problem.
-% Dermed endte vi med en "IC" som spessifiserte tids serie prediksjon
-
 
 \subsection{E-commerce and Sales predictions}
-% Selv om det ikke er samme problemet, så ligner vårt problem veldig på salgs prediskjon og e-commerce
-% Type data er ganske lik selv om det varierer litt, og dataen er anntatt å være litt lik ettersom at det er interesse strøm som måles.
-% TODO: Finne en kilde å referere til på dette! Ha noe å snakke om som ligner eller som sier noe!
 With the proposed goal and research questions, the problem presented in this paper is not to predict sales in an e-commerce setting.
 Despite this, the argument is made that the type of data attained from user interest on products should be within a similar data distribution and thus a similar problem space.
 Considering this, it is necessary to include a literature review of current solutions in sales predictions and an e-commerce setting.
-Researching the current state-of-the-art methods and theory creates a context of what methods have already been investigated,
-and where improvements can be made.
+Researching the current state-of-the-art methods and theory creates a context of what methods have already been investigated and where improvements can be made. 
 
 
 \subsection{Deep learning methods}
-% Hvorfor inkluderte vi dyp læring metoder
-% Referere til teksten Sindre bruker om hvordan deep learning er bedre enn statistikk på nok data.
-% Statistiske modeller ofte det som har vært bruk til nå.
-% Dyp læring har gitt gode resultater.
-% Ikke nødvendig å skrive så veldig utdypende her.
 Through the research of the current state-of-the-art forecasting methods,
 it is clear that deep learning frameworks are currently at the forefront of time-series forecasting.
 Although statistical methods have long been state-of-the-art, current research suggests that deep learning methods can be used to improve predictive accuracy and reduce predictive error.
@@ -39,34 +23,11 @@ Further research into these and other models was therefore needed in order to as
 \subsection{Hybrid models}
 Through initial research in the time-series prediction domain,
 we discovered a new framework for making time-series predictions.
-The paper from \cite{Zhao2019} covers the use of a deep learning framework using a convolutional autoencoder,
+The paper from \cite{Zhao2019} covers the use of a deep learning framework using a convolutional autoencoder
 coupled with an LSTM in order to achieve more accurate predictions.
 The proposed framework showed great results on data with high fluctuation,
 which would warrant the investigation of its use on our problem space and data.
-This hybrid method showed greater predictive ability than the individual parts could achieve on their own.
+This hybrid method showed greater predictive ability than the individual parts could achieve independently.
 With this, we made a case to find other hybrid models or connected models in order to verify the predictive superiority of hybrid models.
 This led us to other papers such as \cite{Khan2020} and \cite{Bowen2020}.
 
-
-
-
-\iffalse
-  \todo[inline]{TODO: This has to do with motivation behind structured literature review!}
-  \todo[inline]{What was here before is moved to background and motivation in the introduction chapter.}
-
-  Your motivation can be either application driven or technique/methodology driven.
-  However in both cases, there will be an element of methodology driven due to
-  the research focus of our group and the nature of a masters project. What other
-  research has been conducted in this area and how is it related to your work? The
-  text should clearly illustrate why your goals and research questions are impor-
-  tant to address. This section is thus where your literate review will be presented.
-  It is important when presenting the review that you present an overview of the
-  motivating elements of the work going on in your field and how these relate to
-  your proposal, rather than a list of contributors and what they have done. This
-  means that you need to extract the key important factors for your work and
-  discuss how others have addressed each of these factors and what the advan-
-  tages/disadvantages are with such approaches. As you mention other authors,
-  you should reference their work. Note that the reference list reflects the literature
-  you have read and have cited. This will only be a subset of the literature that
-  you have read.
-\fi

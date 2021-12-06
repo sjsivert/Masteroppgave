@@ -13,8 +13,8 @@ Autoencoders are composed of 2 parts; the encoder and the decoder.
 The encoder maps the input data representation to the \textit{coding}, while the decoder maps the coding values back through data reconstruction.
 The encoder takes the input data and reduces the feature mapping to store the reduced data representation in the coding layer.
 The data is then sent from the coding layer to the decoder, where the decoder attempts to reverse the mapped data back to the original input data.
-By doing this, the encoder efficiently maps the most important data features in the coding layer, using far lower dimensionality than the original data.
-The decoder becomes efficient at reconstructing the input data using only the dimensionally reduced data in the coding layer.
+By doing this, the encoder efficiently maps essential data features in the coding layer, using far lower dimensionality than the original data.
+The decoder then efficiently reconstructs the input data using only the dimensionally reduced data in the coding layer.
 \cite[p.~506-508]{Geron2017}
 
 
@@ -26,10 +26,10 @@ The decoder becomes efficient at reconstructing the input data using only the di
     \label{fig:stacked_autoencoder_arch}
 \end{figure}
 
-Through the feature mapping, the encoder becomes an efficient feature detector and extractor.
+Through feature mapping, the encoder becomes an efficient feature detector and extractor.
 Due to the reduced dimensionality of the coding, the encoder becomes sufficient at reducing the noise within the data, extracting the most important features.
-As a future extractor, autoencoders are well suited for use in pretraining neural networks, extracting the most important features.
-At the same time, autoencoders can become fairly successful generative models.
-As the decoder is proficient at reconstructing input data from the coding layer representation, meaning it can also generate new data.
+As a future extractor, autoencoders are well suited for pre-training neural networks, extracting essential features.
+At the same time, autoencoders can become successful generative models.
+The decoder is proficient at reconstructing input data from the coding layer representation, meaning it can also generate new data.
 The reconstructive abilities of the decoder enable the generative model to create new data, similar to the training data used when creating the model.
 \cite[p.~506-508]{Geron2017}
