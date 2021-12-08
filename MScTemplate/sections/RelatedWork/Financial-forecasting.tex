@@ -24,8 +24,8 @@ Both ETS and ARIMA achieved similar results with both one-step and multi-step fo
 Their results show that multi-step forecasts are generally more accurate.
 This is argued to be a result of multi-step to incorporate more up-to-date information.
 Neither of the models is best suited for all circumstances.
-Each time-series would need to identify an appropriate ARIMA model.
-With differing data, identifying models would require data analysis of all the different time-series.
+% Each time-series would need to identify an appropriate ARIMA model.
+% With differing data, identifying models would require data analysis of all the different time-series.
 
 
 
@@ -48,14 +48,16 @@ whereas more complex machine learning methods are limited by the high complexity
 In comparison to \cite{Weng2020}, the paper \cite{Bowen2020} wanted to use machine learning to maintain
 the tradeoff between interpretability and consistency with actual
 changes in retail sales.
-Using a hybrid ARIMA and Back-propagation method, increased forecasting was achieved through
+Using a hybrid ARIMA and Back-propagation method, increased forecasting metrics was achieved through
 giving up the interpretability of the pure statistical methods.
-The same tradeoff was achieved through the use of other machine learning methods.
-Methods such as the LightGBM, an enable learning method based on the XGB model,
-and the Prophet method were introduced in \citep{Zunic2020}.
+% The gain in forecasting ability, but loss of interpretability wasthrough the use of other machine learning methods.
+The same gains in forecasting ability but loss of interpretability was
+found by \cite{Zunic2020}.
+They used pure machine learning methods such as the LightGBM, an ensemble learning method based on the XGB model,
+and the Prophet model, with good results.
 
 % What results did they get?
-The study finds that traditional models such as ARIMA have trouble forecasting E-commerce
+\cite{Bowen2020} finds that traditional models such as ARIMA have trouble forecasting E-commerce
 due to the fast-moving domain of consumer retail buying patterns.
 Additionally, their connection to external factors,
 such as holidays and price changes, increases the complexity further.
@@ -63,7 +65,6 @@ The machine learning models performed better, with lower predictive error
 and good interpretability.
 However, the LightGDM model outperformed the Prophet model because of the
 models limitation to univariate time-series.
-
 
 
 Further experimentation with machine learning methods is done by \cite{Bandara2019},
