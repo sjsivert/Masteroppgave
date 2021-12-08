@@ -1,10 +1,10 @@
 \subsection{Loss functions}
 \label{section:BT:Loss}
-\cite[p. 710-711]{Russel2012} defines loss functions as such:
+\citeauthor{Russel2012}  defines loss functions as such:
 A \textit{loss function} $L(x, y, \hat{y})$ is defined as the amount of utility lost by predicting
 $h(x)=\hat{y}$ when the correct answer is $f(x) = y$ and $h$ is the heuristic function.
 This is the most general formulation of the loss function. Often a simplified version is used,
-$L(y, \hat{y})$, that is independent of x.
+$L(y, \hat{y})$, that is independent of x \cite[p. 710-711]{Russel2012}.
 
 This means that the loss function is the function that calculates the error between the
 models prediction, and the actual target value.
@@ -13,7 +13,7 @@ This chapter will briefly explain standard loss functions.
 
 \subsubsection{MSE}
 % Common loss functions
-The most commonly used loss function for regression problem is the
+The most commonly used loss function for regression problems is the
 \textbf{Mean Squared Error (MSE)} function in \Cref{eq:mean-squared-error}.
 It is the mathematically preferred function if the target distribution is Gaussian.
 It punishes large errors much more harshly than smaller errors due to its squaring of the error.
@@ -41,7 +41,7 @@ $t$ is the time index.
 
 The advantages of MAPE is that it is expressed as a percentage, which means
 it is scale-independent and can be used for forecasting on different scales.
-A percentage scale is also easily explainable.
+A percentage is also easily explainable.
 \begin{equation}
   \label{eq:Mape}
   SMAPE = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{(y_t)}
@@ -61,13 +61,13 @@ favor models that under-predict rather than over-predict a forecast.
 Symmetric Mean Absolute Percentage Error (SMAPE) shown in \Cref{eq:sMape}
 is an error function made to overcome some of the shortcomings of the MAPE function.
 By incorporating $\hat{y}$ to the denominator, SMAPE is symmetrical,
-with both a lower bound of 0\% and an upper bound of 200\%.
+with a lower bound of 0\% and an upper bound of 200\%.
 
 SMAPE is one of the most used performance measures and is used in many forecasting competitions.
 
 SMAPE is still vulnerable to denominator values close to zero.
 \cite{Hewamalage2021} solves the zero problem by changing the denominator
-of the sMAPE to $max(|Y| + |\hat{y}| + \epsilon, 0.5 + \epsilon)$, where $\epsilon$
+of the SMAPE to $max(|y| + |\hat{y}| + \epsilon, 0.5 + \epsilon)$, where $\epsilon$
 is set to 0.1.
 This version of SMAPE avoids division by zero by switching to an alternate positive
 constant for the denominator when the forecasting values are too small.
@@ -77,6 +77,11 @@ constant for the denominator when the forecasting values are too small.
 \begin{equation}
   \label{eq:sMape}
   SMAPE = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{(y_t + \hat{y_t}) / 2}
+\end{equation}
+
+\begin{equation}
+  \label{eq:sMape-zero-division-alt}
+  SMAPE_{ALT} = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{max(|y| + |\hat{y}| + \epsilon, 0.5 + \epsilon)}
 \end{equation}
 
 \subsubsection{MASE}
