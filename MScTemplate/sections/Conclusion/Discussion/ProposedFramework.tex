@@ -1,6 +1,5 @@
 \subsection{Proposed method framework}
 
-
 To answer the goal presented in \Cref{section:Introduction:Goal} a model framework is proposed.
 The proposed method is intended to achieve a higher predictive ability than other state-of-the-art methods on the presented dataset.
 The presented model is a Convolutional autoencoder with an LSTM.
@@ -13,7 +12,7 @@ Such a dataset presents difficulties in prediction with high accuracy. The speci
 Utilizing methods for extracting both temporal and spatial values appeared to yield improvements.
 With the available dataset containing large fluctuations in values, the designed framework would need to be able to achieve predictions despite this.
 Therefore the proposed model is heavily influenced by the time-series prediction model presented in \cite{Zhao2019}.
-The model is intended to work with highly fluctuating datasets, as the paper supplies result shows a decrease in predictive error with the hybrid method over an LSTM model.
+The model is intended to work with highly fluctuating datasets. The results of the paper show a decrease in predictive error with the hybrid method over an LSTM model.
 Similarly, the available dataset described in
 \Cref{section:Architecture:DataExploration} shares these attributes.
 Therefore, the assertion is made that the same concepts applied in \cite{Zhao2019} can be applied in this problem space.
@@ -27,10 +26,11 @@ refers to the previously applied LSTM networks used in E-commerce time-series pr
 Despite the ARIMA being commonly used in time-series prediction, the LSTM network has shown great predictive accuracy.
 Therefore, the method architecture aims to explore an improved LSTM model to achieve better results.
 
-\Cref{section:RelatedWork:Hybrid}
-discusses how complex hybrid models are able to achieve higher accuracy than their individual parts.
-One such example is the use of LSTM in \cite{Zhao2019}, achieving higher prediction error than the proposed hybrid model, using multiple loss metrics.
-In order to increase predictive accuracy and reduce error, such hybrid methods are therefore worth considering.
+% Removed: We are saying the same thing, two sections above.
+% \Cref{section:RelatedWork:Hybrid}
+% discusses how complex hybrid models are able to achieve higher accuracy than their individual parts.
+% One such example is the use of LSTM in \cite{Zhao2019}, achieving higher prediction error than the proposed hybrid model, using multiple loss metrics.
+% In order to increase predictive accuracy and reduce error, such hybrid methods are therefore worth considering.
 
 
 % Why are we using this CNN-AE + LSTM, insted of another method?
