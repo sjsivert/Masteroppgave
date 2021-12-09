@@ -16,3 +16,4 @@ MScTemplate/pdflatex92299.fls
 **__init__.py**
 **.env
 .neptune
+.tox/

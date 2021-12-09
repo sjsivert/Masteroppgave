@@ -6,7 +6,8 @@ import click
 
 from src.experiment import Experiment
 from src.pipelines import market_insight_pipelines as pipelines
-from src.utils.config_parser import config, logger
+from src.utils import logger
+from src.utils.config_parser import config
 
 
 @click.command()

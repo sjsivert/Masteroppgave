@@ -29,7 +29,7 @@ class Experiment:
         except Exception as e:
             logging.error(
                 f"Not a valid ModelType error: {e} \n \
-        Valid ModelTypes are: {ModelTypeEnum.__members__}"
+                Valid ModelTypes are: {ModelTypeEnum.__members__}"
             )
             raise e
 

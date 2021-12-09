@@ -5,7 +5,7 @@ from genpipes import compose, declare
 
 
 @declare.processor()
-def drop_columns(stream: Iterable[pd.DataFrame], columns: Iterable[str]) -> Iterable[pd.DataFrame]:
+def drop_columns(stream: Iterable[pd.DataFrame], columns: List[str]) -> Iterable[pd.DataFrame]:
     """
     Drops the specified columns from the dataframe.
     """

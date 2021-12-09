@@ -3,8 +3,7 @@ from typing import Dict
 import pandas as pd
 from genpipes.compose import Pipeline
 from pandas.core.frame import DataFrame
-
-from model_strutures.model_type import ModelType
+from src.model_strutures.model_type import ModelType
 
 
 class LocalUnivariateArima(ModelType):

@@ -21,3 +21,4 @@ pylint
 mamba
 expects
 pylint-quotes
+mockito
