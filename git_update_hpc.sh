@@ -19,8 +19,7 @@ USERNAME=${username:=sjsivert}
 ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
 		ls && \
 		git fetch && \
-		git checkout origin/master && \
-		git reset --hard origin/master && \
+		git stash && \
 		git checkout $BRANCH_NAME && \
 		touch $LOG_LOCATION && \
 		> $LOG_LOCATION && \
