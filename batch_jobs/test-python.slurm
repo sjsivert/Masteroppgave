@@ -10,6 +10,9 @@
 #SBATCH --mail-user=sindrejohan1@gmail.com
 
 echo "Hello World"
+echo "variable 1: $1"
+echo "variable 2: $2"
+echo "variable 3: $3"
 ls
 module purge
 module load Anaconda3/2020.07
@@ -17,7 +20,7 @@ module load Anaconda3/2020.07
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pip install papermill
+#pip install papermill
 
 
-python /cluster/home/sjsivert/Masteroppgave/code/test-job.py
+python src/main.py
