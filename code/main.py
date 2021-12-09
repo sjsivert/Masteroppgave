@@ -42,13 +42,5 @@ def main(experiment_description):
 
   logging.info('Finished')
 
-
-
-
-def run_build_and_load_data_pipeline():
-  pipeline = pipelines.market_insight_pipeline()
-  logging.info(pipeline.__str__())
-  pipeline.run() 
-
 if __name__ == '__main__':
   main()
