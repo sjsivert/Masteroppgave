@@ -9,7 +9,7 @@ from src.utils.logger import init_logging
 with description("main.py") as self:
     with it("runs without parameters"):
         # main.main()
-        pass
+        expect(False).to(be_true)
     with it("executes init_logging"):
         mock_logger = mock(init_logging())
         # main.main()
