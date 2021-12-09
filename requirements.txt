@@ -16,3 +16,6 @@ genpipes
 neptune-client
 tox
 pytest
+flake8
+pylint
+mambaexpects

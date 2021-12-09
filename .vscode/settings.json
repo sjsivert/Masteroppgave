@@ -1,5 +1,33 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
   "jupyter.jupyterServerType": "local",
+  "python.linting.pylintEnabled": true,
+  "editor.formatOnSave": false,
+  "python.linting.flake8Enabled": true,
+  "python.missingDocstring": "silent",
+  "python.linting.pycodestyleEnabled": false,
+  "python.formatting.blackArgs": [
+      "--line-length",
+      "120"
+  ],    
+  "python.linting.flake8Args": [
+      "--max-line-length=120",
+      "--ignore=E402",
+  ],
+  "python.linting.pylintArgs": [
+      "--max-line-length=180",
+      "--enable=W0611"
+  ],
+  "python.formatting.autopep8Args": [
+      "--max-line-length=180"
+  ], 
+"[python]": {
+  "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
   "grammarly.overrides": [
     {
       "files": ["**/MScTemplate/sections/RelatedWork/statistical-vs-nn.tex"],
@@ -11,5 +39,7 @@
         "goals": ["inform", "describe"]
       }
     }
-  ]
+  ],
+  "pythonTestExplorer.testFramework": "pytest",
+  "python.formatting.provider": "black",
 }
