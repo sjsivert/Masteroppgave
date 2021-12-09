@@ -23,7 +23,8 @@ ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave &
 		> $LOG_LOCATION && \
 		echo "$2: $3">> $LOG_LOCATION && \
 		echo "Adding job to queue" && \
-		sbatch $1 $2 $3 && \
+		export EXPERIMENT_TITLE=$2 && \
+		sbatch $1 && \
 		export JOB_ID=$(sbatch $1 | grep -o -P '(\d{7})') && \
 		screen -d -m sh watch_for_job_finnish.sh $2 $USERNAME && \
 		squeue -u $USERNAME'"
