@@ -1,15 +1,19 @@
 \subsection{Model structure}
 
-
 From what we learned from \Cref{section:RelatedWork:Model-structure}
 there are many possible ways of constructing a model.
+The four main categories we have discussed are: many local univariate models \cref{fig:model-example-local-univariate},
+a global univariate model \cref{fig:model-example-global-univariate},
+a local multivariate model \cref{fig:model-example-local-multivariate}, and a global univariate model.
 \Cref{fig:model-structure-examples} shows three example-models for forecasting a set of $n$ time-series.
 In the figure, each arrow indicates a time-series.
 
 A local univariate approach would be similar to how an ARIMA model would work.
 It would benefit from being simple, but to forecast $n$ product categories,
 one would need $n$ models as seen in \cref{fig:model-example-local-univariate}.
-The benefit of having $n$ models is that consumer product categories are a dynamic set, constantly changing.
+Since consumer product categories are a dynamic set that is constantly changing, the benefit of having
+$n$ models is that each change in a category will only affect its corresponding model.
+If the creation of such a model requires little human intervention, this framework is scalable.
 When a new category of products is created, a forecasting model is created with it. Its forecasting ability
 would be limited but would gradually improve as more data accumulated.
 
@@ -55,22 +59,24 @@ First, it's the issue that not all categories have the same life of existence, a
 amount of history data would amount to many null values.
 Second, each time a category is added or changed, a covariance analysis has to be done to identify
 which covariance group the category belongs to. Then that model has to be retrained.
-Depending on the number of changes to the category tree, this might hinder.
-\Cref{fig:model-example-local-multivariate} shows an example-model where the time-series set is split into two arbitrary buckets,
+% Depending on the number of changes to the category tree, this might hinder.
+\Cref{fig:model-example-local-multivariate} shows an example model where the time-series set is split into two arbitrary buckets,
 and one multivariate model is made for each bucket.
 
-The univariate global approach has the benefit of overcoming many of the hindrances of a multivariate model.
-It does not care which product category you feed it, so it is very scalable. The argument given by\cite{Bandara2017},
-that a single global model might be detrimental to overall accuracy, could be overcome by clustering product categories together.
-This is true even if \cite{Rabanser2020}
+The univariate global approach, which is shown in \Cref{fig:model-example-global-univariate}, has the benefit of overcoming many of the hindrances of a multivariate model.
+It does not care which product category you feed it, so it is easily scalable. \cite{Bandara2017}
+states that a single global model might be detrimental to overall accuracy, but could be overcome by clustering product categories together.
+%The literature is inconsistent in defining characteristics of a domain that would benefit from a global forecasting model.
+%No empirical results have been found on the topic.
+\cite{Rabanser2020}
 shows that global models will improve accuracy, even if the global model assumption is not satisfied.
-\Cref{fig:model-example-global-univariate} shows a single global model, which is trained on the whole time-series-set.
 
-Another question is how such a cluster of product categories is to be made.
+If grouping time-series together in clusters, another question is how this similarity function should look like.
 \cite{Bandara2017} suggests a K-means clustering technique
 which looks at several time-series characteristics, such as
 strength of a trend, the strength of spikiness, strength of curvature,
 and sales quantile.
+
 
 The global method will not capture interdependent relationships directly
 but might do so indirectly. It also has the potential to build a lot more complicated model,
@@ -90,6 +96,8 @@ Or bad weather might affect interest rates at Prisguiden because people are insi
 Such a method can also have the additional benefit of being a global model.
 This is precisely what \cite{Laptev} did, and they achieved a promising result.
 
-To conclude, it is unclear what the best model would be for our case.
+To conclude,
+the literature is inconsistent in defining characteristics of a domain that would benefit from a global forecasting model.
+No empirical results have been found on the topic. Experiments could answer what model structure would best fit our domain.
 
 
