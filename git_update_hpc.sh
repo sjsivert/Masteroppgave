@@ -7,7 +7,8 @@ export LOG_LOCATION=batch_jobs/output/sbatch_job.txt
 export TERM=xterm
 
 
-BRANCH_NAME = "hpc/$2"
+BRANCH_NAME="hpc/$2"
+
 git checkout -b $BRANCH_NAME
 git add .
 git commit -m "HPC-init: $2"
@@ -16,9 +17,11 @@ git push --set-upstream origin $BRANCH_NAME
 USERNAME=${username:=sjsivert}
 
 ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
-		git fetch \
-		git reset --hard origin/master \
-		git checkout origin/$BRANCH_NAME && git pull && \
+		ls && \
+		git fetch && \
+		git checkout origin/master && \
+		git reset --hard origin/master && \
+		git checkout $BRANCH_NAME && \
 		touch $LOG_LOCATION && \
 		> $LOG_LOCATION && \
 		echo "$2: $3">> $LOG_LOCATION && \
