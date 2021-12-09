@@ -42,7 +42,8 @@ cat "Job finnished" | mail -s $JOB_NAME $EMAIL
 cat $LOG_FILE | mail -s $JOB_NAME $EMAIL
 
 git add .
-git checkout -b HPC-JOB/$JOB_NAME
+#git checkout -b HPC-JOB/$JOB_NAME
 git commit -m "HPC-done: $JOB_NAME"
-git push --set-upstream origin HPC-JOB/$JOB_NAME
+#git push --set-upstream origin HPC-JOB/$JOB_NAME
+git push
 

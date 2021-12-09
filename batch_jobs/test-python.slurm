@@ -13,6 +13,7 @@ echo "Hello World"
 echo "variable 1: $1"
 echo "variable 2: $2"
 echo "variable 3: $3"
+echo "Experiment title: ${EXPERIMENT_TITLE}"
 ls
 module purge
 module load Anaconda3/2020.07
@@ -23,4 +24,4 @@ pip install -r requirements.txt
 #pip install papermill
 
 
-python src/main.py
+python src/main.py --experiment ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
