@@ -12,6 +12,7 @@ neptune:
 
 model:
   model_type: 'local_univariate_arima'
+  rng_seed: 42
   arima:
     order:
       - 5 # p

@@ -9,13 +9,13 @@ from data_types.model_type_enum import ModelTypeEnum
 
 
 class Experiment():
-
   """
   The main class for running experiments.
   It contains logic for choosing model type, logging results, and saving results.
   """
-  def __init__(self, description: str) -> None:
-      self.experiment_description = description
+  def __init__(self, title: str, description: str) -> None:
+    self.title = title
+    self.experiment_description = description
 
   def choose_model_structure(self, model_options: Dict) -> ModelType:
     try:

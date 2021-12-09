@@ -10,37 +10,61 @@ from pipelines import market_insight_pipelines as pipelines
 from utils import neptune
 from experiment import Experiment
 
-@click.command()
-@click.option('--experiment_description', '-e', default='', required=False, help='Experiment description.')
-def main(experiment_description):
-  config['experiment_description'] = experiment_description
-  logger.init_logging()
 
+@click.command()
+@click.option('--experiment', '-e', nargs=2, help='Experiment title and description.')
+@click.option('--is-custom-run', is_flag=True)
+def main(experiment, is_custom_run: bool):
+  logger.init_logging()
   logging.info('Started')
 
-  experiment = Experiment(experiment_description)
-  experiment.choose_model_structure(config['model'].get())
+  if (experiment):
+    logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
+    config['experiment_title'] = experiment[0]
+    config['experiment_description'] = experiment[1]
 
-  experiment.load_and_process_data(pipelines.market_insight_pipeline())
+    if (is_custom_run):
+      custom_run()
 
-  experiment.train_model()
-  experiment.test_model()
-  experiment.save_model()
+    experiment = Experiment(
+      title = experiment[0],
+      description= experiment[1]
+      )
 
-  # neptune_run = neptune.init_neptune()
-  
-  # params = {"learning_rate": 0.001, "optimizer": "Adam"}
-  # neptune_run["parameters"] = params
+    experiment.choose_model_structure(config['model'].get())
 
-  # for epoch in range(10):
-  #     neptune_run["train/loss"].log(0.9 ** epoch)
+    experiment.load_and_process_data(pipelines.market_insight_pipeline())
 
-  # neptune_run["eval/f1_score"] = 0.66
-
-  # neptune_run.stop()
-
+    experiment.train_model()
+    experiment.test_model()
+    experiment.save_model()
 
   logging.info('Finished')
 
+@click.command()
+@click.option('--experiment', '-e', nargs=2, help='Experiment title and description.')
+@click.option('--is-custom-run', is_flag=True)
+@click.option('--data-path', help='Path to preprocessed data. Implies skipping preprocessing of data' )
+@click.option('--parameters', help='Path to hyperparameters to load the model with. Implies skipping hyperparameter grid search')
+@click.option('--model-path', help='Path to a pretrained model. Implies skipping model training')
+@click.option('--test-model', default=True)
+@click.option('--save-results', default=True)
+def custom_run(experiment, is_custom_run, data_path, parameters, model_path, test_model: bool, save_results: bool):
+  """
+  ./main.py --experiment 'title', 'description' 
+  ./main.py --custom-run='preprocess_data,parameter-search|train,test,save'
+  ./main.py --custom-run='train,test,save' --data-path=<path>.csv --parameters=<path>.json
+  ./main.py --custom-run='test|save' --data-path=<path>.csv --model-path=<path>
+  ./main.py --continue-from-checkpoint
+  """
+  logging.info(f'Running as custom run with: \n\
+    data_path: {data_path}\n\
+    parameters: {parameters}\n\
+    model_path: {model_path}\n\
+    test_model: {test_model}\n\
+    save_results: {save_results}\n\
+    ')
+  # TODO: Implement custom_run()
+  pass
 if __name__ == '__main__':
   main()
