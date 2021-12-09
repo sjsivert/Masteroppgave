@@ -16,6 +16,6 @@ setup(name='Masterproject',
 
       url='https://github.com/NikZy/Masteroppgave/',
 
-      packages=find_packages(include=['code']),
+      packages=find_packages(include=['src']),
 
      )

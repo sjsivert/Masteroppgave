@@ -1,8 +1,8 @@
 from prefect.utilities.tasks import task
-from utils.config_parser import config, get_absolute_path
-import pipelines.data_loader as data_loader
+from src.pipelines import data_loader
 from genpipes import declare, compose
-from pipelines import market_insight_processing as p
+from src.pipelines import market_insight_processing as p
+from src.utils.config_parser import get_absolute_path, config
 
 def market_insight_pipeline() -> compose.Pipeline:
   pipeline = compose.Pipeline(steps=[

@@ -8,8 +8,11 @@ from prefect import task, Flow
 from utils.config_parser import config, get_absolute_path
 from pipelines import market_insight_pipelines as pipelines
 from utils import neptune
-from experiment import Experiment
+# from experiment import Experiment
 
+
+def test_main():
+  assert True == False
 
 @click.command()
 @click.option('--experiment', '-e', nargs=2, help='Experiment title and description.')
