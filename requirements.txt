@@ -18,4 +18,6 @@ tox
 pytest
 flake8
 pylint
-mambaexpects
+mamba
+expects
+pylint-quotes

@@ -17,8 +17,9 @@
       "--ignore=E402",
   ],
   "python.linting.pylintArgs": [
-      "--max-line-length=180",
-      "--enable=W0611"
+    "--max-line-length=180",
+    "--enable=W0611",
+    "--load-plugins pylint_quotes"
   ],
   "python.formatting.autopep8Args": [
       "--max-line-length=180"
