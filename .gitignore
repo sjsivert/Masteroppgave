@@ -17,3 +17,4 @@ MScTemplate/pdflatex92299.fls
 **.env
 .neptune
 .tox/
+htmlcov
