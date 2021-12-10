@@ -32,6 +32,7 @@ jobs:
       run: coverage xml
     - name: Python Cov
       uses: orgoro/coverage/@v2
+      if: github.event_name == 'pull_request' # Only run on PRs
       with:
         coverageFile: coverage.xml
         token: ${{ secrets.GITHUB_TOKEN }}
