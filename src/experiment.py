@@ -4,8 +4,8 @@ from typing import Dict
 from genpipes.compose import Pipeline
 from pandas import DataFrame
 
-from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.data_types.model_type_enum import ModelTypeEnum
+from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.model_strutures.model_type import ModelType
 
 
@@ -40,12 +40,14 @@ class Experiment:
 
     def train_model(self) -> ModelType:
         logging.info("Training model")
+        # TODO: Implement
         return self.model.train_model()
 
     def test_model(self) -> Dict:
         logging.info("Testing model")
+        # TODO: Implement
         return self.model.test_model()
 
     def save_model(self) -> None:
         logging.info("Saving model")
-        pass
+        # TODO: Implement

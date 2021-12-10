@@ -14,6 +14,7 @@ class ModelType:
     """
 
     def __init__(self, model_options: Dict):
+        # This is an interface, so it should not be instantiated.
         pass
 
     def process_data(self, data_pipeline: Pipeline) -> DataFrame:

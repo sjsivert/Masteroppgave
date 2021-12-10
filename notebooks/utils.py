@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-#import code.config_parser as config
 
 # TODO: Replace with config value
 figure_save_location = "../MScTemplate/figs/code_generated/data_exploration/"
@@ -15,8 +14,6 @@ def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
   Returns:
     MplAxes: Original figure
   """
-  # mpl_style(dark=False)
-  # plt.style.use('seaborn-poster')
   plt.figure()
   ax = fig
   plt.rcParams['font.size'] = '16'
