@@ -18,3 +18,8 @@ MScTemplate/pdflatex92299.fls
 .neptune
 .tox/
 htmlcov
+Masterproject.egg-info/
+build/
+.coverage
+htmlcov/
+coverage.xml

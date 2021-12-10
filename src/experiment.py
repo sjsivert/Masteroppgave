@@ -4,8 +4,8 @@ from typing import Dict
 from genpipes.compose import Pipeline
 from pandas import DataFrame
 
-from src.data_types.model_type_enum import ModelTypeEnum
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
+from src.data_types.model_type_enum import ModelTypeEnum
 from src.model_strutures.model_type import ModelType
 
 
