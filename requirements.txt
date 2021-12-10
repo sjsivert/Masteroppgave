@@ -19,6 +19,8 @@ pytest
 flake8
 pylint
 mamba
+coverage
 expects
 pylint-quotes
 mockito
+-e.
