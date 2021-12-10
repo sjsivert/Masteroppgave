@@ -28,10 +28,10 @@ jobs:
         pip install -r requirements.txt
     - name: Test
       run: mamba --enable-coverage
-		- name: Generate coverage report
-			run: coverage xml
-		- name: Python Cov
-			uses: orgoro/coverage/@v2
-			with:
-					coverageFile: coverage.xml
-					token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate coverage report
+      run: coverage xml
+    - name: Python Cov
+      uses: orgoro/coverage/@v2
+      with:
+        coverageFile: coverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
