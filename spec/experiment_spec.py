@@ -1,10 +1,13 @@
+import os
+import shutil
 from types import ModuleType
 
 import expects
+import pytest
 from confuse.exceptions import NotFoundError
 from expects import be, be_false, be_true, expect
 from genpipes.compose import Pipeline
-from mamba import description, it
+from mamba import after, before, description, it
 from mockito import mock, when
 from pandas.core.frame import DataFrame
 from src import main
@@ -39,3 +42,25 @@ with description("Experiment") as self:
         }
         experiment.choose_model_structure(options)
         expect(experiment.model).to_not(expects.be_none)
+
+with description("Experiment.save_model()"):
+    with before.all:
+        try:
+            os.mkdir("spec/temp/")
+            self.experiment = Experiment(
+                "test-model", "description", ["disk"], {"disk": {"model_save_location": "spec/temp/"}}
+            )
+        except FileExistsError:
+            pass
+
+    with after.all:
+        shutil.rmtree("spec/temp/")
+
+    with it("Throws exception when save location does already exist"):
+        options = {"disk": {"model_save_location": "spec/temp/"}}
+        with pytest.raises(FileExistsError):
+            experiment = Experiment("test-model", "description", ["disk"], options)
+            experiment = Experiment("test-model", "trying to add another model should fale", ["disk"], options)
+
+    with it("Saves model to save location"):
+        pass
