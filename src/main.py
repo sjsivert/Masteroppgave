@@ -7,7 +7,7 @@ import click
 from src.experiment import Experiment
 from src.pipelines import market_insight_pipelines as pipelines
 from src.utils import logger
-from src.utils.config_parser import config
+from src.utils.config_parser import config, get_absolute_path
 
 
 @click.command()
@@ -19,13 +19,16 @@ def main(experiment, is_custom_run: bool):
 
     if experiment:
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
-        config["experiment_title"] = experiment[0]
-        config["experiment_description"] = experiment[1]
 
         if is_custom_run:
             custom_run()
 
-        experiment = Experiment(title=experiment[0], description=experiment[1])
+        experiment = Experiment(
+            title=experiment[0],
+            description=experiment[1],
+            save_sources_to_use=config["experiment"]["save_sources_to_use"].get(),
+            save_source_options=config["experiment"]["save_source"].get(),
+        )
 
         experiment.choose_model_structure(config["model"].get())
 
@@ -33,7 +36,7 @@ def main(experiment, is_custom_run: bool):
 
         experiment.train_model()
         experiment.test_model()
-        experiment.save_model()
+        experiment.save_model(options=config.dump())
 
     logging.info("Finished")
 
