@@ -1,7 +1,3 @@
-raport:
-  table_save_location: '../MScTemplate/tables/code_generated/data_exploration/'
-  figure_save_location: '../MScTemplate/figs/code_generated/data_exploration/'
-
 data:
   data_path: './datasets/raw/market_insights_overview_5p.csv'
   categories_path: './datasets/raw/solr_categories_2021_11_29.csv'
