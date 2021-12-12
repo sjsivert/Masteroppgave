@@ -8,9 +8,9 @@ from src.save_experiment_source.save_experiment_source import \
 
 class SaveLocalDiskSource(SaveExperimentSource):
     def __init__(self, options: Dict, title) -> None:
-        self.save_location = options['model_save_location'] + title
+        self.save_location = options["model_save_location"] + title
         try:
-            logging.info(f'Saving models to {self.save_location}')
+            logging.info(f"Saving models to {self.save_location}")
             os.mkdir(self.save_location)
         except FileExistsError:
             logging.warn(f"{self.save_location} already exists")
@@ -27,4 +27,3 @@ class SaveLocalDiskSource(SaveExperimentSource):
     def save_models(self, models: List) -> None:
         # TODO: Implement
         pass
-
