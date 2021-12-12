@@ -9,16 +9,17 @@ from src.save_experiment_source.save_local_disk_source import \
 
 with description("SaveLocalDiskSource") as self:
     with before.all:
+        self.temp_location = "spec/temp/"
         try:
-            os.mkdir("spec/temp/")
+            os.mkdir(self.temp_location)
         except FileExistsError:
             pass
 
     with after.all:
-        shutil.rmtree("spec/temp/")
+        shutil.rmtree(self.temp_location)
     
     with before.each:
-        self.options = {"model_save_location": "spec/temp/"}
+        self.options = {"model_save_location": self.temp_location}
         self.save_source = SaveLocalDiskSource(self.options, "test_experiment")
 
     with after.each:
@@ -30,7 +31,7 @@ with description("SaveLocalDiskSource") as self:
             save_source = SaveLocalDiskSource(self.options, "this-folder-exists")
 
     with it("Initializes correctly when save location does not exist"):
-        options = {"model_save_location": "spec/temp/"}
+        options = {"model_save_location": self.temp_location}
         save_source = SaveLocalDiskSource(options, "this-folder-does-not-exist")
         assert save_source.save_location == "spec/temp/this-folder-does-not-exist"
 
