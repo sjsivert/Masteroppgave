@@ -7,13 +7,13 @@ import click
 from src.experiment import Experiment
 from src.pipelines import market_insight_pipelines as pipelines
 from src.utils import logger
-from src.utils.config_parser import config, get_absolute_path
+from src.utils.config_parser import config
 
 
 @click.command()
 @click.option("--experiment", "-e", nargs=2, help="Experiment title and description.")
 @click.option("--is-custom-run", is_flag=True)
-def main(experiment, is_custom_run: bool):
+def main(experiment, is_custom_run: bool) -> int:
     logger.init_logging()
     logging.info("Started")
 
@@ -39,6 +39,7 @@ def main(experiment, is_custom_run: bool):
         experiment.save_model(options=config.dump())
 
     logging.info("Finished")
+    return 0
 
 
 @click.command()

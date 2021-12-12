@@ -1,3 +1,23 @@
+# Project basics
+The basics of how to set up and run this project
+
+## Install project
+From project root run:
+
+Setup up python virtual env:
+`python -m venv env && source env/bin/activate`
+
+Install project and dependencies
+`pip install -r requirements.txt`
+
+## Running experiments
+Run `python src/main.py --help` to get a help message.
+
+Run an experiment `python src/main.py -e <experiment-title-wihout-spaces> "<description of the experiment>"`
+## Running tests
+From project root run:
+`mamba`
+
 # Execute jobs on NTNU High Perfomance Computing cluster
 1. Write code for the experiment
 2. Add or tune a .slurm file in batch_Jobs/
@@ -16,9 +36,7 @@ NEPTUNE_API_TOKEN=<api-token>
 # Folder structure
 
 ```
-├── LICENSE
 ├── .pylintrc          <- Python style guidance
-├── Makefile           <- Makefile with commands like `make data` or `make train`
 ├── README.md          <- The top-level README for developers using this project.
 ├── .env               <- Environment variables
 │
