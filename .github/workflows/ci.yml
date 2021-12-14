@@ -9,6 +9,7 @@ on:
     - master
 
 jobs:
+
   build-and-test:
     runs-on: ubuntu-latest
     strategy:
@@ -16,15 +17,22 @@ jobs:
         python-version: [3.8, 3.9]
 
     steps:
+    
+    
     - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+
+    - uses: actions/cache@v2
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        # pip install tox tox-gh-actions
         pip install -r requirements.txt
     - name: Test
       run: mamba --enable-coverage
@@ -43,7 +51,7 @@ jobs:
       if: github.event_name == 'pull_request' # Only run on PRs
       run: |
         pip install coverage-lcov 
-        coverage-lcov
+        coverage-lcov --output_file_path ./lcov.info
         
     - name: Coveralls GitHub Action
       if: github.event_name == 'pull_request' # Only run on PRs
@@ -54,7 +62,7 @@ jobs:
         # 
         github-token: ${{ secrets.GITHUB_TOKEN }}
         # Path to lcov file
-       # path-to-lcov: # default is ./coverage/lcov.info
+        path-to-lcov: ./lcov.info # default is ./coverage/lcov.info
         # Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown in the Coveralls UI.
        # flag-name: # optional
         # Set to true if you are running parallel jobs, then use "parallel_finished: true" for the last action.
