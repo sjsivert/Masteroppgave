@@ -17,8 +17,6 @@ jobs:
         python-version: [3.8, 3.9]
 
     steps:
-    
-    
     - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -48,13 +46,11 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Install coverage lcov
-      if: github.event_name == 'pull_request' # Only run on PRs
       run: |
         pip install coverage-lcov 
         coverage-lcov --output_file_path ./lcov.info
         
     - name: Coveralls GitHub Action
-      if: github.event_name == 'pull_request' # Only run on PRs
       # You may pin to the exact commit or the version.
       # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
       uses: coverallsapp/github-action@1.1.3
