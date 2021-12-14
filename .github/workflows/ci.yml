@@ -40,7 +40,7 @@ jobs:
       run: mamba --enable-coverage
 
     - name: Generate coverage report
-      run: coverage xml --omit="./spec"
+      run: coverage xml
 
     - name: Python Cov
       uses: orgoro/coverage/@v2
