@@ -29,5 +29,5 @@ ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave &
 		export EXPERIMENT_DESCRIPTION=$3 && \
 		sbatch $1 && \
 		export JOB_ID=$(sbatch $1 | grep -o -P '(\d{7})') && \
-		screen -d -m sh watch_for_job_finnish.sh $2 $USERNAME && \
+		screen -d -m sh ./scripts/watch_for_job_finnish.sh $2 $USERNAME && \
 		squeue -u $USERNAME'"
