@@ -4,6 +4,9 @@ import shutil
 import pytest
 from expects import be, be_false, be_true, expect
 from mamba import after, before, description, it
+from sklearn.linear_model import LogisticRegression
+from src.data_types.model import Model
+from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import \
     SaveLocalDiskSource
 
@@ -31,8 +34,7 @@ with description("SaveLocalDiskSource") as self:
             save_source = SaveLocalDiskSource(self.options, "this-folder-exists")
 
     with it("Initializes correctly when save location does not exist"):
-        options = {"model_save_location": self.temp_location}
-        save_source = SaveLocalDiskSource(options, "this-folder-does-not-exist")
+        save_source = SaveLocalDiskSource(self.options, "this-folder-does-not-exist")
         assert save_source.save_location == "spec/temp/this-folder-does-not-exist"
 
     with it("save options as options.yaml inside correct folder"):
@@ -42,3 +44,10 @@ with description("SaveLocalDiskSource") as self:
     with it("saves metrix as metrics.txt inside correct folder"):
         self.save_source.save_metrics(["mae: 0.1", "mse: 0.2"])
         expect(os.path.isfile("spec/temp/test_experiment/metrics.txt")).to(be_true)
+
+    with it("Saves scikit-learn models correctly"):
+        models = [SklearnModel(LogisticRegression()), SklearnModel(LogisticRegression())]
+        self.save_source.save_models(models)
+        expect(os.path.isfile("spec/temp/test_experiment/model_0.pkl")).to(be_true)
+        expect(os.path.isfile("spec/temp/test_experiment/model_1.pkl")).to(be_true)
+        expect(os.path.isfile("spec/temp/test_experiment/model_3.pkl")).to(be_false)
