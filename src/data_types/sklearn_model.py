@@ -1,9 +1,9 @@
 import pickle
 
-from src.data_types.model import Model
+from src.data_types.i_model import IModel
 
 
-class SklearnModel(Model):
+class SklearnModel(IModel):
     """
     Wrapper for sklearn models.
     """
@@ -16,6 +16,6 @@ class SklearnModel(Model):
             pickle.dump(self.model, f)
 
     @staticmethod
-    def load(path: str) -> Model:
+    def load(path: str) -> IModel:
         with open(path, "rb") as f:
             return SklearnModel(pickle.load(f))

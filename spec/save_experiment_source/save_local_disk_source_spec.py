@@ -5,7 +5,7 @@ import pytest
 from expects import be, be_false, be_true, expect
 from mamba import after, before, description, it
 from sklearn.linear_model import LogisticRegression
-from src.data_types.model import Model
+from src.data_types.i_model import IModel
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import \
     SaveLocalDiskSource

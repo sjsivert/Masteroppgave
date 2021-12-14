@@ -2,12 +2,12 @@ import logging
 import os
 from typing import Dict, List
 
-from src.data_types.model import Model
-from src.save_experiment_source.save_experiment_source import \
-    SaveExperimentSource
+from src.data_types.i_model import IModel
+from src.save_experiment_source.i_save_experiment_source import \
+    ISaveExperimentSource
 
 
-class SaveLocalDiskSource(SaveExperimentSource):
+class SaveLocalDiskSource(ISaveExperimentSource):
     def __init__(self, options: Dict, title) -> None:
         self.save_location = options["model_save_location"] + title
         try:
@@ -25,6 +25,6 @@ class SaveLocalDiskSource(SaveExperimentSource):
         with open(self.save_location + "/metrics.txt", "w") as f:
             f.writelines("MAE: 1.0 \nMSE:20.0")
 
-    def save_models(self, models: List[Model]) -> None:
+    def save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
             model.save(self.save_location + f"/model_{idx}.pkl")

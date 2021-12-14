@@ -1,9 +1,7 @@
-import logging
-import os
 from typing import List
 
 
-class SaveExperimentSource:
+class ISaveExperimentSource:
     """
     An interface for all experiment save sources to implement.
     For example, disk, database, neptune.ai, etc.
