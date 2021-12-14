@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-class Model:
+class IModel:
     """
     Interface for all models to implement in order to save and load
     """
@@ -12,7 +12,7 @@ class Model:
         """
         pass
 
-    def load(self, path: str) -> Model:
+    def load(self, path: str) -> IModel:
         """
         Load the model from the specified path.
         """

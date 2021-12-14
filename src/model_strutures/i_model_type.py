@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict
 
-import pandas as pd
 from genpipes.compose import Pipeline
 from pandas import DataFrame
 
 
-class ModelType:
+class IModelType:
     """
     Interface for all model types.
     Contains methods shared by all.
@@ -25,7 +24,7 @@ class ModelType:
         """
         pass
 
-    def train_model(self) -> ModelType:
+    def train_model(self) -> IModelType:
         """
         Trains the model.
         """

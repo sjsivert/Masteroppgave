@@ -3,10 +3,10 @@ from typing import Dict
 import pandas as pd
 from genpipes.compose import Pipeline
 from pandas.core.frame import DataFrame
-from src.model_strutures.model_type import ModelType
+from src.model_strutures.i_model_type import IModelType
 
 
-class LocalUnivariateArima(ModelType):
+class LocalUnivariateArima(IModelType):
     def __init__(self, model_options: Dict) -> None:
         # TODO: Implement
         pass
@@ -15,7 +15,7 @@ class LocalUnivariateArima(ModelType):
         # TODO: Implement
         pass
 
-    def train(self) -> ModelType:
+    def train(self) -> IModelType:
         # TODO: Implement
         pass
 

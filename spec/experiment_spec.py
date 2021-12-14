@@ -13,7 +13,7 @@ from pandas.core.frame import DataFrame
 from src import main
 from src.data_types.model_type_enum import ModelTypeEnum
 from src.experiment import Experiment
-from src.model_strutures.model_type import ModelType
+from src.model_strutures.i_model_type import IModelType
 from src.utils.config_parser import config, get_absolute_path
 from src.utils.logger import init_logging
 
@@ -26,7 +26,7 @@ with description("Experiment") as self:
     with it("returns dataframe on load_and_process_data()"):
         experiment = Experiment("title", "description")
         pipeline = mock(Pipeline)
-        model = mock(ModelType)
+        model = mock(IModelType)
         df = DataFrame({"a": [1, 2, 3]})
         when(model).process_data(pipeline).thenReturn(df)
         experiment.model = model

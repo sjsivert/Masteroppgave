@@ -1,7 +1,7 @@
 from typing import Iterable, List
 
 import pandas as pd
-from genpipes import compose, declare
+from genpipes import declare
 
 
 @declare.processor()

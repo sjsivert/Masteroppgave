@@ -5,7 +5,7 @@ import logging
 import click
 
 from src.experiment import Experiment
-from src.pipelines import market_insight_pipelines as pipelines
+from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.utils import logger
 from src.utils.config_parser import config
 
@@ -32,7 +32,7 @@ def main(experiment, is_custom_run: bool) -> int:
 
         experiment.choose_model_structure(config["model"].get())
 
-        experiment.load_and_process_data(pipelines.market_insight_pipeline())
+        experiment.load_and_process_data(pipeline.market_insight_pipeline())
 
         experiment.train_model()
         experiment.test_model()

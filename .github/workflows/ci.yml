@@ -40,7 +40,7 @@ jobs:
       run: mamba --enable-coverage
 
     - name: Generate coverage report
-      run: coverage xml --omit="./spec"
+      run: coverage xml
 
     - name: Python Cov
       uses: orgoro/coverage/@v2
@@ -52,6 +52,7 @@ jobs:
     - name: Install coverage lcov
       run: |
         pip install coverage-lcov
+        pip install coverage==6.1.2 # Added because coverage==5.5 has a bug with coverage-lcov
         coverage-lcov --output_file_path ./lcov.info
 
     - name: Coveralls GitHub Action
