@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/NikZy/Masteroppgave/badge.svg?branch=master)](https://coveralls.io/github/NikZy/Masteroppgave?branch=master)
 # Project basics
 The basics of how to set up and run this project
 
