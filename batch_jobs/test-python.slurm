@@ -16,12 +16,10 @@ echo "variable 1: $1"
 echo "Experiment title: ${EXPERIMENT_TITLE}"
 ls
 module purge
-module load Anaconda3/2020.07
+module load Python/3.8.6-GCCcore-10.2.0
 
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-#pip install papermill
-
 
 python src/main.py --experiment ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
