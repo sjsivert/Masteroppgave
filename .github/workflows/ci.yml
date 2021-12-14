@@ -52,7 +52,7 @@ jobs:
     - name: Install coverage lcov
       run: |
         pip install coverage-lcov
-        pip install coverage==6.1.2
+        pip install coverage==6.1.2 # Added because coverage==5.5 has a bug with coverage-lcov
         coverage-lcov --output_file_path ./lcov.info
 
     - name: Coveralls GitHub Action
