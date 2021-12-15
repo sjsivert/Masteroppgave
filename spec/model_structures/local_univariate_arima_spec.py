@@ -1,0 +1,22 @@
+from expects import be, be_false, be_true, equal, expect
+from genpipes.compose import Pipeline
+from mamba import after, before, description, it
+from mockito.mocking import mock
+from mockito.mockito import when
+from pandas.core.frame import DataFrame
+from src.model_strutures.local_univariate_arima import LocalUnivariateArima
+
+with description("LocalUnivariateArima") as self:
+    with before.all:
+        self.options = {"model_type": "local_univariate_arima", "local_univariate_arima": {"order": (1, 1, 1)}}
+
+    with it("Can be initialised with options"):
+        model = LocalUnivariateArima(self.options)
+        expect(model.model_options).to(equal(self.options))
+
+    with it("Can process data"):
+        model = LocalUnivariateArima(self.options)
+        pipeline = mock(Pipeline)
+        df = DataFrame({"a": [1, 2, 3]})
+        when(pipeline).run().thenReturn(df)
+        expect(model.process_data(pipeline).equals(df)).to(be_true)

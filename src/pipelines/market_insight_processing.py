@@ -25,7 +25,7 @@ def convert_date_to_datetime(stream: Iterable[pd.DataFrame]) -> Iterable[pd.Data
 
 
 @declare.processor()
-def print_df(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:
+def print_df(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:  # pragma: no cover
     """
     Print the dataframe.
     """

@@ -3,6 +3,7 @@ import shutil
 
 import pytest
 from expects import be, be_false, be_true, expect
+from expects.matchers.built_in import be_none
 from mamba import after, before, description, it
 from sklearn.linear_model import LogisticRegression
 from src.data_types.i_model import IModel
@@ -51,3 +52,12 @@ with description("SaveLocalDiskSource") as self:
         expect(os.path.isfile("spec/temp/test_experiment/model_0.pkl")).to(be_true)
         expect(os.path.isfile("spec/temp/test_experiment/model_1.pkl")).to(be_true)
         expect(os.path.isfile("spec/temp/test_experiment/model_3.pkl")).to(be_false)
+
+    with it("Loades scikit-learn models correctly"):
+        # Arrange
+        models = [SklearnModel(LogisticRegression())]
+        self.save_source.save_models(models)
+        # Act
+        model = SklearnModel.load("spec/temp/test_experiment/model_0.pkl")
+        # Assert
+        expect(model).to_not(be_none)
