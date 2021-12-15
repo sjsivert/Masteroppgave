@@ -39,7 +39,7 @@ class Experiment:
         try:
             model_type = ModelTypeEnum[model_options["model_type"]]
             if model_type == ModelTypeEnum.local_univariate_arima:
-                self.model = LocalUnivariateArima(model_options=model_options["arima"])
+                self.model = LocalUnivariateArima(model_options=model_options["local_univariate_arima"])
             return self.model
 
         except Exception as e:

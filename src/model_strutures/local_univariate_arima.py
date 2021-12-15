@@ -9,7 +9,7 @@ from src.model_strutures.i_model_type import IModelType
 class LocalUnivariateArima(IModelType):
     def __init__(self, model_options: Dict) -> None:
         # TODO: Implement
-        pass
+        self.model_options = model_options
 
     def process_data(self, data_pipeline: Pipeline) -> DataFrame:
         # TODO: Update with additional data processing
@@ -17,8 +17,8 @@ class LocalUnivariateArima(IModelType):
 
     def train(self) -> IModelType:
         # TODO: Implement
-        pass
+        raise NotImplementedError()
 
     def test(self) -> Dict:
         # TODO: Implement
-        pass
+        raise NotImplementedError()
