@@ -12,8 +12,8 @@ class LocalUnivariateArima(IModelType):
         pass
 
     def process_data(self, data_pipeline: Pipeline) -> DataFrame:
-        # TODO: Implement
-        pass
+        # TODO: Update with additional data processing
+        return data_pipeline.run()
 
     def train(self) -> IModelType:
         # TODO: Implement
