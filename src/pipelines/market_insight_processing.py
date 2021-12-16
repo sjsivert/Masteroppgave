@@ -44,6 +44,8 @@ def group_by(stream: Iterable[pd.DataFrame], group_by: List[str]) -> Iterable[pd
 
 
 @declare.processor()
-def filter_column(stream: Iterable[pd.DataFrame], column: str, value: int) -> Iterable[pd.DataFrame]:
+def filter_column(
+    stream: Iterable[pd.DataFrame], column: str, value: int
+) -> Iterable[pd.DataFrame]:
     for df in stream:
         yield df[df[column] > value]

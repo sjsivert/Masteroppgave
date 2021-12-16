@@ -6,6 +6,7 @@ class ISaveExperimentSource:
     An interface for all experiment save sources to implement.
     For example, disk, database, neptune.ai, etc.
     """
+
     def __init__(self) -> None:
         # Interface, not to be implemented
         pass

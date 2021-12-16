@@ -17,8 +17,7 @@ from src.data_types.model_type_enum import ModelTypeEnum
 from src.experiment import Experiment
 from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
-from src.save_experiment_source.save_local_disk_source import \
-    SaveLocalDiskSource
+from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.config_parser import config, get_absolute_path
 from src.utils.logger import init_logging
 
@@ -107,5 +106,5 @@ with description("Experiment") as self:
         # Act
         experiment.save_model({})
         # Assert
-        verify(experiment.save_sources[0], times=1).save_options({}) 
-        verify(experiment.save_sources[0], times=1).save_metrics([]) 
+        verify(experiment.save_sources[0], times=1).save_options({})
+        verify(experiment.save_sources[0], times=1).save_metrics([])

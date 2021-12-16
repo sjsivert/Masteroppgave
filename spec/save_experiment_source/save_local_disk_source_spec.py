@@ -8,8 +8,7 @@ from mamba import after, before, description, it
 from sklearn.linear_model import LogisticRegression
 from src.data_types.i_model import IModel
 from src.data_types.sklearn_model import SklearnModel
-from src.save_experiment_source.save_local_disk_source import \
-    SaveLocalDiskSource
+from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
 with description("SaveLocalDiskSource") as self:
     with before.all:
@@ -21,7 +20,7 @@ with description("SaveLocalDiskSource") as self:
 
     with after.all:
         shutil.rmtree(self.temp_location)
-    
+
     with before.each:
         self.options = {"model_save_location": self.temp_location}
         self.save_source = SaveLocalDiskSource(self.options, "test_experiment")
