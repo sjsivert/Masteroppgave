@@ -23,7 +23,7 @@ From project root run:
 # Execute jobs on NTNU High Perfomance Computing cluster
 1. Write code for the experiment
 2. Add or tune a .slurm file in batch_Jobs/
-3. Run ´./git_update_hpc.sh <job-file.slurm> <Job Name>´
+3. Run ´./scripts/execute_experiment_hpc.sh <job-file.slurm> <Job Name> <Job description>´
 
 # Environment variables
 Create a .env file in root folder to configure project related environment variables
