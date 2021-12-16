@@ -33,6 +33,8 @@ data = [
         "date": "2021-11-29T04:01:40.409Z ",
     },
 ]
+
+
 @declare.generator()
 def test_data() -> pd.DataFrame:
     return pd.DataFrame(data)
@@ -40,20 +42,21 @@ def test_data() -> pd.DataFrame:
 
 with description("Market insight prosessing pipeline") as self:
     with it("It can load data"):
-        result = compose.Pipeline(steps=[
-            ("load data", test_data, {})
-        ]).run()
+        result = compose.Pipeline(steps=[("load data", test_data, {})]).run()
         expect(result.equals(pd.DataFrame(data))).to(be_true)
 
     with it("Can run all processing steps in a complete pipeline"):
-        result = compose.Pipeline(steps=[
-            ("load data", test_data, {}),
-            ("convert date columns to date_time format", p.convert_date_to_datetime, {}),
-            ("sum up clicks to category level", p.group_by, {"group_by": ["date", "cat_id"]}),
-            ("filter out data from early 2018", p.filter_column, {"column": "date", "value": "2018-12-01"}),
-            ("drop uninteresting colums", p.drop_columns, {"columns": ["root_cat_id"]}),
-        ]).run()
+        result = compose.Pipeline(
+            steps=[
+                ("load data", test_data, {}),
+                ("convert date columns to date_time format", p.convert_date_to_datetime, {}),
+                ("sum up clicks to category level", p.group_by, {"group_by": ["date", "cat_id"]}),
+                (
+                    "filter out data from early 2018",
+                    p.filter_column,
+                    {"column": "date", "value": "2018-12-01"},
+                ),
+                ("drop uninteresting colums", p.drop_columns, {"columns": ["root_cat_id"]}),
+            ]
+        ).run()
         expect(result.equals(result)).to(be_true)
-
-
-

@@ -8,7 +8,10 @@ from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 
 with description("LocalUnivariateArima") as self:
     with before.all:
-        self.options = {"model_type": "local_univariate_arima", "local_univariate_arima": {"order": (1, 1, 1)}}
+        self.options = {
+            "model_type": "local_univariate_arima",
+            "local_univariate_arima": {"order": (1, 1, 1)},
+        }
 
     with it("Can be initialised with options"):
         model = LocalUnivariateArima(self.options)

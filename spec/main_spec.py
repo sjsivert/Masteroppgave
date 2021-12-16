@@ -10,15 +10,14 @@ from mockito.mockito import unstub
 from src import main
 from src.experiment import Experiment
 from src.model_strutures.i_model_type import IModelType
-from src.pipelines.market_insight_preprocessing_pipeline import \
-    market_insight_pipeline
+from src.pipelines.market_insight_preprocessing_pipeline import market_insight_pipeline
 from src.utils.config_parser import get_absolute_path
 from src.utils.logger import init_logging
 
 with description("main.py", "integration") as self:
     with before.all:
         self.runner = CliRunner()
-    
+
     with after.all:
         unstub()
 
@@ -38,7 +37,9 @@ with description("main.py", "integration") as self:
         when(Experiment).test_model().thenReturn(None)
         when(Experiment).save_model({}).thenReturn(None)
         # Act
-        result = self.runner.invoke(main.main, ["--experiment", "title", "description", "--no-save"])
+        result = self.runner.invoke(
+            main.main, ["--experiment", "title", "description", "--no-save"]
+        )
         # Assert
         verify(Experiment, times=1).load_and_process_data(ANY)
         verify(Experiment, times=1).train_model()
