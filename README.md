@@ -19,6 +19,9 @@ Run an experiment `python src/main.py -e <experiment-title-wihout-spaces> "<desc
 From project root run:
 `mamba`
 
+## Formatting source files to code formatting standards
+Run ´black src spec´
+
 # Execute jobs on NTNU High Perfomance Computing cluster
 1. Write code for the experiment
 2. Add or tune a .slurm file in batch_Jobs/
