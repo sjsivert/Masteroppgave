@@ -1,0 +1,16 @@
+data:
+    data_path: ./datasets/raw/market_insights_overview_5p.csv
+    categories_path: ./datasets/raw/solr_categories_2021_11_29.csv
+experiment:
+    save_sources_to_use: [disk]
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project: sjsivertandsanderkk/Masteroppgave
+            api_token: ${NEPTUNE_API_TOKEN}
+model:
+    model_type: local_univariate_arima
+    rng_seed: 42
+    local_univariate_arima:
+        order: [5, 2, 0]

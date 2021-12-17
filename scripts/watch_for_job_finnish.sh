@@ -7,9 +7,10 @@ JOB_NAME=$1
 # Load environment variables from .env file
 source ./.env
 echo "Job name: $1"
+echo "Experiment description $2"
 echo "Job id: $2"
 JOB_NAME=$1
-JOB_ID=$2
+JOB_ID=$3
 
 function checkJobStatus {
 	JOBS="$(squeue | grep $JOB_ID)"
@@ -38,12 +39,13 @@ while [[ ! $JOB_STATUS =~ .*finished*. ]];do
 	sleep 5
 done
 
+
 cat "Job finnished" | mail -s $JOB_NAME $EMAIL
 cat $LOG_FILE | mail -s $JOB_NAME $EMAIL
 
 git add .
 #git checkout -b HPC-JOB/$JOB_NAME
-git commit -m "HPC-done: $JOB_NAME"
+git commit -m "E:HPC: $JOB_NAME"
 #git push --set-upstream origin HPC-JOB/$JOB_NAME
 git push
 
