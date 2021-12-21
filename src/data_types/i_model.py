@@ -12,6 +12,7 @@ class IModel:
         """
         pass
 
+    @staticmethod
     def load(self, path: str) -> IModel:
         """
         Load the model from the specified path.

@@ -16,6 +16,6 @@ class SklearnModel(IModel):
             pickle.dump(self.model, f)
 
     @staticmethod
-    def load(path: str) -> IModel:
+    def load(self, path: str) -> IModel:
         with open(path, "rb") as f:
             return SklearnModel(pickle.load(f))
