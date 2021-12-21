@@ -36,18 +36,14 @@ class Experiment:
         sources = []
         for source in save_sources:
             if source == "disk":
-                sources.append(
-                    SaveLocalDiskSource(options=save_source_options["disk"], title=self.title)
-                )
+                sources.append(SaveLocalDiskSource(**save_source_options["disk"], title=self.title))
         return sources
 
     def choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
             model_type = ModelTypeEnum[model_options["model_type"]]
             if model_type == ModelTypeEnum.local_univariate_arima:
-                self.model = LocalUnivariateArima(
-                    model_options=model_options["local_univariate_arima"]
-                )
+                self.model = LocalUnivariateArima(**model_options["local_univariate_arima"])
             return self.model
 
         except Exception as e:

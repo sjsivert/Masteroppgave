@@ -7,8 +7,8 @@ from src.save_experiment_source.i_save_experiment_source import ISaveExperimentS
 
 
 class SaveLocalDiskSource(ISaveExperimentSource):
-    def __init__(self, options: Dict, title) -> None:
-        self.save_location = options["model_save_location"] + title
+    def __init__(self, model_save_location: str, title) -> None:
+        self.save_location = model_save_location + title
         try:
             logging.info(f"Saving models to {self.save_location}")
             os.mkdir(self.save_location)
