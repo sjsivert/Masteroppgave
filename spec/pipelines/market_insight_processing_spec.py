@@ -40,7 +40,7 @@ def test_data() -> pd.DataFrame:
     return pd.DataFrame(data)
 
 
-with description("Market insight prosessing pipeline") as self:
+with description("Market insight prosessing pipeline", "unit") as self:
     with it("It can load data"):
         result = compose.Pipeline(steps=[("load data", test_data, {})]).run()
         expect(result.equals(pd.DataFrame(data))).to(be_true)

@@ -3,8 +3,7 @@ import os
 from typing import Dict, List
 
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_save_experiment_source import \
-    ISaveExperimentSource
+from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 
 
 class SaveLocalDiskSource(ISaveExperimentSource):

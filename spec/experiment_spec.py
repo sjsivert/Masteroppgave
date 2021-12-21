@@ -21,7 +21,7 @@ from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSourc
 from src.utils.config_parser import config, get_absolute_path
 from src.utils.logger import init_logging
 
-with description("Experiment") as self:
+with description("Experiment", "integration") as self:
     with after.all:
         unstub()
 
