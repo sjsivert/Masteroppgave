@@ -6,6 +6,7 @@ from expects import be_false, be_true, expect
 from expects.matchers.built_in import be_none
 from mamba import after, before, description, it
 from sklearn.linear_model import LogisticRegression
+
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 

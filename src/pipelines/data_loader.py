@@ -1,8 +1,7 @@
 import logging
 
 import pandas as pd
-from genpipes import compose, declare
-from prefect import task
+from genpipes import declare
 
 
 @declare.generator()

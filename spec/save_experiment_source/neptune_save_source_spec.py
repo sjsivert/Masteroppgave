@@ -1,11 +1,8 @@
-from expects import be, be_false, be_true, expect
-from expects.matchers.built_in import be_none
-from mamba import after, before, description, it
+from mamba import before, description, it
 from sklearn.linear_model import LogisticRegression
+
 from src.data_types.sklearn_model import SklearnModel
-from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
-from src.utils.config_parser import config
 
 with description("NeptuneSaveSource", "api") as self:
     with before.all:

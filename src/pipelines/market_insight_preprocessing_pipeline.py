@@ -1,5 +1,5 @@
-from genpipes import compose, declare
-from prefect.utilities.tasks import task
+from genpipes import compose
+
 from src.pipelines import data_loader
 from src.pipelines import market_insight_processing as p
 from src.utils.config_parser import config, get_absolute_path

@@ -1,17 +1,13 @@
 from click.testing import CliRunner
-from confuse.exceptions import NotFoundError
 from expects import be_true, expect
 from expects.matchers.built_in import be
-from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from mockito import mock, verify, when
 from mockito.matchers import ANY
 from mockito.mockito import unstub
+
 from src import main
 from src.experiment import Experiment
-from src.model_strutures.i_model_type import IModelType
-from src.pipelines.market_insight_preprocessing_pipeline import market_insight_pipeline
-from src.utils.config_parser import get_absolute_path
 from src.utils.logger import init_logging
 
 with description("main.py", "integration") as self:

@@ -1,8 +1,7 @@
 import logging
 
-from confuse.exceptions import NotFoundError
-
 import neptune.new as neptune
+from confuse.exceptions import NotFoundError
 from utils.config_parser import config
 
 

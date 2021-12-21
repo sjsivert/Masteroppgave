@@ -1,9 +1,10 @@
-from expects import be, be_false, be_true, equal, expect
+from expects import be_true, equal, expect
 from genpipes.compose import Pipeline
-from mamba import after, before, description, it
+from mamba import before, description, it
 from mockito.mocking import mock
 from mockito.mockito import when
 from pandas.core.frame import DataFrame
+
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 
 with description("LocalUnivariateArima", "unit") as self:

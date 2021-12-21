@@ -1,7 +1,8 @@
 import pandas as pd
-from expects import be, be_false, be_true, equal, expect
+from expects import be_true, expect
 from genpipes import compose, declare
-from mamba import after, before, description, it
+from mamba import description, it
+
 from src.pipelines import market_insight_processing as p
 
 data = [

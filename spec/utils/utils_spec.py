@@ -4,6 +4,7 @@ import pytest
 from confuse.exceptions import NotFoundError
 from expects import be_true, expect
 from mamba import description, it
+
 from src.utils.config_parser import config, get_absolute_path
 
 with description("config_parser", "unit") as self:

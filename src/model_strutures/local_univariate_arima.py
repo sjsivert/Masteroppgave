@@ -1,8 +1,8 @@
 from typing import Dict, Tuple
 
-import pandas as pd
 from genpipes.compose import Pipeline
 from pandas.core.frame import DataFrame
+
 from src.model_strutures.i_model_type import IModelType
 
 

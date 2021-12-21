@@ -1,25 +1,20 @@
 import os
 import shutil
-from types import ModuleType
 
 import expects
 import pytest
-from confuse.exceptions import NotFoundError
-from expects import be, be_above, be_false, be_true, expect, raise_error
+from expects import be, be_above, expect
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
 from pandas.core.frame import DataFrame
-from src import main
-from src.data_types.model_type_enum import ModelTypeEnum
+
 from src.experiment import Experiment
 from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
-from src.utils.config_parser import config, get_absolute_path
-from src.utils.logger import init_logging
 
 with description("Experiment", "integration") as self:
     with after.all:

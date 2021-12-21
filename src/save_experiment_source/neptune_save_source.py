@@ -1,9 +1,10 @@
 import logging
 import os
 import shutil
-from typing import Dict, List
+from typing import List
 
 import neptune.new as neptune
+
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 
 
