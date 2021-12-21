@@ -14,8 +14,8 @@ with description("LocalUnivariateArima") as self:
         }
 
     with it("Can be initialised with options"):
-        model = LocalUnivariateArima(self.options)
-        expect(model.model_options).to(equal(self.options))
+        model = LocalUnivariateArima(**self.options['local_univariate_arima'])
+        expect(model.order).to(equal(self.options["local_univariate_arima"]["order"]))
 
     with it("Can process data"):
         model = LocalUnivariateArima(self.options)

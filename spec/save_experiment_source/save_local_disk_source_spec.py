@@ -23,7 +23,7 @@ with description("SaveLocalDiskSource") as self:
 
     with before.each:
         self.options = {"model_save_location": self.temp_location}
-        self.save_source = SaveLocalDiskSource(self.options, "test_experiment")
+        self.save_source = SaveLocalDiskSource(**self.options, title="test_experiment")
 
     with after.each:
         shutil.rmtree("spec/temp/test_experiment")
@@ -31,10 +31,10 @@ with description("SaveLocalDiskSource") as self:
     with it("Throws exception when save location does already exist"):
         os.mkdir("spec/temp/this-folder-exists")
         with pytest.raises(FileExistsError):
-            save_source = SaveLocalDiskSource(self.options, "this-folder-exists")
+            save_source = SaveLocalDiskSource(**self.options, title="this-folder-exists")
 
     with it("Initializes correctly when save location does not exist"):
-        save_source = SaveLocalDiskSource(self.options, "this-folder-does-not-exist")
+        save_source = SaveLocalDiskSource(**self.options, title="this-folder-does-not-exist")
         assert save_source.save_location == "spec/temp/this-folder-does-not-exist"
 
     with it("save options as options.yaml inside correct folder"):
