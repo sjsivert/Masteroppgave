@@ -13,7 +13,7 @@ class SaveLocalDiskSource(ISaveExperimentSource):
             logging.info(f"Saving models to {self.save_location}")
             os.mkdir(self.save_location)
         except FileExistsError:
-            logging.warn(f"{self.save_location} already exists")
+            logging.warning(f"{self.save_location} already exists")
             raise FileExistsError
 
     def save_options(self, options: str) -> None:

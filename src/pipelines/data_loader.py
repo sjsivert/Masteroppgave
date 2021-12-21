@@ -24,7 +24,7 @@ def load_csv_data(path: str) -> pd.DataFrame:  # pragma: no cover
     """
     Loads data from a file.
 
-    :param filename: name of the file to load data from
+    :param path:
     :return: pandas dataframe containing the data
     """
     return pd.read_csv(path)

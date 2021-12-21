@@ -13,7 +13,9 @@ class NeptuneSaveSource(ISaveExperimentSource):
     Neptune save source for tracking ML experiments.
     """
 
-    def __init__(self, project_id: str, title, description, tags: List[str] = []) -> None:
+    def __init__(self, project_id: str, title, description, tags=None) -> None:
+        if tags is None:
+            tags = []
         self.run = neptune.init(project=project_id)
 
         self.run["sys/tags"].add(["Experiment"])
