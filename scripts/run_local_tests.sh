@@ -1,1 +1,1 @@
-mamba -t unit,integration
+mamba -t unit,integration --format=documentation
