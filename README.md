@@ -19,8 +19,11 @@ Run an experiment `python src/main.py -e <experiment-title-wihout-spaces> "<desc
 From project root run:
 `mamba`
 
+External API tests takes a long time to run. To just run the fast local tests run:
+`mamba -t unit,integration`
+
 ## Formatting source files to code formatting standards
-Run ´black src spec´
+Run `black src spec`
 
 # Execute jobs on NTNU High Perfomance Computing cluster
 1. Write code for the experiment
