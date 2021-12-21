@@ -9,10 +9,8 @@ from pandas import DataFrame
 from src.data_types.model_type_enum import ModelTypeEnum
 from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
-from src.save_experiment_source.i_save_experiment_source import \
-    ISaveExperimentSource
-from src.save_experiment_source.save_local_disk_source import \
-    SaveLocalDiskSource
+from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
 
 class Experiment:
@@ -38,18 +36,14 @@ class Experiment:
         sources = []
         for source in save_sources:
             if source == "disk":
-                sources.append(
-                    SaveLocalDiskSource(**save_source_options["disk"], title=self.title)
-                )
+                sources.append(SaveLocalDiskSource(**save_source_options["disk"], title=self.title))
         return sources
 
     def choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
             model_type = ModelTypeEnum[model_options["model_type"]]
             if model_type == ModelTypeEnum.local_univariate_arima:
-                self.model = LocalUnivariateArima(
-                    **model_options["local_univariate_arima"]
-                )
+                self.model = LocalUnivariateArima(**model_options["local_univariate_arima"])
             return self.model
 
         except Exception as e:
