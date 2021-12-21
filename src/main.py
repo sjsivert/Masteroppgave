@@ -15,13 +15,12 @@ from src.utils.config_parser import config
 @click.option(
     "--experiment", "-e", nargs=2, help="Experiment title and description. Title must be unique."
 )
-@click.option("--is-custom-run", is_flag=True)
 @click.option(
     "--save/--no-save",
     default=True,
     help="Boolean flag for saving the results or not. Overrides config.yaml.",
 )
-def main(experiment: Tuple[str, str], is_custom_run: bool, save: bool) -> int:
+def main(experiment: Tuple[str, str], save: bool) -> int:
     logger.init_logging()
     logging.info("Started")
 
