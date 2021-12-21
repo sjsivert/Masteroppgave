@@ -10,7 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
-with description("SaveLocalDiskSource", "unit") as self:
+with description(SaveLocalDiskSource, "unit") as self:
     with before.all:
         self.temp_location = "spec/temp/"
         try:

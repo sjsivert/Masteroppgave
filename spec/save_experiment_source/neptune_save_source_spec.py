@@ -4,7 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 
-with description("NeptuneSaveSource", "api") as self:
+with description(NeptuneSaveSource, "api") as self:
     with before.all:
         options = {
             "project_id": "sjsivertandsanderkk/test-project",

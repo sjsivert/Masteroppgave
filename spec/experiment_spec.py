@@ -16,7 +16,7 @@ from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
-with description("Experiment", "integration") as self:
+with description(Experiment, "integration") as self:
     with after.all:
         unstub()
 
