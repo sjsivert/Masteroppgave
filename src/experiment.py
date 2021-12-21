@@ -21,14 +21,10 @@ class Experiment:
         self,
         title: str,
         description: str,
-        save_sources_to_use=None,
-        save_source_options=None,
+        save_sources_to_use=[],
+        save_source_options={},
     ) -> None:
         self.model = None
-        if save_source_options is None:
-            save_source_options = {}
-        if save_sources_to_use is None:
-            save_sources_to_use = []
         self.title = title
         self.experiment_description = description
         self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
