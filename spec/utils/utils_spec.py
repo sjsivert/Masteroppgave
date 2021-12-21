@@ -6,7 +6,7 @@ from expects import be_true, expect
 from mamba import description, it
 from src.utils.config_parser import config, get_absolute_path
 
-with description("config_parser") as self:
+with description("config_parser", "unit") as self:
     with it("get_absolute_path() finds config file"):
         expect(os.path.isfile(get_absolute_path("config.yaml"))).to(be_true)
 

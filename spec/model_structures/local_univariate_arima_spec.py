@@ -6,7 +6,7 @@ from mockito.mockito import when
 from pandas.core.frame import DataFrame
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 
-with description("LocalUnivariateArima") as self:
+with description("LocalUnivariateArima", "unit") as self:
     with before.all:
         self.options = {
             "model_type": "local_univariate_arima",

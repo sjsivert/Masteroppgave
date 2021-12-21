@@ -8,8 +8,8 @@ with description("Neptune exploration", "exploration") as self:
 
         run = neptune.init(project=project)
         # Add tag for easy filtering later
-        run['sys/tags'].add(['test'])
+        run["sys/tags"].add(["test"])
         # Save config
-        run['options'] = config.dump()
+        run["options"] = config.dump()
 
         run.stop()
