@@ -37,7 +37,9 @@ jobs:
         pip install --upgrade --upgrade-strategy eager -r requirements.txt
 
     - name: Test
-      run: mamba --enable-coverage
+      run: |
+        export NEPTUNE_API_TOKEN=${{ secrets.NEPTUNE_API_TOKEN }}
+        mamba --enable-coverage
 
     - name: Generate coverage report
       run: coverage xml
@@ -82,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Set up Python 
+      - name: Set up Python
         uses: actions/setup-python@v2
       - name: Black Check
         # You may pin to the exact commit or the version.
@@ -92,5 +94,5 @@ jobs:
           # File or directory to run black on
           path: "src spec" # optional, default is .
           # Optional Black flags (refer to `black --help`)
-          #black_flags: # optional, default is 
+          #black_flags: # optional, default is
 

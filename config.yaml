@@ -13,7 +13,7 @@ experiment:
       model_save_location: './models/'
 
     neptune:
-      project: 'sjsivertandsanderkk/Masteroppgave'
+      project_id: 'sjsivertandsanderkk/Masteroppgave'
       api_token: ${NEPTUNE_API_TOKEN}
 
 
