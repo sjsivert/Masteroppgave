@@ -24,3 +24,4 @@ expects
 pylint-quotes
 mockito
 -e.
+psutil
