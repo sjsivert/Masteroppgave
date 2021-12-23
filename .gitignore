@@ -7,9 +7,8 @@ Masteroppgave.*
 sections/*.auxindent.log
 *indent.log
 *.env*
-datasets/raw/market_insights_overview_all.csv
 todos.md
-datasets/raw/market_insights_overview_all_2021_11_12.csv
+datasets/raw/*
 **/__pycache__/**
 env/
 MScTemplate/pdflatex92299.fls
@@ -24,3 +23,4 @@ build/
 htmlcov/
 coverage.xml
 datasets/raw/*
+models/*
