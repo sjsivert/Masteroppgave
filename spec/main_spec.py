@@ -6,13 +6,16 @@ from mockito import mock, verify, when
 from mockito.matchers import ANY
 from mockito.mockito import unstub
 
+from spec.test_logger import init_test_logging
 from src import main
 from src.experiment import Experiment
 from src.utils.logger import init_logging
 
+
 with description("main.py", "integration") as self:
     with before.all:
         self.runner = CliRunner()
+        init_test_logging()
 
     with after.all:
         unstub()

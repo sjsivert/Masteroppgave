@@ -1,8 +1,9 @@
 import pandas as pd
 from expects import be_true, expect
 from genpipes import compose, declare
-from mamba import description, it
+from mamba import description, it, before
 
+from spec.test_logger import init_test_logging
 from src.pipelines import market_insight_processing as p
 
 data = [
@@ -42,6 +43,9 @@ def test_data() -> pd.DataFrame:
 
 
 with description("Market insight prosessing pipeline", "unit") as self:
+    with before.all:
+        init_test_logging()
+
     with it("It can load data"):
         result = compose.Pipeline(steps=[("load data", test_data, {})]).run()
         expect(result.equals(pd.DataFrame(data))).to(be_true)

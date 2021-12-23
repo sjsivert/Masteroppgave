@@ -18,10 +18,9 @@ from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
 with description(Experiment, "integration") as self:
-    with before.all:
-        init_test_logging()
 
     with before.all:
+        init_test_logging()
         self.temp_location = "spec/temp/"
         try:
             os.mkdir(self.temp_location)

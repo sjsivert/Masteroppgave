@@ -86,7 +86,6 @@ with description(SaveLocalDiskSource, "unit") as self:
                 axs[row, col].set_title(f"Subplot {row}-{col}")
 
         title = _combine_subfigure_titles(fig)
-        print(title)
         expect(title).to(match("Subplot 0-0, Subplot 0-1, Subplot 1-0, Subplot 1-1"))
 
     with it("Can call save figure twice without crashing"):
