@@ -2,12 +2,13 @@ import logging
 
 import pandas as pd
 from genpipes import declare
+from pandas import DataFrame
 
 
 @declare.generator()
 def load_and_merge_market_insight_and_categories(
     market_insight_path: str, categories_path: str
-) -> pd.DataFrame:  # pragma: no cover
+) -> DataFrame:  # pragma: no cover
     try:
         df1 = pd.read_csv(market_insight_path)
         df2 = pd.read_csv(categories_path)
@@ -20,7 +21,7 @@ def load_and_merge_market_insight_and_categories(
 
 @declare.generator()
 @declare.datasource()
-def load_csv_data(path: str) -> pd.DataFrame:  # pragma: no cover
+def load_csv_data(path: str) -> DataFrame:  # pragma: no cover
     """
     Loads data from a file.
 
