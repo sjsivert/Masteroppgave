@@ -1,5 +1,7 @@
 from typing import List
 
+from matplotlib.axes import Axes
+
 
 class ISaveExperimentSource:
     """
@@ -21,4 +23,8 @@ class ISaveExperimentSource:
 
     def save_metrics(self, metrics: List) -> None:
         # Interface, not to be implemented
+        pass
+
+    def save_figures(self, figures: List[Axes]) -> None:
+        # Saves pyplot axes
         pass
