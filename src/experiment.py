@@ -46,7 +46,7 @@ class Experiment:
             return self.model
 
         except Exception as e:
-            logging.info(
+            logging.error(
                 f"Not a valid ModelType error: {e} \n \
                 Valid ModelTypes are: {ModelTypeEnum.__members__}"
             )
