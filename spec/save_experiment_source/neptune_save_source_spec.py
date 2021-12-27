@@ -1,6 +1,5 @@
-from mamba import before, description, it
+from mamba import after, before, description, it
 from sklearn.linear_model import LogisticRegression
-
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 
@@ -15,6 +14,9 @@ with description(NeptuneSaveSource, "api") as self:
             description="Experiment for automated testing",
             tags=["test"],
         )
+
+    with after.all:
+        self.save_source.close()
 
     with it("can upload options"):
         self.save_source.save_options("option1 option2")

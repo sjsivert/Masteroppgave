@@ -7,6 +7,7 @@ import neptune.new as neptune
 from matplotlib.figure import Figure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.save_local_disk_source import _combine_subfigure_titles
+from src.utils.temporary_files import temp_files
 
 
 class NeptuneSaveSource(ISaveExperimentSource):
@@ -30,14 +31,10 @@ class NeptuneSaveSource(ISaveExperimentSource):
         self.run["options"] = options
 
     def save_models(self, models: List) -> None:
-        # Make temporary folder for saving models
-        os.mkdir("temp_models")
-        for idx, model in enumerate(models):
-            model.save("temp_models" + f"/model_{idx}.pkl")
-            self.run["model"].upload(f"temp_models/model_{idx}")
-
-        # Remove temporary folder and models
-        shutil.rmtree("temp_models")
+        with temp_files("temp_models"):
+            for idx, model in enumerate(models):
+                model.save("temp_models" + f"/model_{idx}.pkl")
+                self.run["model"].upload(f"temp_models/model_{idx}")
 
     def save_metrics(self, metrics: List) -> None:
         self.run["metrics"] = metrics
@@ -51,3 +48,6 @@ class NeptuneSaveSource(ISaveExperimentSource):
 
         # Remove temporary folder and models
         shutil.rmtree("temp_figures")
+
+    def close(self) -> None:
+        self.run.stop()
