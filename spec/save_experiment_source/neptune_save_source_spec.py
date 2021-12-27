@@ -36,5 +36,3 @@ with description(NeptuneSaveSource, "api") as self:
         ax.plot(data)
         ax.set_title("Test_title")
         self.save_source.save_figures([fig])
-
-

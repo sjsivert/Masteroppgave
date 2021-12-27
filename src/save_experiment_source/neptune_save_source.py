@@ -5,10 +5,8 @@ from typing import ContextManager, List
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
-from src.save_experiment_source.i_save_experiment_source import \
-    ISaveExperimentSource
-from src.save_experiment_source.save_local_disk_source import \
-    _combine_subfigure_titles
+from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.save_local_disk_source import _combine_subfigure_titles
 from src.utils.temporary_files import temp_files
 
 
@@ -42,14 +40,13 @@ class NeptuneSaveSource(ISaveExperimentSource):
         self.run["metrics"] = metrics
 
     def save_figures(self, figures: List[Figure]):
-        # TODO: This might not work yet 
+        # TODO: This might not work yet
         # Because the files gets deleted before neptune uploads
         with temp_files("temp_figures"):
             for figure in figures:
                 title = _combine_subfigure_titles(figure)
                 figure.savefig(f"temp_figures/{title}.png")
                 self.run["aux/figures"].upload(f"temp_figures/{title}.png")
-
 
     def close(self) -> None:
         self.run.stop()
