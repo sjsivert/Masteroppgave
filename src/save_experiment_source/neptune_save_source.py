@@ -1,11 +1,12 @@
 import logging
 import os
 import shutil
-from typing import List
+from typing import ContextManager, List
 
 import neptune.new as neptune
-
+from matplotlib.figure import Figure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.save_local_disk_source import _combine_subfigure_titles
 
 
 class NeptuneSaveSource(ISaveExperimentSource):
@@ -40,3 +41,13 @@ class NeptuneSaveSource(ISaveExperimentSource):
 
     def save_metrics(self, metrics: List) -> None:
         self.run["metrics"] = metrics
+
+    def save_figures(self, figures: List[Figure]):
+
+        for idx, figure in enumerate(figures):
+            title = _combine_subfigure_titles(figure)
+            figure.savefig(f"temp_figures/{title}.png")
+            self.run["figures"].upload(f"temp_figures/{title}.png")
+
+        # Remove temporary folder and models
+        shutil.rmtree("temp_figures")
