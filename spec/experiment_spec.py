@@ -10,12 +10,12 @@ from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
 from pandas.core.frame import DataFrame
-
-from spec.test_logger import init_test_logging
 from src.experiment import Experiment
 from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+
+from spec.test_logger import init_test_logging
 
 with description(Experiment, "integration") as self:
 
@@ -51,7 +51,7 @@ with description(Experiment, "integration") as self:
         when(model).process_data(pipeline).thenReturn(df)
         experiment.model = model
 
-        dataframe = experiment.load_and_process_data(pipeline)
+        dataframe = experiment._load_and_process_data(pipeline)
         expect(dataframe).to(be(df))
 
     with it("can choose_model_structure arima"):
@@ -60,7 +60,7 @@ with description(Experiment, "integration") as self:
             "model_type": "local_univariate_arima",
             "local_univariate_arima": {"order": (1, 1, 1)},
         }
-        experiment.choose_model_structure(options)
+        experiment._choose_model_structure(options)
         expect(experiment.model).to_not(expects.be_none)
 
     with it("raise exception when wrong model structure is chosen"):
@@ -70,7 +70,7 @@ with description(Experiment, "integration") as self:
             "wrong_model_structure": {"order": (1, 1, 1)},
         }
         with pytest.raises(KeyError):
-            experiment.choose_model_structure(options)
+            experiment._choose_model_structure(options)
 
     with it("can train_model()"):
         # Arrange
@@ -78,7 +78,7 @@ with description(Experiment, "integration") as self:
         experiment.model = mock(LocalUnivariateArima)
         when(experiment.model).train_model()
         # Act
-        experiment.train_model()
+        experiment._train_model()
         # Assert
         verify(experiment.model, times=1).train_model()
 
@@ -88,7 +88,7 @@ with description(Experiment, "integration") as self:
         experiment.model = mock(LocalUnivariateArima)
         when(experiment.model).test_model()
         # Act
-        experiment.test_model()
+        experiment._test_model()
         # Assert
         verify(experiment.model, times=1).test_model()
 
@@ -100,7 +100,7 @@ with description(Experiment, "integration") as self:
         when(save_source).save_options(ANY)
         when(save_source).save_metrics(ANY)
         # Act
-        experiment.save_model({})
+        experiment._save_model({})
         # Assert
         verify(experiment.save_sources[0], times=1).save_options({})
         verify(experiment.save_sources[0], times=1).save_metrics([])

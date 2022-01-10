@@ -1,6 +1,7 @@
 import logging
 from typing import Dict, List
 
+from confuse.core import Configuration
 from genpipes.compose import Pipeline
 from pandas import DataFrame
 
@@ -38,7 +39,24 @@ class Experiment:
                 sources.append(SaveLocalDiskSource(**save_source_options["disk"], title=self.title))
         return sources
 
-    def choose_model_structure(self, model_options: Dict) -> IModelType:
+    def run_complete_experiment_with_saving(
+        self, model_options: Dict, data_pipeline: Pipeline, options_to_save=Configuration
+    ) -> None:
+        """
+        Run a complete experiment with preprocessing of data, training, testing, and saving.
+        """
+        logging.info("Running complete experiment with saving")
+        logging.info(data_pipeline.__str__())
+
+        self._choose_model_structure(model_options=model_options)
+
+        self._load_and_process_data(data_pipeline=data_pipeline)
+
+        self._train_model()
+        self._test_model()
+        self._save_model(options=options_to_save.dump())
+
+    def _choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
             model_type = ModelTypeEnum[model_options["model_type"]]
             if model_type == ModelTypeEnum.local_univariate_arima:
@@ -52,22 +70,22 @@ class Experiment:
             )
             raise e
 
-    def load_and_process_data(self, data_pipeline: Pipeline) -> DataFrame:
+    def _load_and_process_data(self, data_pipeline: Pipeline) -> DataFrame:
         logging.info("Loading data")
         logging.info(data_pipeline.__str__())
         return self.model.process_data(data_pipeline)
 
-    def train_model(self) -> IModelType:
+    def _train_model(self) -> IModelType:
         logging.info("Training model")
         # TODO: Implement
         return self.model.train_model()
 
-    def test_model(self) -> Dict:
+    def _test_model(self) -> Dict:
         logging.info("Testing model")
         # TODO: Implement
         return self.model.test_model()
 
-    def save_model(self, options: str) -> None:
+    def _save_model(self, options: str) -> None:
         """
         Save the model and correspoding experiment to an already existing directory.
         """
