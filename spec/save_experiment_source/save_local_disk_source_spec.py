@@ -9,7 +9,8 @@ from matplotlib import pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from spec.test_logger import init_test_logging
 from src.data_types.sklearn_model import SklearnModel
-from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+from src.save_experiment_source.save_local_disk_source import \
+    SaveLocalDiskSource
 from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 
 with description(SaveLocalDiskSource, "unit") as self:
@@ -45,7 +46,7 @@ with description(SaveLocalDiskSource, "unit") as self:
         expect(os.path.isfile("spec/temp/test_experiment/options.yaml")).to(be_true)
 
     with it("saves metrix as metrics.txt inside correct folder"):
-        self.save_source.save_metrics(["mae: 0.1", "mse: 0.2"])
+        self.save_source.save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
         expect(os.path.isfile("spec/temp/test_experiment/metrics.txt")).to(be_true)
 
     with it("Saves scikit-learn models correctly"):
