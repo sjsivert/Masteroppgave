@@ -26,6 +26,39 @@ External API tests takes a long time to run. To just run the fast local tests ru
 ## Formatting source files to code formatting standards
 Run `black src spec`
 
+
+
+---------------
+# Git conventions
+
+## Commit conventions
+When committing new content to git correct and structured conventions should be utilized. In addition to marking commits with the issue number fro 'linear', a commit should always contain a type descriptions (such as for a feature, experiment, test, and so forth),
+
+This inclues the use of prefixes to the commit messages used.
+The following are the relevant conventions for this project:
+
+|Prefix |Content |
+|------ |------- |
+|feat/  | Describes that there is a new feature added |
+|test/  | Describes that the contents of the commit is to add tests |
+|exp/   | Identification to use in case of an experiment. |
+|ref/   | Refactoring code / Rewriting code |
+|paper/ | Updates done to the paper |
+
+The commit should start with the type prefix, followed by the MAS code if there is any, lastly followed by a description of the commit function.
+
+|Examples |
+|---------|
+|feat/MAS-30/Add-functionality-for-saving-figures
+|test/Add-missing-tests-with-saving-figures
+
+
+## Branch naming convention
+Branches should follow the same naming convention as the one used for commits.
+The branch name is mostly for clarification, and not as important as the commit messages creating the log to be read at a later time.
+
+
+---------------
 # Execute jobs on NTNU High Perfomance Computing cluster
 1. Write code for the experiment
 2. Add or tune a .slurm file in batch_Jobs/
