@@ -22,7 +22,6 @@ build/
 .coverage
 htmlcov/
 coverage.xml
-datasets/raw/*
 models/*
 datasets/*
 env*/

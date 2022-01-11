@@ -1,13 +1,11 @@
 import logging
-import os
-import shutil
-from typing import ContextManager, Dict, List
+from typing import Dict, List
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
+
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
-from src.save_experiment_source.save_local_disk_source import _combine_subfigure_titles
 from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 from src.utils.temporary_files import temp_files
 

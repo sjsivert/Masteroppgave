@@ -3,9 +3,10 @@ import shutil
 
 import expects
 import pytest
+from confuse import Configuration
 from expects import be, be_above, expect
 from genpipes.compose import Pipeline
-from mamba import after, before, description, it
+from mamba import after, before, description, it, shared_context, included_context
 from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
@@ -51,7 +52,7 @@ with description(Experiment, "integration") as self:
         when(model).process_data(pipeline).thenReturn(df)
         experiment.model = model
 
-        dataframe = experiment.load_and_process_data(pipeline)
+        dataframe = experiment._load_and_process_data(pipeline)
         expect(dataframe).to(be(df))
 
     with it("can choose_model_structure arima"):
@@ -60,7 +61,7 @@ with description(Experiment, "integration") as self:
             "model_type": "local_univariate_arima",
             "local_univariate_arima": {"order": (1, 1, 1)},
         }
-        experiment.choose_model_structure(options)
+        experiment._choose_model_structure(options)
         expect(experiment.model).to_not(expects.be_none)
 
     with it("raise exception when wrong model structure is chosen"):
@@ -70,7 +71,7 @@ with description(Experiment, "integration") as self:
             "wrong_model_structure": {"order": (1, 1, 1)},
         }
         with pytest.raises(KeyError):
-            experiment.choose_model_structure(options)
+            experiment._choose_model_structure(options)
 
     with it("can train_model()"):
         # Arrange
@@ -78,7 +79,7 @@ with description(Experiment, "integration") as self:
         experiment.model = mock(LocalUnivariateArima)
         when(experiment.model).train_model()
         # Act
-        experiment.train_model()
+        experiment._train_model()
         # Assert
         verify(experiment.model, times=1).train_model()
 
@@ -88,7 +89,7 @@ with description(Experiment, "integration") as self:
         experiment.model = mock(LocalUnivariateArima)
         when(experiment.model).test_model()
         # Act
-        experiment.test_model()
+        experiment._test_model()
         # Assert
         verify(experiment.model, times=1).test_model()
 
@@ -100,7 +101,51 @@ with description(Experiment, "integration") as self:
         when(save_source).save_options(ANY)
         when(save_source).save_metrics(ANY)
         # Act
-        experiment.save_model({})
+        experiment._save_model({})
         # Assert
         verify(experiment.save_sources[0], times=1).save_options({})
         verify(experiment.save_sources[0], times=1).save_metrics([])
+
+    with shared_context("mock private methods context"):
+        # Arrange
+        pipeline = mock(Pipeline)
+
+        experiment = Experiment("title", "description")
+        when(experiment, strict=False)._load_and_process_data().thenReturn(
+            DataFrame({"a": [1, 2, 3]})
+        )
+        when(experiment, strict=False)._choose_model_structure()
+        when(experiment)._train_model()
+        when(experiment)._test_model()
+
+    with it("can run_complete_experiment() without saving"):
+        with included_context("mock private methods context"):
+            # Act
+            experiment.run_complete_experiment(
+                model_options={
+                    "model_type": "local_univariate_arima",
+                    "local_univariate_arima": {"order": (1, 1, 1)},
+                },
+                data_pipeline=pipeline,
+                save=False,
+            )
+            # Assert
+            verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
+
+    with it("can run_complete_experiment() with saving"):
+        # Arrange
+        with included_context("mock private methods context"):
+            configuration = mock(Configuration)
+
+            when(configuration).dump().thenReturn("")
+            # Act
+            experiment.run_complete_experiment(
+                model_options={
+                    "model_type": "local_univariate_arima",
+                    "local_univariate_arima": {"order": (1, 1, 1)},
+                },
+                data_pipeline=pipeline,
+                options_to_save=configuration,
+            )
+            # Assert
+            verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)

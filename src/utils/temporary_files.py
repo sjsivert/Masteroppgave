@@ -2,7 +2,6 @@ import logging
 import os
 import shutil
 from contextlib import contextmanager
-from typing import final
 
 
 @contextmanager
