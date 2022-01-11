@@ -111,7 +111,9 @@ with description(Experiment, "integration") as self:
         pipeline = mock(Pipeline)
 
         experiment = Experiment("title", "description")
-        when(experiment, strict=False)._load_and_process_data().thenReturn(DataFrame({"a": [1, 2, 3]}))
+        when(experiment, strict=False)._load_and_process_data().thenReturn(
+            DataFrame({"a": [1, 2, 3]})
+        )
         when(experiment, strict=False)._choose_model_structure()
         when(experiment)._train_model()
         when(experiment)._test_model()
@@ -120,16 +122,14 @@ with description(Experiment, "integration") as self:
         with included_context("mock private methods context"):
             # Act
             experiment.run_complete_experiment_without_saving(
-                model_options= {
+                model_options={
                     "model_type": "local_univariate_arima",
                     "local_univariate_arima": {"order": (1, 1, 1)},
                 },
                 data_pipeline=pipeline,
-
             )
             # Assert
             verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
-
 
     with it("can run_complete_experiment_with_saving()"):
         # Arrange
@@ -139,13 +139,12 @@ with description(Experiment, "integration") as self:
             when(configuration).dump().thenReturn("")
             # Act
             experiment.run_complete_experiment_with_saving(
-                model_options= {
+                model_options={
                     "model_type": "local_univariate_arima",
                     "local_univariate_arima": {"order": (1, 1, 1)},
-
                 },
                 data_pipeline=pipeline,
-                options_to_save=configuration
+                options_to_save=configuration,
             )
             # Assert
             verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)

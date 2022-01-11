@@ -46,7 +46,6 @@ def main(experiment: Tuple[str, str], save: bool) -> int:
                 data_pipeline=pipeline.market_insight_pipeline(),
             )
 
-
     logging.info("Finished")
     return 0
 

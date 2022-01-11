@@ -57,7 +57,7 @@ class Experiment:
         self._save_model(options=options_to_save.dump())
 
     def run_complete_experiment_without_saving(
-            self, model_options: Dict, data_pipeline: Pipeline
+        self, model_options: Dict, data_pipeline: Pipeline
     ) -> None:
         """
         Run a complete experiment with preprocessing of data, training, testing.
