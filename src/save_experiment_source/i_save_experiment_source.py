@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 from matplotlib.axes import Axes
 
@@ -21,7 +21,7 @@ class ISaveExperimentSource:
         # Interface, not to be implemented
         pass
 
-    def save_metrics(self, metrics: List) -> None:
+    def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         # Interface, not to be implemented
         pass
 

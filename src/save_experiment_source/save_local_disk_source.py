@@ -1,10 +1,11 @@
 import logging
 import os
-from typing import List
+from typing import Dict, List
 
 from matplotlib.figure import Figure
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.i_save_experiment_source import \
+    ISaveExperimentSource
 from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 
 
@@ -24,9 +25,22 @@ class SaveLocalDiskSource(ISaveExperimentSource):
         with open(self.save_location + "/options.yaml", "w") as f:
             f.write(options)
 
-    def save_metrics(self, metrics: List) -> None:
+    def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        average = {}
         with open(self.save_location + "/metrics.txt", "w") as f:
-            f.writelines("MAE: 1.0 \nMSE:20.0")
+            for test_name, test_value in metrics.items():
+                f.writelines("\n_____Results dataset-{}_____\n".format(test_name))
+                for metric_name in test_value.keys():
+                    if metric_name not in average:
+                        average[metric_name] = []
+                    average[metric_name].append(test_value[metric_name])
+                    f.writelines("{}: {}\n".format(metric_name, round(test_value[metric_name], 3)))
+
+            f.writelines("\n___Average___\n")
+            for metric_name, metric_value in average.items():
+                f.writelines(
+                    "{}: {}\n".format(metric_name, round(sum(metric_value) / len(metric_value), 3))
+                )
 
     def save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
