@@ -24,3 +24,5 @@ htmlcov/
 coverage.xml
 datasets/raw/*
 models/*
+datasets/*
+env*/
