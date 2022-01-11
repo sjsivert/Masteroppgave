@@ -3,6 +3,7 @@ import shutil
 
 import expects
 import pytest
+from confuse import Configuration
 from expects import be, be_above, expect
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
@@ -104,3 +105,51 @@ with description(Experiment, "integration") as self:
         # Assert
         verify(experiment.save_sources[0], times=1).save_options({})
         verify(experiment.save_sources[0], times=1).save_metrics([])
+
+    with it("can run_complete_experiment_without_saving()"):
+        # Arrange
+        pipeline = mock(Pipeline)
+
+        experiment = Experiment("title", "description")
+        when(experiment, strict=False)._load_and_process_data().thenReturn(DataFrame({"a": [1, 2, 3]}))
+        when(experiment, strict=False)._choose_model_structure()
+        when(experiment)._train_model()
+        when(experiment)._test_model()
+
+        # Act
+        experiment.run_complete_experiment_without_saving(
+            model_options= {
+                "model_type": "local_univariate_arima",
+                "local_univariate_arima": {"order": (1, 1, 1)},
+            },
+            data_pipeline=pipeline,
+
+        )
+        # Assert
+        verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
+
+    with it("can run_complete_experiment_with_saving()"):
+        # Arrange
+        pipeline = mock(Pipeline)
+
+        experiment = Experiment("title", "description")
+        when(experiment, strict=False)._load_and_process_data().thenReturn(DataFrame({"a": [1, 2, 3]}))
+        when(experiment, strict=False)._choose_model_structure()
+        when(experiment)._train_model()
+        when(experiment)._test_model()
+
+        configuration = mock(Configuration)
+
+        when(configuration).dump().thenReturn("")
+        # Act
+        experiment.run_complete_experiment_with_saving(
+            model_options= {
+                "model_type": "local_univariate_arima",
+                "local_univariate_arima": {"order": (1, 1, 1)},
+
+            },
+            data_pipeline=pipeline,
+            options_to_save=configuration
+        )
+        # Assert
+        verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
