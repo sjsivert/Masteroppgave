@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import click
 import confuse
 
 current_dir = Path(__file__)

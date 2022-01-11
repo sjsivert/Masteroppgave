@@ -56,6 +56,22 @@ class Experiment:
         self._test_model()
         self._save_model(options=options_to_save.dump())
 
+    def run_complete_experiment_without_saving(
+            self, model_options: Dict, data_pipeline: Pipeline
+    ) -> None:
+        """
+        Run a complete experiment with preprocessing of data, training, testing.
+        """
+        logging.info("Running complete experiment without saving")
+        logging.info(data_pipeline.__str__())
+
+        self._choose_model_structure(model_options=model_options)
+
+        self._load_and_process_data(data_pipeline=data_pipeline)
+
+        self._train_model()
+        self._test_model()
+
     def _choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
             model_type = ModelTypeEnum[model_options["model_type"]]

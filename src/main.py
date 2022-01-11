@@ -34,11 +34,18 @@ def main(experiment: Tuple[str, str], save: bool) -> int:
             save_source_options=config["experiment"]["save_source"].get() if save else {},
         )
 
-        experiment.run_complete_experiment_with_saving(
-            model_options=config["model"].get(),
-            data_pipeline=pipeline.market_insight_pipeline(),
-            options_to_save=config,
-        )
+        if save:
+            experiment.run_complete_experiment_with_saving(
+                model_options=config["model"].get(),
+                data_pipeline=pipeline.market_insight_pipeline(),
+                options_to_save=config,
+            )
+        else:
+            experiment.run_complete_experiment_without_saving(
+                model_options=config["model"].get(),
+                data_pipeline=pipeline.market_insight_pipeline(),
+            )
+
 
     logging.info("Finished")
     return 0
