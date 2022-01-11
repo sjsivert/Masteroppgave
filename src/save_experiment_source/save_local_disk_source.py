@@ -3,9 +3,9 @@ import os
 from typing import List
 
 from matplotlib.figure import Figure
-
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 
 
 class SaveLocalDiskSource(ISaveExperimentSource):
@@ -40,8 +40,3 @@ class SaveLocalDiskSource(ISaveExperimentSource):
                 pass
             title = _combine_subfigure_titles(figure)
             figure.savefig(self.save_location + f"/figures/{title}.png")
-
-
-def _combine_subfigure_titles(figure: Figure) -> str:
-    titles = list(map(lambda ax: ax.title.get_text(), figure.axes))
-    return ", ".join(titles)

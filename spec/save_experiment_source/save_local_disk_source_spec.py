@@ -1,20 +1,16 @@
 import os
 import shutil
 
-import expects
 import pytest
-from expects import be_false, be_true, expect, be, match
+from expects import be, be_false, be_true, expect, match
 from expects.matchers.built_in import be_none
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
 from sklearn.linear_model import LogisticRegression
-
 from spec.test_logger import init_test_logging
 from src.data_types.sklearn_model import SklearnModel
-from src.save_experiment_source.save_local_disk_source import (
-    SaveLocalDiskSource,
-    _combine_subfigure_titles,
-)
+from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 
 with description(SaveLocalDiskSource, "unit") as self:
     with before.all:
