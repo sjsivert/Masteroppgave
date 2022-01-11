@@ -6,7 +6,7 @@ import pytest
 from confuse import Configuration
 from expects import be, be_above, expect
 from genpipes.compose import Pipeline
-from mamba import after, before, description, it
+from mamba import after, before, description, it, shared_context, included_context
 from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
@@ -106,7 +106,7 @@ with description(Experiment, "integration") as self:
         verify(experiment.save_sources[0], times=1).save_options({})
         verify(experiment.save_sources[0], times=1).save_metrics([])
 
-    with it("can run_complete_experiment_without_saving()"):
+    with shared_context("mock private methods context"):
         # Arrange
         pipeline = mock(Pipeline)
 
@@ -116,40 +116,36 @@ with description(Experiment, "integration") as self:
         when(experiment)._train_model()
         when(experiment)._test_model()
 
-        # Act
-        experiment.run_complete_experiment_without_saving(
-            model_options= {
-                "model_type": "local_univariate_arima",
-                "local_univariate_arima": {"order": (1, 1, 1)},
-            },
-            data_pipeline=pipeline,
+    with it("can run_complete_experiment_without_saving()"):
+        with included_context("mock private methods context"):
+            # Act
+            experiment.run_complete_experiment_without_saving(
+                model_options= {
+                    "model_type": "local_univariate_arima",
+                    "local_univariate_arima": {"order": (1, 1, 1)},
+                },
+                data_pipeline=pipeline,
 
-        )
-        # Assert
-        verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
+            )
+            # Assert
+            verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
+
 
     with it("can run_complete_experiment_with_saving()"):
         # Arrange
-        pipeline = mock(Pipeline)
+        with included_context("mock private methods context"):
+            configuration = mock(Configuration)
 
-        experiment = Experiment("title", "description")
-        when(experiment, strict=False)._load_and_process_data().thenReturn(DataFrame({"a": [1, 2, 3]}))
-        when(experiment, strict=False)._choose_model_structure()
-        when(experiment)._train_model()
-        when(experiment)._test_model()
+            when(configuration).dump().thenReturn("")
+            # Act
+            experiment.run_complete_experiment_with_saving(
+                model_options= {
+                    "model_type": "local_univariate_arima",
+                    "local_univariate_arima": {"order": (1, 1, 1)},
 
-        configuration = mock(Configuration)
-
-        when(configuration).dump().thenReturn("")
-        # Act
-        experiment.run_complete_experiment_with_saving(
-            model_options= {
-                "model_type": "local_univariate_arima",
-                "local_univariate_arima": {"order": (1, 1, 1)},
-
-            },
-            data_pipeline=pipeline,
-            options_to_save=configuration
-        )
-        # Assert
-        verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
+                },
+                data_pipeline=pipeline,
+                options_to_save=configuration
+            )
+            # Assert
+            verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
