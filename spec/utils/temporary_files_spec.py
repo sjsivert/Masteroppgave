@@ -1,7 +1,8 @@
 import os
 
 from expects import be_false, be_true, expect
-from mamba import before_all, description, included_context, it, shared_context
+from mamba import description, included_context, it, shared_context
+
 from src.utils.temporary_files import temp_files
 
 temp_path = "temp_path"

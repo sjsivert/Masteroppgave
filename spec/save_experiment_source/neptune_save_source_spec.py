@@ -1,9 +1,7 @@
-import matplotlib.pyplot as plt
-import numpy as np
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
-from matplotlib.figure import Figure
 from sklearn.linear_model import LogisticRegression
+
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 

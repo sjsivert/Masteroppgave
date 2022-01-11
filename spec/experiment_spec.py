@@ -11,12 +11,12 @@ from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
 from pandas.core.frame import DataFrame
+
+from spec.test_logger import init_test_logging
 from src.experiment import Experiment
 from src.model_strutures.i_model_type import IModelType
 from src.model_strutures.local_univariate_arima import LocalUnivariateArima
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
-
-from spec.test_logger import init_test_logging
 
 with description(Experiment, "integration") as self:
 

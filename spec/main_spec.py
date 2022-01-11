@@ -3,7 +3,7 @@ from expects import be_true, expect
 from expects.matchers.built_in import be
 from mamba import after, before, description, it
 from mockito import mock, when
-from mockito.mockito import unstub, verify
+from mockito.mockito import unstub
 
 from spec.test_logger import init_test_logging
 from src import main
