@@ -118,27 +118,28 @@ with description(Experiment, "integration") as self:
         when(experiment)._train_model()
         when(experiment)._test_model()
 
-    with it("can run_complete_experiment_without_saving()"):
+    with it("can run_complete_experiment() without saving"):
         with included_context("mock private methods context"):
             # Act
-            experiment.run_complete_experiment_without_saving(
+            experiment.run_complete_experiment(
                 model_options={
                     "model_type": "local_univariate_arima",
                     "local_univariate_arima": {"order": (1, 1, 1)},
                 },
                 data_pipeline=pipeline,
+                save=False,
             )
             # Assert
             verify(experiment, times=1)._load_and_process_data(data_pipeline=pipeline)
 
-    with it("can run_complete_experiment_with_saving()"):
+    with it("can run_complete_experiment() with saving"):
         # Arrange
         with included_context("mock private methods context"):
             configuration = mock(Configuration)
 
             when(configuration).dump().thenReturn("")
             # Act
-            experiment.run_complete_experiment_with_saving(
+            experiment.run_complete_experiment(
                 model_options={
                     "model_type": "local_univariate_arima",
                     "local_univariate_arima": {"order": (1, 1, 1)},

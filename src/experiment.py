@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from confuse.core import Configuration
 from genpipes.compose import Pipeline
@@ -39,28 +39,15 @@ class Experiment:
                 sources.append(SaveLocalDiskSource(**save_source_options["disk"], title=self.title))
         return sources
 
-    def run_complete_experiment_with_saving(
-        self, model_options: Dict, data_pipeline: Pipeline, options_to_save=Configuration
+    def run_complete_experiment(
+        self,
+        model_options: Dict,
+        data_pipeline: Pipeline,
+        save: bool = True,
+        options_to_save: Optional[Configuration] = None,
     ) -> None:
         """
-        Run a complete experiment with preprocessing of data, training, testing, and saving.
-        """
-        logging.info("Running complete experiment with saving")
-        logging.info(data_pipeline.__str__())
-
-        self._choose_model_structure(model_options=model_options)
-
-        self._load_and_process_data(data_pipeline=data_pipeline)
-
-        self._train_model()
-        self._test_model()
-        self._save_model(options=options_to_save.dump())
-
-    def run_complete_experiment_without_saving(
-        self, model_options: Dict, data_pipeline: Pipeline
-    ) -> None:
-        """
-        Run a complete experiment with preprocessing of data, training, testing.
+        Run a complete experiment with preprocessing of data, training,testing and optional saving.
         """
         logging.info("Running complete experiment without saving")
         logging.info(data_pipeline.__str__())
@@ -71,6 +58,9 @@ class Experiment:
 
         self._train_model()
         self._test_model()
+
+        if save and options_to_save:
+            self._save_model(options=options_to_save.dump())
 
     def _choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
