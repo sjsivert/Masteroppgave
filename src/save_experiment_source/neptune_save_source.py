@@ -32,10 +32,6 @@ class NeptuneSaveSource(ISaveExperimentSource):
     def save_options(self, options: str) -> None:
         self.run["options"] = options
 
-    def save_figures(self, figures: List[Figure]) -> None:
-        for idx, figure in enumerate(figures):
-            self.run[f"figures/figure_{idx}"].upload(figure, True)
-
     def save_models(self, models: List) -> None:
         with temp_files("temp_models"):
             for idx, model in enumerate(models):
