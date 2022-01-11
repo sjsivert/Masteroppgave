@@ -32,6 +32,7 @@ with description("main.py", "integration") as self:
             main.main, ["--experiment", "title", "description", "--no-save"]
         )
 
+        print(result)
         expect(result.exit_code).to(be(0))
 
     with it("runs without parameters"):
