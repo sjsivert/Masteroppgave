@@ -1,11 +1,14 @@
 #!/bin/bash
+
+source ./.env
+
 function getApiCount {
     count=$(curl https://api.countapi.xyz/hit/default/65898bf3-085e-4339-b66f-bef550fc9218 | grep -o -P '\d+')
 }
 getApiCount
 experiment_title="$2$count"
-echo "Job: $1"
-echo "Job title: $experiment_title"
+echo "SLURM path: $1"
+echo "Experiment title: $experiment_title"
 echo "Job experiment description $3"
 
 
@@ -13,18 +16,24 @@ export LOG_LOCATION=batch_jobs/output/sbatch_job.txt
 export TERM=xterm
 
 
-BRANCH_NAME="hpc/$experiment_title"
+BRANCH_NAME="exp/hpc/$experiment_title"
 
 echo "Checkout branch $BRANCH_NAME"
 git checkout -b $BRANCH_NAME
 git add .
-git commit -m "E:HPC-init $experiment_title: $3"
+git commit -m "exp/HPC-init/$experiment_title:$3"
 
 git push --set-upstream origin $BRANCH_NAME
 
-USERNAME=${username:=sjsivert}
+# If username not exist, request from user!
+if [[-z "${USERNAME}"]]
+	echo "Enter valid NTNU username:"
+	read SELECTED_USERNAME
+else
+	SELECTED_USERNAME=$USERNAME
+fi
 
-ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
+ssh -t $USERNAME@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
 		ls && \
 		git fetch && \
 		git stash && \
@@ -38,4 +47,4 @@ ssh -t ${username:=sjsivert}@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave &
 		sbatch $1 && \
 		export JOB_ID=$(sbatch $1 | grep -o -P '(\d{7})') && \
 		screen -d -m sh ./scripts/watch_for_job_finnish.sh $experiment_title $3 $JOB_ID && \
-		squeue -u $USERNAME'"
+		squeue -u $SELECTED_USERNAME'"
