@@ -18,6 +18,7 @@ export TERM=xterm
 
 BRANCH_NAME="exp/hpc/$experiment_title"
 
+echo "\n -----------Commiting all git changes before commit---------"
 echo "Checkout branch $BRANCH_NAME"
 git checkout -b $BRANCH_NAME
 git add .
@@ -26,14 +27,17 @@ git commit -m "exp/HPC-init/$experiment_title:$3"
 git push --set-upstream origin $BRANCH_NAME
 
 # If username not exist, request from user!
-if [[-z "${USERNAME}"]]
+if [ -z "${USERNAME}" ] ; then
 	echo "Enter valid NTNU username:"
 	read SELECTED_USERNAME
 else
 	SELECTED_USERNAME=$USERNAME
 fi
 
-ssh -t $USERNAME@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
+echo "username $SELECTED_USERNAME"
+
+echo "\n -----------Executing commands on HPC cluster---------"
+ssh -t $SELECTED_USERNAME@login.stud.ntnu.no "ssh -t idun 'cd Masteroppgave && \
 		ls && \
 		git fetch && \
 		git stash && \
