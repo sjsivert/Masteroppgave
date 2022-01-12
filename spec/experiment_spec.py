@@ -14,8 +14,8 @@ from pandas.core.frame import DataFrame
 
 from spec.test_logger import init_test_logging
 from src.experiment import Experiment
-from src.model_strutures.i_model_type import IModelType
-from src.model_strutures.local_univariate_arima import LocalUnivariateArima
+from src.model_strutures.i_model_structure import IModelStructure
+from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
 with description(Experiment, "integration") as self:
@@ -47,7 +47,7 @@ with description(Experiment, "integration") as self:
     with it("returns dataframe on load_and_process_data()", "integration"):
         experiment = Experiment("title", "description")
         pipeline = mock(Pipeline)
-        model = mock(IModelType)
+        model = mock(IModelStructure)
         df = DataFrame({"a": [1, 2, 3]})
         when(model).process_data(pipeline).thenReturn(df)
         experiment.model = model
@@ -73,25 +73,25 @@ with description(Experiment, "integration") as self:
         with pytest.raises(KeyError):
             experiment._choose_model_structure(options)
 
-    with it("can train_model()"):
+    with it("can train model"):
         # Arrange
         experiment = Experiment("title", "description")
-        experiment.model = mock(LocalUnivariateArima)
-        when(experiment.model).train_model()
+        experiment.model = mock(LocalUnivariateArimaStructure)
+        when(experiment.model).train()
         # Act
         experiment._train_model()
         # Assert
-        verify(experiment.model, times=1).train_model()
+        verify(experiment.model, times=1).train()
 
     with it("can test_model()"):
         # Arrange
         experiment = Experiment("title", "description")
-        experiment.model = mock(LocalUnivariateArima)
-        when(experiment.model).test_model()
+        experiment.model = mock(LocalUnivariateArimaStructure)
+        when(experiment.model).test()
         # Act
         experiment._test_model()
         # Assert
-        verify(experiment.model, times=1).test_model()
+        verify(experiment.model, times=1).test()
 
     with it("can save_model()"):
         # Arrange

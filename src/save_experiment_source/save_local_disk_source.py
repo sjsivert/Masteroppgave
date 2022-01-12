@@ -5,11 +5,13 @@ from typing import Dict, List
 from matplotlib.figure import Figure
 
 from src.data_types.i_model import IModel
+from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 
 
-class SaveLocalDiskSource(ISaveExperimentSource):
+class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
     def __init__(self, model_save_location: str, title) -> None:
         super().__init__()
 
@@ -54,3 +56,16 @@ class SaveLocalDiskSource(ISaveExperimentSource):
                 pass
             title = _combine_subfigure_titles(figure)
             figure.savefig(self.save_location + f"/figures/{title}.png")
+
+    # ILogTrainingSource interface
+    def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        # Interface, not to be implemented
+        pass
+
+    def log_models(self, models: List) -> None:
+        # Interface, not to be implemented
+        pass
+
+    def load_temp_models(self, models_path: List) -> None:
+        # Interface, not to be implemented
+        return None
