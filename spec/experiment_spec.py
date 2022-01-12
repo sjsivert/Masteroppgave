@@ -73,6 +73,12 @@ with description(Experiment, "integration") as self:
         with pytest.raises(KeyError):
             experiment._choose_model_structure(options)
 
+
+
+
+
+            
+
     with it("can train_model()"):
         # Arrange
         experiment = Experiment("title", "description")
