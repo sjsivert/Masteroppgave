@@ -54,7 +54,7 @@ with description("main.py", "integration") as self:
         expect(result.exit_code).to(be(0))
 
     with it("runs with --experiment --no-save"):
-        when(Experiment, strict=False).run_complete_experiment_without_saving().thenReturn(None)
+        when(Experiment, strict=False).run_complete_experiment().thenReturn(None)
         result = self.runner.invoke(
             main.main, ["--experiment", "title", "description", "--no-save"], catch_exceptions=False
         )
@@ -62,7 +62,7 @@ with description("main.py", "integration") as self:
         expect(result.exit_code).to(be(0))
 
     with it("runs with --experiment --save"):
-        when(Experiment, strict=False).run_complete_experiment_with_saving().thenReturn(None)
+        when(Experiment, strict=False).run_complete_experiment().thenReturn(None)
 
         result = self.runner.invoke(
             main.main, ["--experiment", "title", "description", "--save"], catch_exceptions=False
