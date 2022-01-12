@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-STAGED_FILES=$(git diff --name-only --cached)
+STAGED_FILES=$(git diff --name-only --cached --diff-filter=d)
 echo $STAGED_FILES
 black src spec
-echo $STAGED_FILES | xargs git add
+echo $STAGED_FILES | xargs git add --ignore-errors
