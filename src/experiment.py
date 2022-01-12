@@ -49,7 +49,7 @@ class Experiment:
         """
         Run a complete experiment with preprocessing of data, training,testing and optional saving.
         """
-        logging.info("Running complete experiment without saving")
+        logging.info(f"Running complete experiment with saving set to {save}")
         logging.info(data_pipeline.__str__())
 
         self._choose_model_structure(model_options=model_options)

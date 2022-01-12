@@ -35,15 +35,17 @@ def main(experiment: Tuple[str, str], save: bool) -> int:
         )
 
         if save:
-            experiment.run_complete_experiment_with_saving(
+            experiment.run_complete_experiment(
                 model_options=config["model"].get(),
                 data_pipeline=pipeline.market_insight_pipeline(),
+                save=True,
                 options_to_save=config,
             )
         else:
-            experiment.run_complete_experiment_without_saving(
+            experiment.run_complete_experiment(
                 model_options=config["model"].get(),
                 data_pipeline=pipeline.market_insight_pipeline(),
+                save=False,
             )
 
     logging.info("Finished")
