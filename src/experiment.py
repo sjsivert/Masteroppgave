@@ -44,7 +44,7 @@ class Experiment:
         model_options: Dict,
         data_pipeline: Pipeline,
         save: bool = True,
-        options_to_save: Optional[Configuration] = None,
+        options_to_save: Optional[str] = None,
     ) -> None:
         """
         Run a complete experiment with preprocessing of data, training,testing and optional saving.
@@ -60,7 +60,7 @@ class Experiment:
         self._test_model()
 
         if save and options_to_save:
-            self._save_model(options=options_to_save.dump())
+            self._save_model(options=options_to_save)
 
     def _choose_model_structure(self, model_options: Dict) -> IModelType:
         try:
@@ -98,12 +98,11 @@ class Experiment:
         logging.info("Saving model")
         for save_source in self.save_sources:
             save_source.save_options(options)
-            # Save options
 
             # TODO: Save models
 
-            # Save metrics
-            save_source.save_metrics([])
+            # TODO: Get metrics from model and pass to save_source
+            save_source.save_metrics({})
 
             # TODO: Save hyperparameters
 

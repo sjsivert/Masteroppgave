@@ -39,7 +39,7 @@ def main(experiment: Tuple[str, str], save: bool) -> int:
                 model_options=config["model"].get(),
                 data_pipeline=pipeline.market_insight_pipeline(),
                 save=True,
-                options_to_save=config,
+                options_to_save=config.dump(),
             )
         else:
             experiment.run_complete_experiment(

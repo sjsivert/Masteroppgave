@@ -104,7 +104,7 @@ with description(Experiment, "integration") as self:
         experiment._save_model({})
         # Assert
         verify(experiment.save_sources[0], times=1).save_options({})
-        verify(experiment.save_sources[0], times=1).save_metrics([])
+        verify(experiment.save_sources[0], times=1).save_metrics({})
 
     with shared_context("mock private methods context"):
         # Arrange
