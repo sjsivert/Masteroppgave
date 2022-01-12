@@ -68,12 +68,20 @@ The branch name is mostly for clarification, and not as important as the commit 
 2. Add or tune a .slurm file in batch_Jobs/
 3. Run ´./scripts/execute_experiment_hpc.sh <job-file.slurm> <Job Name> <Job description>´
 
+## SLURM files - Config
+In order to execute code on the HPC cluster, the cluster expects the use of a config file in the form of a ".slurm" file.
+Such ".slurm" files have already been created and are located under the folder "batch_jobs/".
+
+Before a test is run on the HPC cluster, one should update the current values of the *.slurm files.
+The values to be updated are information such as job_name, mail for receiving information, etc.
+
 # Environment variables
 Create a .env file in root folder to configure project related environment variables
 
 ```
 # Email used to send HPC batch job status emails
 EMAIL=<email>
+USERNAME=<NTNU-username>
 LOG_FILE=<batch_job_log_file> default: batch_jobs/output/sbatch_job.txt
 NEPTUNE_API_TOKEN=<api-token>
 ```

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOG_FILE=batch_jobs/output/sbatch_job.txt
-EMAIL=sindrejohan1@gmail.com
 JOB_NAME=$1
 
 # Load environment variables from .env file
@@ -44,8 +42,6 @@ cat "Job finnished" | mail -s $JOB_NAME $EMAIL
 cat $LOG_FILE | mail -s $JOB_NAME $EMAIL
 
 git add .
-#git checkout -b HPC-JOB/$JOB_NAME
-git commit -m "E:HPC: $JOB_NAME"
-#git push --set-upstream origin HPC-JOB/$JOB_NAME
+git commit -m "exp/HPC/$JOB_NAME"
 git push
 
