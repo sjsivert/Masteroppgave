@@ -5,12 +5,14 @@ import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
 
+from src.model_strutures.i_model_structure import IModelStructure
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import _combine_subfigure_titles
 from src.utils.temporary_files import temp_files
 
 
-class NeptuneSaveSource(ISaveExperimentSource):
+class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     """
     Neptune save source for tracking ML experiments.
     """
@@ -53,3 +55,16 @@ class NeptuneSaveSource(ISaveExperimentSource):
 
     def close(self) -> None:
         self.run.stop()
+
+    # ILogTrainingSource interface
+    def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        # Interface, not to be implemented
+        pass
+
+    def log_models(self, models: List) -> None:
+        # Interface, not to be implemented
+        pass
+
+    def load_temp_models(self, models_path: List) -> None:
+        # Interface, not to be implemented
+        return None

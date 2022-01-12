@@ -1,5 +1,4 @@
 from typing import Dict, List
-
 from matplotlib.axes import Axes
 
 
@@ -20,6 +19,10 @@ class ISaveExperimentSource:
     def save_models(self, models: List) -> None:
         # Interface, not to be implemented
         pass
+
+    def load_models(self, models_path: List) -> None:
+        # Interface, not to be implemented
+        return None
 
     def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         # Interface, not to be implemented

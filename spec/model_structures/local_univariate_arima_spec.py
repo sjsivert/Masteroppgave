@@ -5,9 +5,9 @@ from mockito.mocking import mock
 from mockito.mockito import when
 from pandas.core.frame import DataFrame
 
-from src.model_strutures.local_univariate_arima import LocalUnivariateArima
+from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 
-with description(LocalUnivariateArima, "unit") as self:
+with description(LocalUnivariateArimaStructure, "unit") as self:
     with before.all:
         self.options = {
             "model_type": "local_univariate_arima",
@@ -15,11 +15,13 @@ with description(LocalUnivariateArima, "unit") as self:
         }
 
     with it("Can be initialised with options"):
-        model = LocalUnivariateArima(**self.options["local_univariate_arima"])
+        order = 1
+        model = LocalUnivariateArimaStructure(order, **self.options["local_univariate_arima"])
         expect(model.order).to(equal(self.options["local_univariate_arima"]["order"]))
 
     with it("Can process data"):
-        model = LocalUnivariateArima(self.options)
+        order = 1
+        model = LocalUnivariateArimaStructure(order, self.options)
         pipeline = mock(Pipeline)
         df = DataFrame({"a": [1, 2, 3]})
         when(pipeline).run().thenReturn(df)

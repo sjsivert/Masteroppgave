@@ -18,8 +18,10 @@ experiment:
 
 
 model:
-  model_type: 'local_univariate_arima'
+  model_type: 'validation_model'
   rng_seed: 42
+  validation_model:
+    placeholder: 0
   local_univariate_arima:
     order:
       - 5 # p
