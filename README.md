@@ -12,6 +12,10 @@ Setup up python virtual env:
 Install project and dependencies
 `pip install -r requirements.txt`
 
+## Installing git hooks
+
+`./scripts/install-git-hooks.sh`
+
 ## Running experiments
 Run `python src/main.py --help` to get a help message.
 

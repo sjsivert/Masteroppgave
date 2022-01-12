@@ -1,4 +1,17 @@
 [tool.black]
 line-length = 100
 # Explude pipeline files from formatting because it is ugly
-exclude = '/*_pipeline.py'
+exclude = '''
+/(
+	\.toml
+	| \.md
+	| \.yaml
+	| \.txt
+	| \.sh
+	| \.git
+	| \.ini
+	| \.ipynb
+	| \.tex
+ )
+/
+'''

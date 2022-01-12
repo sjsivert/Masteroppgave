@@ -4,7 +4,7 @@ from src.pipelines import data_loader
 from src.pipelines import market_insight_processing as p
 from src.utils.config_parser import config, get_absolute_path
 
-
+# fmt: off
 def market_insight_pipeline() -> compose.Pipeline:
     pipeline = compose.Pipeline(steps=[
         ("load market insight data and categories and merge them",
