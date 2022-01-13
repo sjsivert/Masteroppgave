@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from genpipes.compose import Pipeline
@@ -49,3 +50,6 @@ class ValidationModelStructure(IModelStructure):
         for model in self.models:
             self.figures.extend(model.visualize())
         return self.figures
+
+    def load_models(self, model_paths: List[Path]) -> None:
+        self.models = map(lambda model_path: ValidationModel.load(model_path), model_paths)

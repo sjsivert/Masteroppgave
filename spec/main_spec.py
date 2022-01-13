@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from click.testing import CliRunner
 from expects import be_true, expect
 from expects.matchers.built_in import be
 from mamba import after, before, description, it
 from mockito import mock, when
-from mockito.mockito import unstub
+from mockito.mockito import unstub, verify
 
 from spec.test_logger import init_test_logging
 from src import main
@@ -16,6 +18,10 @@ def init_mock_config():
     config.clear()
     config.read(user=False)
     config["experiment"]["save_sources_to_use"] = []
+    config["experiment"]["save_source"]["disk"][
+        "checkpoint_save_location"
+    ] = "./models/0_current_model_checkpoints/"
+
     config["experiment"]["save_source"] = {
         "disk": {
             "model_save_location": "./models/temp",
@@ -35,7 +41,7 @@ def init_mock_config():
     }
 
 
-with description("main.py", "integration") as self:
+with description("main.py", "unit") as self:
     with before.all:
         self.runner = CliRunner()
         init_test_logging()
@@ -75,3 +81,16 @@ with description("main.py", "integration") as self:
 
     with it("executes init_logging"):
         mock_logger = mock(init_logging())
+
+    with it("runs with --continue-experiment"):
+        # Arrange
+        checkpoint_save_location = Path(
+            config["experiment"]["save_source"]["disk"]["checkpoint_save_location"].get()
+        )
+        when(Experiment).continue_experiment(checkpoint_save_location).thenReturn(None)
+
+        # Act
+        self.runner.invoke(main.main, ["--continue-experiment"], catch_exceptions=False)
+
+        # Assert
+        verify(Experiment).continue_experiment(checkpoint_save_location)

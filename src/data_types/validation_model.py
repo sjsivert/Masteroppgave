@@ -1,9 +1,12 @@
 from __future__ import annotations
+
+import logging
 from typing import List, Dict
 
 from pandas.core.frame import DataFrame
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.data_types.i_model import IModel
+from src.utils import logger
 
 
 class ValidationModel(IModel):
@@ -36,12 +39,11 @@ class ValidationModel(IModel):
             f.write("Validation model. Mock model saving.")
 
     @staticmethod
-    def load(path: str) -> IModel:
+    def load(path: str) -> ValidationModel:
         """
         Load the model from the specified path.
         """
         model_contents = ""
         with open(path, "r") as f:
             model_contents = f.read()
-        print("Read saved model:", model_contents)
         return ValidationModel(None)

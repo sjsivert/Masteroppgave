@@ -13,6 +13,7 @@ from spec.test_logger import init_test_logging
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
+from src.utils.temporary_files import temp_files
 
 with description(SaveLocalDiskSource, "unit") as self:
     with before.all:
@@ -93,3 +94,25 @@ with description(SaveLocalDiskSource, "unit") as self:
         fig, ax = plt.subplots()
         self.save_source.save_figures([fig])
         self.save_source.save_figures([fig])
+
+    with it("creates a checpoint save location when save epoch is above 0"):
+        # Arrange
+        temp = "temp/"
+        with temp_files(temp):
+            save_source = SaveLocalDiskSource(
+                **self.options,
+                title="test_checkpoints",
+                description="test_checkpoints description",
+                checkpoint_save_location=Path(temp + "/checkpoints"),
+                log_model_every_n_epoch=1,
+            )
+
+            # Asses
+            expect(save_source.checkpoint_save_location.__str__()).to(match("temp/checkpoints"))
+            expect(save_source.checkpoint_save_location.is_dir()).to(be_true)
+            expect(save_source.checkpoint_save_location.joinpath("options.yaml").is_file()).to(
+                be_true
+            )
+            expect(
+                save_source.checkpoint_save_location.joinpath("title-description.txt").is_file()
+            ).to(be_true)

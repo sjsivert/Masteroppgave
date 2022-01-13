@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Dict, Optional, List
 
 from genpipes.compose import Pipeline
@@ -42,5 +43,11 @@ class IModelStructure:
     def get_models(self) -> List[IModel]:
         """
         Return the modes contained in the structure
+        """
+        pass
+
+    def load_models(self, models: List[Path]):
+        """
+        Loads pre-created models from disk.
         """
         pass

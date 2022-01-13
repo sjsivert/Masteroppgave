@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Tuple
 
 import click
@@ -20,13 +21,15 @@ from src.utils.config_parser import config
     default=True,
     help="Boolean flag for saving the results or not. Overrides config.yaml.",
 )
-def main(experiment: Tuple[str, str], save: bool) -> int:
+@click.option(
+    "--continue-experiment", "-c", is_flag=True, help="Continues the last experiment executed."
+)
+def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> int:
     logger.init_logging()
     logging.info("Started")
 
     if experiment:
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
-
         experiment = Experiment(
             title=experiment[0],
             description=experiment[1],
@@ -47,6 +50,14 @@ def main(experiment: Tuple[str, str], save: bool) -> int:
                 data_pipeline=pipeline.market_insight_pipeline(),
                 save=False,
             )
+    elif continue_experiment:
+        logging.info(f"Continues previous experiment")
+
+        experiment_checkpoints_location = Path(
+            config["experiment"]["save_source"]["disk"]["checkpoint_save_location"].get()
+        )
+
+        Experiment.continue_experiment(experiment_checkpoints_location)
 
     logging.info("Finished")
     return 0
