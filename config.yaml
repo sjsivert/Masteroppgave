@@ -11,6 +11,8 @@ experiment:
   save_source:
     disk:
       model_save_location: './models/'
+      checkpoint_save_location: './models/0_current_model_checkpoints/'
+      log_model_every_n_epoch: 10
 
     neptune:
       project_id: 'sjsivertandsanderkk/Masteroppgave'

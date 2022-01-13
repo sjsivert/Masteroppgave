@@ -39,7 +39,15 @@ class Experiment:
         sources = []
         for source in save_sources:
             if source == "disk":
-                sources.append(SaveLocalDiskSource(**save_source_options["disk"], title=self.title))
+                sources.append(
+                    SaveLocalDiskSource(
+                        **save_source_options["disk"],
+                        options_dump=config.dump(),
+                        title=self.title,
+                        description=self.experiment_description,
+                    )
+                )
+            # TODO: Add Neptune save source
         return sources
 
     def run_complete_experiment(
@@ -67,13 +75,30 @@ class Experiment:
 
     @classmethod
     def continue_experiment(cls, experiment_checkpoint_path: Path) -> None:
+        # Read experiment title and description from file
+        title = ""
+        description = ""
+        with open(f"{experiment_checkpoint_path}/title-description.txt", "r") as f:
+            title = f.readline().rstrip("\n")
+            description = f.readline().rstrip("\n")
+
         # Clear and load old config
         config.clear()
-        config.read(f"{experiment_checkpoint_path}/options.yaml")
+        config.set_file(f"{experiment_checkpoint_path}/options.yaml")
 
-        cls.model = cls._choose_model_structure(model_options=config["model"].get())
-        cls.model.load_model(experiment_checkpoint_path)
+        # model_structure = cls._choose_model_structure(model_options=config["model"].get())
 
+        # TODO: Find out how to load preprocessed data
+        # model_structure.load_models(experiment_checkpoint_path)
+        cls._train_model()
+        cls._test_model()
+
+    # TODO: Find out how to load data that has already been processed
+    # cls._load_and_process_data(data_pipeline=data_pipeline)
+
+        logging.warning("Not implemented")
+        # TODO: Implement
+        pass
     def _choose_model_structure(self, model_options: Dict) -> IModelStructure:
         try:
             model_structure = ModelStructureEnum[model_options["model_type"]]

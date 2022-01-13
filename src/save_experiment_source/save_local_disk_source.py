@@ -1,12 +1,12 @@
 import logging
 import os
+import shutil
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from matplotlib.figure import Figure
 
 from src.data_types.i_model import IModel
-from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -17,13 +17,24 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self,
         model_save_location: Path,
         title: str,
+        description: str = "",
+        options_dump: str = "",
         checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
+        log_model_every_n_epoch: int = 0,
     ) -> None:
         super().__init__()
 
         self.save_location = Path(model_save_location).joinpath(title)
         self.checkpoint_save_location = checkpoint_save_location
+        self.log_model_every_n_epoch = log_model_every_n_epoch
 
+        self._create_save_location()
+
+        if log_model_every_n_epoch > 0:
+            self._wipe_and_init_checkpoint_save_location(title=title, description=description)
+            self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
+
+    def _create_save_location(self):
         try:
             logging.info(f"Creating model save location {self.save_location}")
             os.mkdir(self.save_location.__str__())
@@ -31,8 +42,16 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             logging.warning(f"{self.save_location} already exists")
             raise FileExistsError
 
-    def save_options(self, options: str) -> None:
-        with open(f"{self.save_location}/options.yaml", "w") as f:
+    def save_options(self, options: str, save_path: Optional[Path] = None) -> None:
+        """
+        Saves the options used to train the model.
+        If save_path is not provided saves to the pre-defined save_location.
+        :param options:
+        :param save_path:
+        :return:
+        """
+        path = save_path if save_path else self.save_location
+        with open(f"{path}/options.yaml", "w") as f:
             f.write(options)
 
     def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
@@ -77,3 +96,18 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
     def load_temp_models(self, models_path: List) -> None:
         # Interface, not to be implemented
         return None
+
+    def _wipe_and_init_checkpoint_save_location(self, title: str, description: str) -> None:
+        logging.info(
+            f"Wiping and initializing checkpoint save location {self.checkpoint_save_location}"
+        )
+        try:
+            shutil.rmtree(self.checkpoint_save_location)
+        except FileNotFoundError:
+            pass
+
+        os.mkdir(self.checkpoint_save_location)
+
+        # Save the title and description to temp location
+        with open(f"{self.checkpoint_save_location}/title-description.txt", "w") as f:
+            f.write(f"{title}\n{description}")
