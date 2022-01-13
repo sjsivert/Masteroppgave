@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 
 import pytest
 from expects import be_false, be_true, expect, match
@@ -39,7 +40,10 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("Initializes correctly when save location does not exist"):
         save_source = SaveLocalDiskSource(**self.options, title="this-folder-does-not-exist")
-        assert save_source.save_location == "spec/temp/this-folder-does-not-exist"
+
+        expect(Path(save_source.save_location).__str__()).to(
+            match(Path("spec/temp/this-folder-does-not-exist").__str__())
+        )
 
     with it("save options as options.yaml inside correct folder"):
         self.save_source.save_options("option 1\noption2")

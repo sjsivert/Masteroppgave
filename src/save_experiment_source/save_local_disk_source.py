@@ -15,7 +15,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
     def __init__(self, model_save_location: str, title) -> None:
         super().__init__()
 
-        self.save_location = model_save_location + title
+        self.save_location = f"{model_save_location}/{title}"
         try:
             logging.info(f"Saving models to {self.save_location}")
             os.mkdir(self.save_location)
