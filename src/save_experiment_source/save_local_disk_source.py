@@ -1,5 +1,6 @@
 import logging
 import os
+from pathlib import Path
 from typing import Dict, List
 
 from matplotlib.figure import Figure
@@ -12,24 +13,31 @@ from src.utils.combine_subfigure_titles import combine_subfigure_titles
 
 
 class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
-    def __init__(self, model_save_location: str, title) -> None:
+    def __init__(
+        self,
+        model_save_location: Path,
+        title: str,
+        checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
+    ) -> None:
         super().__init__()
 
-        self.save_location = f"{model_save_location}/{title}"
+        self.save_location = Path(model_save_location).joinpath(title)
+        self.checkpoint_save_location = checkpoint_save_location
+
         try:
-            logging.info(f"Saving models to {self.save_location}")
-            os.mkdir(self.save_location)
+            logging.info(f"Creating model save location {self.save_location}")
+            os.mkdir(self.save_location.__str__())
         except FileExistsError:
             logging.warning(f"{self.save_location} already exists")
             raise FileExistsError
 
     def save_options(self, options: str) -> None:
-        with open(self.save_location + "/options.yaml", "w") as f:
+        with open(f"{self.save_location}/options.yaml", "w") as f:
             f.write(options)
 
     def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}
-        with open(self.save_location + "/metrics.txt", "w") as f:
+        with open(f"{self.save_location}/metrics.txt", "w") as f:
             for test_name, test_value in metrics.items():
                 f.writelines("\n_____Results dataset-{}_____\n".format(test_name))
                 for metric_name in test_value.keys():
@@ -46,16 +54,16 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
     def save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
-            model.save(self.save_location + f"/model_{idx}.pkl")
+            model.save(f"{self.save_location}/model_{idx}.pkl")
 
     def save_figures(self, figures: List[Figure]) -> None:
         for idx, figure in enumerate(figures):
             try:
-                os.mkdir(self.save_location + f"/figures/")
+                os.mkdir(f"{self.save_location}/figures/")
             except FileExistsError:
                 pass
             title = combine_subfigure_titles(figure)
-            figure.savefig(self.save_location + f"/figures/{title}.png")
+            figure.savefig(f"{self.save_location}/figures/{title}.png")
 
     # ILogTrainingSource interface
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:

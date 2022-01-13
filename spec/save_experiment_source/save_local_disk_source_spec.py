@@ -41,13 +41,13 @@ with description(SaveLocalDiskSource, "unit") as self:
     with it("Initializes correctly when save location does not exist"):
         save_source = SaveLocalDiskSource(**self.options, title="this-folder-does-not-exist")
 
-        expect(Path(save_source.save_location).__str__()).to(
+        expect(save_source.save_location.__str__()).to(
             match(Path("spec/temp/this-folder-does-not-exist").__str__())
         )
 
     with it("save options as options.yaml inside correct folder"):
         self.save_source.save_options("option 1\noption2")
-        expect(os.path.isfile("spec/temp/test_experiment/options.yaml")).to(be_true)
+        expect(os.path.isfile(f"{self.save_source.save_location}/options.yaml")).to(be_true)
 
     with it("saves metrix as metrics.txt inside correct folder"):
         self.save_source.save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
