@@ -8,7 +8,7 @@ from neptune.new.types import File
 from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
-from src.utils.combine_subfigure_titles import _combine_subfigure_titles
+from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.temporary_files import temp_files
 
 
@@ -50,7 +50,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
 
     def save_figures(self, figures: List[Figure]):
         for figure in figures:
-            title = _combine_subfigure_titles(figure)
+            title = combine_subfigure_titles(figure)
             self.run[f"figures/fig_{title}"].upload(figure, True)
 
     def close(self) -> None:

@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from spec.test_logger import init_test_logging
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
-from src.utils.combine_subfigure_titles import _combine_subfigure_titles
+from src.utils.combine_subfigure_titles import combine_subfigure_titles
 
 with description(SaveLocalDiskSource, "unit") as self:
     with before.all:
@@ -82,7 +82,7 @@ with description(SaveLocalDiskSource, "unit") as self:
             for col in range(2):
                 axs[row, col].set_title(f"Subplot {row}-{col}")
 
-        title = _combine_subfigure_titles(fig)
+        title = combine_subfigure_titles(fig)
         expect(title).to(match("Subplot 0-0, Subplot 0-1, Subplot 1-0, Subplot 1-1"))
 
     with it("Can call save figure twice without crashing"):

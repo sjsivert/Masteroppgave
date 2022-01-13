@@ -8,7 +8,7 @@ from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.combine_subfigure_titles import _combine_subfigure_titles
+from src.utils.combine_subfigure_titles import combine_subfigure_titles
 
 
 class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
@@ -54,7 +54,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
                 os.mkdir(self.save_location + f"/figures/")
             except FileExistsError:
                 pass
-            title = _combine_subfigure_titles(figure)
+            title = combine_subfigure_titles(figure)
             figure.savefig(self.save_location + f"/figures/{title}.png")
 
     # ILogTrainingSource interface
