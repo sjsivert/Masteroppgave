@@ -51,7 +51,7 @@ with description(Experiment, "integration") as self:
         model = mock(IModelStructure)
         df = DataFrame({"a": [1, 2, 3]})
         when(model).process_data(pipeline).thenReturn(df)
-        experiment.model = model
+        experiment.model_structure = model
 
         dataframe = experiment._load_and_process_data(pipeline)
         expect(dataframe).to(be(df))
@@ -63,7 +63,7 @@ with description(Experiment, "integration") as self:
             "local_univariate_arima": {"order": (1, 1, 1)},
         }
         experiment._choose_model_structure(options)
-        expect(experiment.model).to_not(expects.be_none)
+        expect(experiment.model_structure).to_not(expects.be_none)
 
     with it("raise exception when wrong model structure is chosen"):
         experiment = Experiment("title", "description")
@@ -77,22 +77,22 @@ with description(Experiment, "integration") as self:
     with it("can train model"):
         # Arrange
         experiment = Experiment("title", "description")
-        experiment.model = mock(LocalUnivariateArimaStructure)
-        when(experiment.model).train()
+        experiment.model_structure = mock(LocalUnivariateArimaStructure)
+        when(experiment.model_structure).train()
         # Act
         experiment._train_model()
         # Assert
-        verify(experiment.model, times=1).train()
+        verify(experiment.model_structure, times=1).train()
 
     with it("can test_model()"):
         # Arrange
         experiment = Experiment("title", "description")
-        experiment.model = mock(LocalUnivariateArimaStructure)
-        when(experiment.model).test()
+        experiment.model_structure = mock(LocalUnivariateArimaStructure)
+        when(experiment.model_structure).test()
         # Act
         experiment._test_model()
         # Assert
-        verify(experiment.model, times=1).test()
+        verify(experiment.model_structure, times=1).test()
 
     with it("can save_model()"):
         # Arrange
