@@ -124,7 +124,7 @@ class Experiment:
 
     def _visualize_model(self):
         logging.info("Visualize model metrics and data")
-        return self.model.visualize()
+        return self.model_structure.visualize()
 
     def _save_model(self, options: str) -> None:
         """

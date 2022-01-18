@@ -64,6 +64,14 @@ with description(Experiment, "integration") as self:
         experiment._choose_model_structure(options)
         expect(experiment.model_structure).to_not(expects.be_none)
 
+    with it("can choose_model_structure validation model"):
+        experiment = Experiment("title", "description")
+        options = {
+            "model_type": "validation_model",
+        }
+        experiment._choose_model_structure(options)
+        expect(experiment.model_structure).to_not(expects.be_none)
+
     with it("raise exception when wrong model structure is chosen"):
         experiment = Experiment("title", "description")
         options = {
@@ -96,12 +104,12 @@ with description(Experiment, "integration") as self:
     with it("can visualize_model"):
         # Arrange
         experiment = Experiment("title", "description")
-        experiment.model = mock(LocalUnivariateArimaStructure)
-        when(experiment.model).visualize()
+        experiment.model_structure = mock(LocalUnivariateArimaStructure)
+        when(experiment.model_structure).visualize()
         # Act
         experiment._visualize_model()
         # Assert
-        verify(experiment.model, times=1).visualize()
+        verify(experiment.model_structure, times=1).visualize()
 
     with it("can save_model()"):
         # Arrange
