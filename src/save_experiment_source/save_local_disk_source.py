@@ -7,8 +7,8 @@ from typing import Dict, List, Optional
 from matplotlib.figure import Figure
 
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 
 
@@ -21,18 +21,20 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         options_dump: str = "",
         checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
         log_model_every_n_epoch: int = 0,
+        continue_experiment_from_checkpoint: bool = False,
     ) -> None:
         super().__init__()
 
-        self.save_location = Path(model_save_location).joinpath(title)
-        self.checkpoint_save_location = checkpoint_save_location
-        self.log_model_every_n_epoch = log_model_every_n_epoch
+        if not continue_experiment_from_checkpoint:
+            self.save_location = Path(model_save_location).joinpath(title)
+            self.checkpoint_save_location = checkpoint_save_location
+            self.log_model_every_n_epoch = log_model_every_n_epoch
 
-        self._create_save_location()
+            self._create_save_location()
 
-        if log_model_every_n_epoch > 0:
-            self._wipe_and_init_checkpoint_save_location(title=title, description=description)
-            self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
+            if log_model_every_n_epoch > 0:
+                self._wipe_and_init_checkpoint_save_location(title=title, description=description)
+                self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
 
     def _create_save_location(self):
         try:
