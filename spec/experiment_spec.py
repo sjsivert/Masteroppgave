@@ -6,17 +6,17 @@ import pytest
 from confuse import Configuration
 from expects import be, be_above, expect
 from genpipes.compose import Pipeline
-from mamba import after, before, description, it, shared_context, included_context
+from mamba import after, before, description, included_context, it, shared_context
 from mockito import mock, unstub, when
 from mockito.matchers import ANY
 from mockito.mockito import verify
 from pandas.core.frame import DataFrame
-
-from spec.test_logger import init_test_logging
 from src.experiment import Experiment
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+
+from spec.test_logger import init_test_logging
 
 with description(Experiment, "integration") as self:
 
@@ -93,12 +93,20 @@ with description(Experiment, "integration") as self:
         # Assert
         verify(experiment.model_structure, times=1).test()
 
+    with it("can visualize_model"):
+        # Arrange
+        experiment = Experiment("title", "description")
+        experiment.model = mock(LocalUnivariateArimaStructure)
+        when(experiment.model).visualize()
+        # Act
+        experiment._visualize_model()
+        # Assert
+        verify(experiment.model, times=1).visualize()
+
     with it("can save_model()"):
         # Arrange
         experiment = Experiment("title", "description")
-
         when(SaveLocalDiskSource, strict=False).save_model_and_metadata()
-
         # Act
         experiment._save_model({})
 
@@ -113,6 +121,7 @@ with description(Experiment, "integration") as self:
         when(experiment, strict=False)._choose_model_structure()
         when(experiment)._train_model()
         when(experiment)._test_model()
+        when(experiment)._visualize_model()
 
     with it("can run_complete_experiment() without saving"):
         with included_context("mock private methods context"):

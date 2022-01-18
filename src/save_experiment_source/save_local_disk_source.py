@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from matplotlib.figure import Figure
-
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
@@ -105,15 +104,15 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
     # ILogTrainingSource interface
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
-        # Interface, not to be implemented
+        # TODO
         pass
 
     def log_models(self, models: List) -> None:
-        # Interface, not to be implemented
+        # TODO
         pass
 
     def load_temp_models(self, models_path: List) -> None:
-        # Interface, not to be implemented
+        # TODO
         return None
 
     def _wipe_and_init_checkpoint_save_location(self, title: str, description: str) -> None:
