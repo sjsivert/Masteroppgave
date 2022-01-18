@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -25,8 +26,8 @@ class ValidationModelStructure(IModelStructure):
         return data_set
 
     def train(self) -> IModelStructure:
-        print("Training is conducted, and training metrics are set.")
-        print("Temporary metrics are logged, and model is saved.")
+        logging.info("Training is conducted, and training metrics are set.")
+        logging.info("Temporary metrics are logged, and model is saved.")
         # The model should complete training and save complete metrics, create mock metrics
         for idx, model in enumerate(self.models):
             self.training_metrics[f"model_{idx}"] = model.train(DataFrame(), epochs=5)
@@ -37,7 +38,8 @@ class ValidationModelStructure(IModelStructure):
         # 1. Make prediction on training set in order to evaluate ability to fit the data
         # 2. Make prediction on the test set in order to evaluate ability to predict and generalize
         # 3. Save the prediction to the object and return metrics
-        print("Testing is conducted, and prediction values and metrics are set and stored.")
+        logging.info("Testing is conducted, and prediction values and metrics are set and stored.")
+
         for idx, model in enumerate(self.models):
             self.testing_metrics[f"model_{idx}"] = model.test(DataFrame(), predictive_period=5)
         return self.testing_metrics
