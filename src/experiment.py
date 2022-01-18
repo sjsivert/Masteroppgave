@@ -1,5 +1,4 @@
 import logging
-from pathlib import Path
 from typing import Dict, List, Optional
 
 from genpipes.compose import Pipeline
@@ -10,6 +9,7 @@ from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.config_parser import config
 
@@ -46,6 +46,14 @@ class Experiment:
                         options_dump=config.dump(),
                         title=self.title,
                         description=self.experiment_description,
+                    )
+                )
+            elif source == "neptune":
+                sources.append(
+                    NeptuneSaveSource(
+                        **save_source_options["neptune"],
+                        title=self.title,
+                        description=self.description,
                     )
                 )
         return sources
