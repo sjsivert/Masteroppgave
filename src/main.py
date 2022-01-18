@@ -11,6 +11,7 @@ from src.continue_experiment import ContinueExperiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.utils import logger
 from src.utils.config_parser import config
+from src.utils.extract_tags_from_config import extract_tags_from_config
 
 
 @click.command()
@@ -34,6 +35,8 @@ def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> 
 
         save_source_to_use = config["experiment"]["save_sources_to_use"].get()
 
+        experiment_tags = extract_tags_from_config()
+
         experiment = Experiment(
             title=experiment[0],
             description=experiment[1],
@@ -41,6 +44,7 @@ def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> 
             if (save and (not type(save_source_to_use) is type(None)))
             else [],
             save_source_options=config["experiment"]["save_source"].get() if save else {},
+            experiment_tags=experiment_tags,
         )
 
         if save:

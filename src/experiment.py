@@ -26,15 +26,21 @@ class Experiment:
         description: str = "",
         save_sources_to_use=[],
         save_source_options={},
+        experiment_tags: Optional[List[str]] = None,
     ) -> None:
         self.model_structure = None
         self.title = title
         self.description = description
         self.experiment_description = description
-        self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
+        self.save_sources = self._init_save_sources(
+            save_sources_to_use, save_source_options, experiment_tags
+        )
 
     def _init_save_sources(
-        self, save_sources_to_use: List[str], save_source_options: Dict
+        self,
+        save_sources_to_use: List[str],
+        save_source_options: Dict,
+        experiment_tags: Optional[List[str]],
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
@@ -54,6 +60,7 @@ class Experiment:
                         **save_source_options["neptune"],
                         title=self.title,
                         description=self.description,
+                        tags=experiment_tags,
                     )
                 )
         return sources

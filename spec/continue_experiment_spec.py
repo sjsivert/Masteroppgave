@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 from expects import expect, match
-from mamba import describe, it
+from mamba import describe, it, description
 
 from spec.mock_config import init_mock_config
 from src.continue_experiment import ContinueExperiment
@@ -25,7 +25,7 @@ def temp_checkpoints_location(temp_dir: str):
         yield
 
 
-with describe(ContinueExperiment, "unit") as self:
+with description(ContinueExperiment, "unit") as self:
     with it("initializes correctly with title and description"):
         # Arrange
         temp_location = "temp_continue_experiment"
