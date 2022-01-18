@@ -19,10 +19,9 @@ with description("main.py", "unit") as self:
     with before.all:
         self.runner = CliRunner()
         init_test_logging()
-
         init_mock_config()
 
-    with after.all:
+    with after.each:
         unstub()
 
     with it("runs without errors"):
@@ -38,16 +37,6 @@ with description("main.py", "unit") as self:
         result = self.runner.invoke(
             main.main, ["--experiment", "title", "description", "--no-save"], catch_exceptions=False
         )
-
-        expect(result.exit_code).to(be(0))
-
-    with it("runs with --experiment --save"):
-        when(Experiment, strict=False).run_complete_experiment().thenReturn(None)
-
-        result = self.runner.invoke(
-            main.main, ["--experiment", "title", "description", "--save"], catch_exceptions=False
-        )
-
         expect(result.exit_code).to(be(0))
 
     with it("runs without parameters"):

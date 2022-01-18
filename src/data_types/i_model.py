@@ -52,6 +52,7 @@ class IModel:
         self._visualize_training_accuracy(title=title)
         self._visualize_training_error(title=title)
         self._visualize_prediction(title=title)
+        print("Figures:", len(self.figures))
 
     def _visualize_training_accuracy(self, title: str) -> None:
         # Visualize training accuracy figure
