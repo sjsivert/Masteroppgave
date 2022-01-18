@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from confuse.core import Configuration
 from genpipes.compose import Pipeline
 from pandas import DataFrame
 
@@ -23,21 +22,23 @@ class Experiment:
 
     def __init__(
         self,
-        title: str,
-        description: str,
+        title: str = "",
+        description: str = "",
         save_sources_to_use=[],
         save_source_options={},
     ) -> None:
         self.model_structure = None
         self.title = title
+        self.description = description
         self.experiment_description = description
         self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
 
     def _init_save_sources(
-        self, save_sources: List[str], save_source_options: Dict
+        self, save_sources_to_use: List[str], save_source_options: Dict
     ) -> List[ISaveExperimentSource]:
         sources = []
-        for source in save_sources:
+        for source in save_sources_to_use:
+            # TODO: Add Neptune save source
             if source == "disk":
                 sources.append(
                     SaveLocalDiskSource(
@@ -47,7 +48,6 @@ class Experiment:
                         description=self.experiment_description,
                     )
                 )
-            # TODO: Add Neptune save source
         return sources
 
     def run_complete_experiment(
@@ -73,32 +73,6 @@ class Experiment:
         if save and options_to_save:
             self._save_model(options=options_to_save)
 
-    @classmethod
-    def continue_experiment(cls, experiment_checkpoint_path: Path) -> None:
-        # Read experiment title and description from file
-        title = ""
-        description = ""
-        with open(f"{experiment_checkpoint_path}/title-description.txt", "r") as f:
-            title = f.readline().rstrip("\n")
-            description = f.readline().rstrip("\n")
-
-        # Clear and load old config
-        config.clear()
-        config.set_file(f"{experiment_checkpoint_path}/options.yaml")
-
-        # model_structure = cls._choose_model_structure(model_options=config["model"].get())
-
-        # TODO: Find out how to load preprocessed data
-        # model_structure.load_models(experiment_checkpoint_path)
-        cls._train_model()
-        cls._test_model()
-
-    # TODO: Find out how to load data that has already been processed
-    # cls._load_and_process_data(data_pipeline=data_pipeline)
-
-        logging.warning("Not implemented")
-        # TODO: Implement
-        pass
     def _choose_model_structure(self, model_options: Dict) -> IModelStructure:
         try:
             model_structure = ModelStructureEnum[model_options["model_type"]]

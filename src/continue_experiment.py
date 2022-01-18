@@ -7,33 +7,50 @@ from src.utils.config_parser import config
 
 
 class ContinueExperiment(Experiment):
+    """
+    Class for continuing an already initialized experiment.
+    It assumes that the previous experiment has been initialized and saved
+    to the checkpoints_save_location specified in the config.
+    """
+
     def __init__(
         self,
         experiment_checkpoints_location: Optional[Path] = Path(
             "./models/0_current_model_checkpoints/"
         ),
     ):
+        assert experiment_checkpoints_location.is_dir(), FileNotFoundError(
+            f"experiment_checkpoints_location does not exist: {experiment_checkpoints_location}"
+        )
+
         self.experiment_checkpoints_location = experiment_checkpoints_location
         super().__init__()
 
     def continue_experiment(self) -> None:
-        # Read experiment title and description from file
-        with open(f"{self.experiment_checkpoints_location}/title-description.txt", "r") as f:
-            self.title = f.readline().rstrip("\n")
-            self.description = f.readline().rstrip("\n")
-
+        self.title, self.description = self._load_title_and_description()
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
 
-        # Clear and load old config
-        config.clear()
-        config.set_file(f"{self.experiment_checkpoints_location}/options.yaml")
+        self._load_saved_options()
 
         self._choose_model_structure(model_options=config["model"].get())
 
-        # TODO: Find out how to load preprocessed data
+        # TODO: Find out how to load data that has already been processed
         # model_structure.load_models(experiment_checkpoint_path)
         self._train_model()
         self._test_model()
 
-    # TODO: Find out how to load data that has already been processed
-    # cls._load_and_process_data(data_pipeline=data_pipeline)
+    def _load_title_and_description(self) -> (str, str):
+        try:
+            with open(f"{self.experiment_checkpoints_location}/title-description.txt", "r") as f:
+                title = f.readline().rstrip("\n")
+                description = f.readline().rstrip("\n")
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Could not load title and description from: {self.experiment_checkpoints_location}"
+            )
+
+        return title, description
+
+    def _load_saved_options(self) -> None:
+        config.clear()
+        config.set_file(f"{self.experiment_checkpoints_location}/options.yaml")

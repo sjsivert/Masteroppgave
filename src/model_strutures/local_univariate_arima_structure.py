@@ -2,6 +2,7 @@ from typing import Dict, Optional, Tuple, List
 
 from genpipes.compose import Pipeline
 from pandas.core.frame import DataFrame
+
 from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 

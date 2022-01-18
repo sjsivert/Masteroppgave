@@ -6,6 +6,7 @@ from typing import Tuple
 
 import click
 
+from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.utils import logger
@@ -30,10 +31,15 @@ def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> 
 
     if experiment:
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
+
+        save_source_to_use = config["experiment"]["save_sources_to_use"].get()
+
         experiment = Experiment(
             title=experiment[0],
             description=experiment[1],
-            save_sources_to_use=config["experiment"]["save_sources_to_use"].get() if save else [],
+            save_sources_to_use=save_source_to_use
+            if (save and (not type(save_source_to_use) is type(None)))
+            else [],
             save_source_options=config["experiment"]["save_source"].get() if save else {},
         )
 
@@ -57,7 +63,11 @@ def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> 
             config["experiment"]["save_source"]["disk"]["checkpoint_save_location"].get()
         )
 
-        Experiment.continue_experiment(experiment_checkpoints_location)
+        experiment = ContinueExperiment(
+            experiment_checkpoints_location=experiment_checkpoints_location
+        )
+
+        experiment.continue_experiment()
 
     logging.info("Finished")
     return 0

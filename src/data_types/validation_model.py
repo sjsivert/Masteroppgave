@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import logging
 from typing import List, Dict
 
 from pandas.core.frame import DataFrame
-from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+
 from src.data_types.i_model import IModel
-from src.utils import logger
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
 class ValidationModel(IModel):

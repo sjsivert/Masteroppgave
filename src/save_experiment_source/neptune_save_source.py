@@ -5,7 +5,6 @@ import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
 
-from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
