@@ -6,7 +6,7 @@ data:
 experiment:
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    #- 'neptune'
+    - 'neptune'
   
   save_source:
     disk:
@@ -16,7 +16,8 @@ experiment:
 
     neptune:
       project_id: 'sjsivertandsanderkk/Masteroppgave'
-      api_token: ${NEPTUNE_API_TOKEN}
+      # Set api token with env variable NEPTUNE_API_TOKEN
+      #api_token: ${NEPTUNE_API_TOKEN}
 
 
 model:

@@ -6,8 +6,8 @@ from typing import Tuple
 
 import click
 
-from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
+from src.continue_experiment import ContinueExperiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.utils import logger
 from src.utils.config_parser import config
