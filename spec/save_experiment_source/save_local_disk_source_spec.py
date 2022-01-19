@@ -52,16 +52,16 @@ with description(SaveLocalDiskSource, "unit") as self:
         )
 
     with it("save options as options.yaml inside correct folder"):
-        self.save_source.save_options("option 1\noption2")
+        self.save_source._save_options("option 1\noption2")
         expect(os.path.isfile(f"{self.save_source.save_location}/options.yaml")).to(be_true)
 
     with it("saves metrix as metrics.txt inside correct folder"):
-        self.save_source.save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
+        self.save_source._save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
         expect(os.path.isfile("spec/temp/test_experiment/metrics.txt")).to(be_true)
 
     with it("Saves scikit-learn models correctly"):
         models = [SklearnModel(LogisticRegression()), SklearnModel(LogisticRegression())]
-        self.save_source.save_models(models)
+        self.save_source._save_models(models)
         expect(os.path.isfile("spec/temp/test_experiment/model_0.pkl")).to(be_true)
         expect(os.path.isfile("spec/temp/test_experiment/model_1.pkl")).to(be_true)
         expect(os.path.isfile("spec/temp/test_experiment/model_3.pkl")).to(be_false)
@@ -69,7 +69,7 @@ with description(SaveLocalDiskSource, "unit") as self:
     with it("Loades scikit-learn models correctly"):
         # Arrange
         models = [SklearnModel(LogisticRegression())]
-        self.save_source.save_models(models)
+        self.save_source._save_models(models)
         # Act
         model = SklearnModel.load("spec/temp/test_experiment/model_0.pkl")
         # Assert
@@ -82,7 +82,7 @@ with description(SaveLocalDiskSource, "unit") as self:
         ax.plot(data)
         ax.set_title("Test_title")
 
-        self.save_source.save_figures([fig])
+        self.save_source._save_figures([fig])
         expect(os.path.isfile("spec/temp/test_experiment/figures/Test_title.png")).to(be_true)
 
     with it("saves tags as expected"):
@@ -100,8 +100,8 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("Can call save figure twice without crashing"):
         fig, ax = plt.subplots()
-        self.save_source.save_figures([fig])
-        self.save_source.save_figures([fig])
+        self.save_source._save_figures([fig])
+        self.save_source._save_figures([fig])
 
     with it("creates a checkpoint save location when save epoch is above 0"):
         # Arrange
