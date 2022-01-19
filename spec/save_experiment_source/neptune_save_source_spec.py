@@ -21,14 +21,14 @@ with description(NeptuneSaveSource, "api") as self:
         self.save_source.close()
 
     with it("can upload options"):
-        self.save_source.save_options("option1 option2")
+        self.save_source._save_options("option1 option2")
 
     with it("can upload models"):
         models = [SklearnModel(LogisticRegression()), SklearnModel(LogisticRegression())]
-        self.save_source.save_models(models)
+        self.save_source._save_models(models)
 
     with it("can save metrics"):
-        self.save_source.save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
+        self.save_source._save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
 
     with it("can can save figures"):
         # Arrange
@@ -36,4 +36,12 @@ with description(NeptuneSaveSource, "api") as self:
         data = [1, 2, 3, 4, 5]
         ax.plot(data)
         ax.set_title("Test_title")
-        self.save_source.save_figures([fig])
+        self.save_source._save_figures([fig])
+
+    with it("can run save_model_and_metadata() without crashing"):
+        self.save_source.save_model_and_metadata(
+            options="options",
+            metrics={},
+            models=[],
+            figures=[],
+        )

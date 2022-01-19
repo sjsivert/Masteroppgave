@@ -28,13 +28,13 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self.save_location = Path(model_save_location).joinpath(title)
         self.checkpoint_save_location = checkpoint_save_location
         self.log_model_every_n_epoch = log_model_every_n_epoch
-        self.experiment_tags = tags
 
         self._create_save_location()
+        self.save_experiment_tags(tags)
 
         if log_model_every_n_epoch > 0:
             self._wipe_and_init_checkpoint_save_location(title=title, description=description)
-            self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
+            self._save_options(options=options_dump, save_path=self.checkpoint_save_location)
 
     def _create_save_location(self):
         try:
@@ -44,7 +44,19 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             logging.warning(f"{self.save_location} already exists")
             raise FileExistsError
 
-    def save_options(self, options: str, save_path: Optional[Path] = None) -> None:
+    def save_model_and_metadata(
+        self,
+        options: str,
+        metrics: Dict[str, Dict[str, float]],
+        models: List[IModel],
+        figures: List[Figure],
+    ) -> None:
+        self._save_options(options)
+        self._save_metrics(metrics)
+        self._save_models(models)
+        self._save_figures(figures)
+
+    def _save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
         Saves the options used to train the model.
         If save_path is not provided saves to the pre-defined save_location.
@@ -56,7 +68,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         with open(f"{path}/options.yaml", "w") as f:
             f.write(options)
 
-    def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}
         with open(f"{self.save_location}/metrics.txt", "w") as f:
             for test_name, test_value in metrics.items():
@@ -73,11 +85,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
                     "{}: {}\n".format(metric_name, round(sum(metric_value) / len(metric_value), 3))
                 )
 
-    def save_models(self, models: List[IModel]) -> None:
+    def _save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
             model.save(f"{self.save_location}/model_{idx}.pkl")
 
-    def save_figures(self, figures: List[Figure]) -> None:
+    def _save_figures(self, figures: List[Figure]) -> None:
         for idx, figure in enumerate(figures):
             try:
                 os.mkdir(f"{self.save_location}/figures/")
@@ -86,9 +98,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             title = combine_subfigure_titles(figure)
             figure.savefig(f"{self.save_location}/figures/{title}.png")
 
-    def save_experiment_tags(self):
+    def save_experiment_tags(self, tags: List[str]) -> None:
         with open(f"{self.save_location}/tags.txt", "a") as f:
-            for tag in self.experiment_tags:
+            for tag in tags:
                 f.write(f"{tag}\n")
 
     # ILogTrainingSource interface

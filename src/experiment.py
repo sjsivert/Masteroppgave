@@ -26,7 +26,7 @@ class Experiment:
         description: str = "",
         save_sources_to_use=[],
         save_source_options={},
-        experiment_tags: Optional[List[str]] = None,
+        experiment_tags: Optional[List[str]] = [],
     ) -> None:
         self.model_structure = None
         self.title = title
@@ -126,16 +126,10 @@ class Experiment:
         """
         logging.info("Saving model")
         for save_source in self.save_sources:
-            save_source.save_options(options)
-
-            # TODO: Save model
-
-            # TODO: Get metrics from model and pass to save_source
-            save_source.save_metrics({})
-
-            # TODO: Save hyperparameters
-
-            # TODO: Save figures
-
-            # Save predictions
-            # TODO: Implement
+            save_source.save_model_and_metadata(
+                options=options,
+                # TODO: Fetch proper metrics from models
+                metrics={},
+                models=self.model_structure.get_models(),
+                figures=self.model_structure.get_figures(),
+            )

@@ -5,6 +5,7 @@ import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
 
+from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -28,16 +29,28 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self.run["Experiment description"] = description
         logging.info(f"Starting logging neptune experiment: {self.run.get_run_url()}")
 
-    def save_options(self, options: str) -> None:
+    def save_model_and_metadata(
+        self,
+        options: str,
+        metrics: Dict[str, Dict[str, float]],
+        models: List[IModel],
+        figures: List[Figure],
+    ) -> None:
+        self._save_options(options)
+        self._save_metrics(metrics)
+        self._save_models(models)
+        self._save_figures(figures)
+
+    def _save_options(self, options: str) -> None:
         self.run["options"] = options
 
-    def save_models(self, models: List) -> None:
+    def _save_models(self, models: List) -> None:
         with temp_files("temp_models"):
             for idx, model in enumerate(models):
                 model.save("temp_models" + f"/model_{idx}.pkl")
                 self.run[f"models/model_{idx}"].upload(File(f"temp_models/model_{idx}.pkl"), True)
 
-    def save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}
         for _, val in metrics.items():
             for error_name, error_value in val.items():
@@ -47,7 +60,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         metrics["average"] = {i: sum(j) / len(j) for i, j in average.items()}
         self.run["metrics"] = metrics
 
-    def save_figures(self, figures: List[Figure]):
+    def _save_figures(self, figures: List[Figure]):
         for figure in figures:
             title = combine_subfigure_titles(figure)
             self.run[f"figures/fig_{title}"].upload(figure, True)
