@@ -28,9 +28,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self.save_location = Path(model_save_location).joinpath(title)
         self.checkpoint_save_location = checkpoint_save_location
         self.log_model_every_n_epoch = log_model_every_n_epoch
-        self.experiment_tags = tags
 
         self._create_save_location()
+        self.save_experiment_tags(tags)
 
         if log_model_every_n_epoch > 0:
             self._wipe_and_init_checkpoint_save_location(title=title, description=description)
@@ -43,6 +43,19 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         except FileExistsError:
             logging.warning(f"{self.save_location} already exists")
             raise FileExistsError
+
+    def save_model_and_metadata(
+        self,
+        options: str,
+        metrics: Dict[str, Dict[str, float]],
+        models: List[IModel],
+        figures: List[Figure],
+        tags: List[str],
+    ) -> None:
+        self.save_options(options)
+        self.save_metrics(metrics)
+        self.save_models(models)
+        self.save_figures(figures)
 
     def save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
@@ -86,9 +99,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             title = combine_subfigure_titles(figure)
             figure.savefig(f"{self.save_location}/figures/{title}.png")
 
-    def save_experiment_tags(self):
+    def save_experiment_tags(self, tags: List[str]) -> None:
         with open(f"{self.save_location}/tags.txt", "a") as f:
-            for tag in self.experiment_tags:
+            for tag in tags:
                 f.write(f"{tag}\n")
 
     # ILogTrainingSource interface
