@@ -21,20 +21,20 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         options_dump: str = "",
         checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
         log_model_every_n_epoch: int = 0,
-        continue_experiment_from_checkpoint: bool = False,
+        tags: List[str] = [],
     ) -> None:
         super().__init__()
 
-        if not continue_experiment_from_checkpoint:
-            self.save_location = Path(model_save_location).joinpath(title)
-            self.checkpoint_save_location = checkpoint_save_location
-            self.log_model_every_n_epoch = log_model_every_n_epoch
+        self.save_location = Path(model_save_location).joinpath(title)
+        self.checkpoint_save_location = checkpoint_save_location
+        self.log_model_every_n_epoch = log_model_every_n_epoch
+        self.experiment_tags = tags
 
-            self._create_save_location()
+        self._create_save_location()
 
-            if log_model_every_n_epoch > 0:
-                self._wipe_and_init_checkpoint_save_location(title=title, description=description)
-                self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
+        if log_model_every_n_epoch > 0:
+            self._wipe_and_init_checkpoint_save_location(title=title, description=description)
+            self.save_options(options=options_dump, save_path=self.checkpoint_save_location)
 
     def _create_save_location(self):
         try:
@@ -85,6 +85,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
                 pass
             title = combine_subfigure_titles(figure)
             figure.savefig(f"{self.save_location}/figures/{title}.png")
+
+    def save_experiment_tags(self):
+        with open(f"{self.save_location}/tags.txt", "a") as f:
+            for tag in self.experiment_tags:
+                f.write(f"{tag}\n")
 
     # ILogTrainingSource interface
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
