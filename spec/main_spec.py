@@ -4,7 +4,7 @@ from click.testing import CliRunner
 from expects import be_true, expect
 from expects.matchers.built_in import be
 from mamba import after, before, description, it
-from mockito import mock, when
+from mockito import mock, when, ANY
 from mockito.mockito import unstub, verify
 
 from spec.mock_config import init_mock_config
@@ -72,3 +72,30 @@ with description("main.py", "unit") as self:
 
         # Assert
         verify(mock_experiment).continue_experiment()
+
+    with it("can pass multiple --tags and combines with config tags"):
+        mock_experiment = mock(Experiment)
+        mock_experiment.run_complete_experiment = mock()
+
+        # Arrange
+        when(main).Experiment(
+            title=ANY,
+            description=ANY,
+            save_sources_to_use=ANY,
+            save_source_options=ANY,
+            experiment_tags=["tag1", "tag2", "validation_model"],
+        ).thenReturn(mock_experiment)
+        # Act
+        self.runner.invoke(
+            main.main,
+            ["--tags", "tag1", "--tags", "tag2", "--experiment", "title", "description"],
+            catch_exceptions=False,
+        )
+
+        verify(main).Experiment(
+            title=ANY,
+            description=ANY,
+            save_sources_to_use=ANY,
+            save_source_options=ANY,
+            experiment_tags=["tag1", "tag2", "validation_model"],
+        )

@@ -26,7 +26,10 @@ from src.utils.extract_tags_from_config import extract_tags_from_config
 @click.option(
     "--continue-experiment", "-c", is_flag=True, help="Continues the last experiment executed."
 )
-def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> int:
+@click.option("--tags", "-t", multiple=True, help="Tags to be added to the experiment.")
+def main(
+    experiment: Tuple[str, str], save: bool, continue_experiment: bool, tags: Tuple[str]
+) -> int:
     logger.init_logging()
     logging.info("Started")
 
@@ -34,8 +37,8 @@ def main(experiment: Tuple[str, str], save: bool, continue_experiment: bool) -> 
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
 
         save_source_to_use = config["experiment"]["save_sources_to_use"].get()
-
-        experiment_tags = extract_tags_from_config()
+        config_tags = extract_tags_from_config()
+        experiment_tags = list(tags) + config_tags
 
         experiment = Experiment(
             title=experiment[0],
