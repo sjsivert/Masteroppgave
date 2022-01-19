@@ -29,7 +29,9 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with before.each:
         self.options = {"model_save_location": self.temp_location}
-        self.save_source = SaveLocalDiskSource(**self.options, title="test_experiment")
+        self.save_source = SaveLocalDiskSource(
+            **self.options, title="test_experiment", tags=["test"]
+        )
 
     with after.each:
         shutil.rmtree("spec/temp/test_experiment")
@@ -70,7 +72,7 @@ with description(SaveLocalDiskSource, "unit") as self:
         # Assert
         expect(model).to_not(be_none)
 
-    with it("Saved figures as expected"):
+    with it("Saves figures as expected"):
         # Arrange
         fig, ax = plt.subplots()
         data = [1, 2, 3, 4, 5]
@@ -79,6 +81,10 @@ with description(SaveLocalDiskSource, "unit") as self:
 
         self.save_source.save_figures([fig])
         expect(os.path.isfile("spec/temp/test_experiment/figures/Test_title.png")).to(be_true)
+
+    with it("saves tags as expected"):
+        self.save_source.save_experiment_tags()
+        expect(os.path.isfile("spec/temp/test_experiment/tags.txt")).to(be_true)
 
     with it("_combine_subfigure_titles combines multiple subfigures to a correct title"):
         # Create subplot

@@ -52,6 +52,7 @@ class Experiment:
                         options_dump=config.dump(),
                         title=self.title,
                         description=self.experiment_description,
+                        tags=experiment_tags,
                     )
                 )
             elif source == "neptune":
