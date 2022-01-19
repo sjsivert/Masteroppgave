@@ -95,16 +95,12 @@ with description(Experiment, "integration") as self:
 
     with it("can save_model()"):
         # Arrange
-        save_source = mock(SaveLocalDiskSource)
         experiment = Experiment("title", "description")
-        experiment.save_sources = [save_source]
-        when(save_source).save_options(ANY)
-        when(save_source).save_metrics(ANY)
+
+        when(SaveLocalDiskSource, strict=False).save_model_and_metadata()
+
         # Act
         experiment._save_model({})
-        # Assert
-        verify(experiment.save_sources[0], times=1).save_options({})
-        verify(experiment.save_sources[0], times=1).save_metrics({})
 
     with shared_context("mock private methods context"):
         # Arrange

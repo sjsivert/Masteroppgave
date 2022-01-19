@@ -1,6 +1,10 @@
+from pathlib import Path
 from typing import Dict, List
 
 from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
+from src.data_types.i_model import IModel
 
 
 class ISaveExperimentSource:
@@ -8,6 +12,16 @@ class ISaveExperimentSource:
     An interface for all experiment save sources to implement.
     For example, disk, database, neptune.ai, etc.
     """
+
+    def save_model_and_metadata(
+        self,
+        options: str,
+        metrics: Dict[str, Dict[str, float]],
+        models: List[IModel],
+        figures: List[Figure],
+    ) -> None:
+        # Interface, not to be implemented
+        pass
 
     def __init__(self) -> None:
         # Interface, not to be implemented
@@ -17,11 +31,11 @@ class ISaveExperimentSource:
         # Interface, not to be implemented
         pass
 
-    def save_models(self, models: List) -> None:
+    def save_models(self, models: List[IModel]) -> None:
         # Interface, not to be implemented
         pass
 
-    def load_models(self, models_path: List) -> None:
+    def load_models(self, models_path: List[Path]) -> None:
         # Interface, not to be implemented
         return None
 
@@ -29,6 +43,6 @@ class ISaveExperimentSource:
         # Interface, not to be implemented
         pass
 
-    def save_figures(self, figures: List[Axes]) -> None:
+    def save_figures(self, figures: List[Figure]) -> None:
         # Saves pyplot axes
         pass

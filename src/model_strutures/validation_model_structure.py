@@ -55,3 +55,6 @@ class ValidationModelStructure(IModelStructure):
 
     def load_models(self, model_paths: List[Path]) -> None:
         self.models = map(lambda model_path: ValidationModel.load(model_path), model_paths)
+
+    def get_figures(self) -> List[Figure]:
+        return self.figures

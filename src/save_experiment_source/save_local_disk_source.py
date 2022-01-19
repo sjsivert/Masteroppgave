@@ -50,7 +50,6 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         metrics: Dict[str, Dict[str, float]],
         models: List[IModel],
         figures: List[Figure],
-        tags: List[str],
     ) -> None:
         self.save_options(options)
         self.save_metrics(metrics)

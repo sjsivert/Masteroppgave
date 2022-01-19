@@ -5,6 +5,7 @@ import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
 
+from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -27,6 +28,18 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self.run["Experiment title"] = title
         self.run["Experiment description"] = description
         logging.info(f"Starting logging neptune experiment: {self.run.get_run_url()}")
+
+    def save_model_and_metadata(
+        self,
+        options: str,
+        metrics: Dict[str, Dict[str, float]],
+        models: List[IModel],
+        figures: List[Figure],
+    ) -> None:
+        self.save_options(options)
+        self.save_metrics(metrics)
+        self.save_models(models)
+        self.save_figures(figures)
 
     def save_options(self, options: str) -> None:
         self.run["options"] = options

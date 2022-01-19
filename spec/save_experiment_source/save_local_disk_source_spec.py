@@ -7,10 +7,13 @@ from expects import be_false, be_true, expect, match
 from expects.matchers.built_in import be_none
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
+from mockito import mock
 from sklearn.linear_model import LogisticRegression
 
 from spec.test_logger import init_test_logging
 from src.data_types.sklearn_model import SklearnModel
+from src.data_types.validation_model import ValidationModel
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.temporary_files import temp_files
@@ -83,7 +86,6 @@ with description(SaveLocalDiskSource, "unit") as self:
         expect(os.path.isfile("spec/temp/test_experiment/figures/Test_title.png")).to(be_true)
 
     with it("saves tags as expected"):
-        self.save_source.save_experiment_tags()
         expect(os.path.isfile("spec/temp/test_experiment/tags.txt")).to(be_true)
 
     with it("_combine_subfigure_titles combines multiple subfigures to a correct title"):
@@ -101,7 +103,7 @@ with description(SaveLocalDiskSource, "unit") as self:
         self.save_source.save_figures([fig])
         self.save_source.save_figures([fig])
 
-    with it("creates a checpoint save location when save epoch is above 0"):
+    with it("creates a checkpoint save location when save epoch is above 0"):
         # Arrange
         temp = "temp/"
         with temp_files(temp):
@@ -122,3 +124,11 @@ with description(SaveLocalDiskSource, "unit") as self:
             expect(
                 save_source.checkpoint_save_location.joinpath("title-description.txt").is_file()
             ).to(be_true)
+
+    with it("can run save_model_and_metadata() without crashing"):
+        self.save_source.save_model_and_metadata(
+            options="options",
+            metrics={},
+            models=[],
+            figures=[],
+        )
