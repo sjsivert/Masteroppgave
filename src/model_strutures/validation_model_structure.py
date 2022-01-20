@@ -13,6 +13,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 class ValidationModelStructure(IModelStructure):
     def __init__(self, log_sources: List[ILogTrainingSource]) -> None:
+        self.data_pipeline = None
         self.models = [ValidationModel(log_sources)]
         self.log_sources = log_sources
         self.figures = []
@@ -21,8 +22,12 @@ class ValidationModelStructure(IModelStructure):
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         # Get the data_set from the pipeline -> The pipeline runs as intended, returning a pipeline
+        self.data_pipeline = data_pipeline
         data_set = data_pipeline.run()
         return data_set
+
+    def get_data_pipeline(self) -> Pipeline:
+        return self.data_pipeline
 
     def train(self) -> IModelStructure:
         logging.info("Training is conducted, and training metrics are set.")

@@ -49,11 +49,13 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         metrics: Dict[str, Dict[str, float]],
         models: List[IModel],
         figures: List[Figure],
+        data_pipeline_steps: str,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
         self._save_models(models)
         self._save_figures(figures)
+        self._save_data_pipeline_steps(data_pipeline_steps)
 
     def _save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
@@ -83,6 +85,10 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
                 f.writelines(
                     "{}: {}\n".format(metric_name, round(sum(metric_value) / len(metric_value), 3))
                 )
+
+    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+        with open(f"{self.save_location}/data_processing_steps.txt", "w") as f:
+            f.write(data_pipeline_steps)
 
     def _save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
