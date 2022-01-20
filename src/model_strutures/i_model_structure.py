@@ -63,3 +63,9 @@ class IModelStructure:
         Returns list of figures
         """
         pass
+
+    def get_data_pipeline(self) -> Pipeline:
+        """
+        Returns the data pipeline used to process the data.
+        """
+        pass

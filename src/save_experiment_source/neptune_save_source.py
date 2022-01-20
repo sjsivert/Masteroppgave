@@ -35,6 +35,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         metrics: Dict[str, Dict[str, float]],
         models: List[IModel],
         figures: List[Figure],
+        data_pipeline_steps: str,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)

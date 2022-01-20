@@ -77,7 +77,6 @@ class Experiment:
         Run a complete experiment with preprocessing of data, training,testing and optional saving.
         """
         logging.info(f"Running complete experiment with saving set to {save}")
-        logging.info(data_pipeline.__str__())
 
         self._choose_model_structure(model_options=model_options)
 
@@ -138,4 +137,5 @@ class Experiment:
                 metrics={},
                 models=self.model_structure.get_models(),
                 figures=self.model_structure.get_figures(),
+                data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
             )

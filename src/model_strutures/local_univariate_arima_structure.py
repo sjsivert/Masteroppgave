@@ -10,10 +10,15 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 class LocalUnivariateArimaStructure(IModelStructure):
     def __init__(self, log_sources: List[ILogTrainingSource], order: Tuple[int]) -> None:
         # TODO: Implement
+        self.data_pipline = None
         self.order = order
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
+        self.data_pipline = data_pipeline
         return data_pipeline.run()
+
+    def get_data_pipeline(self) -> Pipeline:
+        return self.data_pipeline
 
     def train(self) -> IModelStructure:
         # TODO: Implement

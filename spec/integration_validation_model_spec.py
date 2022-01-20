@@ -1,6 +1,5 @@
 import os
 import shutil
-from pathlib import Path
 
 from click.testing import CliRunner
 from expects import be_true, expect, equal
@@ -12,10 +11,6 @@ from mockito.mockito import unstub, verify
 from spec.mock_config import init_mock_config
 from spec.test_logger import init_test_logging
 from src import main
-from src.continue_experiment import ContinueExperiment
-from src.experiment import Experiment
-from src.utils.config_parser import config
-from src.utils.logger import init_logging
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from genpipes.compose import Pipeline
 
@@ -67,5 +62,5 @@ with description(
         expect(result.exit_code).to(be(0))
         # Assert the correct number of files are created after a saved experiment
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(5))
+        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(6))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(2))

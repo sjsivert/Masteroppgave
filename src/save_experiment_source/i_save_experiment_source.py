@@ -19,6 +19,7 @@ class ISaveExperimentSource:
         metrics: Dict[str, Dict[str, float]],
         models: List[IModel],
         figures: List[Figure],
+        data_pipeline_steps: str,
     ) -> None:
         # Interface, not to be implemented
         pass
@@ -46,4 +47,8 @@ class ISaveExperimentSource:
 
     def _save_figures(self, figures: List[Figure]) -> None:
         # Saves pyplot axes
+        pass
+
+    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+        # Saves the steps of the pipeline
         pass
