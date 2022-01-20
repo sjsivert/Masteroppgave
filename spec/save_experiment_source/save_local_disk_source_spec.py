@@ -1,20 +1,18 @@
 import os
 import shutil
 from pathlib import Path
+from mockito import mock
 
 import pytest
-from expects import be_false, be_true, expect, match
+from expects import be_false, be_true, equal, expect, match
 from expects.matchers.built_in import be_none
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
-from mockito import mock
 from sklearn.linear_model import LogisticRegression
-
 from spec.test_logger import init_test_logging
 from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
-from src.data_types.validation_model import ValidationModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -67,9 +65,23 @@ with description(SaveLocalDiskSource, "unit") as self:
             SklearnModel(LogisticRegression(), mock(ILogTrainingSource)),
         ]
         self.save_source._save_models(models)
-        expect(os.path.isfile("spec/temp/test_experiment/model_0.pkl")).to(be_true)
-        expect(os.path.isfile("spec/temp/test_experiment/model_1.pkl")).to(be_true)
-        expect(os.path.isfile("spec/temp/test_experiment/model_3.pkl")).to(be_false)
+        expect(os.path.isfile("./spec/temp/test_experiment/model_0.pkl")).to(be_true)
+        expect(os.path.isfile("./spec/temp/test_experiment/model_1.pkl")).to(be_true)
+        expect(os.path.isfile("./spec/temp/test_experiment/model_3.pkl")).to(be_false)
+
+    with it("Save raw data info correctly"):
+        # Arrange
+        file_config = {
+            "raw_data": f"{self.save_source.save_location}/raw_data.csv",
+            "category_data": f"{self.save_source.save_location}/category_data.csv",
+        }
+        for data_path_name, data_path in file_config.items():
+            with open(data_path, "w") as f:
+                f.write(f"Test data containing data from {data_path_name}")
+        # Act
+        self.save_source._save_dataset_version(file_config)
+        # Assert
+        expect(os.path.isfile(f"{self.temp_location}datasets.json"))
 
     with it("Loades scikit-learn models correctly"):
         # Arrange
@@ -132,7 +144,12 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("can run save_model_and_metadata() without crashing"):
         self.save_source.save_model_and_metadata(
-            options="options", metrics={}, models=[], figures=[], data_pipeline_steps="steps"
+            options="options",
+            metrics={},
+            datasets={},
+            models=[],
+            figures=[],
+            data_pipeline_steps="steps",
         )
 
     with it("can save data_pipe_steps as expected"):

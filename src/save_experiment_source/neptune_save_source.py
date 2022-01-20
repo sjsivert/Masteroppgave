@@ -4,6 +4,7 @@ from typing import Dict, List
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
+from pathlib import Path
 
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -33,12 +34,14 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self,
         options: str,
         metrics: Dict[str, Dict[str, float]],
+        datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
+        self._save_dataset_version(datasets)
         self._save_models(models)
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
@@ -51,6 +54,12 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
             for idx, model in enumerate(models):
                 model.save("temp_models" + f"/model_{idx}.pkl")
                 self.run[f"models/model_{idx}"].upload(File(f"temp_models/model_{idx}.pkl"), True)
+
+    def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
+        for data_type, data_path in datasets.items():
+            path = Path(data_path)
+            self.run[f"datasets/{data_type}_name"] = path.name
+            self.run[f"datasets/{data_type}"].track_files(data_path, wait=True)
 
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}

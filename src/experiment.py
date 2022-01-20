@@ -135,6 +135,7 @@ class Experiment:
                 options=options,
                 # TODO: Fetch proper metrics from models
                 metrics={},
+                datasets=config["data"].get(),
                 models=self.model_structure.get_models(),
                 figures=self.model_structure.get_figures(),
                 data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
