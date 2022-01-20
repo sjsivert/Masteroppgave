@@ -1,7 +1,9 @@
+from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
 from sklearn.linear_model import LogisticRegression
 
+from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 
@@ -44,4 +46,5 @@ with description(NeptuneSaveSource, "api") as self:
             metrics={},
             models=[],
             figures=[],
+            data_pipeline_steps=Pipeline(steps=[("load test data", test_data)]).__str__(),
         )

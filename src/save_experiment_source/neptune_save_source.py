@@ -41,6 +41,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_metrics(metrics)
         self._save_models(models)
         self._save_figures(figures)
+        self._save_data_pipeline_steps(data_pipeline_steps)
 
     def _save_options(self, options: str) -> None:
         self.run["options"] = options
@@ -68,6 +69,9 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
 
     def close(self) -> None:
         self.run.stop()
+
+    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+        self.run["data_pipeline_steps"] = data_pipeline_steps
 
     # ILogTrainingSource interface
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
