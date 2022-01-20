@@ -110,7 +110,7 @@ class Experiment:
 
     def _load_and_process_data(self, data_pipeline: Pipeline) -> DataFrame:
         logging.info("Loading data")
-        logging.info(data_pipeline.__str__())
+        logging.info("\n" + data_pipeline.__str__())
         return self.model_structure.process_data(data_pipeline)
 
     def _train_model(self) -> IModelStructure:

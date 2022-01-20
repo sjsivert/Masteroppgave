@@ -21,6 +21,7 @@ experiment:
 
 
 model:
+  # Model types: 'validation_model'. 'local_univariate_arima',
   model_type: 'validation_model'
   rng_seed: 42
   validation_model:
