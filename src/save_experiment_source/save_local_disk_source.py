@@ -21,6 +21,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         options_dump: str = "",
         checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
         log_model_every_n_epoch: int = 0,
+        load_from_checkpoint: bool = False,
     ) -> None:
         super().__init__()
 
@@ -28,11 +29,12 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self.checkpoint_save_location = checkpoint_save_location
         self.log_model_every_n_epoch = log_model_every_n_epoch
 
-        self._create_save_location()
-
         if log_model_every_n_epoch > 0:
             self._wipe_and_init_checkpoint_save_location(title=title, description=description)
             self._save_options(options=options_dump, save_path=self.checkpoint_save_location)
+
+        if not load_from_checkpoint:
+            self._create_save_location()
 
     def _create_save_location(self):
         try:
