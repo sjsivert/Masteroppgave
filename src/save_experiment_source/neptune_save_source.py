@@ -18,12 +18,10 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     Neptune save source for tracking ML experiments.
     """
 
-    def __init__(self, project_id: str, title, description, tags=[]) -> None:
+    def __init__(self, project_id: str, title, description) -> None:
         self.run = neptune.init(project=project_id)
 
         self.run["sys/tags"].add(["Experiment"])
-        for tag in tags:
-            self.run["sys/tags"].add([tag])
 
         self.run["sys/name"] = title
         self.run["Experiment title"] = title
@@ -38,6 +36,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
+        experiment_tags: List[str],
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -45,6 +44,11 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_models(models)
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
+        self._save_experiment_tags(experiment_tags)
+
+    def _save_experiment_tags(self, tags: List[str]) -> None:
+        for tag in tags:
+            self.run["sys/tags"].add([tag])
 
     def _save_options(self, options: str) -> None:
         self.run["options"] = options

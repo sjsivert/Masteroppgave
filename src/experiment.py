@@ -32,15 +32,13 @@ class Experiment:
         self.title = title
         self.description = description
         self.experiment_description = description
-        self.save_sources = self._init_save_sources(
-            save_sources_to_use, save_source_options, experiment_tags
-        )
+        self.experiment_tags = experiment_tags
+        self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
 
     def _init_save_sources(
         self,
         save_sources_to_use: List[str],
         save_source_options: Dict,
-        experiment_tags: Optional[List[str]],
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
@@ -52,7 +50,6 @@ class Experiment:
                         options_dump=config.dump(),
                         title=self.title,
                         description=self.experiment_description,
-                        tags=experiment_tags,
                     )
                 )
             elif source == "neptune":
@@ -61,7 +58,6 @@ class Experiment:
                         **save_source_options["neptune"],
                         title=self.title,
                         description=self.description,
-                        tags=experiment_tags,
                     )
                 )
         return sources
@@ -139,4 +135,5 @@ class Experiment:
                 models=self.model_structure.get_models(),
                 figures=self.model_structure.get_figures(),
                 data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
+                experiment_tags=self.experiment_tags,
             )
