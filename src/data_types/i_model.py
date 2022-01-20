@@ -89,7 +89,7 @@ class IModel:
         raise NotImplementedError()
 
     @staticmethod
-    def load(path: str) -> IModel:
+    def load(path: str, log_sources: List[ILogTrainingSource]) -> IModel:
         """
         Load the model from the specified path.
         """

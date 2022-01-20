@@ -1,5 +1,5 @@
 import pickle
-from typing import Dict, List
+from typing import List, Dict
 
 from pandas import DataFrame
 
@@ -13,26 +13,26 @@ class SklearnModel(IModel):
     """
 
     def __init__(self, model: object, log_sources: List[ILogTrainingSource]) -> None:
-        super().__init__(log_sources)
         self.model = model
-
-    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
-        # TODO: Implement
-        pass
-
-    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
-        # TODO: Implement
-        pass
+        super().__init__(log_sources)
 
     def visualize(self, title: str = "default_title"):
         # TODO: Implement
-        pass
+        raise NotImplementedError()
 
     def save(self, path: str) -> None:
         with open(path, "wb") as f:
             pickle.dump(self.model, f)
 
     @staticmethod
-    def load(path: str) -> IModel:
+    def load(path: str, log_sources: List[ILogTrainingSource]) -> IModel:
         with open(path, "rb") as f:
-            return SklearnModel(pickle.load(f))
+            return SklearnModel(pickle.load(f), log_sources)
+
+    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
+        # TODO: Implement
+        raise NotImplementedError()
+
+    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
+        # TODO: Implement
+        raise NotImplementedError()

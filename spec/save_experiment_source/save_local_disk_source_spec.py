@@ -62,7 +62,10 @@ with description(SaveLocalDiskSource, "unit") as self:
         expect(os.path.isfile("spec/temp/test_experiment/metrics.txt")).to(be_true)
 
     with it("Saves scikit-learn models correctly"):
-        models = [SklearnModel(LogisticRegression()), SklearnModel(LogisticRegression())]
+        models = [
+            SklearnModel(LogisticRegression(), mock(ILogTrainingSource)),
+            SklearnModel(LogisticRegression(), mock(ILogTrainingSource)),
+        ]
         self.save_source._save_models(models)
         expect(os.path.isfile("spec/temp/test_experiment/model_0.pkl")).to(be_true)
         expect(os.path.isfile("spec/temp/test_experiment/model_1.pkl")).to(be_true)
@@ -70,10 +73,10 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("Loades scikit-learn models correctly"):
         # Arrange
-        models = [SklearnModel(LogisticRegression())]
+        models = [SklearnModel(LogisticRegression(), mock(ILogTrainingSource))]
         self.save_source._save_models(models)
         # Act
-        model = SklearnModel.load("spec/temp/test_experiment/model_0.pkl")
+        model = SklearnModel.load("spec/temp/test_experiment/model_0.pkl", [self.save_source])
         # Assert
         expect(model).to_not(be_none)
 

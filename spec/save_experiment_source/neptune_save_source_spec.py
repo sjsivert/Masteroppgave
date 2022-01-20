@@ -1,10 +1,12 @@
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
+from mockito import mock
 from sklearn.linear_model import LogisticRegression
 
 from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 
 with description(NeptuneSaveSource, "api") as self:
@@ -26,7 +28,11 @@ with description(NeptuneSaveSource, "api") as self:
         self.save_source._save_options("option1 option2")
 
     with it("can upload models"):
-        models = [SklearnModel(LogisticRegression()), SklearnModel(LogisticRegression())]
+        log_sources = [mock(ILogTrainingSource)]
+        models = [
+            SklearnModel(model=LogisticRegression(), log_sources=log_sources),
+            SklearnModel(LogisticRegression(), log_sources),
+        ]
         self.save_source._save_models(models)
 
     with it("can save metrics"):
