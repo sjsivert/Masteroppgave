@@ -52,9 +52,13 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Install coverage lcov
+      if: steps.cache-pip.outputs.cache-hit != 'true'
       run: |
         pip install coverage-lcov
         pip install coverage==6.1.2 # Added because coverage==5.5 has a bug with coverage-lcov
+
+    - name: Run coverage lcov
+      run:
         coverage-lcov --output_file_path ./lcov.info
 
     - name: Coveralls GitHub Action
