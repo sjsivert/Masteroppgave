@@ -17,6 +17,7 @@ class ISaveExperimentSource:
         self,
         options: str,
         metrics: Dict[str, Dict[str, float]],
+        datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
@@ -34,6 +35,10 @@ class ISaveExperimentSource:
 
     def _save_models(self, models: List[IModel]) -> None:
         # Interface, not to be implemented
+        pass
+
+    def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
+        # Interface
         pass
 
     @staticmethod

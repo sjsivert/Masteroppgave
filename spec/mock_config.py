@@ -30,6 +30,6 @@ def init_mock_config(
         },
     }
     config["data"] = {
-        "data_path": "./datasets/raw/market_insights_overview_5p.csv",
-        "categories_path": "./datasets/raw/solr_categories_2021_11_29.csv",
+        "data_path": "./README.md",
+        "categories_path": "./README.md",
     }

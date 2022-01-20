@@ -1,3 +1,4 @@
+import hashlib
 import logging
 import os
 import shutil
@@ -47,12 +48,14 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self,
         options: str,
         metrics: Dict[str, Dict[str, float]],
+        datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
+        self._save_dataset_version(datasets)
         self._save_models(models)
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
@@ -89,6 +92,29 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
     def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
         with open(f"{self.save_location}/data_processing_steps.txt", "w") as f:
             f.write(data_pipeline_steps)
+
+    def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
+        dataset_info = {}
+        for file_type, file_path in datasets.items():
+            path = Path(file_path)
+            dataset_info[file_type] = {
+                "name": path.name,
+                "file_hash": SaveLocalDiskSource.generate_file_hash(path),
+            }
+        with open(f"{self.save_location}/datasets.json", "w") as f:
+            f.write(dataset_info.__str__())
+
+    @staticmethod
+    def generate_file_hash(path: Path) -> str:
+        hash_sha1 = hashlib.sha1()
+        # Split into chunks to combat high use of memory
+        chunk_size = 4096
+        with open(path, "rb") as f:
+            chunk = f.read(chunk_size)
+            while len(chunk) > 0:
+                hash_sha1.update(chunk)
+                chunk = f.read(chunk_size)
+        return hash_sha1.hexdigest()
 
     def _save_models(self, models: List[IModel]) -> None:
         for idx, model in enumerate(models):
