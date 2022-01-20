@@ -5,12 +5,14 @@ from pathlib import Path
 import pytest
 from expects import be_false, be_true, expect, match
 from expects.matchers.built_in import be_none
+from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
 from mockito import mock
 from sklearn.linear_model import LogisticRegression
 
 from spec.test_logger import init_test_logging
+from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
 from src.data_types.validation_model import ValidationModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -127,8 +129,18 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("can run save_model_and_metadata() without crashing"):
         self.save_source.save_model_and_metadata(
-            options="options",
-            metrics={},
-            models=[],
-            figures=[],
+            options="options", metrics={}, models=[], figures=[], data_pipeline_steps="steps"
         )
+
+    with it("can save data_pipe_steps as expected"):
+        """
+        TODO til sindre i morgen: Need to create a dummy pipeline in order to test this!
+        """
+        pipeline = Pipeline(steps=[("load test data", test_data, {})])
+
+        # noinspection PyTypeChecker
+        self.save_source._save_data_pipeline_steps(data_pipeline_steps=pipeline.__str__())
+
+        expect(
+            os.path.isfile(self.save_source.save_location.joinpath("data_processing_steps.txt"))
+        ).to(be_true)

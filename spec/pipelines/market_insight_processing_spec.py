@@ -4,42 +4,8 @@ from genpipes import compose, declare
 from mamba import description, it, before
 
 from spec.test_logger import init_test_logging
+from spec.utils.test_data import test_data, mock_data
 from src.pipelines import market_insight_processing as p
-
-data = [
-    {
-        "id_x": 0,
-        "product_id": 34817620,
-        "manufacturer_id": 211757,
-        "cat_id": 722,
-        "root_cat_id": 11573,
-        "id_y": "internettkabel",
-        "date": "2021-11-29T04:01:40.409Z",
-    },
-    {
-        "id_x": 1,
-        "product_id": 34796949,
-        "manufacturer_id": 211757,
-        "cat_id": 722,
-        "root_cat_id": 11573,
-        "id_y": "internettkabel",
-        "date": "2021-11-29T04:01:40.409Z",
-    },
-    {
-        "id_x": 2,
-        "product_id": 34763798,
-        "manufacturer_id": 211757,
-        "cat_id": 722,
-        "root_cat_id": 11573,
-        "id_y": "internettkabel",
-        "date": "2021-11-29T04:01:40.409Z ",
-    },
-]
-
-
-@declare.generator()
-def test_data() -> pd.DataFrame:
-    return pd.DataFrame(data)
 
 
 with description("Market insight prosessing pipeline", "unit") as self:
@@ -47,10 +13,12 @@ with description("Market insight prosessing pipeline", "unit") as self:
         init_test_logging()
 
     with it("It can load data"):
+        # noinspection PyTypeChecker
         result = compose.Pipeline(steps=[("load data", test_data, {})]).run()
-        expect(result.equals(pd.DataFrame(data))).to(be_true)
+        expect(result.equals(pd.DataFrame(mock_data))).to(be_true)
 
     with it("Can run all processing steps in a complete pipeline"):
+        # noinspection PyTypeChecker
         result = compose.Pipeline(
             steps=[
                 ("load data", test_data, {}),
