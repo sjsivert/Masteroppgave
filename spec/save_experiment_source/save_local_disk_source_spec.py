@@ -32,9 +32,7 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with before.each:
         self.options = {"model_save_location": self.temp_location}
-        self.save_source = SaveLocalDiskSource(
-            **self.options, title="test_experiment", tags=["test"]
-        )
+        self.save_source = SaveLocalDiskSource(**self.options, title="test_experiment")
 
     with after.each:
         shutil.rmtree("spec/temp/test_experiment")
@@ -103,6 +101,7 @@ with description(SaveLocalDiskSource, "unit") as self:
         expect(os.path.isfile("spec/temp/test_experiment/figures/Test_title.png")).to(be_true)
 
     with it("saves tags as expected"):
+        self.save_source._save_experiment_tags(["tag1", "tag2"])
         expect(os.path.isfile("spec/temp/test_experiment/tags.txt")).to(be_true)
 
     with it("_combine_subfigure_titles combines multiple subfigures to a correct title"):
@@ -150,6 +149,7 @@ with description(SaveLocalDiskSource, "unit") as self:
             models=[],
             figures=[],
             data_pipeline_steps="steps",
+            experiment_tags=["tag1"],
         )
 
     with it("can save data_pipe_steps as expected"):

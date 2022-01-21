@@ -1,6 +1,5 @@
-import os
-import shutil
-
+import expects
+from expects import be, be_false, be_true, expect, match
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
@@ -14,16 +13,15 @@ from src.utils.temporary_files import temp_files
 
 with description(NeptuneSaveSource, "api") as self:
     with before.all:
+        self.project_id = "sjsivertandsanderkk/test-project"
         options = {
-            "project_id": "sjsivertandsanderkk/test-project",
+            "project_id": self.project_id,
         }
         self.save_source = NeptuneSaveSource(
             **options,
             title="Test_experiment",
             description="Experiment for automated testing",
-            tags=["test"],
         )
-
     with after.all:
         self.save_source.close()
 
@@ -69,4 +67,26 @@ with description(NeptuneSaveSource, "api") as self:
             models=[],
             figures=[],
             data_pipeline_steps=Pipeline(steps=[("load test data", test_data)]).__str__(),
+            experiment_tags=["test"],
         )
+
+    with it("can continue previous experiment"):
+        first_run = NeptuneSaveSource(
+            project_id=self.project_id,
+            title="Test continue from last run",
+            description="Test continue from last run",
+        )
+        metrics = {"CPU": {"MAE": 1.0, "MSE": 1.0}, "GPU": {"MAE": 1.0, "MSE": 1.0}}
+        first_run._save_metrics(metrics)
+        run_id = first_run.run.get_run_url().split("/")[-1]
+        first_run.close()
+
+        second_run = NeptuneSaveSource(
+            project_id=self.project_id,
+            title="Test continue from last run2",
+            description="Test continue from last run2",
+            load_from_checkpoint=True,
+            load_run_id=run_id,
+        )
+        loaded_metrics = second_run.run["metrics"].fetch()
+        expect(loaded_metrics["CPU"]["MAE"]).to(expects.equal(1.0))

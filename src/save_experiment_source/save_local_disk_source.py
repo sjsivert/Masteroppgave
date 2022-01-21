@@ -21,7 +21,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         options_dump: str = "",
         checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
         log_model_every_n_epoch: int = 0,
-        tags: List[str] = [],
+        load_from_checkpoint: bool = False,
     ) -> None:
         super().__init__()
 
@@ -29,12 +29,12 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self.checkpoint_save_location = checkpoint_save_location
         self.log_model_every_n_epoch = log_model_every_n_epoch
 
-        self._create_save_location()
-        self.save_experiment_tags(tags)
-
         if log_model_every_n_epoch > 0:
             self._wipe_and_init_checkpoint_save_location(title=title, description=description)
             self._save_options(options=options_dump, save_path=self.checkpoint_save_location)
+
+        if not load_from_checkpoint:
+            self._create_save_location()
 
     def _create_save_location(self):
         try:
@@ -52,6 +52,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
+        experiment_tags: List[str],
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -59,6 +60,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_models(models)
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
+        self._save_experiment_tags(experiment_tags)
 
     def _save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
@@ -129,7 +131,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             title = combine_subfigure_titles(figure)
             figure.savefig(f"{self.save_location}/figures/{title}.png")
 
-    def save_experiment_tags(self, tags: List[str]) -> None:
+    def _save_experiment_tags(self, tags: List[str]) -> None:
         with open(f"{self.save_location}/tags.txt", "a") as f:
             for tag in tags:
                 f.write(f"{tag}\n")

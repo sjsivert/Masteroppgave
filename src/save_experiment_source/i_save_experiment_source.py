@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Dict, List
 
-from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
 from src.data_types.i_model import IModel
@@ -21,6 +20,7 @@ class ISaveExperimentSource:
         models: List[IModel],
         figures: List[Figure],
         data_pipeline_steps: str,
+        experiment_tags: List[str],
     ) -> None:
         # Interface, not to be implemented
         pass

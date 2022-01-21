@@ -32,15 +32,14 @@ class Experiment:
         self.title = title
         self.description = description
         self.experiment_description = description
-        self.save_sources = self._init_save_sources(
-            save_sources_to_use, save_source_options, experiment_tags
-        )
+        self.experiment_tags = experiment_tags
+        self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
 
     def _init_save_sources(
         self,
         save_sources_to_use: List[str],
         save_source_options: Dict,
-        experiment_tags: Optional[List[str]],
+        load_from_checkpoint: bool = False,
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
@@ -48,11 +47,12 @@ class Experiment:
             if source == "disk":
                 sources.append(
                     SaveLocalDiskSource(
+                        # TODO: Remove duplicate parameter info
                         **save_source_options["disk"],
                         options_dump=config.dump(),
                         title=self.title,
                         description=self.experiment_description,
-                        tags=experiment_tags,
+                        load_from_checkpoint=load_from_checkpoint,
                     )
                 )
             elif source == "neptune":
@@ -61,7 +61,7 @@ class Experiment:
                         **save_source_options["neptune"],
                         title=self.title,
                         description=self.description,
-                        tags=experiment_tags,
+                        load_from_checkpoint=load_from_checkpoint,
                     )
                 )
         return sources
@@ -139,4 +139,5 @@ class Experiment:
                 models=self.model_structure.get_models(),
                 figures=self.model_structure.get_figures(),
                 data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
+                experiment_tags=self.experiment_tags,
             )

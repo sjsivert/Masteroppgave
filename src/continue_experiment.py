@@ -34,6 +34,14 @@ class ContinueExperiment(Experiment):
 
         self._choose_model_structure(model_options=config["model"].get())
 
+        save_sources_to_use = config["experiment"]["save_sources_to_use"].get()
+        save_source_options = config["experiment"]["save_source"].get()
+        self._init_save_sources(
+            save_sources_to_use=save_sources_to_use,
+            save_source_options=save_source_options,
+            load_from_checkpoint=True,
+        )
+
         # TODO: Find out how to load data that has already been processed
         # model_structure.load_models(experiment_checkpoint_path)
         self._train_model()
