@@ -13,15 +13,15 @@ from src.utils.temporary_files import temp_files
 
 with description(NeptuneSaveSource, "api") as self:
     with before.all:
+        self.project_id = "sjsivertandsanderkk/test-project"
         options = {
-            "project_id": "sjsivertandsanderkk/test-project",
+            "project_id": self.project_id,
         }
         self.save_source = NeptuneSaveSource(
             **options,
             title="Test_experiment",
             description="Experiment for automated testing",
         )
-
     with after.all:
         self.save_source.close()
 
@@ -72,7 +72,7 @@ with description(NeptuneSaveSource, "api") as self:
 
     with it("can continue previous experiment"):
         first_run = NeptuneSaveSource(
-            project_id="sjsivertandsanderkk/test-project",
+            project_id=self.project_id,
             title="Test continue from last run",
             description="Test continue from last run",
         )
@@ -82,7 +82,7 @@ with description(NeptuneSaveSource, "api") as self:
         first_run.close()
 
         second_run = NeptuneSaveSource(
-            project_id="sjsivertandsanderkk/test-project",
+            project_id=self.project_id,
             title="Test continue from last run2",
             description="Test continue from last run2",
             load_from_checkpoint=True,
