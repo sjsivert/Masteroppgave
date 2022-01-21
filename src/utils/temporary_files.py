@@ -22,6 +22,7 @@ def temp_files(path: str):
         # It should not delete folders it did not create self
         logging.debug(f"{path} already exists")
         yield
-    else:  # noqa
+
+    finally:  # noqa
         logging.debug(f"Removing temporary folder {path}")
         shutil.rmtree(path)

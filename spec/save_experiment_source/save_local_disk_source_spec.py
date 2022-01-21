@@ -40,9 +40,9 @@ with description(SaveLocalDiskSource, "unit") as self:
         shutil.rmtree("spec/temp/test_experiment")
 
     with it("Throws exception when save location does already exist"):
-        os.mkdir("spec/temp/this-folder-exists")
-        with pytest.raises(FileExistsError):
-            save_source = SaveLocalDiskSource(**self.options, title="this-folder-exists")
+        with temp_files("spec/temp/this-folder-exists"):
+            with pytest.raises(FileExistsError):
+                save_source = SaveLocalDiskSource(**self.options, title="this-folder-exists")
 
     with it("Initializes correctly when save location does not exist"):
         save_source = SaveLocalDiskSource(**self.options, title="this-folder-does-not-exist")

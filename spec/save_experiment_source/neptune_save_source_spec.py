@@ -10,6 +10,7 @@ from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
+from src.utils.temporary_files import temp_files
 
 with description(NeptuneSaveSource, "api") as self:
     with before.all:
@@ -39,20 +40,15 @@ with description(NeptuneSaveSource, "api") as self:
 
     with it("can track datasets"):
         model_data_save_location = "./models/temp_data"
-        try:
-            os.mkdir(model_data_save_location)
-        except FileExistsError:
-            pass
-
-        temp_datasets_path = {
-            "raw_data": f"{model_data_save_location}/raw_data.csv",
-            "category_data": f"{model_data_save_location}/category_data.csv",
-        }
-        for data_path_name, data_path in temp_datasets_path.items():
-            with open(data_path, "w") as f:
-                f.write(f"Test data containing data from {data_path_name}")
-        self.save_source._save_dataset_version(temp_datasets_path)
-        shutil.rmtree(model_data_save_location)
+        with temp_files(model_data_save_location):
+            temp_datasets_path = {
+                "raw_data": f"{model_data_save_location}/raw_data.csv",
+                "category_data": f"{model_data_save_location}/category_data.csv",
+            }
+            for data_path_name, data_path in temp_datasets_path.items():
+                with open(data_path, "w") as f:
+                    f.write(f"Test data containing data from {data_path_name}")
+            self.save_source._save_dataset_version(temp_datasets_path)
 
     with it("can save metrics"):
         self.save_source._save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
