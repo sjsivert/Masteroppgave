@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from src.utils.config_parser import config
 from click.testing import CliRunner
 from expects import be_true, expect, equal
 from expects.matchers.built_in import be
@@ -27,6 +28,9 @@ with description(
         except FileExistsError:
             pass
         init_mock_config(self.model_struct_type, self.model_save_location)
+        self.checkpoints_location = config["experiment"]["save_source"]["disk"][
+            "checkpoint_save_location"
+        ].get()
 
     with before.each:
         # Mock pipelines
@@ -64,3 +68,4 @@ with description(
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(7))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(2))
+        expect(os.path.isdir(self.checkpoints_location)).to(be_true)

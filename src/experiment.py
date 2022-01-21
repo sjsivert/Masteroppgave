@@ -39,6 +39,7 @@ class Experiment:
         self,
         save_sources_to_use: List[str],
         save_source_options: Dict,
+        load_from_checkpoint: bool = False,
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
@@ -46,10 +47,12 @@ class Experiment:
             if source == "disk":
                 sources.append(
                     SaveLocalDiskSource(
+                        # TODO: Remove duplicate parameter info
                         **save_source_options["disk"],
                         options_dump=config.dump(),
                         title=self.title,
                         description=self.experiment_description,
+                        load_from_checkpoint=load_from_checkpoint,
                     )
                 )
             elif source == "neptune":
@@ -58,6 +61,7 @@ class Experiment:
                         **save_source_options["neptune"],
                         title=self.title,
                         description=self.description,
+                        load_from_checkpoint=load_from_checkpoint,
                     )
                 )
         return sources

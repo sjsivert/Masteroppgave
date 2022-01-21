@@ -1,11 +1,10 @@
 import logging
+from pathlib import Path
 from typing import Dict, List
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
-from pathlib import Path
-
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
@@ -18,15 +17,33 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     Neptune save source for tracking ML experiments.
     """
 
-    def __init__(self, project_id: str, title, description) -> None:
-        self.run = neptune.init(project=project_id)
+    def __init__(
+        self,
+        project_id: str,
+        title,
+        description,
+        load_from_checkpoint: bool = False,
+        load_run_id: str = None,
+        **xargs,
+    ) -> None:
+        super().__init__()
+        if not load_from_checkpoint:
+            logging.info("Creating new Neptune experiment")
+            self.run = neptune.init(project=project_id, custom_run_id=title, **xargs)
+            self.run_url = self.run.get_run_url()
+            self.run["sys/tags"].add(["Experiment"])
 
-        self.run["sys/tags"].add(["Experiment"])
+            self.run["sys/name"] = title
+            self.run["Experiment title"] = title
+            self.run["Experiment description"] = description
+        elif load_from_checkpoint and load_run_id is not None:
+            logging.info(f"Loaded preview Neptune Experiment run: {load_run_id} from checkpoint")
+            self.run = neptune.init(project=project_id, run=load_run_id, **xargs)
 
-        self.run["sys/name"] = title
-        self.run["Experiment title"] = title
-        self.run["Experiment description"] = description
-        logging.info(f"Starting logging neptune experiment: {self.run.get_run_url()}")
+        logging.info(f"Neptune run URL: {self.run.get_run_url()}")
+
+    def get_run_id(self) -> str:
+        return self.run_url.split("/")[-1]
 
     def save_model_and_metadata(
         self,

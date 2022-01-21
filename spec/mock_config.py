@@ -19,7 +19,8 @@ def init_mock_config(
     config["experiment"]["save_sources_to_use"] = ["disk"]
     config["experiment"]["save_source"]["disk"][
         "checkpoint_save_location"
-    ] = "./models/0_current_model_checkpoints/"
+    ] = "./spec/0_current_model_checkpoints/"
+    config["experiment"]["save_source"]["disk"]["log_model_every_n_epoch"] = 1
     config["experiment"]["save_source"]["disk"]["model_save_location"] = model_save_location
 
     config["model"] = {
