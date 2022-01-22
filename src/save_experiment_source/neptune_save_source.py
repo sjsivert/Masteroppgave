@@ -1,4 +1,5 @@
 import logging
+from io import BytesIO
 from pathlib import Path
 from typing import Dict, List
 
@@ -63,24 +64,13 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
 
-    def _save_experiment_tags(self, tags: List[str]) -> None:
-        for tag in tags:
-            self.run["sys/tags"].add([tag])
+    def load_model_and_metadata(self) -> None:
+        # TODO: Method for fetching all data required for loading an experiment with models
+        # TODO: Update parameters and return values
+        pass
 
     def _save_options(self, options: str) -> None:
         self.run["options"] = options
-
-    def _save_models(self, models: List) -> None:
-        with temp_files("temp_models"):
-            for idx, model in enumerate(models):
-                model.save("temp_models" + f"/model_{idx}.pkl")
-                self.run[f"models/model_{idx}"].upload(File(f"temp_models/model_{idx}.pkl"), True)
-
-    def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
-        for data_type, data_path in datasets.items():
-            path = Path(data_path)
-            self.run[f"datasets/{data_type}_name"] = path.name
-            self.run[f"datasets/{data_type}"].track_files(data_path, wait=True)
 
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}
@@ -92,18 +82,57 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         metrics["average"] = {i: sum(j) / len(j) for i, j in average.items()}
         self.run["metrics"] = metrics
 
+    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+        self.run["data_pipeline_steps"] = data_pipeline_steps
+
+    def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
+        for data_type, data_path in datasets.items():
+            path = Path(data_path)
+            self.run[f"datasets/{data_type}_name"] = path.name
+            self.run[f"datasets/{data_type}"].track_files(data_path, wait=True)
+
+    def _save_models(self, models: List) -> None:
+        with temp_files("temp_models"):
+            for idx, model in enumerate(models):
+                model.save("temp_models" + f"/model_{idx}.pkl")
+                self.run[f"models/model_{idx}"].upload(File(f"temp_models/model_{idx}.pkl"), True)
+
     def _save_figures(self, figures: List[Figure]):
         for figure in figures:
             title = combine_subfigure_titles(figure)
             self.run[f"figures/fig_{title}"].upload(figure, True)
 
+    def _save_experiment_tags(self, tags: List[str]) -> None:
+        for tag in tags:
+            self.run["sys/tags"].add([tag])
+
     def close(self) -> None:
         self.run.stop()
 
-    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
-        self.run["data_pipeline_steps"] = data_pipeline_steps
+    # Loading methods
+    def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:
+        # TODO: Check the hash of the given data path, and assert the same dataset is used
+        pass
 
+    def _fetch_dataset_version(self) -> str:
+        # TODO: Fetch the hash stored
+        pass
+
+    def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
+        # TODO: Load the byte arrays of saved models
+        pass
+
+    def _load_config(self) -> Dict:
+        # TODO: Load the old config, returning it as a dict, or whatever type is needed
+        pass
+
+    def _load_options(self) -> str:
+        # TODO: Load options from save source
+        pass
+
+    ##########################################################
     # ILogTrainingSource interface
+    ##########################################################
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         # Interface, not to be implemented
         pass
