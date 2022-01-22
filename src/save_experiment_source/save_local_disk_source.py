@@ -2,6 +2,7 @@ import hashlib
 import logging
 import os
 import shutil
+from io import BytesIO
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -61,6 +62,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
+
+    def load_model_and_metadata(self) -> None:
+        # TODO: Method for fetching all data required for loading an experiment with models
+        # TODO: Update parameters and return values
+        pass
 
     def _save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
@@ -136,7 +142,30 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             for tag in tags:
                 f.write(f"{tag}\n")
 
+    # Loading methods
+    def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:
+        # TODO: Check the hash of the given data path, and assert the same dataset is used
+        pass
+
+    def _fetch_dataset_version(self) -> str:
+        # TODO: Fetch the hash stored
+        pass
+
+    def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
+        # TODO: Load the byte arrays of saved models
+        pass
+
+    def _load_config(self) -> Dict:
+        # TODO: Load the old config, returning it as a dict, or whatever type is needed
+        pass
+
+    def _load_options(self) -> str:
+        # TODO: Load options from save source
+        pass
+
+    ##########################################################
     # ILogTrainingSource interface
+    ##########################################################
     def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         # TODO
         pass
