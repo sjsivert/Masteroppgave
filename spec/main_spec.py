@@ -52,7 +52,8 @@ with description("main.py", "unit") as self:
         )
         mock_experiment = mock(ContinueExperiment)
         when(main).ContinueExperiment(
-            experiment_checkpoints_location=checkpoint_save_location
+            experiment_checkpoints_location=checkpoint_save_location,
+            neptune_id_to_load=None,
         ).thenReturn(mock_experiment)
         when(mock_experiment).continue_experiment().thenReturn(None)
 

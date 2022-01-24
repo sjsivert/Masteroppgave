@@ -1,7 +1,7 @@
 import logging
 from io import BytesIO
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
@@ -25,12 +25,13 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         title,
         description,
         load_from_checkpoint: bool = False,
-        load_run_id: str = None,
+        neptune_id_to_load: str = None,
         sync: bool = False,
         **xargs,
     ) -> None:
         super().__init__()
         neptune_connection_mode = "sync" if sync else "async"
+
         if not load_from_checkpoint:
             logging.info("Creating new Neptune experiment")
             self.run = neptune.init(
@@ -42,10 +43,13 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
             self.run["sys/name"] = title
             self.run["Experiment title"] = title
             self.run["Experiment description"] = description
-        elif load_from_checkpoint and load_run_id is not None:
-            logging.info(f"Loaded preview Neptune Experiment run: {load_run_id} from checkpoint")
+
+        elif load_from_checkpoint and neptune_id_to_load is not None:
+            logging.info(
+                f"Loaded preview Neptune Experiment run: {neptune_id_to_load } from checkpoint"
+            )
             self.run = neptune.init(
-                project=project_id, run=load_run_id, mode=neptune_connection_mode, **xargs
+                project=project_id, run=neptune_id_to_load, mode=neptune_connection_mode, **xargs
             )
 
         logging.info(f"Neptune run URL: {self.run.get_run_url()}")
@@ -143,7 +147,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
                 return False
         return True
 
-    def _fetch_dataset_version(self, data_type_name: str) -> (str, str):
+    def _fetch_dataset_version(self, data_type_name: str) -> Tuple[str, str]:
         """
         :return: (str: File Hash, str: File name)
         """

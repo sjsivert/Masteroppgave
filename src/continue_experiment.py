@@ -18,10 +18,12 @@ class ContinueExperiment(Experiment):
         experiment_checkpoints_location: Optional[Path] = Path(
             "./models/0_current_model_checkpoints/"
         ),
+        neptune_id_to_load: str = None,
     ):
         assert experiment_checkpoints_location.is_dir(), FileNotFoundError(
             f"experiment_checkpoints_location does not exist: {experiment_checkpoints_location}"
         )
+        self.neptune_id_to_load = neptune_id_to_load
 
         self.experiment_checkpoints_location = experiment_checkpoints_location
         super().__init__()
@@ -31,15 +33,19 @@ class ContinueExperiment(Experiment):
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
 
         self._load_saved_options()
+        # config.add({"experiment": {"save_source": {"neptune": {"neptune_id_to_load": self.neptune_id_to_load}}}})
+        # config["experiment"]["save_source"]["neptune"]["neptune_id_to_load"].add(self.neptune_id_to_load)
 
         self._choose_model_structure(model_options=config["model"].get())
 
         save_sources_to_use = config["experiment"]["save_sources_to_use"].get()
         save_source_options = config["experiment"]["save_source"].get()
+
         self._init_save_sources(
             save_sources_to_use=save_sources_to_use,
             save_source_options=save_source_options,
             load_from_checkpoint=True,
+            neptune_id_to_load=self.neptune_id_to_load,
         )
 
         """
