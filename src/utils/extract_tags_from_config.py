@@ -8,5 +8,5 @@ def extract_tags_from_config() -> List[str]:
     Extracts relevant information from the config which can be used as tags.
     :return: a list of tags from the config
     """
-    tags = [config["model"]["model_type"].get()]
+    tags = [config["model"]["model_type"].get()] + (config["experiment"]["tags"].get())
     return tags
