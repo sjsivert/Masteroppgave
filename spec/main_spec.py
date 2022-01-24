@@ -72,7 +72,7 @@ with description("main.py", "unit") as self:
             description=ANY,
             save_sources_to_use=ANY,
             save_source_options=ANY,
-            experiment_tags=["tag1", "tag2", "validation_model"],
+            experiment_tags=["tag1", "tag2", "validation_model", "tag3", "tag4"],
         ).thenReturn(mock_experiment)
         # Act
         self.runner.invoke(
@@ -86,5 +86,5 @@ with description("main.py", "unit") as self:
             description=ANY,
             save_sources_to_use=ANY,
             save_source_options=ANY,
-            experiment_tags=["tag1", "tag2", "validation_model"],
+            experiment_tags=["tag1", "tag2", "validation_model", "tag3", "tag4"],
         )

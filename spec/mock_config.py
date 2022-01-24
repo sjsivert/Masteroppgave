@@ -7,6 +7,7 @@ def init_mock_config(
     config.clear()
     config.read(user=False)
     config["experiment"] = {
+        "tags": ["tag3", "tag4"],
         "save_sources_to_use": ["disk"],
         "save_source": {
             "disk": {

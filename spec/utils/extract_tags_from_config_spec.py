@@ -10,4 +10,4 @@ with description(extract_tags_from_config, "unit") as self:
         init_mock_config()
         tags = extract_tags_from_config()
 
-        expect(tags).to(equal(["validation_model"]))
+        expect(tags).to(equal(["validation_model", "tag3", "tag4"]))
