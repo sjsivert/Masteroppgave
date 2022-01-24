@@ -35,6 +35,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
         if not load_from_checkpoint:
             self._create_save_location()
+            self._save_title_and_description(title=title, description=description)
 
     def _create_save_location(self):
         try:
@@ -162,4 +163,8 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
         # Save the title and description to temp location
         with open(f"{self.checkpoint_save_location}/title-description.txt", "w") as f:
+            f.write(f"{title}\n{description}")
+
+    def _save_title_and_description(self, title, description) -> None:
+        with open(f"{self.save_location}/title-description.txt", "w") as f:
             f.write(f"{title}\n{description}")
