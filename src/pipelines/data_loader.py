@@ -20,7 +20,6 @@ def load_and_merge_market_insight_and_categories(
 
 
 @declare.generator()
-@declare.datasource()
 def load_csv_data(path: str) -> DataFrame:  # pragma: no cover
     """
     Loads data from a file.
