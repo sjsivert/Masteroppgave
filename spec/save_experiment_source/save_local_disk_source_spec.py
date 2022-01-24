@@ -53,6 +53,11 @@ with description(SaveLocalDiskSource, "unit") as self:
         self.save_source._save_options("option 1\noption2")
         expect(os.path.isfile(f"{self.save_source.save_location}/options.yaml")).to(be_true)
 
+    with it("save title and description when initialized"):
+        expect(os.path.isfile(f"{self.save_source.save_location}/title-description.txt")).to(
+            be_true
+        )
+
     with it("saves metrix as metrics.txt inside correct folder"):
         self.save_source._save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
         expect(os.path.isfile("spec/temp/test_experiment/metrics.txt")).to(be_true)

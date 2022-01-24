@@ -43,6 +43,7 @@ with description(
 
     with after.all:
         shutil.rmtree(self.model_save_location)
+        shutil.rmtree(self.checkpoints_location)
 
     with it("runs without errors"):
         result = self.runner.invoke(main.main, [])
@@ -66,6 +67,6 @@ with description(
         expect(result.exit_code).to(be(0))
         # Assert the correct number of files are created after a saved experiment
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(7))
+        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(2))
         expect(os.path.isdir(self.checkpoints_location)).to(be_true)
