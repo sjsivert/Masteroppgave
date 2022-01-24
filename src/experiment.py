@@ -40,14 +40,13 @@ class Experiment:
         save_sources_to_use: List[str],
         save_source_options: Dict,
         load_from_checkpoint: bool = False,
+        neptune_id_to_load: Optional[str] = None,
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
-            # TODO: Add Neptune save source
             if source == "disk":
                 sources.append(
                     SaveLocalDiskSource(
-                        # TODO: Remove duplicate parameter info
                         **save_source_options["disk"],
                         options_dump=config.dump(),
                         title=self.title,
@@ -62,8 +61,10 @@ class Experiment:
                         title=self.title,
                         description=self.description,
                         load_from_checkpoint=load_from_checkpoint,
+                        neptune_id_to_load=neptune_id_to_load,
                     )
                 )
+
         return sources
 
     def run_complete_experiment(

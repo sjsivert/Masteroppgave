@@ -27,8 +27,15 @@ from src.utils.extract_tags_from_config import extract_tags_from_config
     "--continue-experiment", "-c", is_flag=True, help="Continues the last experiment executed."
 )
 @click.option("--tags", "-t", multiple=True, help="Tags to be added to the experiment.")
+@click.option("--load", "-l", help="Loads an experiment from a given path.")
+@click.option("--neptune-id", "-n", help="Neptune experiment id to load")
 def main(
-    experiment: Tuple[str, str], save: bool, continue_experiment: bool, tags: Tuple[str]
+    experiment: Tuple[str, str],
+    save: bool,
+    continue_experiment: bool,
+    tags: Tuple[str],
+    load: str,
+    neptune_id: str,
 ) -> int:
     logger.init_logging()
     logging.info("Started")
@@ -71,9 +78,17 @@ def main(
         )
 
         experiment = ContinueExperiment(
-            experiment_checkpoints_location=experiment_checkpoints_location
+            experiment_checkpoints_location=experiment_checkpoints_location,
+            neptune_id_to_load=neptune_id,
         )
 
+        experiment.continue_experiment()
+    elif load:
+        load_path = Path(load)
+        logging.info(f"Loading experiment from {load_path}")
+        experiment = ContinueExperiment(
+            experiment_checkpoints_location=load_path, neptune_id_to_load=neptune_id
+        )
         experiment.continue_experiment()
 
     logging.info("Finished")
