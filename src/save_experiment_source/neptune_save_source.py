@@ -10,6 +10,7 @@ from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
+from src.utils.file_hasher import generate_file_hash
 from src.utils.temporary_files import temp_files
 
 
@@ -64,10 +65,17 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
 
-    def load_model_and_metadata(self) -> None:
-        # TODO: Method for fetching all data required for loading an experiment with models
-        # TODO: Update parameters and return values
-        pass
+    def load_metadata(
+        self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
+    ) -> (str, bool, bool):
+        """
+        :return: (str: Stored options, bool: Dataset version validation, bool: Pipeline step validation)
+        """
+        return (
+            self._load_options(),
+            self._verify_dataset_version(datasets),
+            self._verify_pipeline_steps(data_pipeline_steps),
+        )
 
     def _save_options(self, options: str) -> None:
         self.run["options"] = options
@@ -93,9 +101,11 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
 
     def _save_models(self, models: List) -> None:
         with temp_files("temp_models"):
-            for idx, model in enumerate(models):
-                model.save("temp_models" + f"/model_{idx}.pkl")
-                self.run[f"models/model_{idx}"].upload(File(f"temp_models/model_{idx}.pkl"), True)
+            for model in models:
+                model.save("temp_models" + f"/model_{model.get_name()}.pkl")
+                self.run[f"models/model_{model.get_name()}"].upload(
+                    File(f"temp_models/model_{model.get_name()}.pkl"), True
+                )
 
     def _save_figures(self, figures: List[Figure]):
         for figure in figures:
@@ -114,38 +124,49 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         """
         Verify data and file name is the same
         """
-        loaded_dataset_info = self._fetch_dataset_version()
         for file_type, file_path in datasets.items():
+            file_hash, file_name = self._fetch_dataset_version(file_type)
             path = Path(file_path)
-            if file_type not in loaded_dataset_info.keys():
-                return False
-            elif loaded_dataset_info[file_type]["name"] != path.name:
-                return False
-            elif loaded_dataset_info[file_type][
-                "file_hash"
-            ] != SaveLocalDiskSource.generate_file_hash(path):
+            if (
+                file_hash == ""
+                or file_name == ""
+                or file_hash is None
+                or file_name is None
+                or file_name != path.name
+                or file_hash != generate_file_hash(path)
+            ):  # TODO: How to get same hash as Neptune?
                 return False
         return True
 
-    def _fetch_dataset_version(self) -> str:
-        # TODO: Fetch the hash stored
-        pass
+    def _fetch_dataset_version(self, data_type_name: str) -> (str, str):
+        """
+        :return: (str: File Hash, str: File name)
+        """
+        return (
+            self.run[f"datasets/{data_type_name}"].fetch_hash(True),
+            str(self.run[f"datasets/{data_type_name}_name"].fetch()),
+        )
 
-    def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
-        # TODO: Load the byte arrays of saved models
-        pass
+    def _load_models(self, models: List[IModel]) -> None:
+        # Load models from neptune to temp folder, before loading data to models
+
+        base_path = f"{self.save_location}/model_loading/"
+        with temp_files(base_path):
+            for model in models:
+                self.run[f"models/model_{model.get_name()}"].download(base_path)
+                model.load(path=f"{base_path}")
 
     def _load_options(self) -> str:
-        # TODO: Load options from save source
-        pass
+        # Load options from save source
+        return self.run["options"].fetch()
 
     def _verify_pipeline_steps(self, data_pipeline_steps: str) -> bool:
-        # TODO: Verify the pipeline steps are the same
-        pass
+        # Verify the pipeline steps are the same
+        return self._load_pipeline_steps() == data_pipeline_steps
 
     def _load_pipeline_steps(self) -> str:
-        # TODO: Load pipeline steps from neptune save source
-        pass
+        # Load pipeline steps from neptune save source
+        return self.run["data_pipeline_steps"].fetch()
 
     ##########################################################
     # ILogTrainingSource interface
