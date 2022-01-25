@@ -14,9 +14,11 @@ class IModel:
     Interface for all models to implement in order to save and load
     """
 
-    def __init__(self, log_sources: List[ILogTrainingSource]):
+    def __init__(self, log_sources: List[ILogTrainingSource], name: str = "placeholder"):
         # Temporary logging
         self.log_sources = log_sources
+        # Model name
+        self.name = name
         # Training
         self.training_accuracy: List = []
         self.training_error: List = []
@@ -26,6 +28,9 @@ class IModel:
         self.testing_predictions = []
         # Visualization
         self.figures = []
+
+    def get_name(self):
+        return self.name
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         """
@@ -82,14 +87,14 @@ class IModel:
         # TODO: Implement after it is clear how data is processed and what data is passed through to the model
         pass
 
-    def save(self, path: str) -> None:
+    def save(self, path: str) -> str:
         """
         Save the model to the specified path.
+        :returns: Path to saved model file
         """
         raise NotImplementedError()
 
-    @staticmethod
-    def load(path: str, log_sources: List[ILogTrainingSource]) -> IModel:
+    def load(self, path: str) -> IModel:
         """
         Load the model from the specified path.
         """

@@ -67,15 +67,23 @@ class ISaveExperimentSource:
         pass
 
     def _fetch_dataset_version(self) -> str:
+        # Interface
         pass
 
     def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
         # Interface, not to be implemented
-        return None
-
-    def _load_config(self) -> Dict:
-        # Interface, not to be implemented
-        pass
+        raise NotImplementedError()
 
     def _load_options(self) -> str:
+        # Interface
         pass
+
+    def _verify_pipeline_steps(self, data_pipeline_steps: str) -> bool:
+        # Interface
+        pass
+
+    def _load_pipeline_steps(self) -> str:
+        # Interface
+        pass
+
+    # TODO: _loaded_metrics? Load temp metrics for when a model has not completed training and it is to be resumed?

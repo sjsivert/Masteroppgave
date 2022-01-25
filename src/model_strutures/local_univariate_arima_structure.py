@@ -13,6 +13,12 @@ class LocalUnivariateArimaStructure(IModelStructure):
         self.data_pipline = None
         self.order = order
 
+    def init_models(self, load: bool = False):
+        """
+        Initialize models in the structure
+        """
+        pass
+
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         self.data_pipline = data_pipeline
         return data_pipeline.run()

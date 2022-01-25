@@ -5,12 +5,13 @@ import shutil
 from io import BytesIO
 from pathlib import Path
 from typing import Dict, List, Optional
-
+import json
 from matplotlib.figure import Figure
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
+from src.utils.file_hasher import generate_file_hash
 
 
 class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
@@ -64,18 +65,22 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
 
-    def load_model_and_metadata(self) -> None:
-        # TODO: Method for fetching all data required for loading an experiment with models
-        # TODO: Update parameters and return values
-        pass
+    def load_metadata(
+        self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
+    ) -> (str, bool, bool):
+        """
+        :return: (str: Stored options, bool: Dataset version validation, bool: Pipeline step validation)
+        """
+        return (
+            self._load_options(),
+            self._verify_dataset_version(datasets),
+            self._verify_pipeline_steps(data_pipeline_steps),
+        )
 
     def _save_options(self, options: str, save_path: Optional[Path] = None) -> None:
         """
         Saves the options used to train the model.
         If save_path is not provided saves to the pre-defined save_location.
-        :param options:
-        :param save_path:
-        :return:
         """
         path = save_path if save_path else self.save_location
         with open(f"{path}/options.yaml", "w") as f:
@@ -108,29 +113,17 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             path = Path(file_path)
             dataset_info[file_type] = {
                 "name": path.name,
-                "file_hash": SaveLocalDiskSource.generate_file_hash(path),
+                "file_hash": generate_file_hash(path),
             }
         with open(f"{self.save_location}/datasets.json", "w") as f:
-            f.write(dataset_info.__str__())
-
-    @staticmethod
-    def generate_file_hash(path: Path) -> str:
-        hash_sha1 = hashlib.sha1()
-        # Split into chunks to combat high use of memory
-        chunk_size = 4096
-        with open(path, "rb") as f:
-            chunk = f.read(chunk_size)
-            while len(chunk) > 0:
-                hash_sha1.update(chunk)
-                chunk = f.read(chunk_size)
-        return hash_sha1.hexdigest()
+            json.dump(dataset_info, f)
 
     def _save_models(self, models: List[IModel]) -> None:
-        for idx, model in enumerate(models):
-            model.save(f"{self.save_location}/model_{idx}.pkl")
+        for model in models:
+            model.save(path=f"{self.save_location}/")
 
     def _save_figures(self, figures: List[Figure]) -> None:
-        for idx, figure in enumerate(figures):
+        for figure in figures:
             try:
                 os.mkdir(f"{self.save_location}/figures/")
             except FileExistsError:
@@ -145,24 +138,54 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
     # Loading methods
     def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:
-        # TODO: Check the hash of the given data path, and assert the same dataset is used
-        pass
+        """
+        Verify data and file name is the same
+        """
+        loaded_dataset_info = self._fetch_dataset_version()
+        for file_type, file_path in datasets.items():
+            path = Path(file_path)
+            if (
+                file_type not in loaded_dataset_info.keys()
+                or loaded_dataset_info[file_type]["name"] != path.nam
+                or loaded_dataset_info[file_type]["file_hash"] != generate_file_hash(path)
+            ):
+                return False
+        return True
 
     def _fetch_dataset_version(self) -> str:
-        # TODO: Fetch the hash stored
-        pass
+        if not os.path.exists(f"{self.save_location}/datasets.json"):
+            raise FileNotFoundError(
+                f"{self.save_location}/datasets.json, is not found in the model store."
+            )
+        with open(f"{self.save_location}/datasets.json", "r") as f:
+            loaded_dataset_info = json.load(f)
+        return loaded_dataset_info
 
-    def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
-        # TODO: Load the byte arrays of saved models
-        pass
+    def _load_models(self, models: List[IModel]) -> None:
+        for idx, model in enumerate(models):
+            model.load(path=f"{self.save_location}/")
 
-    def _load_config(self) -> Dict:
-        # TODO: Load the old config, returning it as a dict, or whatever type is needed
-        pass
+    def _load_options(self, save_path: Optional[str] = None) -> str:
+        path = save_path if save_path else self.save_location
+        if not os.path.exists(f"{path}/options.yaml"):
+            raise FileNotFoundError("Stored options file not found")
 
-    def _load_options(self) -> str:
-        # TODO: Load options from save source
-        pass
+        with open(f"{path}/options.yaml", "r") as f:
+            options_contents = f.read()
+        return options_contents
+
+    def _verify_pipeline_steps(self, data_pipeline_steps: str) -> bool:
+        loaded_pipeline_steps = self._load_pipeline_steps()
+        return loaded_pipeline_steps == data_pipeline_steps
+
+    def _load_pipeline_steps(self) -> str:
+        if not os.path.exists(f"{self.save_location}/data_processing_steps.txt"):
+            raise FileNotFoundError(
+                f"Could not find: {self.save_location}/data_processing_steps.txt"
+            )
+        with open(f"{self.save_location}/data_processing_steps.txt", "r") as f:
+            pipeline_steps = f.read()
+        return pipeline_steps
 
     ##########################################################
     # ILogTrainingSource interface

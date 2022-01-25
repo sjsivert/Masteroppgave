@@ -99,6 +99,7 @@ class Experiment:
                 self.model_structure = LocalUnivariateArimaStructure(
                     self.save_sources, **model_options["local_univariate_arima"]
                 )
+            self.model_structure.init_models()
             return self.model_structure
 
         except Exception as e:

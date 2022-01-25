@@ -1,5 +1,5 @@
 import pickle
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from pandas import DataFrame
 
@@ -12,22 +12,30 @@ class SklearnModel(IModel):
     Wrapper for sklearn models.
     """
 
-    def __init__(self, model: object, log_sources: List[ILogTrainingSource]) -> None:
+    def __init__(
+        self,
+        model: Optional[object] = None,
+        log_sources: List[ILogTrainingSource] = [],
+        name: str = "sklearn_placeholder",
+    ) -> None:
         self.model = model
-        super().__init__(log_sources)
+        super().__init__(log_sources, name)
 
     def visualize(self, title: str = "default_title"):
         # TODO: Implement
         raise NotImplementedError()
 
-    def save(self, path: str) -> None:
-        with open(path, "wb") as f:
+    def save(self, path: str) -> str:
+        """
+        Saves model
+        :return:
+        """
+        with open(f"{path}model_{self.get_name()}.pkl", "wb") as f:
             pickle.dump(self.model, f)
 
-    @staticmethod
-    def load(path: str, log_sources: List[ILogTrainingSource]) -> IModel:
-        with open(path, "rb") as f:
-            return SklearnModel(pickle.load(f), log_sources)
+    def load(self, path: str) -> None:
+        with open(f"{path}model_{self.get_name()}.pkl", "rb") as f:
+            self.model = pickle.load(f)
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         # TODO: Implement
