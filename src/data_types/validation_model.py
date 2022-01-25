@@ -9,8 +9,8 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
 class ValidationModel(IModel):
-    def __init__(self, log_sources: List[ILogTrainingSource]):
-        super().__init__(log_sources=log_sources)
+    def __init__(self, log_sources: List[ILogTrainingSource], name: str = "validation_placeholder"):
+        super().__init__(log_sources=log_sources, name=name)
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         """
@@ -30,19 +30,18 @@ class ValidationModel(IModel):
         self.testing_predictions = [7, 8, 9, 10, 11]
         return {"Accuracy": self.testing_accuracy, "Error": self.testing_error}
 
-    def save(self, path: str) -> None:
+    def save(self, path: str) -> str:
         """
         Save the model to the specified path.
+        :returns: Path to saved model file
         """
-        with open(path, "w") as f:
+        with open(f"{path}model_{self.get_name()}.pkl", "w") as f:
             f.write("Validation model. Mock model saving.")
 
-    @staticmethod
-    def load(path: str) -> ValidationModel:
+    def load(self, path: str) -> None:
         """
         Load the model from the specified path.
         """
         model_contents = ""
-        with open(path, "r") as f:
-            model_contents = f.read()
-        return ValidationModel(None)
+        with open(f"{path}model_{self.get_name()}.pkl", "r") as f:
+            self.model_loaded_contents = f.read()
