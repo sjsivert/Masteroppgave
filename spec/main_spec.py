@@ -12,6 +12,7 @@ from spec.test_logger import init_test_logging
 from src import main
 from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.logger import init_logging
 
@@ -47,13 +48,10 @@ with description("main.py", "unit") as self:
 
     with it("runs with --continue-experiment"):
         # Arrange
-        checkpoint_save_location = Path(
-            config["experiment"]["save_source"]["disk"]["checkpoint_save_location"].get()
-        )
+        checkpoint_save_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
         mock_experiment = mock(ContinueExperiment)
         when(main).ContinueExperiment(
             experiment_checkpoints_location=checkpoint_save_location,
-            neptune_id_to_load=None,
         ).thenReturn(mock_experiment)
         when(mock_experiment).continue_experiment().thenReturn(None)
 

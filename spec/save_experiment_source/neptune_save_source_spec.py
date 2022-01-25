@@ -5,18 +5,22 @@ from expects import be, be_false, be_true, expect, match, equal
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it, _it
 from matplotlib import pyplot as plt
-from mockito import mock
+from mockito import mock, unstub, when, ANY
 from sklearn.linear_model import LogisticRegression
 from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel
 from src.data_types.validation_model import ValidationModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.file_hasher import generate_file_hash
 from src.utils.temporary_files import temp_files
 
 with description(NeptuneSaveSource, "api") as self:
     with before.all:
+        # Using before.all instead of before.each here to cut down test time
+        # and avoid too many Neptune API calls
+        when(LocalCheckpointSaveSource, strict=False).write_file("neptune_id.txt", ANY(str))
         self.project_id = "sjsivertandsanderkk/test-project"
         options = {
             "project_id": self.project_id,
@@ -29,6 +33,7 @@ with description(NeptuneSaveSource, "api") as self:
         )
 
     with after.all:
+        unstub()
         self.save_source.close()
 
     with it("can upload options, then fetch correct data"):
@@ -101,7 +106,7 @@ with description(NeptuneSaveSource, "api") as self:
             title="Test continue from last run2",
             description="Test continue from last run2",
             load_from_checkpoint=True,
-            load_run_id=run_id,
+            neptune_id_to_load=run_id,
         )
         loaded_metrics = second_run.run["metrics"].fetch()
         expect(loaded_metrics["CPU"]["MAE"]).to(expects.equal(1.0))

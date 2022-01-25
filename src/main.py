@@ -9,6 +9,7 @@ import click
 from src.experiment import Experiment
 from src.continue_experiment import ContinueExperiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils import logger
 from src.utils.config_parser import config
 from src.utils.extract_tags_from_config import extract_tags_from_config
@@ -73,13 +74,10 @@ def main(
     elif continue_experiment:
         logging.info(f"Continues previous experiment")
 
-        experiment_checkpoints_location = Path(
-            config["experiment"]["save_source"]["disk"]["checkpoint_save_location"].get()
-        )
+        experiment_checkpoints_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
 
         experiment = ContinueExperiment(
             experiment_checkpoints_location=experiment_checkpoints_location,
-            neptune_id_to_load=neptune_id,
         )
 
         experiment.continue_experiment()
@@ -87,7 +85,9 @@ def main(
         load_path = Path(load)
         logging.info(f"Loading experiment from {load_path}")
         experiment = ContinueExperiment(
-            experiment_checkpoints_location=load_path, neptune_id_to_load=neptune_id
+            # TODO: Rename parameter name
+            experiment_checkpoints_location=load_path,
+            neptune_id_to_load=neptune_id,
         )
         experiment.continue_experiment()
 

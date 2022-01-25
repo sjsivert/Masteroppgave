@@ -1,11 +1,12 @@
 import os
 import shutil
 
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from click.testing import CliRunner
 from expects import be_true, expect, equal
 from expects.matchers.built_in import be
-from mamba import after, before, description, it
+from mamba import after, before, description, it, _it
 from mockito import mock, when
 from mockito.mockito import unstub, verify
 
@@ -28,9 +29,7 @@ with description(
         except FileExistsError:
             pass
         init_mock_config(self.model_struct_type, self.model_save_location)
-        self.checkpoints_location = config["experiment"]["save_source"]["disk"][
-            "checkpoint_save_location"
-        ].get()
+        self.checkpoints_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
 
     with before.each:
         # Mock pipelines
@@ -70,3 +69,13 @@ with description(
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(2))
         expect(os.path.isdir(self.checkpoints_location)).to(be_true)
+        expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
+        expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
+
+    with _it("can continue the last ran experiment"):
+        pass
+        # Arrange
+
+        # Act
+
+        # Assert
