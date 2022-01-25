@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional
 
 from src.experiment import Experiment
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 
 
@@ -18,23 +19,32 @@ class ContinueExperiment(Experiment):
         experiment_checkpoints_location: Optional[Path] = Path(
             "./models/0_current_model_checkpoints/"
         ),
-        neptune_id_to_load: str = None,
     ):
         assert experiment_checkpoints_location.is_dir(), FileNotFoundError(
             f"experiment_checkpoints_location does not exist: {experiment_checkpoints_location}"
         )
-        self.neptune_id_to_load = neptune_id_to_load
 
+        self.neptune_id_to_load = None
         self.experiment_checkpoints_location = experiment_checkpoints_location
         super().__init__()
+
+    def _load_neptune_id_from_checkpoint_location(self) -> str:
+        with open(f"{self.experiment_checkpoints_location}/neptune_id.txt", "r") as f:
+            neptune_id = f.readline().rstrip("\n")
+            return neptune_id
 
     def continue_experiment(self) -> None:
         self.title, self.description = self._load_title_and_description()
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
 
         self._load_saved_options()
-        # config.add({"experiment": {"save_source": {"neptune": {"neptune_id_to_load": self.neptune_id_to_load}}}})
-        # config["experiment"]["save_source"]["neptune"]["neptune_id_to_load"].add(self.neptune_id_to_load)
+
+        neptune_save_source_was_used = (
+            "neptune" in config["experiment"]["save_sources_to_use"].get()
+        )
+        if neptune_save_source_was_used:
+            self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
+            logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
 
         self._choose_model_structure(model_options=config["model"].get())
 

@@ -9,6 +9,7 @@ from neptune.new.types import File
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.file_hasher import generate_file_hash
 from src.utils.temporary_files import temp_files
@@ -38,6 +39,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
                 project=project_id, name=title, mode=neptune_connection_mode, **xargs
             )
             self.run_url = self.run.get_run_url()
+            self._write_neptune_id_to_checkpoint()
             self.run["sys/tags"].add(["Experiment"])
 
             self.run["sys/name"] = title
@@ -51,11 +53,18 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
             self.run = neptune.init(
                 project=project_id, run=neptune_id_to_load, mode=neptune_connection_mode, **xargs
             )
+        else:
+            raise Exception(
+                "Illegal state, NeptuneSaveSource did not create new run or load a previous run"
+            )
 
         logging.info(f"Neptune run URL: {self.run.get_run_url()}")
 
     def get_run_id(self) -> str:
         return self.run_url.split("/")[-1]
+
+    def _write_neptune_id_to_checkpoint(self) -> None:
+        LocalCheckpointSaveSource().write_file("neptune_id.txt", self.get_run_id())
 
     def save_model_and_metadata(
         self,

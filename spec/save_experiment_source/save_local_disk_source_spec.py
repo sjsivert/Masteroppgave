@@ -130,28 +130,6 @@ with description(SaveLocalDiskSource, "unit") as self:
         self.save_source._save_figures([fig])
         self.save_source._save_figures([fig])
 
-    with it("creates a checkpoint save location when save epoch is above 0"):
-        # Arrange
-        temp = "temp/"
-        with temp_files(temp):
-            save_source = SaveLocalDiskSource(
-                **self.options,
-                title="test_checkpoints",
-                description="test_checkpoints description",
-                checkpoint_save_location=Path(temp + "/checkpoints"),
-                log_model_every_n_epoch=1,
-            )
-
-            # Asses
-            expect(save_source.checkpoint_save_location.__str__()).to(match("temp/checkpoints"))
-            expect(save_source.checkpoint_save_location.is_dir()).to(be_true)
-            expect(save_source.checkpoint_save_location.joinpath("options.yaml").is_file()).to(
-                be_true
-            )
-            expect(
-                save_source.checkpoint_save_location.joinpath("title-description.txt").is_file()
-            ).to(be_true)
-
     with it("can run save_model_and_metadata() without crashing"):
         self.save_source.save_model_and_metadata(
             options="options",

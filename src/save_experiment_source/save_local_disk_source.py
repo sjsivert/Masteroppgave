@@ -1,8 +1,6 @@
-import hashlib
 import logging
 import os
 import shutil
-from io import BytesIO
 from pathlib import Path
 from typing import Dict, List, Optional
 import json
@@ -21,19 +19,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         title: str,
         description: str = "",
         options_dump: str = "",
-        checkpoint_save_location: Path = Path("models/0_current_model_checkpoints/"),
-        log_model_every_n_epoch: int = 0,
         load_from_checkpoint: bool = False,
     ) -> None:
         super().__init__()
 
         self.save_location = Path(model_save_location).joinpath(title)
-        self.checkpoint_save_location = checkpoint_save_location
-        self.log_model_every_n_epoch = log_model_every_n_epoch
-
-        if log_model_every_n_epoch > 0:
-            self._wipe_and_init_checkpoint_save_location(title=title, description=description)
-            self._save_options(options=options_dump, save_path=self.checkpoint_save_location)
 
         if not load_from_checkpoint:
             self._create_save_location()
@@ -201,21 +191,6 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
     def load_temp_models(self, models_path: List) -> None:
         # TODO
         return None
-
-    def _wipe_and_init_checkpoint_save_location(self, title: str, description: str) -> None:
-        logging.info(
-            f"Wiping and initializing checkpoint save location {self.checkpoint_save_location}"
-        )
-        try:
-            shutil.rmtree(self.checkpoint_save_location)
-        except FileNotFoundError:
-            pass
-
-        os.mkdir(self.checkpoint_save_location)
-
-        # Save the title and description to temp location
-        with open(f"{self.checkpoint_save_location}/title-description.txt", "w") as f:
-            f.write(f"{title}\n{description}")
 
     def _save_title_and_description(self, title, description) -> None:
         with open(f"{self.save_location}/title-description.txt", "w") as f:
