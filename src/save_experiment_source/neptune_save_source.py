@@ -111,8 +111,21 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
 
     # Loading methods
     def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:
-        # TODO: Check the hash of the given data path, and assert the same dataset is used
-        pass
+        """
+        Verify data and file name is the same
+        """
+        loaded_dataset_info = self._fetch_dataset_version()
+        for file_type, file_path in datasets.items():
+            path = Path(file_path)
+            if file_type not in loaded_dataset_info.keys():
+                return False
+            elif loaded_dataset_info[file_type]["name"] != path.name:
+                return False
+            elif loaded_dataset_info[file_type][
+                "file_hash"
+            ] != SaveLocalDiskSource.generate_file_hash(path):
+                return False
+        return True
 
     def _fetch_dataset_version(self) -> str:
         # TODO: Fetch the hash stored
@@ -122,12 +135,16 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         # TODO: Load the byte arrays of saved models
         pass
 
-    def _load_config(self) -> Dict:
-        # TODO: Load the old config, returning it as a dict, or whatever type is needed
-        pass
-
     def _load_options(self) -> str:
         # TODO: Load options from save source
+        pass
+
+    def _verify_pipeline_steps(self, data_pipeline_steps: str) -> bool:
+        # TODO: Verify the pipeline steps are the same
+        pass
+
+    def _load_pipeline_steps(self) -> str:
+        # TODO: Load pipeline steps from neptune save source
         pass
 
     ##########################################################

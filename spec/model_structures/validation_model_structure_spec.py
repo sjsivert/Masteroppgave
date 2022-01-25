@@ -70,11 +70,9 @@ with description(ValidationModelStructure, "unit") as self:
     with it("Can load models"):
         # Arrange
         model = mock(ValidationModel)
-        path = Path("test")
-        model_struct = ValidationModelStructure([self.log_source])
-        when(ValidationModel).load(ANY).thenReturn(model)
+        model_names = ["test"]
+        model_struct = ValidationModelStructure(log_sources=[self.log_source])
         # Act
-        loaded_models = model_struct.load_models([path])
+        model_struct.load_models(model_names)
         # Assert
-        expect(model_struct.models).to(equal([model]))
-        verify(ValidationModel, times=1).load(path)
+        expect(isinstance(model_struct.models[0], ValidationModel)).to(be_true)

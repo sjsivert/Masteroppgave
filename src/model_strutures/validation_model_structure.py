@@ -14,11 +14,17 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 class ValidationModelStructure(IModelStructure):
     def __init__(self, log_sources: List[ILogTrainingSource]) -> None:
         self.data_pipeline = None
-        self.models = [ValidationModel(log_sources)]
+        self.models = []
         self.log_sources = log_sources
         self.figures = []
         self.training_metrics = {}
         self.testing_metrics = {}
+
+    def init_models(self, load: bool = False):
+        if load:
+            self.load_models(model_names=[None])
+        else:
+            self.models = [ValidationModel(None)]
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         # Get the data_set from the pipeline -> The pipeline runs as intended, returning a pipeline
@@ -60,5 +66,7 @@ class ValidationModelStructure(IModelStructure):
     def get_figures(self) -> List[Figure]:
         return self.models[0].get_figures()
 
-    def load_models(self, model_paths: List[Path]) -> None:
-        self.models = list(map(lambda model_path: ValidationModel.load(model_path), model_paths))
+    def load_models(self, model_names: List[str]) -> List[IModel]:
+        # TODO: Load models is called from init_models, when model loading is required.
+        # TODO: Model names should be passed along, so that the correct models are loaded.
+        self.models = [ValidationModel(None)]

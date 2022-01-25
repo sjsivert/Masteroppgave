@@ -20,6 +20,12 @@ class IModelStructure:
         # This is an interface.
         pass
 
+    def init_models(self, load: bool = False):
+        """
+        Initialize models in the structure
+        """
+        pass
+
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         """
         Processes data to get it on the correct format for the relevant model.

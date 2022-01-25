@@ -56,20 +56,20 @@ with description(ValidationModel, "unit") as self:
 
     with it("Can save"):
         # Arrange
-        path = self.temp_location + "save_model"
-        model = ValidationModel(log_sources=self.log_sources)
+        path = f"{self.temp_location}model_validation.pkl"
+        model = ValidationModel(log_sources=self.log_sources, name="validation")
         # Act
-        model.save(path)
+        model.save(self.temp_location)
         # Assert
         expect(os.path.isfile(path)).to(be_true)
 
     with it("Can load"):
         # Arrange
-        path = self.temp_location + "load_model"
-        model = ValidationModel(log_sources=self.log_sources)
-        model.save(path)
+        path = self.temp_location + "model_loaded.pkl"
+        model = ValidationModel(log_sources=self.log_sources, name="loaded")
+        model.save(self.temp_location)
         # Act
-        loaded_model = model.load(path)
+        model.load(self.temp_location)
         # Assert
-        expect(loaded_model).not_to(be_none)
-        expect(isinstance(loaded_model, ValidationModel)).to(be_true)
+        expect(os.path.isfile(path)).to(be_true)
+        expect(model.model_loaded_contents).to(equal("Validation model. Mock model saving."))

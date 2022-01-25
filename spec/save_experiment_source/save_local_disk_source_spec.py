@@ -1,7 +1,6 @@
 import os
 import shutil
 from pathlib import Path
-from mockito import mock
 
 import pytest
 from expects import be_false, be_true, equal, expect, match
@@ -9,6 +8,7 @@ from expects.matchers.built_in import be_none
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
+from mockito import mock
 from sklearn.linear_model import LogisticRegression
 from spec.test_logger import init_test_logging
 from spec.utils.test_data import test_data
@@ -57,6 +57,11 @@ with description(SaveLocalDiskSource, "unit") as self:
         expect(os.path.isfile(f"{self.save_source.save_location}/title-description.txt")).to(
             be_true
         )
+    with it("Save and load options as options.yaml"):
+        options_contents = "options 1\noptions2"
+        self.save_source._save_options(options_contents)
+        loaded_options = self.save_source._load_options()
+        expect(loaded_options).to(equal(loaded_options))
 
     with it("saves metrix as metrics.txt inside correct folder"):
         self.save_source._save_metrics({"CPU": {"MAE": 5, "MSE": 6}, "GPU": {"MAE": 6, "MSE": 7}})
@@ -64,8 +69,8 @@ with description(SaveLocalDiskSource, "unit") as self:
 
     with it("Saves scikit-learn models correctly"):
         models = [
-            SklearnModel(LogisticRegression(), mock(ILogTrainingSource)),
-            SklearnModel(LogisticRegression(), mock(ILogTrainingSource)),
+            SklearnModel(LogisticRegression(), mock(ILogTrainingSource), name="0"),
+            SklearnModel(LogisticRegression(), mock(ILogTrainingSource), name="1"),
         ]
         self.save_source._save_models(models)
         expect(os.path.isfile("./spec/temp/test_experiment/model_0.pkl")).to(be_true)
@@ -86,14 +91,15 @@ with description(SaveLocalDiskSource, "unit") as self:
         # Assert
         expect(os.path.isfile(f"{self.temp_location}datasets.json"))
 
-    with it("Loades scikit-learn models correctly"):
+    with it("Loads scikit-learn models correctly"):
         # Arrange
-        models = [SklearnModel(LogisticRegression(), mock(ILogTrainingSource))]
-        self.save_source._save_models(models)
+        model = SklearnModel(LogisticRegression(), mock(ILogTrainingSource), name="test_sk_model")
+        self.save_source._save_models([model])
         # Act
-        model = SklearnModel.load("spec/temp/test_experiment/model_0.pkl", [self.save_source])
+        loaded_model = SklearnModel(mock(ILogTrainingSource), name="test_sk_model")
+        self.save_source._load_models([loaded_model])
         # Assert
-        expect(model).to_not(be_none)
+        expect(isinstance(loaded_model.model, LogisticRegression)).to(be_true)
 
     with it("Saves figures as expected"):
         # Arrange
