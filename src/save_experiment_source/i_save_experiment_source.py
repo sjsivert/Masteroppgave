@@ -70,7 +70,7 @@ class ISaveExperimentSource:
         # Interface
         pass
 
-    def _load_models(self, models_path: List[Path]) -> List[BytesIO]:
+    def _load_models(self, models: List[IModel]) -> None:
         # Interface, not to be implemented
         raise NotImplementedError()
 

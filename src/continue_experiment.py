@@ -42,7 +42,15 @@ class ContinueExperiment(Experiment):
             load_from_checkpoint=True,
         )
 
-        # TODO: Find out how to load data that has already been processed
+        """
+        ___ Loading model structures ___
+        In order to load previous model structures from prior experiments, we call the _load_models
+        method from the selected save source. This methods takes a list of models as input.
+        This list of models is derived from the created models structure using the 'get_models' method.
+        Each instanciated model contained in the list should have the same unique model name 'model.name'
+        as the model that was saved had. This is in order to load the correct model.
+        """
+
         # model_structure.load_models(experiment_checkpoint_path)
         self._train_model()
         self._test_model()

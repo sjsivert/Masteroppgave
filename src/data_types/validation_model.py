@@ -35,8 +35,10 @@ class ValidationModel(IModel):
         Save the model to the specified path.
         :returns: Path to saved model file
         """
-        with open(f"{path}model_{self.get_name()}.pkl", "w") as f:
+        save_path = f"{path}model_{self.get_name()}.pkl"
+        with open(save_path, "w") as f:
             f.write("Validation model. Mock model saving.")
+        return save_path
 
     def load(self, path: str) -> None:
         """

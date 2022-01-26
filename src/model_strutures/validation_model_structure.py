@@ -21,10 +21,7 @@ class ValidationModelStructure(IModelStructure):
         self.testing_metrics = {}
 
     def init_models(self, load: bool = False):
-        if load:
-            self.load_models(model_names=[None])
-        else:
-            self.models = [ValidationModel(None)]
+        self.models = [ValidationModel(None)]
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         # Get the data_set from the pipeline -> The pipeline runs as intended, returning a pipeline
@@ -65,8 +62,3 @@ class ValidationModelStructure(IModelStructure):
 
     def get_figures(self) -> List[Figure]:
         return self.models[0].get_figures()
-
-    def load_models(self, model_names: List[str]) -> List[IModel]:
-        # TODO: Load models is called from init_models, when model loading is required.
-        # TODO: Model names should be passed along, so that the correct models are loaded.
-        self.models = [ValidationModel(None)]
