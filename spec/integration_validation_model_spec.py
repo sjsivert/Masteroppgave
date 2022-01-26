@@ -1,10 +1,12 @@
 import os
 import shutil
 
+from confuse import Configuration
+
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from click.testing import CliRunner
-from expects import be_true, expect, equal
+from expects import be_true, expect, equal, match
 from expects.matchers.built_in import be
 from mamba import after, before, description, it, _it
 from mockito import mock, when
@@ -16,22 +18,20 @@ from src import main
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from genpipes.compose import Pipeline
 
-with description(
-    "Integration test to validate data flow with Validation model", "integration"
-) as self:
+with description("main integration test", "api") as self:
     with before.all:
         self.runner = CliRunner()
-        init_test_logging()
         self.model_struct_type = "validation_model"
         self.model_save_location = "./models/temp"
         try:
             os.mkdir(self.model_save_location)
         except FileExistsError:
             pass
-        init_mock_config(self.model_struct_type, self.model_save_location)
         self.checkpoints_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
+        init_test_logging()
 
     with before.each:
+        init_mock_config(self.model_struct_type, self.model_save_location)
         # Mock pipelines
         mocked_pipeline = mock(Pipeline)
         when(mocked_pipeline).run()
@@ -72,10 +72,44 @@ with description(
         expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
         expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
 
-    with _it("can continue the last ran experiment"):
-        pass
-        # Arrange
+    with it("can continue the last ran experiment from disk"):
+        # Add neptune as save_source for this experiment
+        old_conf = config["experiment"].get()
+        new_conf = old_conf.copy()
+        new_conf["save_sources_to_use"] = ["disk", "neptune"]
+        config["experiment"].set(new_conf)
 
-        # Act
+        # Run the experiment once
+        self.runner.invoke(
+            main.main,
+            ["--experiment", "test-continue-exp", "description", "--save"],
+            catch_exceptions=False,
+        )
+        # change config
+        old_conf = config["experiment"].get()
+        new_conf = old_conf.copy()
+        new_conf["tags"] = ["test-continue-exp"]
+        config["experiment"].set(new_conf)
 
-        # Assert
+        expect(os.path.isdir(f"{self.model_save_location}/test-continue-exp")).to(be_true)
+        expect(os.path.isdir(f"{self.checkpoints_location}")).to(be_true)
+        expect(old_conf).to_not(equal(new_conf))
+
+        # Continue the first experiment which should use the original config
+        self.runner.invoke(main.main, ["--continue"], catch_exceptions=False)
+        saved_config = Configuration("config", __name__)
+        saved_config.set_file(f"{self.model_save_location}/test-continue-exp/options.yaml")
+        # expect the saved config to match the original config used to run the experiment
+        # and not the changed config
+        expect(saved_config.dump()).to_not(equal(config.dump()))
+
+    with it("can load a previously saved experiment"):
+        exp_name = "test-load-experiment"
+        self.runner.invoke(
+            main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
+        )
+        expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
+
+        self.runner.invoke(
+            main.main, ["--load", f"{self.model_save_location}/{exp_name}"], catch_exceptions=False
+        )
