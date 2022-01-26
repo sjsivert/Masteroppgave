@@ -1,11 +1,11 @@
 import logging
-from io import BytesIO
 from pathlib import Path
 from typing import Dict, List, Tuple
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.types import File
+
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource

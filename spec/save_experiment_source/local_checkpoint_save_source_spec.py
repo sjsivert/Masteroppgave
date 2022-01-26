@@ -5,7 +5,6 @@ from expects import expect, match, be_true, equal
 from mamba import description, it, before, after
 
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
-from src.utils.temporary_files import temp_files
 
 with description(LocalCheckpointSaveSource, "unit") as self:
     with before.each:

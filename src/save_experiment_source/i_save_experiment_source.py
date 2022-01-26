@@ -1,8 +1,7 @@
-from io import BytesIO
-from pathlib import Path
 from typing import Dict, List
 
 from matplotlib.figure import Figure
+
 from src.data_types.i_model import IModel
 
 

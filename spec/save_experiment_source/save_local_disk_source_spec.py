@@ -4,12 +4,12 @@ from pathlib import Path
 
 import pytest
 from expects import be_false, be_true, equal, expect, match
-from expects.matchers.built_in import be_none
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from matplotlib import pyplot as plt
 from mockito import mock
 from sklearn.linear_model import LogisticRegression
+
 from spec.test_logger import init_test_logging
 from spec.utils.test_data import test_data
 from src.data_types.sklearn_model import SklearnModel

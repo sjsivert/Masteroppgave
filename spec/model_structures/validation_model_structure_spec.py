@@ -1,13 +1,11 @@
-from pathlib import Path
-
+import matplotlib.pyplot as plt
 from expects import be_true, equal, expect
 from genpipes.compose import Pipeline
 from mamba import before, description, it, after
+from mockito.matchers import ANY
 from mockito.mocking import mock
 from mockito.mockito import when, verify, unstub
-from mockito.matchers import ANY
 from pandas.core.frame import DataFrame
-import matplotlib.pyplot as plt
 
 from src.data_types.validation_model import ValidationModel
 from src.model_strutures.validation_model_structure import ValidationModelStructure

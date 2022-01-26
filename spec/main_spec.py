@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from click.testing import CliRunner
 from expects import be_true, expect
 from expects.matchers.built_in import be
@@ -13,7 +11,6 @@ from src import main
 from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
-from src.utils.config_parser import config
 from src.utils.logger import init_logging
 
 with description("main.py", "unit") as self:

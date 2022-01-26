@@ -1,10 +1,10 @@
-import os
+from contextlib import contextmanager
 from contextlib import contextmanager
 from pathlib import Path
 
 import pytest
 from expects import expect, match
-from mamba import describe, it, description
+from mamba import it, description
 
 from spec.mock_config import init_mock_config
 from src.continue_experiment import ContinueExperiment

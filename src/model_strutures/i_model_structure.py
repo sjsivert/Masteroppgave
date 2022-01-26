@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Dict, List, Optional
 
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas import DataFrame
+
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 

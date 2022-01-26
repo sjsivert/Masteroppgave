@@ -1,22 +1,21 @@
 import os
 import shutil
 
-from confuse import Configuration
-
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
-from src.utils.config_parser import config
 from click.testing import CliRunner
-from expects import be_true, expect, equal, match
+from confuse import Configuration
+from expects import be_true, expect, equal
 from expects.matchers.built_in import be
-from mamba import after, before, description, it, _it
+from genpipes.compose import Pipeline
+from mamba import after, before, description, it
 from mockito import mock, when
-from mockito.mockito import unstub, verify
+from mockito.mockito import unstub
 
 from spec.mock_config import init_mock_config
 from spec.test_logger import init_test_logging
 from src import main
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
-from genpipes.compose import Pipeline
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.utils.config_parser import config
 
 with description("main integration test", "api") as self:
     with before.all:
