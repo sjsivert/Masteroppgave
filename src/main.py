@@ -87,7 +87,6 @@ def main(
         experiment = ContinueExperiment(
             # TODO: Rename parameter name
             experiment_checkpoints_location=load_path,
-            neptune_id_to_load=neptune_id,
         )
         experiment.continue_experiment()
 
