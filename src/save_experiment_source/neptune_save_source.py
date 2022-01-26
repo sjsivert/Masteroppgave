@@ -54,7 +54,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
                 project=project_id, run=neptune_id_to_load, mode=neptune_connection_mode, **xargs
             )
         else:
-            raise Exception(
+            raise AssertionError(
                 "Illegal state, NeptuneSaveSource did not create new run or load a previous run"
             )
 
