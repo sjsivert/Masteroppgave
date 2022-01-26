@@ -30,8 +30,10 @@ class SklearnModel(IModel):
         Saves model
         :return:
         """
-        with open(f"{path}model_{self.get_name()}.pkl", "wb") as f:
+        save_path = f"{path}model_{self.get_name()}.pkl"
+        with open(save_path, "wb") as f:
             pickle.dump(self.model, f)
+        return save_path
 
     def load(self, path: str) -> None:
         with open(f"{path}model_{self.get_name()}.pkl", "rb") as f:

@@ -26,12 +26,16 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         description,
         load_from_checkpoint: bool = False,
         load_run_id: str = None,
+        sync: bool = False,
         **xargs,
     ) -> None:
         super().__init__()
+        neptune_connection_mode = "sync" if sync else "async"
         if not load_from_checkpoint:
             logging.info("Creating new Neptune experiment")
-            self.run = neptune.init(project=project_id, custom_run_id=title, **xargs)
+            self.run = neptune.init(
+                project=project_id, name=title, mode=neptune_connection_mode, **xargs
+            )
             self.run_url = self.run.get_run_url()
             self.run["sys/tags"].add(["Experiment"])
 
@@ -40,7 +44,9 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
             self.run["Experiment description"] = description
         elif load_from_checkpoint and load_run_id is not None:
             logging.info(f"Loaded preview Neptune Experiment run: {load_run_id} from checkpoint")
-            self.run = neptune.init(project=project_id, run=load_run_id, **xargs)
+            self.run = neptune.init(
+                project=project_id, run=load_run_id, mode=neptune_connection_mode, **xargs
+            )
 
         logging.info(f"Neptune run URL: {self.run.get_run_url()}")
 
@@ -97,15 +103,14 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         for data_type, data_path in datasets.items():
             path = Path(data_path)
             self.run[f"datasets/{data_type}_name"] = path.name
-            self.run[f"datasets/{data_type}"].track_files(data_path, wait=True)
+            self.run[f"datasets/{data_type}"] = generate_file_hash(path)
 
-    def _save_models(self, models: List) -> None:
-        with temp_files("temp_models"):
+    def _save_models(self, models: List[IModel]) -> None:
+        base_path = "./temp/"
+        with temp_files(base_path):
             for model in models:
-                model.save("temp_models" + f"/model_{model.get_name()}.pkl")
-                self.run[f"models/model_{model.get_name()}"].upload(
-                    File(f"temp_models/model_{model.get_name()}.pkl"), True
-                )
+                model_save_path = model.save(f"{base_path}/model_{model.get_name()}")
+                self.run[f"models/model_{model.get_name()}"].upload(File(model_save_path), True)
 
     def _save_figures(self, figures: List[Figure]):
         for figure in figures:
@@ -142,22 +147,19 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         """
         :return: (str: File Hash, str: File name)
         """
-        return (
-            self.run[f"datasets/{data_type_name}"].fetch_hash(True),
-            str(self.run[f"datasets/{data_type_name}_name"].fetch()),
+        return self.run[f"datasets/{data_type_name}"].fetch(), str(
+            self.run[f"datasets/{data_type_name}_name"].fetch()
         )
 
     def _load_models(self, models: List[IModel]) -> None:
         # Load models from neptune to temp folder, before loading data to models
-
-        base_path = f"{self.save_location}/model_loading/"
+        base_path = "./temp/"
         with temp_files(base_path):
             for model in models:
                 self.run[f"models/model_{model.get_name()}"].download(base_path)
                 model.load(path=f"{base_path}")
 
     def _load_options(self) -> str:
-        # Load options from save source
         return self.run["options"].fetch()
 
     def _verify_pipeline_steps(self, data_pipeline_steps: str) -> bool:
