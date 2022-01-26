@@ -66,13 +66,3 @@ with description(ValidationModelStructure, "unit") as self:
         # Assert
         expect(returned_figures).to(equal(fig_list))
         verify(model, times=1).get_figures()
-
-    with it("Can load models"):
-        # Arrange
-        model = mock(ValidationModel)
-        model_names = ["test"]
-        model_struct = ValidationModelStructure(log_sources=[self.log_source])
-        # Act
-        model_struct.load_models(model_names)
-        # Assert
-        expect(isinstance(model_struct.models[0], ValidationModel)).to(be_true)
