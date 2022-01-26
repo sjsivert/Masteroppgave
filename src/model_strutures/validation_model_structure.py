@@ -62,3 +62,9 @@ class ValidationModelStructure(IModelStructure):
 
     def get_figures(self) -> List[Figure]:
         return self.models[0].get_figures()
+
+    def get_metrics(self) -> Dict:
+        metrics = {}
+        for model in self.models:
+            metrics[model.get_name()] = model.get_metrics()
+        return metrics

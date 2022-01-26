@@ -19,7 +19,8 @@ class ValidationModel(IModel):
         # Set mock values
         self.training_accuracy = [10, 20, 30, 37, 45]
         self.training_error = [14, 12, 11, 9, 8]
-        return {"Accuracy": self.training_accuracy[-1], "Error": self.training_error[-1]}
+        self.metrics = {"Accuracy": self.training_accuracy[-1], "Error": self.training_error[-1]}
+        return self.metrics
 
     def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
         """
@@ -47,3 +48,6 @@ class ValidationModel(IModel):
         model_contents = ""
         with open(f"{path}model_{self.get_name()}.pkl", "r") as f:
             self.model_loaded_contents = f.read()
+
+    def get_metrics(self) -> Dict:
+        return self.metrics

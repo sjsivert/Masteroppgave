@@ -1,8 +1,7 @@
-from typing import Dict, Optional, Tuple, List
+from typing import Dict, List, Optional, Tuple
 
 from genpipes.compose import Pipeline
 from pandas.core.frame import DataFrame
-
 from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
@@ -31,5 +30,9 @@ class LocalUnivariateArimaStructure(IModelStructure):
         raise NotImplementedError()
 
     def test(self) -> Dict:
+        # TODO: Implement
+        raise NotImplementedError()
+
+    def get_metrics(self) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
