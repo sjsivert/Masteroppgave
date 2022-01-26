@@ -6,8 +6,8 @@ from typing import Tuple
 
 import click
 
-from src.experiment import Experiment
 from src.continue_experiment import ContinueExperiment
+from src.experiment import Experiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils import logger

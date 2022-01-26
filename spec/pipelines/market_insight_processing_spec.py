@@ -1,12 +1,11 @@
 import pandas as pd
 from expects import be_true, expect
-from genpipes import compose, declare
+from genpipes import compose
 from mamba import description, it, before
 
 from spec.test_logger import init_test_logging
 from spec.utils.test_data import test_data, mock_data
 from src.pipelines import market_insight_processing as p
-
 
 with description("Market insight prosessing pipeline", "unit") as self:
     with before.all:

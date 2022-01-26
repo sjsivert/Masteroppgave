@@ -3,7 +3,6 @@ from pathlib import Path
 from typing import Optional
 
 from src.experiment import Experiment
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 
 

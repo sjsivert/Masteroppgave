@@ -1,10 +1,10 @@
 import logging
-from pathlib import Path
 from typing import Dict, List, Optional
 
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas.core.frame import DataFrame
+
 from src.data_types.i_model import IModel
 from src.data_types.validation_model import ValidationModel
 from src.model_strutures.i_model_structure import IModelStructure

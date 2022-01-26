@@ -1,10 +1,11 @@
+import json
 import logging
 import os
-import shutil
 from pathlib import Path
 from typing import Dict, List, Optional
-import json
+
 from matplotlib.figure import Figure
+
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource

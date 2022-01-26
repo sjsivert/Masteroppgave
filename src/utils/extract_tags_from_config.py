@@ -1,4 +1,4 @@
-from typing import OrderedDict, List
+from typing import List
 
 from src.utils.config_parser import config
 
