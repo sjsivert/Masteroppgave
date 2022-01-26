@@ -43,7 +43,6 @@ class Experiment:
     ) -> List[ISaveExperimentSource]:
         sources = []
         for source in save_sources_to_use:
-            # TODO: Add Neptune save source
             if source == "disk":
                 sources.append(
                     SaveLocalDiskSource(
@@ -135,7 +134,7 @@ class Experiment:
             save_source.save_model_and_metadata(
                 options=options,
                 # TODO: Fetch proper metrics from models
-                metrics={},
+                metrics=self.model_structure.get_metrics(),
                 datasets=config["data"].get(),
                 models=self.model_structure.get_models(),
                 figures=self.model_structure.get_figures(),

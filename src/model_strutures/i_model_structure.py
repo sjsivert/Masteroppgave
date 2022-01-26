@@ -58,6 +58,12 @@ class IModelStructure:
         """
         pass
 
+    def get_metrics(self) -> Dict:
+        """
+        Returns dict of metrics
+        """
+        pass
+
     def get_figures(self) -> List[Figure]:
         """
         Returns list of figures

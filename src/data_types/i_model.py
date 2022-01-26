@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from typing import List, Dict
+from typing import Dict, List
+
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-
 from pandas.core.frame import DataFrame
-
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
@@ -83,8 +82,14 @@ class IModel:
 
     def _visualize_prediction(self, title: str) -> None:
         # TODO: Visualize predictions
-        # TODO: Visualize adaptability to original training data
-        # TODO: Implement after it is clear how data is processed and what data is passed through to the model
+        # - Visualize adaptability to original training data
+        # - Implement after it is clear how data is processed and what data is passed through to the model
+        pass
+
+    def get_metrics(self) -> Dict:
+        """
+        Fetch metrics from model training or testing
+        """
         pass
 
     def save(self, path: str) -> str:

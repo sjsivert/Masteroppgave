@@ -1,8 +1,7 @@
 import pickle
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 from pandas import DataFrame
-
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
@@ -20,10 +19,6 @@ class SklearnModel(IModel):
     ) -> None:
         self.model = model
         super().__init__(log_sources, name)
-
-    def visualize(self, title: str = "default_title"):
-        # TODO: Implement
-        raise NotImplementedError()
 
     def save(self, path: str) -> str:
         """
@@ -44,5 +39,9 @@ class SklearnModel(IModel):
         raise NotImplementedError()
 
     def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
+        # TODO: Implement
+        raise NotImplementedError()
+
+    def get_metrics(self) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
