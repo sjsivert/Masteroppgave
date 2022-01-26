@@ -40,5 +40,3 @@ class LocalCheckpointSaveSource:
                 raise FileNotFoundError(
                     f"Could not write to {LocalCheckpointSaveSource.get_checkpoint_save_location()}/{file_name}"
                 )
-        else:
-            pass
