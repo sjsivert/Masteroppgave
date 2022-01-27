@@ -2,10 +2,11 @@ from typing import Iterable, List
 
 import pandas as pd
 from genpipes import declare
+from pandas import DataFrame
 
 
 @declare.processor()
-def drop_columns(stream: Iterable[pd.DataFrame], columns: List[str]) -> Iterable[pd.DataFrame]:
+def drop_columns(stream: Iterable[DataFrame], columns: List[str]) -> Iterable[DataFrame]:
     """
     Drops the specified columns from the dataframe.
     """
@@ -15,7 +16,7 @@ def drop_columns(stream: Iterable[pd.DataFrame], columns: List[str]) -> Iterable
 
 
 @declare.processor()
-def convert_date_to_datetime(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:
+def convert_date_to_datetime(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     """
     Convert the date column to a datetime column.
     """
@@ -25,7 +26,7 @@ def convert_date_to_datetime(stream: Iterable[pd.DataFrame]) -> Iterable[pd.Data
 
 
 @declare.processor()
-def print_df(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:  # pragma: no cover
+def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma: no cover
     """
     Print the dataframe.
     """
@@ -35,7 +36,7 @@ def print_df(stream: Iterable[pd.DataFrame]) -> Iterable[pd.DataFrame]:  # pragm
 
 
 @declare.processor()
-def group_by(stream: Iterable[pd.DataFrame], group_by: List[str]) -> Iterable[pd.DataFrame]:
+def group_by(stream: Iterable[DataFrame], group_by: List[str]) -> Iterable[DataFrame]:
     """
     Group the data by a given column.
     """
@@ -44,8 +45,11 @@ def group_by(stream: Iterable[pd.DataFrame], group_by: List[str]) -> Iterable[pd
 
 
 @declare.processor()
-def filter_column(
-    stream: Iterable[pd.DataFrame], column: str, value: int
-) -> Iterable[pd.DataFrame]:
+def filter_column(stream: Iterable[DataFrame], column: str, value: int) -> Iterable[DataFrame]:
     for df in stream:
         yield df[df[column] > value]
+
+
+@declare.processor()
+def pivot_transform(**xargs) -> Iterable[DataFrame]:
+    return None
