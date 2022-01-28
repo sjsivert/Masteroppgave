@@ -1,4 +1,4 @@
-from typing import Iterable, List
+from typing import Iterable, List, Tuple
 
 import pandas as pd
 from genpipes import declare
@@ -33,12 +33,14 @@ def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     Print the dataframe.
     """
     for df in stream:
+        print(df)
         yield df
 
 
 @declare.processor()
 def print_info(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     for df in stream:
+        print(df.info())
         yield df
 
 
@@ -83,7 +85,7 @@ def rename(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:
 
 
 @declare.processor()
-def merge(stream: Iterable[DataFrame], join_with: DataFrame, **xargs):
+def merge(stream: Iterable[DataFrame], join_with: DataFrame, **xargs) -> Iterable[DataFrame]:
     for df in stream:
         joined_df = pd.merge(
             left=df,
@@ -94,3 +96,32 @@ def merge(stream: Iterable[DataFrame], join_with: DataFrame, **xargs):
             **xargs
         )
         yield joined_df
+
+
+@declare.processor()
+def filter_by_cat_id(stream: Iterable[DataFrame], cat_id: int) -> Iterable[DataFrame]:
+    for df in stream:
+        yield df[df["cat_id"] == cat_id]
+
+
+@declare.processor()
+def choose_columns(stream: Iterable[DataFrame], columns: List["str"]) -> Iterable[DataFrame]:
+    for df in stream:
+        yield df[columns]
+
+
+@declare.processor()
+def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
+    for df in stream:
+        yield df.groupby(pd.Grouper(key="date", freq="D")).sum()
+
+
+@declare.processor()
+def split_into_training_and_test_set(
+    stream: Iterable[DataFrame], training_size: float
+) -> Iterable[Tuple[DataFrame, DataFrame]]:
+    for df in stream:
+        training_set = int((df.shape[0] - 1) * training_size)
+        training_df = df[:training_set]
+        testing_set = df[training_set:]
+        yield training_df, testing_set

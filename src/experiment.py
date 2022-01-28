@@ -112,6 +112,8 @@ class Experiment:
                     self.save_sources, **model_options["local_univariate_arima"]
                 )
             self.model_structure.init_models()
+
+            logging.info(f"Choosing model structure: {self.model_structure}")
             return self.model_structure
 
         except Exception as e:
@@ -122,8 +124,6 @@ class Experiment:
             raise e
 
     def _load_and_process_data(self, data_pipeline: Pipeline) -> DataFrame:
-        logging.info("Loading data")
-        logging.info("\n" + data_pipeline.__str__())
         return self.model_structure.process_data(data_pipeline)
 
     def _train_model(self) -> IModelStructure:
