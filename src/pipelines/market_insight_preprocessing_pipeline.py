@@ -30,9 +30,6 @@ def market_insight_pipeline() -> compose.Pipeline:
         ("filter out data from early 2018-12-01", p.filter_column, {"column": "date", "value": "2018-12-01"}),
         (f"drop uninteresting colums: {columns_to_drop.__str__()}", p.drop_columns,
          {"columns": columns_to_drop}),
-        ("pivot transform to 'date' as index and 'cat_id' and 'cat_name' as columns", p.pivot_transform,
-         {"index": ["date"], "columns": ["cat_id", "cat_name"]}),
-        ("print dataframe", p.print_df, {})
     ])
 
     return pipeline
