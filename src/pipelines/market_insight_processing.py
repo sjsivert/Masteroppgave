@@ -33,14 +33,12 @@ def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     Print the dataframe.
     """
     for df in stream:
-        print(df)
         yield df
 
 
 @declare.processor()
 def print_info(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     for df in stream:
-        print(df.info())
         yield df
 
 
@@ -80,9 +78,7 @@ def pivot_transform(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]
 @declare.processor()
 def rename(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:
     for df in stream:
-        print(df["title"])
         renamed_df = df.rename(columns={"title": "cat_name"}, inplace=False)
-        print(renamed_df["cat_name"])
         yield renamed_df
 
 
