@@ -1,4 +1,5 @@
 import logging
+from typing import Iterable
 
 import pandas as pd
 from genpipes import declare
