@@ -3,9 +3,11 @@ from __future__ import annotations
 from typing import List, Dict
 
 from pandas.core.frame import DataFrame
+from matplotlib.figure import Figure
 
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.visuals import visualize_data_series
 
 
 class ValidationModel(IModel):
@@ -19,6 +21,25 @@ class ValidationModel(IModel):
         # Set mock values
         self.training_accuracy = [10, 20, 30, 37, 45]
         self.training_error = [14, 12, 11, 9, 8]
+
+        self.figures.append(
+            visualize_data_series(
+                title="Training accuracy",
+                data_series=[self.training_accuracy],
+                data_labels=["Accuracy"],
+                x_label="Date",
+                y_label="Accuracy",
+            )
+        )
+        self.figures.append(
+            visualize_data_series(
+                title="Training error",
+                data_series=[self.training_error],
+                data_labels=["Error"],
+                x_label="Date",
+                y_label="Error",
+            )
+        )
         self.metrics = {"Accuracy": self.training_accuracy[-1], "Error": self.training_error[-1]}
         return self.metrics
 
@@ -28,7 +49,17 @@ class ValidationModel(IModel):
         """
         self.testing_accuracy = 42
         self.testing_error = 9
+        self.actual_values = [7, 9, 10, 12, 13]
         self.testing_predictions = [7, 8, 9, 10, 11]
+        self.figures.append(
+            visualize_data_series(
+                title="Value predictions",
+                data_series=[self.testing_predictions, self.actual_values],
+                data_labels=["Prediction", "True values"],
+                x_label="Date",
+                y_label="Value",
+            )
+        )
         return {"Accuracy": self.testing_accuracy, "Error": self.testing_error}
 
     def save(self, path: str) -> str:
@@ -51,3 +82,6 @@ class ValidationModel(IModel):
 
     def get_metrics(self) -> Dict:
         return self.metrics
+
+    def get_figures(self) -> List[Figure]:
+        return self.figures

@@ -100,16 +100,6 @@ with description(Experiment, "integration") as self:
         # Assert
         verify(experiment.model_structure, times=1).test()
 
-    with it("can visualize_model"):
-        # Arrange
-        experiment = Experiment("title", "description")
-        experiment.model_structure = mock(LocalUnivariateArimaStructure)
-        when(experiment.model_structure).visualize()
-        # Act
-        experiment._visualize_model()
-        # Assert
-        verify(experiment.model_structure, times=1).visualize()
-
     with it("can save_model()"):
         # Arrange
         experiment = Experiment("title", "description")
@@ -128,7 +118,6 @@ with description(Experiment, "integration") as self:
         when(experiment, strict=False)._choose_model_structure()
         when(experiment)._train_model()
         when(experiment)._test_model()
-        when(experiment)._visualize_model()
 
     with it("can run_complete_experiment() without saving"):
         with included_context("mock private methods context"):
