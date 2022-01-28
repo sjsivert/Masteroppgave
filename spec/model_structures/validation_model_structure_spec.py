@@ -41,17 +41,6 @@ with description(ValidationModelStructure, "unit") as self:
         # Act, Assert
         expect(model_struct.get_models()).to(equal([model]))
 
-    with it("Can visualize"):
-        # Arrange
-        model = mock(ValidationModel)
-        model_struct = ValidationModelStructure([self.log_source])
-        model_struct.models = [model]
-        when(model).visualize(ANY)
-        # Act
-        model_struct.visualize()
-        # Assert
-        verify(model_struct.models[0], times=1).visualize("Validation_nr_1")
-
     with it("Can get figures"):
         # Arrange
         model = mock(ValidationModel)

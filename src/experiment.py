@@ -97,8 +97,6 @@ class Experiment:
         self._train_model()
         self._test_model()
 
-        self._visualize_model()
-
         if save and options_to_save:
             self._save_model(options=options_to_save)
 
@@ -133,10 +131,6 @@ class Experiment:
     def _test_model(self) -> Dict:
         logging.info("Testing model")
         return self.model_structure.test()
-
-    def _visualize_model(self):
-        logging.info("Visualize model metrics and data")
-        return self.model_structure.visualize()
 
     def _save_model(self, options: str) -> None:
         """
