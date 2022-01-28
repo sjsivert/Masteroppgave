@@ -4,6 +4,8 @@ import pandas as pd
 from genpipes import declare
 from pandas import DataFrame
 
+from src.utils.config_parser import config
+
 
 @declare.processor()
 def drop_columns(stream: Iterable[DataFrame], columns: List[str]) -> Iterable[DataFrame]:
@@ -26,7 +28,7 @@ def convert_date_to_datetime(stream: Iterable[DataFrame]) -> Iterable[DataFrame]
 
 
 @declare.processor()
-def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma: no cover
+def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     """
     Print the dataframe.
     """
@@ -36,12 +38,28 @@ def print_df(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma: no 
 
 
 @declare.processor()
-def group_by(stream: Iterable[DataFrame], group_by: List[str]) -> Iterable[DataFrame]:
-    """
-    Group the data by a given column.
-    """
+def print_info(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
     for df in stream:
-        yield df.groupby(group_by, as_index=False).sum()
+        print(df.info())
+        yield df
+
+
+@declare.processor()
+def group_by_and_keep_category_cols(
+    stream: Iterable[DataFrame], group_by: List[str]
+) -> Iterable[DataFrame]:  # pragma: no cover
+    """
+    Group the data by a given column and keep the automatically removed "nuicanse" columns
+    https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#automatic-exclusion-of-nuisance-columns
+    """
+    categories = pd.read_csv(config["data"]["categories_path"].get())
+    categories_name = categories[["title", "internal_doc_id"]]
+    for df in stream:
+        summed_result = df.groupby(group_by, as_index=False).sum()
+        merged_result = summed_result.merge(
+            categories_name, how="left", left_on="cat_id", right_on="internal_doc_id"
+        )
+        yield merged_result
 
 
 @declare.processor()
@@ -51,5 +69,32 @@ def filter_column(stream: Iterable[DataFrame], column: str, value: int) -> Itera
 
 
 @declare.processor()
-def pivot_transform(**xargs) -> Iterable[DataFrame]:
-    return None
+def pivot_transform(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:
+    """
+    Pivot the dataframe.
+    """
+    for df in stream:
+        yield df.pivot(**xargs)
+
+
+@declare.processor()
+def rename(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:
+    for df in stream:
+        print(df["title"])
+        renamed_df = df.rename(columns={"title": "cat_name"}, inplace=False)
+        print(renamed_df["cat_name"])
+        yield renamed_df
+
+
+@declare.processor()
+def merge(stream: Iterable[DataFrame], join_with: DataFrame, **xargs):
+    for df in stream:
+        joined_df = pd.merge(
+            left=df,
+            right=join_with,
+            how="left",
+            left_on="cat_id",
+            right_on="internal_doc_id",
+            **xargs
+        )
+        yield joined_df

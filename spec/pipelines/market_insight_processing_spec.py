@@ -1,7 +1,8 @@
 import pandas as pd
-from expects import be_true, expect
+from expects import be_true, expect, equal
 from genpipes import compose
-from mamba import description, it, before
+from mamba import description, it, before, shared_context, included_context, _it
+from pandas import DataFrame, Timestamp
 
 from spec.test_logger import init_test_logging
 from spec.utils.test_data import test_data, mock_data
@@ -11,24 +12,54 @@ with description("Market insight prosessing pipeline", "unit") as self:
     with before.all:
         init_test_logging()
 
+    with shared_context("mock_pipeline"):
+        pipeline = compose.Pipeline(
+            # fmt: off
+            steps=[
+                ("load data", test_data, {}),
+                ("convert date columns to date_time format", p.convert_date_to_datetime, {}),
+                ("filter out data from early 2018", p.filter_column, {"column": "date", "value": "2018-12-01"}),
+                ("drop uninteresting colums", p.drop_columns, {"columns": ["root_cat_id"]}),
+            ]
+        )
     with it("It can load data"):
         # noinspection PyTypeChecker
         result = compose.Pipeline(steps=[("load data", test_data, {})]).run()
         expect(result.equals(pd.DataFrame(mock_data))).to(be_true)
 
     with it("Can run all processing steps in a complete pipeline"):
-        # noinspection PyTypeChecker
-        result = compose.Pipeline(
-            steps=[
-                ("load data", test_data, {}),
-                ("convert date columns to date_time format", p.convert_date_to_datetime, {}),
-                ("sum up clicks to category level", p.group_by, {"group_by": ["date", "cat_id"]}),
-                (
-                    "filter out data from early 2018",
-                    p.filter_column,
-                    {"column": "date", "value": "2018-12-01"},
-                ),
-                ("drop uninteresting colums", p.drop_columns, {"columns": ["root_cat_id"]}),
-            ]
-        ).run()
-        expect(result.equals(result)).to(be_true)
+        # arrange
+        with included_context("mock_pipeline"):
+            expected_result = {
+                "id_x": {0: 0, 1: 1, 2: 2},
+                "product_id": {0: 34817620, 1: 34796949, 2: 34763798},
+                "manufacturer_id": {0: 211757, 1: 211757, 2: 211757},
+                "cat_id": {0: 722, 1: 722, 2: 722},
+                "id_y": {0: "internettkabel", 1: "internettkabel", 2: "internettkabel"},
+                "date": {
+                    0: Timestamp("2021-11-29 04:01:40.409000+0000", tz="UTC"),
+                    1: Timestamp("2021-11-29 04:01:40.409000+0000", tz="UTC"),
+                    2: Timestamp("2021-11-29 04:01:40.409000+0000", tz="UTC"),
+                },
+            }
+            result = pipeline.run()
+            expect(result.to_dict()).to(equal(expected_result))
+
+    with it("can pivot transform the data with date as index"):
+        with included_context("mock_pipeline"):
+            # fmt: off
+            pipeline_with_pivot = compose.Pipeline(
+                steps=pipeline.steps + [
+                    ("pivot transform with date as index and cat_id as column", p.pivot_transform,
+                     {"index": ["date"], "columns": ["cat_id"]})
+                ]
+            )
+            result = pipeline.run()
+
+            expected_result = {'id_x': {0: 0, 1: 1, 2: 2}, 'product_id': {0: 34817620, 1: 34796949, 2: 34763798},
+                               'manufacturer_id': {0: 211757, 1: 211757, 2: 211757}, 'cat_id': {0: 722, 1: 722, 2: 722},
+                               'id_y': {0: 'internettkabel', 1: 'internettkabel', 2: 'internettkabel'},
+                               'date': {0: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC'),
+                                        1: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC'),
+                                        2: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC')}}
+            expect(result.to_dict()).to(equal(expected_result))
