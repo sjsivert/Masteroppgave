@@ -52,9 +52,9 @@ class ArimaModel(IModel):
         )
         self.predictions = DataFrame(value_predictions)
         # Figures
-        self._visualize_testing(data_set, self.predictions)
+        self._visualize_testing(data_set[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(data_set, self.predictions)
+        metrics = calculate_error(data_set[:predictive_period], self.predictions)
         self.metrics["Test_MSE"] = metrics["MSE"]
         self.metrics["Test_MAE"] = metrics["MAE"]
         return metrics
