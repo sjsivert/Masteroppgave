@@ -15,7 +15,7 @@ def visualize_data_series(
     colors: List[str] = ["blue", "red", "orange"],
     x_label: str = "x",
     y_label: str = "y",
-):
+) -> Figure:
     fig = plt.figure(num=title)
     plt.clf()
     plt.title(f"{title}")

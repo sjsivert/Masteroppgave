@@ -38,7 +38,7 @@ with description(ArimaModel, "unit") as self:
         train_metrics = model.train(mock_dataset)
         # Assert
         expect(model.model).not_to(be_none)
-        expect(len(model.value_aproximation)).to(equal(len(mock_dataset)))
+        expect(len(model.value_approximation)).to(equal(len(mock_dataset)))
         expect(("MAE" and "MSE") in train_metrics).to(be_true)
 
     with it("Can test"):

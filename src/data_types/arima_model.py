@@ -7,6 +7,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
+from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 
 
@@ -36,15 +37,10 @@ class ArimaModel(IModel):
         self.value_approximation = self.model.predict(0, self.training_periode - 1)
         # Figures
         self._visualize_training(data_set, self.value_approximation)
-
         # Metrics
-        # TODO! Method for making metrics!
-        metrics = {}
-        train_mse = mean_squared_error(data_set, self.value_approximation)
-        train_mae = mean_absolute_error(data_set, self.value_approximation)
-        # Set metrics
-        metrics["MSE"], self.metrics["Training_MSE"] = train_mse, train_mse
-        metrics["MAE"], self.metrics["Training_MAE"] = train_mae, train_mae
+        metrics = calculate_error(data_set, self.value_approximation)
+        self.metrics["Training_MSE"] = metrics["MSE"]
+        self.metrics["Training_MAE"] = metrics["MAE"]
         return metrics
 
     def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
@@ -58,12 +54,10 @@ class ArimaModel(IModel):
         # Figures
         self._visualize_testing(data_set, self.predictions)
         # Metrics
-        test_metrics = {}
-        test_mse = mean_squared_error(data_set, self.predictions)
-        test_mae = mean_absolute_error(data_set, self.predictions)
-        test_metrics["MSE"], self.metrics["Test_MSE"] = test_mse, test_mse
-        test_metrics["MAE"], self.metrics["Test_MAE"] = test_mae, test_mae
-        return test_metrics
+        metrics = calculate_error(data_set, self.predictions)
+        self.metrics["Test_MSE"] = metrics["MSE"]
+        self.metrics["Test_MAE"] = metrics["MAE"]
+        return metrics
 
     def get_metrics(self) -> Dict:
         return self.metrics
