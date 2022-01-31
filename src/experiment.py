@@ -9,8 +9,10 @@ from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource, \
-    init_local_checkpoint_save_location
+from src.save_experiment_source.local_checkpoint_save_source import (
+    LocalCheckpointSaveSource,
+    init_local_checkpoint_save_location,
+)
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.config_parser import config

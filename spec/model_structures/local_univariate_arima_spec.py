@@ -23,8 +23,12 @@ with description(LocalUnivariateArimaStructure, "unit") as self:
     with it("Can be initialised with options"):
         order = 1
         log_source = mock(ILogTrainingSource)
-        model = LocalUnivariateArimaStructure(log_sources = [log_source], **self.options["local_univariate_arima"])
-        expect(model.training_size).to(equal(self.options["local_univariate_arima"]["training_size"]))
+        model = LocalUnivariateArimaStructure(
+            log_sources=[log_source], **self.options["local_univariate_arima"]
+        )
+        expect(model.training_size).to(
+            equal(self.options["local_univariate_arima"]["training_size"])
+        )
 
     with _it("Can process data"):
         # TODO: Fix this test

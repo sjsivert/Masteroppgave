@@ -13,7 +13,9 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
 class LocalUnivariateArimaStructure(IModelStructure):
-    def __init__(self, log_sources: List[ILogTrainingSource], training_size: float, model_structure: List) -> None:
+    def __init__(
+        self, log_sources: List[ILogTrainingSource], training_size: float, model_structure: List
+    ) -> None:
         self.models = None
         self.log_sources = log_sources
         self.data_pipeline = None
@@ -30,18 +32,21 @@ class LocalUnivariateArimaStructure(IModelStructure):
         """
         Initialize models in the structure
         """
-        self.models = list(map(
-            lambda model_structure: ArimaModel(
-                log_sources=self.log_sources,
-                order=model_structure["order"],
-                name=model_structure["time_series_id"],
-                training_size=self.training_size,
-            ),
-            self.model_structures
-        ))
+        self.models = list(
+            map(
+                lambda model_structure: ArimaModel(
+                    log_sources=self.log_sources,
+                    order=model_structure["order"],
+                    name=model_structure["time_series_id"],
+                    training_size=self.training_size,
+                ),
+                self.model_structures,
+            )
+        )
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         self.data_pipeline = local_univariate_arima_pipeline(data_pipeline)
+
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
         self.training_set, self.testing_set = self.data_pipeline.run()
         return self.training_set

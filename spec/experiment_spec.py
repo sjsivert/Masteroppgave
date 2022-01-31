@@ -59,11 +59,12 @@ with description(Experiment, "integration") as self:
             "model_type": "local_univariate_arima",
             "local_univariate_arima": {
                 "training_size": 0.8,
-                "model_structure": [{
-                    "time_series_id": 11573,
-                    "order": (1, 1, 1),
-                }
-                ]
+                "model_structure": [
+                    {
+                        "time_series_id": 11573,
+                        "order": (1, 1, 1),
+                    }
+                ],
             },
         }
         experiment._choose_model_structure(options)

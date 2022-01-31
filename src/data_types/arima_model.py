@@ -28,7 +28,9 @@ class ArimaModel(IModel):
         self.training_periode = (
             0  # Integer defining the number of data-points used to train the ARIMA model
         )
-        self.training_size = training_size  # Float defining the percentage of data used to train the ARIMA model
+        self.training_size = (
+            training_size  # Float defining the percentage of data used to train the ARIMA model
+        )
         self.training_residuals = None  # Dataframe of training residuals
 
     # TODO: Fix function signature missmatch with superclass
