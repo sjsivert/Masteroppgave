@@ -146,8 +146,7 @@ with description("main integration test", "api") as self:
             ]
         )
         when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
-        # when(mocked_pipeline).run().thenReturn(((pd.DataFrame()),(pd.DataFrame())))
-        when(arima_pipeline).local_univariate_arima_pipeline(test_pipeline).thenReturn(
+        when(arima_pipeline).local_univariate_arima_pipeline(test_pipeline, training_size=0.8).thenReturn(
             test_local_univariate_pipeline
         )
 

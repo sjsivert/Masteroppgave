@@ -33,6 +33,18 @@ with description("error_calculations", "unit") as self:
             mse = calculate_mse(data_set, proposed_data)
             expect(mse).to(equal(expected_mse))
 
+    with it("can calculate RMSE"):
+        with included_context("mock_dataset"):
+            expected_rmse = 0.5
+            rmse = calculate_rmse(data_set, proposed_data)
+            expect(rmse).to(equal(expected_rmse))
+
+    with it("can calculate mape"):
+        with included_context("mock_dataset"):
+            expected_mape = 0.0833
+            mape = calculate_mape(data_set, proposed_data)
+            expect(round(mape, 4)).to(equal(expected_mape))
+
     with it("can calculate errors"):
         with included_context("mock_dataset"):
             errors = calculate_error(data_set, proposed_data)
