@@ -31,6 +31,7 @@ class ArimaModel(IModel):
         self.training_size = training_size  # Float defining the percentage of data used to train the ARIMA model
         self.training_residuals = None  # Dataframe of training residuals
 
+    # TODO: Fix function signature missmatch with superclass
     def train(self, data_set: DataFrame) -> Dict:
         # TODO: Fix training size
         self.training_periode = len(data_set)

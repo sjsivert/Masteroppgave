@@ -33,10 +33,21 @@ class LocalCheckpointSaveSource:
         if LocalCheckpointSaveSource.get_log_frequency() > 0:
             try:
                 with open(
-                    f"{LocalCheckpointSaveSource.get_checkpoint_save_location()}/{file_name}", "w"
+                        f"{LocalCheckpointSaveSource.get_checkpoint_save_location()}/{file_name}", "w"
                 ) as f:
                     f.write(file_content)
             except FileNotFoundError:
                 raise FileNotFoundError(
                     f"Could not write to {LocalCheckpointSaveSource.get_checkpoint_save_location()}/{file_name}"
                 )
+
+
+def init_local_checkpoint_save_location(title: str, description: str) -> None:
+    if LocalCheckpointSaveSource().get_log_frequency() > 0:
+        LocalCheckpointSaveSource().wipe_and_init_checkpoint_save_location()
+        LocalCheckpointSaveSource().write_file(
+            file_name="title-description.txt", file_content=f"{title}\n{description}"
+        )
+        LocalCheckpointSaveSource().write_file(
+            file_name="options.yaml", file_content=config.dump()
+        )
