@@ -18,7 +18,6 @@ from src.model_strutures.local_univariate_arima_structure import LocalUnivariate
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 
 with description(Experiment, "integration") as self:
-
     with before.all:
         init_test_logging()
         self.temp_location = "spec/temp/"
@@ -58,7 +57,15 @@ with description(Experiment, "integration") as self:
         experiment = Experiment("title", "description")
         options = {
             "model_type": "local_univariate_arima",
-            "local_univariate_arima": {"order": (1, 1, 1)},
+            "local_univariate_arima": {
+                "training_size": 0.8,
+                "model_structure": [
+                    {
+                        "time_series_id": 11573,
+                        "order": (1, 1, 1),
+                    }
+                ],
+            },
         }
         experiment._choose_model_structure(options)
         expect(experiment.model_structure).to_not(expects.be_none)

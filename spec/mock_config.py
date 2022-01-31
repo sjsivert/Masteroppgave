@@ -24,7 +24,8 @@ def init_mock_config(
                 "model_type": model_struct_type,
                 "rng_seed": 42,
                 "local_univariate_arima": {
-                    "order": (1, 1, 1),
+                    "training_size": 0.8,
+                    "model_structure": [{"time_series_id": 11573, "order": (1, 1, 1)}],
                 },
             },
             "data": {

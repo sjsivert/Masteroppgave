@@ -27,7 +27,7 @@ with description(ArimaModel, "unit") as self:
 
     with it("Can create ArimaModel object"):
         order = (1, 1, 1)
-        model = ArimaModel(order, self.log_sources, "createArima")
+        model = ArimaModel(order=order, log_sources=self.log_sources, name="createArima")
 
     with it("Can train"):
         # Arrange
