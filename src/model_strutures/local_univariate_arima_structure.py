@@ -23,7 +23,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
         self.log_sources = log_sources
         self.data_pipeline = None
         self.figures = []
-
+        self.training_size = training_size
         self.model_structures = model_structure
         self.training_size = training_size
 
@@ -52,7 +52,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(
-            data_pipeline, self.training_size
+            data_pipeline, training_size=self.training_size
         )
 
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
