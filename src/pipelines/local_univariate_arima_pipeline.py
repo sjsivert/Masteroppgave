@@ -19,5 +19,4 @@ def local_univariate_arima_pipeline(pipeline: Pipeline) -> Pipeline:
                         ("choose columns 'hits' and 'date'", market_processing.choose_columns, {"columns": ["date", "hits"]}),
                         ("fill in dates with zero values", market_processing.fill_in_dates, {}),
                         ("split up into training set and test set", market_processing.split_into_training_and_test_set, {"training_size": 0.8}),
-                        ("print df info", market_processing.print_df, {}),
                     ])

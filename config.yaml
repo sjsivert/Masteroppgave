@@ -29,12 +29,13 @@ model:
   rng_seed: 42
   validation_model:
     placeholder: 0
+
   local_univariate_arima:
-    order:
-      - 5 # p
-      - 2 # d
-      - 0 # q
-    # seasonal_order:
-    #   - 5 # p
-    #   - 2 # d
-    #   - 0 # q
+    training_size: 0.8
+    model_structure:
+      - time_series_id: 11573
+        # seasonal order
+        order:
+          - 5 # p
+          - 2 # d
+          - 0 # q
