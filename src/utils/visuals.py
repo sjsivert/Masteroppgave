@@ -12,11 +12,11 @@ def visualize_data_series(
     title: str,
     data_series: List,
     data_labels: List[str],
-    colors: List[str] = ["blue", "red", "orange"],
+    colors: List[str] = ["blue", "red", "orange", "green", "brown"],
     x_label: str = "x",
     y_label: str = "y",
 ) -> Figure:
-    fig = plt.figure(num=title)
+    fig = plt.figure(num=title, dpi=300.0, figsize=(14, 5))
     plt.clf()
     plt.title(f"{title}")
     plt.xlabel(x_label)

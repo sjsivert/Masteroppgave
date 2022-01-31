@@ -96,13 +96,12 @@ class ArimaModel(IModel):
         return save_path
 
     def load(self, path: str) -> IModel:
-        # TODO: Potential bug in loading method. Verify this in testing
         try:
             load_path = f"{path}Arima_{self.get_name()}.pkl"
             loaded_model = ARIMAResults.load(load_path)
             self.model = loaded_model
             return loaded_model
-        except Exception as e:
+        except FileNotFoundError:
             raise FileNotFoundError(f"The stored Arima model is not found at path: {load_path}")
 
     def _visualize_training(self, training, approximation):
@@ -128,6 +127,17 @@ class ArimaModel(IModel):
                 y_label="value",
             )
         )
+        # Training and approx data -> Start of a full prediction image
+        self.figures.append(
+            visualize_data_series(
+                title="Complete",
+                data_series=[training, approximation],
+                data_labels=["True value", "Approximation"],
+                colors=["blue", "orange"],
+                x_label="date",
+                y_label="value",
+            )
+        )
 
     def _visualize_testing(self, testing_set, prediction_set):
         # Testing data and prediction
@@ -135,7 +145,7 @@ class ArimaModel(IModel):
             visualize_data_series(
                 title="Data Prediction",
                 data_series=[testing_set, prediction_set],
-                data_labels=["True value", "Prediction"],
+                data_labels=["True prediction value", "Prediction"],
                 colors=["blue", "red"],
                 x_label="date",
                 y_label="value",
