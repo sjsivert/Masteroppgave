@@ -23,5 +23,6 @@ def visualize_data_series(
     plt.ylabel(y_label)
     for idx, series in enumerate(data_series):
         plt.plot(series, label=data_labels[idx], color=colors[idx] if len(colors) > idx else "blue")
+    plt.legend()
     plt.close()
     return fig

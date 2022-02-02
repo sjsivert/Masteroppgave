@@ -47,6 +47,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         figures: List[Figure],
         data_pipeline_steps: str,
         experiment_tags: List[str],
+        tuning: Dict,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -55,6 +56,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
+        self._save_tuning_metrics(tuning)
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -126,6 +128,14 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         with open(f"{self.save_location}/tags.txt", "a") as f:
             for tag in tags:
                 f.write(f"{tag}\n")
+
+    def _save_tuning_metrics(self, tuning: Dict) -> None:
+        if tuning is None:
+            return
+        with open(f"{self.save_location}/tuning.txt", "a") as f:
+            f.write("Parameter Tuning results")
+            for params, err in tuning.items():
+                f.write(f"\n\nParameters: {params}\n Error: {err}")
 
     # Loading methods
     def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:

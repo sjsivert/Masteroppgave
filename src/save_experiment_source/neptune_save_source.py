@@ -1,4 +1,5 @@
 import logging
+import os.path
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -75,6 +76,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         figures: List[Figure],
         data_pipeline_steps: str,
         experiment_tags: List[str],
+        tuning: Dict,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -83,6 +85,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
+        self._save_tuning_metrics(tuning)
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -99,7 +102,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     def _save_options(self, options: str) -> None:
         self.run["options"] = options
 
-    def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def _save_metrics(self, metrics: Dict[str, Dict[str, float]] = {}) -> None:
         average = {}
         for _, val in metrics.items():
             for error_name, error_value in val.items():
@@ -118,14 +121,15 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
             self.run[f"datasets/{data_type}_name"] = path.name
             self.run[f"datasets/{data_type}"] = generate_file_hash(path)
 
-    def _save_models(self, models: List[IModel]) -> None:
+    def _save_models(self, models: List[IModel] = []) -> None:
         base_path = "./temp/"
         with temp_files(base_path):
             for model in models:
                 model_save_path = model.save(f"{base_path}/model_{model.get_name()}")
-                self.run[f"models/model_{model.get_name()}"].upload(File(model_save_path), True)
+                if os.path.isfile(model_save_path):
+                    self.run[f"models/model_{model.get_name()}"].upload(File(model_save_path), True)
 
-    def _save_figures(self, figures: List[Figure]):
+    def _save_figures(self, figures: List[Figure]) -> None:
         for figure in figures:
             title = combine_subfigure_titles(figure)
             self.run[f"figures/fig_{title}"].upload(figure, True)
@@ -133,6 +137,9 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     def _save_experiment_tags(self, tags: List[str]) -> None:
         for tag in tags:
             self.run["sys/tags"].add([tag])
+
+    def _save_tuning_metrics(self, tuning: Dict) -> None:
+        self.run["tuning"] = tuning
 
     def close(self) -> None:
         self.run.stop()

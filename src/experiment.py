@@ -96,6 +96,27 @@ class Experiment:
         if save and options_to_save:
             self._save_model(options=options_to_save)
 
+    def run_tuning_experiment(
+        self,
+        model_options: Dict,
+        data_pipeline: Pipeline,
+        save: bool = True,
+        options_to_save: Optional[str] = None,
+    ) -> None:
+        """
+        Run an experiment for auto-tuning of model and structure parameters
+        """
+        logging.info(f"Running complete experiment with saving set to {save}")
+
+        self._choose_model_structure(model_options=model_options)
+
+        self._load_and_process_data(data_pipeline=data_pipeline)
+
+        self.model_structure.auto_tuning()
+
+        if save and options_to_save:
+            self._save_model(options=options_to_save)
+
     def _choose_model_structure(self, model_options: Dict) -> IModelStructure:
         try:
             model_structure = ModelStructureEnum[model_options["model_type"]]
@@ -143,4 +164,5 @@ class Experiment:
                 figures=self.model_structure.get_figures(),
                 data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
                 experiment_tags=self.experiment_tags,
+                tuning=self.model_structure.get_tuning_parameters(),
             )

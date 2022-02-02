@@ -139,6 +139,7 @@ with description(SaveLocalDiskSource, "unit") as self:
             figures=[],
             data_pipeline_steps="steps",
             experiment_tags=["tag1"],
+            tuning={},
         )
 
     with it("can save data_pipe_steps as expected"):
