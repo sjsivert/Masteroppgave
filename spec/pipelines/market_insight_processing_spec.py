@@ -1,11 +1,12 @@
 import pandas as pd
-from expects import be_true, expect, equal
+from expects import be_true, equal, expect
 from genpipes import compose
-from mamba import description, it, before, shared_context, included_context, _it
+from mamba import (_it, before, description, included_context, it,
+                   shared_context)
 from pandas import DataFrame, Timestamp
-
 from spec.test_logger import init_test_logging
-from spec.utils.test_data import test_data, mock_data
+from spec.utils.mock_pipeline import create_mock_pipeline
+from spec.utils.test_data import mock_data, test_data
 from src.pipelines import market_insight_processing as p
 
 with description("Market insight prosessing pipeline", "unit") as self:
@@ -13,15 +14,7 @@ with description("Market insight prosessing pipeline", "unit") as self:
         init_test_logging()
 
     with shared_context("mock_pipeline"):
-        pipeline = compose.Pipeline(
-            # fmt: off
-            steps=[
-                ("load data", test_data, {}),
-                ("convert date columns to date_time format", p.convert_date_to_datetime, {}),
-                ("filter out data from early 2018", p.filter_column, {"column": "date", "value": "2018-12-01"}),
-                ("drop uninteresting colums", p.drop_columns, {"columns": ["root_cat_id"]}),
-            ]
-        )
+        pipeline = create_mock_pipeline()
     with it("It can load data"):
         # noinspection PyTypeChecker
         result = compose.Pipeline(steps=[("load data", test_data, {})]).run()

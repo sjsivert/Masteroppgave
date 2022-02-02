@@ -1,16 +1,14 @@
-from src.utils.config_parser import config
-
 from expects import be_true, equal, expect
 from genpipes.compose import Pipeline
-from mamba import before, description, it, _it, after
+from mamba import _it, after, before, description, it
 from mockito.mocking import mock
-from mockito.mockito import when, verify, unstub
+from mockito.mockito import unstub, verify, when
 from pandas.core.frame import DataFrame
-
-from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
-
 from spec.mock_config import init_mock_config
+from src.model_strutures.local_univariate_arima_structure import \
+    LocalUnivariateArimaStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.config_parser import config
 
 with description(LocalUnivariateArimaStructure, "unit") as self:
     with before.all:
@@ -33,7 +31,7 @@ with description(LocalUnivariateArimaStructure, "unit") as self:
     with _it("Can process data"):
         # TODO: Fix this test
         order = 1
-        model = LocalUnivariateArimaStructure(order, self.options)
+        model = LocalUnivariateArimaStructure(order, **self.options["local_univariate_arima"])
         pipeline = mock(Pipeline)
         pipeline.steps = []
         df = DataFrame({"a": [1, 2, 3]})

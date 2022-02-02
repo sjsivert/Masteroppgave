@@ -1,23 +1,28 @@
 import os
 import shutil
 
+import pandas as pd
 from click.testing import CliRunner
 from confuse import Configuration
-from expects import be_true, expect, equal
+from expects import be_true, equal, expect
 from expects.matchers.built_in import be
 from genpipes.compose import Pipeline
-from mamba import after, before, description, it
-from mockito import mock, when
+from mamba import _it, after, before, description, it
+from mockito import ANY, mock, when
 from mockito.mockito import unstub
+from src import main
+from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
+from src.pipelines import market_insight_preprocessing_pipeline as pipeline
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
+from src.utils.config_parser import config
 
 from spec.mock_config import init_mock_config
 from spec.test_logger import init_test_logging
-from src import main
-from src.pipelines import market_insight_preprocessing_pipeline as pipeline
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
-from src.utils.config_parser import config
+from spec.utils.mock_pipeline import create_mock_pipeline
+from src.pipelines import market_insight_processing as market_processing
 
-with description("main integration test", "api") as self:
+with description("main integration test", "integration") as self:
     with before.all:
         self.runner = CliRunner()
         self.model_struct_type = "validation_model"
@@ -32,9 +37,10 @@ with description("main integration test", "api") as self:
     with before.each:
         init_mock_config(self.model_struct_type, self.model_save_location)
         # Mock pipelines
-        mocked_pipeline = mock(Pipeline)
-        when(mocked_pipeline).run()
-        when(pipeline).market_insight_pipeline().thenReturn(mocked_pipeline)
+        self.mocked_pipeline = mock(Pipeline)
+        self.mocked_pipeline.steps = []
+        when(self.mocked_pipeline).run()
+        when(pipeline).market_insight_pipeline().thenReturn(self.mocked_pipeline)
 
     with after.each:
         unstub()
@@ -112,3 +118,25 @@ with description("main integration test", "api") as self:
         self.runner.invoke(
             main.main, ["--load", f"{self.model_save_location}/{exp_name}"], catch_exceptions=False
         )
+
+    with it("can run an experiment with local_univariate_arima"):
+        model_options = {
+            "model_type": "local_univariate_arima",
+            "rng_seed": 42,
+            "local_univariate_arima": {
+                "training_size": 0.8,
+                "model_structure": [{"time_series_id": 11573, "order": (1, 1, 0)}],
+            }
+        }
+        exp_name = "test-local-univariate-arima"
+        config["model"].set(model_options)
+        test_pipeline = Pipeline(
+            steps=self.mocked_pipeline.steps + [("print_df", market_processing.split_into_training_and_test_set, {"training_size": 0.8})])
+
+        when(self.mocked_pipeline).run().thenReturn(((pd.DataFrame()),(pd.DataFrame())))
+        when(arima_pipeline).local_univariate_arima_pipeline(self.mocked_pipeline).thenReturn(self.mocked_pipeline)
+
+        self.runner.invoke(
+            main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
+        )
+        expect(False).to(be(True))
