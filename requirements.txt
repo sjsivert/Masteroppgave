@@ -25,3 +25,4 @@ pylint-quotes
 mockito
 -e.
 psutil
+pipe

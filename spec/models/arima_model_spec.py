@@ -1,22 +1,23 @@
 import os
-import shutil
 import random
+import shutil
 
-from expects import be_true, equal, expect, be_none
+from expects import be_none, be_true, equal, expect
 from mamba import after, before, description, it
 from mockito.mocking import mock
 from mockito.mockito import unstub
 from pandas.core.frame import DataFrame
-from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
-
+from spec.mock_config import init_mock_config
 from src.data_types.arima_model import ArimaModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 
 with description(ArimaModel, "unit") as self:
 
     with before.all:
         self.log_sources = [mock(ILogTrainingSource)]
         self.temp_location = "spec/temp/"
+        init_mock_config()
         try:
             os.mkdir(self.temp_location)
         except FileExistsError:

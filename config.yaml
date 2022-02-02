@@ -13,6 +13,11 @@ experiment:
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
+  # Possible metrics: MSE, MAE
+  error_metrics:
+    - 'MSE'
+    - 'MAE'
+
   save_source:
     disk:
       model_save_location: './models/'
