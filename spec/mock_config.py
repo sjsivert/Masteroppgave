@@ -10,6 +10,7 @@ def init_mock_config(
         {
             "experiment": {
                 "tags": ["tag3", "tag4"],
+                "error_metrics": ["MSE", "MAE"],
                 "save_sources_to_use": ["disk"],
                 "checkpoint_save_location": "./models/temp-checkpoints",
                 "log_model_every_n_epoch": 1,

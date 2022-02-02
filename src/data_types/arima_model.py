@@ -1,14 +1,13 @@
-from typing import List, Dict, Tuple
+from typing import Dict, List, Tuple
+
 from matplotlib.figure import Figure
 from pandas import DataFrame
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-
-from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
+from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 
 
 class ArimaModel(IModel):
@@ -45,8 +44,7 @@ class ArimaModel(IModel):
         self._visualize_training(data_set, self.value_approximation)
         # Metrics
         metrics = calculate_error(data_set, self.value_approximation)
-        self.metrics["Training_MSE"] = metrics["MSE"]
-        self.metrics["Training_MAE"] = metrics["MAE"]
+        self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         return metrics
 
     def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
@@ -61,8 +59,7 @@ class ArimaModel(IModel):
         self._visualize_testing(data_set[:predictive_period], self.predictions)
         # Metrics
         metrics = calculate_error(data_set[:predictive_period], self.predictions)
-        self.metrics["Test_MSE"] = metrics["MSE"]
-        self.metrics["Test_MAE"] = metrics["MAE"]
+        self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
         return metrics
 
     def get_metrics(self) -> Dict:
