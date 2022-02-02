@@ -8,7 +8,7 @@ from pandas.core.frame import DataFrame
 from src.data_types.arima_model import ArimaModel
 from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
-from src.pipelines.local_univariate_arima_pipeline import local_univariate_arima_pipeline
+from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
@@ -45,7 +45,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
         )
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
-        self.data_pipeline = local_univariate_arima_pipeline(data_pipeline)
+        self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(data_pipeline)
 
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
         self.training_set, self.testing_set = self.data_pipeline.run()
