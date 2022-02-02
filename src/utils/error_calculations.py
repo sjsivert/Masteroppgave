@@ -41,14 +41,12 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
 
 def calculate_error(data_set: DataFrame, propsed_data_set: DataFrame) -> Dict[str, float]:
     error_metrics = config["experiment"]["error_metrics"].get()
-
     errors = dict(
         error_metrics
         | map(lambda key: try_convert_to_enum(key))
         | where(lambda metric: metric is not None)
         | map(lambda metric: (metric.value, choose_metric(metric)(data_set, propsed_data_set)))
     )
-
     return errors
 
 

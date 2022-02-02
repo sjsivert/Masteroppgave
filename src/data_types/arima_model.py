@@ -1,16 +1,22 @@
 from typing import Dict, List, Tuple
 
+import pandas as pd
 from matplotlib.figure import Figure
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_error
+from src.utils.error_calculations import calculate_error, calculate_mse
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 
 
 class ArimaModel(IModel):
+
+    # TODO! ARIMA model fails on Linux in cases where the model is interpreted as non-stationary.
+    # TODO: It should not be an issue on Windows, but further validation of the problem is needed.
+    # TODO: The error is recreatable with the ARIMA config (5,4,5)
+    # TODO! Add try catch to the training of the ARIMA model for instances like these
 
     # TODO! Set random SEED
     def __init__(
@@ -32,8 +38,7 @@ class ArimaModel(IModel):
         )
         self.training_residuals = None  # Dataframe of training residuals
 
-    # TODO: Fix function signature missmatch with superclass
-    def train(self, data_set: DataFrame) -> Dict:
+    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         # TODO: Fix training size
         self.training_periode = len(data_set)
         arima_model = ARIMA(data_set, order=self.order)
@@ -72,7 +77,8 @@ class ArimaModel(IModel):
 
     def save(self, path: str) -> str:
         save_path = f"{path}Arima_{self.get_name()}.pkl"
-        self.model.save(save_path)
+        if self.model is not None:
+            self.model.save(save_path)
         return save_path
 
     def load(self, path: str) -> IModel:
@@ -83,7 +89,6 @@ class ArimaModel(IModel):
             self.model = loaded_model
             return loaded_model
         except Exception as e:
-            print("Load execption thrown:", e)  # TODO: Exception used for testing
             raise FileNotFoundError(f"The stored Arima model is not found at path: {load_path}")
 
     def _visualize_training(self, training, approximation):
@@ -122,3 +127,33 @@ class ArimaModel(IModel):
                 y_label="value",
             )
         )
+
+    # Static method evaluating an Arima model
+    @staticmethod
+    def method_evaluation(
+        order: Tuple[int, int, int],
+        training_data: DataFrame,
+        test_data: DataFrame,
+        walk_forward: bool = True,
+    ) -> List[float]:
+        # Try catch block for numpy LU decomposition error
+        try:
+            # Create and fit model with training data
+            arima_base = ARIMA(training_data, order=order)
+            model = arima_base.fit()
+            if not walk_forward:
+                forecast = model.forecast(len(test_data))
+                return forecast
+            # Evaluate model with single step evaluation and Walk-forward validation
+            forecast = []
+            for index, row in test_data.iterrows():
+                data_point = test_data.loc[index:index]
+                prediction = Series(model.forecast(1))
+                forecast.append(
+                    prediction,  # Single step forecast
+                )
+                model = model.extend(data_point)
+            forecast = DataFrame(pd.concat(DataFrame(x) for x in forecast))
+            return forecast
+        except:
+            return None

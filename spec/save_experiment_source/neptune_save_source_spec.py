@@ -84,6 +84,7 @@ with description(NeptuneSaveSource, "api") as self:
             figures=[],
             data_pipeline_steps=Pipeline(steps=[("load test data", test_data)]).__str__(),
             experiment_tags=["test"],
+            tuning={},
         )
 
     with _it("can continue previous experiment"):

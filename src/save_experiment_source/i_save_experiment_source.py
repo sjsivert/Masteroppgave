@@ -20,6 +20,7 @@ class ISaveExperimentSource:
         figures: List[Figure],
         data_pipeline_steps: str,
         experiment_tags: List[str],
+        tuning: Dict,
     ) -> None:
         # Interface, not to be implemented
         pass
@@ -57,6 +58,10 @@ class ISaveExperimentSource:
         pass
 
     def _save_experiment_tags(self, tags: List[str]) -> None:
+        # Interface
+        pass
+
+    def _save_tuning_metrics(self, tuning: Dict) -> None:
         # Interface
         pass
 

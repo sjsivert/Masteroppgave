@@ -51,6 +51,12 @@ class IModelStructure:
         """
         pass
 
+    def auto_tuning(self, Dict) -> None:
+        """
+        Automatic tuning of the model
+        """
+        pass
+
     def get_models(self) -> List[IModel]:
         """
         Return the modes contained in the structure
@@ -66,5 +72,11 @@ class IModelStructure:
     def get_figures(self) -> List[Figure]:
         """
         Returns list of figures
+        """
+        pass
+
+    def get_tuning_parameters(self) -> Dict:
+        """
+        Returns a dict with info regarding the automatic tuning of the models
         """
         pass

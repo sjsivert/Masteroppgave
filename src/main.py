@@ -24,6 +24,7 @@ from src.utils.extract_tags_from_config import extract_tags_from_config
     default=True,
     help="Boolean flag for saving the results or not. Overrides config.yaml.",
 )
+@click.option("--tune/--no-tune", default=False, help="Boolean flag for tuning the models or not.")
 @click.option(
     "--continue-experiment", "-c", is_flag=True, help="Continues the last experiment executed."
 )
@@ -33,6 +34,7 @@ from src.utils.extract_tags_from_config import extract_tags_from_config
 def main(
     experiment: Tuple[str, str],
     save: bool,
+    tune: bool,
     continue_experiment: bool,
     tags: Tuple[str],
     load: str,
@@ -58,18 +60,20 @@ def main(
             experiment_tags=experiment_tags,
         )
 
-        if save:
-            experiment.run_complete_experiment(
+        # TODO: Should options to save always be sendt with, both with save and no save?
+        if tune:
+            experiment.run_tuning_experiment(
                 model_options=config["model"].get(),
                 data_pipeline=pipeline.market_insight_pipeline(),
-                save=True,
+                save=save,
                 options_to_save=config.dump(),
             )
         else:
             experiment.run_complete_experiment(
                 model_options=config["model"].get(),
                 data_pipeline=pipeline.market_insight_pipeline(),
-                save=False,
+                save=save,
+                options_to_save=config.dump(),
             )
     elif continue_experiment:
         logging.info(f"Continues previous experiment")
