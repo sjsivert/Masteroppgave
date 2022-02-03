@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -56,6 +57,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
         self._save_tuning_metrics(tuning)
+        self._save_log()
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -136,6 +138,14 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
             f.write("Parameter Tuning results")
             for params, err in tuning.items():
                 f.write(f"\n\nParameters: {params}\n Error: {err}")
+
+    def _save_log(self) -> None:
+        # TODO Make log file configurable
+        try:
+            shutil.copyfile("./log_file.log", f"{self.save_location}/log_file.log")
+            os.remove("./log_file.log")
+        except FileNotFoundError:
+            pass
 
     # Loading methods
     def _verify_dataset_version(self, datasets: Dict[str, str]) -> bool:

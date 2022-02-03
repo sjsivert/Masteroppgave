@@ -8,6 +8,10 @@ def init_mock_config(
     config.read(user=False)
     config.set(
         {
+            "logger": {
+                "log_level": "ERROR",
+                "log_file": "",
+            },
             "experiment": {
                 "tags": ["tag3", "tag4"],
                 "error_metrics": ["MSE", "MAE"],

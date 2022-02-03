@@ -40,7 +40,10 @@ def main(
     load: str,
     neptune_id: str,
 ) -> int:
-    logger.init_logging()
+
+    log_level = config["logger"]["log_level"].get()
+    log_file = config["logger"]["log_file"].get()
+    logger.init_logging(log_level, log_file)
     logging.info("Started")
 
     if experiment:
