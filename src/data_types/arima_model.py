@@ -1,3 +1,4 @@
+import logging
 from typing import Dict, List, Tuple
 
 import pandas as pd
@@ -43,6 +44,9 @@ class ArimaModel(IModel):
         self.training_periode = len(data_set)
         arima_model = ARIMA(data_set, order=self.order)
         arima_model_res = arima_model.fit()
+
+        logging.info(arima_model_res.summary())
+
         self.model = arima_model_res
         self.value_approximation = self.model.predict(0, self.training_periode - 1)
         # Figures
@@ -50,6 +54,8 @@ class ArimaModel(IModel):
         # Metrics
         metrics = calculate_error(data_set, self.value_approximation)
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
+        logging.info(f"Training metrics: {self.metrics}")
+
         return metrics
 
     def test(self, test_data_set: DataFrame, predictive_period: int = 5) -> Dict:
@@ -67,6 +73,14 @@ class ArimaModel(IModel):
         # Metrics
         metrics = calculate_error(test_data_set[:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
+
+        logging.info(
+            f"\nPredictions ahead: {predictive_period}\n"
+            + f"Predicting from {self.training_periode} to {self.training_periode + predictive_period - 1}\n"
+            + f"Predictions:\n{value_predictions}\n"
+            + f"Testing metrics: {self.metrics}"
+        )
+
         return metrics
 
     def get_metrics(self) -> Dict:

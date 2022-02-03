@@ -73,7 +73,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
         # TODO: Pass test data to the 'test' method
         for model in self.models:
             # TODO: Make hardcoded value configurable
-            model.test(self.testing_set, 1)
+            model.test(self.testing_set, 10)
 
     # Exhaustive Grid Search of ARIMA model
     def auto_tuning(self, tuning_params: Dict = {}) -> None:
@@ -82,6 +82,8 @@ class LocalUnivariateArimaStructure(IModelStructure):
         logging.info("Tuning model")
         forecasts = {}
         parameters = self._generate_parameter_grid()
+        logging.info(f"Tuning parameter combinations to try are: {len(parameters)}#")
+
         for param in parameters:
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
