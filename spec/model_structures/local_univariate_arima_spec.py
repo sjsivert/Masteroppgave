@@ -23,9 +23,6 @@ with description(LocalUnivariateArimaStructure, "unit") as self:
         model = LocalUnivariateArimaStructure(
             log_sources=[log_source], **self.options["local_univariate_arima"]
         )
-        expect(model.training_size).to(
-            equal(self.options["local_univariate_arima"]["training_size"])
-        )
 
     with _it("Can process data"):
         # TODO: Fix this test
