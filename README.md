@@ -1,4 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/NikZy/Masteroppgave/badge.svg?branch=master)](https://coveralls.io/github/NikZy/Masteroppgave?branch=master)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NikZy_Masteroppgave&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NikZy_Masteroppgave)
 :clipboard: [Issue board](https://linear.app/masterproject/team/MAS/board). ⚗️ [Neptune.ai](https://app.neptune.ai/o/sjsivertandsanderkk/org/Masteroppgave/e/MAS-28/all?path=&attribute=data_pipeline_steps)
 
 # Project basics
@@ -65,9 +64,34 @@ The branch name is mostly for clarification, and not as important as the commit 
 
 ---------------
 # Execute jobs on NTNU High Perfomance Computing cluster
+
+*Prerequisites:*
+1. Setup ssh alias in your SSH config for local NTNU user: `<username>@login.stud.ntnu.no`
+```
+Host idun
+	HostName idun-login1.hpc.ntnu.no
+	User <username>
+```
+2. Clone this repo into a `<username>@login.stud.ntnu.no:~/Masteroppgave`
+3. Set up SSH keys for IDUN to github to allow pushing back to the repo
+4. Configure git config on idun to allow commits
+5. Create a .env file in `<username>@login.stud.ntnu.no:~/Masteroppgave/.env`
+with the contents described below
+
+--------------
+
+*Running experiments:*
+
 1. Write code for the experiment
 2. Add or tune a .slurm file in batch_Jobs/
-3. Run ´./scripts/execute_experiment_hpc.sh <job-file.slurm> <Job Name> <Job description>´
+3. Run `./scripts/execute_experiment_hpc.sh <job-file.slurm> <Job Name> <Job description>`
+
+##Basic batch job commands
+
+* Start job: `sbatch <slurm_file>`
+* See jobs: `squeue -u <username>`
+* Cancel jobs: `scancel <job-id>`
+
 
 ## SLURM files - Config
 In order to execute code on the HPC cluster, the cluster expects the use of a config file in the form of a ".slurm" file.
