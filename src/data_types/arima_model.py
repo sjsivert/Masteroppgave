@@ -127,17 +127,6 @@ class ArimaModel(IModel):
                 y_label="value",
             )
         )
-        # Training and approx data -> Start of a full prediction image
-        self.figures.append(
-            visualize_data_series(
-                title="Complete",
-                data_series=[training, approximation],
-                data_labels=["True value", "Approximation"],
-                colors=["blue", "orange"],
-                x_label="date",
-                y_label="value",
-            )
-        )
 
     def _visualize_testing(self, testing_set, prediction_set):
         # Testing data and prediction
