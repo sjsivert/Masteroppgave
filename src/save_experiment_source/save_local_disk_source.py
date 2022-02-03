@@ -7,8 +7,7 @@ from typing import Dict, List, Optional, Tuple
 from matplotlib.figure import Figure
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.i_save_experiment_source import \
-    ISaveExperimentSource
+from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.file_hasher import generate_file_hash
 
@@ -58,7 +57,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
-    ) -> Tuple[str, bool, bool ]:
+    ) -> Tuple[str, bool, bool]:
         """
         :return: (str: Stored options, bool: Dataset version validation, bool: Pipeline step validation)
         """

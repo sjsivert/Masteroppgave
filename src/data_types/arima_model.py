@@ -47,18 +47,20 @@ class ArimaModel(IModel):
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         return metrics
 
-    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
-        predictive_period = (
-            predictive_period if predictive_period <= len(data_set) else len(data_set)
+    def test(self, test_data_set: DataFrame, predictive_period: int = 5) -> Dict:
+        if_predictive_period_longer_than_dataset_use_max_length = (
+            predictive_period if predictive_period <= len(test_data_set) else len(test_data_set)
         )
+        predictive_period = if_predictive_period_longer_than_dataset_use_max_length
+
         value_predictions = self.model.predict(
             self.training_periode, self.training_periode + predictive_period - 1
         )
         self.predictions = DataFrame(value_predictions)
         # Figures
-        self._visualize_testing(data_set[:predictive_period], self.predictions)
+        self._visualize_testing(test_data_set[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(data_set[:predictive_period], self.predictions)
+        metrics = calculate_error(test_data_set[:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
         return metrics
 
