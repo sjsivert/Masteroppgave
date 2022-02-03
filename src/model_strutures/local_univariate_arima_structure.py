@@ -51,7 +51,9 @@ class LocalUnivariateArimaStructure(IModelStructure):
         )
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
-        self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(data_pipeline)
+        self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(
+            data_pipeline, self.training_size
+        )
 
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
         self.training_set, self.testing_set = self.data_pipeline.run()
@@ -148,3 +150,6 @@ class LocalUnivariateArimaStructure(IModelStructure):
 
     def get_tuning_parameters(self) -> Dict:
         return self.tuning_parameter_error_sets
+
+    def __repr__(self):
+        return f"<Local_univariate_arima> models: {self.models}"

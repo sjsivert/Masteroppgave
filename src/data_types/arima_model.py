@@ -157,3 +157,6 @@ class ArimaModel(IModel):
             return forecast
         except:
             return None
+
+    def __repr__(self):
+        return f"<ArimaModel prouct_id: {self.get_name()}>"
