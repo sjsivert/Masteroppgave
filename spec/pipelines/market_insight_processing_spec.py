@@ -1,8 +1,7 @@
 import pandas as pd
 from expects import be_true, equal, expect
 from genpipes import compose
-from mamba import (_it, before, description, included_context, it,
-                   shared_context)
+from mamba import _it, before, description, included_context, it, shared_context
 from pandas import DataFrame, Timestamp
 from spec.test_logger import init_test_logging
 from spec.utils.mock_pipeline import create_mock_pipeline

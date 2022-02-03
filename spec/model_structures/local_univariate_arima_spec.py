@@ -5,8 +5,7 @@ from mockito.mocking import mock
 from mockito.mockito import unstub, verify, when
 from pandas.core.frame import DataFrame
 from spec.mock_config import init_mock_config
-from src.model_strutures.local_univariate_arima_structure import \
-    LocalUnivariateArimaStructure
+from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.config_parser import config
 

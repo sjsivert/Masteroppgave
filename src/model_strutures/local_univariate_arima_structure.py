@@ -64,7 +64,8 @@ class LocalUnivariateArimaStructure(IModelStructure):
         # TODO: Do something with the test metrics data returned by the 'test' method
         # TODO: Pass test data to the 'test' method
         for model in self.models:
-            model.test(self.testing_set, 10)
+            # TODO: Make hardcoded value configurable
+            model.test(self.testing_set, 1)
 
     def get_models(self) -> List[IModel]:
         return self.models

@@ -1,3 +1,5 @@
+from random import randint
+
 from genpipes import declare
 from pandas import DataFrame
 
@@ -35,3 +37,8 @@ mock_data = [
 @declare.generator()
 def test_data() -> DataFrame:
     return DataFrame(mock_data)
+
+
+@declare.generator()
+def random_data_loader() -> DataFrame:
+    return DataFrame([randint(1, 40) for _ in range(50)])

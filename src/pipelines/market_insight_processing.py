@@ -57,7 +57,9 @@ def group_by_and_keep_category_cols(
     categories_name = categories[["title", "internal_doc_id"]]
     for df in stream:
         summed_result = df.groupby(group_by, as_index=False).sum()
-        merged_result = summed_result.merge(categories_name, how="left", left_on="cat_id", right_on="internal_doc_id")
+        merged_result = summed_result.merge(
+            categories_name, how="left", left_on="cat_id", right_on="internal_doc_id"
+        )
         yield merged_result
 
 
@@ -68,7 +70,9 @@ def filter_column(stream: Iterable[DataFrame], column: str, value: int) -> Itera
 
 
 @declare.processor()
-def pivot_transform(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:  # pragma: no cover
+def pivot_transform(
+    stream: Iterable[DataFrame], **xargs
+) -> Iterable[DataFrame]:  # pragma: no cover
     """
     Pivot the dataframe.
     """
@@ -84,22 +88,33 @@ def rename(stream: Iterable[DataFrame], **xargs) -> Iterable[DataFrame]:  # prag
 
 
 @declare.processor()
-def merge(stream: Iterable[DataFrame], join_with: DataFrame, **xargs) -> Iterable[DataFrame]:  # pragma: no cover
+def merge(
+    stream: Iterable[DataFrame], join_with: DataFrame, **xargs
+) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
         joined_df = pd.merge(
-            left=df, right=join_with, how="left", left_on="cat_id", right_on="internal_doc_id", **xargs
+            left=df,
+            right=join_with,
+            how="left",
+            left_on="cat_id",
+            right_on="internal_doc_id",
+            **xargs
         )
         yield joined_df
 
 
 @declare.processor()
-def filter_by_cat_id(stream: Iterable[DataFrame], cat_id: int) -> Iterable[DataFrame]:  # pragma: no cover
+def filter_by_cat_id(
+    stream: Iterable[DataFrame], cat_id: int
+) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
         yield df[df["cat_id"] == cat_id]
 
 
 @declare.processor()
-def choose_columns(stream: Iterable[DataFrame], columns: List["str"]) -> Iterable[DataFrame]:  # pragma: no cover
+def choose_columns(
+    stream: Iterable[DataFrame], columns: List["str"]
+) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
         yield df[columns]
 
