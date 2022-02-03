@@ -129,8 +129,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
                 f.write(f"{tag}\n")
 
     def _save_tuning_metrics(self, tuning: Dict) -> None:
-        if tuning is None:
+        if tuning is None or not tuning:
             return
+        print("Tuning dict to save", dict)
         with open(f"{self.save_location}/tuning.txt", "a") as f:
             f.write("Parameter Tuning results")
             for params, err in tuning.items():

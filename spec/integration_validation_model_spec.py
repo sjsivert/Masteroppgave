@@ -10,18 +10,17 @@ from genpipes.compose import Pipeline
 from mamba import _it, after, before, description, it
 from mockito import ANY, mock, when
 from mockito.mockito import unstub
-
-from spec.utils.test_data import random_data_loader
 from src import main
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
+from src.pipelines import market_insight_processing as market_processing
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 
 from spec.mock_config import init_mock_config
 from spec.test_logger import init_test_logging
 from spec.utils.mock_pipeline import create_mock_pipeline
-from src.pipelines import market_insight_processing as market_processing
+from spec.utils.test_data import random_data_loader
 
 with description("main integration test", "api") as self:
     with before.all:
