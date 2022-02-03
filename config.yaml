@@ -3,6 +3,10 @@ data:
   categories_path: './datasets/raw/solr_categories_2021_11_29.csv'
 
 
+logger:
+  log_level: 'INFO'
+  log_file: './log_file.log' # Currently does nothing
+
 experiment:
   tags:
     - market_insights
@@ -44,3 +48,4 @@ model:
           - 5 # p
           - 2 # d
           - 0 # q
+
