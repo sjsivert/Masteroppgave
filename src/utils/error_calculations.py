@@ -6,9 +6,7 @@ from xml.dom import NotFoundErr
 import numpy as np
 from pandas import DataFrame
 from pipe import map, tee, where
-from sklearn.metrics import (mean_absolute_error,
-                             mean_absolute_percentage_error,
-                             mean_squared_error)
+from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
 

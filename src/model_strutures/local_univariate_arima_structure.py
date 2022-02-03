@@ -25,7 +25,6 @@ class LocalUnivariateArimaStructure(IModelStructure):
         self.figures = []
         self.training_size = training_size
         self.model_structures = model_structure
-        self.training_size = training_size
 
         self.metrics: Dict = {}
         # Data
@@ -44,7 +43,6 @@ class LocalUnivariateArimaStructure(IModelStructure):
                     log_sources=self.log_sources,
                     order=model_structure["order"],
                     name=model_structure["time_series_id"],
-                    training_size=self.training_size,
                 ),
                 self.model_structures,
             )

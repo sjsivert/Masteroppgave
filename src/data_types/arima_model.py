@@ -25,7 +25,6 @@ class ArimaModel(IModel):
         log_sources: List[ILogTrainingSource],
         name: str = "placeholder",
         order: Tuple[int, int, int] = (0, 0, 0),
-        training_size: float = 0.8,
     ):
         super().__init__(log_sources=log_sources, name=name)
         # The ARIMA model must be instanced with data, thus this is done during training
@@ -33,9 +32,6 @@ class ArimaModel(IModel):
         self.order = order  # Tuple defining the ARIMA order variable
         self.training_periode = (
             0  # Integer defining the number of data-points used to train the ARIMA model
-        )
-        self.training_size = (
-            training_size  # Float defining the percentage of data used to train the ARIMA model
         )
         self.training_residuals = None  # Dataframe of training residuals
 
