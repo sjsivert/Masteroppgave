@@ -1,0 +1,1600 @@
+Parameter Tuning results
+
+Parameters: (1, 1, 1)
+ Error: 0.773
+
+Parameters: (2, 1, 1)
+ Error: 0.777
+
+Parameters: (3, 1, 1)
+ Error: 0.779
+
+Parameters: (4, 1, 1)
+ Error: 0.779
+
+Parameters: (5, 1, 1)
+ Error: 0.777
+
+Parameters: (6, 1, 1)
+ Error: 0.777
+
+Parameters: (7, 1, 1)
+ Error: 0.779
+
+Parameters: (1, 2, 1)
+ Error: 0.879
+
+Parameters: (2, 2, 1)
+ Error: 0.855
+
+Parameters: (3, 2, 1)
+ Error: 0.836
+
+Parameters: (4, 2, 1)
+ Error: 0.816
+
+Parameters: (5, 2, 1)
+ Error: 0.815
+
+Parameters: (6, 2, 1)
+ Error: 0.818
+
+Parameters: (7, 2, 1)
+ Error: 0.817
+
+Parameters: (1, 3, 1)
+ Error: 1.29
+
+Parameters: (2, 3, 1)
+ Error: 1.143
+
+Parameters: (3, 3, 1)
+ Error: 1.104
+
+Parameters: (4, 3, 1)
+ Error: 0.993
+
+Parameters: (5, 3, 1)
+ Error: 0.978
+
+Parameters: (6, 3, 1)
+ Error: 0.949
+
+Parameters: (7, 3, 1)
+ Error: 0.962
+
+Parameters: (1, 4, 1)
+ Error: 2.083
+
+Parameters: (2, 4, 1)
+ Error: 1.701
+
+Parameters: (3, 4, 1)
+ Error: 1.529
+
+Parameters: (4, 4, 1)
+ Error: 1.367
+
+Parameters: (5, 4, 1)
+ Error: 1.273
+
+Parameters: (6, 4, 1)
+ Error: 1.183
+
+Parameters: (7, 4, 1)
+ Error: 1.137
+
+Parameters: (1, 5, 1)
+ Error: 3.543
+
+Parameters: (2, 5, 1)
+ Error: 2.631
+
+Parameters: (3, 5, 1)
+ Error: 2.296
+
+Parameters: (4, 5, 1)
+ Error: 1.958
+
+Parameters: (5, 5, 1)
+ Error: 1.79
+
+Parameters: (6, 5, 1)
+ Error: 1.549
+
+Parameters: (7, 5, 1)
+ Error: 1.464
+
+Parameters: (1, 6, 1)
+ Error: 6.32
+
+Parameters: (2, 6, 1)
+ Error: 4.23
+
+Parameters: (3, 6, 1)
+ Error: 3.545
+
+Parameters: (4, 6, 1)
+ Error: 2.992
+
+Parameters: (5, 6, 1)
+ Error: 2.621
+
+Parameters: (6, 6, 1)
+ Error: 2.255
+
+Parameters: (7, 6, 1)
+ Error: 2.06
+
+Parameters: (1, 7, 1)
+ Error: 11.23
+
+Parameters: (2, 7, 1)
+ Error: 7.153
+
+Parameters: (3, 7, 1)
+ Error: 5.483
+
+Parameters: (4, 7, 1)
+ Error: 4.512
+
+Parameters: (5, 7, 1)
+ Error: 3.991
+
+Parameters: (6, 7, 1)
+ Error: 3.316
+
+Parameters: (7, 7, 1)
+ Error: 3.002
+
+Parameters: (1, 1, 2)
+ Error: 0.774
+
+Parameters: (2, 1, 2)
+ Error: 0.778
+
+Parameters: (3, 1, 2)
+ Error: 0.779
+
+Parameters: (4, 1, 2)
+ Error: 0.777
+
+Parameters: (5, 1, 2)
+ Error: 0.777
+
+Parameters: (6, 1, 2)
+ Error: 0.776
+
+Parameters: (7, 1, 2)
+ Error: 0.778
+
+Parameters: (1, 2, 2)
+ Error: 0.775
+
+Parameters: (2, 2, 2)
+ Error: 0.778
+
+Parameters: (3, 2, 2)
+ Error: 0.78
+
+Parameters: (4, 2, 2)
+ Error: 0.78
+
+Parameters: (5, 2, 2)
+ Error: 0.817
+
+Parameters: (6, 2, 2)
+ Error: 0.78
+
+Parameters: (7, 2, 2)
+ Error: 0.819
+
+Parameters: (1, 3, 2)
+ Error: 0.881
+
+Parameters: (2, 3, 2)
+ Error: 0.854
+
+Parameters: (3, 3, 2)
+ Error: 0.838
+
+Parameters: (4, 3, 2)
+ Error: 0.813
+
+Parameters: (5, 3, 2)
+ Error: 0.817
+
+Parameters: (6, 3, 2)
+ Error: 0.821
+
+Parameters: (7, 3, 2)
+ Error: 0.82
+
+Parameters: (1, 4, 2)
+ Error: 1.292
+
+Parameters: (2, 4, 2)
+ Error: 1.145
+
+Parameters: (3, 4, 2)
+ Error: 1.105
+
+Parameters: (4, 4, 2)
+ Error: 0.994
+
+Parameters: (5, 4, 2)
+ Error: 0.979
+
+Parameters: (6, 4, 2)
+ Error: 0.95
+
+Parameters: (7, 4, 2)
+ Error: 0.961
+
+Parameters: (1, 5, 2)
+ Error: 2.085
+
+Parameters: (2, 5, 2)
+ Error: 1.703
+
+Parameters: (3, 5, 2)
+ Error: 1.531
+
+Parameters: (4, 5, 2)
+ Error: 1.369
+
+Parameters: (5, 5, 2)
+ Error: 1.275
+
+Parameters: (6, 5, 2)
+ Error: 1.185
+
+Parameters: (7, 5, 2)
+ Error: 1.139
+
+Parameters: (1, 6, 2)
+ Error: 3.547
+
+Parameters: (2, 6, 2)
+ Error: 2.634
+
+Parameters: (3, 6, 2)
+ Error: 2.299
+
+Parameters: (4, 6, 2)
+ Error: 1.961
+
+Parameters: (5, 6, 2)
+ Error: 1.793
+
+Parameters: (6, 6, 2)
+ Error: 1.551
+
+Parameters: (7, 6, 2)
+ Error: 1.466
+
+Parameters: (1, 7, 2)
+ Error: 6.327
+
+Parameters: (2, 7, 2)
+ Error: 4.236
+
+Parameters: (3, 7, 2)
+ Error: 3.549
+
+Parameters: (4, 7, 2)
+ Error: 2.996
+
+Parameters: (5, 7, 2)
+ Error: 2.624
+
+Parameters: (6, 7, 2)
+ Error: 2.258
+
+Parameters: (7, 7, 2)
+ Error: 2.063
+
+Parameters: (1, 1, 3)
+ Error: 0.777
+
+Parameters: (2, 1, 3)
+ Error: 0.776
+
+Parameters: (3, 1, 3)
+ Error: 0.773
+
+Parameters: (4, 1, 3)
+ Error: 0.78
+
+Parameters: (5, 1, 3)
+ Error: 0.78
+
+Parameters: (6, 1, 3)
+ Error: 0.777
+
+Parameters: (7, 1, 3)
+ Error: 0.782
+
+Parameters: (1, 2, 3)
+ Error: 0.778
+
+Parameters: (2, 2, 3)
+ Error: 0.775
+
+Parameters: (3, 2, 3)
+ Error: 0.778
+
+Parameters: (4, 2, 3)
+ Error: 0.78
+
+Parameters: (5, 2, 3)
+ Error: 0.78
+
+Parameters: (6, 2, 3)
+ Error: 0.823
+
+Parameters: (7, 2, 3)
+ Error: 0.824
+
+Parameters: (1, 3, 3)
+ Error: 0.78
+
+Parameters: (2, 3, 3)
+ Error: 0.798
+
+Parameters: (3, 3, 3)
+ Error: 0.855
+
+Parameters: (4, 3, 3)
+ Error: 0.834
+
+Parameters: (5, 3, 3)
+ Error: 0.818
+
+Parameters: (6, 3, 3)
+ Error: 0.81
+
+Parameters: (7, 3, 3)
+ Error: 0.82
+
+Parameters: (1, 4, 3)
+ Error: 0.91
+
+Parameters: (2, 4, 3)
+ Error: 0.888
+
+Parameters: (3, 4, 3)
+ Error: 1.145
+
+Parameters: (4, 4, 3)
+ Error: 1.106
+
+Parameters: (5, 4, 3)
+ Error: 0.994
+
+Parameters: (6, 4, 3)
+ Error: 0.964
+
+Parameters: (7, 4, 3)
+ Error: 0.95
+
+Parameters: (1, 5, 3)
+ Error: 1.294
+
+Parameters: (2, 5, 3)
+ Error: 1.151
+
+Parameters: (3, 5, 3)
+ Error: 1.707
+
+Parameters: (4, 5, 3)
+ Error: 1.53
+
+Parameters: (5, 5, 3)
+ Error: 1.372
+
+Parameters: (6, 5, 3)
+ Error: 1.278
+
+Parameters: (7, 5, 3)
+ Error: 1.182
+
+Parameters: (1, 6, 3)
+ Error: 2.089
+
+Parameters: (2, 6, 3)
+ Error: 1.711
+
+Parameters: (3, 6, 3)
+ Error: 1.908
+
+Parameters: (4, 6, 3)
+ Error: 1.651
+
+Parameters: (5, 6, 3)
+ Error: 1.972
+
+Parameters: (6, 6, 3)
+ Error: 1.793
+
+Parameters: (7, 6, 3)
+ Error: 1.554
+
+Parameters: (1, 7, 3)
+ Error: 3.555
+
+Parameters: (2, 7, 3)
+ Error: 2.64
+
+Parameters: (3, 7, 3)
+ Error: 2.311
+
+Parameters: (4, 7, 3)
+ Error: 1.972
+
+Parameters: (5, 7, 3)
+ Error: 2.996
+
+Parameters: (6, 7, 3)
+ Error: 2.624
+
+Parameters: (7, 7, 3)
+ Error: 2.266
+
+Parameters: (1, 1, 4)
+ Error: 0.778
+
+Parameters: (2, 1, 4)
+ Error: 0.773
+
+Parameters: (3, 1, 4)
+ Error: 0.773
+
+Parameters: (4, 1, 4)
+ Error: 0.774
+
+Parameters: (5, 1, 4)
+ Error: 0.774
+
+Parameters: (6, 1, 4)
+ Error: 0.775
+
+Parameters: (7, 1, 4)
+ Error: 0.774
+
+Parameters: (1, 2, 4)
+ Error: 0.774
+
+Parameters: (2, 2, 4)
+ Error: 0.791
+
+Parameters: (3, 2, 4)
+ Error: 0.768
+
+Parameters: (4, 2, 4)
+ Error: 0.779
+
+Parameters: (5, 2, 4)
+ Error: 0.78
+
+Parameters: (6, 2, 4)
+ Error: 0.814
+
+Parameters: (7, 2, 4)
+ Error: 0.783
+
+Parameters: (1, 3, 4)
+ Error: 0.786
+
+Parameters: (2, 3, 4)
+ Error: 0.779
+
+Parameters: (3, 3, 4)
+ Error: 0.911
+
+Parameters: (4, 3, 4)
+ Error: 0.853
+
+Parameters: (5, 3, 4)
+ Error: 0.868
+
+Parameters: (6, 3, 4)
+ Error: 0.818
+
+Parameters: (7, 3, 4)
+ Error: 0.829
+
+Parameters: (1, 4, 4)
+ Error: 0.871
+
+Parameters: (2, 4, 4)
+ Error: 0.906
+
+Parameters: (3, 4, 4)
+ Error: 0.859
+
+Parameters: (4, 4, 4)
+ Error: 1.16
+
+Parameters: (5, 4, 4)
+ Error: 1.097
+
+Parameters: (6, 4, 4)
+ Error: 0.986
+
+Parameters: (7, 4, 4)
+ Error: 0.973
+
+Parameters: (1, 5, 4)
+ Error: 0.928
+
+Parameters: (2, 5, 4)
+ Error: 1.289
+
+Parameters: (3, 5, 4)
+ Error: 1.147
+
+Parameters: (4, 5, 4)
+ Error: 1.113
+
+Parameters: (5, 5, 4)
+ Error: 1.509
+
+Parameters: (6, 5, 4)
+ Error: 1.38
+
+Parameters: (7, 5, 4)
+ Error: 1.087
+
+Parameters: (1, 6, 4)
+ Error: 1.313
+
+Parameters: (2, 6, 4)
+ Error: 1.381
+
+Parameters: (3, 6, 4)
+ Error: 1.705
+
+Parameters: (4, 6, 4)
+ Error: 1.532
+
+Parameters: (5, 6, 4)
+ Error: 1.9474844244415864e+16
+
+Parameters: (6, 6, 4)
+ Error: 1.989
+
+Parameters: (7, 6, 4)
+ Error: 1.851
+
+Parameters: (1, 7, 4)
+ Error: 2.118
+
+Parameters: (2, 7, 4)
+ Error: 1.732
+
+Parameters: (3, 7, 4)
+ Error: 2.663
+
+Parameters: (4, 7, 4)
+ Error: 2.317
+
+Parameters: (5, 7, 4)
+ Error: 1.97
+
+Parameters: (6, 7, 4)
+ Error: 3.042
+
+Parameters: (7, 7, 4)
+ Error: 2.667
+
+Parameters: (1, 1, 5)
+ Error: 0.775
+
+Parameters: (2, 1, 5)
+ Error: 0.771
+
+Parameters: (3, 1, 5)
+ Error: 0.773
+
+Parameters: (4, 1, 5)
+ Error: 0.773
+
+Parameters: (5, 1, 5)
+ Error: 0.777
+
+Parameters: (6, 1, 5)
+ Error: 0.776
+
+Parameters: (7, 1, 5)
+ Error: 0.774
+
+Parameters: (1, 2, 5)
+ Error: 0.778
+
+Parameters: (2, 2, 5)
+ Error: 0.767
+
+Parameters: (3, 2, 5)
+ Error: 0.777
+
+Parameters: (4, 2, 5)
+ Error: 0.771
+
+Parameters: (5, 2, 5)
+ Error: 0.781
+
+Parameters: (6, 2, 5)
+ Error: 0.779
+
+Parameters: (7, 2, 5)
+ Error: 0.777
+
+Parameters: (1, 3, 5)
+ Error: 0.778
+
+Parameters: (2, 3, 5)
+ Error: 0.786
+
+Parameters: (3, 3, 5)
+ Error: 0.78
+
+Parameters: (4, 3, 5)
+ Error: 0.795
+
+Parameters: (5, 3, 5)
+ Error: 0.865
+
+Parameters: (6, 3, 5)
+ Error: 0.83
+
+Parameters: (7, 3, 5)
+ Error: 0.818
+
+Parameters: (1, 4, 5)
+ Error: 0.802
+
+Parameters: (2, 4, 5)
+ Error: 1.071
+
+Parameters: (3, 4, 5)
+ Error: 0.928
+
+Parameters: (4, 4, 5)
+ Error: 0.891
+
+Parameters: (6, 4, 5)
+ Error: 0.911
+
+Parameters: (7, 4, 5)
+ Error: 0.997
+
+Parameters: (1, 5, 5)
+ Error: 1.05
+
+Parameters: (2, 5, 5)
+ Error: 21309.683
+
+Parameters: (3, 5, 5)
+ Error: 1.33
+
+Parameters: (4, 5, 5)
+ Error: 1.157
+
+Parameters: (5, 5, 5)
+ Error: 1.11
+
+Parameters: (6, 5, 5)
+ Error: 1.056
+
+Parameters: (7, 5, 5)
+ Error: 1.404
+
+Parameters: (1, 6, 5)
+ Error: 561312077.859
+
+Parameters: (2, 6, 5)
+ Error: 1.477
+
+Parameters: (3, 6, 5)
+ Error: 2.314
+
+Parameters: (4, 6, 5)
+ Error: 1.773
+
+Parameters: (5, 6, 5)
+ Error: 1.586
+
+Parameters: (6, 6, 5)
+ Error: 1.367
+
+Parameters: (7, 6, 5)
+ Error: 1.33
+
+Parameters: (1, 7, 5)
+ Error: 1.528
+
+Parameters: (2, 7, 5)
+ Error: 9.045386702027163e+16
+
+Parameters: (3, 7, 5)
+ Error: 2.6216299780302416e+17
+
+Parameters: (4, 7, 5)
+ Error: 2.645
+
+Parameters: (5, 7, 5)
+ Error: 2.374
+
+Parameters: (6, 7, 5)
+ Error: 1.994
+
+Parameters: (7, 7, 5)
+ Error: 1.926
+
+Parameters: (1, 1, 6)
+ Error: 0.778
+
+Parameters: (2, 1, 6)
+ Error: 0.775
+
+Parameters: (3, 1, 6)
+ Error: 0.772
+
+Parameters: (4, 1, 6)
+ Error: 0.771
+
+Parameters: (5, 1, 6)
+ Error: 0.771
+
+Parameters: (6, 1, 6)
+ Error: 0.776
+
+Parameters: (7, 1, 6)
+ Error: 0.771
+
+Parameters: (1, 2, 6)
+ Error: 0.779
+
+Parameters: (2, 2, 6)
+ Error: 0.793
+
+Parameters: (3, 2, 6)
+ Error: 0.772
+
+Parameters: (4, 2, 6)
+ Error: 0.788
+
+Parameters: (5, 2, 6)
+ Error: 0.788
+
+Parameters: (6, 2, 6)
+ Error: 0.78
+
+Parameters: (7, 2, 6)
+ Error: 0.786
+
+Parameters: (1, 3, 6)
+ Error: 0.786
+
+Parameters: (2, 3, 6)
+ Error: 0.77
+
+Parameters: (3, 3, 6)
+ Error: 0.781
+
+Parameters: (4, 3, 6)
+ Error: 0.777
+
+Parameters: (5, 3, 6)
+ Error: 0.822
+
+Parameters: (6, 3, 6)
+ Error: 0.789
+
+Parameters: (7, 3, 6)
+ Error: 0.847
+
+Parameters: (1, 4, 6)
+ Error: 0.793
+
+Parameters: (2, 4, 6)
+ Error: 0.811
+
+Parameters: (3, 4, 6)
+ Error: 1.045
+
+Parameters: (4, 4, 6)
+ Error: 0.904
+
+Parameters: (5, 4, 6)
+ Error: 0.878
+
+Parameters: (6, 4, 6)
+ Error: 0.917
+
+Parameters: (7, 4, 6)
+ Error: 0.898
+
+Parameters: (1, 5, 6)
+ Error: 0.891
+
+Parameters: (2, 5, 6)
+ Error: 1.036
+
+Parameters: (3, 5, 6)
+ Error: 1.087
+
+Parameters: (4, 5, 6)
+ Error: 1.321
+
+Parameters: (5, 5, 6)
+ Error: 1.14
+
+Parameters: (6, 5, 6)
+ Error: 1.135
+
+Parameters: (7, 5, 6)
+ Error: 0.993
+
+Parameters: (1, 6, 6)
+ Error: 875824.822
+
+Parameters: (2, 6, 6)
+ Error: 1.889
+
+Parameters: (3, 6, 6)
+ Error: 1.435
+
+Parameters: (4, 6, 6)
+ Error: 1.144
+
+Parameters: (5, 6, 6)
+ Error: 1.719
+
+Parameters: (7, 6, 6)
+ Error: 1.372
+
+Parameters: (1, 7, 6)
+ Error: 1.927
+
+Parameters: (2, 7, 6)
+ Error: 1.436
+
+Parameters: (3, 7, 6)
+ Error: 1.183
+
+Parameters: (4, 7, 6)
+ Error: 1.934
+
+Parameters: (5, 7, 6)
+ Error: 1.538
+
+Parameters: (6, 7, 6)
+ Error: 2.306
+
+Parameters: (7, 7, 6)
+ Error: 2.23
+
+Parameters: (1, 1, 7)
+ Error: 0.777
+
+Parameters: (2, 1, 7)
+ Error: 0.773
+
+Parameters: (3, 1, 7)
+ Error: 0.776
+
+Parameters: (4, 1, 7)
+ Error: 0.774
+
+Parameters: (5, 1, 7)
+ Error: 0.776
+
+Parameters: (6, 1, 7)
+ Error: 0.776
+
+Parameters: (7, 1, 7)
+ Error: 0.778
+
+Parameters: (1, 2, 7)
+ Error: 0.779
+
+Parameters: (2, 2, 7)
+ Error: 0.789
+
+Parameters: (3, 2, 7)
+ Error: 0.782
+
+Parameters: (4, 2, 7)
+ Error: 0.787
+
+Parameters: (5, 2, 7)
+ Error: 0.771
+
+Parameters: (6, 2, 7)
+ Error: 0.77
+
+Parameters: (7, 2, 7)
+ Error: 0.777
+
+Parameters: (1, 3, 7)
+ Error: 0.789
+
+Parameters: (2, 3, 7)
+ Error: 0.774
+
+Parameters: (3, 3, 7)
+ Error: 0.776
+
+Parameters: (4, 3, 7)
+ Error: 0.774
+
+Parameters: (5, 3, 7)
+ Error: 0.784
+
+Parameters: (6, 3, 7)
+ Error: 0.795
+
+Parameters: (7, 3, 7)
+ Error: 0.794
+
+Parameters: (1, 4, 7)
+ Error: 0.801
+
+Parameters: (2, 4, 7)
+ Error: 0.816
+
+Parameters: (3, 4, 7)
+ Error: 0.798
+
+Parameters: (4, 4, 7)
+ Error: 1.026
+
+Parameters: (5, 4, 7)
+ Error: 0.919
+
+Parameters: (6, 4, 7)
+ Error: 0.889
+
+Parameters: (7, 4, 7)
+ Error: 0.895
+
+Parameters: (1, 5, 7)
+ Error: 0.933
+
+Parameters: (2, 5, 7)
+ Error: 1.282
+
+Parameters: (3, 5, 7)
+ Error: 1.045
+
+Parameters: (4, 5, 7)
+ Error: 1.017
+
+Parameters: (5, 5, 7)
+ Error: 1.303
+
+Parameters: (6, 5, 7)
+ Error: 1.162
+
+Parameters: (7, 5, 7)
+ Error: 1.126
+
+Parameters: (1, 6, 7)
+ Error: 0.968
+
+Parameters: (2, 6, 7)
+ Error: 1.069
+
+Parameters: (3, 6, 7)
+ Error: 1.842
+
+Parameters: (4, 6, 7)
+ Error: 1.296
+
+Parameters: (5, 6, 7)
+ Error: 1.168
+
+Parameters: (6, 6, 7)
+ Error: 1.24
+
+Parameters: (7, 6, 7)
+ Error: 1.57
+
+Parameters: (1, 7, 7)
+ Error: 4111014547.396
+
+Parameters: (2, 7, 7)
+ Error: 1.85
+
+Parameters: (4, 7, 7)
+ Error: 2.129
+
+Parameters: (5, 7, 7)
+ Error: 1.782
+
+Parameters: (6, 7, 7)
+ Error: 1.878
+
+Parameters: (7, 7, 7)
+ Error: 1.451
+
+Parameters: (1, 1, 8)
+ Error: 0.778
+
+Parameters: (2, 1, 8)
+ Error: 0.782
+
+Parameters: (3, 1, 8)
+ Error: 0.789
+
+Parameters: (4, 1, 8)
+ Error: 0.778
+
+Parameters: (5, 1, 8)
+ Error: 0.773
+
+Parameters: (6, 1, 8)
+ Error: 0.778
+
+Parameters: (7, 1, 8)
+ Error: 0.773
+
+Parameters: (1, 2, 8)
+ Error: 0.778
+
+Parameters: (2, 2, 8)
+ Error: 0.78
+
+Parameters: (3, 2, 8)
+ Error: 0.817
+
+Parameters: (4, 2, 8)
+ Error: 0.785
+
+Parameters: (5, 2, 8)
+ Error: 0.772
+
+Parameters: (6, 2, 8)
+ Error: 0.772
+
+Parameters: (7, 2, 8)
+ Error: 0.786
+
+Parameters: (1, 3, 8)
+ Error: 0.787
+
+Parameters: (2, 3, 8)
+ Error: 0.792
+
+Parameters: (3, 3, 8)
+ Error: 0.783
+
+Parameters: (4, 3, 8)
+ Error: 0.801
+
+Parameters: (5, 3, 8)
+ Error: 0.774
+
+Parameters: (6, 3, 8)
+ Error: 0.777
+
+Parameters: (7, 3, 8)
+ Error: 0.793
+
+Parameters: (1, 4, 8)
+ Error: 0.805
+
+Parameters: (2, 4, 8)
+ Error: 0.863
+
+Parameters: (3, 4, 8)
+ Error: 0.799
+
+Parameters: (4, 4, 8)
+ Error: 0.806
+
+Parameters: (5, 4, 8)
+ Error: 1.022
+
+Parameters: (6, 4, 8)
+ Error: 0.888
+
+Parameters: (7, 4, 8)
+ Error: 0.876
+
+Parameters: (1, 5, 8)
+ Error: 0.913
+
+Parameters: (2, 5, 8)
+ Error: 0.936
+
+Parameters: (3, 5, 8)
+ Error: 0.929
+
+Parameters: (4, 5, 8)
+ Error: 1.04
+
+Parameters: (5, 5, 8)
+ Error: 0.928
+
+Parameters: (6, 5, 8)
+ Error: 1.011
+
+Parameters: (7, 5, 8)
+ Error: 1.163
+
+Parameters: (1, 6, 8)
+ Error: 23840225.476
+
+Parameters: (2, 6, 8)
+ Error: 752.334
+
+Parameters: (3, 6, 8)
+ Error: 1.323
+
+Parameters: (4, 6, 8)
+ Error: 1.77
+
+Parameters: (5, 6, 8)
+ Error: 1.432
+
+Parameters: (6, 6, 8)
+ Error: 1.319
+
+Parameters: (7, 6, 8)
+ Error: 1.615
+
+Parameters: (1, 7, 8)
+ Error: 1248443271.696
+
+Parameters: (2, 7, 8)
+ Error: 1.141
+
+Parameters: (3, 7, 8)
+ Error: 1.854
+
+Parameters: (4, 7, 8)
+ Error: 1.741
+
+Parameters: (5, 7, 8)
+ Error: 2.122
+
+Parameters: (6, 7, 8)
+ Error: 1.714
+
+Parameters: (7, 7, 8)
+ Error: 1.593
+
+Parameters: (1, 1, 9)
+ Error: 0.777
+
+Parameters: (2, 1, 9)
+ Error: 0.78
+
+Parameters: (3, 1, 9)
+ Error: 0.781
+
+Parameters: (4, 1, 9)
+ Error: 0.779
+
+Parameters: (5, 1, 9)
+ Error: 0.771
+
+Parameters: (6, 1, 9)
+ Error: 0.78
+
+Parameters: (7, 1, 9)
+ Error: 0.78
+
+Parameters: (1, 2, 9)
+ Error: 0.778
+
+Parameters: (2, 2, 9)
+ Error: 0.78
+
+Parameters: (3, 2, 9)
+ Error: 0.78
+
+Parameters: (4, 2, 9)
+ Error: 0.779
+
+Parameters: (5, 2, 9)
+ Error: 0.772
+
+Parameters: (6, 2, 9)
+ Error: 0.78
+
+Parameters: (7, 2, 9)
+ Error: 0.777
+
+Parameters: (1, 3, 9)
+ Error: 0.782
+
+Parameters: (2, 3, 9)
+ Error: 0.801
+
+Parameters: (3, 3, 9)
+ Error: 0.787
+
+Parameters: (4, 3, 9)
+ Error: 0.776
+
+Parameters: (5, 3, 9)
+ Error: 0.81
+
+Parameters: (6, 3, 9)
+ Error: 0.803
+
+Parameters: (7, 3, 9)
+ Error: 0.804
+
+Parameters: (1, 4, 9)
+ Error: 0.803
+
+Parameters: (2, 4, 9)
+ Error: 0.808
+
+Parameters: (3, 4, 9)
+ Error: 0.79
+
+Parameters: (4, 4, 9)
+ Error: 0.85
+
+Parameters: (5, 4, 9)
+ Error: 0.808
+
+Parameters: (6, 4, 9)
+ Error: 1.004
+
+Parameters: (7, 4, 9)
+ Error: 0.91
+
+Parameters: (1, 5, 9)
+ Error: 1.007
+
+Parameters: (2, 5, 9)
+ Error: 0.931
+
+Parameters: (3, 5, 9)
+ Error: 0.86
+
+Parameters: (4, 5, 9)
+ Error: 0.978
+
+Parameters: (5, 5, 9)
+ Error: 1.061
+
+Parameters: (6, 5, 9)
+ Error: 0.916
+
+Parameters: (7, 5, 9)
+ Error: 0.982
+
+Parameters: (1, 6, 9)
+ Error: 1.001
+
+Parameters: (2, 6, 9)
+ Error: 0.938
+
+Parameters: (3, 6, 9)
+ Error: 0.955
+
+Parameters: (4, 6, 9)
+ Error: 1.22
+
+Parameters: (6, 6, 9)
+ Error: 1.324
+
+Parameters: (7, 6, 9)
+ Error: 1.186
+
+Parameters: (1, 7, 9)
+ Error: 1.396
+
+Parameters: (2, 7, 9)
+ Error: 1.137
+
+Parameters: (3, 7, 9)
+ Error: 1.279
+
+Parameters: (4, 7, 9)
+ Error: 1.876
+
+Parameters: (5, 7, 9)
+ Error: 1.599
+
+Parameters: (6, 7, 9)
+ Error: 1.233
+
+Parameters: (7, 7, 9)
+ Error: 1.742
+
+Parameters: (1, 1, 10)
+ Error: 0.777
+
+Parameters: (2, 1, 10)
+ Error: 0.781
+
+Parameters: (3, 1, 10)
+ Error: 0.783
+
+Parameters: (4, 1, 10)
+ Error: 0.781
+
+Parameters: (5, 1, 10)
+ Error: 0.774
+
+Parameters: (6, 1, 10)
+ Error: 0.773
+
+Parameters: (7, 1, 10)
+ Error: 0.775
+
+Parameters: (1, 2, 10)
+ Error: 0.779
+
+Parameters: (2, 2, 10)
+ Error: 0.781
+
+Parameters: (3, 2, 10)
+ Error: 0.779
+
+Parameters: (4, 2, 10)
+ Error: 0.79
+
+Parameters: (5, 2, 10)
+ Error: 0.781
+
+Parameters: (6, 2, 10)
+ Error: 0.765
+
+Parameters: (7, 2, 10)
+ Error: 0.777
+
+Parameters: (1, 3, 10)
+ Error: 0.783
+
+Parameters: (2, 3, 10)
+ Error: 0.789
+
+Parameters: (3, 3, 10)
+ Error: 0.783
+
+Parameters: (4, 3, 10)
+ Error: 0.783
+
+Parameters: (5, 3, 10)
+ Error: 0.783
+
+Parameters: (6, 3, 10)
+ Error: 0.782
+
+Parameters: (7, 3, 10)
+ Error: 0.781
+
+Parameters: (1, 4, 10)
+ Error: 0.797
+
+Parameters: (2, 4, 10)
+ Error: 0.82
+
+Parameters: (3, 4, 10)
+ Error: 0.79
+
+Parameters: (4, 4, 10)
+ Error: 0.801
+
+Parameters: (5, 4, 10)
+ Error: 0.791
+
+Parameters: (6, 4, 10)
+ Error: 0.801
+
+Parameters: (7, 4, 10)
+ Error: 0.937
+
+Parameters: (1, 5, 10)
+ Error: 0.903
+
+Parameters: (2, 5, 10)
+ Error: 0.919
+
+Parameters: (3, 5, 10)
+ Error: 0.906
+
+Parameters: (4, 5, 10)
+ Error: 0.888
+
+Parameters: (5, 5, 10)
+ Error: 0.857
+
+Parameters: (7, 5, 10)
+ Error: 0.906
+
+Parameters: (1, 6, 10)
+ Error: 51012423.66
+
+Parameters: (2, 6, 10)
+ Error: 1.012
+
+Parameters: (3, 6, 10)
+ Error: 0.957
+
+Parameters: (4, 6, 10)
+ Error: 1.071
+
+Parameters: (5, 6, 10)
+ Error: nan
+
+Parameters: (6, 6, 10)
+ Error: 1.103
+
+Parameters: (7, 6, 10)
+ Error: 1.312
+
+Parameters: (1, 7, 10)
+ Error: 1001376506.633
+
+Parameters: (4, 7, 10)
+ Error: 1.489
+
+Parameters: (5, 7, 10)
+ Error: 1.801
+
+Parameters: (6, 7, 10)
+ Error: 1.319
+
+Parameters: (7, 7, 10)
+ Error: 1.183
+
+Parameters: (1, 1, 11)
+ Error: 0.769
+
+Parameters: (2, 1, 11)
+ Error: 0.783
+
+Parameters: (3, 1, 11)
+ Error: 0.78
+
+Parameters: (4, 1, 11)
+ Error: 0.781
+
+Parameters: (5, 1, 11)
+ Error: 0.78
+
+Parameters: (6, 1, 11)
+ Error: 0.779
+
+Parameters: (7, 1, 11)
+ Error: 0.781
+
+Parameters: (1, 2, 11)
+ Error: 0.777
+
+Parameters: (2, 2, 11)
+ Error: 0.78
+
+Parameters: (3, 2, 11)
+ Error: 0.78
+
+Parameters: (4, 2, 11)
+ Error: 0.79
+
+Parameters: (5, 2, 11)
+ Error: 0.782
+
+Parameters: (6, 2, 11)
+ Error: 0.77
+
+Parameters: (7, 2, 11)
+ Error: 0.777
+
+Parameters: (1, 3, 11)
+ Error: 0.783
+
+Parameters: (2, 3, 11)
+ Error: 0.792
+
+Parameters: (3, 3, 11)
+ Error: 0.793
+
+Parameters: (4, 3, 11)
+ Error: 0.851
+
+Parameters: (5, 3, 11)
+ Error: 0.775
+
+Parameters: (6, 3, 11)
+ Error: 0.779
+
+Parameters: (7, 3, 11)
+ Error: 0.801
+
+Parameters: (1, 4, 11)
+ Error: 0.797
+
+Parameters: (2, 4, 11)
+ Error: 0.814
+
+Parameters: (3, 4, 11)
+ Error: 0.791
+
+Parameters: (4, 4, 11)
+ Error: 0.827
+
+Parameters: (5, 4, 11)
+ Error: 0.791
+
+Parameters: (6, 4, 11)
+ Error: 0.807
+
+Parameters: (7, 4, 11)
+ Error: 0.801
+
+Parameters: (1, 5, 11)
+ Error: 0.954
+
+Parameters: (2, 5, 11)
+ Error: 0.898
+
+Parameters: (3, 5, 11)
+ Error: 0.936
+
+Parameters: (4, 5, 11)
+ Error: 1.005
+
+Parameters: (5, 5, 11)
+ Error: 0.848
+
+Parameters: (6, 5, 11)
+ Error: 0.913
+
+Parameters: (7, 5, 11)
+ Error: nan
+
+Parameters: (1, 6, 11)
+ Error: 33474110.245
+
+Parameters: (2, 6, 11)
+ Error: 1.023
+
+Parameters: (3, 6, 11)
+ Error: 1.134
+
+Parameters: (4, 6, 11)
+ Error: 1.215
+
+Parameters: (5, 6, 11)
+ Error: 1.072
+
+Parameters: (6, 6, 11)
+ Error: 1.11
+
+Parameters: (7, 6, 11)
+ Error: 1.031
+
+Parameters: (1, 7, 11)
+ Error: 1.078
+
+Parameters: (2, 7, 11)
+ Error: 1.233
+
+Parameters: (3, 7, 11)
+ Error: 1.149
+
+Parameters: (4, 7, 11)
+ Error: 1.251
+
+Parameters: (5, 7, 11)
+ Error: 1.141
+
+Parameters: (6, 7, 11)
+ Error: 1.819
+
+Parameters: (7, 7, 11)
+ Error: 1.585
+
+Parameters: ARIMA
+ Error: MSE

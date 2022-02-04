@@ -1,0 +1,23 @@
+---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- filter out data from early 2018-12-01
+6- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'adult', 'internal_doc_id_x', 'internal_doc_id_y']
+7- filter out category 'Nettverkskabler' (11573)
+8- choose columns 'hits' and 'date'
+9- fill in dates with zero values
+10- split up into training set (0.8) and test set (0.19999999999999996)
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- filter out data from early 2018-12-01
+6- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'adult', 'internal_doc_id_x', 'internal_doc_id_y']
+7- filter out category 'Nettverkskabler' (11573)
+8- choose columns 'hits' and 'date'
+9- fill in dates with zero values
+10- split up into training set (0.8) and test set (0.19999999999999996)
+---- End ----
+        
