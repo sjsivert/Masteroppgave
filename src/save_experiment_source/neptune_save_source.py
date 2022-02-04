@@ -5,6 +5,7 @@ from typing import Dict, List, Tuple
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
+from neptune.new.exceptions import FileUploadError
 from neptune.new.types import File
 
 from src.data_types.i_model import IModel
@@ -86,6 +87,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
         self._save_tuning_metrics(tuning)
+        self._save_log()
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -101,6 +103,13 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
 
     def _save_options(self, options: str) -> None:
         self.run["options"] = options
+
+    def _save_log(self) -> None:
+        # TODO Make log file configurable
+        try:
+            self.run[f"log_file"].upload(File("./log_file.log"), True)
+        except FileUploadError:
+            pass
 
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]] = {}) -> None:
         average = {}

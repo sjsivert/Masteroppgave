@@ -71,12 +71,11 @@ with description("main integration test", "integration") as self:
         expect(result.exit_code).to(be(0))
         # Assert the correct number of files are created after a saved experiment
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(9))
+        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(3))
         expect(os.path.isdir(self.checkpoints_location)).to(be_true)
         expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
         expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
-        expect(os.path.isfile(f"{self.model_save_location}/{exp_name}/log_file.log")).to(be_true)
 
     with it("can continue the last ran experiment from disk"):
         # Add neptune as save_source for this experiment
@@ -156,7 +155,7 @@ with description("main integration test", "integration") as self:
         )
         # Assert
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(9))
+        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(3))
         expect(os.path.isdir(self.checkpoints_location)).to(be_true)
         expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)

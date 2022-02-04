@@ -143,7 +143,6 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         # TODO Make log file configurable
         try:
             shutil.copyfile("./log_file.log", f"{self.save_location}/log_file.log")
-            os.remove("./log_file.log")
         except FileNotFoundError:
             pass
 
