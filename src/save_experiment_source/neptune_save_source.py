@@ -10,7 +10,6 @@ from neptune.new.exceptions import FileUploadError
 from neptune.new.types import File
 
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -18,7 +17,7 @@ from src.utils.file_hasher import generate_file_hash
 from src.utils.temporary_files import temp_files
 
 
-class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource, ABC):
+class NeptuneSaveSource(ISaveExperimentSource, ABC):
     """
     Neptune save source for tracking ML experiments.
     """
@@ -198,22 +197,8 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource, ABC):
 
     def _load_pipeline_steps(self) -> str:
         # Load pipeline steps from neptune save source
+
         return self.run["data_pipeline_steps"].fetch()
-
-    ##########################################################
-    # ILogTrainingSource interface
-    ##########################################################
-    def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
-        # Interface, not to be implemented
-        pass
-
-    def log_models(self, models: List) -> None:
-        # Interface, not to be implemented
-        pass
-
-    def load_temp_models(self, models_path: List) -> None:
-        # Interface, not to be implemented
-        return None
 
     def load_model_and_metadata(self) -> None:
         raise NotImplementedError()

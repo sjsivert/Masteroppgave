@@ -8,13 +8,12 @@ from typing import Dict, List, Optional, Tuple
 
 from matplotlib.figure import Figure
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.file_hasher import generate_file_hash
 
 
-class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource, ABC):
+class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def __init__(
         self,
         model_save_location: Path,
@@ -200,21 +199,6 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource, ABC):
 
     def load_model_and_metadata(self) -> None:
         raise NotImplementedError()
-
-    ##########################################################
-    # ILogTrainingSource interface
-    ##########################################################
-    def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
-        # TODO
-        pass
-
-    def log_models(self, models: List) -> None:
-        # TODO
-        pass
-
-    def load_temp_models(self, models_path: List) -> None:
-        # TODO
-        return None
 
     def _save_title_and_description(self, title, description) -> None:
         with open(f"{self.save_location}/title-description.txt", "w") as f:
