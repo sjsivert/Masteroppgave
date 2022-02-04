@@ -67,5 +67,5 @@ class ValidationModelStructure(IModelStructure, ABC):
     def get_tuning_parameters(self) -> Dict:
         return {}
 
-    def auto_tuning(self, Dict) -> None:
+    def auto_tuning(self, tuning_params: Dict) -> None:
         raise NotImplementedError()
