@@ -6,7 +6,7 @@ logger:
     log_file: ./log_file.log
 experiment:
     tags: [market_insights]
-    save_sources_to_use: [disk]
+    save_sources_to_use: [disk, neptune]
     checkpoint_save_location: ./models/0_current_model_checkpoints/
     log_model_every_n_epoch: 10
     error_metrics: [MSE, MAE]
