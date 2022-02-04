@@ -19,6 +19,8 @@ experiment:
 
   # Possible metrics: MSE, MAE
   error_metrics:
+    - 'SMAPE'
+    - 'MASE'
     - 'MSE'
     - 'MAE'
 
@@ -45,7 +47,6 @@ model:
       - time_series_id: 11573
         # seasonal order
         order:
-          - 5 # p
-          - 2 # d
-          - 0 # q
-
+          - 2 # p
+          - 6 # d
+          - 11 # q

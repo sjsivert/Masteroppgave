@@ -55,11 +55,11 @@ class ArimaModel(IModel, ABC):
         logging.info(arima_model_res.summary())
 
         self.model = arima_model_res
-        self.value_approximation = self.model.predict(0, self.training_periode - 1)
+        self.value_approximation = DataFrame(self.model.predict(0, self.training_periode - 1))
         # Figures
         self._visualize_training(data_set, self.value_approximation)
         # Metrics
-        metrics = calculate_error(data_set, self.value_approximation)
+        metrics = calculate_error(data_set["hits"], self.value_approximation["predicted_mean"])
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         logging.info(f"Training metrics: {self.metrics}")
 
@@ -78,7 +78,9 @@ class ArimaModel(IModel, ABC):
         # Figures
         self._visualize_testing(test_data_set[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(test_data_set[:predictive_period], self.predictions)
+        metrics = calculate_error(
+            test_data_set["hits"][:predictive_period], self.predictions["predicted_mean"]
+        )
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
 
         logging.info(

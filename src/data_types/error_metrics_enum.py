@@ -6,3 +6,5 @@ class ErrorMetricEnum(Enum):
     MAE = "MAE"
     RMSE = "RMSE"
     MAPE = "MAPE"
+    MASE = "MASE"
+    SMAPE = "SMAPE"

@@ -45,6 +45,18 @@ with description("error_calculations", "unit") as self:
             mape = calculate_mape(data_set, proposed_data)
             expect(round(mape, 4)).to(equal(expected_mape))
 
+    with it("can caluclate MASE"):
+        with included_context("mock_dataset"):
+            expected_mase = 0.25
+            mase = calculate_mase(data_set, proposed_data)
+            expect(round(mase, 4)).to(equal(expected_mase))
+
+    with it("can caluclate SMAPE"):
+        with included_context("mock_dataset"):
+            expected_smape = 0.071
+            smape = calculate_smape(data_set, proposed_data)
+            expect(round(smape, 4)).to(equal(expected_smape))
+
     with it("can calculate errors"):
         with included_context("mock_dataset"):
             errors = calculate_error(data_set, proposed_data)
