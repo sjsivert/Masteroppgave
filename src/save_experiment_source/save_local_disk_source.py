@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import shutil
+from abc import ABC
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -13,7 +14,7 @@ from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.file_hasher import generate_file_hash
 
 
-class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
+class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource, ABC):
     def __init__(
         self,
         model_save_location: Path,
@@ -196,6 +197,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ILogTrainingSource):
         with open(f"{self.save_location}/data_processing_steps.txt", "r") as f:
             pipeline_steps = f.read()
         return pipeline_steps
+
+    def load_model_and_metadata(self) -> None:
+        raise NotImplementedError()
 
     ##########################################################
     # ILogTrainingSource interface

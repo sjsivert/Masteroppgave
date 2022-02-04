@@ -1,12 +1,14 @@
 import pickle
+from abc import ABC
 from typing import Dict, List, Optional
 
+from matplotlib.figure import Figure
 from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
-class SklearnModel(IModel):
+class SklearnModel(IModel, ABC):
     """
     Wrapper for sklearn models.
     """
@@ -18,7 +20,9 @@ class SklearnModel(IModel):
         name: str = "sklearn_placeholder",
     ) -> None:
         self.model = model
-        super().__init__(log_sources, name)
+        self.log_sources: List[ILogTrainingSource] = log_sources
+        # Model name
+        self.name: str = name
 
     def save(self, path: str) -> str:
         """
@@ -45,3 +49,9 @@ class SklearnModel(IModel):
     def get_metrics(self) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
+
+    def get_figures(self) -> List[Figure]:
+        raise NotImplementedError()
+
+    def get_name(self) -> str:
+        return self.name

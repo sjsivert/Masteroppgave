@@ -1,5 +1,6 @@
 import logging
 import os.path
+from abc import ABC
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -17,7 +18,7 @@ from src.utils.file_hasher import generate_file_hash
 from src.utils.temporary_files import temp_files
 
 
-class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
+class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource, ABC):
     """
     Neptune save source for tracking ML experiments.
     """
@@ -213,3 +214,6 @@ class NeptuneSaveSource(ISaveExperimentSource, ILogTrainingSource):
     def load_temp_models(self, models_path: List) -> None:
         # Interface, not to be implemented
         return None
+
+    def load_model_and_metadata(self) -> None:
+        raise NotImplementedError()

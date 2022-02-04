@@ -1,7 +1,8 @@
+from abc import ABCMeta
 from typing import Dict, List
 
 
-class ILogTrainingSource:
+class ILogTrainingSource(metaclass=ABCMeta):
     """
     An interface for saving temporary or unfinished models and metrics.
     When training is interrupted, the model should be able to store the current training progress

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from abc import ABC
 from typing import List, Dict
 
+from pandas import Series
 from pandas.core.frame import DataFrame
 from matplotlib.figure import Figure
 
@@ -10,9 +12,21 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.visuals import visualize_data_series
 
 
-class ValidationModel(IModel):
+class ValidationModel(IModel, ABC):
     def __init__(self, log_sources: List[ILogTrainingSource], name: str = "validation_placeholder"):
-        super().__init__(log_sources=log_sources, name=name)
+        # Temporary logging
+        self.log_sources: List[ILogTrainingSource] = log_sources
+        # Model name
+        self.name: str = name
+        # Predictions
+        self.training_value_aproximation: Series
+        self.predictions: Series
+        # Visualization
+        self.figures: List[Figure] = []
+        self.metrics: Dict = {}
+
+    def get_name(self) -> str:
+        return self.name
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         """

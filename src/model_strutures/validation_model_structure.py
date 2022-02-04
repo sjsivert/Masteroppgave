@@ -1,4 +1,5 @@
 import logging
+from abc import ABC
 from typing import Dict, List, Optional
 
 from genpipes.compose import Pipeline
@@ -11,7 +12,7 @@ from src.model_strutures.i_model_structure import IModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
-class ValidationModelStructure(IModelStructure):
+class ValidationModelStructure(IModelStructure, ABC):
     def __init__(self, log_sources: List[ILogTrainingSource]) -> None:
         self.data_pipeline = None
         self.models = []
@@ -62,3 +63,9 @@ class ValidationModelStructure(IModelStructure):
         for model in self.models:
             metrics[model.get_name()] = model.get_metrics()
         return metrics
+
+    def get_tuning_parameters(self) -> Dict:
+        return {}
+
+    def auto_tuning(self, Dict) -> None:
+        raise NotImplementedError()

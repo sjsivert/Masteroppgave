@@ -1,4 +1,5 @@
 import logging
+from abc import ABC
 from typing import Dict, List, Tuple
 
 import pandas as pd
@@ -12,7 +13,7 @@ from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 
 
-class ArimaModel(IModel):
+class ArimaModel(IModel, ABC):
 
     # TODO! ARIMA model fails on Linux in cases where the model is interpreted as non-stationary.
     # TODO: It should not be an issue on Windows, but further validation of the problem is needed.
@@ -26,14 +27,24 @@ class ArimaModel(IModel):
         name: str = "placeholder",
         order: Tuple[int, int, int] = (0, 0, 0),
     ):
-        super().__init__(log_sources=log_sources, name=name)
+        self.log_sources: List[ILogTrainingSource] = log_sources
+        # Model name
+        self.name: str = name
         # The ARIMA model must be instanced with data, thus this is done during training
         self.model = None
         self.order = order  # Tuple defining the ARIMA order variable
+        # Visualization
+        self.figures: List[Figure] = []
+        self.metrics: Dict = {}
+
         self.training_periode = (
             0  # Integer defining the number of data-points used to train the ARIMA model
         )
         self.training_residuals = None  # Dataframe of training residuals
+        super().__init__()
+
+    def get_name(self) -> str:
+        return self.name
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         # TODO: Fix training size
