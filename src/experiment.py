@@ -13,6 +13,8 @@ from src.save_experiment_source.local_checkpoint_save_source import (
     LocalCheckpointSaveSource,
     init_local_checkpoint_save_location,
 )
+from src.save_experiment_source.local_log_training_source import LocalLogTrainingSource
+from src.save_experiment_source.neptune_log_training_source import NeptuneLogTrainingSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
 from src.utils.config_parser import config
@@ -53,7 +55,7 @@ class Experiment:
         for source in save_sources_to_use:
             if source == "disk":
                 sources.append(
-                    SaveLocalDiskSource(
+                    LocalLogTrainingSource(
                         **save_source_options["disk"],
                         options_dump=config.dump(),
                         title=self.title,
@@ -63,7 +65,7 @@ class Experiment:
                 )
             elif source == "neptune":
                 sources.append(
-                    NeptuneSaveSource(
+                    NeptuneLogTrainingSource(
                         **save_source_options["neptune"],
                         title=self.title,
                         description=self.description,
