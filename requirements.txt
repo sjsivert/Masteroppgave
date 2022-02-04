@@ -26,3 +26,4 @@ mockito
 -e.
 psutil
 pipe
+permetrics

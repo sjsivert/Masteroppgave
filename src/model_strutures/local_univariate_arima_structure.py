@@ -10,7 +10,7 @@ from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_error, calculate_mse
+from src.utils.error_calculations import calculate_mase
 from src.utils.visuals import visualize_data_series
 import warnings
 
@@ -98,7 +98,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
             if forecast is None:
                 logging.info(f"Error with prediction key: {key}")
                 continue
-            err = calculate_mse(self.testing_set, forecast)
+            err = calculate_mase(self.testing_set["hits"], forecast[0])
             error_parameter_sets[key] = err
             lowest_error_key = lowest_error_key if err > lowest_error else key
             lowest_error = lowest_error if err > lowest_error else err
@@ -123,7 +123,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
         self,
         p_range: Tuple[int, int] = (1, 7),
         d_range: Tuple[int, int] = (1, 7),
-        q_range: Tuple[int, int] = (1, 14),
+        q_range: Tuple[int, int] = (1, 11),
     ) -> List[Tuple[int, int, int]]:
         parameters = []
         for q in range(q_range[0], q_range[1] + 1):
