@@ -1,0 +1,55 @@
+\subsection{Proposed method framework}
+
+To answer the goal presented in \Cref{section:Introduction:Goal} a model framework is proposed.
+The proposed method is intended to achieve a higher predictive ability than other state-of-the-art methods on the presented dataset.
+The presented model is a Convolutional autoencoder with an LSTM.
+%With the ARIMA model and the LSTM model as benchmarks, the proposed model aims at achieving lower predictive error than these methods.
+The attained dataset presented in \Cref{section:Architecture:DataExploration}
+is a part of the E-commerce domain, containing highly fluctuating data, seasonality, and more.
+Such a dataset presents difficulties in prediction with high accuracy. The specified model should attain better results than standard state-of-the-art methods.
+
+\Cref{section:RelatedWork:Hybrid} discusses the improvements in predictive accuracy achievable with the use of hybrid models.
+Utilizing methods for extracting both temporal and spatial values appeared to yield improvements.
+With the available dataset containing large fluctuations in values, the designed framework would need to be able to achieve predictions despite this.
+Therefore the proposed model is heavily influenced by the time-series prediction model presented in \cite{Zhao2019}.
+The model is intended to work with highly fluctuating datasets. The results of the paper show a decrease in predictive error with the hybrid method over an LSTM model.
+Similarly, the available dataset described in
+\Cref{section:Architecture:DataExploration} shares these attributes.
+Therefore, the assertion is made that the same concepts applied in \cite{Zhao2019} can be applied in this problem space.
+Such a hybrid model would then be introduced to a new problem space, the E-commerce sector, in order to make predictions.
+In addition, exploring methods for exploiting interdependent relationships between related time-series.
+As far as we can tell, such a model has not previously been applied with E-commerce prediction.
+
+% Why are we not using a regular LSTM method?
+\Cref{section:RelatedWork:forecasting-ecommerce}
+refers to the previously applied LSTM networks used in E-commerce time-series prediction.
+Despite the ARIMA being commonly used in time-series prediction, the LSTM network has shown great predictive accuracy.
+Therefore, the method architecture aims to explore an improved LSTM model to achieve better results.
+
+% Removed: We are saying the same thing, two sections above.
+% \Cref{section:RelatedWork:Hybrid}
+% discusses how complex hybrid models are able to achieve higher accuracy than their individual parts.
+% One such example is the use of LSTM in \cite{Zhao2019}, achieving higher prediction error than the proposed hybrid model, using multiple loss metrics.
+% In order to increase predictive accuracy and reduce error, such hybrid methods are therefore worth considering.
+
+
+% Why are we using this CNN-AE + LSTM, insted of another method?
+There are multiple different types of hybrid methods, all with different specializations and use cases.
+Due to the distribution in the dataset, the method presented in \cite{Zhao2019} was selected as the basis for the model.
+Although the proposed CNN-AE and LSTM model has already been applied to other datasets, this paper aims to evaluate its use in a new E-commerce problem space.
+In the following sections, other aspects of the framework will be introduced.
+This includes the model structure selected, discussing the implications of a global method or a multivariate approach.
+These alterations from the model proposed in \cite{Zhao2019} is intended to improve the applicability of the model on this E-commerce problemspace.
+
+
+Although the proposed framework is intended to surpass previously utilized methods,
+the improvements need to be validated.
+As a means to validate the improved predictive capability of the hybrid framework,
+baseline predictions should be created using current state-of-the-art methods.
+In order to attain a well-suited benchmark, both a statistical and deep learning method should be used.
+The statistical method SARIMA would supply an explainable prediction on our dataset, making it easy to compare.
+Additionally, as the method selection aims to improve the accuracy of the LSTM method,
+an LSTM benchmark should be established to verify that the new model indeed surpasses the LSTM method.
+With both an explainable statistical method and a current state-of-the-art method to benchmark the model performance,
+we believe this should be an acceptable way of verifying the accuracy of the proposed method.
+
