@@ -1,0 +1,140 @@
+% (C) Anders Kofod-Petersen
+\documentclass[a4paper]{book}
+%\usepackage[english]{babel}						% Correct English hyphenation
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % Added for Norwegian characters
+\usepackage[norsk, english]{babel} % Added for Norwegian characters
+%\usepackage[latin1]{inputenc}						% Allow for non-English letters
+\usepackage{graphicx}							% To include graphics
+\usepackage{natbib}								% Correct citations
+%\usepackage{fancyheadings}						% Nice header and footer
+\usepackage[linktocpage,colorlinks]{hyperref}			% PDF hyperlink
+%\providecommand*{\lstnumberautorefname}{line}
+\usepackage{geometry} 							% Better geometry
+\usepackage{import}
+%\usepackage[center]					% For cropping documents
+\usepackage{import}
+% \usepackage{todonotes}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{tcolorbox}
+\usepackage{amsfonts}
+% For images and subimages
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+% For strikethrough across characters \sout command
+\usepackage{ulem}
+% For including pdfs in appendix
+\usepackage{pdfpages}
+% For table \toprule, improved version of \hline
+\usepackage{booktabs}
+% To get \text{} within math mode
+\usepackage{amsmath}
+% Wrap text around figures and tables
+\usepackage{wrapfig}
+
+\usepackage[nameinlink]{cleveref}
+% B5 (uncomment to convert to B5 format)
+ \geometry{b5paper}
+
+% Author
+% Fill in here, and use commands in the text. 
+\newcommand{\thesisAuthor}{Sindre J.I Sivertsen \& Sander Kilen}
+\newcommand{\thesisTitle}{Exploring Hybrid Methods for E-commerce Time-Series Forecasting}
+\newcommand{\thesisType}{master project}
+\newcommand{\thesisDate}{Fall 2021}
+
+% Inspiration take from https://tex.stackexchange.com/questions/95838/how-to-write-a-perfect-equation-parameters-description
+%\newenvironment{conditions*}
+%  {\par\vspace{\abovedisplayskip}\noindent
+%   \tabularx{\columnwidth}{>{$}l<{$} @{${}={}$} >{\raggedright\arraybackslash}X}}
+%  {\endtabularx\par\vspace{\belowdisplayskip}}
+% PDF info
+\hypersetup{pdfauthor={\thesisAuthor}}
+\hypersetup{pdftitle={\thesisTitle}}
+\hypersetup{pdfsubject={\thesisType}}
+\hypersetup{linkcolor=black}
+\hypersetup{citecolor=black}
+\hypersetup{urlcolor=black}
+
+\newtheorem{definition}{Definition}
+%Fancy headings
+%\pagestyle{fancy}
+%\pagestyle{fancyplain}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+%\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\let\uppercase\relax\leftmark}}
+%\rhead[\fancyplain{}{\let\uppercase\relax\rightmark}]{\fancyplain{}{\thepage}}
+%\chead[\fancyplain{}{}]{\fancyplain{}{}}
+%\lfoot[\fancyplain{}{}]{\fancyplain{}{}}
+%\cfoot[\fancyplain{}{}]{\fancyplain{}{}}
+%\rfoot[\fancyplain{}{}]{\fancyplain{}{}}
+
+% Citation format
+\bibliographystyle{apalike}
+\bibpunct{[}{]}{;}{a}{,}{,}
+
+
+\begin{document}
+
+%Title page (This is generate automatically from the commands above)
+\begin{titlepage}
+  \noindent {\large \textbf{\thesisAuthor}}
+  \vspace{2cm}
+
+  \noindent {\Huge \thesisTitle}
+  \vspace{2cm}
+
+  \noindent \thesisType, \thesisDate
+  \vspace{2cm}
+
+  \noindent Artificial Intelligence Group\\ Department of Computer and Information Science\\ Faculty of Information Technology, Mathematics and Electrical Engineering\\
+
+  \vfill
+  \begin{center}
+    \includegraphics[width=3cm]{figs/NTNUlogo.pdf}
+  \end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\cleardoublepage
+
+\frontmatter
+\import{./sections}{Abstract.tex}
+
+\clearpage
+\import{./sections}{Preface.tex}
+
+\clearpage
+
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+
+\mainmatter
+\import{./sections/Introduction}{Introduction.tex}
+
+\import{./sections}{BT/BT.tex}
+
+\import{./sections}{RelatedWork/RelatedWork.tex}
+
+\import{./sections}{Architecture/Architecture.tex}
+
+%\import{./sections}{Results/Results.tex}
+
+\import{./sections}{Conclusion/Conclusion.tex}
+
+
+\backmatter
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibtex/library}
+\import{./sections/}{appendix.tex}
+% \listoftodos[Notes]
+
+
+\end{document}

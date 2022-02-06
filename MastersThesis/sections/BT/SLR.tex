@@ -1,0 +1,138 @@
+
+\section{Structured Literature Review Protocol}
+\label{section:BT:SLR}
+
+A structural literature review (SLR) was conducted to find related work for this project.
+The SLR process is based on \cite{AndersKofod-Petersen2018}.
+This section will briefly describe our process, deviations from the process,
+and changes made during the process.
+
+\subsection{Step 1: Idendification of research}
+In order to retrieve all relevant literature on the topic at hand, we defined our
+Research Questions (RQ) and Research Terms (RT).
+
+We included the best-known search engines as our sources:
+
+\textit{
+  ACM digital library,
+  IEEE Xplore,
+  ISI web of knowledge,
+  ScienceDirect,
+  CiteSeer,
+  SpringerLink and,
+  Google Scholar
+}
+
+Our search terms are listen in \Cref{tab:search-terms-table-1} and \Cref{tab:search-terms-table-2}.
+We used a Notion database to keep track of all the papers. The whole database is available here
+%\href{https://northern-leech-f32.notion.site/1a5ea8cd5ce64e0bbbdbbe8dae75e295?v=17c60e6672c94f87a0ba27b01a1a9588}{Notion SLR Database}
+\cite{slrdatabase}.
+We used another Notion Database to keep track of our searches and track where how we found each Research Paper
+\cite{searchtermtable}
+
+Our method for adding literature to the Notion database was:
+\begin{enumerate}
+  \item Pick a source search engine
+  \item Search the search engine applying AND $\wedge$ and OR $\vee$ using our search terms
+  \item Add the Search Term and Source combination to the Search Term Database.
+  \item Title and abstract inclusion screening. Add all remotely relevant papers to Notion, and link them with the correct Search Term Database.
+  \item Continue until relevant papers are far in between
+  \item Repeat the whole process with a new search engine
+\end{enumerate}
+
+\subsubsection{Devations}
+We did end up with some deviations to the algorithm above.
+Some papers we found by accident when researching the topic.
+They were deemed too important not to add.
+Their search terms were too general for us to consider adding to the search terms without including several other non-relevant papers.
+All papers found by accident were similarly linked with a search term table row documenting
+how the paper was discovered.
+
+Some of the best papers we found through the structured review contained references to other relevant papers,
+some of which were of high enough quality to add to our list of sources.
+These were also added to Notion.
+
+The term \textit{Anomaly detection} was removed (11.10.2021) as a search term after our goals shifted away from anomaly detection and towards time-series prediction.
+This change was documented in our \textit{Decision Matrix}, which is publicly available
+\cite{decisionmatrix}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|}\hline
+    Name   & Group 1                     & Group 2                  & Group 3                  \\ \hline
+    Term 1 & CNN                         & \sout{Anomaly detection} & Autoencoder              \\ \hline
+    Term 2 & Convolution Neural Networks & \sout{Extreme values}    & Encoder Decoder networks \\ \hline
+    Term 3 &                             & \sout{Outliers}          &                          \\ \hline
+  \end{tabular}
+  \caption{Search Terms table 1}
+  \label{tab:search-terms-table-1}
+\end{table}%
+
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}\hline
+      Name   & Group 4     & Group 5                & Group 6    \\ \hline
+      Term 1 & Time-series & LSTM                   & E-commerce \\ \hline
+      Term 2 &             & Long short term memory & Sales      \\ \hline
+      Term 3 &             &                        &            \\ \hline
+    \end{tabular}
+    \caption{Search Terms table 2}
+    \label{tab:search-terms-table-2}
+  \end{center}
+\end{table}%
+
+\subsection{Filtering by Title and Abstract}
+Working with six different sources and using a manual but an orderly template for processing papers,
+we decided to do the rough filtering while searching for papers in order to avoid adding a vast amount of irrelevant
+papers to our Notion database, thus saving time.
+
+In order to filter out papers, we had three Inclusion Criteria (IC).
+\begin{description}
+  \item[IC1] The study's main concern is time-series forecasting.
+  \item[IC2] The study's should not be older than from 2015.
+  \item[IC3] The study focus on CNN, autoencoder, or LSTM. Or a statistical method.
+\end{description}
+IC1 excludes papers with a topic not relevant to our goals, such as time-series classification and anomaly detection.
+IC2 was then added to reduce the number of relevant papers, thus reducing the scope of the structured literature review.
+Through initial research on the topic of time-series prediction, we found few relevant papers from before 2015.
+Newer research was usually more relevant due to the more modern approaches applied, and thus this criterion was introduced.
+However, a small number of relevant papers published prior to 2015 were found to have relevance, and an exception was made for these papers.
+Lastly, IC3 was added to keep the papers within our defined scope of methods. 12.10.2021, we added "Or a statistical method."
+to IC3. This is documented in the decision matrix \citep{decisionmatrix}.
+
+Each Inclusion criteria passed gave the paper a maximum of 1 point. For IC3, if the paper just covered one of the
+four listed methods, it would get 0.25 points. If a paper scored 0 points on either of the Inclusion Criteria, it would be filtered out.
+
+\subsection{Quality Assessment}
+In the final stage of filtering, the goal is to assess the quality of the work.
+This was done using a set of quality criteria for further screening.
+%Quality Criteria (QC) which is taken from \cite{AndersKofod-Petersen2018}.
+\begin{itemize}
+  \item QC 1	The study abstract is concise and describes the aim and results of the study.
+  \item QC 2	The publisher of the paper/study is a reputable scientific source.
+  \item QC 3	Is there a clear statement of the aim of the research?
+  \item QC 4	Is the study put into the context of other studies and research?
+  \item QC 5	Are system or algorithmic design decisions justified?
+  \item QC 6	Is the test data set reproducible?
+  \item QC 8	Is the experimental procedure thoroughly explained and reproducible?
+  \item QC 9	Is it clearly stated in the study which other algorithms the study's algorithms have been compared with?
+  \item QC 10	Are the performance metrics used in the study explained and justified?
+  \item QC 11	Are the test results thoroughly analyzed?
+  \item QC 12 Does the test evidence support the findings presented?
+\end{itemize}
+
+The criteria are used with a scoring system.
+Yes (1 point), to some degree (0.5 points), and no (0 points).
+The maximum possible sum from the Quality Assessment is 12. Adding the points from Inclusion Criteria
+increases the maximum possible sum to 15.
+
+The quality assessment resulted in a score range of [7.33, 15].
+All papers below "7" were filtered out before
+the Quality Assessment.
+The overall list is public
+\cite{SLR-cutoff}.
+In order to limit the scope of papers and ensure the quality of the selected, a threshold of minimum 10 points
+was set for a paper to be included.
+
+The final list of included papers contains 23 papers. A screenshot of where we drew the line for papers to include
+is presented i the appendix \autoref{cha:slr-cut-off-line}.

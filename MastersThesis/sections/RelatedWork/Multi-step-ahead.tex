@@ -1,0 +1,19 @@
+\section{Multi-step ahead}
+\label{section:RelatedWork:multi-step-ahead}
+Intending to forecast future values, there is a question of how far into the feature a meaningful prediction can be given.
+As stated in \Cref{section:BT:forecasting-time-series}, there are two ways to achieve this. 
+Either through the use of multiple single-step predictions or a multi-step-ahead forecast.
+
+\cite{Hewamalage2021} presents a section regarding multi-step-ahead forecasting.
+Citing \cite{BenTaieb2011} works and their findings that using a multip-input multi-output (MIMO) strategy is
+advantageous over the recursive single-step-ahead.
+This is because the MIMO strategy incorporates the inter-dependencies between each time step rather than forecasting
+each time step in isolation.
+They also found that the MIMO strategy voids error
+accumulation over the prediction time steps.
+\cite{Ramos2015} findings also support the MIMO strategy over the recursive
+single-step-ahead strategy.
+
+\cite{Hewamalage2021} suggests that the best input-to-output size ratio
+is $window\_input\_size = 1.25 * output\_window\_size$.
+With this in mind, the use of multi-step-ahead prediction appears to be the most appropriate approach to use.

@@ -1,0 +1,105 @@
+\section{Forecasting E-commerce}
+\label{section:RelatedWork:forecasting-ecommerce}
+
+User click rate on consumer e-commerce goods is a narrow domain,
+and we are unable to find any research that has yet been done within this particular field.
+However, one can argue that user interest in consumer goods follows the same distribution
+as online retail sales.
+Both domains will have the same seasonality with weekly and yearly periodic fluctuations.
+Additionally, the domains contain the same kind of products and categories.
+Both domains are dictated by the same external factors, such as media, commercials,
+and trends.
+Forecasting retail sales should translate well to e-commerce click rate.
+
+
+\cite{Ramos2015} did a comparative study on exponential smoothing methods
+based on state-space models such as ETS and ARIMA.
+The aim was to measure the forecasting performance of the two modeling frameworks
+when applied to retail sales data of five different categories,
+containing univariate time-series regarding sales of women's footwear.
+The domain proved difficult due to strong trends and seasonal patterns.
+
+The models forecasting ability were evaluated through several loss functions, such as RMSE, MAE, and MAPE.
+Both ETS and ARIMA achieved similar results with both one-step and multi-step forecasting.
+Their results show that multi-step forecasts are generally more accurate.
+This is argued to be a result of multi-step to incorporate more up-to-date information.
+Neither of the models is best suited for all circumstances.
+% Each time-series would need to identify an appropriate ARIMA model.
+% With differing data, identifying models would require data analysis of all the different time-series.
+
+
+
+These models have also been shown to be effective in other instances.
+\cite{Chu2003} shows that Holt-Winters exponential smoothing and ARIMA perform well when macro-economic
+conditions are relatively stable.
+However, when economic conditions are volatile, ANNs outperform linear methods.
+Despite this, the existence of stable data is not guaranteed.
+Often, the data contain nonlinear characteristics, increasing the complexity of the problem.
+\cite{Weng2020} writes that ARIMA, SARIMA, and Holt-Winter's
+Exponential Smoothing model etc., is inconsistent with the actual changes in the sales
+of retail stores.
+Results are usually unstable due to their in-applicability
+in the processing of nonlinear relationships.
+Despite this, statistical methods have the advantage of high interpretability,
+whereas more complex machine learning methods are limited by the high complexity and reduced interpretability.
+
+
+
+In comparison to \cite{Weng2020}, the paper \cite{Bowen2020} wanted to use machine learning to maintain
+the tradeoff between interpretability and consistency with actual
+changes in retail sales.
+Using a hybrid ARIMA and Back-propagation method, increased forecasting metrics was achieved through
+giving up the interpretability of the pure statistical methods.
+% The gain in forecasting ability, but loss of interpretability wasthrough the use of other machine learning methods.
+The same gains in forecasting ability but loss of interpretability was
+found by \cite{Zunic2020}.
+They used pure machine learning methods such as the LightGBM, an ensemble learning method based on the XGB model,
+and the Prophet model, with good results.
+
+% What results did they get?
+\cite{Bowen2020} finds that traditional models such as ARIMA have trouble forecasting E-commerce
+due to the fast-moving domain of consumer retail buying patterns.
+Additionally, their connection to external factors,
+such as holidays and price changes, increases the complexity further.
+The machine learning models performed better, with lower predictive error
+and good interpretability.
+However, the LightGDM model outperformed the Prophet model because of the
+models limitation to univariate time-series.
+
+
+Further experimentation with machine learning methods is done by \cite{Bandara2019},
+through the use of deep learning methods.
+An accurate E-commerce sales forecasting model is generated using LSTM  Neural Network.
+Similar time-series are pooled into clusters where univariate and global models are trained on each cluster.
+The aim was to improve E-commerce sales forecasting by exploiting sales correlations and relationships
+available in an E-commerce hierarchy.
+
+Data preprocessing is done using a forward-filling strategy to impute missing sales
+observations in the dataset.
+The data was then normalized to accommodate the high sales volume ranges.
+They then used the mean of the sales of a product as the scaling factor.
+
+Two approaches to groupings were explored.
+The first approach was based on domain knowledge.
+Sales ranking and the percentage of zero sales were used as the primary business metrics
+to form groups of products.
+Group 1 represents their most popular products (67\% of sales), group 2 represents
+their more unpopular products (33\% of sales), and group 3 represents the rest.
+
+The second approach was based on time-series clustering.
+K-means clustering was used on a set of time-series features to identify groupings.
+The first two features were business-specific features, namely "sales.quantile" and "zero.sales.percentage".
+The rest of the features were time-series specific.
+%They extracted features with the \textit{tsfeatures} package.
+A silhouette analysis was utilized to determine the optimal number of clusters in the K-means algorithm.
+
+% What results did they get?
+The results outperformed the state-of-the-art univariate forecasting techniques.
+Thereby concluding that E-commerce product hierarchies contain various cross-product demand
+patterns and correlations.
+Exploiting these relationships are necessary to improve the sales forecasting
+accuracy in this domain.
+
+With the effort to advance the predictive capabilities of models in e-commerce,
+previous work done within the problem space is highly relevant as a starting point.
+This shows what has already been accomplished and what new methods have not yet been attempted.
