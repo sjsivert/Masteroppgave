@@ -47,7 +47,6 @@ class ArimaModel(IModel, ABC):
         return self.name
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
-        # TODO: Fix training size
         self.training_periode = len(data_set)
         arima_model = ARIMA(data_set, order=self.order)
         arima_model_res = arima_model.fit()
@@ -82,8 +81,6 @@ class ArimaModel(IModel, ABC):
                 self.training_periode, self.training_periode + predictive_period - 1
             )
             self.predictions = value_predictions
-        print(self.predictions.size)
-        print(test_data_set[:predictive_period].size)
         # Figures
         self._visualize_testing(test_data_set[:predictive_period], self.predictions)
         # Metrics
