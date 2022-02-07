@@ -1,0 +1,12 @@
+
+_____Results dataset-11573_____
+Testing_SMAPE: 0.951
+Testing_MASE: 1.093
+Testing_MSE: 12.159
+Testing_MAE: 2.856
+
+___Average___
+Testing_SMAPE: 0.951
+Testing_MASE: 1.093
+Testing_MSE: 12.159
+Testing_MAE: 2.856
