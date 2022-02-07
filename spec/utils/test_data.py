@@ -41,4 +41,4 @@ def test_data() -> DataFrame:
 
 @declare.generator()
 def random_data_loader() -> DataFrame:
-    return DataFrame([randint(1, 40) for _ in range(50)])
+    return DataFrame([randint(1, 40) for _ in range(50)], columns=["hits"])
