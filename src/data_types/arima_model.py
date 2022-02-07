@@ -65,24 +65,30 @@ class ArimaModel(IModel, ABC):
 
         return metrics
 
-    def test(self, test_data_set: DataFrame, predictive_period: int = 5) -> Dict:
+    def test(
+        self, test_data_set: DataFrame, predictive_period: int = 5, single_step: bool = True
+    ) -> Dict:
         if_predictive_period_longer_than_dataset_use_max_length = (
             predictive_period if predictive_period <= len(test_data_set) else len(test_data_set)
         )
         predictive_period = if_predictive_period_longer_than_dataset_use_max_length
-
-        value_predictions = self.model.predict(
-            self.training_periode, self.training_periode + predictive_period - 1
-        )
-        self.predictions = DataFrame(value_predictions)
+        if single_step:
+            value_predictions = ArimaModel._single_step_prediction(
+                model=self.model, test_set=test_data_set
+            )
+            self.predictions = value_predictions[0][:predictive_period]
+        else:
+            value_predictions = self.model.predict(
+                self.training_periode, self.training_periode + predictive_period - 1
+            )
+            self.predictions = value_predictions
+        print(self.predictions.size)
+        print(test_data_set[:predictive_period].size)
         # Figures
         self._visualize_testing(test_data_set[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(
-            test_data_set["hits"][:predictive_period], self.predictions["predicted_mean"]
-        )
+        metrics = calculate_error(test_data_set["hits"][:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
-
         logging.info(
             f"\nPredictions ahead: {predictive_period}\n"
             + f"Predicting from {self.training_periode} to {self.training_periode + predictive_period - 1}\n"
@@ -150,6 +156,19 @@ class ArimaModel(IModel, ABC):
             )
         )
 
+    @staticmethod
+    def _single_step_prediction(model: ARIMAResults, test_set: DataFrame) -> DataFrame:
+        forecast = []
+        for index, row in test_set.iterrows():
+            data_point = test_set.loc[index:index]
+            prediction = Series(model.forecast(1))
+            forecast.append(
+                prediction,  # Single step forecast
+            )
+            model = model.extend(data_point)
+        forecast = DataFrame(pd.concat(DataFrame(x) for x in forecast))
+        return forecast
+
     # Static method evaluating an Arima model
     @staticmethod
     def method_evaluation(
@@ -167,16 +186,9 @@ class ArimaModel(IModel, ABC):
                 forecast = model.forecast(len(test_data))
                 return forecast
             # Evaluate model with single step evaluation and Walk-forward validation
-            forecast = []
-            for index, row in test_data.iterrows():
-                data_point = test_data.loc[index:index]
-                prediction = Series(model.forecast(1))
-                forecast.append(
-                    prediction,  # Single step forecast
-                )
-                model = model.extend(data_point)
-            forecast = DataFrame(pd.concat(DataFrame(x) for x in forecast))
-            return forecast
+            else:
+                forecast = ArimaModel._single_step_prediction(model=model, test_set=test_data)
+                return forecast
         except:
             return None
 

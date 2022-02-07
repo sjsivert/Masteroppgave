@@ -57,7 +57,9 @@ class ValidationModel(IModel, ABC):
         self.metrics = {"Accuracy": self.training_accuracy[-1], "Error": self.training_error[-1]}
         return self.metrics
 
-    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
+    def test(
+        self, data_set: DataFrame, predictive_period: int = 5, single_step: bool = False
+    ) -> Dict:
         """
         Mock values for testing accuracy, error, and predictions
         """
