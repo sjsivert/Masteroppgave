@@ -152,4 +152,4 @@ class LocalUnivariateArimaStructure(IModelStructure):
         return self.tuning_parameter_error_sets
 
     def __repr__(self):
-        return f"<Local_univariate_arima> models: {self.models}"
+        return f"<Local_univariate_arim> models: {self.models}>"

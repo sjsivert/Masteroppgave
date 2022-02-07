@@ -1,5 +1,6 @@
 import logging
 import random
+from collections import OrderedDict
 from typing import Dict
 from xml.dom import NotFoundErr
 
@@ -58,7 +59,7 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
 
 def calculate_error(data_set: DataFrame, propsed_data_set: DataFrame) -> Dict[str, float]:
     error_metrics = config["experiment"]["error_metrics"].get()
-    errors = dict(
+    errors = OrderedDict(
         error_metrics
         | map(lambda key: try_convert_to_enum(key))
         | where(lambda metric: metric is not None)
