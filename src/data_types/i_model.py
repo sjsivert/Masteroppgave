@@ -28,7 +28,9 @@ class IModel(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
+    def test(
+        self, data_set: DataFrame, predictive_period: int = 5, single_step: bool = False
+    ) -> Dict:
         """
         Test the trained model with test set
         Validate through prediction

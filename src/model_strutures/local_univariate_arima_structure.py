@@ -71,12 +71,11 @@ class LocalUnivariateArimaStructure(IModelStructure):
         # TODO: Pass test data to the 'test' method
         for model in self.models:
             # TODO: Make hardcoded value configurable
-            model.test(self.testing_set, 10)
+            model.test(self.testing_set, 50)
 
     # Exhaustive Grid Search of ARIMA model
     def auto_tuning(self, tuning_params: Dict = {}) -> None:
         # TODO: Compare using Cross-Validation
-        # TODO: Add tuning parameters
         logging.info("Tuning model")
         forecasts = {}
         parameters = self._generate_parameter_grid()
@@ -116,7 +115,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
             )
         )
         self.tuning_parameter_error_sets = error_parameter_sets
-        self.tuning_parameter_error_sets["ARIMA"] = "MSE"
+        self.tuning_parameter_error_sets["ARIMA"] = "MASE"
         return lowest_error_key
 
     def _generate_parameter_grid(

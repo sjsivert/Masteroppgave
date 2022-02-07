@@ -42,7 +42,9 @@ class SklearnModel(IModel, ABC):
         # TODO: Implement
         raise NotImplementedError()
 
-    def test(self, data_set: DataFrame, predictive_period: int = 5) -> Dict:
+    def test(
+        self, data_set: DataFrame, predictive_period: int = 5, single_step: bool = False
+    ) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
 
