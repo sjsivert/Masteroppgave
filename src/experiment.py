@@ -8,6 +8,7 @@ from src.data_types.model_type_enum import ModelStructureEnum
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.save_experiment_source.local_checkpoint_save_source import (
     LocalCheckpointSaveSource,
@@ -47,7 +48,7 @@ class Experiment:
         save_source_options: Dict,
         load_from_checkpoint: bool = False,
         neptune_id_to_load: Optional[str] = None,
-    ) -> List[ISaveExperimentSource]:
+    ) -> List[ILogTrainingSource]:
         sources = []
 
         init_local_checkpoint_save_location(self.title, self.description)
