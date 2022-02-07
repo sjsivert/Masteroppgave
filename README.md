@@ -114,6 +114,9 @@ LOG_FILE=<batch_job_log_file> default: batch_jobs/output/sbatch_job.txt
 NEPTUNE_API_TOKEN=<api-token>
 ```
 
+# UML Diagram
+![UML class](https://user-images.githubusercontent.com/5860069/152807641-6df318db-816a-4bbb-a9fe-a54a5624f90a.png)
+
 # Folder structure
 
 ```
