@@ -155,7 +155,8 @@ with description("main integration test", "integration") as self:
         )
         # Assert
         expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
+        expect(os.path.isdir(f"{self.model_save_location}/{exp_name}/logging")).to(be_true)
+        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(9))
         expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(3))
         expect(os.path.isdir(self.checkpoints_location)).to(be_true)
         expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
