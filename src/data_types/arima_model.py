@@ -61,6 +61,8 @@ class ArimaModel(IModel, ABC):
         metrics = calculate_error(data_set["hits"], self.value_approximation["predicted_mean"])
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         logging.info(f"Training metrics: {self.metrics}")
+        for log_source in self.log_sources:
+            log_source.log_metrics({self.name: self.metrics}, 0)
 
         return metrics
 
