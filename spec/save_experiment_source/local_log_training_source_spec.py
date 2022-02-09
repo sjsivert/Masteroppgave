@@ -4,9 +4,13 @@ from pathlib import Path
 
 import pandas as pd
 from expects import expect, be, be_true, match, equal
-from mamba import description, it, shared_context, included_context, _it, before
+from mamba import description, it, shared_context, included_context, _it, before, after
+from mockito import mock, unstub
 from pandas import DataFrame
+from sklearn.linear_model import LogisticRegression
 
+from src.data_types.sklearn_model import SklearnModel
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_log_training_source import LocalLogTrainingSource
 from src.utils.temporary_files import temp_files
 
@@ -22,6 +26,9 @@ with description(LocalLogTrainingSource, "unit") as self:
         self.save_location = Path("models/temp-log-training-source")
         self.experiment_title = "test-local-log-training-source"
         self.log_location = f"{self.save_location}/{self.experiment_title}/logging"
+
+    with after.each:
+        unstub()
 
     with it("can be initialized"):
         with temp_log_training_files(self.save_location):
@@ -52,21 +59,34 @@ with description(LocalLogTrainingSource, "unit") as self:
                 }
             )
 
-            log_source.log_metrics(training_errors)
+            log_source.log_metrics(training_errors, 0)
             expect(os.path.isdir(f"{self.log_location}")).to(be_true)
             expect(os.path.isfile(f"{self.log_location}/training_errors.csv")).to(be_true)
-            print(pd.read_csv(f"{self.log_location}/training_errors.csv"))
 
             # Log again to check it append the file
-            log_source.log_metrics({"GPU": {"MAE": 3, "MSE": 4}})
+            log_source.log_metrics({"GPU": {"MAE": 3, "MSE": 4}}, 1)
 
             loaded_file = pd.read_csv(f"{self.log_location}/training_errors.csv")
 
             expect(loaded_file.__str__()).to(match(expected_file_content.__str__()))
 
     with it("can log models"):
-        # TODO: Implement
-        pass
+        with temp_log_training_files(self.save_location):
+            # Arrange
+            models = [
+                SklearnModel(LogisticRegression(), mock(ILogTrainingSource), name="0"),
+                SklearnModel(LogisticRegression(), mock(ILogTrainingSource), name="1"),
+            ]
+            log_source = LocalLogTrainingSource(
+                model_save_location=self.save_location,
+                title=self.experiment_title,
+            )
+            # Act
+            log_source.log_models(models)
+
+            # Assert
+            expect(os.path.isfile(f"{self.log_location}/model_0.pkl")).to(be_true)
+            expect(os.path.isfile(f"{self.log_location}/model_1.pkl")).to(be_true)
 
     with it("will extract correct error metrics form a metrics dictionary"):
         training_errors = {
