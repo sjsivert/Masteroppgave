@@ -16,7 +16,9 @@ from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 with description(ArimaModel, "unit") as self:
 
     with before.all:
-        self.log_sources = [mock(ILogTrainingSource)]
+        log_source = mock(ILogTrainingSource)
+        log_source.log_metrics = mock()
+        self.log_sources = [log_source]
         self.temp_location = "spec/temp/"
         init_mock_config()
         try:
