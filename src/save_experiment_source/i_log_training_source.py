@@ -10,7 +10,7 @@ class ILogTrainingSource(metaclass=ABCMeta):
     """
 
     @abstractmethod
-    def log_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def log_metrics(self, metrics: Dict[str, Dict[str, float]], epoch: int) -> None:
         # Interface, not to be implemented
         pass
 

@@ -112,9 +112,10 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         with open(f"{self.save_location}/datasets.json", "w") as f:
             json.dump(dataset_info, f)
 
-    def _save_models(self, models: List[IModel]) -> None:
+    def _save_models(self, models: List[IModel], custom_save_path: Path = None) -> None:
+        save_path = custom_save_path if custom_save_path else self.save_location
         for model in models:
-            model.save(path=f"{self.save_location}/")
+            model.save(path=f"{save_path}/")
 
     def _save_figures(self, figures: List[Figure]) -> None:
         for figure in figures:
