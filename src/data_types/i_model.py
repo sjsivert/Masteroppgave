@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from pandas.core.series import Series
 
 import matplotlib.pyplot as plt
@@ -20,7 +20,16 @@ class IModel(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
+    def process_data(
+        self, data_set: DataFrame, training_size: float
+    ) -> Tuple[DataFrame, DataFrame]:
+        """
+        Processes the already preprocessed data into training set and test set.
+        :return:
+        """
+
+    @abstractmethod
+    def train(self, epochs: int = 10) -> Dict:
         """
         Train the model.
         Return dict with training accuracy and error metric
@@ -28,9 +37,7 @@ class IModel(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def test(
-        self, data_set: DataFrame, predictive_period: int = 5, single_step: bool = False
-    ) -> Dict:
+    def test(self, predictive_period: int = 5, single_step: bool = False) -> Dict:
         """
         Test the trained model with test set
         Validate through prediction

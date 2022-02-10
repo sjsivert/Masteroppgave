@@ -1,6 +1,6 @@
 import pickle
 from abc import ABC
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from matplotlib.figure import Figure
 from pandas import DataFrame
@@ -38,13 +38,11 @@ class SklearnModel(IModel, ABC):
         with open(f"{path}model_{self.get_name()}.pkl", "rb") as f:
             self.model = pickle.load(f)
 
-    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
+    def train(self, epochs: int = 10) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
 
-    def test(
-        self, data_set: DataFrame, predictive_period: int = 5, single_step: bool = False
-    ) -> Dict:
+    def test(self, predictive_period: int = 5, single_step: bool = False) -> Dict:
         # TODO: Implement
         raise NotImplementedError()
 
@@ -57,3 +55,8 @@ class SklearnModel(IModel, ABC):
 
     def get_name(self) -> str:
         return self.name
+
+    def process_data(
+        self, data_set: DataFrame, training_size: float
+    ) -> Tuple[DataFrame, DataFrame]:
+        pass

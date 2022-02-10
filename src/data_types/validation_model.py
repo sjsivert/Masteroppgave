@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 from pandas import Series
 from pandas.core.frame import DataFrame
@@ -27,6 +27,12 @@ class ValidationModel(IModel, ABC):
 
     def get_name(self) -> str:
         return self.name
+
+    def process_data(
+        self, data_set: DataFrame, training_size: float
+    ) -> Tuple[DataFrame, DataFrame]:
+        # TODO: Implement
+        pass
 
     def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
         """

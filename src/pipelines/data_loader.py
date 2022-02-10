@@ -29,3 +29,8 @@ def load_csv_data(path: str) -> DataFrame:  # pragma: no cover
     :return: pandas dataframe containing the data
     """
     return pd.read_csv(path)
+
+
+@declare.generator()
+def dataframe_to_generator(df: DataFrame) -> Iterable[DataFrame]:
+    return df

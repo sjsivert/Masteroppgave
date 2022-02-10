@@ -4,10 +4,12 @@ from collections import OrderedDict
 from typing import Dict, List, Tuple
 
 import pandas as pd
+from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas import DataFrame, Series
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from src.data_types.i_model import IModel
+from src.pipelines.arima_model_pipeline import arima_model_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error, calculate_mse
 from src.utils.visuals import visualize_data_series
@@ -28,6 +30,11 @@ class ArimaModel(IModel, ABC):
         name: str = "placeholder",
         hyperparameters: Dict[str, int] = OrderedDict({"p": 2, "d": 6, "q": 11}),
     ):
+        self.data_pipeline = None
+        self.value_approximation = None
+        self.training_data = None
+        self.test_data = None
+
         self.log_sources: List[ILogTrainingSource] = log_sources
         # Model name
         self.name: str = name
@@ -44,12 +51,31 @@ class ArimaModel(IModel, ABC):
         self.training_residuals = None  # Dataframe of training residuals
         super().__init__()
 
+    def process_data(
+        self, data_set: DataFrame, training_size: float = 0.8
+    ) -> Tuple[DataFrame, DataFrame]:
+        self.data_pipeline = arima_model_pipeline(
+            data_set=data_set, cat_id=self.get_name(), training_size=training_size
+        )
+        logging.info(
+            f"ArimaModel: Data pipeline created for {self.get_name()}\n {self.data_pipeline.__repr__()}"
+        )
+        self.training_data, self.test_data = self.data_pipeline.run()
+
+        return self.training_data, self.test_data
+
     def get_name(self) -> str:
         return self.name
 
-    def train(self, data_set: DataFrame, epochs: int = 10) -> Dict:
-        self.training_periode = len(data_set)
-        arima_model = ARIMA(data_set, order=self.order)
+    def train(self, epochs: int = 10) -> Dict:
+        if self.training_data is None or self.test_data is None:
+            raise ValueError(
+                "Model does not have test og training data. Please call process_data() first."
+            )
+
+        self.training_periode = len(self.training_data)
+
+        arima_model = ARIMA(self.training_data, order=self.order)
         arima_model_res = arima_model.fit()
 
         logging.info(arima_model_res.summary())
@@ -57,9 +83,11 @@ class ArimaModel(IModel, ABC):
         self.model = arima_model_res
         self.value_approximation = DataFrame(self.model.predict(0, self.training_periode - 1))
         # Figures
-        self._visualize_training(data_set, self.value_approximation)
+        self._visualize_training(self.training_data, self.value_approximation)
         # Metrics
-        metrics = calculate_error(data_set["hits"], self.value_approximation["predicted_mean"])
+        metrics = calculate_error(
+            self.training_data["hits"], self.value_approximation["predicted_mean"]
+        )
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         logging.info(f"Training metrics: {self.metrics}")
         for log_source in self.log_sources:
@@ -67,16 +95,18 @@ class ArimaModel(IModel, ABC):
 
         return metrics
 
-    def test(
-        self, test_data_set: DataFrame, predictive_period: int = 5, single_step: bool = True
-    ) -> Dict:
+    def test(self, predictive_period: int = 5, single_step: bool = True) -> Dict:
+        if self.training_data is None or self.test_data is None:
+            raise ValueError(
+                "Model does not have test og training data. Please call process_data() first."
+            )
         if_predictive_period_longer_than_dataset_use_max_length = (
-            predictive_period if predictive_period <= len(test_data_set) else len(test_data_set)
+            predictive_period if predictive_period <= len(self.test_data) else len(self.test_data)
         )
         predictive_period = if_predictive_period_longer_than_dataset_use_max_length
         if single_step:
             value_predictions = ArimaModel._single_step_prediction(
-                model=self.model, test_set=test_data_set
+                model=self.model, test_set=self.test_data
             )
             self.predictions = value_predictions[0][:predictive_period]
         else:
@@ -85,9 +115,9 @@ class ArimaModel(IModel, ABC):
             )
             self.predictions = value_predictions
         # Figures
-        self._visualize_testing(test_data_set[:predictive_period], self.predictions)
+        self._visualize_testing(self.test_data[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(test_data_set["hits"][:predictive_period], self.predictions)
+        metrics = calculate_error(self.test_data["hits"][:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
         logging.info(
             f"\nPredictions ahead: {predictive_period}\n"
@@ -191,6 +221,9 @@ class ArimaModel(IModel, ABC):
                 return forecast
         except:
             return None
+
+    def get_data_pipeline(self) -> Pipeline:
+        return self.data_pipeline
 
     def __repr__(self):
         return f"<ArimaModel prouct_id: {self.get_name()}>"
