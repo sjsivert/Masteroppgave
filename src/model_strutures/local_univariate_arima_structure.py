@@ -1,5 +1,6 @@
 import logging
 import random
+from abc import ABC
 from typing import Dict, List, Optional, Tuple
 import numpy as np
 from genpipes.compose import Pipeline
@@ -15,9 +16,13 @@ from src.utils.visuals import visualize_data_series
 import warnings
 
 
-class LocalUnivariateArimaStructure(IModelStructure):
+class LocalUnivariateArimaStructure(IModelStructure, ABC):
     def __init__(
-        self, log_sources: List[ILogTrainingSource], training_size: float, model_structure: List
+        self,
+        log_sources: List[ILogTrainingSource],
+        training_size: float,
+        model_structure: List,
+        hyperparameter_tuning_range: Optional[Dict[str, Tuple[int, int]]] = None,
     ) -> None:
         self.models = []
         self.log_sources = log_sources
@@ -41,7 +46,7 @@ class LocalUnivariateArimaStructure(IModelStructure):
             map(
                 lambda model_structure: ArimaModel(
                     log_sources=self.log_sources,
-                    order=model_structure["order"],
+                    hyperparameters=model_structure["hyperparameters"],
                     name=model_structure["time_series_id"],
                 ),
                 self.model_structures,

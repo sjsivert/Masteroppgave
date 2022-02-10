@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+from collections import OrderedDict
 
 from expects import be_none, be_true, equal, expect
 from mamba import after, before, description, it, included_context, shared_context
@@ -33,16 +34,20 @@ with description(ArimaModel, "unit") as self:
         mock_dataset = DataFrame([random.randint(1, 40) for x in range(100)], columns=["hits"])
         mock_training_set = mock_dataset[:80]
         mock_test_set = mock_dataset[80:]
+        hyperparameters = OrderedDict([("p", 1), ("d", 0), ("q", 1)])
 
     with it("Can create ArimaModel object"):
-        order = (1, 1, 1)
-        model = ArimaModel(order=order, log_sources=self.log_sources, name="createArima")
+        with included_context("mock dataset"):
+            model = ArimaModel(
+                hyperparameters=hyperparameters, log_sources=self.log_sources, name="createArima"
+            )
 
     with it("Can train"):
         # Arrange
         with included_context("mock dataset"):
-            order = (1, 1, 1)
-            model = ArimaModel(order=order, log_sources=self.log_sources, name="trainingArima")
+            model = ArimaModel(
+                hyperparameters=hyperparameters, log_sources=self.log_sources, name="trainingArima"
+            )
             # Act
             train_metrics = model.train(mock_training_set)
             # Assert
@@ -53,8 +58,9 @@ with description(ArimaModel, "unit") as self:
     with it("Can test"):
         # Arrange
         with included_context("mock dataset"):
-            order = (1, 1, 1)
-            model = ArimaModel(order=order, log_sources=self.log_sources, name="testingArima")
+            model = ArimaModel(
+                hyperparameters=hyperparameters, log_sources=self.log_sources, name="testingArima"
+            )
             # Act
             model.train(mock_training_set)
             test_metrics = model.test(mock_test_set)
@@ -66,8 +72,9 @@ with description(ArimaModel, "unit") as self:
     with it("can save"):
         # Arrange
         with included_context("mock dataset"):
-            order = (1, 1, 1)
-            model = ArimaModel(order=order, log_sources=self.log_sources, name="savingArima")
+            model = ArimaModel(
+                hyperparameters=hyperparameters, log_sources=self.log_sources, name="savingArima"
+            )
             model.train(mock_training_set)
             # Act
             path = f"{self.temp_location}Arima_{model.get_name()}.pkl"
@@ -78,8 +85,9 @@ with description(ArimaModel, "unit") as self:
     with it("can load"):
         # Arrange
         with included_context("mock dataset"):
-            order = (1, 1, 1)
-            model = ArimaModel(order=order, log_sources=self.log_sources, name="loadingArima")
+            model = ArimaModel(
+                hyperparameters=hyperparameters, log_sources=self.log_sources, name="loadingArima"
+            )
             model.train(mock_training_set)
             # Act
             path = f"{self.temp_location}Arima_{model.get_name()}.pkl"

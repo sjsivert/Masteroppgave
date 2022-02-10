@@ -17,7 +17,7 @@ experiment:
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
-  # Possible metrics: MSE, MAE
+  # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
     - 'SMAPE'
     - 'MASE'
@@ -46,13 +46,8 @@ model:
     model_structure:
       - time_series_id: 11573
         # seasonal order
-        order:
-          - 8 # p
-          - 8 # d
-          - 16 # q
-      - time_series_id: 11037
-        # seasonal order
-        order:
-          - 8 # p
-          - 8 # d
-          - 16 # q
+        hyperparameters:
+          p: 8
+          d: 8
+          q: 16
+

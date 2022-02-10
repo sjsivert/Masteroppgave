@@ -1,5 +1,6 @@
 import logging
 from abc import ABC
+from collections import OrderedDict
 from typing import Dict, List, Tuple
 
 import pandas as pd
@@ -25,14 +26,14 @@ class ArimaModel(IModel, ABC):
         self,
         log_sources: List[ILogTrainingSource],
         name: str = "placeholder",
-        order: Tuple[int, int, int] = (0, 0, 0),
+        hyperparameters: Dict[str, int] = OrderedDict({"p": 2, "d": 6, "q": 11}),
     ):
         self.log_sources: List[ILogTrainingSource] = log_sources
         # Model name
         self.name: str = name
         # The ARIMA model must be instanced with data, thus this is done during training
         self.model = None
-        self.order = order  # Tuple defining the ARIMA order variable
+        self.order = list(hyperparameters.values())  # Tuple defining the ARIMA order variable
         # Visualization
         self.figures: List[Figure] = []
         self.metrics: Dict = {}
