@@ -54,7 +54,7 @@ class IModelStructure(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def auto_tuning(self, tuning_params: Dict) -> None:
+    def auto_tuning(self) -> None:
         """
         Automatic tuning of the model
         """
