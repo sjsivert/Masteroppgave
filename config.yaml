@@ -49,6 +49,8 @@ model:
       d: [1, 8]
       q: [1, 11]
 
+    metric_to_use_when_tuning: 'SMAPE'
+
     model_structure:
       - time_series_id: 11573
         # seasonal order

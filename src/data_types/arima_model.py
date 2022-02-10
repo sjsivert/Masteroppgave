@@ -92,7 +92,6 @@ class ArimaModel(IModel, ABC):
         logging.info(
             f"\nPredictions ahead: {predictive_period}\n"
             + f"Predicting from {self.training_periode} to {self.training_periode + predictive_period - 1}\n"
-            + f"Predictions:\n{value_predictions}\n"
             + f"Testing metrics: {self.metrics}"
         )
 
