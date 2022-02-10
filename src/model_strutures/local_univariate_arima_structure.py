@@ -7,6 +7,7 @@ from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas.core.frame import DataFrame
 from src.data_types.arima_model import ArimaModel
+from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
@@ -23,6 +24,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         training_size: float,
         model_structure: List,
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
+        metric_to_use_when_tuning: str = "SMAPE",
     ) -> None:
         self.models = []
         self.log_sources = log_sources
@@ -38,6 +40,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         # Tuning
         self.tuning_parameter_error_sets = {}
         self.hyperparameter_tuning_range = hyperparameter_tuning_range
+        self.metric_to_use_when_tuning = ErrorMetricEnum[metric_to_use_when_tuning]
 
     def init_models(self, load: bool = False):
         """
@@ -92,8 +95,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             d_range=self.hyperparameter_tuning_range["d"],
             q_range=self.hyperparameter_tuning_range["q"],
         )
-        logging.info(f"Parameter tuning ranges are: {self.hyperparameter_tuning_range}")
         logging.info(
+            f"Parameter tuning ranges are: {self.hyperparameter_tuning_range} \n "
+            f"Metric to use when tuning is: {self.metric_to_use_when_tuning}\n"
             f"Tuning parameter combinations to try are: {len(parameters)}# for each of the {len(self.model_structures)} datasets."
         )
 
@@ -117,7 +121,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                 if forecast is None:
                     logging.info(f"Error with prediction key: {key}")
                     continue
-                err = calculate_error(self.testing_set["hits"], forecast[0])["SMAPE"]
+                err = calculate_error(self.testing_set["hits"], forecast[0])[
+                    self.metric_to_use_when_tuning.value
+                ]
                 error_parameter_sets[key] = err
                 lowest_error_key = lowest_error_key if err > lowest_error else key
                 lowest_error = lowest_error if err > lowest_error else err
