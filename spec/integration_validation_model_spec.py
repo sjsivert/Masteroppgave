@@ -127,7 +127,9 @@ with description("main integration test", "integration") as self:
             "rng_seed": 42,
             "local_univariate_arima": {
                 "training_size": 0.8,
-                "model_structure": [{"time_series_id": 11573, "order": (1, 1, 0)}],
+                "model_structure": [
+                    {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
+                ],
             },
         }
         exp_name = "test-local-univariate-arima"

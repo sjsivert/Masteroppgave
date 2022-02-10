@@ -62,7 +62,7 @@ with description(Experiment, "integration") as self:
                 "model_structure": [
                     {
                         "time_series_id": 11573,
-                        "order": (1, 1, 1),
+                        "hyperparameters": {"p": 1, "d": 0, "q": 1},
                     }
                 ],
             },
@@ -82,7 +82,7 @@ with description(Experiment, "integration") as self:
         experiment = Experiment("title", "description")
         options = {
             "model_type": "wrong_model_structure",
-            "wrong_model_structure": {"order": (1, 1, 1)},
+            "wrong_model_structure": {"hyperparameters": {"p": 1, "d": 0, "q": 1}},
         }
         with pytest.raises(KeyError):
             experiment._choose_model_structure(options)
