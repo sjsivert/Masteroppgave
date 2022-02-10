@@ -43,6 +43,12 @@ model:
 
   local_univariate_arima:
     training_size: 0.8
+      # Ranges used for autotuning if --tune parameter is set
+    hyperparameter_tuning_range:
+      p: [1, 8]
+      d: [1, 8]
+      q: [1, 11]
+
     model_structure:
       - time_series_id: 11573
         # seasonal order
@@ -50,4 +56,3 @@ model:
           p: 8
           d: 8
           q: 16
-

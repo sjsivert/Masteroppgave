@@ -1,7 +1,7 @@
 import logging
 import random
 from abc import ABC
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, OrderedDict
 import numpy as np
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
@@ -22,7 +22,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         log_sources: List[ILogTrainingSource],
         training_size: float,
         model_structure: List,
-        hyperparameter_tuning_range: Optional[Dict[str, Tuple[int, int]]] = None,
+        hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
     ) -> None:
         self.models = []
         self.log_sources = log_sources
@@ -37,6 +37,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.testing_set: DataFrame = None
         # Tuning
         self.tuning_parameter_error_sets = {}
+        self.hyperparameter_tuning_range = hyperparameter_tuning_range
 
     def init_models(self, load: bool = False):
         """
@@ -79,13 +80,19 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             model.test(self.testing_set, 50)
 
     # Exhaustive Grid Search of ARIMA model
-    def auto_tuning(self, tuning_params: Dict = {}) -> None:
+    def auto_tuning(self) -> None:
         # TODO: Compare using Cross-Validation
         logging.info("Tuning models")
         self.figures = []
         self.tuning_parameter_error_sets = {}
         self.tuning_parameter_error_sets["Model"] = {"type": "ARIMA"}
-        parameters = self._generate_parameter_grid()
+
+        parameters = self._generate_parameter_grid(
+            p_range=self.hyperparameter_tuning_range["p"],
+            d_range=self.hyperparameter_tuning_range["d"],
+            q_range=self.hyperparameter_tuning_range["q"],
+        )
+        logging.info(f"Parameter tuning ranges are: {self.hyperparameter_tuning_range}")
         logging.info(
             f"Tuning parameter combinations to try are: {len(parameters)}# for each of the {len(self.model_structures)} datasets."
         )
@@ -131,9 +138,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
     def _generate_parameter_grid(
         self,
-        p_range: Tuple[int, int] = (1, 2),
-        d_range: Tuple[int, int] = (1, 2),
-        q_range: Tuple[int, int] = (1, 2),
+        p_range: Tuple[int, int],
+        d_range: Tuple[int, int],
+        q_range: Tuple[int, int],
     ) -> List[Tuple[int, int, int]]:
         parameters = []
         for q in range(q_range[0], q_range[1] + 1):
