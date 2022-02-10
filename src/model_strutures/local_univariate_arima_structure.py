@@ -14,7 +14,8 @@ from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_error, calculate_mase, calculate_smape
+from src.utils.error_calculations import (calculate_error, calculate_mase,
+                                          calculate_smape)
 from src.utils.visuals import visualize_data_series
 
 
