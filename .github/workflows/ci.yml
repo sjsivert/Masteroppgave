@@ -39,7 +39,7 @@ jobs:
     - name: Test
       run: |
         export NEPTUNE_API_TOKEN=${{ secrets.NEPTUNE_API_TOKEN }}
-        mamba --enable-coverage
+        mamba --enable-coverage -t unit,integration
 
     - name: Generate coverage report
       run: coverage xml
