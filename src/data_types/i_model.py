@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
 from typing import List, Dict, Tuple
-from pandas.core.series import Series
 
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from pandas.core.frame import DataFrame
+from pandas.core.series import Series
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
@@ -70,5 +69,12 @@ class IModel(metaclass=ABCMeta):
     def load(self, path: str) -> IModel:
         """
         Load the model from the specified path.
+        """
+        pass
+
+    @abstractmethod
+    def get_predictions(self) -> Optional[Dict]:
+        """
+        Returns the predicted values if test() has been called.
         """
         pass

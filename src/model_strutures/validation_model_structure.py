@@ -69,3 +69,7 @@ class ValidationModelStructure(IModelStructure, ABC):
 
     def auto_tuning(self) -> None:
         raise NotImplementedError()
+
+    def get_predictions(self) -> Optional[DataFrame]:
+        # TODO: Implement
+        pass

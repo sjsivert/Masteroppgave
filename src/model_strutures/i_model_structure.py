@@ -87,3 +87,10 @@ class IModelStructure(metaclass=ABCMeta):
         Returns a dict with info regarding the automatic tuning of the models
         """
         pass
+
+    @abstractmethod
+    def get_predictions(self) -> Optional[DataFrame]:
+        """
+        Returns the predicted values if test() has been called.
+        """
+        pass

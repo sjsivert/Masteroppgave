@@ -1,7 +1,9 @@
 import logging
 import random
+import warnings
 from abc import ABC
-from typing import Dict, List, Optional, Tuple, OrderedDict
+from typing import Dict, List, Optional, OrderedDict, Tuple
+
 import numpy as np
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
@@ -12,9 +14,8 @@ from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_mase, calculate_smape, calculate_error
+from src.utils.error_calculations import calculate_error, calculate_mase, calculate_smape
 from src.utils.visuals import visualize_data_series
-import warnings
 
 
 class LocalUnivariateArimaStructure(IModelStructure, ABC):
@@ -176,6 +177,12 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
     def get_tuning_parameters(self) -> Dict:
         return self.tuning_parameter_error_sets
+
+    def get_predictions(self) -> DataFrame:
+        predictions = {}
+        for model in self.models:
+            predictions[model.get_name()] = model.get_predictions()
+        return DataFrame(predictions)
 
     def __repr__(self):
         return f"<Local_univariate_arim> models: {self.models}>"
