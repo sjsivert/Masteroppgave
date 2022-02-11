@@ -58,3 +58,9 @@ model:
           p: 8
           d: 8
           q: 16
+
+      - time_series_id: 11037
+        hyperparameters:
+          p: 8
+          d: 8
+          q: 16

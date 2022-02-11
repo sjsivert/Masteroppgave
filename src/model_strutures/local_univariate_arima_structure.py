@@ -26,9 +26,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         metric_to_use_when_tuning: str = "SMAPE",
     ) -> None:
-        self.models = []
+        self.models: List[IModel] = []
         self.log_sources = log_sources
-        self.data_pipeline = None
+        self.data_pipeline: Pipeline = None
         self.figures = []
         self.training_size = training_size
         self.model_structures = model_structure
@@ -58,16 +58,19 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         )
 
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
-        self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(
-            data_pipeline, training_size=self.training_size
-        )
+        self.data_pipeline = data_pipeline
 
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
-        self.training_set, self.testing_set = self.data_pipeline.run()
+        preprocessed_data = data_pipeline.run()
+
+        for model in self.models:
+            model.process_data(preprocessed_data, self.training_size)
         return self.training_set
 
     def get_data_pipeline(self) -> Pipeline:
-        return self.data_pipeline
+        # TODO: Find way to add datapipeline steps from all models into one pipeline
+        pipeline = self.data_pipeline
+        return pipeline
 
     def train(self) -> IModelStructure:
         # TODO: Do something with the training metrics returned by 'train' method
@@ -80,7 +83,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         # TODO: Pass test data to the 'test' method
         for model in self.models:
             # TODO: Make hardcoded value configurable
-            model.test(self.testing_set, 50)
+            model.test(predictive_period=50)
 
     # Exhaustive Grid Search of ARIMA model
     def auto_tuning(self) -> None:
