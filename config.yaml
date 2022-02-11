@@ -43,6 +43,8 @@ model:
 
   local_univariate_arima:
     training_size: 0.8
+    steps_to_predict: 20
+    multi_step_forecast: false # alternative is recursive single step
       # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
       p: [1, 8]
