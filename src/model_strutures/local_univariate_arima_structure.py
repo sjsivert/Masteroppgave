@@ -63,12 +63,6 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
         preprocessed_data = data_pipeline.run()
 
-        # self.data_pipeline = arima_pipeline.local_univariate_arima_pipeline(
-        #     data_pipeline, training_size=self.training_size
-        # )
-
-        # preprocessed_data = self.data_pipeline.run()
-
         for model in self.models:
             model.process_data(preprocessed_data, self.training_size)
         return self.training_set
