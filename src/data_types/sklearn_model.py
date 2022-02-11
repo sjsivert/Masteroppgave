@@ -60,3 +60,6 @@ class SklearnModel(IModel, ABC):
         self, data_set: DataFrame, training_size: float
     ) -> Tuple[DataFrame, DataFrame]:
         pass
+
+    def get_predictions(self) -> Optional[Dict]:
+        return None

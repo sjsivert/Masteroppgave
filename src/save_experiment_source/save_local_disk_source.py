@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from matplotlib.figure import Figure
+from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -48,6 +49,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         data_pipeline_steps: str,
         experiment_tags: List[str],
         tuning: Dict,
+        predictions: Optional[DataFrame] = None,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -58,6 +60,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         self._save_experiment_tags(experiment_tags)
         self._save_tuning_metrics(tuning)
         self._save_log()
+        self._save_predictions(predictions)
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -205,3 +208,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def _save_title_and_description(self, title, description) -> None:
         with open(f"{self.save_location}/title-description.txt", "w") as f:
             f.write(f"{title}\n{description}")
+
+    def _save_predictions(self, predictions: DataFrame) -> None:
+        if predictions is not None:
+            predictions.to_csv(f"{self.save_location}/predictions.csv")

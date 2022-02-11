@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 from pandas import Series
 from pandas.core.frame import DataFrame
@@ -107,3 +107,7 @@ class ValidationModel(IModel, ABC):
 
     def get_figures(self) -> List[Figure]:
         return self.figures
+
+    def get_predictions(self) -> Optional[Dict]:
+        # TODO: Implement
+        pass

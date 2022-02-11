@@ -1,8 +1,8 @@
-from abc import abstractmethod, ABCMeta
-from typing import Dict, List
+from abc import ABCMeta, abstractmethod
+from typing import Dict, List, Optional
 
 from matplotlib.figure import Figure
-
+from pandas import DataFrame
 from src.data_types.i_model import IModel
 
 
@@ -23,6 +23,7 @@ class ISaveExperimentSource(metaclass=ABCMeta):
         data_pipeline_steps: str,
         experiment_tags: List[str],
         tuning: Dict,
+        predictions: Optional[DataFrame],
     ) -> None:
         # Interface, not to be implemented
         pass

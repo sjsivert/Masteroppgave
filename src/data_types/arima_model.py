@@ -133,6 +133,9 @@ class ArimaModel(IModel, ABC):
     def get_figures(self) -> List[Figure]:
         return self.figures
 
+    def get_predictions(self) -> DataFrame:
+        return self.predictions
+
     def save(self, path: str) -> str:
         save_path = f"{path}Arima_{self.get_name()}.pkl"
         if self.model is not None:

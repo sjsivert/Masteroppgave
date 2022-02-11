@@ -167,4 +167,5 @@ class Experiment:
                 data_pipeline_steps=self.model_structure.get_data_pipeline().__str__(),
                 experiment_tags=self.experiment_tags,
                 tuning=self.model_structure.get_tuning_parameters(),
+                predictions=self.model_structure.get_predictions(),
             )
