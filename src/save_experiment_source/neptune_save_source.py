@@ -2,12 +2,13 @@ import logging
 import os.path
 from abc import ABC
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.exceptions import FileUploadError
 from neptune.new.types import File
+from pandas import DataFrame
 
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
@@ -78,6 +79,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         data_pipeline_steps: str,
         experiment_tags: List[str],
         tuning: Dict,
+        predictions: Optional[DataFrame] = None,
     ) -> None:
         self._save_options(options)
         self._save_metrics(metrics)
@@ -88,6 +90,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         self._save_experiment_tags(experiment_tags)
         self._save_tuning_metrics(tuning)
         self._save_log()
+        self._save_predictions(predictions)
 
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
@@ -202,3 +205,12 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
 
     def load_model_and_metadata(self) -> None:
         raise NotImplementedError()
+
+    def _save_predictions(self, predictions: Optional[DataFrame]) -> None:
+        if predictions is not None:
+            temp_file = "./temp-predictions/"
+            with temp_files(temp_file):
+                file_path = f"{temp_file}/predictions.csv"
+                predictions.to_csv(file_path)
+                if os.path.isfile(file_path):
+                    self.run[f"predictions"].upload(File(file_path), True)
