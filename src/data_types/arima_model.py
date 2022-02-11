@@ -153,7 +153,7 @@ class ArimaModel(IModel, ABC):
         # Only training data
         self.figures.append(
             visualize_data_series(
-                title="Training data",
+                title=f"{self.get_name()}# Training data",
                 data_series=[training],
                 data_labels=["Training data"],
                 colors=["blue"],
@@ -164,7 +164,7 @@ class ArimaModel(IModel, ABC):
         # Training and approx data
         self.figures.append(
             visualize_data_series(
-                title="Training data approximation",
+                title=f"{self.get_name()}# Training data approximation",
                 data_series=[training, approximation],
                 data_labels=["True value", "Approximation"],
                 colors=["blue", "orange"],
@@ -177,7 +177,7 @@ class ArimaModel(IModel, ABC):
         # Testing data and prediction
         self.figures.append(
             visualize_data_series(
-                title="Data Prediction",
+                title=f"{self.get_name()}# Data Prediction",
                 data_series=[testing_set, prediction_set],
                 data_labels=["True prediction value", "Prediction"],
                 colors=["blue", "red"],
