@@ -30,6 +30,8 @@ def init_mock_config(
                 "rng_seed": 42,
                 "local_univariate_arima": {
                     "training_size": 0.8,
+                    "steps_to_predict": 2,
+                    "multi_step_forecast": False,
                     "model_structure": [
                         {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
                     ],
