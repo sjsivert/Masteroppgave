@@ -25,6 +25,8 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         training_size: float,
         model_structure: List,
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
+        steps_to_predict: int = 5,
+        multi_step_forecast: bool = False,
         metric_to_use_when_tuning: str = "SMAPE",
     ) -> None:
         self.models: List[IModel] = []
@@ -33,6 +35,8 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.figures = []
         self.training_size = training_size
         self.model_structures = model_structure
+        self.steps_to_predict = steps_to_predict
+        self.multi_step_prediction = multi_step_forecast
 
         self.metrics: Dict = {}
         # Data
@@ -83,8 +87,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         # TODO: Do something with the test metrics data returned by the 'test' method
         # TODO: Pass test data to the 'test' method
         for model in self.models:
-            # TODO: Make hardcoded value configurable
-            model.test(predictive_period=50)
+            model.test(predictive_period=self.steps_to_predict, single_step=not self.multi_step_prediction)
 
     # Exhaustive Grid Search of ARIMA model
     def auto_tuning(self) -> None:
