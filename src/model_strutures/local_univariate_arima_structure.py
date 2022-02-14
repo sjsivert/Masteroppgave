@@ -110,17 +110,15 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             f"Tuning parameter combinations to try are: {len(parameters)}# for each of the {len(self.model_structures)} datasets."
         )
 
-        for model_structure in self.model_structures:
-            logging.info(f"Tuning model for dataset: {model_structure['time_series_id']}")
+        for base_model in self.models:
+            logging.info(f"Tuning model: {base_model.get_name()}")
 
             forecasts = {}
             for param in parameters:
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
                     logging.info(f"Tuning ARIMA model. Parameters {param} used.")
-                    forecast = ArimaModel.method_evaluation(
-                        param, self.training_set, self.testing_set, walk_forward=True
-                    )
+                    forecast = base_model.method_evaluation(param, walk_forward=True)
                     forecasts[f"{param}"] = forecast
             # Calculating Error
             error_parameter_sets = {}

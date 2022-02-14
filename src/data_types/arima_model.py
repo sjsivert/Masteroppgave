@@ -1,4 +1,5 @@
 import logging
+import sys
 from abc import ABC
 from collections import OrderedDict
 from typing import Dict, List, Tuple
@@ -202,26 +203,27 @@ class ArimaModel(IModel, ABC):
         return forecast
 
     # Static method evaluating an Arima model
-    @staticmethod
     def method_evaluation(
+        self,
         order: Tuple[int, int, int],
-        training_data: DataFrame,
-        test_data: DataFrame,
         walk_forward: bool = True,
     ) -> List[float]:
         # Try catch block for numpy LU decomposition error
         try:
             # Create and fit model with training data
-            arima_base = ARIMA(training_data, order=order)
+            arima_base = ARIMA(self.training_data, order=order)
             model = arima_base.fit()
             if not walk_forward:
-                forecast = model.forecast(len(test_data))
+                forecast = model.forecast(len(self.test_data))
                 return forecast
             # Evaluate model with single step evaluation and Walk-forward validation
             else:
-                forecast = ArimaModel._single_step_prediction(model=model, test_set=test_data)
+                forecast = ArimaModel._single_step_prediction(model=model, test_set=self.test_data)
                 return forecast
-        except:
+        except KeyboardInterrupt:
+            sys.exit()
+            pass
+        except Exception as e:
             return None
 
     def get_data_pipeline(self) -> Pipeline:
