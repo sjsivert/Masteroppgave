@@ -6,9 +6,10 @@ omit =
 	./spec/*
 	# omit all interfaces
 	*/i_*.py
+	./packages/*
 
 
-exclude_lines = 
+exclude_lines =
   # Have to re-enable the standard pragma
   pragma: no cover
 
