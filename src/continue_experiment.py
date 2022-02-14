@@ -77,26 +77,36 @@ class ContinueExperiment(Experiment):
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
         self._load_saved_options()
         neptune_save_source_was_used = (
-                "neptune" in config["experiment"]["save_sources_to_use"].get()
+            "neptune" in config["experiment"]["save_sources_to_use"].get()
         )
         if neptune_save_source_was_used:
             self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
             logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
-        # TODO: Load tuned info and set to model structure
+
+        self._choose_model_structure(model_options=config["model"].get())
+
+        save_sources_to_use = config["experiment"]["save_sources_to_use"].get()
+        save_source_options = config["experiment"]["save_source"].get()
+
+        self._init_save_sources(
+            save_sources_to_use=save_sources_to_use,
+            save_source_options=save_source_options,
+            load_from_checkpoint=True,
+            neptune_id_to_load=self.neptune_id_to_load,
+        )
+
         """
         ___ Loading tuning info ___
         Load data of tuned models and what remains.
         """
-        self._load_tuning_info()
-
-        # TODO: Continue tuning
+        loaded_tuning_param_error_sets = self._load_tuning_info()
+        self.model_structure.tuning_parameter_error_sets = loaded_tuning_param_error_sets
+        # Continue tuning
         self.model_structure.auto_tuning()
 
         # TODO! Saving tuned model
         # if save and options_to_save:
         #     self._save_model(options=options_to_save)
-
-
 
     def _load_title_and_description(self) -> (str, str):
         try:
@@ -115,8 +125,9 @@ class ContinueExperiment(Experiment):
         config.set_file(f"{self.experiment_checkpoints_location}/options.yaml")
 
     def _load_tuning_info(self):
-        # TODO: Load what models are already tuned
-        # TODO: Load best results parameters from already run methods
-        # TODO: Load what stage the last model was at
-        # TODO: Set that model to run anew, and continue tuning. No need to continue training mid way for now
-        pass
+        tuning_info = None
+        for save_source in self.save_sources:
+            tuning_info = save_source.load_tuning_metrics()
+            if tuning_info is not None:
+                break
+        return tuning_info if tuning_info is not None else {}

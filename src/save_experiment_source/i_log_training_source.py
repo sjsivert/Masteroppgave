@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 
 class ILogTrainingSource(metaclass=ABCMeta):
@@ -25,11 +25,11 @@ class ILogTrainingSource(metaclass=ABCMeta):
         return None
 
     @abstractmethod
-    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]):
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         # Interface, not to be implemented
         pass
 
     @abstractmethod
-    def load_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
         # Interface, not to be implemented
         return None

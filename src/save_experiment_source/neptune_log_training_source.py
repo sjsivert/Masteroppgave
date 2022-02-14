@@ -40,5 +40,13 @@ class NeptuneLogTrainingSource(NeptuneSaveSource, ILogTrainingSource, ABC):
                 if os.path.isfile(model_save_path):
                     self.run[f"models/model_{model.get_name()}"].upload(File(model_save_path), True)
 
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        for cat_id, metric_values in metrics.items():
+            for metric_name, metric_value in metric_values.items():
+                self.run[f"logging_tuning/{cat_id}/{metric_name}"].log(metric_value)
+
     def load_temp_models(self, models_path: List) -> None:
         return None
+
+    def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
+        return self.run["logging_tuning"].fetch()
