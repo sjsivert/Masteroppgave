@@ -14,8 +14,7 @@ from src.data_types.i_model import IModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import (calculate_error, calculate_mase,
-                                          calculate_smape)
+from src.utils.error_calculations import calculate_error, calculate_mase, calculate_smape
 from src.utils.visuals import visualize_data_series
 
 
@@ -138,7 +137,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             # Visualize prediction of best method
             self.figures.append(
                 visualize_data_series(
-                    title=f"Value prediction ARIMA {lowest_error_key}, dataset {model_structure['time_series_id']}#",
+                    title=f"Value prediction ARIMA {lowest_error_key}, dataset {base_model.get_name()}#",
                     data_series=[self.training_set, self.testing_set, forecasts[lowest_error_key]],
                     data_labels=["Training_data", "Testing_data", "Forecast"],
                     colors=["blue", "orange", "red"],
@@ -146,9 +145,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                     y_label="hits",
                 )
             )
-            self.tuning_parameter_error_sets[
-                f"{model_structure['time_series_id']}"
-            ] = error_parameter_sets
+            self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = error_parameter_sets
 
     def _generate_parameter_grid(
         self,
