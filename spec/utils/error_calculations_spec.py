@@ -68,7 +68,7 @@ with description("error_calculations", "unit") as self:
                 ]
             )
             proposed_data = DataFrame([3, 2, 1])
-            expected_smape = 0.356
+            expected_smape = 0.349
             smape = calculate_smape(data_set, proposed_data)
             expect(round(smape, 4)).to(equal(expected_smape))
 

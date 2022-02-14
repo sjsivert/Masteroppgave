@@ -61,7 +61,7 @@ def calculate_mase(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
 
 def calculate_smape(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
     metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
-    err = metric.SMAPE()
+    err = metric.SMAPECustom()
     return float(err)
 
 
