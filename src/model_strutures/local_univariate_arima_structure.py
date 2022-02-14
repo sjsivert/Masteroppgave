@@ -96,7 +96,6 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         # TODO: Compare using Cross-Validation
         logging.info("Tuning models")
         self.figures = []
-        self.tuning_parameter_error_sets = {}
         self.tuning_parameter_error_sets["Model"] = {"type": "ARIMA"}
 
         parameters = self._generate_parameter_grid(
@@ -112,9 +111,20 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
         for base_model in self.models:
             logging.info(f"Tuning model: {base_model.get_name()}")
+            if base_model.get_name in self.tuning_parameter_error_sets:
+                logging.info(
+                    f"{base_model.get_name} was already tuned. Results can be found in the logg"
+                )
+                continue
 
             forecasts = {}
             for param in parameters:
+                # Pass tuning of models that have already been tuned
+                if (
+                    base_model.get_name() in self.tuning_parameter_error_sets
+                    and f"{param}" in self.tuning_parameter_error_sets[base_model.get_name()]
+                ):
+                    continue
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
                     logging.info(f"Tuning ARIMA model. Parameters {param} used.")
@@ -146,6 +156,8 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                 )
             )
             self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = error_parameter_sets
+            for log_source in self.log_sources:
+                log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
 
     def _generate_parameter_grid(
         self,

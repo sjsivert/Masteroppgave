@@ -1,8 +1,9 @@
+import csv
 import os
 from abc import ABC
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 
 import pipe
 from pipe import map, tee, where
@@ -53,6 +54,26 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
         # TODO: Implement
         raise NotImplementedError()
 
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]):
+        with self._create_log_folder_if_not_exist():
+            with self._create_tuning_metric_file_if_not_exist():
+                with open(f"{self.log_location}/tuning_metrics.csv", "a") as f:
+                    for data_set, val in metrics.items():
+                        for param, err in val.items():
+                            f.write(f"{data_set},{param},{err}\n")
+
+    def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
+        if os.path.isfile(f"{self.log_location}/tuning_metrics.csv"):
+            with open(f"{self.log_location}/tuning_metrics.csv") as f:
+                tuning_metrics = {}
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if row["dataset"] not in tuning_metrics:
+                        tuning_metrics[row["dataset"]] = {}
+                    tuning_metrics[row["dataset"]][row["parameters"]] = row["errorvalue"]
+                return tuning_metrics
+        return None
+
     @contextmanager
     def _create_log_folder_if_not_exist(self):
         try:
@@ -61,6 +82,14 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
             pass
         finally:
             yield
+
+    @contextmanager
+    def _create_tuning_metric_file_if_not_exist(self):
+        if not os.path.isfile(f"{self.log_location}/tuning_metrics.csv"):
+            with open(f"{self.log_location}/tuning_metrics.csv", "w") as f:
+                f.write("dataset,parameters,errorvalue")
+                f.write("\n")
+        yield
 
     @contextmanager
     def _create_training_errors_file_if_not_exist(self, metrics: Dict[str, Dict[str, float]]):
