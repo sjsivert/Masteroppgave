@@ -1,6 +1,7 @@
 import logging
 import random
 from collections import OrderedDict
+from statistics import mean
 from typing import Dict
 from xml.dom import NotFoundErr
 
@@ -8,10 +9,10 @@ import numpy as np
 from pandas import DataFrame
 from pipe import map, tee, where
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
+
+from packages.permetrics.permetrics.regression import Metrics
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
-
-from permetrics.regression import Metrics
 
 
 def choose_metric(metric: ErrorMetricEnum):
@@ -27,6 +28,8 @@ def choose_metric(metric: ErrorMetricEnum):
         return calculate_mase
     elif metric == ErrorMetricEnum.SMAPE:
         return calculate_smape
+    elif metric == ErrorMetricEnum.OWA:
+        return calculate_owa
 
 
 def calculate_mse(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
@@ -59,6 +62,12 @@ def calculate_mase(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
 def calculate_smape(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
     metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
     err = metric.SMAPE()
+    return float(err)
+
+
+def calculate_owa(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
+    metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
+    err = metric.OWA()
     return float(err)
 
 

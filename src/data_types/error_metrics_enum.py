@@ -8,3 +8,4 @@ class ErrorMetricEnum(Enum):
     MAPE = "MAPE"
     MASE = "MASE"
     SMAPE = "SMAPE"
+    OWA = "OWA"

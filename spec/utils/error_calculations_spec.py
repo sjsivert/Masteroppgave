@@ -12,7 +12,6 @@ from src.utils import config_parser
 from src.utils.error_calculations import *
 
 with description("error_calculations", "unit") as self:
-
     with before.each:
         init_mock_config()
         config["experiment"].set({"error_metrics": ["MSE", "MAE"]})
@@ -47,14 +46,44 @@ with description("error_calculations", "unit") as self:
 
     with it("can caluclate MASE"):
         with included_context("mock_dataset"):
-            expected_mase = 0.25
+            data_set = DataFrame(
+                [
+                    2,
+                    4,
+                    1,
+                ]
+            )
+            proposed_data = DataFrame([3, 2, 1])
+            expected_mase = 0.4
             mase = calculate_mase(data_set, proposed_data)
             expect(round(mase, 4)).to(equal(expected_mase))
 
     with it("can caluclate SMAPE"):
         with included_context("mock_dataset"):
-            expected_smape = 0.071
+            data_set = DataFrame(
+                [
+                    2,
+                    4,
+                    1,
+                ]
+            )
+            proposed_data = DataFrame([3, 2, 1])
+            expected_smape = 0.356
             smape = calculate_smape(data_set, proposed_data)
+            expect(round(smape, 4)).to(equal(expected_smape))
+
+    with it("can caluclate OWA"):
+        with included_context("mock_dataset"):
+            data_set = DataFrame(
+                [
+                    2,
+                    4,
+                    1,
+                ]
+            )
+            proposed_data = DataFrame([3, 2, 1])
+            expected_smape = 0.585
+            smape = calculate_owa(data_set, proposed_data)
             expect(round(smape, 4)).to(equal(expected_smape))
 
     with it("can calculate errors"):
