@@ -66,9 +66,37 @@ class ContinueExperiment(Experiment):
         as the model that was saved had. This is in order to load the correct model.
         """
 
+        # TODO!
         # model_structure.load_models(experiment_checkpoint_path)
         self._train_model()
         self._test_model()
+
+    def continue_tuning(self) -> None:
+        # Load prev data from ran exp
+        self.title, self.description = self._load_title_and_description()
+        logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
+        self._load_saved_options()
+        neptune_save_source_was_used = (
+                "neptune" in config["experiment"]["save_sources_to_use"].get()
+        )
+        if neptune_save_source_was_used:
+            self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
+            logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
+        # TODO: Load tuned info and set to model structure
+        """
+        ___ Loading tuning info ___
+        Load data of tuned models and what remains.
+        """
+        self._load_tuning_info()
+
+        # TODO: Continue tuning
+        self.model_structure.auto_tuning()
+
+        # TODO! Saving tuned model
+        # if save and options_to_save:
+        #     self._save_model(options=options_to_save)
+
+
 
     def _load_title_and_description(self) -> (str, str):
         try:
@@ -85,3 +113,10 @@ class ContinueExperiment(Experiment):
     def _load_saved_options(self) -> None:
         config.clear()
         config.set_file(f"{self.experiment_checkpoints_location}/options.yaml")
+
+    def _load_tuning_info(self):
+        # TODO: Load what models are already tuned
+        # TODO: Load best results parameters from already run methods
+        # TODO: Load what stage the last model was at
+        # TODO: Set that model to run anew, and continue tuning. No need to continue training mid way for now
+        pass
