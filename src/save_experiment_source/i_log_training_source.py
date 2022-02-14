@@ -23,3 +23,13 @@ class ILogTrainingSource(metaclass=ABCMeta):
     def load_temp_models(self, models_path: List) -> None:
         # Interface, not to be implemented
         return None
+
+    @abstractmethod
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]):
+        # Interface, not to be implemented
+        pass
+
+    @abstractmethod
+    def load_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        # Interface, not to be implemented
+        return None
