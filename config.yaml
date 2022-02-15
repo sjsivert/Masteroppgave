@@ -47,9 +47,9 @@ model:
     multi_step_forecast: false # alternative is recursive single step
       # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
-      p: [1, 2]
-      d: [1, 2]
-      q: [1, 2]
+      p: [2, 8]
+      d: [4, 10]
+      q: [12, 16]
 
     metric_to_use_when_tuning: 'SMAPE'
 
