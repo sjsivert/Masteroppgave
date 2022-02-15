@@ -46,6 +46,15 @@ class SklearnModel(IModel, ABC):
         # TODO: Implement
         raise NotImplementedError()
 
+    def method_evaluation(
+        self,
+        order: Tuple[int, int, int],
+        metric: str,
+        walk_forward: bool = True,
+    ) -> float:
+        # TODO: Implement
+        raise NotImplementedError()
+
     def get_metrics(self) -> Dict:
         # TODO: Implement
         raise NotImplementedError()

@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from src.data_types.i_model import IModel
 from src.pipelines.arima_model_pipeline import arima_model_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_error, calculate_mse
+from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 
@@ -206,8 +206,9 @@ class ArimaModel(IModel, ABC):
     def method_evaluation(
         self,
         order: Tuple[int, int, int],
+        metric: str,
         walk_forward: bool = True,
-    ) -> List[float]:
+    ) -> float:
         # Try catch block for numpy LU decomposition error
         try:
             # Create and fit model with training data
@@ -215,14 +216,14 @@ class ArimaModel(IModel, ABC):
             model = arima_base.fit()
             if not walk_forward:
                 forecast = model.forecast(len(self.test_data))
-                return forecast
             # Evaluate model with single step evaluation and Walk-forward validation
             else:
                 forecast = ArimaModel._single_step_prediction(model=model, test_set=self.test_data)
-                return forecast
+            error = calculate_error(self.test_data, forecast)
+            return error[metric]
         except KeyboardInterrupt:
             sys.exit()
-            pass
+            return None
         except Exception as e:
             return None
 
