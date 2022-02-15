@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 from matplotlib.figure import Figure
 from pandas.core.frame import DataFrame
@@ -40,6 +40,18 @@ class IModel(metaclass=ABCMeta):
         """
         Test the trained model with test set
         Validate through prediction
+        """
+        pass
+
+    @abstractmethod
+    def method_evaluation(
+        self,
+        order: Tuple[int, int, int],
+        metric: str,
+        walk_forward: bool = True,
+    ) -> float:
+        """
+        Evaluate model and calculate error of predictions for used for tuning evaluation
         """
         pass
 

@@ -84,6 +84,15 @@ class ValidationModel(IModel, ABC):
         )
         return {"Accuracy": self.testing_accuracy, "Error": self.testing_error}
 
+    def method_evaluation(
+        self,
+        order: Tuple[int, int, int],
+        metric: str,
+        walk_forward: bool = True,
+    ) -> float:
+        # TODO: Implement
+        raise NotImplementedError()
+
     def save(self, path: str) -> str:
         """
         Save the model to the specified path.
