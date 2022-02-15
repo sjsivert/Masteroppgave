@@ -9,7 +9,6 @@ columns_to_drop = [
     "manufacturer_id",
     "_version_",
     "id_y",
-    "adult",
     "internal_doc_id_x",
     "internal_doc_id_y",
 ]
