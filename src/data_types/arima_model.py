@@ -1,5 +1,6 @@
 import logging
 import sys
+import warnings
 from abc import ABC
 from collections import OrderedDict
 from typing import Dict, List, Tuple
@@ -15,6 +16,9 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
+import multiprocessing as mp
+
+# from pathos.multiprocessing import ProcessingPool as Pool
 
 
 class ArimaModel(IModel, ABC):
@@ -42,6 +46,7 @@ class ArimaModel(IModel, ABC):
         # The ARIMA model must be instanced with data, thus this is done during training
         self.model = None
         self.order = list(hyperparameters.values())  # Tuple defining the ARIMA order variable
+        self.predictions: DataFrame = None
         # Visualization
         self.figures: List[Figure] = []
         self.metrics: Dict = {}
@@ -62,7 +67,6 @@ class ArimaModel(IModel, ABC):
             f"ArimaModel: Data pipeline created for {self.get_name()}\n {self.data_pipeline.__repr__()}"
         )
         self.training_data, self.test_data = self.data_pipeline.run()
-
         return self.training_data, self.test_data
 
     def get_name(self) -> str:
@@ -205,27 +209,61 @@ class ArimaModel(IModel, ABC):
     # Static method evaluating an Arima model
     def method_evaluation(
         self,
-        order: Tuple[int, int, int],
+        parameters: List,
         metric: str,
-        walk_forward: bool = True,
-    ) -> float:
+        single_step: bool = True,
+    ) -> Dict[str, float]:
+        error_param_set = {}
         # Try catch block for numpy LU decomposition error
-        try:
-            # Create and fit model with training data
-            arima_base = ARIMA(self.training_data, order=order)
-            model = arima_base.fit()
-            if not walk_forward:
-                forecast = model.forecast(len(self.test_data))
-            # Evaluate model with single step evaluation and Walk-forward validation
-            else:
-                forecast = ArimaModel._single_step_prediction(model=model, test_set=self.test_data)
-            error = calculate_error(self.test_data, forecast)
-            return error[metric]
-        except KeyboardInterrupt:
-            sys.exit()
-            return None
-        except Exception as e:
-            return None
+        cores = mp.cpu_count()
+        pool = mp.Pool(cores)
+        results = []
+        for order in parameters:
+            result = pool.apply_async(
+                ArimaModel._eval_arima,
+                args=(order, self.training_data, self.test_data, metric, single_step),
+            )
+            results.append(result)
+        pool.close()
+        pool.join()
+        [result.wait() for result in results]
+        for result in results:
+            if result._value[0] is not None:
+                error_param_set[result._value[0]] = result._value[1]
+        return error_param_set
+
+    @staticmethod
+    def _eval_arima(
+        order: Tuple[int, int, int],
+        training_set: DataFrame,
+        test_set: DataFrame,
+        metric: str,
+        single_step: bool,
+    ) -> Tuple[str, float]:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                # Create and fit model with training data
+                arima_base = ARIMA(training_set, order=order)
+                model = arima_base.fit()
+                if not single_step:
+                    forecast = model.forecast(len(test_set))
+                # Evaluate model with single step evaluation and Walk-forward validation
+                else:
+                    forecast = ArimaModel._single_step_prediction(model=model, test_set=test_set)
+                error = calculate_error(test_set, forecast)
+                logging.info(
+                    f"Tuning ARIMA model. Parameters {order} used. Error: {error[metric]}#"
+                )
+                return f"{order}", error[metric]
+            except KeyboardInterrupt:
+                sys.exit()
+                return None, None
+            except Exception as e:
+                logging.info(
+                    f"Tuning ARIMA model {order} got an error. Calculations not completed."
+                )
+                return None, None
 
     def get_data_pipeline(self) -> Pipeline:
         return self.data_pipeline

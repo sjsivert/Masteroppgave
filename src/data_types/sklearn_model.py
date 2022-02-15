@@ -48,10 +48,10 @@ class SklearnModel(IModel, ABC):
 
     def method_evaluation(
         self,
-        order: Tuple[int, int, int],
+        parameters: List,
         metric: str,
-        walk_forward: bool = True,
-    ) -> float:
+        single_step: bool = True,
+    ) -> Dict[str, float]:
         # TODO: Implement
         raise NotImplementedError()
 
