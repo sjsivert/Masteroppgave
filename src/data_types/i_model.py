@@ -46,10 +46,10 @@ class IModel(metaclass=ABCMeta):
     @abstractmethod
     def method_evaluation(
         self,
-        order: Tuple[int, int, int],
+        parameters: List,
         metric: str,
-        walk_forward: bool = True,
-    ) -> float:
+        singe_step: bool = True,
+    ) -> Dict[str, float]:
         """
         Evaluate model and calculate error of predictions for used for tuning evaluation
         """

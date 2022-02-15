@@ -92,10 +92,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
     # Exhaustive Grid Search of ARIMA model
     def auto_tuning(self) -> None:
-        # TODO: Compare using Cross-Validation
         logging.info("Tuning models")
         self.figures = []
-        self.tuning_parameter_error_sets["Model"] = {"type": "ARIMA"}
+        self.tuning_parameter_error_sets["Model"] = {"ARIMA": f"{self.metric_to_use_when_tuning}"}
 
         parameters = self._generate_parameter_grid(
             p_range=self.hyperparameter_tuning_range["p"],
@@ -112,20 +111,17 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             logging.info(f"Tuning model: {base_model.get_name()}")
             if base_model.get_name in self.tuning_parameter_error_sets:
                 logging.info(
-                    f"{base_model.get_name} was already tuned. Results can be found in the logg"
+                    f"{base_model.get_name} was already tuned. Results can be found in the logg."
                 )
-                continue
+                # parameters = [param for param in parameters if param not in self.tuning_parameter_error_sets[base_model.get_name()]]
 
             # Calculating Error
-            error_parameter_sets = {}
-            lowest_error, lowest_error_key = np.inf, None
+            error_parameter_sets = base_model.method_evaluation(
+                parameters, metric=self.metric_to_use_when_tuning.value, single_step=True
+            )
+            """
             for param in parameters:
                 # Pass tuning of models that have already been tuned
-                if (
-                    base_model.get_name() in self.tuning_parameter_error_sets
-                    and f"{param}" in self.tuning_parameter_error_sets[base_model.get_name()]
-                ):
-                    continue
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
                     logging.info(f"Tuning ARIMA model. Parameters {param} used.")
@@ -135,9 +131,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                     logging.info(f"Tuning completed. Error {error} calculated.")
                     if error is not None:
                         error_parameter_sets[f"{param}"] = error
-                    lowest_error_key = lowest_error_key if error > lowest_error else f"{param}"
-                    lowest_error = lowest_error if error > lowest_error else error
-
+            """
             self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = error_parameter_sets
             for log_source in self.log_sources:
                 log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
@@ -177,7 +171,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
     def get_predictions(self) -> DataFrame:
         predictions = {}
         for model in self.models:
-            predictions[model.get_name()] = model.get_predictions()
+            pred = model.get_predictions()
+            if pred is not None:
+                predictions[model.get_name()] = model.get_predictions()
         return DataFrame(predictions)
 
     def __repr__(self):
