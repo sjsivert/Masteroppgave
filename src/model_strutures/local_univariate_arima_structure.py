@@ -113,25 +113,13 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                 logging.info(
                     f"{base_model.get_name} was already tuned. Results can be found in the logg."
                 )
+                continue
                 # parameters = [param for param in parameters if param not in self.tuning_parameter_error_sets[base_model.get_name()]]
 
             # Calculating Error
             error_parameter_sets = base_model.method_evaluation(
                 parameters, metric=self.metric_to_use_when_tuning.value, single_step=True
             )
-            """
-            for param in parameters:
-                # Pass tuning of models that have already been tuned
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore")
-                    logging.info(f"Tuning ARIMA model. Parameters {param} used.")
-                    error = base_model.method_evaluation(
-                        param, metric=self.metric_to_use_when_tuning.value, walk_forward=True
-                    )
-                    logging.info(f"Tuning completed. Error {error} calculated.")
-                    if error is not None:
-                        error_parameter_sets[f"{param}"] = error
-            """
             self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = error_parameter_sets
             for log_source in self.log_sources:
                 log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
