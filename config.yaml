@@ -23,6 +23,7 @@ experiment:
     - 'MASE'
     - 'MSE'
     - 'MAE'
+    - 'OWA'
 
   save_source:
     disk:

@@ -171,3 +171,4 @@ wrapt==1.13.3
 zict==2.0.0
 -e ./packages/permetrics/
 
+torch==1.10.2
