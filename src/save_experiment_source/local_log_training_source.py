@@ -58,19 +58,21 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
         with self._create_log_folder_if_not_exist():
             with self._create_tuning_metric_file_if_not_exist():
                 with open(f"{self.log_location}/tuning_metrics.csv", "a") as f:
+                    tuning_writer = csv.writer(f, delimiter=";")
                     for data_set, val in metrics.items():
                         for param, err in val.items():
-                            f.write(f"{data_set},{param},{err}\n")
+                            tuning_writer.writerow([data_set, param, err])
 
     def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
         if os.path.isfile(f"{self.log_location}/tuning_metrics.csv"):
-            with open(f"{self.log_location}/tuning_metrics.csv") as f:
+            with open(f"{self.log_location}/tuning_metrics.csv", "r") as f:
                 tuning_metrics = {}
-                reader = csv.DictReader(f)
+                reader = csv.reader(f, delimiter=";")
+                next(reader)  # Skip row with column names
                 for row in reader:
-                    if row["dataset"] not in tuning_metrics:
-                        tuning_metrics[row["dataset"]] = {}
-                    tuning_metrics[row["dataset"]][row["parameters"]] = row["errorvalue"]
+                    if row[0] not in tuning_metrics:
+                        tuning_metrics[row[0]] = {}
+                    tuning_metrics[row[0]][row[1]] = float(row[2])
                 return tuning_metrics
         return None
 

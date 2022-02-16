@@ -86,8 +86,10 @@ def main(
         experiment = ContinueExperiment(
             experiment_checkpoints_location=experiment_checkpoints_location,
         )
-
-        experiment.continue_experiment()
+        if tune:
+            experiment.continue_tuning(save=save, options_to_save=(config.dump() if save else None))
+        else:
+            experiment.continue_experiment()
     elif load:
         load_path = Path(load)
         logging.info(f"Loading experiment from {load_path}")

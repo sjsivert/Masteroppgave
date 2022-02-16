@@ -25,7 +25,8 @@ class ContinueExperiment(Experiment):
 
         self.neptune_id_to_load = None
         self.experiment_checkpoints_location = experiment_checkpoints_location
-        super().__init__()
+        title, description = self._load_title_and_description()
+        super().__init__(title, description)
 
     def _load_neptune_id_from_checkpoint_location(self) -> str:
         with open(f"{self.experiment_checkpoints_location}/neptune_id.txt", "r") as f:
@@ -33,7 +34,6 @@ class ContinueExperiment(Experiment):
             return neptune_id
 
     def continue_experiment(self) -> None:
-        self.title, self.description = self._load_title_and_description()
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
 
         self._load_saved_options()
@@ -71,9 +71,13 @@ class ContinueExperiment(Experiment):
         self._train_model()
         self._test_model()
 
-    def continue_tuning(self) -> None:
+    def continue_tuning(
+        self,
+        save: bool = True,
+        options_to_save: Optional[str] = None,
+    ) -> None:
         # Load prev data from ran exp
-        self.title, self.description = self._load_title_and_description()
+        logging.info(f"\nContinue tuning from prev experiment")
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
         self._load_saved_options()
         neptune_save_source_was_used = (
@@ -88,7 +92,7 @@ class ContinueExperiment(Experiment):
         save_sources_to_use = config["experiment"]["save_sources_to_use"].get()
         save_source_options = config["experiment"]["save_source"].get()
 
-        self._init_save_sources(
+        self.save_sources = self._init_save_sources(
             save_sources_to_use=save_sources_to_use,
             save_source_options=save_source_options,
             load_from_checkpoint=True,
@@ -104,9 +108,8 @@ class ContinueExperiment(Experiment):
         # Continue tuning
         self.model_structure.auto_tuning()
 
-        # TODO! Saving tuned model
-        # if save and options_to_save:
-        #     self._save_model(options=options_to_save)
+        if save and options_to_save:
+            self._save_model(options=options_to_save)
 
     def _load_title_and_description(self) -> (str, str):
         try:
