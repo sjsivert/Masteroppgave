@@ -230,6 +230,8 @@ class ArimaModel(IModel, ABC):
         for result in results:
             if result._value[0] is not None:
                 error_param_set[result._value[0]] = result._value[1]
+        # Sort the values to ease the evaluation of model parameters
+        error_param_set = dict(sorted(error_param_set.items(), key=lambda x: x[1], reverse=False))
         return error_param_set
 
     @staticmethod
