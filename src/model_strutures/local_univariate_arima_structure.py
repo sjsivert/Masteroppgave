@@ -109,12 +109,16 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
         for base_model in self.models:
             logging.info(f"Tuning model: {base_model.get_name()}")
-            if base_model.get_name in self.tuning_parameter_error_sets:
+            if str(base_model.get_name()) in self.tuning_parameter_error_sets:
                 logging.info(
-                    f"{base_model.get_name} was already tuned. Results can be found in the logg."
+                    f"{base_model.get_name()} was already tuned. Results can be found in the logg."
                 )
-                continue
-                # parameters = [param for param in parameters if param not in self.tuning_parameter_error_sets[base_model.get_name()]]
+                parameters = [
+                    param
+                    for param in parameters
+                    if str(param)
+                    not in self.tuning_parameter_error_sets[str(base_model.get_name())]
+                ]
 
             # Calculating Error
             error_parameter_sets = base_model.method_evaluation(

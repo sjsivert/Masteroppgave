@@ -51,7 +51,8 @@ class Experiment:
     ) -> List[ILogTrainingSource]:
         sources = []
 
-        init_local_checkpoint_save_location(self.title, self.description)
+        if not load_from_checkpoint:
+            init_local_checkpoint_save_location(self.title, self.description)
 
         for source in save_sources_to_use:
             if source == "disk":
