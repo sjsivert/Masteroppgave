@@ -43,9 +43,9 @@ with description(ContinueExperiment, "unit") as self:
         with pytest.raises(AssertionError):
             ContinueExperiment(Path("tmp/not_found"))
 
-    with it("fails if no title-description.txt file isf found"):
+    with it("fails if no title-description.txt file is found"):
         temp_location = "temp_continue_experiment_no_title_description"
         with temp_files(temp_location):
-            experiment = ContinueExperiment(Path(temp_location))
             with pytest.raises(FileNotFoundError):
+                experiment = ContinueExperiment(Path(temp_location))
                 experiment.continue_experiment()
