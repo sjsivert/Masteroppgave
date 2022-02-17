@@ -1,4 +1,5 @@
 import os
+import shutil
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -95,3 +96,30 @@ with description(LocalLogTrainingSource, "unit") as self:
         }
         error_metrics = LocalLogTrainingSource.extract_all_error_metrics_from_dict(training_errors)
         expect(error_metrics).to(equal(["MAE", "MSE", "test"]))
+
+    with shared_context("tuning mock data"):
+        mock_metric_data = {
+            "11011": {"(1,1,1)": 4, "(1,2,1)": 3},
+            "11012": {"(1,1,1)": 4, "(1,2,1)": 3},
+        }
+
+    with it("can log tuning info"):
+        with temp_log_training_files(self.save_location):
+            with included_context("tuning mock data"):
+                log_source = LocalLogTrainingSource(
+                    model_save_location=self.save_location,
+                    title=self.experiment_title,
+                )
+                log_source.log_tuning_metrics(mock_metric_data)
+                expect(os.path.isfile(f"{self.log_location}/tuning_metrics.csv"))
+
+    with it("can load logged tuning info"):
+        with temp_log_training_files(self.save_location):
+            with included_context("tuning mock data"):
+                log_source = LocalLogTrainingSource(
+                    model_save_location=self.save_location,
+                    title=self.experiment_title,
+                )
+                log_source.log_tuning_metrics(mock_metric_data)
+                loaded_metric_data = log_source.load_tuning_metrics()
+                expect(loaded_metric_data).to(equal(mock_metric_data))
