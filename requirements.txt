@@ -172,3 +172,5 @@ zict==2.0.0
 -e ./packages/permetrics/
 
 torch==1.10.2
+fastprogress==1.0.2
+nptyping==1.4.4

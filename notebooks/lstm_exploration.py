@@ -12,7 +12,7 @@ from torch.autograd import Variable
 class LSTM(nn.Module):
     def __init__(self):
         super(LSTM, self).__init__()
-        self.output_size = 1  # number of classes
+        self.output_size = 2  # number of classes
         self.num_layers = 1  # number of layers
         self.input_size = 1  # input size of baches?
         self.hidden_size = 64  # hidden state
@@ -76,7 +76,7 @@ def sliding_window_generate_tuples(input_data, window_size, output_size):
 
 # %%
 
-window_size = 1
+window_size = 2
 output_size = 1
 
 x, y = sliding_window_generate_tuples(train_data, window_size=window_size, output_size=output_size)
@@ -108,13 +108,6 @@ print("test label shape is:",testY.size())
 
 
 # %%
-# y = (100, 1000)
-#train_input = torch.from_numpy(y[3:, :-1])  # (97, 999)
-#train_target = torch.from_numpy(y[3:, 1:])  # (97, 999)
-#test_input = torch.from_numpy(y[:3, :-1])  # (3, 999)
-#test_target = torch.from_numpy(y[:3, 1:])  # (3, 999)
-
-# %%
 #####Init the Model #######################
 lstm = LSTM()
 
@@ -133,7 +126,7 @@ num_epochs = 500
 
 training_outputs = []
 
-for epoch in (range(num_epochs)): 
+for epoch in progress_bar(range(num_epochs)): 
     lstm.train()
     outputs = lstm(trainX)
     training_outputs.append(outputs)
@@ -162,5 +155,6 @@ plt.plot(training_outputs[-1].detach().numpy())
 len(training_outputs[3])
 # %%
 predict = lstm(testX)
-plt.plot(predict.detach().numpy())
-plt.plot(testY.detach().numpy())
+print(predict.detach().numpy()[:, 1])
+plt.plot(predict.detach().numpy()[:,0])
+plt.plot(testY.detach().numpy()[:,0])
