@@ -139,10 +139,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
             return
         with open(f"{self.save_location}/tuning.txt", "a") as f:
             f.write("Parameter Tuning results")
-            for model, dic in tuning.items():
-                f.write(f"\n\n\nModel tuning: Dataset {model}")
-                for params, err in dic.items():
-                    f.write(f"\n\nParameters: {params}\n Error: {err}")
+            for model_name, param_error_set in tuning.items():
+                f.write(f"\n\n\nModel tuning: Dataset {model_name}")
+                for params, err in param_error_set.items():
+                    error_values = ",".join([f"{x}:{y}" for x, y in err.items()])
+                    f.write(f"\n\nParameters: {params}\n Error: {error_values}")
 
     def _save_log(self) -> None:
         # TODO Make log file configurable

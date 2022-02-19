@@ -94,7 +94,6 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
     def auto_tuning(self) -> None:
         logging.info("Tuning models")
         self.figures = []
-        self.tuning_parameter_error_sets["Model"] = {"ARIMA": f"{self.metric_to_use_when_tuning}"}
 
         parameters = self._generate_parameter_grid(
             p_range=self.hyperparameter_tuning_range["p"],
