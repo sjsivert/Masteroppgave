@@ -99,8 +99,8 @@ with description(LocalLogTrainingSource, "unit") as self:
 
     with shared_context("tuning mock data"):
         mock_metric_data = {
-            "11011": {"(1,1,1)": 4, "(1,2,1)": 3},
-            "11012": {"(1,1,1)": 4, "(1,2,1)": 3},
+            "11011": {"(1,1,1)": {"MASE": 4, "SMAPE": 5}, "(1,2,1)": {"MASE": 4, "SMAPE": 5}},
+            "11012": {"(1,1,1)": {"MASE": 4, "SMAPE": 5}, "(1,2,1)": {"MASE": 4, "SMAPE": 5}},
         }
 
     with it("can log tuning info"):

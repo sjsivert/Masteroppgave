@@ -25,7 +25,7 @@ class ILogTrainingSource(metaclass=ABCMeta):
         return None
 
     @abstractmethod
-    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, Dict[str, float]]]) -> None:
         # Interface, not to be implemented
         pass
 

@@ -212,7 +212,7 @@ class ArimaModel(IModel, ABC):
         parameters: List,
         metric: str,
         single_step: bool = True,
-    ) -> Dict[str, float]:
+    ) -> Dict[str, Dict[str, float]]:
         error_param_set = {}
         # Try catch block for numpy LU decomposition error
         cores = mp.cpu_count()
@@ -221,17 +221,20 @@ class ArimaModel(IModel, ABC):
         for order in parameters:
             result = pool.apply_async(
                 ArimaModel._eval_arima,
-                args=(order, self.training_data, self.test_data, metric, single_step),
+                args=(order, self.training_data, self.test_data, single_step),
             )
             results.append(result)
         pool.close()
         pool.join()
+        # Complete waiting for async operations
         [result.wait() for result in results]
         for result in results:
             if result._value[0] is not None:
                 error_param_set[result._value[0]] = result._value[1]
         # Sort the values to ease the evaluation of model parameters
-        error_param_set = dict(sorted(error_param_set.items(), key=lambda x: x[1], reverse=False))
+        error_param_set = dict(
+            sorted(error_param_set.items(), key=lambda x: x[1][metric], reverse=False)
+        )
         return error_param_set
 
     @staticmethod
@@ -239,7 +242,6 @@ class ArimaModel(IModel, ABC):
         order: Tuple[int, int, int],
         training_set: DataFrame,
         test_set: DataFrame,
-        metric: str,
         single_step: bool,
     ) -> Tuple[str, float]:
         with warnings.catch_warnings():
@@ -254,10 +256,8 @@ class ArimaModel(IModel, ABC):
                 else:
                     forecast = ArimaModel._single_step_prediction(model=model, test_set=test_set)
                 error = calculate_error(test_set, forecast)
-                logging.info(
-                    f"Tuning ARIMA model. Parameters {order} used. Error: {error[metric]}#"
-                )
-                return f"{order}", error[metric]
+                logging.info(f"Tuning ARIMA model. Parameters {order} used.")
+                return f"{order}", error
             except KeyboardInterrupt:
                 sys.exit()
                 return None, None

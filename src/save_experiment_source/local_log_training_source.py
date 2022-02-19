@@ -54,14 +54,15 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
         # TODO: Implement
         raise NotImplementedError()
 
-    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, float]]):
+    def log_tuning_metrics(self, metrics: Dict[str, Dict[str, Dict[str, float]]]):
         with self._create_log_folder_if_not_exist():
             with self._create_tuning_metric_file_if_not_exist():
                 with open(f"{self.log_location}/tuning_metrics.csv", "a") as f:
                     tuning_writer = csv.writer(f, delimiter=";")
                     for data_set, val in metrics.items():
                         for param, err in val.items():
-                            tuning_writer.writerow([data_set, param, err])
+                            error_values = ",".join([f"{x}:{y}" for x, y in err.items()])
+                            tuning_writer.writerow([data_set, param, error_values])
 
     def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
         if os.path.isfile(f"{self.log_location}/tuning_metrics.csv"):
@@ -72,7 +73,11 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
                 for row in reader:
                     if row[0] not in tuning_metrics:
                         tuning_metrics[row[0]] = {}
-                    tuning_metrics[row[0]][row[1]] = float(row[2])
+                    # Convert from strin to dict of string float set values
+                    error_metrics_set_list = dict(
+                        (i, float(j)) for i, j in [x.split(":") for x in row[2].split(",")]
+                    )
+                    tuning_metrics[row[0]][row[1]] = error_metrics_set_list
                 return tuning_metrics
         return None
 
