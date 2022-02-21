@@ -137,7 +137,7 @@ with description(SaveLocalDiskSource, "unit") as self:
             datasets={},
             models=[],
             figures=[],
-            data_pipeline_steps="steps",
+            data_pipeline_steps=["pipeline1", "pipeline2"],
             experiment_tags=["tag1"],
             tuning={},
         )

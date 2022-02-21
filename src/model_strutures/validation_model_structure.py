@@ -27,6 +27,8 @@ class ValidationModelStructure(IModelStructure, ABC):
     def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
         # Get the data_set from the pipeline -> The pipeline runs as intended, returning a pipeline
         self.data_pipeline = data_pipeline
+        for log_source in self.log_sources:
+            log_source.log_pipeline_steps(self.data_pipeline.__repr__())
         data_set = data_pipeline.run()
         return data_set
 

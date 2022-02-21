@@ -82,7 +82,10 @@ with description(NeptuneSaveSource, "api") as self:
             datasets={},
             models=[],
             figures=[],
-            data_pipeline_steps=Pipeline(steps=[("load test data", test_data)]).__str__(),
+            data_pipeline_steps=[
+                Pipeline(steps=[("load test data pipeline1", test_data)]).__str__(),
+                Pipeline(steps=[("load test data pipeline2", test_data)]).__str__(),
+            ],
             experiment_tags=["test"],
             tuning={},
         )

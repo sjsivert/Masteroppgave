@@ -46,7 +46,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
-        data_pipeline_steps: str,
+        data_pipeline_steps: List[str],
         experiment_tags: List[str],
         tuning: Dict,
         predictions: Optional[DataFrame] = None,
@@ -100,9 +100,10 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
                     "{}: {}\n".format(metric_name, round(sum(metric_value) / len(metric_value), 3))
                 )
 
-    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+    def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:
         with open(f"{self.save_location}/data_processing_steps.txt", "w") as f:
-            f.write(data_pipeline_steps)
+            for pipeline in data_pipeline_steps:
+                f.write(pipeline)
 
     def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
         dataset_info = {}

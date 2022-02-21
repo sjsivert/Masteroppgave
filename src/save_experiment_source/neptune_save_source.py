@@ -76,7 +76,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
-        data_pipeline_steps: str,
+        data_pipeline_steps: List[str],
         experiment_tags: List[str],
         tuning: Dict,
         predictions: Optional[DataFrame] = None,
@@ -124,8 +124,8 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         metrics["average"] = {i: sum(j) / len(j) for i, j in average.items()}
         self.run["metrics"] = metrics
 
-    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
-        self.run["data_pipeline_steps"] = data_pipeline_steps
+    def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:
+        self.run["data_pipeline_steps"] = "\n".join(data_pipeline_steps)
 
     def _save_dataset_version(self, datasets: Dict[str, str]) -> None:
         for data_type, data_path in datasets.items():
