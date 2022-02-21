@@ -33,13 +33,6 @@ class IModelStructure(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_data_pipeline(self) -> Pipeline:
-        """
-        Returns the data pipeline used to process the data.
-        """
-        pass
-
-    @abstractmethod
     def train(self) -> IModelStructure:
         """
         Trains the model.

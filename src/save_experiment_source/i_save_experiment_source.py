@@ -20,7 +20,7 @@ class ISaveExperimentSource(metaclass=ABCMeta):
         datasets: Dict[str, str],
         models: List[IModel],
         figures: List[Figure],
-        data_pipeline_steps: str,
+        data_pipeline_steps: List[str],
         experiment_tags: List[str],
         tuning: Dict,
         predictions: Optional[DataFrame],
@@ -44,7 +44,7 @@ class ISaveExperimentSource(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def _save_data_pipeline_steps(self, data_pipeline_steps: str) -> None:
+    def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:
         # Saves the steps of the pipeline
         pass
 

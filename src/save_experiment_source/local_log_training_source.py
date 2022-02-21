@@ -27,6 +27,7 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
         )
         self.log_location = Path(f"{self.save_location}/logging/")
         self.epoch_counter = 0
+        self.pipeline_steps: List[str] = []
 
     def log_metrics(self, metrics: Dict[str, Dict[str, float]], epoch: int) -> None:
         """
@@ -80,6 +81,12 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
                     tuning_metrics[row[0]][row[1]] = error_metrics_set_list
                 return tuning_metrics
         return None
+
+    def log_pipeline_steps(self, pipeline_steps: str) -> None:
+        self.pipeline_steps.append(pipeline_steps)
+
+    def get_pipeline_steps(self) -> List[str]:
+        return self.pipeline_steps
 
     @contextmanager
     def _create_log_folder_if_not_exist(self):

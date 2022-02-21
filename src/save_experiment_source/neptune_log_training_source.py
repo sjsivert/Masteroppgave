@@ -24,6 +24,7 @@ class NeptuneLogTrainingSource(NeptuneSaveSource, ILogTrainingSource, ABC):
         super().__init__(
             project_id, title, description, load_from_checkpoint, neptune_id_to_load, sync, **xargs
         )
+        self.pipeline_steps = None
 
     def log_metrics(
         self, metrics: Dict[str, Dict[str, float]], epoch: int
@@ -50,3 +51,9 @@ class NeptuneLogTrainingSource(NeptuneSaveSource, ILogTrainingSource, ABC):
 
     def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
         return self.run["logging_tuning"].fetch()
+
+    def log_pipeline_steps(self, pipeline_steps: str) -> None:
+        self.pipeline_steps.append(pipeline_steps)
+
+    def get_pipeline_steps(self) -> List[str]:
+        return self.pipeline_steps

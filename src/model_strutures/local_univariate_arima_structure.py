@@ -65,16 +65,14 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.data_pipeline = data_pipeline
 
         logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
+        for log_source in self.log_sources:
+            log_source.log_pipeline_steps(self.data_pipeline.__repr__())
+
         preprocessed_data = data_pipeline.run()
 
         for model in self.models:
             model.process_data(preprocessed_data, self.training_size)
         return self.training_set
-
-    def get_data_pipeline(self) -> Pipeline:
-        # TODO: Find way to add datapipeline steps from all models into one pipeline
-        pipeline = self.data_pipeline
-        return pipeline
 
     def train(self) -> IModelStructure:
         # TODO: Do something with the training metrics returned by 'train' method

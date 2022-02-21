@@ -66,6 +66,9 @@ class ArimaModel(IModel, ABC):
         logging.info(
             f"ArimaModel: Data pipeline created for {self.get_name()}\n {self.data_pipeline.__repr__()}"
         )
+        for log_source in self.log_sources:
+            log_source.log_pipeline_steps(self.data_pipeline.__repr__())
+
         self.training_data, self.test_data = self.data_pipeline.run()
         return self.training_data, self.test_data
 

@@ -33,3 +33,15 @@ class ILogTrainingSource(metaclass=ABCMeta):
     def load_tuning_metrics(self) -> Dict[str, Dict[str, float]]:
         # Interface, not to be implemented
         return None
+
+    @abstractmethod
+    def log_pipeline_steps(self, pipeline_steps: str) -> None:
+        """
+        Method for logging pipeline steps which are executed at different points in the training process.
+        """
+        pass
+
+    @abstractmethod
+    def get_pipeline_steps(self) -> List[str]:
+        # Interface, not to be implemented
+        pass

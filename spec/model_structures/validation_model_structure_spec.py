@@ -14,6 +14,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 with description(ValidationModelStructure, "unit") as self:
     with before.all:
         self.log_source = mock(ILogTrainingSource)
+        self.log_source.log_pipeline_steps = mock()
 
     with after.all:
         unstub()
@@ -28,6 +29,7 @@ with description(ValidationModelStructure, "unit") as self:
         # Arrange
         model_struct = ValidationModelStructure([self.log_source])
         pipeline = mock(Pipeline)
+
         df = DataFrame({"a": [1, 2, 3]})
         when(pipeline).run().thenReturn(df)
         # Act, Assert
