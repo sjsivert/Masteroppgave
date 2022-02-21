@@ -44,7 +44,7 @@ class NeptuneLogTrainingSource(NeptuneSaveSource, ILogTrainingSource, ABC):
     def log_tuning_metrics(self, metrics: Dict[str, Dict[str, Dict[str, float]]]) -> None:
         for cat_id, metric_values in metrics.items():
             for param, metric_value in metric_values.items():
-                self.run[f"logging_tuning/{cat_id}/{param}"].log(metric_value)
+                self.run[f"logging_tuning/{cat_id}/{param}"].log(dict(metric_value))
 
     def load_temp_models(self, models_path: List) -> None:
         return None
