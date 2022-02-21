@@ -1,138 +1,0 @@
-we are running from this directory: /cluster/home/sjsivert/Masteroppgave
- the name of the job is: Run papermill
-Th job ID is 2435962
-The job was run on these nodes: idun-02-17
-Number of nodes: 1
-We are using 1 cores
-We are using 1 cores per node
-Total of 1 cores
---Files in current directory--
-0
-add_to_batch_queue.sh
-batch_jobs
-code
-datasets
-git_update_hpc.sh
-heel
-MScTemplate
-nohup.out
-notebooks
-requirements.txt
-venv
-watch_for_job_finnish.sh
-Requirement already satisfied: jupyter in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 1)) (1.0.0)
-Requirement already satisfied: numpy in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 2)) (1.19.5)
-Requirement already satisfied: pandas in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 3)) (1.1.5)
-Requirement already satisfied: matplotlib in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 4)) (3.3.4)
-Requirement already satisfied: sklearn in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 5)) (0.0)
-Requirement already satisfied: scipy in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 6)) (1.5.4)
-Requirement already satisfied: wheel in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 7)) (0.37.0)
-Requirement already satisfied: seaborn in ./venv/lib/python3.6/site-packages (from -r requirements.txt (line 8)) (0.11.2)
-Requirement already satisfied: nbconvert in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (6.0.7)
-Requirement already satisfied: notebook in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (6.4.5)
-Requirement already satisfied: ipykernel in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (5.5.6)
-Requirement already satisfied: qtconsole in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (5.2.0)
-Requirement already satisfied: ipywidgets in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (7.6.5)
-Requirement already satisfied: jupyter-console in ./venv/lib/python3.6/site-packages (from jupyter->-r requirements.txt (line 1)) (6.4.0)
-Requirement already satisfied: python-dateutil>=2.7.3 in ./venv/lib/python3.6/site-packages (from pandas->-r requirements.txt (line 3)) (2.8.2)
-Requirement already satisfied: pytz>=2017.2 in ./venv/lib/python3.6/site-packages (from pandas->-r requirements.txt (line 3)) (2021.3)
-Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.3 in ./venv/lib/python3.6/site-packages (from matplotlib->-r requirements.txt (line 4)) (2.4.7)
-Requirement already satisfied: pillow>=6.2.0 in ./venv/lib/python3.6/site-packages (from matplotlib->-r requirements.txt (line 4)) (8.4.0)
-Requirement already satisfied: kiwisolver>=1.0.1 in ./venv/lib/python3.6/site-packages (from matplotlib->-r requirements.txt (line 4)) (1.3.1)
-Requirement already satisfied: cycler>=0.10 in ./venv/lib/python3.6/site-packages (from matplotlib->-r requirements.txt (line 4)) (0.11.0)
-Requirement already satisfied: scikit-learn in ./venv/lib/python3.6/site-packages (from sklearn->-r requirements.txt (line 5)) (0.24.2)
-Requirement already satisfied: six>=1.5 in ./venv/lib/python3.6/site-packages (from python-dateutil>=2.7.3->pandas->-r requirements.txt (line 3)) (1.16.0)
-Requirement already satisfied: ipython>=5.0.0 in ./venv/lib/python3.6/site-packages (from ipykernel->jupyter->-r requirements.txt (line 1)) (7.16.1)
-Requirement already satisfied: traitlets>=4.1.0 in ./venv/lib/python3.6/site-packages (from ipykernel->jupyter->-r requirements.txt (line 1)) (4.3.3)
-Requirement already satisfied: tornado>=4.2 in ./venv/lib/python3.6/site-packages (from ipykernel->jupyter->-r requirements.txt (line 1)) (6.1)
-Requirement already satisfied: jupyter-client in ./venv/lib/python3.6/site-packages (from ipykernel->jupyter->-r requirements.txt (line 1)) (7.0.6)
-Requirement already satisfied: ipython-genutils in ./venv/lib/python3.6/site-packages (from ipykernel->jupyter->-r requirements.txt (line 1)) (0.2.0)
-Requirement already satisfied: jupyterlab-widgets>=1.0.0 in ./venv/lib/python3.6/site-packages (from ipywidgets->jupyter->-r requirements.txt (line 1)) (1.0.2)
-Requirement already satisfied: nbformat>=4.2.0 in ./venv/lib/python3.6/site-packages (from ipywidgets->jupyter->-r requirements.txt (line 1)) (5.1.3)
-Requirement already satisfied: widgetsnbextension~=3.5.0 in ./venv/lib/python3.6/site-packages (from ipywidgets->jupyter->-r requirements.txt (line 1)) (3.5.2)
-Requirement already satisfied: pygments in ./venv/lib/python3.6/site-packages (from jupyter-console->jupyter->-r requirements.txt (line 1)) (2.10.0)
-Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0 in ./venv/lib/python3.6/site-packages (from jupyter-console->jupyter->-r requirements.txt (line 1)) (3.0.22)
-Requirement already satisfied: testpath in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.5.0)
-Requirement already satisfied: mistune<2,>=0.8.1 in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.8.4)
-Requirement already satisfied: bleach in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (4.1.0)
-Requirement already satisfied: jupyterlab-pygments in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.1.2)
-Requirement already satisfied: jinja2>=2.4 in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (3.0.3)
-Requirement already satisfied: defusedxml in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.7.1)
-Requirement already satisfied: nbclient<0.6.0,>=0.5.0 in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.5.8)
-Requirement already satisfied: jupyter-core in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (4.9.1)
-Requirement already satisfied: pandocfilters>=1.4.1 in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (1.5.0)
-Requirement already satisfied: entrypoints>=0.2.2 in ./venv/lib/python3.6/site-packages (from nbconvert->jupyter->-r requirements.txt (line 1)) (0.3)
-Requirement already satisfied: argon2-cffi in ./venv/lib/python3.6/site-packages (from notebook->jupyter->-r requirements.txt (line 1)) (21.1.0)
-Requirement already satisfied: Send2Trash>=1.5.0 in ./venv/lib/python3.6/site-packages (from notebook->jupyter->-r requirements.txt (line 1)) (1.8.0)
-Requirement already satisfied: prometheus-client in ./venv/lib/python3.6/site-packages (from notebook->jupyter->-r requirements.txt (line 1)) (0.12.0)
-Requirement already satisfied: pyzmq>=17 in ./venv/lib/python3.6/site-packages (from notebook->jupyter->-r requirements.txt (line 1)) (22.3.0)
-Requirement already satisfied: terminado>=0.8.3 in ./venv/lib/python3.6/site-packages (from notebook->jupyter->-r requirements.txt (line 1)) (0.12.1)
-Requirement already satisfied: qtpy in ./venv/lib/python3.6/site-packages (from qtconsole->jupyter->-r requirements.txt (line 1)) (1.11.2)
-Requirement already satisfied: threadpoolctl>=2.0.0 in ./venv/lib/python3.6/site-packages (from scikit-learn->sklearn->-r requirements.txt (line 5)) (3.0.0)
-Requirement already satisfied: joblib>=0.11 in ./venv/lib/python3.6/site-packages (from scikit-learn->sklearn->-r requirements.txt (line 5)) (1.1.0)
-Requirement already satisfied: backcall in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (0.2.0)
-Requirement already satisfied: pickleshare in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (0.7.5)
-Requirement already satisfied: decorator in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (5.1.0)
-Requirement already satisfied: setuptools>=18.5 in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (39.2.0)
-Requirement already satisfied: pexpect in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (4.8.0)
-Requirement already satisfied: jedi>=0.10 in ./venv/lib/python3.6/site-packages (from ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (0.18.0)
-Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.6/site-packages (from jinja2>=2.4->nbconvert->jupyter->-r requirements.txt (line 1)) (2.0.1)
-Requirement already satisfied: nest-asyncio>=1.5 in ./venv/lib/python3.6/site-packages (from jupyter-client->ipykernel->jupyter->-r requirements.txt (line 1)) (1.5.1)
-Requirement already satisfied: async-generator in ./venv/lib/python3.6/site-packages (from nbclient<0.6.0,>=0.5.0->nbconvert->jupyter->-r requirements.txt (line 1)) (1.10)
-Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in ./venv/lib/python3.6/site-packages (from nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (4.0.0)
-Requirement already satisfied: wcwidth in ./venv/lib/python3.6/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,<3.1.0,>=2.0.0->jupyter-console->jupyter->-r requirements.txt (line 1)) (0.2.5)
-Requirement already satisfied: ptyprocess in ./venv/lib/python3.6/site-packages (from terminado>=0.8.3->notebook->jupyter->-r requirements.txt (line 1)) (0.7.0)
-Requirement already satisfied: cffi>=1.0.0 in ./venv/lib/python3.6/site-packages (from argon2-cffi->notebook->jupyter->-r requirements.txt (line 1)) (1.15.0)
-Requirement already satisfied: webencodings in ./venv/lib/python3.6/site-packages (from bleach->nbconvert->jupyter->-r requirements.txt (line 1)) (0.5.1)
-Requirement already satisfied: packaging in ./venv/lib/python3.6/site-packages (from bleach->nbconvert->jupyter->-r requirements.txt (line 1)) (21.2)
-Requirement already satisfied: pycparser in ./venv/lib/python3.6/site-packages (from cffi>=1.0.0->argon2-cffi->notebook->jupyter->-r requirements.txt (line 1)) (2.21)
-Requirement already satisfied: parso<0.9.0,>=0.8.0 in ./venv/lib/python3.6/site-packages (from jedi>=0.10->ipython>=5.0.0->ipykernel->jupyter->-r requirements.txt (line 1)) (0.8.2)
-Requirement already satisfied: importlib-metadata in ./venv/lib/python3.6/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (4.8.2)
-Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in ./venv/lib/python3.6/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (0.18.0)
-Requirement already satisfied: attrs>=17.4.0 in ./venv/lib/python3.6/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (21.2.0)
-Requirement already satisfied: typing-extensions>=3.6.4 in ./venv/lib/python3.6/site-packages (from importlib-metadata->jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (3.10.0.2)
-Requirement already satisfied: zipp>=0.5 in ./venv/lib/python3.6/site-packages (from importlib-metadata->jsonschema!=2.5.0,>=2.4->nbformat>=4.2.0->ipywidgets->jupyter->-r requirements.txt (line 1)) (3.6.0)
-Requirement already satisfied: papermill in ./venv/lib/python3.6/site-packages (2.3.3)
-Requirement already satisfied: requests in ./venv/lib/python3.6/site-packages (from papermill) (2.26.0)
-Requirement already satisfied: nbclient>=0.2.0 in ./venv/lib/python3.6/site-packages (from papermill) (0.5.8)
-Requirement already satisfied: nbformat>=5.1.2 in ./venv/lib/python3.6/site-packages (from papermill) (5.1.3)
-Requirement already satisfied: pyyaml in ./venv/lib/python3.6/site-packages (from papermill) (6.0)
-Requirement already satisfied: tenacity in ./venv/lib/python3.6/site-packages (from papermill) (8.0.1)
-Requirement already satisfied: click in ./venv/lib/python3.6/site-packages (from papermill) (8.0.3)
-Requirement already satisfied: ansiwrap in ./venv/lib/python3.6/site-packages (from papermill) (0.8.4)
-Requirement already satisfied: tqdm>=4.32.2 in ./venv/lib/python3.6/site-packages (from papermill) (4.62.3)
-Requirement already satisfied: entrypoints in ./venv/lib/python3.6/site-packages (from papermill) (0.3)
-Requirement already satisfied: black in ./venv/lib/python3.6/site-packages (from papermill) (21.10b0)
-Requirement already satisfied: nest-asyncio in ./venv/lib/python3.6/site-packages (from nbclient>=0.2.0->papermill) (1.5.1)
-Requirement already satisfied: traitlets>=4.2 in ./venv/lib/python3.6/site-packages (from nbclient>=0.2.0->papermill) (4.3.3)
-Requirement already satisfied: async-generator in ./venv/lib/python3.6/site-packages (from nbclient>=0.2.0->papermill) (1.10)
-Requirement already satisfied: jupyter-client>=6.1.5 in ./venv/lib/python3.6/site-packages (from nbclient>=0.2.0->papermill) (7.0.6)
-Requirement already satisfied: jsonschema!=2.5.0,>=2.4 in ./venv/lib/python3.6/site-packages (from nbformat>=5.1.2->papermill) (4.0.0)
-Requirement already satisfied: jupyter-core in ./venv/lib/python3.6/site-packages (from nbformat>=5.1.2->papermill) (4.9.1)
-Requirement already satisfied: ipython-genutils in ./venv/lib/python3.6/site-packages (from nbformat>=5.1.2->papermill) (0.2.0)
-Requirement already satisfied: textwrap3>=0.9.2 in ./venv/lib/python3.6/site-packages (from ansiwrap->papermill) (0.9.2)
-Requirement already satisfied: typing-extensions>=3.10.0.0 in ./venv/lib/python3.6/site-packages (from black->papermill) (3.10.0.2)
-Requirement already satisfied: mypy-extensions>=0.4.3 in ./venv/lib/python3.6/site-packages (from black->papermill) (0.4.3)
-Requirement already satisfied: regex>=2020.1.8 in ./venv/lib/python3.6/site-packages (from black->papermill) (2021.11.10)
-Requirement already satisfied: typed-ast>=1.4.2 in ./venv/lib/python3.6/site-packages (from black->papermill) (1.5.0)
-Requirement already satisfied: platformdirs>=2 in ./venv/lib/python3.6/site-packages (from black->papermill) (2.4.0)
-Requirement already satisfied: pathspec<1,>=0.9.0 in ./venv/lib/python3.6/site-packages (from black->papermill) (0.9.0)
-Requirement already satisfied: tomli<2.0.0,>=0.2.6 in ./venv/lib/python3.6/site-packages (from black->papermill) (1.2.2)
-Requirement already satisfied: dataclasses>=0.6 in ./venv/lib/python3.6/site-packages (from black->papermill) (0.8)
-Requirement already satisfied: importlib-metadata in ./venv/lib/python3.6/site-packages (from click->papermill) (4.8.2)
-Requirement already satisfied: urllib3<1.27,>=1.21.1 in ./venv/lib/python3.6/site-packages (from requests->papermill) (1.26.7)
-Requirement already satisfied: charset-normalizer~=2.0.0 in ./venv/lib/python3.6/site-packages (from requests->papermill) (2.0.7)
-Requirement already satisfied: idna<4,>=2.5 in ./venv/lib/python3.6/site-packages (from requests->papermill) (3.3)
-Requirement already satisfied: certifi>=2017.4.17 in ./venv/lib/python3.6/site-packages (from requests->papermill) (2021.10.8)
-Requirement already satisfied: attrs>=17.4.0 in ./venv/lib/python3.6/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=5.1.2->papermill) (21.2.0)
-Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 in ./venv/lib/python3.6/site-packages (from jsonschema!=2.5.0,>=2.4->nbformat>=5.1.2->papermill) (0.18.0)
-Requirement already satisfied: tornado>=4.1 in ./venv/lib/python3.6/site-packages (from jupyter-client>=6.1.5->nbclient>=0.2.0->papermill) (6.1)
-Requirement already satisfied: pyzmq>=13 in ./venv/lib/python3.6/site-packages (from jupyter-client>=6.1.5->nbclient>=0.2.0->papermill) (22.3.0)
-Requirement already satisfied: python-dateutil>=2.1 in ./venv/lib/python3.6/site-packages (from jupyter-client>=6.1.5->nbclient>=0.2.0->papermill) (2.8.2)
-Requirement already satisfied: decorator in ./venv/lib/python3.6/site-packages (from traitlets>=4.2->nbclient>=0.2.0->papermill) (5.1.0)
-Requirement already satisfied: six in ./venv/lib/python3.6/site-packages (from traitlets>=4.2->nbclient>=0.2.0->papermill) (1.16.0)
-Requirement already satisfied: zipp>=0.5 in ./venv/lib/python3.6/site-packages (from importlib-metadata->click->papermill) (3.6.0)
-Input Notebook:  sindre_anomely_detection.ipynb
-Output Notebook: /cluster/home/sjsivert/Masteroppgave/batch_jobs/output/sindre_anomely_detection.ipynb
-Executing:   0%|          | 0/25 [00:00<?, ?cell/s]Executing notebook with kernel: python3
-Executing:   4%|▍         | 1/25 [00:02<00:59,  2.46s/cell]Executing:   8%|▊         | 2/25 [00:02<00:25,  1.12s/cell]Executing:  12%|█▏        | 3/25 [00:02<00:15,  1.40cell/s]Executing:  16%|█▌        | 4/25 [00:03<00:10,  1.96cell/s]Executing:  20%|██        | 5/25 [00:03<00:07,  2.52cell/s]Executing:  24%|██▍       | 6/25 [00:03<00:08,  2.21cell/s]Executing:  28%|██▊       | 7/25 [00:03<00:06,  2.86cell/s]Executing:  32%|███▏      | 8/25 [00:04<00:07,  2.18cell/s]Executing:  36%|███▌      | 9/25 [00:04<00:05,  2.71cell/s]Executing:  40%|████      | 10/25 [00:12<00:40,  2.69s/cell]Executing:  44%|████▍     | 11/25 [00:13<00:29,  2.10s/cell]Executing:  48%|████▊     | 12/25 [00:14<00:21,  1.69s/cell]Executing:  52%|█████▏    | 13/25 [00:14<00:16,  1.40s/cell]Executing:  56%|█████▌    | 14/25 [00:15<00:12,  1.12s/cell]Executing:  60%|██████    | 15/25 [00:16<00:09,  1.02cell/s]Executing:  64%|██████▍   | 16/25 [00:16<00:08,  1.09cell/s]Executing:  68%|██████▊   | 17/25 [00:17<00:06,  1.27cell/s]Executing:  72%|███████▏  | 18/25 [00:18<00:06,  1.11cell/s]Executing:  76%|███████▌  | 19/25 [00:19<00:04,  1.28cell/s]Executing:  80%|████████  | 20/25 [00:19<00:03,  1.41cell/s]Executing:  84%|████████▍ | 21/25 [00:20<00:02,  1.52cell/s]Executing:  88%|████████▊ | 22/25 [00:21<00:03,  1.02s/cell]Executing:  92%|█████████▏| 23/25 [00:22<00:01,  1.15cell/s]Executing:  96%|█████████▌| 24/25 [00:23<00:00,  1.29cell/s]Executing: 100%|██████████| 25/25 [00:23<00:00,  1.30cell/s]Executing: 100%|██████████| 25/25 [00:24<00:00,  1.03cell/s]
