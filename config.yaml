@@ -9,7 +9,7 @@ logger:
 
 experiment:
   tags:
-    - market_insights
+    - market_insights_2022_02_14
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
     - 'neptune'
@@ -54,137 +54,158 @@ model:
     metric_to_use_when_tuning: 'SMAPE'
 
     model_structure:
-      - time_series_id: 12532
+      - time_series_id: 2
         # 1
+        # bærbar pc
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11694
+      - time_series_id: 6
         # 2
+        # digitalkamera
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11716
+      - time_series_id: 9
         # 3
+        # hardisk og ssd
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11950
+      - time_series_id: 10
         # 4
+        # hovedkort
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11195
+      - time_series_id: 11
         # 5
+        # pc høyttalere
         hyperparameters:
           p: 8
           d: 8
           q: 16
-      - time_series_id: 11998
+      - time_series_id: 13
         # 6
+        # kabinett
         hyperparameters:
           p: 8
           d: 8
           q: 16
-      - time_series_id: 274
+      - time_series_id: 20
         # 7
+        # mp3 spiller
         hyperparameters:
           p: 8
           d: 8
           q: 16
-      - time_series_id: 11407
+      - time_series_id: 22
         # 8
+        # mus
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 46
+      - time_series_id: 24
         # 9
+        # objektiv
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11326
+      - time_series_id: 26
         # 10
+        # projektor
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11335
+      - time_series_id: 27
         # 11
+        # minne ram
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 12197
+      - time_series_id: 28
         # 12
+        # skanner
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11693
+      - time_series_id: 29
         # 13
+        # pc skjerm
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11780
+      - time_series_id: 32
         # 14
+        # spill
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 12502
+      - time_series_id: 33
         # 15
+        # Tastatur
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11866
-        # 16
+      - time_series_id: 34
+        # 15
+        # Videokamera
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11400
+      - time_series_id: 39
         # 17
+        # Diverse spillutstyr
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 12256
+      - time_series_id: 41
         # 18
+        # Programvar
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 10320
+      - time_series_id: 51
         # 19
+        # Hodetelefoner
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 10030
+      - time_series_id: 54
+        # 20
+        # Systemkamera
         hyperparameters:
           # 20
           p: 8
