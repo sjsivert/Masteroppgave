@@ -1,0 +1,22 @@
+Hello World
+variable 1: 
+Experiment title: test-12532-1-1-113
+batch_jobs
+config.yaml
+datasets
+Masterproject.egg-info
+MastersThesis
+models
+MScTemplate
+notebooks
+packages
+pyproject.toml
+python-test.log
+README.md
+requirements.txt
+scripts
+setup.py
+spec
+src
+tox.ini
+venv
