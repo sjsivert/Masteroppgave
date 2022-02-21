@@ -1,0 +1,28 @@
+we are running from this directory: /cluster/home/sjsivert/Masteroppgave
+ the name of the job is: Run papermill
+Th job ID is 2758905
+The job was run on these nodes: idun-02-12
+Number of nodes: 1
+We are using 1 cores
+We are using 1 cores per node
+Total of 1 cores
+--Files in current directory--
+batch_jobs
+config.yaml
+datasets
+Masterproject.egg-info
+MastersThesis
+models
+MScTemplate
+notebooks
+packages
+pyproject.toml
+python-test.log
+README.md
+requirements.txt
+scripts
+setup.py
+spec
+src
+tox.ini
+venv
