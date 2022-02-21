@@ -45,7 +45,7 @@ with description(ArimaModel, "unit") as self:
     with shared_context("mock dataset"):
         mock_dataset = DataFrame(
             dict(
-                hits=[random.randint(0, 100) for _ in range(29)],
+                interest=[random.randint(0, 100) for _ in range(29)],
             )
         )
         mock_training_set = mock_dataset[:80]

@@ -44,7 +44,7 @@ def test_data() -> DataFrame:
 def random_data_loader() -> DataFrame:
     return DataFrame(
         dict(
-            hits=[randint(1, 40) for _ in range(29)],
+            interest=[randint(1, 40) for _ in range(29)],
             cat_id=11573,
             date=[pd.to_datetime(f"2019-11-{day}T04:01:40.409Z") for day in range(1, 30)],
         )

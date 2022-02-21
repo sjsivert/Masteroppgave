@@ -16,7 +16,7 @@ def local_univariate_arima_pipeline(pipeline: Pipeline, training_size: float) ->
     """
     return Pipeline(steps=
                     pipeline.steps + [
-                        ("choose columns 'hits' and 'date' and 'cat_id'", market_processing.choose_columns,
-                         {"columns": ["date", "hits", "cat_id"]}),
+                        ("choose columns 'interest' and 'date' and 'cat_id'", market_processing.choose_columns,
+                         {"columns": ["date", "interest", "cat_id"]}),
                         ("fill in dates with zero values", market_processing.fill_in_dates, {}),
                     ])
