@@ -134,3 +134,12 @@ def split_into_training_and_test_set(
         training_df = df[:training_set]
         testing_set = df[training_set:]
         yield training_df, testing_set
+
+
+@declare.processor()
+def combine_hits_and_clicks(
+    stream: Iterable[DataFrame], hits_scalar: int = 1, clicks_scalar: int = 1
+) -> Iterable[DataFrame]:  # pragma: no cover
+    for df in stream:
+        df["interest"] = hits_scalar * df["hits"] + clicks_scalar * df["clicks"]
+        yield df

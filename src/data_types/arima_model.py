@@ -91,7 +91,7 @@ class ArimaModel(IModel, ABC):
         self._visualize_training(self.training_data, self.value_approximation)
         # Metrics
         metrics = calculate_error(
-            self.training_data["hits"], self.value_approximation["predicted_mean"]
+            self.training_data["interest"], self.value_approximation["predicted_mean"]
         )
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         logging.info(f"Training metrics: {self.metrics}")
@@ -122,7 +122,7 @@ class ArimaModel(IModel, ABC):
         # Figures
         self._visualize_testing(self.test_data[:predictive_period], self.predictions)
         # Metrics
-        metrics = calculate_error(self.test_data["hits"][:predictive_period], self.predictions)
+        metrics = calculate_error(self.test_data["interest"][:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
         logging.info(
             f"\nPredictions ahead: {predictive_period}\n"
