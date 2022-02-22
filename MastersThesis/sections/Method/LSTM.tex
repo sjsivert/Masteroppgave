@@ -1,9 +1,62 @@
-\section{LSTM}
+\subsection{Experiment 2 - LSTM Baseline}
 \label{section:Method:LSTM}
+The second experiment is meant to have a second baseline to compare the more
+advanced neural network models against. The model is described in
+\cref{section:BT:LSTM}. The experiment will try to answer
+RQ[Insert research question here] \cref{TODO}.
 
-The secound model created in this experiment is the LSTM model,
-and it is described in depth in \Cref{section:BT:LSTM}.
+
+\textbf{TODO: Insert RQ here.}
+
+% What are we doing?
+\subsubsection{Outline}
+For each chosen category in [TODO]\cref{TODO} we are creating a Local Univariate LSTM(\textbf{LU-LSTM})
+model. Each model will forecast a multistep ahead prediction of 1, 3, and 7 days ahead.
+We will evaluate each model with the metrics MASE and SMAPE.
+
+% How are we conducting the experient?
+\subsubsection{Experiment details}
+TODO
+
+\textbf{Data preprocessing}: Input of the LSTM is only the "interest" variable.
+This data is scaled down to a range between -1 and 1.
+
+% What do we expect to happen?
+\subsubsection{Expectations}
+Each dataset contains at least 800 points of data.
+This should be enough for a simple LSTM model to learn the underlying
+behavior without overfitting. We expect the LU-LSTM method to outperform the LUA method.
+Since this implementation only looks at each time series in isolation, we do
+not think the results will be groundbreaking.
+
+We expect the model to perform significantly worse on 3 day multi-step-ahead,
+and be a lot worse than the naive forecast on 7 day multi-step-ahead.
 
 
-\subsection{Tuning}
+%The ARIMA model is the first model implemented as a base-line model.
+%As described in \Cref{section:BT:ARIMA}, the ARIMA model has long been a state of the art model for time sereies prediction.
+%Due to this, the use of the ARIMA model as a base line, newer models can be compared to the previous state of the art model within the same problem space,
+%and with the same dataset.
+%With this, the first baseline model for this project is defined.
+
+% TODO: Add references to the Codebase
+
+%In order to achieve a baseline prediction on the selected dataset, the ARIMA model is tuned in order to achieve better predictive results.
+
+
+
+\subsection{Results}
+% TODO: Should be moved to the 'Results' chapter
+The ARIMA model is created as a baseline model.
+This is done in order to create a baseline prediction on the available datasets, using a well known method for time series forecasting.
+
+Using the exchausive grid search presented in \Cref{section:Method:Arima:Tuning}, followed by manual tuning,
+a set of parameters were found for the different time series in our dataset.
+
+% TODO: Present results
+
+
+
+
+
 

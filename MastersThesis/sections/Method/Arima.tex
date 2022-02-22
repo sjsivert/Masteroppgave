@@ -1,4 +1,5 @@
-\section{Experiment 1 - Arima baseline}
+
+\subsection{Experiment 1 - Arima baseline}
 \label{section:Method:Experiment1-Arima}
 
 Experiment 1 is conducted to create a baseline which
@@ -7,14 +8,14 @@ answer RQ<Insert Number> \cref{TODO}.
 \textbf{TODO: Insert RQ here.}
 
 % What are we doing?
-\subsection{Outline}
+\subsubsection{Outline}
 For each chosen category in [TODO]\cref{TODO} we are creating a Local Univariate Arima (\textbf{LUA})
 model. Each model will forecast a multistep ahead prediction of 1, 3, and 7 days ahead.
 We will evaluate each model with the metrics MASE and SMAPE.
 
 
 % How are we conducting the experient?
-\subsection{Parameter tuning}
+\subsubsection{Parameter tuning}
 \label{section:Method:Arima:Tuning}
 In order to find a fitting ARIMA model for the available dataset, tuning of parameters are important.
 There are several methods available for model tuning, but only a few were selected for this project.
@@ -31,7 +32,7 @@ This parameter range is only limited by the computational power available to the
 
 
 % What do we expect to happen?
-\subsection{Expectations}
+\subsubsection{Expectations}
 As descrive in section TODO \cref{TODO} statistical models like ARIMA does
 fall short on highly volatile time series.
 We expect the models to outperform the naive forecast, and get a SMAPE metric
