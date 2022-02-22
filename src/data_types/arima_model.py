@@ -123,7 +123,9 @@ class ArimaModel(IModel, ABC):
             )
             self.predictions = value_predictions
         # Figures
-        self._visualize_testing(self.test_data[:predictive_period], self.predictions)
+        self._visualize_testing(
+            self.training_data, self.test_data[:predictive_period], self.predictions
+        )
         # Metrics
         metrics = calculate_error(self.test_data["interest"][:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
@@ -168,7 +170,7 @@ class ArimaModel(IModel, ABC):
                 data_labels=["Training data"],
                 colors=["blue"],
                 x_label="date",
-                y_label="value",
+                y_label="Interest",
             )
         )
         # Training and approx data
@@ -179,11 +181,11 @@ class ArimaModel(IModel, ABC):
                 data_labels=["True value", "Approximation"],
                 colors=["blue", "orange"],
                 x_label="date",
-                y_label="value",
+                y_label="Interest",
             )
         )
 
-    def _visualize_testing(self, testing_set, prediction_set):
+    def _visualize_testing(self, training_set, testing_set, prediction_set):
         # Testing data and prediction
         self.figures.append(
             visualize_data_series(
@@ -192,7 +194,18 @@ class ArimaModel(IModel, ABC):
                 data_labels=["True prediction value", "Prediction"],
                 colors=["blue", "red"],
                 x_label="date",
-                y_label="value",
+                y_label="Interest",
+            )
+        )
+        # True training data, test data, and predictions
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Predictions",
+                data_series=[training_set, testing_set, prediction_set],
+                data_labels=["Training data", "Testing data", "Prediction"],
+                colors=["blue", "orange", "red"],
+                x_label="date",
+                y_label="Interest",
             )
         )
 
