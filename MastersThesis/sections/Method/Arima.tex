@@ -1,16 +1,19 @@
-\section{Arima baseline}
-\label{section:Method:Arima}
+\section{Experiment 1 - Arima baseline}
+\label{section:Method:Experiment1-Arima}
 
-The ARIMA model is the first model implemented as a base-line model.
-As described in \Cref{section:BT:ARIMA}, the ARIMA model has long been a state of the art model for time sereies prediction.
-Due to this, the use of the ARIMA model as a base line, newer models can be compared to the previous state of the art model within the same problem space,
-and with the same dataset.
-With this, the first baseline model for this project is defined.
+Experiment 1 is conducted to create a baseline which
+the other methods can compare against. This experiment will also
+answer RQ<Insert Number> \cref{TODO}.
+\textbf{TODO: Insert RQ here.}
 
-% TODO: Add references to the Codebase
+% What are we doing?
+\subsection{Outline}
+For each chosen category in [TODO]\cref{TODO} we are creating a Local Univariate Arima (\textbf{LUA})
+model. Each model will forecast a multistep ahead prediction of 1, 3, and 7 days ahead.
+We will evaluate each model with the metrics MASE and SMAPE.
 
-In order to achieve a baseline prediction on the selected dataset, the ARIMA model is tuned in order to achieve better predictive results.
 
+% How are we conducting the experient?
 \subsection{Parameter tuning}
 \label{section:Method:Arima:Tuning}
 In order to find a fitting ARIMA model for the available dataset, tuning of parameters are important.
@@ -25,6 +28,31 @@ The secound method used was excessive grid search, testing each and every set of
 With the ARIMA model, three parameters are configurable. p, d and q.
 The grid search was run with parameters ranging from 1 to 7 for p and q, as well as 1 to 11 for q.
 This parameter range is only limited by the computational power available to the researcher, as well as the limitation of time.
+
+
+% What do we expect to happen?
+\subsection{Expectations}
+As descrive in section TODO \cref{TODO} statistical models like ARIMA does
+fall short on highly volatile time series.
+We expect the models to outperform the naive forecast, and get a SMAPE metric
+lower than 1.0 for one-step-ahead predictions.
+We expect the model to show the underlying trends in the dataset, but to
+undershoot its predictions.
+
+We expect the model to perform progressively worse for multistep-ahead 3 and 7
+days ahead. Our prediction is that a 3 days forecast is worse than the naive forecast.
+
+
+%The ARIMA model is the first model implemented as a base-line model.
+%As described in \Cref{section:BT:ARIMA}, the ARIMA model has long been a state of the art model for time sereies prediction.
+%Due to this, the use of the ARIMA model as a base line, newer models can be compared to the previous state of the art model within the same problem space,
+%and with the same dataset.
+%With this, the first baseline model for this project is defined.
+
+% TODO: Add references to the Codebase
+
+%In order to achieve a baseline prediction on the selected dataset, the ARIMA model is tuned in order to achieve better predictive results.
+
 
 
 \subsection{Results}
