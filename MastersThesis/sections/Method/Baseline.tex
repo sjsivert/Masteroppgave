@@ -1,11 +1,31 @@
 
-\subsection{Experiment 1 - Arima baseline}
+\subsection{Experiment 1 - Arima baseline test}
 \label{section:Method:Experiment1-Arima}
 
 Experiment 1 is conducted to create a baseline which
 the other methods can compare against. This experiment will also
 answer RQ<Insert Number> \cref{TODO}.
-\textbf{TODO: Insert RQ here.}
+
+
+
+\todo[inline]{Flytt til Goals and RQ og referer til dem her}
+\begin{description}
+  \item[RQ1]{\it How well will ARIMA forecast user interest in a volatile E-commerce domain using MASE and SMAPE as metrics?}
+  \item[RQ1.1]{\it How many days ahead will ARIMA give a prediction that is better than the naive forecest?}
+  % What are the existing solutions in problem space P? 
+\end{description}
+\begin{description}
+  \item[RQ2]{\it How will a simple Local Univariate LSTM Neural Network compare against ARIMA baseline?}
+  \item[RQ2.1]{\it Will the LSTM achieve better results for multi-step-ahead forecasting?}
+  % What are the existing solutions in problem space P? 
+\end{description}
+\begin{description}
+  \item[RQ3]{\it Will a Local Univariate Convolutional Autoencoder LSTM Neural Network outperform both ARIMA and LSTM baselines?}
+  \item[RQ3.1]{\it Will a Global Univariate CNNAE-LSTM outperform a Local Univariate CNNAE-LSTM on a cluster of independent time series?}
+  \item[RQ3.2]{\it Will a Local Multivariate CNNAE-LSTM outperform a Local Univariate CNNAE-LSTM on a cluster of dependent time series?}
+  \item[RQ3.3]{\it Will a CNNAE-LSTM trained on a cluster of highly seasonal dependent time series generalize well to a cluster of non seasonal dependent time series?}
+  % What are the existing solutions in problem space P? 
+\end{description}
 
 % What are we doing?
 \subsubsection{Outline}
