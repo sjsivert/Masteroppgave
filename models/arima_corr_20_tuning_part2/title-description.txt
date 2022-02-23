@@ -1,0 +1,2 @@
+arima_corr_20_tuning_part2
+Arima 20 correlation datasets. Part two. Using MASE as metric
