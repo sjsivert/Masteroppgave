@@ -1,16 +1,19 @@
 [![Coverage Status](https://coveralls.io/repos/github/NikZy/Masteroppgave/badge.svg?branch=master)](https://coveralls.io/github/NikZy/Masteroppgave?branch=master)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NikZy_Masteroppgave&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NikZy_Masteroppgave)
 
-:clipboard: [Issue board](https://linear.app/masterproject/team/MAS/board). 
+:clipboard: [Issue board](https://linear.app/masterproject/team/MAS/board).
 ⚗️ [Neptune.ai](https://app.neptune.ai/o/sjsivertandsanderkk/org/Masteroppgave/e/MAS-28/all?path=&attribute=data_pipeline_steps)
 
 # Project basics
 The basics of how to set up and run this project
 
 ## Install project
+Make sure python 3.8 is installed.
+
 From project root run:
 
 Setup up python virtual env:
-`python -m venv env && source env/bin/activate`
+`virtualenv --python=/usr/bin/python3.x env && source env/bin/activate`
+
 
 Install project and dependencies
 `pip install -r requirements.txt`
