@@ -1,0 +1,36 @@
+\subsection{ARIMA}
+\label{section:Restuls:ARIMA}
+
+
+\subsubsection{Tuning}
+\label{section:Results:ARIMA:Tuning}
+Tuning of the ARIMA models are done through the use of excessive grid search of parameters.
+ARIMA parameters are found through the search of parameters for an interval for each of the p,d and q values.
+
+\begin{table}[h]
+  \centering
+  \caption{The interval of values for the ARIMA parmaeters p,d,q used in grid search tuning.}
+  \label{table:results:arima:tuning_parameter_interval}
+  \begin{tabular}{|c|l|l|}\hline
+    Parameter name & Interval start     & Interval end   \\ \hline
+    p   & 1         & 8                 \\ \hline
+    d   & 1         & 10                \\ \hline
+    q   & 1         & 16                \\ \hline
+  \end{tabular}
+\end{table}
+
+Tuning is conducted on all of the datasets defined in \cref{section:Architecture:Dataset}.
+The tuning is done by calculating the error metric of the one-step ahed predictions done by the ARIMA model on the test set.
+Multiple error metrics are used, calculating the MASE, SMAPE, MAE, and MSE of the predictions.
+Tabel ... shows a small excerpt of the tuning metrics from dataset 1.
+% TODO: Add an exerpt of the parameter tuning of dataset 1
+% TODO: Add reference to complete tuning metrics in the apendix
+
+
+\subsubsection{Experiments}
+
+After completion of tuning as described in \cref{section:Results:ARIMA:Tuning},
+the parameters yelding the best results are extracted and applied to experiments done on the dataset.
+
+% TODO: Table of dataset and error metrics MAPE and SMAPE
+% TODO: Add images of the dataset predictions

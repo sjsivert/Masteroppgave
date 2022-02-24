@@ -1,8 +1,19 @@
-\chapter{Experiments and Results}
-\label{cha:ResearchAndResults}
+\chapter{Results}
+\label{section:Results}
 
-{\it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consequat pulvinar hendrerit. Praesent sit amet elementum ipsum. Praesent id suscipit est. Maecenas gravida pretium magna non interdum. Donec augue felis, rhoncus quis laoreet sed, gravida nec nisi. Fusce iaculis fermentum elit in suscipit. Donec rutrum tincidunt tellus, ac tempor diam posuere quis. }
+This chapter presents the results accomplished through the execution of the experiments defined in chapter \cref{section:Method}.
+First, the results of the ARIMA baselines are presented, containing the tuning of the ARIMA models, as well as the resulting method predictions with these configs.
+The second baseline is then pressented, with tuning and testing of the LSTM method.
+Lastly, the Convolutional autoencoder and LSTM network is tuned and used on the dataset.
 
+
+\import{./sections/Results/}{./ARIMA.tex}
+% TODO: LSTM
+% TODO: CNN-AE and LSTM
+
+
+
+\iffalse
 \section{Experimental Plan}
 \label{sec:experimentalPlan}
 
@@ -19,4 +30,4 @@ The experimental setup should include all data - parameters etc, that would allo
 \label{sec:experimentalResults}
 
 Results should be clearly displayed and should provide a suitable representation of your results for the points you wish to make. Graphs should be labeled in a legible font and if more than one result is displayed on the same graph then these should be clearly marked.   Please choose carefully rather than presenting every results. Too much information is hard to read and often hides the key information you wish to present. Make use of statistical methods when presenting results, where possible to strengthen the results.  Further, the format of the presentation of results should be chosen based on what issues in the results you wish to highlight. You may wish to present a subset in the experimental section and provide additional results in the appendix.
-
+\fi
