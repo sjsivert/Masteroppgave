@@ -62,12 +62,12 @@ model:
           d: 2
           q: 4
 
-      - time_series_id:
+      - time_series_id: 26
         # 2
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 4
+          d: 1
+          q: 1
 
       - time_series_id: 6
         # 3

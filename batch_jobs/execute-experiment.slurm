@@ -1,10 +1,10 @@
 #!/bin/sh
 #SBATCH --partition=CPUQ
 #SBATCH --account=ie-idi
-#SBATCH --time=00:10:02
+#SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --mem=12000
+#SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
 #SBATCH --output=batch_jobs/output/sbatch_job.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
@@ -12,6 +12,8 @@ WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
+export EXPERIMENT_TITLE="arima_prediction_dataset1"
+export EXPERIMENT_DESCRIPTION="Execute-prediction-on-test-set-on-dataset1-20-correlating-categories"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
@@ -34,5 +36,5 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py --experiment ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
+python src/main.py --experiment ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION} --save
 
