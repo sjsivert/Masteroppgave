@@ -1,0 +1,61 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 2
+
+
+Model tuning: Dataset 6
+
+
+Model tuning: Dataset 9
+
+
+Model tuning: Dataset 10
+
+
+Model tuning: Dataset 11
+
+
+Model tuning: Dataset 13
+
+
+Model tuning: Dataset 20
+
+
+Model tuning: Dataset 22
+
+
+Model tuning: Dataset 24
+
+
+Model tuning: Dataset 26
+
+
+Model tuning: Dataset 27
+
+
+Model tuning: Dataset 28
+
+
+Model tuning: Dataset 29
+
+
+Model tuning: Dataset 32
+
+
+Model tuning: Dataset 33
+
+
+Model tuning: Dataset 34
+
+
+Model tuning: Dataset 39
+
+
+Model tuning: Dataset 41
+
+
+Model tuning: Dataset 51
+
+
+Model tuning: Dataset 54
