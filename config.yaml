@@ -1,8 +1,6 @@
 data:
   data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
-  data_path: 'datasets/raw/market_insights_overview_5p_full.csv'
-  categories_path: 'datasets/raw/solr_categories_2021_11_29.csv'
 
 logger:
   log_level: 'INFO'
@@ -16,7 +14,7 @@ experiment:
     - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
-  log_model_every_n_epoch: 10
+  log_model_every_n_epoch: 1
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
@@ -40,12 +38,13 @@ model:
   # Model types: 'validation_model'. 'local_univariate_arima',
   model_type: 'local_univariate_arima'
   rng_seed: 42
+
   validation_model:
     placeholder: 0
 
   local_univariate_arima:
     training_size: 0.8
-    steps_to_predict: 20
+    steps_to_predict: 1000 # High number to predict the whole test dataset
     multi_step_forecast: false # alternative is recursive single step
     # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
@@ -53,142 +52,142 @@ model:
       d: [1, 2]
       q: [1, 2]
 
-    metric_to_use_when_tuning: 'SMAPE'
+    metric_to_use_when_tuning: 'MASE'
 
     model_structure:
-      - time_series_id: 12532
+      - time_series_id: 2
         # 1
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 7
+          d: 2
+          q: 4
 
-      - time_series_id: 11694
+      - time_series_id:
         # 2
         hyperparameters:
           p: 8
           d: 8
           q: 16
 
-      - time_series_id: 11716
+      - time_series_id: 6
         # 3
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 7
+          d: 1
+          q: 7
 
-      - time_series_id: 11950
+      - time_series_id: 9
         # 4
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 3
+          d: 1
+          q: 1
 
-      - time_series_id: 11195
+      - time_series_id: 10
         # 5
         hyperparameters:
           p: 8
-          d: 8
-          q: 16
-      - time_series_id: 11998
+          d: 1
+          q: 1
+      - time_series_id: 11
         # 6
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
-      - time_series_id: 274
+          p: 5
+          d: 1
+          q: 15
+      - time_series_id: 13
         # 7
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
-      - time_series_id: 11407
+          p: 6
+          d: 1
+          q: 1
+      - time_series_id: 20
         # 8
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 4
+          d: 1
+          q: 3
 
-      - time_series_id: 46
+      - time_series_id: 24
         # 9
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 3
+          d: 2
+          q: 4
 
-      - time_series_id: 11326
+      - time_series_id: 27
         # 10
         hyperparameters:
           p: 8
-          d: 8
-          q: 16
+          d: 1
+          q: 7
 
-      - time_series_id: 11335
+      - time_series_id: 28
         # 11
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 6
+          d: 1
+          q: 3
 
-      - time_series_id: 12197
+      - time_series_id: 29
         # 12
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 3
+          d: 1
+          q: 2
 
-      - time_series_id: 11693
+      - time_series_id: 32
         # 13
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 1
+          d: 2
+          q: 1
 
-      - time_series_id: 11780
+      - time_series_id: 33
         # 14
         hyperparameters:
           p: 8
-          d: 8
-          q: 16
+          d: 1
+          q: 9
 
-      - time_series_id: 12502
+      - time_series_id: 34
         # 15
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 7
+          d: 2
+          q: 8
 
-      - time_series_id: 11866
+      - time_series_id: 39
         # 16
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 1
+          d: 2
+          q: 3
 
-      - time_series_id: 11400
+      - time_series_id: 41
         # 17
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 1
+          d: 1
+          q: 1
 
-      - time_series_id: 12256
+      - time_series_id: 51
         # 18
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 5
+          d: 2
+          q: 6
 
-      - time_series_id: 10320
+      - time_series_id: 54
         # 19
         hyperparameters:
-          p: 8
-          d: 8
-          q: 16
+          p: 6
+          d: 1
+          q: 9
 
-      - time_series_id: 10030
+      - time_series_id: 22
         hyperparameters:
           # 20
-          p: 8
-          d: 8
-          q: 16
+          p: 4
+          d: 1
+          q: 3
