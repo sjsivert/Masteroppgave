@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
+import shutil
+from typing import List
 
 # TODO: Replace with config value
 figure_save_location = "../MScTemplate/figs/code_generated/data_exploration/"
@@ -53,3 +56,27 @@ def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_
     table_join = "\n".join(table_split)
     with open(f"{table_save_location}/{label}.tex", "w") as f:
           f.write(table_join)
+
+
+# Copy experiment figures from experiments
+thesis_figure_location = "./MastersThesis/figs/results"
+figure_name = ["Predictions", "Data Prediction"]
+def transfer_experiment_figures(experiment: str, figure_types: List):
+    # Check if experiment exists and experiment has figures folder
+    if not os.path.isdir(f"./models/{experiment}") or not os.path.isdir(f"./models/{experiment}/figures"):
+        raise NotADirectoryError(f"The experiment {experiment} does not exist or have a figure directory.")
+    # Check that the folder to store files exists
+    if not os.path.isdir(thesis_figure_location):
+        raise NotADirectoryError(f"The directory for storing result images does not exist. Create a driectory at: {thesis_figure_location}")
+    if not os.path.isfile(f"{thesis_figure_location}/{experiment}"):
+        os.mkdir(f"{thesis_figure_location}/{experiment}")
+
+    # Figure names are [Predictions, Training data, Training data approximation, Data Prediction
+    experiment_figures = os.listdir(f"./models/{experiment}/figures")
+    for image_name in experiment_figures:
+        if any([x in image_name for x in figure_types]):
+            # Copy file from src to destination
+            shutil.copyfile(
+                f"./models/{experiment}/figures/{image_name}",
+                f"{thesis_figure_location}/{experiment}/{image_name}"
+            )
