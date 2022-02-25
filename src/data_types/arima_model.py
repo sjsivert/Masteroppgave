@@ -1,4 +1,5 @@
 import logging
+import math
 import sys
 import warnings
 from abc import ABC
@@ -249,7 +250,11 @@ class ArimaModel(IModel, ABC):
                 error_param_set[result._value[0]] = result._value[1]
         # Sort the values to ease the evaluation of model parameters
         error_param_set = dict(
-            sorted(error_param_set.items(), key=lambda x: x[1][metric], reverse=False)
+            sorted(
+                error_param_set.items(),
+                key=lambda x: float("inf") if math.isnan(x[1][metric]) else x[1][metric],
+                reverse=False,
+            )
         )
         return error_param_set
 
