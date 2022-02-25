@@ -65,34 +65,71 @@ data_train.shape
 # Normalize data
 scaler = MinMaxScaler(feature_range=(-1, 1))
 train_data_normalized = scaler.fit_transform(data_train.reshape(-1, 1))
+validation_data_normalized = scaler.fit_transform(data_validation.reshape(-1, 1))
 train_data_normalized.shape
+print(validation_data_normalized.shape)
+print(train_data_normalized.shape)
 # %%
-window_size = 1
+window_size = 7
 output_size = 1
 def sliding_window_generate_tuples(input_data: np.ndarray, window_size: int, output_size: int) -> Tuple[ NDArray[(Any, window_size, 1)], NDArray[(Any, output_size, 1)] ]:
+    print(input_data[:4])
     x = []
     y = []
-    for i in range(0, len(input_data) - window_size -1):
+    for i in range(0, len(input_data) - window_size):
         _x = input_data[i : i + window_size]
         _y = input_data[i + window_size : i + window_size + output_size]
-
         x.append(_x)
         y.append(_y)
 
 
     # Reshape to remove the last dimension
-    return np.array(x).reshape(len(x), len(x[0])), np.array(y).reshape(len(y), len(y[0]))
+    #return np.array(x).reshape(len(x), len(x[0])), np.array(y).reshape(len(y), len(y[0]))
+    return np.array(x), np.array(y)
     #return np.array(x), np.array(y)
 x, y = sliding_window_generate_tuples(train_data_normalized, window_size=window_size, output_size=output_size)
 print(x.shape, y.shape)
-print(x[:5])
-print(y[:5])
+print(x[:4])
+print(y[:3])
 # %%
 # Split train and test data
 X_train, X_val, y_train, y_val = train_test_split(
     x, y, test_size=0.25, shuffle=False
 )
 # %%
+
+class TimeseriesDataset(Dataset):   
+    '''
+    Custom Dataset subclass. 
+    Serves as input to DataLoader to transform X 
+      into sequence data using rolling window. 
+    DataLoader using this dataset will output batches 
+      of `(batch_size, seq_len, n_features)` shape.
+    Suitable as an input to RNNs. 
+    '''
+    def __init__(self, time_series: np.ndarray, seq_len: int, y_size: int):
+        self.time_series = torch.tensor(time_series).float()
+        self.seq_len = seq_len
+        self.y_size = y_size
+
+    def __len__(self):
+        return self.time_series.__len__() - (self.seq_len + self.y_size - 1)
+
+    def __getitem__(self, index):
+        # return x, y
+        return (self.time_series[index:index+self.seq_len], self.time_series[index+self.seq_len+self.y_size -1])
+
+# Wait, is this a CPU tensor now? Why? Where is .to(device)?
+
+train_data = TimeseriesDataset(train_data_normalized, seq_len=7, y_size=1)
+test_data = TimeseriesDataset(validation_data_normalized, seq_len=7, y_size=1)
+print(train_data[2])
+print(train_data[3])
+print(train_data[4])
+print(train_data.__getitem__(0)[0].shape)
+print(train_data.__getitem__(0)[1].shape)
+# %%
+"""
 class TimeseriesDataset(Dataset):   
     '''
     Custom Dataset subclass. 
@@ -120,12 +157,14 @@ test_data = TimeseriesDataset(X_val, y_val)
 print(train_data[0])
 print(train_data.__getitem__(0)[0].shape)
 print(train_data.__getitem__(0)[1].shape)
+"""
 
 # %%
 train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
 train_loader_no_batch = DataLoader(dataset=train_data, batch_size=1, shuffle=False)
 val_loader = DataLoader(dataset=test_data, batch_size=32, shuffle=False)
 val_loader_no_batch = DataLoader(dataset=test_data, batch_size=1, shuffle=False)
+print(next(iter(train_loader))[0].shape)
 # %%
 # Plot distribution
 fig, axs = plt.subplots(2)
@@ -139,11 +178,11 @@ pd.DataFrame(train_data_normalized).plot(kind='hist', ax = axs[1] ,figsize=[12,6
 class LSTM(nn.Module):
     def __init__(self):
         super(LSTM, self).__init__()
-        self.output_size = 1  # number of classes
+        self.output_size = 1  # shape of output
         self.num_layers = 1  # number of layers
-        self.input_size = 1  # input size of baches?
-        self.hidden_size = 300  # hidden state
-        self.learning_rate = 0.001  # learning rate
+        self.input_size = 1  # number of features in each sample
+        self.hidden_size = 200  # hidden state
+        self.learning_rate = 0.0005  # learning rate
         self.dropout = nn.Dropout(p=0.2)
 
         self.criterion = torch.nn.MSELoss()
@@ -151,11 +190,12 @@ class LSTM(nn.Module):
         self.lstm = nn.LSTM(
             input_size=self.input_size, hidden_size=self.hidden_size, num_layers=self.num_layers, batch_first=True
         )
-        self.fc = nn.Linear(self.hidden_size, self.output_size)
+        self.fc = nn.Linear(in_features=self.hidden_size, out_features=self.output_size)
 
         self.relu = nn.ReLU()
-
-        self.optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate,weight_decay=1e-5)
+        parameters = list(self.lstm.parameters()) + list(self.fc.parameters())
+        print(self.lstm.parameters() == parameters)
+        self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate,weight_decay=1e-5)
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,  patience=500,factor =0.5 ,min_lr=1e-7, eps=1e-08)
 
     def forward(self, x):
@@ -167,13 +207,25 @@ class LSTM(nn.Module):
             self.num_layers, x.size(0), self.hidden_size))
         
         # Propagate input through LSTM
+
+        # output (seq_len, batch, hidden_size * num_directions): tensor containing the output features (h_t) from the last layer of the RNN, for each t.
+        # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
+        # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
         
+        #print("output", ula.shape)
+        #print("h_out", h_out.shape)
+        #out = h_out
         h_out = h_out.view(-1, self.hidden_size)
+        #out_squashed = ula.view(-1, self.hidden_size)
+        #print("shape before fc", out_squashed.shape)
         
         out = self.fc(h_out)
+        #out = self.fc(ula)
         out = self.dropout(out)
+        #print("shape after fc", out.shape)
        
+        #return out
         return out
 
     # Builds function that performs a step in the train loop
@@ -182,6 +234,7 @@ class LSTM(nn.Module):
         self.train()
         # Makes predictions
         yhat = self(x)
+        #print("yhat", yhat.shape)
         # Computes loss
         loss = self.criterion(y, yhat)
  
@@ -234,36 +287,43 @@ class LSTM(nn.Module):
 # Train network
 lstm = LSTM()
 print(lstm)
-losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=500, verbose=True)
+losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=1500, verbose=True)
 
 # %%
 plt.plot(losses)
+plt.plot(val_losses)
+# %%
+print(train_loader_no_batch.__len__())
+print(y_train.shape)
 # %%
 # Predict training
 predictions = []
+correct_values = []
 for x_batch, y_batch in train_loader_no_batch:
     x_batch = x_batch.to(device)
     y_batch = y_batch.to(device)
     yhat = lstm(x_batch)
+
+    correct_values.append(y_batch.cpu().detach().numpy().flatten())
     predictions.append(yhat.detach().cpu().numpy().flatten())
-print(predictions[0].shape)
-plt.plot(y_train)
+print("predictions", predictions[0])
+#plt.plot(y_train.flatten())
+plt.plot(correct_values)
 plt.plot(predictions)
 
 # %%
 # Predict test
 predictions_val = []
+correct_values_val = []
 for x_batch, y_batch in val_loader_no_batch:
     x_batch = x_batch.to(device)
     yhat = lstm(x_batch)
+    correct_values_val.append(y_batch.cpu().detach().numpy().flatten())
     predictions_val.append(yhat.detach().cpu().numpy().flatten())
-predictions_val_renormalize = scaler.inverse_transform(predictions_val)
-y_val_renormalize = scaler.inverse_transform(y_val)
-print(predictions_val_renormalize[:10])
-plt.plot(y_val_renormalize)
-plt.plot(predictions_val_renormalize)
 
-# %%
-
-writer = SummaryWriter(f'logs/net')
-writer.add_graph(lstm, next(iter(train_loader))[0])
+print(predictions_val[0].shape)
+#predictions_val_renormalize = scaler.inverse_transform(predictions_val)
+print("y_val", y_val.flatten().shape)
+#y_val_renormalize = scaler.inverse_transform(y_val.flatten())
+plt.plot(correct_values_val)
+plt.plot(predictions_val)
