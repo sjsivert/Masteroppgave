@@ -61,7 +61,7 @@ def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_
 # Copy experiment figures from experiments
 thesis_figure_location = "./MastersThesis/figs/results"
 figure_name = ["Predictions", "Data Prediction"]
-def transfer_experiment_figures(experiment: str, figure_types: List):
+def transfer_experiment_figures(experiment: str, figure_types: List[str]):
     # Check if experiment exists and experiment has figures folder
     if not os.path.isdir(f"./models/{experiment}") or not os.path.isdir(f"./models/{experiment}/figures"):
         raise NotADirectoryError(f"The experiment {experiment} does not exist or have a figure directory.")
