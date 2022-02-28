@@ -24,7 +24,9 @@ def load_dict(path: str) -> Dict[str, Dict[str, Dict[str, float]]]:
 def sort_dict(metrics: Dict, metric_name: str) -> Dict:
     sorted_metrics = {}
     for dataset_name, param_metrics in metrics.items():
-        sorted_param_dict = dict(sorted(param_metrics.items(), key=lambda x: x[1][metric_name], reverse=False))
+        sorted_param_dict = dict(
+            sorted(param_metrics.items(), key=lambda x: x[1][metric_name], reverse=False)
+        )
         sorted_metrics[dataset_name] = sorted_param_dict
     return sorted_metrics
 
@@ -34,7 +36,7 @@ def store_sorted_metrics(metrics: Dict, path):
         for dataset_name, param_metrics in metrics.items():
             f.write(f"Model: {dataset_name}\n")
             for param, metric_set in param_metrics.items():
-                metric_str = ", ".join([f"{x}:{str(y)}" for x,y in metric_set.items()])
+                metric_str = ", ".join([f"{x}:{str(y)}" for x, y in metric_set.items()])
                 f.write(f"{param} -> {metric_str} \n")
             f.write("\n")
 
