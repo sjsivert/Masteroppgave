@@ -24,13 +24,28 @@ The tuning is done by calculating the error metric of the one-step ahed predicti
 Multiple error metrics are used, calculating the MASE, SMAPE, MAE, and MSE of the predictions.
 Tabel ... shows a small excerpt of the tuning metrics from dataset 1.
 % TODO: Add an exerpt of the parameter tuning of dataset 1
-% TODO: Add reference to complete tuning metrics in the apendix
+% TODO: Add an exerpt of the parameter tuning of dataset 2
+% TODO: Add a reference to complete tuning metrics in the appendix
 
+
+% Reason for failed tuning (numpy error on linux)
+% TODO: Add statsmodels reference!
+% TODO: Add LAPACK reference!
+With the ARIMA model created using the statsmodels python library, errors were encountered during tuning.
+There occures an error with the LAPACK library on which Statsmodels are buildt.
+These errors occure only in a few instances when ARIMA models with are trained, using porly selected ARIMA parameters.
+The error occures due to a floating point error on different machines, causing some machines to throw an error when the ARIMA parameters cause a stationary model to apear non-stationary du to value precision.
+A more detailed descussion on the problem can be found here: https://github.com/statsmodels/statsmodels/issues/5459.
 
 \subsubsection{Experiments}
 
 After completion of tuning as described in \cref{section:Results:ARIMA:Tuning},
-the parameters yelding the best results are extracted and applied to experiments done on the dataset.
+the parameters yielding the best results are extracted and applied to experiments.
 
-% TODO: Table of dataset and error metrics MAPE and SMAPE
+The ARIMA tuning is conducted using several error metrics such as MASE, SMAPE, MSE and MAE.
+Of the implemented error metrics, the MASE error metric is used as a refference.
+The parameters which for the ARIMA yeald the best MASE metrics are used as the selected experiment parameters.
+Experiments are conducted on both dataset 1 and dataset 2, defined in \cref{section:Architecture:DataSelection}.
+
+% TODO: Add a table with dataset, error metric, metric value, and selected parameters (RESULTS)
 % TODO: Add images of the dataset predictions
