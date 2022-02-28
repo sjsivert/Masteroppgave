@@ -1,0 +1,2 @@
+arima_experiment_dataset_2_MASE
+ARIMA experiment on the non correlating dataset, using parameters found through tuning with the MASE error
