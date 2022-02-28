@@ -121,8 +121,8 @@ class TimeseriesDataset(Dataset):
 
 # Wait, is this a CPU tensor now? Why? Where is .to(device)?
 
-train_data = TimeseriesDataset(train_data_normalized, seq_len=7, y_size=1)
-test_data = TimeseriesDataset(validation_data_normalized, seq_len=7, y_size=1)
+train_data = TimeseriesDataset(train_data_normalized, seq_len=5, y_size=1)
+test_data = TimeseriesDataset(validation_data_normalized, seq_len=5, y_size=1)
 print(train_data[2])
 print(train_data[3])
 print(train_data[4])
@@ -179,7 +179,7 @@ class LSTM(nn.Module):
     def __init__(self):
         super(LSTM, self).__init__()
         self.output_size = 1  # shape of output
-        self.num_layers = 1  # number of layers
+        self.num_layers = 2  # number of layers
         self.input_size = 1  # number of features in each sample
         self.hidden_size = 200  # hidden state
         self.learning_rate = 0.0005  # learning rate
@@ -190,10 +190,10 @@ class LSTM(nn.Module):
         self.lstm = nn.LSTM(
             input_size=self.input_size, hidden_size=self.hidden_size, num_layers=self.num_layers, batch_first=True
         )
-        self.fc = nn.Linear(in_features=self.hidden_size, out_features=self.output_size)
+        self.fully_conencted_layer = nn.Linear(in_features=self.hidden_size, out_features=self.output_size)
 
         self.relu = nn.ReLU()
-        parameters = list(self.lstm.parameters()) + list(self.fc.parameters())
+        parameters = list(self.lstm.parameters()) + list(self.fully_conencted_layer.parameters())
         print(self.lstm.parameters() == parameters)
         self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate,weight_decay=1e-5)
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,  patience=500,factor =0.5 ,min_lr=1e-7, eps=1e-08)
@@ -214,13 +214,13 @@ class LSTM(nn.Module):
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
         
         #print("output", ula.shape)
-        #print("h_out", h_out.shape)
-        #out = h_out
-        h_out = h_out.view(-1, self.hidden_size)
+        # Choose the hidden state from the last layer
+        last_hidden_state_layer = h_out[-1]
+        print("out", last_hidden_state_layer.shape)
+        #h_out = h_out.view(-1, self.hidden_size)
         #out_squashed = ula.view(-1, self.hidden_size)
-        #print("shape before fc", out_squashed.shape)
         
-        out = self.fc(h_out)
+        out = self.fully_conencted_layer(last_hidden_state_layer)
         #out = self.fc(ula)
         out = self.dropout(out)
         #print("shape after fc", out.shape)
@@ -287,7 +287,7 @@ class LSTM(nn.Module):
 # Train network
 lstm = LSTM()
 print(lstm)
-losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=1500, verbose=True)
+losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=200, verbose=True)
 
 # %%
 plt.plot(losses)
