@@ -1,0 +1,2 @@
+arima_experiment_dataset_1_MASE
+ARIMA experiment ran on dataset 1 with correlating data. Parameters seleced after tuning on MASE error metric
