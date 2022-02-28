@@ -13,6 +13,7 @@ from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpo
 from src.utils import logger
 from src.utils.config_parser import config
 from src.utils.extract_tags_from_config import extract_tags_from_config
+from src.utils.lock_random_seed import seed_everything
 
 
 @click.command()
@@ -45,6 +46,7 @@ def main(
     log_file = config["logger"]["log_file"].get()
     logger.init_logging(log_level, log_file)
     logging.info("Started")
+    seed_everything(config["model"]["rng_seed"].get())
 
     if experiment:
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
