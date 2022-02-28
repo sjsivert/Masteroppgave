@@ -1,2 +1,0 @@
-ARIMA_experiment_dataset_2_SMAPE
-ARIMA experiment dataset 2 for SMAPE error metric parameters after tuning
