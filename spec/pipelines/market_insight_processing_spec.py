@@ -55,3 +55,17 @@ with description("Market insight prosessing pipeline", "unit") as self:
                                         1: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC'),
                                         2: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC')}}
             expect(result.to_dict()).to(equal(expected_result))
+    with it("can scale data correctly in a pipeline"):
+        with included_context("mock_pipeline"):
+            # fmt: off
+            pipeline_scale_data = compose.Pipeline(
+                steps=pipeline.steps + [
+                    ("choose columns 'interest' and 'date'", p.choose_columns,
+                     {"columns": ["date", "product_id"]}),
+                    ("fill in dates with zero values", p.fill_in_dates, {}),
+                    ("scale data", p.scale_data, {}),
+                    ("split up into train and test data", p.split_into_training_and_test_set, {"training_size": 0.8}),
+                ]
+            )
+            train_data, test_data, scaler = pipeline_scale_data.run()
+

@@ -1,10 +1,12 @@
-from typing import Iterable, List, Tuple
+from typing import Iterable, List, Tuple, Optional
 
 import pandas as pd
 from genpipes import declare
 from pandas import DataFrame
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from torch.utils.data import Dataset, DataLoader
 
+from src.datasets.time_series_dataset import TimeseriesDataset
 from src.utils.config_parser import config
 
 
@@ -129,23 +131,26 @@ def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma
 
 @declare.processor()
 def scale_data(
-    stream: Iterable[DataFrame],
-) -> (Iterable[DataFrame], MinMaxScaler):  # pragma: no cover
+    stream: Iterable[DataFrame], should_scale: bool = False
+) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
-        scaler = MinMaxScaler(feature_range=(-1, 1))
-        scaled_df = scaler.fit_transform(df)
-        yield scaled_df, scaler
+        if should_scale:
+            scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaled_df = scaler.fit_transform(df)
+            yield scaled_df, scaler
+        else:
+            yield df, None
 
 
 @declare.processor()
 def split_into_training_and_test_set(
-    stream: Iterable[DataFrame], training_size: float
-) -> Iterable[Tuple[DataFrame, DataFrame]]:  # pragma: no cover
-    for df in stream:
+    stream: Tuple[Iterable[DataFrame], Optional[StandardScaler]], training_size: float
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (df, scaler) in stream:
         training_set = int((df.shape[0] - 1) * training_size)
         training_df = df[:training_set]
         testing_set = df[training_set:]
-        yield training_df, testing_set
+        yield training_df, testing_set, scaler
 
 
 @declare.processor()
@@ -155,3 +160,34 @@ def combine_hits_and_clicks(
     for df in stream:
         df["interest"] = hits_scalar * df["hits"] + clicks_scalar * df["clicks"]
         yield df
+
+
+@declare.processor()
+def convert_to_time_series_dataset(
+    stream: Iterable[Tuple[DataFrame, DataFrame, Optional[StandardScaler]]],
+    input_window_size: int,
+    output_window_size: int,
+) -> Iterable[Tuple[Dataset, Dataset, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (df, scaler) in stream:
+        training_data, validation_data = df
+        training_dataset = TimeseriesDataset(
+            training_data, seq_len=input_window_size, y_size=output_window_size
+        )
+        validation_dataset = TimeseriesDataset(
+            validation_data, seq_len=input_window_size, y_size=output_window_size
+        )
+        yield training_dataset, validation_dataset, scaler
+
+
+@declare.processor()
+def convert_to_pytorch_dataloader(
+    stream: Iterable[Tuple[Dataset, Dataset, Optional[StandardScaler]]], batch_size: int
+) -> Iterable[Tuple[DataLoader, DataLoader, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (training_data, validation_data, scaler) in stream:
+        training_dataloader = DataLoader(
+            dataset=training_data, batch_size=batch_size, shuffle=False
+        )
+        validation_dataloader = DataLoader(
+            dataset=validation_data, batch_size=batch_size, shuffle=False
+        )
+        yield training_dataloader, validation_dataloader, scaler
