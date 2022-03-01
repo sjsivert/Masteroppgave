@@ -13,10 +13,11 @@ from torch import nn
 from torch.autograd import Variable
 
 from src.data_types.i_model import IModel
+from src.data_types.modules.lstm_module import LstmModule
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
-class LstmModel(nn.Module, IModel, ABC):
+class LstmModel(IModel, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
@@ -32,7 +33,6 @@ class LstmModel(nn.Module, IModel, ABC):
         bidirectional: bool = False,
         optimizer_name: str = "adam",
     ):
-        super(LstmModel, self).__init__()
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name: str = name
 
@@ -44,48 +44,27 @@ class LstmModel(nn.Module, IModel, ABC):
         self.learning_rate = learning_rate  # learning rate
         self.dropout = nn.Dropout(p=dropout)
 
-        # TODO: Switch out this loss function with MASE
         self.criterion = nn.MSELoss()
-        self.lstm = nn.LSTM(
-            input_size=self.input_size,
-            hidden_size=self.hidden_size,
-            num_layers=self.num_layers,
-            batch_first=True,
-        )
-        self.fully_connected_layer = nn.Linear(
-            in_features=self.hidden_size, out_features=self.output_size
-        )
-
-        parameters = list(self.lstm.parameters()) + list(self.fully_conencted_layer.parameters())
-        if torch.cuda.is_available():
-            self.cuda()
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            self.criterion.cuda()
-
-        # TDOO: Find out how to set optimizer hyperparameters
         self.optimizer = getattr(torch.optim, optimizer_name)(
             self.parameters(), lr=learning_rate
         ).to(self.device)
-        # TODO: Check if these parameters needs to be tuned
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
         )
 
-    def forward(self, x):
-        # Here you have defined the hidden state, and internal state first, initialized with zeros.
-        h_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
-
-        c_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
-        # output (seq_len, batch, hidden_size * num_directions): tensor containing the output features (h_t) from the last layer of the RNN, for each t.
-        # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
-        # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len
-        ula, (h_out, _) = self.lstm(x, (h_0, c_0))
-
-        # Choose the hidden state from the last layer
-        last_hidden_state_layer = h_out[-1]
-        out = self.fully_conencted_layer(last_hidden_state_layer)
-        out = self.dropout(out)
-        return out
+        # Creating LSTM module
+        self.model = LstmModule(
+            input_window_size=input_window_size,
+            number_of_features=number_of_features,
+            hidden_window_size=hidden_window_size,
+            output_size=output_size,
+            num_layers=num_layers,
+            learning_rate=learning_rate,
+            batch_first=batch_first,
+            dropout=dropout,
+            bidirectional=bidirectional,
+            optimizer_name=optimizer_name,
+        )
 
     def train_network(
         self,
@@ -134,7 +113,7 @@ class LstmModel(nn.Module, IModel, ABC):
     def _train_step(self, x, y):
         self.train()  # Sets model to TRAIN mode
 
-        yhat = self(x)  # Makes predictions
+        yhat = self.model(x)  # Makes predictions
         loss = self.criterion(y, yhat)  # Computes loss
         loss.backward()  # Computes gradients
         # Updates parameters and zeroes gradients
