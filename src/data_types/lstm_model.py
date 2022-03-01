@@ -1,22 +1,21 @@
 import logging
 from abc import ABC
-from typing import Optional, Dict, Tuple, List
+from typing import Dict, List, Optional, Tuple
 
-import numpy
 import numpy as np
 import optuna
 import torch
 from fastprogress import progress_bar
 from matplotlib.figure import Figure
-from numpy import ndarray, float64
+from numpy import float64, ndarray
 from pandas import DataFrame
-from torch import nn
-from torch.autograd import Variable
-
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
-from src.pipelines.local_univariate_lstm_pipeline import local_univariate_lstm_pipeline
+from src.pipelines.local_univariate_lstm_pipeline import \
+    local_univariate_lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from torch import nn
+from torch.autograd import Variable
 
 
 class LstmModel(IModel, ABC):
@@ -35,8 +34,10 @@ class LstmModel(IModel, ABC):
         bidirectional: bool = False,
         optimizer_name: str = "adam",
     ):
+        # Init global variables
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name: str = name
+        self.figures: List[Figure] = []
 
         # Model Parameters
         self.output_size = output_size  # shape of output
@@ -73,8 +74,6 @@ class LstmModel(IModel, ABC):
 
     def train_network(
         self,
-        train_loader,
-        val_loader,
         n_epochs=100,
         verbose=True,
         optuna_trial: optuna.Trial = None,
@@ -82,7 +81,7 @@ class LstmModel(IModel, ABC):
         losses = []
         val_losses = []
         for epoch in progress_bar(range(n_epochs)):
-            for x_batch, y_batch in train_loader:
+            for x_batch, y_batch in self.train_loader:
                 # the dataset "lives" in the CPU, so do our mini-batches
                 # therefore, we need to send those mini-batches to the
                 # device where the model "lives"
@@ -92,7 +91,7 @@ class LstmModel(IModel, ABC):
                 loss = self._train_step(x_batch, y_batch)
                 losses.append(loss)
 
-            for x_val, y_val in val_loader:
+            for x_val, y_val in self.val_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
 
@@ -114,13 +113,59 @@ class LstmModel(IModel, ABC):
     def calculate_mean_score(self, losses: ndarray) -> float64:
         return np.mean(losses)
 
-    # Builds function that performs a step in the train loop
-    def _train_step(self, x, y):
-        self.train()  # Sets model to TRAIN mode
+    def get_name(self) -> str:
+        return self.name
 
-        yhat = self.model(x)  # Makes predictions
-        loss = self.criterion(y, yhat)  # Computes loss
-        loss.backward()  # Computes gradients
+    def process_data(
+        self, data_set: DataFrame, training_size: float
+    ) -> Tuple[DataFrame, DataFrame]:
+        self.train_loader = None
+        self.val_loader = None
+        self.test_loader = None
+        raise NotImplementedError()
+
+    def train(self, epochs: int = 10) -> Dict:
+        # TODO: Add training visualization. Error metrics, accuracy?
+        losses = []
+        val_losses = []
+        for epoch in progress_bar(range(epochs)):
+            for x_batch, y_batch in self.train_loader:
+                # the dataset "lives" in the CPU, so do our mini-batches
+                # therefore, we need to send those mini-batches to the
+                # device where the model "lives"
+                x_batch = x_batch.to(self.device)
+                y_batch = y_batch.to(self.device)
+                loss = self.train_step(x_batch, y_batch)
+                losses.append(loss)
+
+            for x_val, y_val in self.val_loader:
+                x_val = x_val.to(self.device)
+                y_val = y_val.to(self.device)
+
+                val_loss = self.validation_step(x_val, y_val)
+                val_losses.append(val_loss)
+
+            # TODO: Optuna!
+            """
+            if optuna_trial:
+                accuracy = self.calculate_mean_score(val_losses)
+                optuna_trial.report(accuracy, epoch)
+
+                if optuna_trial.should_prune():
+                    print("Pruning trial!")
+                    raise optuna.exceptions.TrialPruned()
+            """
+            if epoch % 50 == 0:
+                print(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
+        # return losses, val_losses
+        return {}  # TODO: Return dict with error metrics / loss
+
+    # Builds function that performs a step in the train loop
+    def _train_step(self, x, y) -> float:
+        # Make prediction, and compute loss, and gradients
+        yhat = self.model(x)
+        loss = self.criterion(y, yhat)
+        loss.backward()
         # Updates parameters and zeroes gradients
         self.optimizer.step()
         self.optimizer.zero_grad()
@@ -172,7 +217,7 @@ class LstmModel(IModel, ABC):
         """
         Return a list of figures created by the model for visualization
         """
-        raise NotImplementedError()
+        return self.figures
 
     def get_metrics(self) -> Dict:
         """
