@@ -1,3 +1,4 @@
+import logging
 from abc import ABC
 from typing import Optional, Dict, Tuple, List
 
@@ -52,6 +53,9 @@ class LstmModel(IModel, ABC):
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
         )
+        if torch.cuda.is_available():
+            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+            self.criterion.cuda()
 
         # Creating LSTM module
         self.model = LstmModule(
@@ -85,14 +89,14 @@ class LstmModel(IModel, ABC):
                 x_batch = x_batch.to(self.device)
                 y_batch = y_batch.to(self.device)
 
-                loss = self.train_step(x_batch, y_batch)
+                loss = self._train_step(x_batch, y_batch)
                 losses.append(loss)
 
             for x_val, y_val in val_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
 
-                val_loss = self.validation_step(x_val, y_val)
+                val_loss = self._validation_step(x_val, y_val)
                 val_losses.append(val_loss)
 
             if optuna_trial:
@@ -100,11 +104,11 @@ class LstmModel(IModel, ABC):
                 optuna_trial.report(accuracy, epoch)
 
                 if optuna_trial.should_prune():
-                    print("Pruning trial!")
+                    logging.info("Pruning trial!")
                     raise optuna.exceptions.TrialPruned()
 
             if epoch % 50 == 0:
-                print(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
+                logging.info(f"Epoch: {epoch}, loss: {losses}. Validation losses: {val_losses}")
         return losses, val_losses
 
     def calculate_mean_score(self, losses: ndarray) -> float64:
@@ -126,9 +130,9 @@ class LstmModel(IModel, ABC):
     def _validation_step(self, x, y):
         val_losses = []
         with torch.no_grad():
-            self.eval()
+            self.model.eval()
 
-            yhat = self(x)
+            yhat = self.model(x)
             val_loss = self.criterion(y, yhat)
             val_losses.append(val_loss.item())
 

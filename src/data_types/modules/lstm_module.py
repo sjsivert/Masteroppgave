@@ -16,7 +16,7 @@ from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
-class LstmModule(nn.Modul):
+class LstmModule(nn.Module):
     def __init__(
         self,
         input_window_size: int = 1,
