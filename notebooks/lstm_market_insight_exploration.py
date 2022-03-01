@@ -66,8 +66,8 @@ data_train.shape
 # %%
 # Normalize data
 scaler = MinMaxScaler(feature_range=(-1, 1))
-train_data_normalized = scaler.fit_transform(data_train.reshape(-1, 1))
-validation_data_normalized = scaler.fit_transform(data_validation.reshape(-1, 1))
+train_data_normalized = scaler.fit_transform(data_train)
+validation_data_normalized = scaler.fit_transform(data_validation)
 train_data_normalized.shape
 print(validation_data_normalized.shape)
 print(train_data_normalized.shape)
@@ -187,7 +187,7 @@ class LSTM(nn.Module):
         batch_first: bool = True,
         dropout: float = 0.2,
         bidirectional: bool = False,
-        optimizer_name: str = 'adam'
+        optimizer_name: str = 'Adam'
         ):
         super(LSTM, self).__init__()
         self.output_size = output_size  # shape of output
@@ -313,6 +313,11 @@ class LSTM(nn.Module):
 # %%
 # Train network
 lstm = LSTM(
+    input_size=1,
+    hidden_size=64,
+    output_size=1,
+    num_layers=1,
+    learning_rate=0.001,
 )
 print(lstm)
 losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=50, verbose=True)
@@ -321,7 +326,7 @@ losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=50, v
 plt.plot(losses)
 plt.plot(val_losses)
 # %%
-lstm.calculate_mean_score(val_losses)
+type(lstm.calculate_mean_score(val_losses))
 # %%
 print(train_loader_no_batch.__len__())
 print(y_train.shape)

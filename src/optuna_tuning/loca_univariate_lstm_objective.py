@@ -5,6 +5,7 @@ import optuna
 from torch.utils.data import DataLoader
 
 from src.data_types.lstm_model import LstmModel
+from typing import OrderedDict
 
 
 def local_univariate_lstm_objective(
