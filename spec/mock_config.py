@@ -36,6 +36,20 @@ def init_mock_config(
                         {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
                     ],
                 },
+                "local_univariate_lstm": {
+                    "training_size": 0.8,
+                    "input_window_size": 7,
+                    "output_window_size": 1,
+                    "hyperparameter_tuning_range": {
+                        "hidden_size": (10, 200),
+                        "num_layers": (1, 5),
+                        "dropout": (0.0, 0.5),
+                        "optimizer_name": ["Adam", "SGD", "RMSprop"],
+                        "learning_rate": (1e-5, 1e-1),
+                        "number_of_epochs": (10, 200),
+                    },
+                    "model_structure": [{"time_series_id": 12532}, {"time_series_id": 11694}],
+                },
             },
             "data": {
                 "data_path": "./README.md",
