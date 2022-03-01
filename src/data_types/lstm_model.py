@@ -14,6 +14,7 @@ from torch.autograd import Variable
 
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
+from src.pipelines.local_univariate_lstm_pipeline import local_univariate_lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
@@ -139,7 +140,12 @@ class LstmModel(IModel, ABC):
     def process_data(
         self, data_set: DataFrame, training_size: float
     ) -> Tuple[DataFrame, DataFrame]:
-        raise NotImplementedError()
+        self.data_pipeline = local_univariate_lstm_pipeline(
+            data_set=data_set,
+            cat_id=self.get_name(),
+            training_size=training_size,
+            batch_size=self.batch_size,
+        )
 
     def train(self, epochs: int = 10) -> Dict:
         raise NotImplementedError()
