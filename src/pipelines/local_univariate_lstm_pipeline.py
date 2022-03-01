@@ -6,7 +6,14 @@ from src.pipelines.data_loader import dataframe_to_generator
 import src.pipelines.market_insight_processing as market_processing
 
 
-def local_univariate_lstm_pipeline(data_set: DataFrame, cat_id: str, training_size: float, batch_size: int) -> Pipeline:
+def local_univariate_lstm_pipeline(
+        data_set: DataFrame,
+        cat_id: str,
+        training_size: float,
+        input_window_size: int,
+        output_window_size: int,
+        batch_size: int,
+) -> Pipeline:
     """
     Datapipeline which processes the data to be on the correct format
     before the local_univariate_lstm model can be applied.
@@ -24,14 +31,17 @@ def local_univariate_lstm_pipeline(data_set: DataFrame, cat_id: str, training_si
             ("Convert input dataset to generator object", dataframe_to_generator, {"df": data_set}),
             (f"filter out category {cat_id})",
              market_processing.filter_by_cat_id,
-             {"cat_id": cat_id},),
+                {"cat_id": cat_id},),
             ("choose columns 'interest' and 'date'", market_processing.choose_columns, {"columns": ["date", "interest"]}),
             ("fill in dates with zero values", market_processing.fill_in_dates, {}),
-            (f"scale data between -1 and 1", market_processing.scale_data, {}),
+            (f"scale data between -1 and 1", market_processing.scale_data, {"should_scale": True}),
             (f"split up into training set ({training_size}) and test set ({1 - training_size})",
              market_processing.split_into_training_and_test_set,
-             {"training_size": training_size}),
-            (f"TODO: convert to torch dataset with window size of ...", market_processing.print_info, {}),
-            (f"TODO: convert to torch DataLoder with batch size of ...", market_processing.print_info, {}),
+                {"training_size": training_size}),
+            (f"convert to timeseries dataset with input window size of {input_window_size}, "
+                f"and output window size of {output_window_size}", market_processing.convert_to_time_series_dataset,
+                {"input_window_size": input_window_size, "output_window_size": output_window_size}),
+            (f"convert to torch DataLoder with batch size of {batch_size}",
+                market_processing.convert_to_pytorch_dataloader, {"batch_size": batch_size}),
         ]
     )
