@@ -2,10 +2,11 @@
 import datetime
 import os
 import random
-from typing import Any, Tuple
+from typing import Any, List, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
+import optuna
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -29,6 +30,7 @@ raw_data = pd.read_csv(
 raw_data.head()
 # %%
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+use_cuda = torch.cuda.is_available()
 device
 
 # %%
@@ -176,14 +178,24 @@ pd.DataFrame(train_data_normalized).plot(kind='hist', ax = axs[1] ,figsize=[12,6
 
 # %%
 class LSTM(nn.Module):
-    def __init__(self):
+    def __init__(self, 
+        input_size: int,
+        hidden_size: int,
+        output_size: int,
+        num_layers: int,
+        learning_rate: float,
+        batch_first: bool = True,
+        dropout: float = 0.2,
+        bidirectional: bool = False,
+        optimizer_name: str = 'adam'
+        ):
         super(LSTM, self).__init__()
-        self.output_size = 1  # shape of output
-        self.num_layers = 2  # number of layers
-        self.input_size = 1  # number of features in each sample
-        self.hidden_size = 200  # hidden state
-        self.learning_rate = 0.0005  # learning rate
-        self.dropout = nn.Dropout(p=0.2)
+        self.output_size = output_size  # shape of output
+        self.num_layers = num_layers  # number of layers
+        self.input_size = input_size  # number of features in each sample
+        self.hidden_size = hidden_size  # hidden state
+        self.learning_rate = learning_rate  # learning rate
+        self.dropout = nn.Dropout(p=dropout)
 
         self.criterion = torch.nn.MSELoss()
 
@@ -192,10 +204,15 @@ class LSTM(nn.Module):
         )
         self.fully_conencted_layer = nn.Linear(in_features=self.hidden_size, out_features=self.output_size)
 
-        self.relu = nn.ReLU()
         parameters = list(self.lstm.parameters()) + list(self.fully_conencted_layer.parameters())
         print(self.lstm.parameters() == parameters)
-        self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate,weight_decay=1e-5)
+
+        if torch.cuda.is_available():
+            self.cuda()
+            self.criterion.cuda()
+
+        #self.optimizer = torch.optim.Adam(parameters, lr=self.learning_rate,weight_decay=1e-5)
+        self.optimizer = getattr(torch.optim, optimizer_name)(self.parameters(), lr=learning_rate)
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,  patience=500,factor =0.5 ,min_lr=1e-7, eps=1e-08)
 
     def forward(self, x):
@@ -216,7 +233,6 @@ class LSTM(nn.Module):
         #print("output", ula.shape)
         # Choose the hidden state from the last layer
         last_hidden_state_layer = h_out[-1]
-        print("out", last_hidden_state_layer.shape)
         #h_out = h_out.view(-1, self.hidden_size)
         #out_squashed = ula.view(-1, self.hidden_size)
         
@@ -258,7 +274,7 @@ class LSTM(nn.Module):
 
         return val_losses
 
-    def train_network(self, train_loader, val_loader, n_epochs=100, verbose=True):
+    def train_network(self, train_loader, val_loader, n_epochs=100, verbose=True, optuna_trial: optuna.Trial=None):
         self.train()
         losses = []
         val_losses = []
@@ -279,19 +295,33 @@ class LSTM(nn.Module):
                 
                 val_loss = self.validation_step(x_val, y_val)
                 val_losses.append(val_loss)
-                
+
+            if optuna_trial:
+                accuracy = self.calculate_mean_score(val_losses)
+                optuna_trial.report(accuracy, epoch)
+
+                if optuna_trial.should_prune():
+                    print("Pruning trial!")
+                    raise optuna.exceptions.TrialPruned()
+                    
             if epoch % 50 == 0:
                 print(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}" )
         return losses, val_losses
+
+    def calculate_mean_score(self, losses: List[torch.Tensor]) -> float:
+        return np.mean(losses)
 # %%
 # Train network
-lstm = LSTM()
+lstm = LSTM(
+)
 print(lstm)
-losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=200, verbose=True)
+losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=50, verbose=True)
 
 # %%
 plt.plot(losses)
 plt.plot(val_losses)
+# %%
+lstm.calculate_mean_score(val_losses)
 # %%
 print(train_loader_no_batch.__len__())
 print(y_train.shape)
@@ -327,3 +357,50 @@ print("y_val", y_val.flatten().shape)
 #y_val_renormalize = scaler.inverse_transform(y_val.flatten())
 plt.plot(correct_values_val)
 plt.plot(predictions_val)
+
+
+# %%
+# Optuna tuning
+
+def objective(trial: optuna.Trial) -> float:
+    params = {
+        "input_size": 1,
+        "hidden_size": trial.suggest_int("hidden_size", 10, 100),
+        "output_size": 1,
+        "num_layers": trial.suggest_int("number_of_layers", 1, 3),
+        "learning_rate": trial.suggest_loguniform('learning_rate', 1e-5, 1e-1),
+        "batch_first": True,
+        "dropout": 0.2,
+        "bidirectional": False,
+        # TODO: Find out how to change optimizer hyperparameters
+        'optimizer_name': trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"]),
+    }
+
+    model = LSTM(**params)
+    losses, val_losses = model.train_network(train_loader, val_loader, n_epochs=500, verbose=True, optuna_trial=trial)
+    score = model.calculate_mean_score(val_losses)
+    return score
+
+
+# %%
+study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(), pruner=optuna.pruners.MedianPruner())
+study.optimize(objective, n_trials=15)
+
+
+
+# %%
+study.best_trial
+
+# %%
+
+lstm = LSTM(
+    input_size=1,
+    output_size=1,
+    hidden_size=study.best_trial.params["hidden_size"],
+    num_layers=study.best_trial.params["number_of_layers"],
+    learning_rate=study.best_trial.params["learning_rate"],
+    optimizer_name=study.best_trial.params["optimizer"],
+)
+loss, val_loss = lstm.train_network(train_loader, val_loader, n_epochs=500, verbose=True)
+# %%
+plt.plot(val_loss)

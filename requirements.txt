@@ -173,3 +173,4 @@ zict==2.0.0
 torch==1.10.2
 fastprogress==1.0.2
 nptyping==1.4.4
+optuna==2.10.0

@@ -7,6 +7,7 @@ from pandas import DataFrame
 from src.data_types.model_type_enum import ModelStructureEnum
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
+from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
@@ -129,6 +130,10 @@ class Experiment:
             elif model_structure == ModelStructureEnum.local_univariate_arima:
                 self.model_structure = LocalUnivariateArimaStructure(
                     self.save_sources, **model_options["local_univariate_arima"]
+                )
+            elif model_structure == ModelStructureEnum.local_univariate_lstm:
+                self.model_structure = LocalUnivariateLstmStructure(
+                    self.save_sources, **model_options["local_univariate_lstm"]
                 )
             self.model_structure.init_models()
 

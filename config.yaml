@@ -37,11 +37,72 @@ experiment:
 
 
 model:
-  # Model types: 'validation_model'. 'local_univariate_arima',
-  model_type: 'local_univariate_arima'
+  # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
+  model_type: 'local_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
+
+  local_univariate_lstm:
+    training_size: 0.8
+    input_window_size: 7
+    output_window_size: 1
+    number_of_tuning_trials: 10
+    hyperparameter_tuning_range:
+      hidden_size: (10, 200)
+      num_layers: (1, 5)
+      dropout: (0.0, 0.5)
+      optimizer_name: ['Adam', 'SGD', 'RMSprop']
+      learning_rate: (1e-5, 1e-1)
+      number_of_epochs: (10, 200)
+      number_of_features: 1
+      batch_size: (1, 100)
+      output_size: 1 # must be equal output_window_size
+
+    model_structure:
+      - time_series_id: 12532
+        # 1
+      - time_series_id: 11694
+        # 2
+      - time_series_id: 11716
+        # 3
+      - time_series_id: 11950
+        # 4
+      - time_series_id: 11195
+        # 5
+      - time_series_id: 11998
+        # 6
+      - time_series_id: 274
+        # 7
+      - time_series_id: 11407
+        # 8
+
+      - time_series_id: 46
+        # 9
+
+      - time_series_id: 11326
+        # 10
+
+      - time_series_id: 11335
+        # 11
+
+      - time_series_id: 12197
+        # 12
+      - time_series_id: 11693
+        # 13
+      - time_series_id: 11780
+        # 14
+      - time_series_id: 12502
+        # 15
+      - time_series_id: 11866
+        # 16
+      - time_series_id: 11400
+        # 17
+      - time_series_id: 12256
+        # 18
+      - time_series_id: 10320
+        # 19
+      - time_series_id: 10030
 
   local_univariate_arima:
     training_size: 0.8
