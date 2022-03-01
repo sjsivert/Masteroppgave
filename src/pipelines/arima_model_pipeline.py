@@ -25,7 +25,7 @@ def arima_model_pipeline(data_set: DataFrame, cat_id: str, training_size: float)
                 {"cat_id": cat_id},),
             ("choose columns 'interest' and 'date'", market_processing.choose_columns, {"columns": ["date", "interest"]}),
             ("fill in dates with zero values", market_processing.fill_in_dates, {}),
-            ("split up into training set ({training_size}) and test set ({1 - training_size})",
+            (f"split up into training set ({training_size}) and test set ({1 - training_size})",
              market_processing.split_into_training_and_test_set,
                 {"training_size": training_size}),
         ]
