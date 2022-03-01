@@ -1,3 +1,4 @@
+import logging
 from abc import ABC
 from typing import List, Optional, Dict, OrderedDict, Tuple
 
@@ -27,6 +28,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         # metric_to_use_when_tuning: str = "SMAPE",
     ):
         super().__init__()
+        self.data_pipeline = None
         self.output_window_size = output_window_size
         self.input_window_size = input_window_size
         self.model_structure = model_structure
@@ -53,7 +55,17 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         args:
           data_pipeline: Pipeline object containing the data to be processed.
         """
-        pass
+        self.data_pipeline = data_pipeline
+
+        logging.info(f"data preprocessing steps: \n {self.data_pipeline}")
+        for log_source in self.log_sources:
+            log_source.log_pipeline_steps(self.data_pipeline.__repr__())
+
+        preprocessed_data = data_pipeline.run()
+
+        for model in self.models:
+            model.process_data(preprocessed_data, self.training_size)
+        return self.training_set
 
     def train(self) -> IModelStructure:
         """
@@ -79,7 +91,11 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         parameter_space = self.hyperparameter_tuning_range
         # TODO Make number of trials configuable
         study.optimize(
-            lambda trial: local_univariate_lstm_objective(trial, parameter_space), n_trials=15
+            lambda trial: local_univariate_lstm_objective(
+                trial,
+                parameter_space,
+            ),
+            n_trials=15,
         )
         pass
 

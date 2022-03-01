@@ -3,6 +3,8 @@ from typing import Iterable, List, Tuple
 import pandas as pd
 from genpipes import declare
 from pandas import DataFrame
+from sklearn.preprocessing import MinMaxScaler
+
 from src.utils.config_parser import config
 
 
@@ -123,6 +125,16 @@ def choose_columns(
 def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
         yield df.groupby(pd.Grouper(key="date", freq="D")).sum()
+
+
+@declare.processor()
+def scale_data(
+    stream: Iterable[DataFrame],
+) -> (Iterable[DataFrame], MinMaxScaler):  # pragma: no cover
+    for df in stream:
+        scaler = MinMaxScaler(feature_range=(-1, 1))
+        scaled_df = scaler.fit_transform(df)
+        yield scaled_df, scaler
 
 
 @declare.processor()
