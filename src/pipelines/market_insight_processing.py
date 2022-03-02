@@ -1,3 +1,4 @@
+# fmt: off
 from typing import Iterable, List, Tuple, Optional
 
 import pandas as pd
@@ -144,13 +145,24 @@ def scale_data(
 
 @declare.processor()
 def split_into_training_and_test_set(
-    stream: Tuple[Iterable[DataFrame], Optional[StandardScaler]], training_size: float
+    stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], training_size: float
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (df, scaler) in stream:
         training_set = int((df.shape[0] - 1) * training_size)
         training_df = df[:training_set]
         testing_set = df[training_set:]
         yield training_df, testing_set, scaler
+
+
+@declare.processor()
+def split_into_training_and_validation_set(
+    stream: Iterable[Tuple[DataFrame, DataFrame, Optional[StandardScaler]]], training_size: float
+) -> Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (training_set, testing_set, scaler) in stream:
+        training_set_size = int((training_set.shape[0] - 1) * training_size)
+        training_df = training_set[:training_set_size]
+        validation_df = training_set[training_set_size:]
+        yield training_df, validation_df, testing_set, scaler
 
 
 @declare.processor()
@@ -164,24 +176,26 @@ def combine_hits_and_clicks(
 
 @declare.processor()
 def convert_to_time_series_dataset(
-    stream: Iterable[Tuple[DataFrame, DataFrame, Optional[StandardScaler]]],
+    stream: Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[StandardScaler]]],
     input_window_size: int,
     output_window_size: int,
 ) -> Iterable[Tuple[Dataset, Dataset, Optional[MinMaxScaler]]]:  # pragma: no cover
-    for (df, scaler) in stream:
-        training_data, validation_data = df
+    for (training_data, validation_data, testing_data, scaler) in stream:
         training_dataset = TimeseriesDataset(
             training_data, seq_len=input_window_size, y_size=output_window_size
         )
         validation_dataset = TimeseriesDataset(
             validation_data, seq_len=input_window_size, y_size=output_window_size
         )
-        yield training_dataset, validation_dataset, scaler
+        testing_dataset = TimeseriesDataset(
+            validation_data, seq_len=input_window_size, y_size=output_window_size
+        )
+        yield training_dataset, validation_dataset, testing_dataset, scaler
 
 
 @declare.processor()
 def convert_to_pytorch_dataloader(
-    stream: Iterable[Tuple[Dataset, Dataset, Optional[StandardScaler]]], batch_size: int
+    stream: Iterable[Tuple[Dataset, Dataset, Dataset, Optional[StandardScaler]]], batch_size: int
 ) -> Iterable[Tuple[DataLoader, DataLoader, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (training_data, validation_data, scaler) in stream:
         training_dataloader = DataLoader(
@@ -190,4 +204,7 @@ def convert_to_pytorch_dataloader(
         validation_dataloader = DataLoader(
             dataset=validation_data, batch_size=batch_size, shuffle=False
         )
-        yield training_dataloader, validation_dataloader, scaler
+        testing_dataloader = DataLoader(
+            dataset=validation_data, batch_size=batch_size, shuffle=False
+        )
+        yield training_dataloader, validation_dataloader, testing_dataloader, scaler

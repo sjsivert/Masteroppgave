@@ -47,8 +47,9 @@ class LstmModel(IModel, ABC):
         self.input_window_size = input_window_size
         self.output_window_size = output_window_size
 
-        self.training_data = None
-        self.validation_data = None
+        self.training_data_loader = None
+        self.validation_data_loader = None
+        self.testing_data_loader = None
         self.min_max_scaler = None
 
         # Creating LSTM module
@@ -84,29 +85,23 @@ class LstmModel(IModel, ABC):
     def get_name(self) -> str:
         return self.name
 
-    def process_data(self, data_set: DataFrame, training_size: float) -> None:
-        self.train_loader = None
-        self.val_loader = None
-        self.test_loader = None
-        raise NotImplementedError()
-
     def train(self, epochs: int = 100) -> Dict:
         train_error = []
         val_error = []
         for epoch in progress_bar(range(epochs)):
             batch_train_error = []
             batch_val_error = []
-            for x_batch, y_batch in self.train_loader:
+            for x_batch, y_batch in self.training_data_loader:
                 # the dataset "lives" in the CPU, so do our mini-batches
                 # therefore, we need to send those mini-batches to the
                 # device where the model "lives"
                 x_batch = x_batch.to(self.device)
                 y_batch = y_batch.to(self.device)
-                loss = self.train_step(x_batch, y_batch)
+                loss = self._train_step(x_batch, y_batch)
                 batch_train_error.append(loss)
             train_error.append(sum(batch_train_error) / len(batch_train_error))
 
-            for x_val, y_val in self.val_loader:
+            for x_val, y_val in self.validation_data_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
                 val_loss = self._test_step(x_val, y_val)
@@ -124,7 +119,7 @@ class LstmModel(IModel, ABC):
                     raise optuna.exceptions.TrialPruned()
             """
             if epoch % 50 == 0:
-                print(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
+                logging.info(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
         # return losses, val_losses
         self._visualize_training_errors(training_error=train_error, validation_error=val_error)
         return {}  # TODO: Return dict with error metrics / loss
@@ -177,7 +172,12 @@ class LstmModel(IModel, ABC):
         for log_source in self.log_sources:
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
-        self.training_data, self.validation_data, self.min_max_scaler = data_pipeline.run()
+        (
+            self.training_data_loader,
+            self.validation_data_loader,
+            self.testing_data_loader,
+            self.min_max_scaler,
+        ) = data_pipeline.run()
 
     def method_evaluation(
         self,
