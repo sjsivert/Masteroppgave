@@ -125,6 +125,7 @@ class LstmModel(IModel, ABC):
             if epoch % 50 == 0:
                 print(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
         # return losses, val_losses
+        self._visualize_training_errors(training_error=train_error, validation_error=val_error)
         return {}  # TODO: Return dict with error metrics / loss
 
     # Builds function that performs a step in the train loop
