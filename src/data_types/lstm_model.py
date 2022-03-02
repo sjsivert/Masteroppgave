@@ -48,17 +48,6 @@ class LstmModel(IModel, ABC):
         self.learning_rate = learning_rate  # learning rate
         self.dropout = nn.Dropout(p=dropout)
 
-        self.criterion = nn.MSELoss()
-        self.optimizer = getattr(torch.optim, optimizer_name)(
-            self.parameters(), lr=learning_rate
-        ).to(self.device)
-        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
-        )
-        if torch.cuda.is_available():
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            self.criterion.cuda()
-
         # Creating LSTM module
         self.model = LstmModule(
             input_window_size=input_window_size,
@@ -72,6 +61,17 @@ class LstmModel(IModel, ABC):
             bidirectional=bidirectional,
             optimizer_name=optimizer_name,
         )
+
+        self.criterion = nn.MSELoss()
+        self.optimizer = getattr(torch.optim, optimizer_name)(
+            self.model.parameters(), lr=learning_rate
+        ).to(self.device)
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+            self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
+        )
+        if torch.cuda.is_available():
+            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+            self.criterion.cuda()
 
     def calculate_mean_score(self, losses: ndarray) -> float64:
         return np.mean(losses)
