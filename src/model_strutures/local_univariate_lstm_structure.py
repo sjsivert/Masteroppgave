@@ -1,6 +1,6 @@
 import logging
 from abc import ABC
-from typing import List, Optional, Dict, OrderedDict, Tuple
+from typing import List, Optional, Dict, OrderedDict, Tuple, Any
 
 import optuna
 from genpipes.compose import Pipeline
@@ -18,38 +18,35 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        training_size: float,
         model_structure: List,
-        input_window_size: int,
-        output_window_size: int,
+        common_parameters_for_all_models: OrderedDict[str, Any],
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         # steps_to_predict: int = 5,
         # multi_step_forecast: bool = False,
         # metric_to_use_when_tuning: str = "SMAPE",
     ):
         super().__init__()
-        self.data_pipeline = None
-        self.output_window_size = output_window_size
-        self.input_window_size = input_window_size
-        self.model_structure = model_structure
-        self.training_size = training_size
         self.log_sources = log_sources
+        self.common_parameters_for_all_models = common_parameters_for_all_models
+        self.data_pipeline: Pipeline
+        self.model_structure = model_structure
         self.hyperparameter_tuning_range = hyperparameter_tuning_range
 
+        self.models: List[IModel] = []
+
     def init_models(self, load: bool = False):
-        # TODO implement
-        raise NotImplementedError()
         self.models = list(
             map(
                 lambda model_structure: LstmModel(
                     log_sources=self.log_sources,
-                    name=model_structure["time_series_id"],
+                    **model_structure,
+                    **self.common_parameters_for_all_models,
                 ),
                 self.model_structure,
             )
         )
 
-    def process_data(self, data_pipeline: Pipeline) -> Optional[DataFrame]:
+    def process_data(self, data_pipeline: Pipeline) -> None:
         """
         Processes data to get it on the correct format for the relevant model.
         args:
@@ -64,8 +61,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         preprocessed_data = data_pipeline.run()
 
         for model in self.models:
-            model.process_data(preprocessed_data, self.training_size)
-        return self.training_set
+            model.process_data(preprocessed_data, 0)
 
     def train(self) -> IModelStructure:
         """

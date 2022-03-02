@@ -37,10 +37,15 @@ def init_mock_config(
                     ],
                 },
                 "local_univariate_lstm": {
-                    "training_size": 0.8,
-                    "input_window_size": 7,
-                    "output_window_size": 1,
+                    "common_parameters_for_all_models": {
+                        "training_size": 0.8,
+                        "input_window_size": 7,
+                        "output_window_size": 1,
+                        "batch_size": 32,
+                        "optimizer_name": "SGD",
+                    },
                     "hyperparameter_tuning_range": {
+                        "number_of_tuning_trials": 10,
                         "hidden_size": (10, 200),
                         "num_layers": (1, 5),
                         "dropout": (0.0, 0.5),
@@ -48,7 +53,22 @@ def init_mock_config(
                         "learning_rate": (1e-5, 1e-1),
                         "number_of_epochs": (10, 200),
                     },
-                    "model_structure": [{"time_series_id": 12532}, {"time_series_id": 11694}],
+                    "model_structure": [
+                        {
+                            "time_series_id": 12532,
+                            "learning_rate": 0.001,
+                            "hidden_layer_size": 100,
+                            "dropout": 0.1,
+                            "number_of_features": 1,
+                        },
+                        {
+                            "time_series_id": 11694,
+                            "learning_rate": 0.001,
+                            "hidden_layer_size": 100,
+                            "dropout": 0.1,
+                            "number_of_features": 1,
+                        },
+                    ],
                 },
             },
             "data": {

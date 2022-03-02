@@ -19,6 +19,9 @@ def local_univariate_lstm_pipeline(
     before the local_univariate_lstm model can be applied.
 
     Args:
+        :param batch_size:
+        :param output_window_size:
+        :param input_window_size:
         :param cat_id:
         :param data_set:
         :param pipeline:
