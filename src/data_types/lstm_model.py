@@ -71,9 +71,9 @@ class LstmModel(IModel, ABC):
             self.model.parameters(), lr=learning_rate
         )
         # TODO: Make using scheduler vs learning rate an option
-        #self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            #self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
-        #)
+        # self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        # self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
+        # )
         if self.device == "cuda":
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
             self.criterion.cuda()
@@ -84,9 +84,7 @@ class LstmModel(IModel, ABC):
     def get_name(self) -> str:
         return self.name
 
-    def process_data(
-        self, data_set: DataFrame, training_size: float
-    ) -> None:
+    def process_data(self, data_set: DataFrame, training_size: float) -> None:
         self.train_loader = None
         self.val_loader = None
         self.test_loader = None

@@ -1,3 +1,4 @@
+# fmt: off
 import pandas as pd
 from expects import be_true, equal, expect
 from genpipes import compose
@@ -39,7 +40,6 @@ with description("Market insight prosessing pipeline", "unit") as self:
 
     with it("can pivot transform the data with date as index"):
         with included_context("mock_pipeline"):
-            # fmt: off
             pipeline_with_pivot = compose.Pipeline(
                 steps=pipeline.steps + [
                     ("pivot transform with date as index and cat_id as column", p.pivot_transform,
@@ -55,9 +55,9 @@ with description("Market insight prosessing pipeline", "unit") as self:
                                         1: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC'),
                                         2: Timestamp('2021-11-29 04:01:40.409000+0000', tz='UTC')}}
             expect(result.to_dict()).to(equal(expected_result))
+
     with it("can scale data correctly in a pipeline"):
-        with included_context("mock_pipeline"):
-            # fmt: off
+        with included_context("mock_pipeline"):  # fmt: off
             pipeline_scale_data = compose.Pipeline(
                 steps=pipeline.steps + [
                     ("choose columns 'interest' and 'date'", p.choose_columns,
@@ -68,4 +68,3 @@ with description("Market insight prosessing pipeline", "unit") as self:
                 ]
             )
             train_data, test_data, scaler = pipeline_scale_data.run()
-
