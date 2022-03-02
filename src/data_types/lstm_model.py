@@ -107,7 +107,6 @@ class LstmModel(IModel, ABC):
             for x_val, y_val in self.val_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
-
                 val_loss = self.validation_step(x_val, y_val)
                 batch_val_error.append(val_loss)
             val_error.append(sum(batch_val_error) / len(batch_val_error))
@@ -131,6 +130,7 @@ class LstmModel(IModel, ABC):
     # Builds function that performs a step in the train loop
     def _train_step(self, x, y) -> float:
         # Make prediction, and compute loss, and gradients
+        self.model.train()
         yhat = self.model(x)
         loss = self.criterion(y, yhat)
         loss.backward()
