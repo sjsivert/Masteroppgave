@@ -11,11 +11,12 @@ from numpy import float64, ndarray
 from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
-from src.pipelines.local_univariate_lstm_pipeline import \
-    local_univariate_lstm_pipeline
+from src.pipelines.local_univariate_lstm_pipeline import local_univariate_lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
+
+from src.utils.visuals import visualize_data_series
 
 
 class LstmModel(IModel, ABC):
@@ -72,44 +73,6 @@ class LstmModel(IModel, ABC):
             optimizer_name=optimizer_name,
         )
 
-    def train_network(
-        self,
-        n_epochs=100,
-        verbose=True,
-        optuna_trial: optuna.Trial = None,
-    ):
-        losses = []
-        val_losses = []
-        for epoch in progress_bar(range(n_epochs)):
-            for x_batch, y_batch in self.train_loader:
-                # the dataset "lives" in the CPU, so do our mini-batches
-                # therefore, we need to send those mini-batches to the
-                # device where the model "lives"
-                x_batch = x_batch.to(self.device)
-                y_batch = y_batch.to(self.device)
-
-                loss = self._train_step(x_batch, y_batch)
-                losses.append(loss)
-
-            for x_val, y_val in self.val_loader:
-                x_val = x_val.to(self.device)
-                y_val = y_val.to(self.device)
-
-                val_loss = self._validation_step(x_val, y_val)
-                val_losses.append(val_loss)
-
-            if optuna_trial:
-                accuracy = self.calculate_mean_score(val_losses)
-                optuna_trial.report(accuracy, epoch)
-
-                if optuna_trial.should_prune():
-                    logging.info("Pruning trial!")
-                    raise optuna.exceptions.TrialPruned()
-
-            if epoch % 50 == 0:
-                logging.info(f"Epoch: {epoch}, loss: {losses}. Validation losses: {val_losses}")
-        return losses, val_losses
-
     def calculate_mean_score(self, losses: ndarray) -> float64:
         return np.mean(losses)
 
@@ -124,11 +87,13 @@ class LstmModel(IModel, ABC):
         self.test_loader = None
         raise NotImplementedError()
 
-    def train(self, epochs: int = 10) -> Dict:
+    def train(self, epochs: int = 100) -> Dict:
         # TODO: Add training visualization. Error metrics, accuracy?
-        losses = []
-        val_losses = []
+        train_error = []
+        val_error = []
         for epoch in progress_bar(range(epochs)):
+            batch_train_error = []
+            batch_val_error = []
             for x_batch, y_batch in self.train_loader:
                 # the dataset "lives" in the CPU, so do our mini-batches
                 # therefore, we need to send those mini-batches to the
@@ -136,14 +101,16 @@ class LstmModel(IModel, ABC):
                 x_batch = x_batch.to(self.device)
                 y_batch = y_batch.to(self.device)
                 loss = self.train_step(x_batch, y_batch)
-                losses.append(loss)
+                batch_train_error.append(loss)
+            train_error.append(sum(batch_train_error) / len(batch_train_error))
 
             for x_val, y_val in self.val_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
 
                 val_loss = self.validation_step(x_val, y_val)
-                val_losses.append(val_loss)
+                batch_val_error.append(val_loss)
+            val_error.append(sum(batch_val_error) / len(batch_val_error))
 
             # TODO: Optuna!
             """
@@ -196,9 +163,6 @@ class LstmModel(IModel, ABC):
             batch_size=self.batch_size,
         )
 
-    def train(self, epochs: int = 10) -> Dict:
-        raise NotImplementedError()
-
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
         raise NotImplementedError()
 
@@ -243,3 +207,18 @@ class LstmModel(IModel, ABC):
         Returns the predicted values if test() has been called.
         """
         raise NotImplementedError()
+
+    def _visualize_training_errors(
+        self, training_error: List[float], validation_error: List[float]
+    ) -> None:
+        # Visualize training and validation loss
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Training and Validation error",
+                data_series=[training_error, validation_error],
+                data_labels=["Training error", "Validation error"],
+                colors=["blue", "orange"],
+                x_label="Epoch",
+                y_label="Error",
+            )
+        )
