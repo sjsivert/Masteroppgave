@@ -88,7 +88,6 @@ class LstmModel(IModel, ABC):
         raise NotImplementedError()
 
     def train(self, epochs: int = 100) -> Dict:
-        # TODO: Add training visualization. Error metrics, accuracy?
         train_error = []
         val_error = []
         for epoch in progress_bar(range(epochs)):
@@ -107,7 +106,7 @@ class LstmModel(IModel, ABC):
             for x_val, y_val in self.val_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
-                val_loss = self.validation_step(x_val, y_val)
+                val_loss = self._test_step(x_val, y_val)
                 batch_val_error.append(val_loss)
             val_error.append(sum(batch_val_error) / len(batch_val_error))
 
@@ -140,16 +139,24 @@ class LstmModel(IModel, ABC):
         # Returns the loss
         return loss.item()
 
-    def _validation_step(self, x, y):
-        val_losses = []
+    def _test_step(self, x, y) -> float:
+        error = None
         with torch.no_grad():
             self.model.eval()
-
             yhat = self.model(x)
-            val_loss = self.criterion(y, yhat)
-            val_losses.append(val_loss.item())
+            loss = self.criterion(y, yhat)
+            error = loss.item()
+        return error
 
-        return val_losses
+    def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
+        batch_test_error = []
+        for x_test, y_test in self.test_loader:
+            x_test = x_test.to(self.device)
+            y_test = y_test.to(self.device)
+            test_loss = self._test_step(x_test, y_test)
+            batch_test_error.append(test_loss)
+        error = sum(batch_test_error) / len(batch_test_error)
+        return {"Error", error}
 
     def get_name(self) -> str:
         return self.name
@@ -163,9 +170,6 @@ class LstmModel(IModel, ABC):
             training_size=training_size,
             batch_size=self.batch_size,
         )
-
-    def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
-        raise NotImplementedError()
 
     def method_evaluation(
         self,

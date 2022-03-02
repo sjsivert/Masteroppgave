@@ -71,13 +71,15 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Trains the model.
         """
-        pass
+        for model in self.models:
+            model.train()
 
     def test(self) -> Dict:
         """
         Tests the model.
         """
-        pass
+        for model in self.models:
+            model.test()
 
     def auto_tuning(self) -> None:
         """
@@ -103,28 +105,31 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Return the modes contained in the structure
         """
-        pass
+        return self.models
 
     def get_metrics(self) -> Dict:
         """
         Returns dict of metrics
         """
-        pass
+        raise NotImplementedError()
 
     def get_figures(self) -> List[Figure]:
         """
         Returns list of figures
         """
-        pass
+        figures = []
+        for model in self.models:
+            figures.extend(model.get_figures())
+        return figures
 
     def get_tuning_parameters(self) -> Dict:
         """
         Returns a dict with info regarding the automatic tuning of the models
         """
-        pass
+        raise NotImplementedError()
 
     def get_predictions(self) -> Optional[DataFrame]:
         """
         Returns the predicted values if test() has been called.
         """
-        pass
+        raise NotImplementedError()
