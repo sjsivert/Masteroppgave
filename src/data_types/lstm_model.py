@@ -11,7 +11,7 @@ from numpy import float64, ndarray
 from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
-from src.pipelines.local_univariate_lstm_pipeline import local_univariate_lstm_pipeline
+from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
@@ -23,53 +23,58 @@ class LstmModel(IModel, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        name: str,
+        time_series_id: str,
         input_window_size: int = 1,
+        output_window_size: int = 1,
         number_of_features: int = 1,
-        hidden_window_size: int = 20,
-        output_size: int = 1,
-        num_layers: int = 1,
+        number_of_layers: int = 1,
+        hidden_layer_size: int = 20,
         learning_rate: float = 0.001,
+        batch_size: int = 64,
         batch_first: bool = True,
+        training_size: float = 0.8,
         dropout: float = 0.2,
         bidirectional: bool = False,
-        optimizer_name: str = "adam",
+        optimizer_name: str = "Adam",
     ):
+
         # Init global variables
         self.log_sources: List[ILogTrainingSource] = log_sources
-        self.name: str = name
-        self.figures: List[Figure] = []
+        self.name = time_series_id
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.batch_size = batch_size
+        self.training_size = training_size
+        self.input_window_size = input_window_size
+        self.output_window_size = output_window_size
 
-        # Model Parameters
-        self.output_size = output_size  # shape of output
-        self.num_layers = num_layers  # number of layers
-        self.number_of_features = number_of_features  # number of features in each sample
-        self.hidden_size = hidden_window_size  # hidden state
-        self.learning_rate = learning_rate  # learning rate
-        self.dropout = nn.Dropout(p=dropout)
+        self.training_data = None
+        self.validation_data = None
+        self.min_max_scaler = None
 
         # Creating LSTM module
         self.model = LstmModule(
             input_window_size=input_window_size,
             number_of_features=number_of_features,
-            hidden_window_size=hidden_window_size,
-            output_size=output_size,
-            num_layers=num_layers,
+            hidden_layer_size=hidden_layer_size,
+            output_size=output_window_size,
+            num_layers=number_of_layers,
             learning_rate=learning_rate,
             batch_first=batch_first,
             dropout=dropout,
             bidirectional=bidirectional,
             optimizer_name=optimizer_name,
+            device=self.device,
         )
 
         self.criterion = nn.MSELoss()
         self.optimizer = getattr(torch.optim, optimizer_name)(
             self.model.parameters(), lr=learning_rate
-        ).to(self.device)
-        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
         )
-        if torch.cuda.is_available():
+        # TODO: Make using scheduler vs learning rate an option
+        #self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+            #self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
+        #)
+        if self.device == "cuda":
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
             self.criterion.cuda()
 
@@ -81,7 +86,7 @@ class LstmModel(IModel, ABC):
 
     def process_data(
         self, data_set: DataFrame, training_size: float
-    ) -> Tuple[DataFrame, DataFrame]:
+    ) -> None:
         self.train_loader = None
         self.val_loader = None
         self.test_loader = None
@@ -161,15 +166,20 @@ class LstmModel(IModel, ABC):
     def get_name(self) -> str:
         return self.name
 
-    def process_data(
-        self, data_set: DataFrame, training_size: float
-    ) -> Tuple[DataFrame, DataFrame]:
-        self.data_pipeline = local_univariate_lstm_pipeline(
+    def process_data(self, data_set: DataFrame, training_size: float) -> None:
+        data_pipeline = lstm_pipeline.local_univariate_lstm_pipeline(
             data_set=data_set,
             cat_id=self.get_name(),
-            training_size=training_size,
+            training_size=self.training_size,
             batch_size=self.batch_size,
+            input_window_size=self.input_window_size,
+            output_window_size=self.output_window_size,
         )
+
+        for log_source in self.log_sources:
+            log_source.log_pipeline_steps(data_pipeline.__repr__())
+
+        self.training_data, self.validation_data, self.min_max_scaler = data_pipeline.run()
 
     def method_evaluation(
         self,
