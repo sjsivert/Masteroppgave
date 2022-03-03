@@ -70,6 +70,6 @@ class LstmModule(nn.Module):
 
         # Choose the hidden state from the last layer
         last_hidden_state_layer = h_out[-1]
-        out = self.fully_conencted_layer(last_hidden_state_layer)
+        out = self.fully_connected_layer(last_hidden_state_layer)
         out = self.dropout(out)
         return out

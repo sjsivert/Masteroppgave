@@ -1,5 +1,5 @@
 data:
-  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 
@@ -12,7 +12,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+      #- 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -62,55 +62,12 @@ model:
       optimizer_name: 'SGD'
 
     model_structure:
-      - time_series_id: 12532
+      - time_series_id: 11573
         learning_rate: 0.001
         hidden_layer_size: 64
         dropout: 0.2
         number_of_features: 1
         number_of_layers: 1
-
-        # 1
-      - time_series_id: 11694
-        # 2
-      - time_series_id: 11716
-        # 3
-      - time_series_id: 11950
-        # 4
-      - time_series_id: 11195
-        # 5
-      - time_series_id: 11998
-        # 6
-      - time_series_id: 274
-        # 7
-      - time_series_id: 11407
-        # 8
-
-      - time_series_id: 46
-        # 9
-
-      - time_series_id: 11326
-        # 10
-
-      - time_series_id: 11335
-        # 11
-
-      - time_series_id: 12197
-        # 12
-      - time_series_id: 11693
-        # 13
-      - time_series_id: 11780
-        # 14
-      - time_series_id: 12502
-        # 15
-      - time_series_id: 11866
-        # 16
-      - time_series_id: 11400
-        # 17
-      - time_series_id: 12256
-        # 18
-      - time_series_id: 10320
-        # 19
-      - time_series_id: 10030
 
   local_univariate_arima:
     training_size: 0.8
