@@ -45,17 +45,6 @@ with description("main Local Univariate LSTM integration test", "integration") a
         self.mocked_pipeline = mock(Pipeline)
         self.mocked_pipeline.steps = []
 
-
-    with after.each:
-        unstub()
-
-    with after.all:
-        shutil.rmtree(self.model_save_location)
-        shutil.rmtree(self.checkpoints_location)
-
-
-    with it("runs with --experiment --save"):
-        exp_name = "save_test"
         test_pipeline = Pipeline(
             steps=[("load random generated test data", random_data_loader, {})]
         )
@@ -71,7 +60,7 @@ with description("main Local Univariate LSTM integration test", "integration") a
                 ("split into validationa nd training data", market_processing.split_into_training_and_validation_set,
                  {"training_size": 0.8},),
                 ("convert to timeseries dataset", market_processing.convert_to_time_series_dataset,
-                    {"input_window_size": 1, "output_window_size": 1}),
+                 {"input_window_size": 1, "output_window_size": 1}),
                 ("convert to data loader", market_processing.convert_to_pytorch_dataloader, {"batch_size": 1}),
             ]
         )
@@ -88,9 +77,45 @@ with description("main Local Univariate LSTM integration test", "integration") a
         ).thenReturn(self.mocked_pipeline)
         when(self.mocked_pipeline).run().thenReturn((train_set, val_set, test_set, mock(MinMaxScaler)))
 
+
+    with after.each:
+        unstub()
+
+    with after.all:
+        shutil.rmtree(self.model_save_location)
+        shutil.rmtree(self.checkpoints_location)
+
+
+    with it("runs with --experiment --save"):
+        exp_name = "save_test"
+
         # Act
         result = self.runner.invoke(
             main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
+        )
+
+        # Assert
+        # TODO: Uncomment tests when features are implemented
+        expect(result.exit_code).to(be(0))
+        # Assert the correct number of files are created after a saved experiment
+        expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
+        #expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(3))
+        expect(os.path.isdir(self.checkpoints_location)).to(be_true)
+        expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
+        expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
+        if os.path.isfile(f"{self.model_save_location}/{exp_name}/log_file.log"):
+            #expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(9))
+            pass
+        else:
+            pass
+            #expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
+
+    with it("runs with --experiment --tuning"):
+        exp_name = "save_tune"
+
+        # Act
+        result = self.runner.invoke(
+            main.main, ["--experiment", exp_name, "description", "--tune"], catch_exceptions=False
         )
 
         # Assert
