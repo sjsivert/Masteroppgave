@@ -114,6 +114,7 @@ class Experiment:
         logging.info(f"Running complete experiment with saving set to {save}")
 
         self._choose_model_structure(model_options=model_options)
+        self.model_structure.init_models()
 
         self._load_and_process_data(data_pipeline=data_pipeline)
 
@@ -135,9 +136,9 @@ class Experiment:
                 self.model_structure = LocalUnivariateLstmStructure(
                     self.save_sources, **model_options["local_univariate_lstm"]
                 )
-            self.model_structure.init_models()
 
             logging.info(f"Choosing model structure: {self.model_structure}")
+            self.model_structure.init_models()
             return self.model_structure
 
         except Exception as e:
