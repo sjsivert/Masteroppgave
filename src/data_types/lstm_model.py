@@ -200,7 +200,6 @@ class LstmModel(IModel, ABC):
             self.testing_data_loader,
             self.min_max_scaler,
         ) = data_pipeline.run()
-        print(f"training_data loader: {self.training_data_loader}")
 
     def method_evaluation(
         self,

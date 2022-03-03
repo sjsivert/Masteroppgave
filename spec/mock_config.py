@@ -46,12 +46,14 @@ def init_mock_config(
                     },
                     "hyperparameter_tuning_range": {
                         "number_of_tuning_trials": 10,
-                        "hidden_size": (10, 200),
-                        "num_layers": (1, 5),
-                        "dropout": (0.0, 0.5),
+                        "hidden_size": [10, 200],
+                        "number_of_layers": [1, 5],
+                        "dropout": [0.0, 0.5],
                         "optimizer_name": ["Adam", "SGD", "RMSprop"],
-                        "learning_rate": (1e-5, 1e-1),
-                        "number_of_epochs": (10, 200),
+                        "learning_rate": [1e-5, 1e-1],
+                        "number_of_epochs": [10, 200],
+                        "output_window_size": 1,
+                        "number_of_features": 1,
                     },
                     "model_structure": [
                         {
