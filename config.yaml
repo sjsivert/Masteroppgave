@@ -45,14 +45,15 @@ model:
   local_univariate_lstm:
     hyperparameter_tuning_range:
       number_of_tuning_trials: 10
-      hidden_size: (10, 200)
-      num_layers: (1, 5)
-      dropout: (0.0, 0.5)
+      hidden_size: [ 10, 200 ]
+      number_of_layers: [ 1, 5 ]
+      dropout: [ 0.0, 0.5 ]
       optimizer_name: ['Adam', 'SGD', 'RMSprop']
-      learning_rate: (1e-5, 1e-1)
-      number_of_epochs: (10, 200)
-      batch_size: (1, 100)
-      output_size: 1 # must be equal output_window_size
+      learning_rate: [ 1e-5, 1e-1 ]
+      number_of_epochs: [ 10, 200 ]
+      batch_size: [ 1, 100 ]
+      output_window_size: 1 # must be equal output_window_size
+      number_of_features: 1 # must be equal to number of features in data
 
     common_parameters_for_all_models:
       training_size: 0.8

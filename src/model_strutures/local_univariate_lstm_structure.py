@@ -1,4 +1,5 @@
 import logging
+import typing
 from abc import ABC
 from typing import List, Optional, Dict, OrderedDict, Tuple, Any
 
@@ -23,9 +24,10 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         # steps_to_predict: int = 5,
         # multi_step_forecast: bool = False,
-        # metric_to_use_when_tuning: str = "SMAPE",
+        metric_to_use_when_tuning: str = "MASE",
     ):
         super().__init__()
+        self.metric_to_use_when_tuning = metric_to_use_when_tuning
         self.log_sources = log_sources
         self.common_parameters_for_all_models = common_parameters_for_all_models
         self.data_pipeline: Pipeline
@@ -81,21 +83,16 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Automatic tuning of the model
         """
-        study = optuna.create_study(
-            direction="minimize",
-            sampler=optuna.samplers.TPESampler(),
-            pruner=optuna.pruners.MedianPruner(),
-        )
-        parameter_space = self.hyperparameter_tuning_range
-        # TODO Make number of trials configuable
-        study.optimize(
-            lambda trial: local_univariate_lstm_objective(
-                trial,
-                parameter_space,
-            ),
-            n_trials=15,
-        )
-        pass
+        for base_model in self.models:
+            # Specify the class to compiler
+            base_model = typing.cast(LstmModel, base_model)
+
+            logging.info(f"Tuning model: {base_model.get_name()}")
+
+            error_parameter_sets = base_model.method_evaluation(
+                parameters=self.hyperparameter_tuning_range,
+                metric=self.metric_to_use_when_tuning,
+            )
 
     def get_models(self) -> List[IModel]:
         """
