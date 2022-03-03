@@ -6,6 +6,7 @@ def init_logging(log_level: str = "INFO", log_file: str = "") -> None:
         level=logging.getLevelName(log_level),
         format="[%(asctime)s] %(levelname)s {%(module)s} [%(funcName)s] %(message)s",
         datefmt="%Y-%m-%d,%H:%M:%S",
+        filemode="w",
     )
     if log_file != None and log_file != "":
         logger = logging.getLogger()
