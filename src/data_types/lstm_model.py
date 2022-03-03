@@ -39,6 +39,7 @@ class LstmModel(IModel, ABC):
     ):
 
         # Init global variables
+        self.figures: List[Figure] = []
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name = time_series_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -148,7 +149,7 @@ class LstmModel(IModel, ABC):
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
         batch_test_error = []
-        for x_test, y_test in self.test_loader:
+        for x_test, y_test in self.testing_data_loader:
             x_test = x_test.to(self.device)
             y_test = y_test.to(self.device)
             test_loss = self._test_step(x_test, y_test)
@@ -207,7 +208,8 @@ class LstmModel(IModel, ABC):
         Save the model to the specified path.
         :returns: Path to saved model file
         """
-        raise NotImplementedError()
+        # TODO: Imlpement
+        return ""
 
     def load(self, path: str) -> IModel:
         """

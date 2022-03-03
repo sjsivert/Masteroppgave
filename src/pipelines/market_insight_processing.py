@@ -1,8 +1,10 @@
 # fmt: off
 from typing import Iterable, List, Tuple, Optional
 
+import numpy as np
 import pandas as pd
 from genpipes import declare
+from numpy import ndarray
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from torch.utils.data import Dataset, DataLoader
@@ -129,11 +131,15 @@ def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma
     for df in stream:
         yield df.groupby(pd.Grouper(key="date", freq="D")).sum()
 
+@declare.processor()
+def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
+    for df in stream:
+        yield np.array(df)
 
 @declare.processor()
 def scale_data(
-    stream: Iterable[DataFrame], should_scale: bool = False
-) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
+    stream: Iterable[ndarray], should_scale: bool = False
+) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
         if should_scale:
             scaler = MinMaxScaler(feature_range=(-1, 1))
@@ -197,7 +203,7 @@ def convert_to_time_series_dataset(
 def convert_to_pytorch_dataloader(
     stream: Iterable[Tuple[Dataset, Dataset, Dataset, Optional[StandardScaler]]], batch_size: int
 ) -> Iterable[Tuple[DataLoader, DataLoader, Optional[MinMaxScaler]]]:  # pragma: no cover
-    for (training_data, validation_data, scaler) in stream:
+    for (training_data, validation_data, testing_data, scaler) in stream:
         training_dataloader = DataLoader(
             dataset=training_data, batch_size=batch_size, shuffle=False
         )
@@ -205,6 +211,6 @@ def convert_to_pytorch_dataloader(
             dataset=validation_data, batch_size=batch_size, shuffle=False
         )
         testing_dataloader = DataLoader(
-            dataset=validation_data, batch_size=batch_size, shuffle=False
+            dataset=testing_data, batch_size=batch_size, shuffle=False
         )
         yield training_dataloader, validation_dataloader, testing_dataloader, scaler

@@ -3,6 +3,7 @@ from mamba import description, before, after, shared_context, it, included_conte
 from mockito import unstub, mock, when
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
+from torch.utils.data import DataLoader
 
 from src.pipelines import market_insight_processing as p, local_univariate_lstm_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
@@ -54,7 +55,7 @@ with description(LocalUnivariateLstmStructure, "integration") as self:
                 ]
             )
             when(Pipeline, strict=False).run().thenReturn(
-                (mock(DataFrame), mock(DataFrame), mock(MinMaxScaler))
+                (mock(DataLoader), mock(DataLoader), mock(DataLoader), mock(MinMaxScaler))
             )
 
             model_structure.init_models()

@@ -107,7 +107,8 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Returns dict of metrics
         """
-        raise NotImplementedError()
+        # TODO: Implement
+        return {}
 
     def get_figures(self) -> List[Figure]:
         """
@@ -122,10 +123,12 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Returns a dict with info regarding the automatic tuning of the models
         """
-        raise NotImplementedError()
+        # TODO: Implement
+        return {}
 
     def get_predictions(self) -> Optional[DataFrame]:
         """
         Returns the predicted values if test() has been called.
         """
-        raise NotImplementedError()
+        # TODO: Implement
+        return None
