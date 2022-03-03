@@ -86,19 +86,10 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
         average = {}
         with open(f"{self.save_location}/metrics.txt", "w") as f:
-            for test_name, test_value in metrics.items():
-                f.writelines("\n_____Results dataset-{}_____\n".format(test_name))
-                for metric_name in test_value.keys():
-                    if metric_name not in average:
-                        average[metric_name] = []
-                    average[metric_name].append(test_value[metric_name])
-                    f.writelines("{}: {}\n".format(metric_name, round(test_value[metric_name], 3)))
-
-            f.writelines("\n___Average___\n")
-            for metric_name, metric_value in average.items():
-                f.writelines(
-                    "{}: {}\n".format(metric_name, round(sum(metric_value) / len(metric_value), 3))
-                )
+            for model_name, model_metrics in metrics.items():
+                f.writelines("\n_____Results dataset-{}_____\n".format(model_name))
+                for metric_name in model_metrics.keys():
+                    f.writelines(f"{metric_name}: {round(model_metrics[metric_name], 5)}\n")
 
     def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:
         with open(f"{self.save_location}/data_processing_steps.txt", "w") as f:
