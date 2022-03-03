@@ -115,13 +115,6 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
             pass
 
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]] = {}) -> None:
-        average = {}
-        for _, val in metrics.items():
-            for error_name, error_value in val.items():
-                if error_name not in average:
-                    average[error_name] = []
-                average[error_name].append(error_value)
-        metrics["average"] = {i: sum(j) / len(j) for i, j in average.items()}
         self.run["metrics"] = metrics
 
     def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:

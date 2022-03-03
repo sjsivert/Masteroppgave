@@ -33,10 +33,12 @@ with description(LocalUnivariateLstmStructure, "unit") as self:
         log_source.log_pipeline_steps = mock()
         # Mock Lstm Model and methods
         mock_model = Mock(LstmModel)
+        when(mock_model).get_name().thenReturn("1")
         when(mock_model).train().thenReturn({})
         when(mock_model).test().thenReturn({})
         fig_list = [plt.figure(num="Test1"), plt.figure(num="Test2")]
         when(mock_model).get_figures().thenReturn(fig_list)
+        when(mock_model).get_metrics().thenReturn({})
 
     with it("can be initialised with options"):
         with included_context("mocks"):
@@ -104,3 +106,13 @@ with description(LocalUnivariateLstmStructure, "unit") as self:
             fetched_fig_list = model_structure.get_figures()
             expect(fetched_fig_list).to(equal(fig_list))
             verify(mock_model, times=1).get_figures()
+
+    with it("can log metrics"):
+        with included_context("mocks"):
+            model_structure = LocalUnivariateLstmStructure(
+                log_sources=[log_source], **self.options["local_univariate_lstm"]
+            )
+            model_structure.models = [mock_model]
+            fetched_metrics = model_structure.get_metrics()
+            expect(mock_model.get_name() in fetched_metrics.keys()).to(be_true)
+            verify(mock_model, times=1).get_metrics()

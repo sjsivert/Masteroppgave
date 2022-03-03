@@ -40,6 +40,7 @@ class LstmModel(IModel, ABC):
 
         # Init global variables
         self.figures: List[Figure] = []
+        self.metrics: Dict = {}
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name = time_series_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -119,11 +120,16 @@ class LstmModel(IModel, ABC):
                     print("Pruning trial!")
                     raise optuna.exceptions.TrialPruned()
             """
-            if epoch % 50 == 0:
-                logging.info(f"Epoch: {epoch}, loss: {loss}. Validation losses: {val_loss}")
-        # return losses, val_losses
+            if (epoch + 1) % 50 == 0:
+                logging.info(f"Epoch: {epoch+1}, loss: {loss}. Validation losses: {val_loss}")
+        # TODO: Log historic data to continue training
+        # self.metrics["training"] = train_error
+        # self.metrics["validation"] = val_error
+
+        self.metrics["training_error"] = train_error[-1]
+        self.metrics["validation_error"] = val_error[-1]
         self._visualize_training_errors(training_error=train_error, validation_error=val_error)
-        return {}  # TODO: Return dict with error metrics / loss
+        return self.metrics
 
     # Builds function that performs a step in the train loop
     def _train_step(self, x, y) -> float:
@@ -155,7 +161,9 @@ class LstmModel(IModel, ABC):
             test_loss = self._test_step(x_test, y_test)
             batch_test_error.append(test_loss)
         error = sum(batch_test_error) / len(batch_test_error)
-        return {"Error", error}
+        logging.info(f"Testing error: {error}.")
+        self.metrics["Testing_error"] = error
+        return {"Testing_error", error}
 
     def get_name(self) -> str:
         return self.name
@@ -201,21 +209,26 @@ class LstmModel(IModel, ABC):
         """
         Fetch metrics from model training or testing
         """
-        raise NotImplementedError()
+        return self.metrics
 
     def save(self, path: str) -> str:
         """
         Save the model to the specified path.
         :returns: Path to saved model file
         """
-        # TODO: Imlpement
-        return ""
+        save_path = f"{path}LSTM_{self.get_name()}.pt"
+        torch.save(self.model.state_dict(), save_path)
+        return save_path
 
     def load(self, path: str) -> IModel:
         """
         Load the model from the specified path.
+        The correct model should already be created as self.model.
+        The load function only sets the pretrained verctor values from the saved model.
         """
-        raise NotImplementedError()
+        load_path = f"{path}LSTM_{self.get_name()}.pt"
+        self.model.load_state_dict(torch.load(load_path))
+        return self
 
     def get_predictions(self) -> Optional[Dict]:
         """

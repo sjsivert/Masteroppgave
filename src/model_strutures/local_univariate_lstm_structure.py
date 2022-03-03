@@ -107,8 +107,10 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Returns dict of metrics
         """
-        # TODO: Implement
-        return {}
+        metrics = {}
+        for model in self.models:
+            metrics[f"{model.get_name()}"] = model.get_metrics()
+        return metrics
 
     def get_figures(self) -> List[Figure]:
         """
