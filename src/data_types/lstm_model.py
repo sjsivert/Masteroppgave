@@ -16,6 +16,7 @@ from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
+from src.utils.pytorch_error_calculations import *
 
 from src.utils.visuals import visualize_data_series
 
@@ -85,7 +86,8 @@ class LstmModel(IModel, ABC):
             device=self.device,
         )
 
-        self.criterion = nn.MSELoss()
+        # TODO! Error metric selection
+        self.criterion = calculate_error
         self.optimizer = getattr(torch.optim, self.optimizer_name)(
             self.model.parameters(), lr=self.learning_rate
         )
@@ -122,7 +124,7 @@ class LstmModel(IModel, ABC):
             for x_val, y_val in self.validation_data_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
-                val_loss = self._test_step(x_val, y_val)
+                val_loss = self._validation_step(x_val, y_val)
                 batch_val_error.append(val_loss)
             val_error.append(sum(batch_val_error) / len(batch_val_error))
 
@@ -157,7 +159,7 @@ class LstmModel(IModel, ABC):
         # Returns the loss
         return loss.item()
 
-    def _test_step(self, x, y) -> float:
+    def _validation_step(self, x, y) -> float:
         error = None
         with torch.no_grad():
             self.model.eval()
@@ -166,6 +168,13 @@ class LstmModel(IModel, ABC):
             error = loss.item()
         return error
 
+    def _test_step(self, x, y) -> float:
+        with torch.no_grad():
+            self.model.eval()
+            yhat = self.model(x)
+            loss = calculate_errors(y, yhat)
+        return loss
+
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
         batch_test_error = []
         for x_test, y_test in self.testing_data_loader:
@@ -173,10 +182,15 @@ class LstmModel(IModel, ABC):
             y_test = y_test.to(self.device)
             test_loss = self._test_step(x_test, y_test)
             batch_test_error.append(test_loss)
-        error = sum(batch_test_error) / len(batch_test_error)
-        logging.info(f"Testing error: {error}.")
-        self.metrics["Testing_error"] = error
-        return {"Testing_error", error}
+        print(batch_test_error)
+        # TODO! Convert to lambda function
+        batch_test_error_dict = {}
+        for key in list(batch_test_error[0].keys()):
+            values = [x[key].item() for x in batch_test_error]
+            batch_test_error_dict[key] = sum(values) / len(values)
+        logging.info(f"Testing error: {batch_test_error_dict}.")
+        self.metrics["Testing_error"] = batch_test_error_dict
+        return batch_test_error_dict
 
     def get_name(self) -> str:
         return self.name
