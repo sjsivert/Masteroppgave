@@ -36,7 +36,7 @@ class Experiment:
         save_source_options={},
         experiment_tags: Optional[List[str]] = [],
     ) -> None:
-        self.model_structure = None
+        self.model_structure: IModelStructure = None
         self.title = title
         self.description = description
         self.experiment_description = description

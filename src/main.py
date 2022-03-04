@@ -41,7 +41,6 @@ def main(
     load: str,
     neptune_id: str,
 ) -> int:
-
     log_level = config["logger"]["log_level"].get()
     log_file = config["logger"]["log_file"].get()
     logger.init_logging(log_level, log_file)
@@ -89,9 +88,13 @@ def main(
             experiment_checkpoints_location=experiment_checkpoints_location,
         )
         if tune:
-            experiment.continue_tuning(save=save, options_to_save=(config.dump() if save else None))
+            experiment.continue_tuning(
+                save=save,
+                options_to_save=(config.dump() if save else None),
+                data_pipeline=pipeline.market_insight_pipeline(),
+            )
         else:
-            experiment.continue_experiment()
+            experiment.continue_experiment(data_pipeline=pipeline.market_insight_pipeline())
     elif load:
         load_path = Path(load)
         logging.info(f"Loading experiment from {load_path}")
@@ -99,7 +102,7 @@ def main(
             # TODO: Rename parameter name
             experiment_checkpoints_location=load_path,
         )
-        experiment.continue_experiment()
+        experiment.continue_experiment(data_pipeline=pipeline.market_insight_pipeline())
 
     logging.info("Finished")
     return 0

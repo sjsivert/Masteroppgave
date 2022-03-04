@@ -37,7 +37,7 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_lstm'
+  model_type: 'local_univariate_arima'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -76,149 +76,22 @@ model:
     multi_step_forecast: false # alternative is recursive single step
     # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
-      p: [1, 8]
-      d: [1, 10]
-      q: [1, 16]
+      p: [1, 2]
+      d: [1, 2]
+      q: [1, 2]
 
     metric_to_use_when_tuning: 'MASE'
 
     model_structure:
-      - time_series_id: 2
+      - time_series_id: 11573
         # 1
         hyperparameters:
           p: 7
           d: 2
           q: 7
-
-      - time_series_id: 6
-        # 2
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 7
-
-      - time_series_id: 9
-        # 3
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 16
-
-      - time_series_id: 10
-        # 4
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 1
-
-      - time_series_id: 11
-        # 5
+      - time_series_id: 11037
+        # 1
         hyperparameters:
           p: 7
-          d: 1
-          q: 6
-
-      - time_series_id: 13
-        # 6
-        hyperparameters:
-          p: 6
-          d: 1
-          q: 1
-
-      - time_series_id: 20
-        # 7
-        hyperparameters:
-          p: 2
           d: 2
-          q: 6
-
-      - time_series_id: 22
-        # 8
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 5
-
-      - time_series_id: 24
-        # 9
-        hyperparameters:
-          p: 3
-          d: 2
-          q: 4
-
-      - time_series_id: 26
-        # 10
-        hyperparameters:
-          p: 4
-          d: 1
-          q: 1
-
-      - time_series_id: 27
-        # 11
-        hyperparameters:
-          p: 8
-          d: 1
           q: 7
-
-      - time_series_id: 28
-        # 12
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 14
-
-      - time_series_id: 29
-        # 13
-        hyperparameters:
-          p: 3
-          d: 1
-          q: 2
-
-      - time_series_id: 32
-        # 14
-        hyperparameters:
-          p: 1
-          d: 2
-          q: 1
-
-      - time_series_id: 33
-        # 15
-        hyperparameters:
-          p: 8
-          d: 1
-          q: 6
-
-      - time_series_id: 34
-        # 16
-        hyperparameters:
-          p: 6
-          d: 2
-          q: 15
-
-      - time_series_id: 39
-        # 17
-        hyperparameters:
-          p: 1
-          d: 2
-          q: 3
-
-      - time_series_id: 41
-        # 18
-        hyperparameters:
-          p: 7
-          d: 1
-          q: 5
-
-      - time_series_id: 51
-        # 19
-        hyperparameters:
-          p: 4
-          d: 1
-          q: 12
-
-      - time_series_id: 54
-        hyperparameters:
-          # 20
-          p: 6
-          d: 1
-          q: 9
