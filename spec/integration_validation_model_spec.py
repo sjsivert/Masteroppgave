@@ -1,3 +1,4 @@
+# fmt: off
 import os
 import shutil
 
@@ -7,7 +8,7 @@ from confuse import Configuration
 from expects import be_true, equal, expect
 from expects.matchers.built_in import be
 from genpipes.compose import Pipeline
-from mamba import _it, after, before, description, it
+from mamba import _it, after, before, description, it, shared_context, included_context
 from mockito import ANY, mock, when
 from mockito.mockito import unstub
 from src import main
@@ -111,6 +112,23 @@ with description("main integration test", "integration") as self:
         # and not the changed config
         expect(saved_config.dump()).to_not(equal(config.dump()))
 
+    with shared_context("test_data_pipeline"):
+
+        test_pipeline = Pipeline(
+            steps=[("load random generated test data", random_data_loader, {})]
+        )
+
+        test_local_univariate_pipeline = Pipeline(
+            steps=test_pipeline.steps + [
+                ("split into test and training data", market_processing.split_into_training_and_test_set,
+                 {"training_size": 0.8},),
+            ]
+        )
+        when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
+        when(arima_pipeline).local_univariate_arima_pipeline(test_pipeline, training_size=0.8).thenReturn(
+            test_local_univariate_pipeline
+        )
+
     with it("can load a previously saved experiment"):
         exp_name = "test-load-experiment"
         self.runner.invoke(
@@ -130,6 +148,7 @@ with description("main integration test", "integration") as self:
             "rng_seed": 42,
             "local_univariate_arima": {
                 "training_size": 0.8,
+                "metric_to_use_when_tuning": "MASE",
                 "model_structure": [
                     {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
                 ],
@@ -138,35 +157,48 @@ with description("main integration test", "integration") as self:
         exp_name = "test-local-univariate-arima"
         config["model"].set(model_options)
 
-        # fmt: off
-        test_pipeline = Pipeline(
-            steps=[("load random generated test data", random_data_loader, {})]
-        )
-        # fmt: off
-        test_local_univariate_pipeline = Pipeline(
-            steps=test_pipeline.steps + [
-                ("split into test and training data", market_processing.split_into_training_and_test_set,
-                 {"training_size": 0.8},),
-            ]
-        )
-        when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
-        when(arima_pipeline).local_univariate_arima_pipeline(test_pipeline, training_size=0.8).thenReturn(
-            test_local_univariate_pipeline
-        )
+        with included_context("test_data_pipeline"):
 
-        # Act
-        self.runner.invoke(
-            main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
-        )
-        # Assert
-        expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
-        expect(os.path.isdir(f"{self.model_save_location}/{exp_name}/logging")).to(be_true)
-        expect(os.path.isfile(f"{self.model_save_location}/{exp_name}/predictions.csv")).to(be_true)
-        expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(4))
-        expect(os.path.isdir(self.checkpoints_location)).to(be_true)
-        expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
-        expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
-        if os.path.isfile(f"{self.model_save_location}/{exp_name}/log_file.log"):
-            expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(11))
-        else:
-            expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(10))
+            # Act
+            self.runner.invoke(
+                main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
+            )
+            # Assert
+            expect(os.path.isdir(f"{self.model_save_location}/{exp_name}")).to(be_true)
+            expect(os.path.isdir(f"{self.model_save_location}/{exp_name}/logging")).to(be_true)
+            expect(os.path.isfile(f"{self.model_save_location}/{exp_name}/predictions.csv")).to(be_true)
+            expect(len(os.listdir(f"{self.model_save_location}/{exp_name}/figures"))).to(equal(4))
+            expect(os.path.isdir(self.checkpoints_location)).to(be_true)
+            expect(os.path.isfile(f"{self.checkpoints_location}/options.yaml")).to(be_true)
+            expect(os.path.isfile(f"{self.checkpoints_location}/title-description.txt")).to(be_true)
+            if os.path.isfile(f"{self.model_save_location}/{exp_name}/log_file.log"):
+                expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(11))
+            else:
+                expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(10))
+
+    with it("can continue tuning an experiment with local_univariate_arima"):
+        model_options = {
+            "model_type": "local_univariate_arima",
+            "rng_seed": 42,
+            "local_univariate_arima": {
+                "training_size": 0.8,
+                "metric_to_use_when_tuning": "MASE",
+                "hyperparameter_tuning_range": {
+                    "p": [1,2],
+                    "d": [1,1],
+                    "q": [1,2],
+                },
+                "model_structure": [
+                    {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
+                ],
+            },
+        }
+        exp_name = "test-local-univariate-arima"
+        config["model"].set(model_options)
+        exp_name = "test-local-univariate-arima-continue-tuning"
+
+        with included_context("test_data_pipeline"):
+            self.runner.invoke(main.main, ["--experiment", exp_name, "description", "--save", "--tune"], catch_exceptions=False)
+
+            expect(os.path.isdir(f"{self.model_save_location}/{exp_name}/logging/")).to(be_true)
+            expect(os.path.isfile(f"{self.model_save_location}/{exp_name}/logging/tuning_metrics.csv")).to(be_true)

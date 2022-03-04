@@ -23,10 +23,10 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         log_sources: List[ILogTrainingSource],
         training_size: float,
         model_structure: List,
+        metric_to_use_when_tuning: str,
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         steps_to_predict: int = 5,
         multi_step_forecast: bool = False,
-        metric_to_use_when_tuning: str = "SMAPE",
     ) -> None:
         self.models: List[IModel] = []
         self.log_sources = log_sources
@@ -131,7 +131,6 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                 )
             else:
                 self.tuning_parameter_error_sets[base_model.get_name()] = error_parameter_sets
-            print("save sources", self.log_sources)
             for log_source in self.log_sources:
                 log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
 
