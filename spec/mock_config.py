@@ -14,7 +14,7 @@ def init_mock_config(
             },
             "experiment": {
                 "tags": ["tag3", "tag4"],
-                "error_metrics": ["MSE", "MAE"],
+                "error_metrics": ["MSE", "MAE", "MASE", "SMAPE"],
                 "save_sources_to_use": ["disk"],
                 "checkpoint_save_location": "./models/temp-checkpoints",
                 "log_model_every_n_epoch": 1,
@@ -29,6 +29,7 @@ def init_mock_config(
                 "model_type": model_struct_type,
                 "rng_seed": 42,
                 "local_univariate_arima": {
+                    "metric_to_use_when_tuning": "MASE",
                     "training_size": 0.8,
                     "steps_to_predict": 2,
                     "multi_step_forecast": False,
