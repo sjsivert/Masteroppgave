@@ -1,6 +1,7 @@
 import os
 
 import pytest
+import torch
 from confuse import Configuration
 from confuse.exceptions import NotFoundError
 from expects import be_true, equal, expect
@@ -9,69 +10,48 @@ from mockito import unstub, verify, when
 from pandas import DataFrame
 from spec.mock_config import init_mock_config
 from src.utils import config_parser
-from src.utils.error_calculations import *
+from src.utils.pytorch_error_calculations import *
 
-with description("error_calculations", "unit") as self:
+with description("error_calculations", "this") as self:
+    """
     with before.each:
         init_mock_config()
         config["experiment"].set({"error_metrics": ["MSE", "MAE"]})
+    """
+
+    with shared_context("mock_dataset_basic"):
+        data_set = torch.tensor([[[1], [2], [3], [4]]], dtype=torch.float64)
+        proposed_data = torch.tensor([[[1], [2], [4], [4]]], dtype=torch.float64)
 
     with shared_context("mock_dataset"):
-        data_set = DataFrame([1, 2, 3, 4])
-        proposed_data = DataFrame([1, 2, 4, 4])
+        data_set = torch.tensor([[[2], [4], [1]]], dtype=torch.float64)
+        proposed_data = torch.tensor([[[3], [2], [1]]], dtype=torch.float64)
 
     with it("can calculate MAE"):
-        with included_context("mock_dataset"):
+        with included_context("mock_dataset_basic"):
             expected_mae = 0.25
             mae = calculate_mae(data_set, proposed_data)
-            expect(mae).to(equal(expected_mae))
+            expect(mae.item()).to(equal(expected_mae))
 
     with it("can calculate MSE"):
-        with included_context("mock_dataset"):
+        with included_context("mock_dataset_basic"):
             expected_mse = 0.25
             mse = calculate_mse(data_set, proposed_data)
-            expect(mse).to(equal(expected_mse))
-
-    with it("can calculate RMSE"):
-        with included_context("mock_dataset"):
-            expected_rmse = 0.5
-            rmse = calculate_rmse(data_set, proposed_data)
-            expect(rmse).to(equal(expected_rmse))
-
-    with it("can calculate mape"):
-        with included_context("mock_dataset"):
-            expected_mape = 0.0833
-            mape = calculate_mape(data_set, proposed_data)
-            expect(round(mape, 4)).to(equal(expected_mape))
+            expect(mse.item()).to(equal(expected_mse))
 
     with it("can caluclate MASE"):
         with included_context("mock_dataset"):
-            data_set = DataFrame(
-                [
-                    2,
-                    4,
-                    1,
-                ]
-            )
-            proposed_data = DataFrame([3, 2, 1])
             expected_mase = 0.4
-            mase = calculate_mase(proposed_data, data_set)
-            expect(round(mase, 4)).to(equal(expected_mase))
+            mase = calculate_mase(data_set, proposed_data)
+            expect(round(mase.item(), 4)).to(equal(expected_mase))
 
     with it("can caluclate SMAPE"):
         with included_context("mock_dataset"):
-            data_set = DataFrame(
-                [
-                    2,
-                    4,
-                    1,
-                ]
-            )
-            proposed_data = DataFrame([3, 2, 1])
-            expected_smape = 0.349
+            expected_smape = 0.3493
             smape = calculate_smape(data_set, proposed_data)
-            expect(round(smape, 4)).to(equal(expected_smape))
+            expect(round(smape.item(), 4)).to(equal(expected_smape))
 
+    """
     with it("can caluclate OWA"):
         with included_context("mock_dataset"):
             data_set = DataFrame(
@@ -97,3 +77,4 @@ with description("error_calculations", "unit") as self:
             errors = calculate_error(data_set, proposed_data)
             expect("MAE" in errors).to(be_true)
             expect(len(errors.keys())).to(equal(1))
+    """
