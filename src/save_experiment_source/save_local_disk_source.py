@@ -129,7 +129,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def _save_tuning_metrics(self, tuning: Dict) -> None:
         if tuning is None or not tuning:
             return
-        with open(f"{self.save_location}/tuning.txt", "a") as f:
+        with open(f"{self.save_location}/tuning.txt", "w") as f:
             f.write("Parameter Tuning results")
             for model_name, param_error_set in tuning.items():
                 f.write(f"\n\n\nModel tuning: Dataset {model_name}")

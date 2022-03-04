@@ -1,6 +1,8 @@
 from click.testing import CliRunner
+from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from expects import be_true, expect
 from expects.matchers.built_in import be
+from genpipes.compose import Pipeline
 from mamba import after, before, description, it
 from mockito import mock, when, ANY
 from mockito.mockito import unstub, verify
@@ -47,16 +49,18 @@ with description("main.py", "unit") as self:
         # Arrange
         checkpoint_save_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
         mock_experiment = mock(ContinueExperiment)
+        mock_pipeline = mock(Pipeline)
         when(main).ContinueExperiment(
             experiment_checkpoints_location=checkpoint_save_location,
         ).thenReturn(mock_experiment)
-        when(mock_experiment).continue_experiment().thenReturn(None)
+        when(pipeline).market_insight_pipeline().thenReturn(mock_pipeline)
+        when(mock_experiment).continue_experiment(data_pipeline=mock_pipeline).thenReturn(None)
 
         # Act
         self.runner.invoke(main.main, ["--continue-experiment"], catch_exceptions=False)
 
         # Assert
-        verify(mock_experiment).continue_experiment()
+        verify(mock_experiment).continue_experiment(data_pipeline=mock_pipeline)
 
     with it("can pass multiple --tags and combines with config tags"):
         mock_experiment = mock(Experiment)

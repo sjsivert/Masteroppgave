@@ -19,6 +19,7 @@ from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 import multiprocessing as mp
 
+
 # from pathos.multiprocessing import ProcessingPool as Pool
 
 
@@ -230,6 +231,8 @@ class ArimaModel(IModel, ABC):
         metric: str,
         single_step: bool = True,
     ) -> Dict[str, Dict[str, float]]:
+        assert self.training_data is not None, "Training data is not loaded"
+        assert self.test_data is not None, "Test data is not loaded"
         error_param_set = {}
         # Try catch block for numpy LU decomposition error
         cores = mp.cpu_count()
@@ -286,7 +289,7 @@ class ArimaModel(IModel, ABC):
                 logging.info(
                     f"Tuning ARIMA model {order} got an error. Calculations not completed."
                 )
-                return None, None
+            return None, None
 
     def get_data_pipeline(self) -> Pipeline:
         return self.data_pipeline

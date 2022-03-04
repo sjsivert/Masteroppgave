@@ -2,6 +2,8 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from genpipes.compose import Pipeline
+
 from src.experiment import Experiment
 from src.utils.config_parser import config
 
@@ -33,7 +35,10 @@ class ContinueExperiment(Experiment):
             neptune_id = f.readline().rstrip("\n")
             return neptune_id
 
-    def continue_experiment(self) -> None:
+    def continue_experiment(
+        self,
+        data_pipeline: Pipeline,
+    ) -> None:
         logging.info(f"\nExperiment title: {self.title}\nDescription: {self.description}")
 
         self._load_saved_options()
@@ -73,6 +78,7 @@ class ContinueExperiment(Experiment):
 
     def continue_tuning(
         self,
+        data_pipeline: Pipeline,
         save: bool = True,
         options_to_save: Optional[str] = None,
     ) -> None:
@@ -87,8 +93,6 @@ class ContinueExperiment(Experiment):
             self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
             logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
 
-        self._choose_model_structure(model_options=config["model"].get())
-
         save_sources_to_use = config["experiment"]["save_sources_to_use"].get()
         save_source_options = config["experiment"]["save_source"].get()
 
@@ -99,12 +103,15 @@ class ContinueExperiment(Experiment):
             neptune_id_to_load=self.neptune_id_to_load,
         )
 
+        self._choose_model_structure(model_options=config["model"].get())
+
         """
         ___ Loading tuning info ___
         Load data of tuned models and what remains.
         """
         loaded_tuning_param_error_sets = self._load_tuning_info()
         self.model_structure.tuning_parameter_error_sets = loaded_tuning_param_error_sets
+        self.model_structure.process_data(data_pipeline=data_pipeline)
         # Continue tuning
         self.model_structure.auto_tuning()
 

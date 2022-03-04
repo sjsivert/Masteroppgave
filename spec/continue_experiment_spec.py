@@ -4,7 +4,9 @@ from pathlib import Path
 
 import pytest
 from expects import expect, match
+from genpipes.compose import Pipeline
 from mamba import it, description
+from mockito import mock
 
 from spec.mock_config import init_mock_config
 from src.continue_experiment import ContinueExperiment
@@ -33,7 +35,7 @@ with description(ContinueExperiment, "unit") as self:
         with temp_checkpoints_location(temp_location):
             # Act
             experiment = ContinueExperiment(Path(temp_location))
-            experiment.continue_experiment()
+            experiment.continue_experiment(data_pipeline=mock(Pipeline))
 
             # Assert
             expect(experiment.title).to(match("title"))
@@ -48,4 +50,4 @@ with description(ContinueExperiment, "unit") as self:
         with temp_files(temp_location):
             with pytest.raises(FileNotFoundError):
                 experiment = ContinueExperiment(Path(temp_location))
-                experiment.continue_experiment()
+                experiment.continue_experiment(data_pipeline=mock(Pipeline))
