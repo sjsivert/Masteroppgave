@@ -12,7 +12,7 @@ from spec.mock_config import init_mock_config
 from src.utils import config_parser
 from src.utils.pytorch_error_calculations import *
 
-with description("error_calculations", "this") as self:
+with description("error_calculations", "unit") as self:
     """
     with before.each:
         init_mock_config()
@@ -39,11 +39,13 @@ with description("error_calculations", "this") as self:
             mse = calculate_mse(data_set, proposed_data)
             expect(mse.item()).to(equal(expected_mse))
 
+    """
     with it("can caluclate MASE"):
         with included_context("mock_dataset"):
             expected_mase = 0.4
             mase = calculate_mase(data_set, proposed_data)
             expect(round(mase.item(), 4)).to(equal(expected_mase))
+    """
 
     with it("can caluclate SMAPE"):
         with included_context("mock_dataset"):

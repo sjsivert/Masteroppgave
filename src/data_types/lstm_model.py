@@ -182,14 +182,13 @@ class LstmModel(IModel, ABC):
             y_test = y_test.to(self.device)
             test_loss = self._test_step(x_test, y_test)
             batch_test_error.append(test_loss)
-        print(batch_test_error)
         # TODO! Convert to lambda function
         batch_test_error_dict = {}
         for key in list(batch_test_error[0].keys()):
             values = [x[key].item() for x in batch_test_error]
             batch_test_error_dict[key] = sum(values) / len(values)
         logging.info(f"Testing error: {batch_test_error_dict}.")
-        self.metrics["Testing_error"] = batch_test_error_dict
+        self.metrics.update(batch_test_error_dict)
         return batch_test_error_dict
 
     def get_name(self) -> str:
