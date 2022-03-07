@@ -37,44 +37,46 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
         )
 
 
-def calculate_error(predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+def calculate_error(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     # Select the error defined first on the error list as the training error
     error_metric_selected = config["experiment"]["error_metrics"].get()[0]
-    return choose_metric(try_convert_to_enum(error_metric_selected))(predictions, targets)
+    return choose_metric(try_convert_to_enum(error_metric_selected))(targets, predictions)
 
 
 # TODO: Error here!
-def calculate_errors(predictions: torch.Tensor, targets: torch.Tensor) -> Dict[str, torch.Tensor]:
+def calculate_errors(targets: torch.Tensor, predictions: torch.Tensor) -> Dict[str, torch.Tensor]:
     error_metrics = config["experiment"]["error_metrics"].get()
     errors = OrderedDict(
         error_metrics
         | map(lambda key: try_convert_to_enum(key))
         | where(lambda metric: metric is not None)
-        | map(lambda metric: (metric.value, choose_metric(metric)(predictions, targets)))
+        | map(lambda metric: (metric.value, choose_metric(metric)(targets, predictions)))
     )
     return errors
 
 
-def calculate_mse(predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+def calculate_mse(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     # nn.MSELoss()
     loss = torch.mean(torch.pow(targets - predictions, 2))
     return loss
 
 
-def calculate_mae(predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+def calculate_mae(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     loss = torch.mean((targets - predictions).abs())
     return loss
 
 
-def calculate_mase(predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-    # TODO!
-    loss = torch.mean(targets)
+def calculate_mase(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
+    # Calculate mae for predictions and targets, and for naive predictions
+    naive = targets.clone()
+    naive[:, 1:] = naive[:, :-1].clone()
+    loss_1 = calculate_mae(targets, predictions)
+    loss_2 = calculate_mae(targets, naive)
+    loss = loss_1 / loss_2
     return loss
 
 
-def calculate_smape(
-    predictions: torch.Tensor, targets: torch.Tensor, batch: bool = True
-) -> torch.Tensor:
+def calculate_smape(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     epsilon = 0.1
     loss = 2 * torch.mean(
         ((predictions - targets).abs()) / (predictions.abs() + targets.abs() + epsilon)
