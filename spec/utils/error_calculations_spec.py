@@ -55,7 +55,7 @@ with description("error_calculations", "unit") as self:
             )
             proposed_data = DataFrame([3, 2, 1])
             expected_mase = 0.4
-            mase = calculate_mase(proposed_data, data_set)
+            mase = calculate_mase(data_set, proposed_data)
             expect(round(mase, 4)).to(equal(expected_mase))
 
     with it("can caluclate SMAPE"):
