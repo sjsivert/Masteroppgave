@@ -18,6 +18,7 @@ from torch import nn
 from torch.autograd import Variable
 from src.utils.pytorch_error_calculations import *
 
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.visuals import visualize_data_series
 
 
@@ -26,18 +27,7 @@ class LstmModel(IModel, ABC):
         self,
         log_sources: List[ILogTrainingSource],
         time_series_id: str,
-        input_window_size: int = 1,
-        output_window_size: int = 1,
-        number_of_features: int = 1,
-        number_of_layers: int = 1,
-        hidden_layer_size: int = 20,
-        learning_rate: float = 0.001,
-        batch_size: int = 64,
-        batch_first: bool = True,
-        training_size: float = 0.8,
-        dropout: float = 0.2,
-        bidirectional: bool = False,
-        optimizer_name: str = "Adam",
+        params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
 
@@ -48,18 +38,10 @@ class LstmModel(IModel, ABC):
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name = time_series_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.batch_size = batch_size
-        self.training_size = training_size
-        self.input_window_size = input_window_size
-        self.output_window_size = output_window_size
-        self.number_of_features = number_of_features
-        self.hidden_layer_size = hidden_layer_size
-        self.number_of_layers = number_of_layers
-        self.learning_rate = learning_rate
-        self.batch_first = batch_first
-        self.dropout = dropout
-        self.bidirectional = bidirectional
-        self.optimizer_name = optimizer_name
+        self.batch_size = params["batch_size"]
+        self.training_size = params["training_size"]
+        self.input_window_size = params["input_window_size"]
+        self.output_window_size = params["output_window_size"]
 
         self.training_data_loader = None
         self.validation_data_loader = None
@@ -68,28 +50,28 @@ class LstmModel(IModel, ABC):
 
         self.optuna_trial = optuna_trial
 
-        self.init_neural_network()
+        self.init_neural_network(params)
 
-    def init_neural_network(self) -> None:
+    def init_neural_network(self, params: dict) -> None:
         # Creating LSTM module
         self.model = LstmModule(
-            input_window_size=self.input_window_size,
-            number_of_features=self.number_of_features,
-            hidden_layer_size=self.hidden_layer_size,
-            output_size=self.output_window_size,
-            num_layers=self.number_of_layers,
-            learning_rate=self.learning_rate,
-            batch_first=self.batch_first,
-            dropout=self.dropout,
-            bidirectional=self.bidirectional,
-            optimizer_name=self.optimizer_name,
+            input_window_size=params["input_window_size"],
+            number_of_features=params["number_of_features"],
+            hidden_layer_size=params["hidden_layer_size"],
+            output_size=params["output_window_size"],
+            num_layers=params["number_of_layers"],
+            learning_rate=params["learning_rate"],
+            batch_first=True,
+            dropout=params["dropout"],
+            bidirectional=False,
+            optimizer_name=params["optimizer_name"],
             device=self.device,
         )
 
         # TODO! Error metric selection
-        self.criterion = calculate_error
-        self.optimizer = getattr(torch.optim, self.optimizer_name)(
-            self.model.parameters(), lr=self.learning_rate
+        self.criterion = nn.MSELoss()
+        self.optimizer = getattr(torch.optim, params["optimizer_name"])(
+            self.model.parameters(), lr=params["learning_rate"]
         )
         # TODO: Make using scheduler vs learning rate an option
         # self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -223,12 +205,29 @@ class LstmModel(IModel, ABC):
         """
         Evaluate model and calculate error of predictions for used for tuning evaluation
         """
-        study = optuna.create_study(
-            study_name=self.get_name(),
-            direction="minimize",
-            sampler=optuna.samplers.TPESampler(),
-            pruner=optuna.pruners.MedianPruner(),
-        )
+        if False:
+            logging.info(
+                f"Loading optuna study from {LocalCheckpointSaveSource.get_checkpoint_save_location()}\n"
+                f"with study_name: {self.get_name()}"
+            )
+
+            study = optuna.load_study(
+                study_name=self.get_name(),
+                sampler=optuna.samplers.TPESampler(),
+                pruner=optuna.pruners.MedianPruner(),
+                storage=f"sqlite:///{LocalCheckpointSaveSource.get_checkpoint_save_location()}/optuna-tuning.db",
+            )
+        else:
+            logging.info(f"Creating optuna study from \n" f"with study_name: {self.get_name()}")
+            study = optuna.create_study(
+                study_name=self.get_name(),
+                direction="minimize",
+                sampler=optuna.samplers.TPESampler(),
+                pruner=optuna.pruners.MedianPruner(),
+                storage=f"sqlite:///{LocalCheckpointSaveSource.get_checkpoint_save_location()}/optuna-tuning.db",
+                load_if_exists=True,
+            )
+
         parameter_space = parameters
         # TODO Make number of trials configuable
         study.optimize(
@@ -238,13 +237,14 @@ class LstmModel(IModel, ABC):
                 metric_to_use_when_tuning=metric,
                 model=self,
             ),
-            n_trials=1,
+            n_trials=parameter_space["number_of_trials"],
         )
-        id = study.best_trial.number
+        id = f"{self.get_name()},{study.best_trial.number}"
+        params = study.best_trial.params
+        best_score = study.best_value
         # study.best_params["score"]
-        logging.info(f"Best trial: {study.best_trials}")
-        logging.info(f"Best params: {study.best_params}")
-        return study.best_params
+        logging.info(f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {params}")
+        return {id: {"best_score": best_score, "best_params": params}}
 
     def get_figures(self) -> List[Figure]:
         """

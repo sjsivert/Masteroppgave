@@ -37,16 +37,16 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         self.models: List[IModel] = []
 
     def init_models(self, load: bool = False):
-        self.models = list(
-            map(
-                lambda model_structure: LstmModel(
-                    log_sources=self.log_sources,
-                    **model_structure,
-                    **self.common_parameters_for_all_models,
-                ),
-                self.model_structure,
+        hyperparameters = self.common_parameters_for_all_models.copy()
+
+        for model_structure in self.model_structure:
+            hyperparameters.update(model_structure)
+            model = LstmModel(
+                log_sources=self.log_sources,
+                params=hyperparameters,
+                time_series_id=model_structure["time_series_id"],
             )
-        )
+            self.models.append(model)
 
     def process_data(self, data_pipeline: Pipeline) -> None:
         """
@@ -93,6 +93,8 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
                 parameters=self.hyperparameter_tuning_range,
                 metric=self.metric_to_use_when_tuning,
             )
+            for log_source in self.log_sources:
+                log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
 
     def get_models(self) -> List[IModel]:
         """

@@ -1,3 +1,4 @@
+import logging
 import typing
 from collections import OrderedDict
 from typing import Tuple, Dict, List
@@ -28,13 +29,12 @@ def local_univariate_lstm_objective(
         ),
     )
 
-    model.init_neural_network()
+    model.init_neural_network(params)
     errors = model.train(
         epochs=number_of_epochs[0],
     )
     # TODO: Use config parameter 'metric'to use when tuning
     score = model.calculate_mean_score(errors["validation_error"])
-    print("score:", score)
 
     return score
 
@@ -47,6 +47,7 @@ def hyperparameter_range_to_optuna_range(
         "hidden_layer_size": trial.suggest_int(
             "hidden_layer_size", config_params["hidden_size"][0], config_params["hidden_size"][1]
         ),
+        "input_window_size": config_params["input_window_size"],
         "output_window_size": config_params["output_window_size"],
         "number_of_layers": trial.suggest_int(
             "number_of_layers",
