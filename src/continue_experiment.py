@@ -28,7 +28,7 @@ class ContinueExperiment(Experiment):
         self.neptune_id_to_load = None
         self.experiment_checkpoints_location = experiment_checkpoints_location
         title, description = self._load_title_and_description()
-        super().__init__(title, description)
+        super().__init__(title, description, load_from_checkpoint=True)
 
     def _load_neptune_id_from_checkpoint_location(self) -> str:
         with open(f"{self.experiment_checkpoints_location}/neptune_id.txt", "r") as f:
@@ -137,7 +137,7 @@ class ContinueExperiment(Experiment):
     def _load_tuning_info(self):
         tuning_info = None
         for save_source in self.save_sources:
-            tuning_info = save_source.load_tuning_metrics()
+            # tuning_info = save_source.load_tuning_metrics()
             if tuning_info is not None:
                 break
         return tuning_info if tuning_info is not None else {}

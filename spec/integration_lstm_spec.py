@@ -27,7 +27,7 @@ from spec.test_logger import init_test_logging
 from spec.utils.mock_pipeline import create_mock_pipeline
 from spec.utils.test_data import random_data_loader
 
-with description("main Local Univariate LSTM integration test", "integration") as self:
+with description("main Local Univariate LSTM integration test", "this") as self:
     with before.all:
         self.runner = CliRunner()
         self.model_struct_type = "local_univariate_lstm"
@@ -133,3 +133,14 @@ with description("main Local Univariate LSTM integration test", "integration") a
         else:
             pass
             #expect(len(os.listdir(f"{self.model_save_location}/{exp_name}"))).to(equal(8))
+
+    with it("can continue tunee"):
+        exp_name = "continue_tune"
+
+        # Act
+        self.runner.invoke(
+        main.main, ["--experiment", exp_name, "description", "--tune"], catch_exceptions=False
+        )
+        result = self.runner.invoke(
+            main.main, ["-c", "--tune"], catch_exceptions=False
+        )

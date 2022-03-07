@@ -52,9 +52,11 @@ def init_mock_config(
                         "dropout": [0.0, 0.5],
                         "optimizer_name": ["Adam", "SGD", "RMSprop"],
                         "learning_rate": [1e-5, 1e-1],
-                        "number_of_epochs": [10, 200],
+                        "number_of_epochs": [60, 200],
+                        "input_window_size": 1,
                         "output_window_size": 1,
                         "number_of_features": 1,
+                        "number_of_trials": 2,
                     },
                     "model_structure": [
                         {
@@ -63,6 +65,7 @@ def init_mock_config(
                             "hidden_layer_size": 100,
                             "dropout": 0.1,
                             "number_of_features": 1,
+                            "number_of_layers": 1,
                         },
                         {
                             "time_series_id": 11694,
@@ -70,6 +73,7 @@ def init_mock_config(
                             "hidden_layer_size": 100,
                             "dropout": 0.1,
                             "number_of_features": 1,
+                            "number_of_layers": 2,
                         },
                     ],
                 },

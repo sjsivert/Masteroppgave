@@ -35,19 +35,22 @@ class Experiment:
         save_sources_to_use=[],
         save_source_options={},
         experiment_tags: Optional[List[str]] = [],
+        load_from_checkpoint: bool = False,
     ) -> None:
         self.model_structure: IModelStructure = None
         self.title = title
         self.description = description
         self.experiment_description = description
         self.experiment_tags = experiment_tags
-        self.save_sources = self._init_save_sources(save_sources_to_use, save_source_options)
+        self.save_sources = self._init_save_sources(
+            save_sources_to_use, save_source_options, load_from_checkpoint
+        )
 
     def _init_save_sources(
         self,
         save_sources_to_use: List[str],
         save_source_options: Dict,
-        load_from_checkpoint: bool = False,
+        load_from_checkpoint: bool,
         neptune_id_to_load: Optional[str] = None,
     ) -> List[ILogTrainingSource]:
         sources = []
@@ -89,7 +92,9 @@ class Experiment:
         """
         Run a complete experiment with preprocessing of data, training,testing and optional saving.
         """
-        logging.info(f"Running complete experiment with saving set to {save}")
+        logging.info(
+            f"Running complete with parameters in specified in config. Experiment with saving set to {save}"
+        )
 
         self._choose_model_structure(model_options=model_options)
 
@@ -111,7 +116,7 @@ class Experiment:
         """
         Run an experiment for auto-tuning of model and structure parameters
         """
-        logging.info(f"Running complete experiment with saving set to {save}")
+        logging.info(f"Running tuning experiment with saving set to {save}")
 
         self._choose_model_structure(model_options=model_options)
 

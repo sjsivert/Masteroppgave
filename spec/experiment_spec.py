@@ -58,6 +58,7 @@ with description(Experiment, "integration") as self:
         options = {
             "model_type": "local_univariate_arima",
             "local_univariate_arima": {
+                "metric_to_use_when_tuning": "MASE",
                 "training_size": 0.8,
                 "model_structure": [
                     {
