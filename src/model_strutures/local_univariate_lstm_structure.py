@@ -27,6 +27,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         metric_to_use_when_tuning: str = "MASE",
     ):
         super().__init__()
+        self.tuning_parameter_error_sets = None
         self.metric_to_use_when_tuning = metric_to_use_when_tuning
         self.log_sources = log_sources
         self.common_parameters_for_all_models = common_parameters_for_all_models
@@ -89,12 +90,11 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
 
             logging.info(f"Tuning model: {base_model.get_name()}")
 
-            error_parameter_sets = base_model.method_evaluation(
+            best_trial = base_model.method_evaluation(
                 parameters=self.hyperparameter_tuning_range,
                 metric=self.metric_to_use_when_tuning,
             )
-            for log_source in self.log_sources:
-                log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
+            self.tuning_parameter_error_sets = {f"{base_model.get_name()}": best_trial}
 
     def get_models(self) -> List[IModel]:
         """
@@ -124,8 +124,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         """
         Returns a dict with info regarding the automatic tuning of the models
         """
-        # TODO: Implement
-        return {}
+        return self.tuning_parameter_error_sets
 
     def get_predictions(self) -> Optional[DataFrame]:
         """

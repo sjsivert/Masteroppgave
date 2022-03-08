@@ -41,6 +41,21 @@ class LocalCheckpointSaveSource:
                     f"Could not write to {LocalCheckpointSaveSource.get_checkpoint_save_location()}/{file_name}"
                 )
 
+    @staticmethod
+    def load_title_and_description() -> (str, str):
+        try:
+            with open(
+                f"{LocalCheckpointSaveSource.get_checkpoint_save_location()}/title-description.txt",
+                "r",
+            ) as f:
+                title = f.readline().strip("\n")
+                description = f.readline().strip("\n")
+                return title, description
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Could not find {LocalCheckpointSaveSource.get_checkpoint_save_location()}/title-description.txt"
+            )
+
 
 def init_local_checkpoint_save_location(title: str, description: str) -> None:
     if LocalCheckpointSaveSource().get_log_frequency() > 0:
