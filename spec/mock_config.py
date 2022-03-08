@@ -52,11 +52,11 @@ def init_mock_config(
                         "dropout": [0.0, 0.5],
                         "optimizer_name": ["Adam", "SGD", "RMSprop"],
                         "learning_rate": [1e-5, 1e-1],
-                        "number_of_epochs": [60, 200],
+                        "number_of_epochs": [1, 2],
                         "input_window_size": 1,
                         "output_window_size": 1,
                         "number_of_features": 1,
-                        "number_of_trials": 2,
+                        "number_of_trials": 1,
                     },
                     "model_structure": [
                         {

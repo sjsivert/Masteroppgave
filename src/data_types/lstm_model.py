@@ -9,6 +9,8 @@ import torch
 from fastprogress import progress_bar
 from matplotlib.figure import Figure
 from numpy import float64, ndarray
+from optuna import Study
+from optuna.trial import FrozenTrial
 from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
@@ -225,6 +227,15 @@ class LstmModel(IModel, ABC):
             self.min_max_scaler,
         ) = data_pipeline.run()
 
+    def log_trial(self, study: Study, trial: FrozenTrial) -> None:
+        for log_source in self.log_sources:
+            trial_info = trial.params
+            trial_info["score"] = trial.value
+            trial_info["Trial number"] = trial.number
+            log_source.log_tuning_metrics(
+                {f"{self.get_name():{trial.number}}": {"Parameters": trial_info}}
+            )
+
     def method_evaluation(
         self,
         parameters: Any,
@@ -234,31 +245,26 @@ class LstmModel(IModel, ABC):
         """
         Evaluate model and calculate error of predictions for used for tuning evaluation
         """
-        if False:
-            logging.info(
-                f"Loading optuna study from {LocalCheckpointSaveSource.get_checkpoint_save_location()}\n"
-                f"with study_name: {self.get_name()}"
-            )
-
-            study = optuna.load_study(
-                study_name=self.get_name(),
-                sampler=optuna.samplers.TPESampler(),
-                pruner=optuna.pruners.MedianPruner(),
-                storage=f"sqlite:///{LocalCheckpointSaveSource.get_checkpoint_save_location()}/optuna-tuning.db",
-            )
-        else:
-            logging.info(f"Creating optuna study from \n" f"with study_name: {self.get_name()}")
-            study = optuna.create_study(
-                study_name=self.get_name(),
-                direction="minimize",
-                sampler=optuna.samplers.TPESampler(),
-                pruner=optuna.pruners.MedianPruner(),
-                storage=f"sqlite:///{LocalCheckpointSaveSource.get_checkpoint_save_location()}/optuna-tuning.db",
-                load_if_exists=True,
-            )
+        title, _ = LocalCheckpointSaveSource.load_title_and_description()
+        study_name = f"{title}_{self.get_name()}"
+        study = optuna.create_study(
+            study_name=study_name,
+            direction="minimize",
+            sampler=optuna.samplers.TPESampler(),
+            pruner=optuna.pruners.MedianPruner(),
+            storage=
+            # TODO: IModel should not rely on the config. Fix this
+            f"sqlite:///{config['experiment']['save_source']['disk']['model_save_location'].get()}/optuna-tuning.db"
+            if len(self.log_sources) > 0
+            else None,
+            load_if_exists=True,
+        )
+        logging.info(
+            f"Loading or creating optuna study with name: {study_name}\n"
+            f"Number of previous Trials with this name are #{len(study.trials)}"
+        )
 
         parameter_space = parameters
-        # TODO Make number of trials configuable
         study.optimize(
             lambda trial: local_univariate_lstm_objective(
                 trial=trial,
@@ -266,12 +272,15 @@ class LstmModel(IModel, ABC):
                 metric_to_use_when_tuning=metric,
                 model=self,
             ),
+            # TODO: Fix pytorch network to handle concurrency
+            # n_jobs=2, # Use maximum number of cores
             n_trials=parameter_space["number_of_trials"],
+            show_progress_bar=True,
+            callbacks=[self.log_trial],
         )
         id = f"{self.get_name()},{study.best_trial.number}"
         params = study.best_trial.params
-        best_score = study.best_value
-        # study.best_params["score"]
+        best_score = study.best_trial.value
         logging.info(f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {params}")
         return {id: {"best_score": best_score, "best_params": params}}
 
