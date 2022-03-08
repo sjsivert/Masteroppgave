@@ -44,13 +44,13 @@ def calculate_error(targets: torch.Tensor, predictions: torch.Tensor) -> torch.T
 
 
 # TODO: Error here!
-def calculate_errors(targets: torch.Tensor, predictions: torch.Tensor) -> Dict[str, torch.Tensor]:
+def calculate_errors(targets: torch.Tensor, predictions: torch.Tensor) -> Dict[str, float]:
     error_metrics = config["experiment"]["error_metrics"].get()
     errors = OrderedDict(
         error_metrics
         | map(lambda key: try_convert_to_enum(key))
         | where(lambda metric: metric is not None)
-        | map(lambda metric: (metric.value, choose_metric(metric)(targets, predictions)))
+        | map(lambda metric: (metric.value, choose_metric(metric)(targets, predictions).item()))
     )
     return errors
 

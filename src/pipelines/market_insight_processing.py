@@ -196,6 +196,7 @@ def convert_to_time_series_dataset(
         testing_dataset = TimeseriesDataset(
             validation_data, seq_len=input_window_size, y_size=output_window_size
         )
+        x = training_data.__getitem__(1)
         yield training_dataset, validation_dataset, testing_dataset, scaler
 
 

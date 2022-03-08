@@ -25,5 +25,5 @@ class TimeseriesDataset(Dataset):
         # return x, y
         return (
             self.time_series[index : index + self.seq_len],
-            self.time_series[index + self.seq_len + self.y_size - 1],
+            self.time_series[index + self.seq_len : index + self.seq_len + self.y_size],
         )
