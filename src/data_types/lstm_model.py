@@ -4,6 +4,7 @@ from typing import Dict, List, Optional, Tuple, Any
 
 import numpy as np
 import optuna
+import pandas
 import torch
 from fastprogress import progress_bar
 from matplotlib.figure import Figure
@@ -31,6 +32,7 @@ class LstmModel(IModel, ABC):
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
 
+        # nn.MSELoss()
         # Init global variables
         self.model = None
         self.figures: List[Figure] = []
@@ -88,8 +90,14 @@ class LstmModel(IModel, ABC):
         return self.name
 
     def train(self, epochs: int = 100) -> Dict:
+        # Visualization
         train_error = []
         val_error = []
+        training_targets = []
+        training_predictions = []
+
+        # Training
+        self.model.train()
         for epoch in progress_bar(range(epochs)):
             batch_train_error = []
             batch_val_error = []
@@ -99,16 +107,23 @@ class LstmModel(IModel, ABC):
                 # device where the model "lives"
                 x_batch = x_batch.to(self.device)
                 y_batch = y_batch.to(self.device)
-                loss = self._train_step(x_batch, y_batch)
+                loss, _yhat = self._train_step(x_batch, y_batch)
+                # Visualize
                 batch_train_error.append(loss)
-            train_error.append(sum(batch_train_error) / len(batch_train_error))
+                if epoch + 1 == epochs:
+                    training_targets.extend(y_batch.reshape((y_batch.shape[0])).tolist())
+                    training_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
+
+            epoch_train_error = sum(batch_train_error) / len(batch_train_error)
+            train_error.append(epoch_train_error)
 
             for x_val, y_val in self.validation_data_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
                 val_loss = self._validation_step(x_val, y_val)
                 batch_val_error.append(val_loss)
-            val_error.append(sum(batch_val_error) / len(batch_val_error))
+            epoch_val_error = sum(batch_val_error) / len(batch_val_error)
+            val_error.append(epoch_val_error)
 
             if self.optuna_trial:
                 accuracy = self.calculate_mean_score(batch_val_error)
@@ -118,59 +133,74 @@ class LstmModel(IModel, ABC):
                     print("Pruning trial!")
                     raise optuna.exceptions.TrialPruned()
             if (epoch + 1) % 50 == 0:
-                logging.info(f"Epoch: {epoch+1}, loss: {loss}. Validation losses: {val_loss}")
+                logging.info(
+                    f"Epoch: {epoch+1}, Training loss: {epoch_train_error}. Validation loss: {epoch_val_error}"
+                )
         # TODO: Log historic data to continue training
         # self.metrics["training"] = train_error
         # self.metrics["validation"] = val_error
 
         self.metrics["training_error"] = train_error[-1]
         self.metrics["validation_error"] = val_error[-1]
+        self._visualize_training(training_targets, training_predictions)
         self._visualize_training_errors(training_error=train_error, validation_error=val_error)
         return self.metrics
 
     # Builds function that performs a step in the train loop
-    def _train_step(self, x, y) -> float:
+    def _train_step(self, x, y) -> (float, torch.Tensor):
         # Make prediction, and compute loss, and gradients
         self.model.train()
         yhat = self.model(x)
+        yhat = torch.reshape(yhat, yhat.shape + (1,))
         loss = self.criterion(y, yhat)
         loss.backward()
         # Updates parameters and zeroes gradients
         self.optimizer.step()
         self.optimizer.zero_grad()
         # Returns the loss
-        return loss.item()
+        return loss.item(), yhat
 
     def _validation_step(self, x, y) -> float:
         error = None
         with torch.no_grad():
             self.model.eval()
             yhat = self.model(x)
+            yhat = torch.reshape(yhat, yhat.shape + (1,))
             loss = self.criterion(y, yhat)
             error = loss.item()
         return error
 
-    def _test_step(self, x, y) -> float:
+    def _test_step(self, x, y) -> (Dict[str, float], torch.Tensor):
         with torch.no_grad():
             self.model.eval()
             yhat = self.model(x)
+            yhat = torch.reshape(yhat, yhat.shape + (1,))
+            # TODO! Add multi step support
             loss = calculate_errors(y, yhat)
-        return loss
+        return loss, yhat
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
+        # Visualize
+        testing_targets = []
+        testing_predictions = []
         batch_test_error = []
+
         for x_test, y_test in self.testing_data_loader:
             x_test = x_test.to(self.device)
             y_test = y_test.to(self.device)
-            test_loss = self._test_step(x_test, y_test)
+            test_loss, _yhat = self._test_step(x_test, y_test)
+            # Visualization
             batch_test_error.append(test_loss)
-        # TODO! Convert to lambda function
+            testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
+            testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
         batch_test_error_dict = {}
-        for key in list(batch_test_error[0].keys()):
-            values = [x[key].item() for x in batch_test_error]
-            batch_test_error_dict[key] = sum(values) / len(values)
+        for key in batch_test_error[0].keys():
+            batch_test_error_dict[key] = sum([x[key] for x in batch_test_error]) / len(
+                batch_test_error
+            )
         logging.info(f"Testing error: {batch_test_error_dict}.")
         self.metrics.update(batch_test_error_dict)
+        self._visualize_test(testing_targets, testing_predictions)
         return batch_test_error_dict
 
     def get_name(self) -> str:
@@ -295,5 +325,29 @@ class LstmModel(IModel, ABC):
                 colors=["blue", "orange"],
                 x_label="Epoch",
                 y_label="Error",
+            )
+        )
+
+    def _visualize_training(self, targets, predictions):
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Training set fit",
+                data_series=[targets, predictions],
+                data_labels=["Training targets", "Training predictions"],
+                colors=["blue", "orange"],
+                x_label="Time",
+                y_label="Interest",
+            )
+        )
+
+    def _visualize_test(self, targets, predictions):
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Test set predictions",
+                data_series=[targets, predictions],
+                data_labels=["Test targets", "Test predictions"],
+                colors=["blue", "orange"],
+                x_label="Time",
+                y_label="Interest scaled",
             )
         )

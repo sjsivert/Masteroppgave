@@ -57,11 +57,11 @@ model:
       number_of_trials: 10 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
-      training_size: 0.8
+      training_size: 0.7
       input_window_size: 7
       output_window_size: 1
       batch_size: 32
-      optimizer_name: 'SGD'
+      optimizer_name: 'Adam'
 
     model_structure:
       - time_series_id: 11573
