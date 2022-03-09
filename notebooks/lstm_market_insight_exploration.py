@@ -36,7 +36,7 @@ device
 # %%
 raw_data.groupby("cat_id").count()
 # id11573 has mose data with 902 entries
-data_chosen_cat = raw_data.loc[raw_data["cat_id"] == 11573][["hits", "date"]]
+data_chosen_cat = raw_data.loc[raw_data["cat_id"] == 11573][["hits","clicks", "date"]]
 data_chosen_cat_filled_dates = data_chosen_cat.groupby(pd.Grouper(key="date", freq="D")).sum()
 dates = data_chosen_cat_filled_dates.index.tolist()
 data_chosen_cat_filled_dates.tail()
@@ -111,6 +111,7 @@ class TimeseriesDataset(Dataset):
     '''
     def __init__(self, time_series: np.ndarray, seq_len: int, y_size: int):
         self.time_series = torch.tensor(time_series).float()
+        print("time-series", self.time_series.shape)
         self.seq_len = seq_len
         self.y_size = y_size
 
@@ -119,17 +120,18 @@ class TimeseriesDataset(Dataset):
 
     def __getitem__(self, index):
         # return x, y
-        return (self.time_series[index:index+self.seq_len], self.time_series[index+self.seq_len+self.y_size -1])
+        return (self.time_series[index:index+self.seq_len], self.time_series[index+self.seq_len : index + self.seq_len + self.y_size ])
 
 # Wait, is this a CPU tensor now? Why? Where is .to(device)?
 
-train_data = TimeseriesDataset(train_data_normalized, seq_len=5, y_size=1)
-test_data = TimeseriesDataset(validation_data_normalized, seq_len=5, y_size=1)
+train_data = TimeseriesDataset(train_data_normalized, seq_len=5, y_size=2)
+test_data = TimeseriesDataset(validation_data_normalized, seq_len=5, y_size=2)
 print(train_data[2])
 print(train_data[3])
 print(train_data[4])
 print(train_data.__getitem__(0)[0].shape)
 print(train_data.__getitem__(0)[1].shape)
+print(train_data.__getitem__(1))
 # %%
 """
 class TimeseriesDataset(Dataset):   
@@ -166,7 +168,8 @@ train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
 train_loader_no_batch = DataLoader(dataset=train_data, batch_size=1, shuffle=False)
 val_loader = DataLoader(dataset=test_data, batch_size=32, shuffle=False)
 val_loader_no_batch = DataLoader(dataset=test_data, batch_size=1, shuffle=False)
-print(next(iter(train_loader))[0].shape)
+print("train x shape", next(iter(train_loader))[0].shape)
+print("train y shape", next(iter(train_loader))[1].shape)
 # %%
 # Plot distribution
 fig, axs = plt.subplots(2)
@@ -202,7 +205,7 @@ class LSTM(nn.Module):
         self.lstm = nn.LSTM(
             input_size=self.input_size, hidden_size=self.hidden_size, num_layers=self.num_layers, batch_first=True
         )
-        self.fully_conencted_layer = nn.Linear(in_features=self.hidden_size, out_features=self.output_size)
+        self.fully_conencted_layer = nn.Linear(in_features=self.hidden_size, out_features=self.output_size * self.input_size)
 
         parameters = list(self.lstm.parameters()) + list(self.fully_conencted_layer.parameters())
         print(self.lstm.parameters() == parameters)
@@ -229,20 +232,25 @@ class LSTM(nn.Module):
         # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
         # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
-        
+        print("ula shape: ", ula.shape)
         #print("output", ula.shape)
         # Choose the hidden state from the last layer
         last_hidden_state_layer = h_out[-1]
+        print("hidden state", h_out.shape)
+        print("last_hidden_state", last_hidden_state_layer.shape)
         #h_out = h_out.view(-1, self.hidden_size)
         #out_squashed = ula.view(-1, self.hidden_size)
         
         out = self.fully_conencted_layer(last_hidden_state_layer)
         #out = self.fc(ula)
         out = self.dropout(out)
-        #print("shape after fc", out.shape)
-       
+
+        print("shape after fc", out.shape)
+        print(out.size(0))
+        out_multi_feature = out.reshape(out.size(0), self.output_size, self.input_size)
+        print("shape after reshape", out_multi_feature.shape)
         #return out
-        return out
+        return out_multi_feature
 
     # Builds function that performs a step in the train loop
     def train_step(self, x, y):
@@ -251,6 +259,8 @@ class LSTM(nn.Module):
         # Makes predictions
         yhat = self(x)
         #print("yhat", yhat.shape)
+        print("y", y.shape)
+        print("yhat", yhat.shape)
         # Computes loss
         loss = self.criterion(y, yhat)
  
@@ -287,6 +297,7 @@ class LSTM(nn.Module):
                 y_batch = y_batch.to(device)
                 
                 loss = self.train_step(x_batch, y_batch)
+                print(loss)
                 losses.append(loss)
             
             for x_val, y_val in val_loader:
@@ -313,14 +324,14 @@ class LSTM(nn.Module):
 # %%
 # Train network
 lstm = LSTM(
-    input_size=1,
+    input_size=2,
     hidden_size=64,
-    output_size=1,
+    output_size=2,
     num_layers=1,
     learning_rate=0.001,
 )
 print(lstm)
-losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=50, verbose=True)
+losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=100, verbose=True)
 
 # %%
 plt.plot(losses)
@@ -332,19 +343,45 @@ print(train_loader_no_batch.__len__())
 print(y_train.shape)
 # %%
 # Predict training
-predictions = []
 correct_values = []
+predictions = []
+predictions_hits = []
+predictions_clicks = []
+correct_values_hits = []
+correct_values_clicks = []
 for x_batch, y_batch in train_loader_no_batch:
     x_batch = x_batch.to(device)
     y_batch = y_batch.to(device)
     yhat = lstm(x_batch)
 
-    correct_values.append(y_batch.cpu().detach().numpy().flatten())
-    predictions.append(yhat.detach().cpu().numpy().flatten())
-print("predictions", predictions[0])
-#plt.plot(y_train.flatten())
-plt.plot(correct_values)
-plt.plot(predictions)
+    print("y shape", y_batch.shape)
+    print("yhat shape", yhat.shape)
+    
+    predictions.append(yhat.view(2, 2).detach().cpu().numpy())
+    correct_values.append(y_batch.view(2, 2).numpy())
+    #correct_values.append(y_batch.cpu().detach().numpy().flatten())
+    #predictions.append(yhat.detach().cpu().numpy().flatten())
+predictions = np.array(predictions)
+correct_values = np.array(correct_values)
+print("predictions", predictions[:, :, 0].shape)
+print("correct values", correct_values.shape)
+print("error first step", np.mean(np.abs(predictions[:,:, 0] - correct_values[:,:, 0])))
+print("error second step", np.mean(np.abs(predictions[:,:, 1] - correct_values[:,:, 1])))
+# %%
+
+print("first 4", correct_values[:4, :, 0])
+print("first 4 skip every second", correct_values[::2, :, 0][:4].flatten())
+plt.plot(correct_values[:, 0, 0])
+plt.plot(predictions[:, 0, 0])
+plt.show()
+plt.plot(correct_values[:, 1, 0])
+plt.plot(predictions[:, 1, 0])
+plt.show()
+plt.plot(correct_values[::2, :, 0].flatten())
+plt.plot(predictions[::2, :, 0].flatten())
+#plt.show()
+#plt.plot(correct_values_clicks)
+#plt.plot(predictions_clicks)
 
 # %%
 # Predict test
