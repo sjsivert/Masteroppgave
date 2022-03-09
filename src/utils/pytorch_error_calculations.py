@@ -69,7 +69,9 @@ def calculate_mae(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Ten
 def calculate_mase(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     # Calculate mae for predictions and targets, and for naive predictions
     naive = targets.clone()
+    # Assume the first dim is the batch and a 3 dim tensor
     naive[:, 1:] = naive[:, :-1].clone()
+    naive[1:, 0, 0] = naive[:-1, 0, 0].clone()
     loss_1 = calculate_mae(targets, predictions)
     loss_2 = calculate_mae(targets, naive)
     loss = loss_1 / loss_2
