@@ -51,7 +51,7 @@ with description("main.py", "unit") as self:
         mock_experiment = mock(ContinueExperiment)
         mock_pipeline = mock(Pipeline)
         when(main).ContinueExperiment(
-            experiment_checkpoints_location=checkpoint_save_location,
+            experiment_checkpoints_location=checkpoint_save_location, neptune_id_to_load=None
         ).thenReturn(mock_experiment)
         when(pipeline).market_insight_pipeline().thenReturn(mock_pipeline)
         when(mock_experiment).continue_experiment(data_pipeline=mock_pipeline).thenReturn(None)

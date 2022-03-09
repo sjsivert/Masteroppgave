@@ -20,12 +20,13 @@ class ContinueExperiment(Experiment):
         experiment_checkpoints_location: Optional[Path] = Path(
             "./models/0_current_model_checkpoints/"
         ),
+        neptune_id_to_load: Optional[str] = None,
     ):
         assert experiment_checkpoints_location.is_dir(), FileNotFoundError(
             f"experiment_checkpoints_location does not exist: {experiment_checkpoints_location}"
         )
 
-        self.neptune_id_to_load = None
+        self.neptune_id_to_load = neptune_id_to_load
         self.experiment_checkpoints_location = experiment_checkpoints_location
         title, description = self._load_title_and_description()
         super().__init__(title, description, load_from_checkpoint=True)
@@ -46,7 +47,7 @@ class ContinueExperiment(Experiment):
         neptune_save_source_was_used = (
             "neptune" in config["experiment"]["save_sources_to_use"].get()
         )
-        if neptune_save_source_was_used:
+        if neptune_save_source_was_used and self.neptune_id_to_load is None:
             self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
             logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
 
@@ -89,7 +90,7 @@ class ContinueExperiment(Experiment):
         neptune_save_source_was_used = (
             "neptune" in config["experiment"]["save_sources_to_use"].get()
         )
-        if neptune_save_source_was_used:
+        if neptune_save_source_was_used and self.neptune_id_to_load is None:
             self.neptune_id_to_load = self._load_neptune_id_from_checkpoint_location()
             logging.info(f"Neptune experiment id: {self.neptune_id_to_load}")
 

@@ -86,6 +86,7 @@ def main(
 
         experiment = ContinueExperiment(
             experiment_checkpoints_location=experiment_checkpoints_location,
+            neptune_id_to_load=neptune_id,
         )
         if tune:
             experiment.continue_tuning(
