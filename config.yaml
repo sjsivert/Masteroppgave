@@ -53,13 +53,15 @@ model:
       batch_size: [ 1, 100 ]
       input_window_size: 1
       output_window_size: 1 # must be equal output_window_size
+      multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 10 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
-      training_size: 0.7
-      input_window_size: 7
-      output_window_size: 1
+      training_size: 0.8
+      input_window_size: 5
+      output_window_size: 5
+      multi_variable_nr: 1
       batch_size: 32
       optimizer_name: 'Adam'
 

@@ -66,12 +66,11 @@ class LstmModel(IModel, ABC):
             batch_first=True,
             dropout=params["dropout"],
             bidirectional=False,
-            optimizer_name=params["optimizer_name"],
             device=self.device,
         )
 
         # TODO! Error metric selection
-        self.criterion = nn.MSELoss()
+        self.criterion = calculate_error
         self.optimizer = getattr(torch.optim, params["optimizer_name"])(
             self.model.parameters(), lr=params["learning_rate"]
         )
@@ -111,8 +110,10 @@ class LstmModel(IModel, ABC):
                 # Visualize
                 batch_train_error.append(loss)
                 if epoch + 1 == epochs:
-                    training_targets.extend(y_batch.reshape((y_batch.shape[0])).tolist())
-                    training_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
+                    pass
+                    # TODO! Add support for multi step prediction visualization
+                    # training_targets.extend(y_batch.reshape((y_batch.shape[0],)).tolist())
+                    # training_predictions.extend(_yhat.reshape((_yhat.shape[0],)).tolist())
 
             epoch_train_error = sum(batch_train_error) / len(batch_train_error)
             train_error.append(epoch_train_error)
@@ -151,7 +152,6 @@ class LstmModel(IModel, ABC):
         # Make prediction, and compute loss, and gradients
         self.model.train()
         yhat = self.model(x)
-        yhat = torch.reshape(yhat, yhat.shape + (1,))
         loss = self.criterion(y, yhat)
         loss.backward()
         # Updates parameters and zeroes gradients
@@ -165,7 +165,6 @@ class LstmModel(IModel, ABC):
         with torch.no_grad():
             self.model.eval()
             yhat = self.model(x)
-            yhat = torch.reshape(yhat, yhat.shape + (1,))
             loss = self.criterion(y, yhat)
             error = loss.item()
         return error
@@ -174,7 +173,6 @@ class LstmModel(IModel, ABC):
         with torch.no_grad():
             self.model.eval()
             yhat = self.model(x)
-            yhat = torch.reshape(yhat, yhat.shape + (1,))
             # TODO! Add multi step support
             loss = calculate_errors(y, yhat)
         return loss, yhat
@@ -191,8 +189,9 @@ class LstmModel(IModel, ABC):
             test_loss, _yhat = self._test_step(x_test, y_test)
             # Visualization
             batch_test_error.append(test_loss)
-            testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
-            testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
+            # TODO! Add support for multi step prediction visualization
+            # testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
+            # testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
         batch_test_error_dict = {}
         for key in batch_test_error[0].keys():
             batch_test_error_dict[key] = sum([x[key] for x in batch_test_error]) / len(

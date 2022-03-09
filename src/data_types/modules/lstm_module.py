@@ -28,7 +28,6 @@ class LstmModule(nn.Module):
         learning_rate: float,
         batch_first: bool,
         dropout: float,
-        optimizer_name: str,
         bidirectional: bool = False,
     ):
         # Init pytorch module
@@ -50,7 +49,7 @@ class LstmModule(nn.Module):
             batch_first=True,
         )
         self.fully_connected_layer = nn.Linear(
-            in_features=self.hidden_size, out_features=self.output_size
+            in_features=self.hidden_size, out_features=self.output_size * self.number_of_features
         )
 
         parameters = list(self.lstm.parameters()) + list(self.fully_connected_layer.parameters())
@@ -67,9 +66,19 @@ class LstmModule(nn.Module):
         # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
         # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len
         ula, (h_out, _) = self.lstm(x, (h_0, c_0))
-
         # Choose the hidden state from the last layer
         last_hidden_state_layer = h_out[-1]
         out = self.fully_connected_layer(last_hidden_state_layer)
         out = self.dropout(out)
+        out = out.view(-1, self.output_size, self.number_of_features)
+        """
+        ___ Reshape for multi variate support ___
+        In order to support the use of multi variate input,
+        the output of the last hidden layer is outputting data as a multiple of features and time steps.
+        It can then be reshaped to fit properly.
+        
+        The alternative is to reshape before the last layer, then use multi dim input on the last layer sized down.
+        TODO! Evaluate what should be done of these two approaches
+        """
+
         return out
