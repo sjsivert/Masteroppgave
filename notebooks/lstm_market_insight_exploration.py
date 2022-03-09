@@ -39,6 +39,7 @@ raw_data.groupby("cat_id").count()
 data_chosen_cat = raw_data.loc[raw_data["cat_id"] == 11573][["hits","clicks", "date"]]
 data_chosen_cat_filled_dates = data_chosen_cat.groupby(pd.Grouper(key="date", freq="D")).sum()
 dates = data_chosen_cat_filled_dates.index.tolist()
+print(dates[:2])
 data_chosen_cat_filled_dates.tail()
 
 # %%
@@ -124,8 +125,8 @@ class TimeseriesDataset(Dataset):
 
 # Wait, is this a CPU tensor now? Why? Where is .to(device)?
 
-train_data = TimeseriesDataset(train_data_normalized, seq_len=5, y_size=2)
-test_data = TimeseriesDataset(validation_data_normalized, seq_len=5, y_size=2)
+train_data = TimeseriesDataset(train_data_normalized, seq_len=10, y_size=10)
+test_data = TimeseriesDataset(validation_data_normalized, seq_len=10, y_size=10)
 print(train_data[2])
 print(train_data[3])
 print(train_data[4])
@@ -178,6 +179,23 @@ fig.suptitle('Data Distribution Before and After Normalization ',fontsize = 19)
 pd.DataFrame(data_train).plot(kind='hist',ax = axs[0] , alpha=.4 , figsize=[12,6], legend = False,title = ' Before Normalization',color ='red') 
 pd.DataFrame(train_data_normalized).plot(kind='hist', ax = axs[1] ,figsize=[12,6], alpha=.4 , legend = False,title = ' After Normalization'\
                                          ,color = 'blue')
+                                        
+plt.show()
+plt.plot(data_train[:25, 0])                                    
+plt.show()
+plt.plot(train_data_normalized[:25, 0])                                    
+# %%
+plt.plot(data_validation[:25, 0])
+plt.show()
+plt.plot(validation_data_normalized[:25, 0])
+plt.show()
+data_from_val_loader = []
+for x_batch, y_batch in val_loader_no_batch:
+    data_from_val_loader.append(x_batch.view(10, 2).numpy())
+data_from_val_loader = np.array(data_from_val_loader)
+print(data_from_val_loader.shape)
+print(data_from_val_loader[::9, :, 0].shape)
+plt.plot(data_from_val_loader[::9, :, 0][:25].flatten()[:25])
 
 # %%
 class LSTM(nn.Module):
@@ -326,7 +344,7 @@ class LSTM(nn.Module):
 lstm = LSTM(
     input_size=2,
     hidden_size=64,
-    output_size=2,
+    output_size=10,
     num_layers=1,
     learning_rate=0.001,
 )
@@ -345,10 +363,6 @@ print(y_train.shape)
 # Predict training
 correct_values = []
 predictions = []
-predictions_hits = []
-predictions_clicks = []
-correct_values_hits = []
-correct_values_clicks = []
 for x_batch, y_batch in train_loader_no_batch:
     x_batch = x_batch.to(device)
     y_batch = y_batch.to(device)
@@ -357,48 +371,77 @@ for x_batch, y_batch in train_loader_no_batch:
     print("y shape", y_batch.shape)
     print("yhat shape", yhat.shape)
     
-    predictions.append(yhat.view(2, 2).detach().cpu().numpy())
-    correct_values.append(y_batch.view(2, 2).numpy())
+    predictions.append(yhat.view(10, 2).detach().cpu().numpy())
+    correct_values.append(y_batch.view(10, 2).numpy())
     #correct_values.append(y_batch.cpu().detach().numpy().flatten())
     #predictions.append(yhat.detach().cpu().numpy().flatten())
 predictions = np.array(predictions)
 correct_values = np.array(correct_values)
 print("predictions", predictions[:, :, 0].shape)
 print("correct values", correct_values.shape)
-print("error first step", np.mean(np.abs(predictions[:,:, 0] - correct_values[:,:, 0])))
-print("error second step", np.mean(np.abs(predictions[:,:, 1] - correct_values[:,:, 1])))
-# %%
+#%% [markdown]
+"""
+Compare errors in in the output of the network. Is the last timestep prediction less accurate than the first?
+"""
+error_window = []
+for i in range(10):
+    error_window_step = np.mean(np.abs(predictions[:, i, 0] - correct_values[:, i, 0]))
+    error_window.append(error_window_step)
+print("error first step", np.mean(np.abs(predictions[:, 0, 0] - correct_values[:, 0, 0])))
+print("error thent seven ", np.mean(np.abs(predictions[:,7, 0] - correct_values[:,7, 0])))
+print("error thent eigh", np.mean(np.abs(predictions[:,8, 0] - correct_values[:,8, 0])))
+print("error thent step", np.mean(np.abs(predictions[:,9, 0] - correct_values[:,9, 0])))
+plt.plot(error_window)
+# %% [markdown]
 
 print("first 4", correct_values[:4, :, 0])
 print("first 4 skip every second", correct_values[::2, :, 0][:4].flatten())
+# Of the output window of 10 plot all the first predictions
 plt.plot(correct_values[:, 0, 0])
 plt.plot(predictions[:, 0, 0])
 plt.show()
-plt.plot(correct_values[:, 1, 0])
-plt.plot(predictions[:, 1, 0])
+# Plot the tenth prediction
+plt.plot(correct_values[:, 9, 0])
+plt.plot(predictions[:, 9, 0])
 plt.show()
-plt.plot(correct_values[::2, :, 0].flatten())
-plt.plot(predictions[::2, :, 0].flatten())
+# Plot whole output window and skip every thent step to plot
+plt.plot(correct_values[::9, :, 0].flatten())
+plt.plot(predictions[::9, :, 0].flatten())
 #plt.show()
 #plt.plot(correct_values_clicks)
 #plt.plot(predictions_clicks)
 
-# %%
+# %% [markdown]
 # Predict test
 predictions_val = []
 correct_values_val = []
 for x_batch, y_batch in val_loader_no_batch:
     x_batch = x_batch.to(device)
     yhat = lstm(x_batch)
-    correct_values_val.append(y_batch.cpu().detach().numpy().flatten())
-    predictions_val.append(yhat.detach().cpu().numpy().flatten())
 
-print(predictions_val[0].shape)
+    correct_values_val.append(y_batch.view(10, 2).numpy())
+    predictions_val.append(yhat.view(10, 2).detach().cpu().numpy())
+    print("y shape", y_batch.shape)
+    print("yhat shape", yhat.shape)
+
+predictions_val = np.array(predictions_val)
+correct_values_val = np.array(correct_values_val)
+print("predictions_val shape", predictions_val.shape)
 #predictions_val_renormalize = scaler.inverse_transform(predictions_val)
-print("y_val", y_val.flatten().shape)
+print("correct_values_val shape", correct_values_val.shape)
+# Original data
+print("Original validation data")
+plt.plot(data_validation[:, 0][:25])
+plt.show()
+print("Whole window every tenth step")
+print(correct_values[::9, :, 0].shape)
+plt.plot(correct_values_val[::9, :, 0].flatten()[:25])
+plt.plot(predictions_val[::9, :, 0].flatten()[:25])
+plt.show()
+# First prediction of all windows
+plt.plot(correct_values_val[:, 1, 0][:25])
+plt.plot(predictions_val[:, 1, 0][:25])
 #y_val_renormalize = scaler.inverse_transform(y_val.flatten())
-plt.plot(correct_values_val)
-plt.plot(predictions_val)
 
 
 # %%
