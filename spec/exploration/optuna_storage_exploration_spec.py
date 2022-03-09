@@ -1,3 +1,4 @@
+# fmt: off
 import optuna
 from mamba import description, it
 
