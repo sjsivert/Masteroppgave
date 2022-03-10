@@ -40,7 +40,7 @@ def local_univariate_lstm_objective(
         epochs=number_of_epochs[0],
     )
     # TODO: Use config parameter 'metric'to use when tuning
-    score = model.calculate_mean_score(errors["validation_error"])
+    score = model.calculate_mean_score(errors["training_error"])
 
     return score
 
