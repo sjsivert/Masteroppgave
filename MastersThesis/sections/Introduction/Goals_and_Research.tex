@@ -1,13 +1,13 @@
 \section{Goals and Research Questions}
 \label{section:Introduction:Goal}
 
+% TODO: Is it clear enough what the "current problem space" is?
+
 This paper explores using machine-learning algorithms to accurately forecast the user interest in product categories on a price comparison website.
 Exploiting the predictive abilities of deep Neural Networks such as Convolutional Neural Networks, Long-Short term memory, and Autoencoders,
 we intend to introduce a new predictive model into the problem space.
 The intention is to outperform the current state-of-the-art predictive algorithms in the problem space.
 
-% TODO: Should we disclose that we are working with Prisguiden in this paper?
-% Still unsure what conclusion we arrived at there.
 The data supplied by "Prisguiden" contains historical data about user activity, such as visitation and click data.
 We intend to use this data to predict future product and category trends based on the historical data.
 
@@ -21,7 +21,6 @@ This is required in order to assess whether or not our goal is rendered mute due
 
 \begin{description}
     \item[RQ1]{\it What are the existing solutions for predicting future product category trends, or sales trends, based on historical time-series data?}
-          % What are the existing solutions in problem space P? 
 \end{description}
 
 \begin{description}
@@ -32,6 +31,35 @@ This is required in order to assess whether or not our goal is rendered mute due
     \item[RQ3]{\it What is lacking in the current solutions found by addressing RQ1, and how could these be improved upon?}
 \end{description}
 
+Research questions 1 through 3 are intended to be answered through a literature review of related works.
+This will be done in an effort to find and assess the currently applied methods and models being used.
+When the current solutions to the problem space are evaluated,
+the methods are applied to create baseline predictions using our dataset.
+Using these baseline methods, we are able to evaluate new methods through comparison with other current state-of-the-art methods.
 
-These three research questions are intended to be answered in this paper, addressed through a structured academic literature review.
+\begin{description}
+    \item[RQ4]{\it Can a Convolutional Autoencoder and LSTM model achive higher predictive accuracy than current state of the art models?}
+\end{description}
 
+\begin{description}
+    \item[RQ5]{\it How long ahead can we give a accurate prediction using the CNN-AE LSTM model?}
+\end{description}
+
+The proposed model is compared to baselines from the current state-of-the-art methods, used to evaluate the validity of the proposed model.
+
+
+
+\iffalse
+% TODO: ___ The use of anomalies! ___
+
+We have aditional research questions defined in notion regarding comparison between the CNN-AE LSTM and the ARIMA model,
+but this is essentially covered trough RQ4.
+
+Additionaly, we have a research question focusing on anomaly prediction.
+Anomalies are going to be dificult to predict with a CNN-AE LSTM as the CNN-AE part of the model is used to reduce the noise,
+and thus make it easier to predict the overal interest development for products. (Or so we hope!)
+
+Regardless of this, the CNN-AE does serve as a powerfull anomaly detector, as the AE is able to predict what a "normal" value should be,
+thus giving us information regarding weither or not the values are withing this margin.
+
+\fi
