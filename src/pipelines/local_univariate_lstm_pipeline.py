@@ -48,7 +48,5 @@ def local_univariate_lstm_pipeline(
             (f"convert to timeseries dataset with input window size of {input_window_size}, "
                 f"and output window size of {output_window_size}", market_processing.convert_to_time_series_dataset,
                 {"input_window_size": input_window_size, "output_window_size": output_window_size}),
-            (f"convert to torch DataLoder with batch size of {batch_size}",
-                market_processing.convert_to_pytorch_dataloader, {"batch_size": batch_size}),
         ]
     )

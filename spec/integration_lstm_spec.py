@@ -61,7 +61,6 @@ with description("main Local Univariate LSTM integration test", "integration") a
                  {"training_size": 0.8},),
                 ("convert to timeseries dataset", market_processing.convert_to_time_series_dataset,
                  {"input_window_size": 1, "output_window_size": 1}),
-                ("convert to data loader", market_processing.convert_to_pytorch_dataloader, {"batch_size": 1}),
             ]
         )
         train_set, val_set, test_set, scaler = test_local_univariate_pipeline.run()
