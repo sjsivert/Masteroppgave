@@ -51,21 +51,25 @@ class LstmModule(nn.Module):
         self.fully_connected_layer = nn.Linear(
             in_features=self.hidden_size, out_features=self.output_size * self.number_of_features
         )
+        # self.reset_hidden_state(1)
 
         parameters = list(self.lstm.parameters()) + list(self.fully_connected_layer.parameters())
         if self.device == "cuda":
             self.cuda()
             self.criterion.cuda()
 
-    def forward(self, x):
+    def reset_hidden_state(self, batch_size: int):
         # Here you have defined the hidden state, and internal state first, initialized with zeros.
-        h_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+        self.h_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
 
-        c_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
+        self.c_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
+
+    def forward(self, x):
+        self.reset_hidden_state(x.size(0))
         # output (seq_len, batch, hidden_size * num_directions): tensor containing the output features (h_t) from the last layer of the RNN, for each t.
         # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
         # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len
-        ula, (h_out, _) = self.lstm(x, (h_0, c_0))
+        ula, (h_out, _) = self.lstm(x, (self.h_0, self.c_0))
         # Choose the hidden state from the last layer
         last_hidden_state_layer = h_out[-1]
         out = self.fully_connected_layer(last_hidden_state_layer)

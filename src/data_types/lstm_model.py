@@ -48,6 +48,7 @@ class LstmModel(IModel, ABC):
         self.training_size = params["training_size"]
         self.input_window_size = params["input_window_size"]
         self.output_window_size = params["output_window_size"]
+        self.number_of_epochs = params["number_of_epochs"]
 
         self.training_data_loader = None
         self.validation_data_loader = None
@@ -55,6 +56,10 @@ class LstmModel(IModel, ABC):
         self.min_max_scaler = None
 
         self.optuna_trial = optuna_trial
+
+        self.hyper_parameters = params
+
+        logging.info("Running model on device: {}".format(self.device))
 
         self.init_neural_network(params)
 
@@ -72,9 +77,11 @@ class LstmModel(IModel, ABC):
             bidirectional=False,
             device=self.device,
         )
+        logging.info(f"Created LSTM model with parameters: {self.model.parameters()}")
 
         # TODO! Error metric selection
         self.criterion = calculate_error
+
         self.optimizer = getattr(torch.optim, params["optimizer_name"])(
             self.model.parameters(), lr=params["learning_rate"]
         )
@@ -92,7 +99,8 @@ class LstmModel(IModel, ABC):
     def get_name(self) -> str:
         return self.name
 
-    def train(self, epochs: int = 100) -> Dict:
+    def train(self, epochs: int = None) -> Dict:
+        epochs = self.number_of_epochs if epochs is None else epochs
         # Visualization
         train_error = []
         val_error = []
@@ -114,19 +122,25 @@ class LstmModel(IModel, ABC):
                 # Visualize
                 batch_train_error.append(loss)
                 if epoch + 1 == epochs:
-                    pass
                     # TODO! Add support for multi step prediction visualization
-                    # training_targets.extend(y_batch.reshape((y_batch.shape[0],)).tolist())
-                    # training_predictions.extend(_yhat.reshape((_yhat.shape[0],)).tolist())
+                    training_targets.extend(y_batch.reshape((y_batch.shape[0],)).tolist())
+                    training_predictions.extend(_yhat.reshape((_yhat.shape[0],)).tolist())
 
             epoch_train_error = sum(batch_train_error) / len(batch_train_error)
             train_error.append(epoch_train_error)
 
+            validation_targets = []
+            validation_predictions = []
             for x_val, y_val in self.validation_data_loader:
                 x_val = x_val.to(self.device)
                 y_val = y_val.to(self.device)
-                val_loss = self._validation_step(x_val, y_val)
+                val_loss, y_hat = self._validation_step(x_val, y_val)
+
                 batch_val_error.append(val_loss)
+                if epoch + 1 == epochs:
+                    validation_targets.extend(x_val.view(-1, 1, 1).flatten().tolist())
+                    validation_predictions.extend(y_hat.view(-1, 1, 1).flatten().tolist())
+
             epoch_val_error = sum(batch_val_error) / len(batch_val_error)
             val_error.append(epoch_val_error)
 
@@ -149,6 +163,7 @@ class LstmModel(IModel, ABC):
         self.metrics["validation_error"] = val_error[-1]
         self._visualize_training(training_targets, training_predictions)
         self._visualize_training_errors(training_error=train_error, validation_error=val_error)
+        self._visualize_validation(validation_targets, validation_predictions)
         return self.metrics
 
     # Builds function that performs a step in the train loop
@@ -164,14 +179,14 @@ class LstmModel(IModel, ABC):
         # Returns the loss
         return loss.item(), yhat
 
-    def _validation_step(self, x, y) -> float:
+    def _validation_step(self, x, y) -> (float, torch.Tensor):
         error = None
         with torch.no_grad():
             self.model.eval()
             yhat = self.model(x)
             loss = self.criterion(y, yhat)
             error = loss.item()
-        return error
+        return error, yhat
 
     def _test_step(self, x, y) -> (Dict[str, float], torch.Tensor):
         with torch.no_grad():
@@ -194,8 +209,8 @@ class LstmModel(IModel, ABC):
             # Visualization
             batch_test_error.append(test_loss)
             # TODO! Add support for multi step prediction visualization
-            # testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
-            # testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
+            testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
+            testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
         batch_test_error_dict = {}
         for key in batch_test_error[0].keys():
             batch_test_error_dict[key] = sum([x[key] for x in batch_test_error]) / len(
@@ -204,6 +219,7 @@ class LstmModel(IModel, ABC):
         logging.info(f"Testing error: {batch_test_error_dict}.")
         self.metrics.update(batch_test_error_dict)
         self._visualize_test(testing_targets, testing_predictions)
+
         return batch_test_error_dict
 
     def get_name(self) -> str:
@@ -219,6 +235,7 @@ class LstmModel(IModel, ABC):
             output_window_size=self.output_window_size,
         )
 
+        logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
         for log_source in self.log_sources:
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
@@ -307,6 +324,10 @@ class LstmModel(IModel, ABC):
         )
         id = f"{self.get_name()},{study.best_trial.number}"
         params = study.best_trial.params
+        print("Best params!", params)
+        test_params = self.hyper_parameters.copy()
+        print("Params updated with best params", test_params)
+        self.init_neural_network(test_params)
         best_score = study.best_trial.value
         logging.info(f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {params}")
         return {id: {"best_score": best_score, "best_params": params}}
@@ -369,6 +390,18 @@ class LstmModel(IModel, ABC):
                 title=f"{self.get_name()}# Training set fit",
                 data_series=[targets, predictions],
                 data_labels=["Training targets", "Training predictions"],
+                colors=["blue", "orange"],
+                x_label="Time",
+                y_label="Interest",
+            )
+        )
+
+    def _visualize_validation(self, targets, predictions):
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Validation set fit",
+                data_series=[targets, predictions],
+                data_labels=["Validation targets", "Validation predictions"],
                 colors=["blue", "orange"],
                 x_label="Time",
                 y_label="Interest",

@@ -12,17 +12,17 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+      # - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
+    - 'MAE'
+    - 'MSE'
     - 'MASE'
     - 'SMAPE'
-    - 'MSE'
-    - 'MAE'
 
   save_source:
     disk:
@@ -47,10 +47,11 @@ model:
       hidden_size: [ 10, 200 ]
       number_of_layers: [ 1, 5 ]
       dropout: [ 0.0, 0.5 ]
-      optimizer_name: ['Adam', 'SGD', 'RMSprop']
+      #optimizer_name: ['Adam', 'SGD', 'RMSprop']
+      optimizer_name: ['Adam']
       learning_rate: [ 1e-5, 1e-1 ]
-      number_of_epochs: [ 6, 10 ]
-      batch_size: [ 1, 100 ]
+      number_of_epochs: [ 2, 5 ]
+      batch_size: [ 2, 300 ]
       input_window_size: 1
       output_window_size: 1 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
@@ -59,19 +60,20 @@ model:
 
     common_parameters_for_all_models:
       training_size: 0.8
-      input_window_size: 5
+      input_window_size: 10
       output_window_size: 1
       multi_variable_nr: 1
-      batch_size: 32
+      batch_size: 269
+      number_of_epochs: 295
       optimizer_name: 'Adam'
 
     model_structure:
       - time_series_id: 11573
-        learning_rate: 0.001
-        hidden_layer_size: 64
+        learning_rate: 1.6e-05
+        hidden_layer_size: 143
         dropout: 0.2
         number_of_features: 1
-        number_of_layers: 1
+        number_of_layers: 5
 
   local_univariate_arima:
     training_size: 0.8
