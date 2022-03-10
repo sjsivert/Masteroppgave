@@ -57,6 +57,7 @@ def init_mock_config(
                         "output_window_size": 1,
                         "number_of_features": 1,
                         "number_of_trials": 1,
+                        "batch_size": [1, 32],
                     },
                     "model_structure": [
                         {

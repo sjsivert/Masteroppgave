@@ -12,6 +12,8 @@ from numpy import float64, ndarray
 from optuna import Study
 from optuna.trial import FrozenTrial
 from pandas import DataFrame
+from torch.utils.data import DataLoader, Dataset
+
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
@@ -221,11 +223,36 @@ class LstmModel(IModel, ABC):
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
         (
-            self.training_data_loader,
-            self.validation_data_loader,
-            self.testing_data_loader,
+            self.training_dataset,
+            self.validation_dataset,
+            self.testing_dataset,
             self.min_max_scaler,
         ) = data_pipeline.run()
+        self._convert_dataset_to_dataloader(
+            self.training_dataset,
+            self.validation_dataset,
+            self.testing_dataset,
+            batch_size=self.batch_size,
+        )
+
+    def _convert_dataset_to_dataloader(
+        self,
+        training_set: Dataset,
+        validation_set: Dataset,
+        testing_set: Dataset,
+        batch_size: int,
+        should_shuffle: bool = False,
+    ) -> None:
+        logging.info(f"Converting dataset to dataloader using batch size {batch_size}.")
+        self.training_data_loader = DataLoader(
+            dataset=training_set, batch_size=batch_size, shuffle=should_shuffle
+        )
+        self.validation_data_loader = DataLoader(
+            dataset=validation_set, batch_size=batch_size, shuffle=should_shuffle
+        )
+        self.testing_data_loader = DataLoader(
+            dataset=testing_set, batch_size=batch_size, shuffle=should_shuffle
+        )
 
     def log_trial(self, study: Study, trial: FrozenTrial) -> None:
         for log_source in self.log_sources:

@@ -28,6 +28,12 @@ def local_univariate_lstm_objective(
             hyperparameter_tuning_range["number_of_epochs"][1],
         ),
     )
+    model._convert_dataset_to_dataloader(
+        model.training_dataset,
+        model.validation_dataset,
+        model.testing_dataset,
+        batch_size=params["batch_size"],
+    )
 
     model.init_neural_network(params)
     errors = model.train(
@@ -60,6 +66,9 @@ def hyperparameter_range_to_optuna_range(
             float(config_params["learning_rate"][1]),
         ),
         "batch_first": True,
+        "batch_size": trial.suggest_int(
+            "batch_size", config_params["batch_size"][0], config_params["batch_size"][1]
+        ),
         "dropout": 0.2,
         "bidirectional": False,
         # TODO: Find out how to change optimizer hyperparameters
