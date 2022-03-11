@@ -19,8 +19,8 @@ experiment:
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
-    - 'MAE'
     - 'MSE'
+    - 'MAE'
     - 'MASE'
     - 'SMAPE'
 
@@ -47,7 +47,7 @@ model:
       hidden_size: [ 10, 200 ]
       number_of_layers: [ 1, 5 ]
       dropout: [ 0.0, 0.5 ]
-      #optimizer_name: ['Adam', 'SGD', 'RMSprop']
+      #optimizer_name: ['Adam', 'AdaDelta', 'RMSprop']
       optimizer_name: ['Adam']
       learning_rate: [ 1e-5, 1e-1 ]
       number_of_epochs: [ 2, 5 ]
@@ -59,21 +59,21 @@ model:
       number_of_trials: 1 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
-      training_size: 0.8
-      input_window_size: 10
+      training_size: 0.9
+      input_window_size: 5
       output_window_size: 1
       multi_variable_nr: 1
-      batch_size: 269
-      number_of_epochs: 295
+      batch_size: 32
+      number_of_epochs: 100
       optimizer_name: 'Adam'
 
     model_structure:
       - time_series_id: 11573
-        learning_rate: 1.6e-05
-        hidden_layer_size: 143
+        learning_rate: 1.6e-04
+        hidden_layer_size: 32
         dropout: 0.2
         number_of_features: 1
-        number_of_layers: 5
+        number_of_layers: 2
 
   local_univariate_arima:
     training_size: 0.8
