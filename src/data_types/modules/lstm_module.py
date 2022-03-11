@@ -47,13 +47,12 @@ class LstmModule(nn.Module):
             hidden_size=self.hidden_size,
             num_layers=self.num_layers,
             batch_first=True,
+            dropout=dropout,
         )
         self.fully_connected_layer = nn.Linear(
             in_features=self.hidden_size, out_features=self.output_size * self.number_of_features
         )
-        # self.reset_hidden_state(1)
 
-        parameters = list(self.lstm.parameters()) + list(self.fully_connected_layer.parameters())
         if self.device == "cuda":
             self.cuda()
             self.criterion.cuda()

@@ -15,6 +15,7 @@ from pandas import DataFrame
 from torch.utils.data import DataLoader, Dataset
 
 from src.data_types.i_model import IModel
+from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
@@ -34,6 +35,9 @@ from optuna.visualization import plot_slice
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.visuals import visualize_data_series
 
+import pytorch_lightning as pl
+from torch.nn import functional as F
+
 
 class LstmModel(IModel, ABC):
     def __init__(
@@ -47,6 +51,7 @@ class LstmModel(IModel, ABC):
         # nn.MSELoss()
         # Init global variables
         self.model = None
+        self.trainer = None
         self.figures: List[Figure] = []
         self.metrics: Dict = {}
         self.log_sources: List[ILogTrainingSource] = log_sources
@@ -73,34 +78,8 @@ class LstmModel(IModel, ABC):
 
     def init_neural_network(self, params: dict) -> None:
         # Creating LSTM module
-        self.model = LstmModule(
-            input_window_size=params["input_window_size"],
-            number_of_features=params["number_of_features"],
-            hidden_layer_size=params["hidden_layer_size"],
-            output_size=params["output_window_size"],
-            num_layers=params["number_of_layers"],
-            learning_rate=params["learning_rate"],
-            batch_first=True,
-            dropout=0.2,
-            bidirectional=False,
-            device=self.device,
-        )
-        logging.info(f"Created LSTM model with parameters: {self.model.parameters()}")
-
-        # TODO! Error metric selection
-        # self.criterion = calculate_error
-        self.criterion = nn.MSELoss()
-
-        self.optimizer = getattr(torch.optim, params["optimizer_name"])(
-            self.model.parameters(), lr=params["learning_rate"]
-        )
-        # TODO: Make using scheduler vs learning rate an option
-        # self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        # self.optimizer, patience=500, factor=0.5, min_lr=1e-7, eps=1e-08
-        # )
-        if self.device == "cuda":
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            self.criterion.cuda()
+        self.model = LSTMLightning()
+        self.trainer = pl.Trainer(max_epochs=100)
 
     def calculate_mean_score(self, losses: List[float]) -> float64:
         return np.mean(losses)
@@ -109,106 +88,27 @@ class LstmModel(IModel, ABC):
         return self.name
 
     def train(self, epochs: int = None) -> Dict:
-        epochs = self.number_of_epochs if epochs is None else epochs
         # Visualization
-        train_error = []
-        val_error = []
         training_targets = []
         training_predictions = []
+        self.trainer.fit(self.model, train_dataloaders=self.training_data_loader)
 
-        # Training
-        self.model.train()
-        for epoch in progress_bar(range(epochs)):
-            batch_train_error = []
-            batch_val_error = []
-            for x_batch, y_batch in self.training_data_loader:
-                # the dataset "lives" in the CPU, so do our mini-batches
-                # therefore, we need to send those mini-batches to the
-                # device where the model "lives"
-                x_batch = x_batch.to(self.device)
-                y_batch = y_batch.to(self.device)
-                loss, _yhat = self._train_step(x_batch, y_batch)
-                # Visualize
-                batch_train_error.append(loss)
-                if epoch + 1 == epochs:
-                    # TODO! Add support for multi step prediction visualization
-                    training_targets.extend(y_batch.reshape((y_batch.shape[0],)).tolist())
-                    training_predictions.extend(_yhat.reshape((_yhat.shape[0],)).tolist())
+        # Test loop
+        train_error = []
+        for x, y in self.training_data_loader:
+            y_hat = self.model(x)
+            loss = F.mse_loss(y_hat, y)
+            train_error.append(loss.item())
+            training_targets.extend(y.reshape(y.size(0)).tolist())
+            training_predictions.extend(y_hat.reshape(y.size(0)).tolist())
+        train_error = sum(train_error) / len(train_error)
 
-            epoch_train_error = sum(batch_train_error) / len(batch_train_error)
-            train_error.append(epoch_train_error)
-
-            validation_targets = []
-            validation_predictions = []
-            for x_val, y_val in self.validation_data_loader:
-                x_val = x_val.to(self.device)
-                y_val = y_val.to(self.device)
-                val_loss, y_hat = self._validation_step(x_val, y_val)
-
-                batch_val_error.append(val_loss)
-                if epoch + 1 == epochs:
-                    validation_targets.extend(x_val.view(-1, 1, 1).flatten().tolist())
-                    validation_predictions.extend(y_hat.view(-1, 1, 1).flatten().tolist())
-
-            epoch_val_error = sum(batch_val_error) / len(batch_val_error)
-            val_error.append(epoch_val_error)
-
-            if self.optuna_trial:
-                accuracy = self.calculate_mean_score(batch_val_error)
-                self.optuna_trial.report(accuracy, epoch)
-
-                if self.optuna_trial.should_prune():
-                    print("Pruning trial!")
-                    raise optuna.exceptions.TrialPruned()
-            if (epoch + 1) % 50 == 0:
-                logging.info(
-                    f"Epoch: {epoch+1}, Training loss: {epoch_train_error}. Validation loss: {epoch_val_error}"
-                )
-        # TODO: Log historic data to continue training
-        # self.metrics["training"] = train_error
-        # self.metrics["validation"] = val_error
-
-        self.metrics["training_error"] = train_error[-1]
-        self.metrics["validation_error"] = val_error[-1]
+        self.metrics["training_error"] = 0
         self._visualize_training(training_targets, training_predictions)
-        self._visualize_training_errors(training_error=train_error, validation_error=val_error)
-        self._visualize_validation(validation_targets, validation_predictions)
         return self.metrics
 
-    # Builds function that performs a step in the train loop
-    def _train_step(self, x, y) -> (float, torch.Tensor):
-        # Make prediction, and compute loss, and gradients
-        self.model.train()
-        yhat = self.model(x)
-        loss = self.criterion(y, yhat)
-        # Specify input to avoid chaning gradients in place, which will fuck with parallization
-        # loss.backward(inputs=list(self.model.parameters()))
-        # loss.backward(retain_graph=True)
-        loss.backward()
-        # Updates parameters and zeroes gradients
-        self.optimizer.step()
-        self.optimizer.zero_grad()
-        # Returns the loss
-        return loss.item(), yhat
-
-    def _validation_step(self, x, y) -> (float, torch.Tensor):
-        error = None
-        with torch.no_grad():
-            self.model.eval()
-            yhat = self.model(x)
-            loss = self.criterion(y, yhat)
-            error = loss.item()
-        return error, yhat
-
-    def _test_step(self, x, y) -> (Dict[str, float], torch.Tensor):
-        with torch.no_grad():
-            self.model.eval()
-            yhat = self.model(x)
-            # TODO! Add multi step support
-            loss = calculate_errors(y, yhat)
-        return loss, yhat
-
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
+        return {}
         # Visualize
         testing_targets = []
         testing_predictions = []
