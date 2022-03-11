@@ -74,7 +74,9 @@ def hyperparameter_range_to_optuna_range(
         "batch_size": trial.suggest_int(
             "batch_size", config_params["batch_size"][0], config_params["batch_size"][1]
         ),
-        "dropout": 0.2,
+        "dropout": trial.suggest_float(
+            "dropout", config_params["dropout"][0], config_params["dropout"][1]
+        ),
         "bidirectional": False,
         # TODO: Find out how to change optimizer hyperparameters
         "optimizer_name": trial.suggest_categorical(

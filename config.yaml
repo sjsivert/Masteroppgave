@@ -62,14 +62,14 @@ model:
       input_window_size: 10
       output_window_size: 1
       multi_variable_nr: 1
-      batch_size: 269
-      number_of_epochs: 295
+      batch_size: 324
+      number_of_epochs: 61
       optimizer_name: 'Adam'
 
     model_structure:
       - time_series_id: 11573
-        learning_rate: 1.6e-05
-        hidden_layer_size: 143
+        learning_rate: 0.00169
+        hidden_layer_size: 165
         dropout: 0.2
         number_of_features: 1
         number_of_layers: 5
