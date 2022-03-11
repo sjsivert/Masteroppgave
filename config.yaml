@@ -68,8 +68,8 @@ model:
 
     model_structure:
       - time_series_id: 11573
-        learning_rate: 1.6e-04
-        hidden_layer_size: 32
+        learning_rate: 0.001
+        hidden_layer_size: 165
         dropout: 0.2
         number_of_features: 1
         number_of_layers: 2

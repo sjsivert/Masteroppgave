@@ -215,3 +215,28 @@ def convert_to_pytorch_dataloader(
             dataset=testing_data, batch_size=batch_size, shuffle=False
         )
         yield training_dataloader, validation_dataloader, testing_dataloader, scaler
+
+
+@declare.processor()
+def simple_time_series_processor(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
+    for df in stream:
+        #raw_data = np.expand_dims(df, axis=1)
+        raw_data = np.array(df)
+
+        test_size = 0.2
+
+        scaler_test_dataset = MinMaxScaler(feature_range=(-1, 1))
+        raw_data_scaled = scaler_test_dataset.fit_transform(raw_data)
+
+        simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
+        simple_data_test = raw_data_scaled[-int(test_size * len(raw_data)):]
+        simple_data_val = raw_data_scaled[-int(test_size * len(simple_data_train)) :]
+
+        train_data = TimeseriesDataset(simple_data_train, seq_len=1, y_size=1)
+        test_data = TimeseriesDataset(simple_data_val, seq_len=1, y_size=1)
+        val_data = TimeseriesDataset(simple_data_test, seq_len=1, y_size=1)
+
+        #train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
+        #test_loader = DataLoader(dataset=test_data, batch_size=32, shuffle=False)
+        #val_loader = DataLoader(dataset=val_data, batch_size=32, shuffle=False)
+        yield train_data, test_data, val_data, scaler_test_dataset

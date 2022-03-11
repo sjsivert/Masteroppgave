@@ -19,6 +19,7 @@ from src.data_types.modules.lstm_lightning_module import LSTM_Lightning
 from src.data_types.modules.lstm_module import LstmModule
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
+from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
@@ -155,6 +156,7 @@ class LstmModel(IModel, ABC):
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )
+        data_pipeline = simple_time_series_pipeline()
 
         logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
         for log_source in self.log_sources:
