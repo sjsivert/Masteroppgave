@@ -21,6 +21,11 @@ def local_univariate_lstm_objective(
 ) -> float:
     params = hyperparameter_range_to_optuna_range(trial, hyperparameter_tuning_range)
 
+    logging.info(
+        f"Starting tuning trial number #{trial.number} of total {hyperparameter_tuning_range['number_of_trials']}\n"
+        f"with params: {params}"
+    )
+
     number_of_epochs = (
         trial.suggest_int(
             "number_of_epochs",
