@@ -1,9 +1,9 @@
 import logging
 
+import pytorch_lightning as pl
 import torch
 from torch import nn
 from torch.autograd import Variable
-import pytorch_lightning as pl
 from torch.nn import functional as F
 
 

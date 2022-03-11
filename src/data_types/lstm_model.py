@@ -1,45 +1,42 @@
 import logging
 from abc import ABC
-from typing import Dict, List, Optional, Tuple, Any, cast
-from pytorch_lightning.loggers import NeptuneLogger
+from typing import Any, Dict, List, Optional, Tuple, cast
 
 import numpy as np
 import optuna
 import pandas
+import pytorch_lightning as pl
 import torch
 from fastprogress import progress_bar
 from matplotlib.figure import Figure
 from numpy import float64, ndarray
 from optuna import Study
 from optuna.trial import FrozenTrial
+from optuna.visualization import (plot_contour, plot_edf,
+                                  plot_intermediate_values,
+                                  plot_optimization_history,
+                                  plot_parallel_coordinate,
+                                  plot_param_importances, plot_slice)
 from pandas import DataFrame
-from torch.utils.data import DataLoader, Dataset
-
+from pytorch_lightning.loggers import NeptuneLogger
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
-from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
+from src.optuna_tuning.loca_univariate_lstm_objective import \
+    local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
+from src.pipelines.simpe_time_series_pipeline import \
+    simple_time_series_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from torch import nn
-from torch.autograd import Variable
-
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.pytorch_error_calculations import *
-from optuna.visualization import plot_contour
-from optuna.visualization import plot_edf
-from optuna.visualization import plot_intermediate_values
-from optuna.visualization import plot_optimization_history
-from optuna.visualization import plot_parallel_coordinate
-from optuna.visualization import plot_param_importances
-from optuna.visualization import plot_slice
-
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.visuals import visualize_data_series
-
-import pytorch_lightning as pl
+from torch import nn
+from torch.autograd import Variable
 from torch.nn import functional as F
+from torch.utils.data import DataLoader, Dataset
 
 
 class LstmModel(IModel, ABC):
