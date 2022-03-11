@@ -345,13 +345,15 @@ class LstmModel(IModel, ABC):
         return {id: {"best_score": best_score, "best_params": params}}
 
     def _generate_optuna_plots(self, study: Study) -> None:
-        self.figures.append(plot_slice(study))
-        self.figures.append(plot_edf(study))
-        self.figures.append(plot_intermediate_values(study))
-        self.figures.append(plot_optimization_history(study))
-        self.figures.append(plot_parallel_coordinate(study))
-        self.figures.append(plot_param_importances())
-        self.figures.append(plot_slice(study))
+        # TODO: Currently getting error Figure has not attribute axes. Fix
+        pass
+        # self.figures.append(plot_slice(study))
+        # self.figures.append(plot_edf(study))
+        # self.figures.append(plot_intermediate_values(study))
+        # self.figures.append(plot_optimization_history(study))
+        # self.figures.append(plot_parallel_coordinate(study))
+        # self.figures.append(plot_param_importances(study))
+        # self.figures.append(plot_slice(study))
 
     def get_figures(self) -> List[Figure]:
         """
