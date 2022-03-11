@@ -22,6 +22,13 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
 from src.utils.pytorch_error_calculations import *
+from optuna.visualization import plot_contour
+from optuna.visualization import plot_edf
+from optuna.visualization import plot_intermediate_values
+from optuna.visualization import plot_optimization_history
+from optuna.visualization import plot_parallel_coordinate
+from optuna.visualization import plot_param_importances
+from optuna.visualization import plot_slice
 
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.visuals import visualize_data_series
@@ -172,7 +179,10 @@ class LstmModel(IModel, ABC):
         self.model.train()
         yhat = self.model(x)
         loss = self.criterion(y, yhat)
-        loss.backward()
+        # Specify input to avoid chaning gradients in place, which will fuck with parallization
+        # loss.backward(inputs=list(self.model.parameters()))
+        # loss.backward(retain_graph=True)
+        loss.backward(inputs=list(self.model.parameters()))
         # Updates parameters and zeroes gradients
         self.optimizer.step()
         self.optimizer.zero_grad()
@@ -330,7 +340,18 @@ class LstmModel(IModel, ABC):
         self.init_neural_network(test_params)
         best_score = study.best_trial.value
         logging.info(f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {params}")
+        self._generate_optuna_plots(study)
+
         return {id: {"best_score": best_score, "best_params": params}}
+
+    def _generate_optuna_plots(self, study: Study) -> None:
+        self.figures.append(plot_slice(study))
+        self.figures.append(plot_edf(study))
+        self.figures.append(plot_intermediate_values(study))
+        self.figures.append(plot_optimization_history(study))
+        self.figures.append(plot_parallel_coordinate(study))
+        self.figures.append(plot_param_importances())
+        self.figures.append(plot_slice(study))
 
     def get_figures(self) -> List[Figure]:
         """
