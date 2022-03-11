@@ -188,3 +188,6 @@ for x_batch, y_batch in train_loader:
 # train_predictions = trainer.predict(model, dataloaders=train_loader)[0].flatten()
 plt.plot(x_targets)
 plt.plot(train_predictions)
+
+# %%
+trainer.logged_metrics

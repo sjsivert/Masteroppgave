@@ -5,6 +5,7 @@ from typing import Dict, List, Optional, Tuple, Any
 import numpy as np
 import optuna
 import pandas
+import pandas as pd
 import torch
 from fastprogress import progress_bar
 from matplotlib.figure import Figure
@@ -12,11 +13,13 @@ from numpy import float64, ndarray
 from optuna import Study
 from optuna.trial import FrozenTrial
 from pandas import DataFrame
+from sklearn.preprocessing import MinMaxScaler
 from torch.utils.data import DataLoader, Dataset
 
 from src.data_types.i_model import IModel
-from src.data_types.modules.lstm_lightning_module import LSTM_Lightning
+from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
+from src.datasets.time_series_dataset import TimeseriesDataset
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
@@ -77,7 +80,8 @@ class LstmModel(IModel, ABC):
 
     def init_neural_network(self, params: dict) -> None:
         # Creating LSTM module
-        self.model = LSTM_Lightning()
+        # self.model = LSTM_Lightning()
+        pass
 
     def calculate_mean_score(self, losses: List[float]) -> float64:
         return np.mean(losses)
@@ -86,19 +90,44 @@ class LstmModel(IModel, ABC):
         return self.name
 
     def train(self, epochs: int = None) -> Dict:
+        # DATA
+        test_size = 0.2
+        raw_data = pd.read_csv("./datasets/external/Alcohol_Sales.csv", parse_dates=["DATE"])
+        raw_data = raw_data["S4248SM144NCEN"].to_numpy()
+        raw_data = np.expand_dims(raw_data, axis=1)
+
+        scaler = MinMaxScaler(feature_range=(-1, 1))
+        raw_data_scaled = scaler.fit_transform(raw_data)
+
+        simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
+        simple_data_val = raw_data_scaled[-int(test_size * len(raw_data)) :]
+
+        train_data = TimeseriesDataset(simple_data_train, seq_len=1, y_size=1)
+        val_data = TimeseriesDataset(simple_data_val, seq_len=1, y_size=1)
+
+        train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
+        val_loader = DataLoader(dataset=val_data, batch_size=32, shuffle=False)
         # Visualization
         training_targets = []
         training_predictions = []
 
+        # Training
+        model = LSTMLightning(
+            input_size=1,
+            hidden_size=20,
+            output_size=1,
+            num_layers=2,
+            learning_rate=0.001,
+            batch_size=64,
+        )
+
         trainer = pl.Trainer(max_epochs=10)
-        model = LSTM_Lightning()
         trainer.fit(model, train_dataloaders=self.training_data_loader)
 
         # Test loop
         train_error = []
-        self.model.freeze()
         for x, y in self.training_data_loader:
-            y_hat = self.model(x)
+            y_hat = model(x)
             loss = F.mse_loss(y_hat, y)
             train_error.append(loss.item())
             training_targets.extend(y.reshape(y.size(0)).tolist())
