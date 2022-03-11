@@ -139,8 +139,11 @@ class TimeseriesDataset(Dataset):
 
 # Wait, is this a CPU tensor now? Why? Where is .to(device)?
 
-train_data = TimeseriesDataset(train_data_normalized, seq_len=1, y_size=1)
-test_data = TimeseriesDataset(validation_data_normalized, seq_len=1, y_size=1)
+raw_data = pd.read_csv("../datasets/external/Alcohol_Sales.csv", parse_dates=["DATE"])
+train_data = TimeseriesDataset(raw_data, seq_len=1, y_size=1)
+test_data = TimeseriesDataset(raw_data, seq_len=1, y_size=1)
+# train_data = TimeseriesDataset(train_data_normalized, seq_len=1, y_size=1)
+# test_data = TimeseriesDataset(validation_data_normalized, seq_len=1, y_size=1)
 print(train_data[2])
 print(train_data[3])
 print(train_data[4])
@@ -388,7 +391,7 @@ lstm = LSTM(
     hidden_size=143,
     output_size=1,
     num_layers=5,
-    learning_rate=1.5e-05,
+    learning_rate=0.001,
     batch_size=269,
 )
 print(lstm)
@@ -396,6 +399,7 @@ losses, val_losses = lstm.train_network(train_loader, val_loader, n_epochs=100, 
 
 # %%
 plt.plot(losses)
+plt.show()
 plt.plot(val_losses)
 # %%
 type(lstm.calculate_mean_score(val_losses))
@@ -414,8 +418,8 @@ for x_batch, y_batch in train_loader_no_batch:
     print("y shape", y_batch.shape)
     print("yhat shape", yhat.shape)
 
-    predictions.append(yhat.view(10, 1).detach().cpu().numpy())
-    correct_values.append(y_batch.view(10, 1).numpy())
+    predictions.append(yhat.view(1, 1).detach().cpu().numpy())
+    correct_values.append(y_batch.view(1, 1).numpy())
     # correct_values.append(y_batch.cpu().detach().numpy().flatten())
     # predictions.append(yhat.detach().cpu().numpy().flatten())
 predictions = np.array(predictions)
@@ -440,12 +444,13 @@ plt.plot(error_window)
 print("first 4", correct_values[:4, :, 0])
 print("first 4 skip every second", correct_values[::2, :, 0][:4].flatten())
 # Of the output window of 10 plot all the first predictions
+print(correct_values[0].shape)
 plt.plot(correct_values[:, 0, 0])
 plt.plot(predictions[:, 0, 0])
 plt.show()
 # Plot the tenth prediction
-plt.plot(correct_values[:, 9, 0])
-plt.plot(predictions[:, 9, 0])
+plt.plot(correct_values[:, 0, 0])
+plt.plot(predictions[:, 0, 0])
 plt.show()
 # Plot whole output window and skip every thent step to plot
 plt.plot(correct_values[::9, :, 0].flatten())
@@ -462,8 +467,8 @@ for x_batch, y_batch in val_loader_no_batch:
     x_batch = x_batch.to(device)
     yhat = lstm(x_batch)
 
-    correct_values_val.append(y_batch.view(10, 1).numpy())
-    predictions_val.append(yhat.view(10, 1).detach().cpu().numpy())
+    correct_values_val.append(y_batch.view(1, 1).numpy())
+    predictions_val.append(yhat.view(1, 1).detach().cpu().numpy())
     print("y shape", y_batch.shape)
     print("yhat shape", yhat.shape)
 
@@ -477,13 +482,13 @@ print("Original validation data")
 plt.plot(data_validation[:, 0][:25])
 plt.show()
 print("Whole window every tenth step")
-print(correct_values[::9, :, 0].shape)
-plt.plot(correct_values_val[::9, :, 0].flatten()[:25])
-plt.plot(predictions_val[::9, :, 0].flatten()[:25])
+print(correct_values[:, :, 0].shape)
+plt.plot(correct_values_val[:, :, 0].flatten()[:25])
+plt.plot(predictions_val[:, :, 0].flatten()[:25])
 plt.show()
 # First prediction of all windows
-plt.plot(correct_values_val[:, 1, 0][:25])
-plt.plot(predictions_val[:, 1, 0][:25])
+plt.plot(correct_values_val[:, 0, 0][:25])
+plt.plot(predictions_val[:, 0, 0][:25])
 # y_val_renormalize = scaler.inverse_transform(y_val.flatten())
 
 
