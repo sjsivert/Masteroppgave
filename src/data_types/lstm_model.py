@@ -48,7 +48,6 @@ class LstmModel(IModel, ABC):
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
 
-        # nn.MSELoss()
         # Init global variables
         self.model = None
         self.trainer = None
@@ -91,7 +90,11 @@ class LstmModel(IModel, ABC):
         # Visualization
         training_targets = []
         training_predictions = []
-        self.trainer.fit(self.model, train_dataloaders=self.training_data_loader)
+        self.trainer.fit(
+            self.model,
+            train_dataloaders=self.training_data_loader,
+            val_dataloaders=self.validation_data_loader,
+        )
 
         # Test loop
         train_error = []
@@ -105,6 +108,7 @@ class LstmModel(IModel, ABC):
 
         self.metrics["training_error"] = 0
         self._visualize_training(training_targets, training_predictions)
+        self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
         return self.metrics
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:

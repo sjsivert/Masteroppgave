@@ -9,6 +9,10 @@ class LSTMLightning(pl.LightningModule):
     def __init__(self):
         super().__init__()
 
+        # Set params for error progression
+        self.training_errors = []
+        self.validation_errors = []
+
         # Set parameters
         self.output_size = 1
         self.input_size = 1
@@ -53,12 +57,27 @@ class LSTMLightning(pl.LightningModule):
         x, y = train_batch
         yhat = self(x)
         loss = F.mse_loss(y, yhat)
-        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
+        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
+
+    def training_epoch_end(self, training_step_outputs):
+        epoch_loss = []
+        for out in training_step_outputs:
+            batch_loss = out["loss"]
+            epoch_loss.append(batch_loss)
+        epoch_loss = sum(epoch_loss) / len(epoch_loss)
+        self.training_errors.append(epoch_loss)
 
     def validation_step(self, val_batch, batch_idx):
         x, y = val_batch
         yhat = self(x)
         loss = F.mse_loss(y, yhat)
-        self.log("val_loss", loss)
+        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
+
+    def validation_epoch_end(self, validation_step_outputs) -> None:
+        epoch_loss = []
+        for out in validation_step_outputs:
+            epoch_loss.append(out)
+        epoch_loss = sum(epoch_loss) / len(epoch_loss)
+        self.validation_errors.append(epoch_loss)
