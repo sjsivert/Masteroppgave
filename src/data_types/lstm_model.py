@@ -112,59 +112,27 @@ class LstmModel(IModel, ABC):
             val_dataloaders=self.validation_data_loader,
         )
 
-        # Test loop
-        train_error = []
-        for x, y in self.training_data_loader:
-            y_hat = self.model(x)
-            loss = F.mse_loss(y_hat, y)
-            train_error.append(loss.item())
+        # TODO: Visualize training set and training fit
+        for batch_idx, batch in enumerate(self.training_data_loader):
+            x, y = batch
+            y_hat = self.model.predict_step(x, batch_idx)
+            print(y_hat)
             training_targets.extend(y.reshape(y.size(0)).tolist())
             training_predictions.extend(y_hat.reshape(y.size(0)).tolist())
-        train_error = sum(train_error) / len(train_error)
 
-        validation_error = []
-        validation_targets = []
-        validation_predictions = []
-        for x, y in self.validation_data_loader:
-            y_hat = self.model(x)
-            loss = F.mse_loss(y_hat, y)
-            validation_error.append(loss.item())
-            validation_targets.extend(y.reshape(y.size(0)).tolist())
-            validation_predictions.extend(y_hat.reshape(y.size(0)).tolist())
-        validation_error = sum(validation_error) / len(validation_error)
-
-        self.metrics["training_error"] = train_error
-        self.metrics["validation_error"] = validation_error
+        self.metrics["training_error"] = self.model.training_errors[-1]
         self._visualize_training(training_targets, training_predictions)
         self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
         return self.metrics
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
-        return {}
-        # Visualize
-        testing_targets = []
-        testing_predictions = []
-        batch_test_error = []
-
-        for x_test, y_test in self.testing_data_loader:
-            x_test = x_test.to(self.device)
-            y_test = y_test.to(self.device)
-            test_loss, _yhat = self._test_step(x_test, y_test)
-            # Visualization
-            batch_test_error.append(test_loss)
-            # TODO! Add support for multi step prediction visualization
-            testing_targets.extend(y_test.reshape((y_test.shape[0])).tolist())
-            testing_predictions.extend(_yhat.reshape((_yhat.shape[0])).tolist())
-        batch_test_error_dict = {}
-        for key in batch_test_error[0].keys():
-            batch_test_error_dict[key] = sum([x[key] for x in batch_test_error]) / len(
-                batch_test_error
-            )
-        logging.info(f"Testing error: {batch_test_error_dict}.")
-        self.metrics.update(batch_test_error_dict)
-        self._visualize_test(testing_targets, testing_predictions)
-
-        return batch_test_error_dict
+        self.trainer.test(self.model, dataloaders=self.testing_data_loader)
+        # Visualize predictions -> TODO: Add multi step visualization
+        self._visualize_test(self.model.test_targets, self.model.test_predictions)
+        # Trainer get list of errors
+        logging.info(f"Testing error: {self.model.test_losses_dict}.")
+        self.metrics.update(self.model.test_losses_dict)
+        return self.model.test_losses_dict
 
     def get_name(self) -> str:
         return self.name
