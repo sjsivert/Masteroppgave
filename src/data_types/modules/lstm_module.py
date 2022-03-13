@@ -57,14 +57,21 @@ class LstmModule(nn.Module):
             self.cuda()
             self.criterion.cuda()
 
-    def reset_hidden_state(self, batch_size: int):
+    def reset_hidden_state(self, batch_size: int, x):
+        logging.info("\n\n\n\n\n\n-----------------")
+        logging.info("x device", x.device)
         # Here you have defined the hidden state, and internal state first, initialized with zeros.
-        self.h_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
+        self.h_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device))
+        self.c_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device))
 
-        self.c_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
+        # Put tensors on same device as input
+        self.h_0 = self.h_0.type_as(x)
+        self.c_0 = self.c_0.type_as(x)
+        print("hidden device", self.h_0.device)
+
 
     def forward(self, x):
-        self.reset_hidden_state(x.size(0))
+        self.reset_hidden_state(x.size(0), x=x)
         # output (seq_len, batch, hidden_size * num_directions): tensor containing the output features (h_t) from the last layer of the RNN, for each t.
         # h_n (num_layers * num_directions, batch, hidden_size): tensor containing the hidden state for t=seq_len
         # c_n (num_layers * num_directions, batch, hidden_size): tensor containing the cell state for t=seq_len

@@ -68,13 +68,17 @@ class LSTMLightning(pl.LightningModule):
             in_features=self.hidden_size, out_features=self.output_window_size * self.num_features
         )
 
-    def reset_hidden_state(self, batch_size: int):
+    def reset_hidden_state(self, batch_size: int, x):
         # Here you have defined the hidden state, and internal state first, initialized with zeros.
-        self.h_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
-        self.c_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
+        self.h_0 = Variable(
+            torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
+        )
+        self.c_0 = Variable(
+            torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
+        )
 
     def forward(self, x):
-        self.reset_hidden_state(batch_size=x.size(0))
+        self.reset_hidden_state(batch_size=x.size(0), x=x)
         ula, (h_out, _) = self.lstm(x, (self.h_0, self.c_0))
         h_out_last = h_out[-1]
         out = self.out_layer(h_out_last)

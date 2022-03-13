@@ -85,6 +85,7 @@ class LstmModel(IModel, ABC):
             deterministic=True,
             logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
             auto_select_gpus=True,
+            gpus=1,
             **xargs,
         )
 
