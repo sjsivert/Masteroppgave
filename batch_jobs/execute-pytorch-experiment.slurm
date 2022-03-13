@@ -7,13 +7,13 @@
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/sbatch_job.txt
+#SBATCH --output=batch_jobs/output/sbatch_job2.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="First-hpc-lstm-experiment-test"
+export EXPERIMENT_TITLE="first-experiment-on-hpc"
 export EXPERIMENT_DESCRIPTION="first-test"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
@@ -38,5 +38,5 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION} --tune
+python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
 
