@@ -1,5 +1,6 @@
 # %%
 from ast import Tuple
+from pytorch_lightning.loggers import NeptuneLogger
 import matplotlib.pyplot as plt
 from typing import Dict, List
 import pandas as pd
@@ -56,6 +57,13 @@ train_data = TimeseriesDataset(simple_data_train, seq_len=1, y_size=1)
 val_data = TimeseriesDataset(simple_data_val, seq_len=1, y_size=1)
 train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
 val_loader = DataLoader(dataset=val_data, batch_size=32, shuffle=False)
+# %%
+neptune_logger = NeptuneLogger(
+    #api_key="ANONYMOUS",  # replace with your own
+    project="sjsivertandsanderkk/Masteroppgave",
+    tags=["test"],  # optional
+    log_model_checkpoints=False
+)
 
 # %%
 class LSTM(pl.LightningModule):
@@ -129,8 +137,8 @@ class LSTM(pl.LightningModule):
         self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
-    def validation_step(self, val_batch: Tuple(Tensor), batch_idx: int):
-        x, y = val_batch
+    def validation_step(self, batch, batch_idx):
+        x, y = batch
         y_pred = self(x)
         loss = F.mse_loss(y_pred, y)
         self.log("val_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
@@ -148,9 +156,14 @@ class LSTM(pl.LightningModule):
         avg_train_loss = torch.stack([x["loss"] for x in training_step_outputs]).mean()
         self.log("avg_train_loss", avg_train_loss)
 
+        
+
 
 # %%
-trainer = pl.Trainer(max_epochs=50)
+trainer = pl.Trainer(
+    max_epochs=50,
+    logger=neptune_logger,
+    )
 model = LSTM(
     input_size=1,
     hidden_size=20,
@@ -159,9 +172,11 @@ model = LSTM(
     learning_rate=0.001,
     batch_size=64,
 )
-trainer.fit(model, train_dataloaders=train_loader)
+trainer.fit(model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 # %%
 trainer.validate(model, dataloaders=val_loader)
+# %%
+trainer.test(model, dataloaders=val_loader)
 # %%
 y_val_targets = []
 y_val_predictions = []
