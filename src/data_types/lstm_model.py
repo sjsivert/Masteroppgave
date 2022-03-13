@@ -1,6 +1,7 @@
 import logging
 from abc import ABC
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, cast
+from pytorch_lightning.loggers import NeptuneLogger
 
 import numpy as np
 import optuna
@@ -23,6 +24,8 @@ from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from torch import nn
 from torch.autograd import Variable
+
+from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.pytorch_error_calculations import *
 from optuna.visualization import plot_contour
 from optuna.visualization import plot_edf
@@ -78,7 +81,16 @@ class LstmModel(IModel, ABC):
     def init_neural_network(self, params: dict) -> None:
         # Creating LSTM module
         self.model = LSTMLightning()
-        self.trainer = pl.Trainer(max_epochs=100)
+        self.trainer = pl.Trainer(max_epochs=100, logger=self._get_neptune_run_from_save_sources())
+
+    def _get_neptune_run_from_save_sources(self) -> Optional[NeptuneLogger]:
+        for log_source in self.log_sources:
+            if isinstance(log_source, NeptuneSaveSource):
+                cast(NeptuneSaveSource, log_source)
+                neptune_run = log_source.run
+                logging.info("Using pre-existing neptune run for PytorchLightning")
+                neptune_logger = NeptuneLogger(log_model_checkpoints=False, run=neptune_run)
+                return neptune_logger
 
     def calculate_mean_score(self, losses: List[float]) -> float64:
         return np.mean(losses)
