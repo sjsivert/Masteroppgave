@@ -181,7 +181,6 @@ class LstmModel(IModel, ABC):
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )
-        data_pipeline = simple_time_series_pipeline()
 
         logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
         for log_source in self.log_sources:
@@ -210,13 +209,22 @@ class LstmModel(IModel, ABC):
     ) -> None:
         logging.info(f"Converting dataset to dataloader using batch size {batch_size}.")
         self.training_data_loader = DataLoader(
-            dataset=training_set, batch_size=batch_size, shuffle=should_shuffle
+            dataset=training_set,
+            batch_size=batch_size,
+            shuffle=should_shuffle,
+            num_workers=8,
         )
         self.validation_data_loader = DataLoader(
-            dataset=validation_set, batch_size=batch_size, shuffle=should_shuffle
+            dataset=validation_set,
+            batch_size=batch_size,
+            shuffle=should_shuffle,
+            num_workers=8,
         )
         self.testing_data_loader = DataLoader(
-            dataset=testing_set, batch_size=batch_size, shuffle=should_shuffle
+            dataset=testing_set,
+            batch_size=batch_size,
+            shuffle=should_shuffle,
+            num_workers=8,
         )
 
     def log_trial(self, study: Study, trial: FrozenTrial) -> None:
