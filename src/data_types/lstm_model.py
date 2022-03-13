@@ -12,24 +12,25 @@ from matplotlib.figure import Figure
 from numpy import float64, ndarray
 from optuna import Study
 from optuna.trial import FrozenTrial
-from optuna.visualization import (plot_contour, plot_edf,
-                                  plot_intermediate_values,
-                                  plot_optimization_history,
-                                  plot_parallel_coordinate,
-                                  plot_param_importances, plot_slice)
+from optuna.visualization import (
+    plot_contour,
+    plot_edf,
+    plot_intermediate_values,
+    plot_optimization_history,
+    plot_parallel_coordinate,
+    plot_param_importances,
+    plot_slice,
+)
 from pandas import DataFrame
 from pytorch_lightning.loggers import NeptuneLogger
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
-from src.optuna_tuning.loca_univariate_lstm_objective import \
-    local_univariate_lstm_objective
+from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-from src.pipelines.simpe_time_series_pipeline import \
-    simple_time_series_pipeline
+from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import \
-    LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.pytorch_error_calculations import *
 from src.utils.visuals import visualize_data_series
@@ -116,11 +117,11 @@ class LstmModel(IModel, ABC):
         for batch_idx, batch in enumerate(self.training_data_loader):
             x, y = batch
             y_hat = self.model.predict_step(x, batch_idx)
-            print(y_hat)
             training_targets.extend(y.reshape(y.size(0)).tolist())
             training_predictions.extend(y_hat.reshape(y.size(0)).tolist())
 
         self.metrics["training_error"] = self.model.training_errors[-1]
+        self.metrics["validation_error"] = self.model.validation_errors[-1]
         self._visualize_training(training_targets, training_predictions)
         self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
         return self.metrics
