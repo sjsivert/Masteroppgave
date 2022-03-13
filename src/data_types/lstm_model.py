@@ -82,6 +82,7 @@ class LstmModel(IModel, ABC):
         # Creating LSTM module
         self.model = LSTMLightning(**params)
         self.trainer = pl.Trainer(
+            enable_checkpointing=False,
             max_epochs=params["number_of_epochs"],
             deterministic=True,
             logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
