@@ -78,10 +78,16 @@ class LstmModel(IModel, ABC):
 
         self.init_neural_network(params)
 
-    def init_neural_network(self, params: dict) -> None:
+    def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         # Creating LSTM module
-        self.model = LSTMLightning()
-        self.trainer = pl.Trainer(max_epochs=100, logger=self._get_neptune_run_from_save_sources())
+        self.model = LSTMLightning(**params)
+        self.trainer = pl.Trainer(
+            max_epochs=params["number_of_epochs"],
+            deterministic=True,
+            logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
+            auto_select_gpus=True,
+            **xargs,
+        )
 
     def _get_neptune_run_from_save_sources(self) -> Optional[NeptuneLogger]:
         for log_source in self.log_sources:
@@ -98,7 +104,7 @@ class LstmModel(IModel, ABC):
     def get_name(self) -> str:
         return self.name
 
-    def train(self, epochs: int = None) -> Dict:
+    def train(self, epochs: int = None, **xargs) -> Dict:
         # Visualization
         training_targets = []
         training_predictions = []
@@ -118,7 +124,19 @@ class LstmModel(IModel, ABC):
             training_predictions.extend(y_hat.reshape(y.size(0)).tolist())
         train_error = sum(train_error) / len(train_error)
 
-        self.metrics["training_error"] = 0
+        validation_error = []
+        validation_targets = []
+        validation_predictions = []
+        for x, y in self.validation_data_loader:
+            y_hat = self.model(x)
+            loss = F.mse_loss(y_hat, y)
+            validation_error.append(loss.item())
+            validation_targets.extend(y.reshape(y.size(0)).tolist())
+            validation_predictions.extend(y_hat.reshape(y.size(0)).tolist())
+        validation_error = sum(validation_error) / len(validation_error)
+
+        self.metrics["training_error"] = train_error
+        self.metrics["validation_error"] = validation_error
         self._visualize_training(training_targets, training_predictions)
         self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
         return self.metrics

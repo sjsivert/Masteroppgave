@@ -1,3 +1,5 @@
+import logging
+
 import torch
 from torch import nn
 from torch.autograd import Variable
@@ -6,7 +8,18 @@ from torch.nn import functional as F
 
 
 class LSTMLightning(pl.LightningModule):
-    def __init__(self):
+    def __init__(
+        self,
+        input_window_size: int,
+        number_of_features: int,
+        hidden_layer_size: int,
+        output_window_size: int,
+        number_of_layers: int,
+        learning_rate: float,
+        dropout: float,
+        optimizer_name: str,
+        **kwargs,
+    ):
         super().__init__()
 
         # Set params for error progression
@@ -14,13 +27,21 @@ class LSTMLightning(pl.LightningModule):
         self.validation_errors = []
 
         # Set parameters
-        self.output_size = 1
-        self.input_size = 1
-        self.num_layers = 2
-        self.num_features = 1
-        self.hidden_size = 32
-        lr = 1e-3
-        dropout = 0.2
+        self.output_window_size = output_window_size
+        self.input_window_size = input_window_size
+        self.num_layers = number_of_layers
+        self.num_features = number_of_features
+        self.hidden_size = hidden_layer_size
+        self.learning_rate = learning_rate
+        self.optimizer_name = optimizer_name
+        dropout = dropout
+
+        logging.info(
+            f"Initializing LSTM with {self.num_layers} layers, {self.hidden_size} hidden size, "
+            f"{self.learning_rate} learning rate, {dropout} dropout. "
+            f"Optimiser: {self.optimizer_name},  "
+            f"input window size: {self.input_window_size}, output window size: {self.output_window_size}"
+        )
 
         # LSTM model
         self.lstm = nn.LSTM(
@@ -33,7 +54,7 @@ class LSTMLightning(pl.LightningModule):
 
         # Fully connected output layer
         self.out_layer = nn.Linear(
-            in_features=self.hidden_size, out_features=self.output_size * self.num_features
+            in_features=self.hidden_size, out_features=self.output_window_size * self.num_features
         )
 
     def reset_hidden_state(self, batch_size: int):
@@ -46,11 +67,12 @@ class LSTMLightning(pl.LightningModule):
         ula, (h_out, _) = self.lstm(x, (self.h_0, self.c_0))
         h_out_last = h_out[-1]
         out = self.out_layer(h_out_last)
-        out_multi_feature = out.reshape(out.size(0), self.output_size, self.num_features)
+        out_multi_feature = out.reshape(out.size(0), self.output_window_size, self.num_features)
         return out_multi_feature
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=0.01)
+        # TODO Make configure optimizer configurable
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
         return optimizer
 
     def training_step(self, train_batch, batch_idx):
@@ -72,7 +94,7 @@ class LSTMLightning(pl.LightningModule):
         x, y = val_batch
         yhat = self(x)
         loss = F.mse_loss(y, yhat)
-        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
+        self.log("validation_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
     def validation_epoch_end(self, validation_step_outputs) -> None:
