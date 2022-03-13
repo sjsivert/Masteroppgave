@@ -4,6 +4,7 @@ from collections import OrderedDict
 from typing import Tuple, Dict, List
 
 import optuna
+from optuna.integration import PyTorchLightningPruningCallback, pytorch_lightning
 from torch.utils.data import DataLoader
 
 from typing import OrderedDict
@@ -21,18 +22,16 @@ def local_univariate_lstm_objective(
 ) -> float:
     params = hyperparameter_range_to_optuna_range(trial, hyperparameter_tuning_range)
 
+    # The default logger in PyTorch Lightning writes to event files to be consumed by
+    # TensorBoard. We create a simple logger instead that holds the log in memory so that the
+    # final accuracy can be obtained after optimization. When using the default logger, the
+    # final accuracy could be stored in an attribute of the `Trainer` instead.
+
     logging.info(
         f"Starting tuning trial number #{trial.number} of total {hyperparameter_tuning_range['number_of_trials']}\n"
         f"with params: {params}"
     )
 
-    number_of_epochs = (
-        trial.suggest_int(
-            "number_of_epochs",
-            hyperparameter_tuning_range["number_of_epochs"][0],
-            hyperparameter_tuning_range["number_of_epochs"][1],
-        ),
-    )
     model._convert_dataset_to_dataloader(
         model.training_dataset,
         model.validation_dataset,
@@ -40,14 +39,18 @@ def local_univariate_lstm_objective(
         batch_size=params["batch_size"],
     )
 
-    model.init_neural_network(params)
+    model.init_neural_network(
+        params,
+        callbacks=[PyTorchLightningPruningCallback(trial, monitor="validation_loss")],
+    )
+
     errors = model.train(
-        epochs=number_of_epochs[0],
+        epochs=params["number_of_epochs"],
     )
     # TODO: Use config parameter 'metric'to use when tuning
-    score = model.calculate_mean_score(errors["training_error"])
+    # score = model.calculate_mean_score(errors[""])
 
-    return score
+    return errors["validation_error"]
 
 
 def hyperparameter_range_to_optuna_range(
@@ -81,5 +84,10 @@ def hyperparameter_range_to_optuna_range(
         # TODO: Find out how to change optimizer hyperparameters
         "optimizer_name": trial.suggest_categorical(
             "optimizer_name", config_params["optimizer_name"]
+        ),
+        "number_of_epochs": trial.suggest_int(
+            "number_of_epochs",
+            config_params["number_of_epochs"][0],
+            config_params["number_of_epochs"][1],
         ),
     }
