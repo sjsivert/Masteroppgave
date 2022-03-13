@@ -61,14 +61,17 @@ class LstmModule(nn.Module):
         logging.info("\n\n\n\n\n\n-----------------")
         logging.info("x device", x.device)
         # Here you have defined the hidden state, and internal state first, initialized with zeros.
-        self.h_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device))
-        self.c_0 = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device))
+        self.h_0 = Variable(
+            torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
+        )
+        self.c_0 = Variable(
+            torch.zeros(self.num_layers, batch_size, self.hidden_size, device=x.device)
+        )
 
         # Put tensors on same device as input
         self.h_0 = self.h_0.type_as(x)
         self.c_0 = self.c_0.type_as(x)
         print("hidden device", self.h_0.device)
-
 
     def forward(self, x):
         self.reset_hidden_state(x.size(0), x=x)

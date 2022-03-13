@@ -84,8 +84,8 @@ class LstmModel(IModel, ABC):
             max_epochs=params["number_of_epochs"],
             deterministic=True,
             logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
-            auto_select_gpus=True,
-            gpus=1,
+            auto_select_gpus=True if self.device == "cuda" else False,
+            gpus=1 if torch.cuda.is_available() else 0,
             **xargs,
         )
 
@@ -321,6 +321,8 @@ class LstmModel(IModel, ABC):
         )
 
     def _visualize_training(self, targets, predictions):
+        print("Type of targets", type(targets))
+        print("Type of targets", type(targets[0]))
         self.figures.append(
             visualize_data_series(
                 title=f"{self.get_name()}# Training set fit",

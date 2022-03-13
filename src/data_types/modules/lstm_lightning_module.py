@@ -103,7 +103,7 @@ class LSTMLightning(pl.LightningModule):
             batch_loss = out["loss"]
             epoch_loss.append(batch_loss)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        self.training_errors.append(epoch_loss.item())
+        self.training_errors.append(epoch_loss.cpu().detach().numpy().item())
 
     def validation_step(self, val_batch, batch_idx):
         x, y = val_batch
@@ -117,7 +117,7 @@ class LSTMLightning(pl.LightningModule):
         for out in validation_step_outputs:
             epoch_loss.append(out)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        self.validation_errors.append(epoch_loss)
+        self.validation_errors.append(epoch_loss.cpu().detach().numpy().item())
 
     def test_step(self, batch, batch_idx):
         x, y = batch
