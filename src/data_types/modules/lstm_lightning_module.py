@@ -2,6 +2,8 @@ import logging
 
 import pytorch_lightning as pl
 import torch
+
+from src.utils.error_calculations import calculate_error
 from src.utils.pytorch_error_calculations import calculate_errors
 from torch import nn
 from torch.autograd import Variable
@@ -51,8 +53,7 @@ class LSTMLightning(pl.LightningModule):
             f"input window size: {self.input_window_size}, output window size: {self.output_window_size}"
         )
 
-        # Metric (loss / error)
-        self.metric = nn.MSELoss()
+        self.metric = calculate_error
 
         # LSTM model
         self.lstm = nn.LSTM(
@@ -93,7 +94,10 @@ class LSTMLightning(pl.LightningModule):
     def training_step(self, train_batch, batch_idx):
         x, y = train_batch
         yhat = self(x)
+        print(f"y: {y.shape}")
+        print(f"yhat: {yhat.shape}")
         loss = self.metric(y, yhat)
+        print(f"Loss: {loss}")
         self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
 

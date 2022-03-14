@@ -8,11 +8,22 @@ from xml.dom import NotFoundErr
 import numpy as np
 from pandas import DataFrame
 from pipe import map, tee, where
-from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
+
+# from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
+from torch import Tensor
 
 from packages.permetrics.permetrics.regression import Metrics
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
+
+
+import pytorch_lightning.utilities.metrics as torch_metrics
+from torchmetrics.functional import (
+    symmetric_mean_absolute_percentage_error,
+    mean_absolute_percentage_error,
+    mean_absolute_error,
+    mean_squared_error,
+)
 
 
 def choose_metric(metric: ErrorMetricEnum):
@@ -33,6 +44,7 @@ def choose_metric(metric: ErrorMetricEnum):
 
 
 def calculate_mse(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
+    print("mse shapes: ", data_set.shape, proposed_data_set.shape)
     mse = mean_squared_error(data_set, proposed_data_set)
     return mse
 
@@ -52,15 +64,15 @@ def calculate_mape(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
 
 
 # Error metrics
-def calculate_mase(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
+def calculate_mase(data_set: Tensor, proposed_data_set: Tensor) -> float:
     # Convert data_sets to numpy arrays
-    metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
+    metric = Metrics(data_set, proposed_data_set)
     err = metric.MASE()
     return float(err)
 
 
-def calculate_smape(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
-    metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
+def calculate_smape(data_set: Tensor, proposed_data_set: Tensor) -> float:
+    metric = Metrics(data_set, proposed_data_set)
     err = metric.SMAPECustom()
     return float(err)
 
@@ -88,6 +100,7 @@ def calculate_error(data_set: DataFrame, propsed_data_set: DataFrame) -> Dict[st
         | where(lambda metric: metric is not None)
         | map(lambda metric: (metric.value, choose_metric(metric)(data_set, propsed_data_set)))
     )
+    print("Errors", errors)
     return errors
 
 

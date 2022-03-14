@@ -10,8 +10,8 @@ experiment:
     checkpoint_save_location: ./models/0_current_model_checkpoints/
     log_model_every_n_epoch: 10
     error_metrics:
-    - SMAPE
     - MASE
+    - SMAPE
     - MSE
     - MAE
     save_source:
