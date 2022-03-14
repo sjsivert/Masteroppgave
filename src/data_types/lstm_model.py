@@ -240,7 +240,7 @@ class LstmModel(IModel, ABC):
                 model=self,
             ),
             # TODO: Fix pytorch network to handle concurrency
-            #n_jobs=8,  # Use maximum number of cores
+            # n_jobs=8,  # Use maximum number of cores
             n_trials=parameter_space["number_of_trials"],
             show_progress_bar=False,
             callbacks=[self.log_trial],
