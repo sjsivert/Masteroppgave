@@ -3,18 +3,18 @@
 #SBATCH --gres=gpu:2 # Ask for two gpus
 #SBATCH --account=ie-idi
 #SBATCH --time=00:30:00
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=2
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/sbatch_job2.txt
+#SBATCH --output=batch_jobs/output/sbatch_job-cat-6-predict.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="first-experiment-on-hpc"
-export EXPERIMENT_DESCRIPTION="first-test"
+export EXPERIMENT_TITLE="lstm-predict-cat-6"
+export EXPERIMENT_DESCRIPTION="lstm-predict-cat-6"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
