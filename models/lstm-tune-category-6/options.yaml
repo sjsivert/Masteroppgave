@@ -3,7 +3,7 @@ data:
     categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
 logger:
     log_level: INFO
-    log_file: ./log_file-cat-6.log
+    log_file: ./log_file-cat-6-cont2.log
 experiment:
     tags: [market_insights]
     save_sources_to_use: [disk, neptune]
@@ -37,16 +37,16 @@ model:
             output_window_size: 1
             multi_variable_nr: 1
             number_of_features: 1
-            number_of_trials: 20
+            number_of_trials: 50
         common_parameters_for_all_models:
             training_size: 0.9
             input_window_size: 5
             output_window_size: 1
             multi_variable_nr: 1
-            batch_size: 32
-            number_of_epochs: 5
-            optimizer_name: Adam
-        model_structure: [{time_series_id: 6, learning_rate: 0.001, hidden_layer_size: 165, dropout: 0.2, number_of_features: 1, number_of_layers: 2}]
+            batch_size: 219
+            number_of_epochs: 40
+            optimizer_name: AdaDelta
+        model_structure: [{time_series_id: 6, learning_rate: 0.0003, hidden_layer_size: 268, dropout: 0.113, number_of_features: 1, number_of_layers: 3}]
     local_univariate_arima:
         training_size: 0.8
         steps_to_predict: 1000

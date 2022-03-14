@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=8
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/sbatch_job-cat-6-tune-cont.txt
+#SBATCH --output=batch_jobs/output/sbatch_job-cat-6-tune-cont2.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output

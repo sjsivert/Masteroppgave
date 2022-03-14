@@ -248,7 +248,8 @@ class LstmModel(IModel, ABC):
         id = f"{self.get_name()},{study.best_trial.number}"
         best_params = study.best_trial.params
         logging.info("Best params!", best_params)
-        test_params = self.hyper_parameters.copy().update(best_params)
+        test_params = self.hyper_parameters.copy()
+        test_params.update(best_params)
         logging.info("Params updated with best params", test_params)
 
         self.init_neural_network(test_params)

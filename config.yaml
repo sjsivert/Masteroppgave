@@ -5,7 +5,7 @@ data:
 
 logger:
   log_level: 'INFO'
-  log_file: './log_file-cat-6.log' # Currently does nothing
+  log_file: './log_file-cat-6-cont2.log' # Currently does nothing
 
 experiment:
   tags:
