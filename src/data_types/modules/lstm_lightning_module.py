@@ -94,7 +94,7 @@ class LSTMLightning(pl.LightningModule):
         x, y = train_batch
         yhat = self(x)
         loss = self.metric(y, yhat)
-        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
+        self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
     def training_epoch_end(self, training_step_outputs):
