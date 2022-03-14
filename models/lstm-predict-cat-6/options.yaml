@@ -37,7 +37,7 @@ model:
             output_window_size: 1
             multi_variable_nr: 1
             number_of_features: 1
-            number_of_trials: 20
+            number_of_trials: 30
         common_parameters_for_all_models:
             training_size: 0.9
             input_window_size: 5
