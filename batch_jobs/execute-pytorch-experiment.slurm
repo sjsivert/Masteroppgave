@@ -1,13 +1,13 @@
 #!/bin/sh
 #SBATCH --partition=GPUQ     #GPU
-#SBATCH --gres=gpu:2 # Ask for two gpus
+#SBATCH --gres=gpu:3 # Ask for two gpus
 #SBATCH --account=ie-idi
 #SBATCH --time=05:30:00
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/lu-lstm-tune-cat10.txt
+#SBATCH --output=batch_jobs/output/lu-lstm-tune-cat2-proper.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
@@ -38,5 +38,5 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e "lu-lstm-tune-category10"  "lu-lstm-tune-category10" --tune
+python src/main.py -e "lu-lstm-tune-category2-propet-this-time"  "lu-lstm-tune-category2" --tune
 

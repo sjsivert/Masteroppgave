@@ -1,0 +1,471 @@
+we are running from this directory: /cluster/home/sjsivert/Masteroppgave
+ the name of the job is: Run experiment
+Th job ID is 2789521
+The job was run on these nodes: idun-05-[11-12]
+Number of nodes: 2
+We are using 2 cores
+We are using 2 cores per node
+Total of 4 cores
+--Files in current directory--
+total 132
+drwxr-xr-x 19 sjsivert eall_s 4096 Mar 14 16:49 .
+drwx------ 14 sjsivert eall_s 4096 Mar 14 16:49 ..
+drwxr-xr-x  3 sjsivert eall_s 4096 Mar 14 16:48 batch_jobs
+-rw-r--r--  1 sjsivert eall_s 2660 Mar 14 16:49 config.yaml
+-rw-r--r--  1 sjsivert eall_s  552 Feb 21 13:45 .coveragerc
+drwxr-xr-x  6 sjsivert eall_s 4096 Mar 11 10:34 datasets
+-rw-r--r--  1 sjsivert eall_s  280 Feb  3 13:59 .env
+drwxr-xr-x  8 sjsivert eall_s 4096 Mar 14 16:49 .git
+-rw-r--r--  1 sjsivert eall_s    1 Nov 12 18:48 .gitattributes
+drwxr-xr-x  4 sjsivert eall_s 4096 Feb 21 13:45 .github
+-rw-r--r--  1 sjsivert eall_s  394 Mar 13 14:40 .gitignore
+-rw-r--r--  1 sjsivert eall_s   36 Feb 21 13:45 .gitkeep
+-rw-r--r--  1 sjsivert eall_s 1389 Mar 14 16:48 log_file_tune_cat9.log
+drwxr-xr-x  2 sjsivert eall_s 4096 Mar 14 16:48 Masterproject.egg-info
+drwxr-xr-x  7 sjsivert eall_s 4096 Mar 13 14:40 MastersThesis
+drwxr-xr-x 16 sjsivert eall_s 4096 Mar 14 16:47 models
+drwxr-xr-x  7 sjsivert eall_s 4096 Feb 21 13:45 MScTemplate
+drwxr-xr-x  3 sjsivert eall_s 4096 Feb 24 12:10 .neptune
+drwxr-xr-x  3 sjsivert eall_s 4096 Mar 13 14:40 notebooks
+drwxr-xr-x  3 sjsivert eall_s 4096 Feb 21 13:45 packages
+-rw-r--r--  1 sjsivert eall_s  150 Dec  9 17:31 .pylintrc
+-rw-r--r--  1 sjsivert eall_s  198 Feb 21 13:45 pyproject.toml
+-rw-r--r--  1 sjsivert eall_s 6985 Feb 24 11:32 README.md
+-rw-r--r--  1 sjsivert eall_s 2752 Mar 14 11:45 requirements.txt
+drwxr-xr-x  2 sjsivert eall_s 4096 Mar 13 14:40 scripts
+-rw-r--r--  1 sjsivert eall_s  398 Dec  9 17:31 setup.py
+drwxr-xr-x  8 sjsivert eall_s 4096 Mar 13 14:40 spec
+drwxr-xr-x 10 sjsivert eall_s 4096 Mar 13 14:40 src
+-rw-r--r--  1 sjsivert eall_s  349 Dec  9 17:31 tox.ini
+drwxr-xr-x  2 sjsivert eall_s 4096 Mar 14 11:45 utils
+drwxr-xr-x  7 sjsivert eall_s 4096 Mar 11 09:42 venv
+drwxr-xr-x  2 sjsivert eall_s 4096 Dec  9 17:31 .vscode
+Obtaining file:///cluster/home/sjsivert/Masteroppgave (from -r requirements.txt (line 54))
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Obtaining file:///cluster/home/sjsivert/Masteroppgave/packages/permetrics (from -r requirements.txt (line 151))
+Requirement already satisfied: argon2-cffi==21.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 2)) (21.3.0)
+Requirement already satisfied: argon2-cffi-bindings==21.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 3)) (21.2.0)
+Requirement already satisfied: args==0.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 4)) (0.1.0)
+Requirement already satisfied: arrow==1.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 5)) (1.2.2)
+Requirement already satisfied: astroid==2.9.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 6)) (2.9.3)
+Requirement already satisfied: asttokens==2.0.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 7)) (2.0.5)
+Requirement already satisfied: attrs==21.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 8)) (21.4.0)
+Requirement already satisfied: backcall==0.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 9)) (0.2.0)
+Requirement already satisfied: black==22.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 10)) (22.1.0)
+Requirement already satisfied: bleach==4.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 11)) (4.1.0)
+Requirement already satisfied: boto3==1.20.49 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 12)) (1.20.49)
+Requirement already satisfied: botocore==1.23.49 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 13)) (1.23.49)
+Requirement already satisfied: bravado==11.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 14)) (11.0.3)
+Requirement already satisfied: bravado-core==5.17.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 15)) (5.17.0)
+Requirement already satisfied: certifi==2021.10.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 16)) (2021.10.8)
+Requirement already satisfied: cffi==1.15.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 17)) (1.15.0)
+Requirement already satisfied: charset-normalizer==2.0.11 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 18)) (2.0.11)
+Requirement already satisfied: click==8.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 19)) (8.0.3)
+Requirement already satisfied: clint==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 20)) (0.5.1)
+Requirement already satisfied: cloudpickle==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 21)) (2.0.0)
+Requirement already satisfied: confuse==1.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 22)) (1.7.0)
+Requirement already satisfied: coverage==6.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 23)) (6.1.2)
+Requirement already satisfied: croniter==1.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 24)) (1.2.0)
+Requirement already satisfied: cycler==0.11.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 25)) (0.11.0)
+Requirement already satisfied: dataenforce==0.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 26)) (0.1.2)
+Requirement already satisfied: debugpy==1.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 27)) (1.5.1)
+Requirement already satisfied: decorator==5.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 28)) (5.1.1)
+Requirement already satisfied: defusedxml==0.7.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 29)) (0.7.1)
+Requirement already satisfied: distlib==0.3.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 30)) (0.3.4)
+Requirement already satisfied: docker==5.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 31)) (5.0.3)
+Requirement already satisfied: entrypoints==0.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 32)) (0.4)
+Requirement already satisfied: executing==0.8.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 33)) (0.8.2)
+Requirement already satisfied: expects==0.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 34)) (0.9.0)
+Requirement already satisfied: flake8==4.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 35)) (4.0.1)
+Requirement already satisfied: fqdn==1.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 36)) (1.5.1)
+Requirement already satisfied: fsspec==2022.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 37)) (2022.1.0)
+Requirement already satisfied: future==0.18.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 38)) (0.18.2)
+Requirement already satisfied: genpipes==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 39)) (1.0.0)
+Requirement already satisfied: gitdb==4.0.9 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 40)) (4.0.9)
+Requirement already satisfied: HeapDict==1.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 41)) (1.0.1)
+Requirement already satisfied: idna==3.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 42)) (3.3)
+Requirement already satisfied: iniconfig==1.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 43)) (1.1.1)
+Requirement already satisfied: ipython-genutils==0.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 44)) (0.2.0)
+Requirement already satisfied: ipywidgets==7.6.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 45)) (7.6.5)
+Requirement already satisfied: jupyter==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 46)) (1.0.0)
+Requirement already satisfied: jupyter-client==7.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 47)) (7.1.2)
+Requirement already satisfied: jupyter-console==6.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 48)) (6.4.0)
+Requirement already satisfied: jupyter-core==4.9.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 49)) (4.9.1)
+Requirement already satisfied: jupyterlab-pygments==0.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 50)) (0.1.2)
+Requirement already satisfied: jupyterlab-widgets==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 51)) (1.0.2)
+Requirement already satisfied: mamba==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 52)) (0.11.2)
+Requirement already satisfied: marshmallow-oneofschema==3.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 53)) (3.0.1)
+Requirement already satisfied: matplotlib==3.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 55)) (3.5.1)
+Requirement already satisfied: matplotlib-inline==0.1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 56)) (0.1.3)
+Requirement already satisfied: mccabe==0.6.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 57)) (0.6.1)
+Requirement already satisfied: mistune==0.8.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 58)) (0.8.4)
+Requirement already satisfied: mockito==1.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 59)) (1.3.0)
+Requirement already satisfied: monotonic==1.6 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 60)) (1.6)
+Requirement already satisfied: msgpack==1.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 61)) (1.0.3)
+Requirement already satisfied: mypy-extensions==0.4.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 62)) (0.4.3)
+Requirement already satisfied: nbclient==0.5.10 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 63)) (0.5.10)
+Requirement already satisfied: nbconvert==6.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 64)) (6.4.1)
+Requirement already satisfied: nbformat==5.1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 65)) (5.1.3)
+Requirement already satisfied: neptune-client==0.14.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 66)) (0.14.3)
+Requirement already satisfied: nest-asyncio==1.5.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 67)) (1.5.4)
+Requirement already satisfied: notebook==6.4.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 68)) (6.4.8)
+Requirement already satisfied: numpy==1.22.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 69)) (1.22.2)
+Requirement already satisfied: oauthlib==3.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 70)) (3.2.0)
+Requirement already satisfied: packaging==21.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 71)) (21.3)
+Requirement already satisfied: pandas==1.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 72)) (1.4.0)
+Requirement already satisfied: pandocfilters==1.5.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 73)) (1.5.0)
+Requirement already satisfied: parso==0.8.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 74)) (0.8.3)
+Requirement already satisfied: partd==1.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 75)) (1.2.0)
+Requirement already satisfied: pathspec==0.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 76)) (0.9.0)
+Requirement already satisfied: patsy==0.5.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 77)) (0.5.2)
+Requirement already satisfied: pendulum==2.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 78)) (2.1.2)
+Requirement already satisfied: pexpect==4.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 79)) (4.8.0)
+Requirement already satisfied: pickleshare==0.7.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 80)) (0.7.5)
+Requirement already satisfied: Pillow==9.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 81)) (9.0.1)
+Requirement already satisfied: pipe==1.6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 82)) (1.6.0)
+Requirement already satisfied: platformdirs==2.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 83)) (2.4.1)
+Requirement already satisfied: pluggy==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 84)) (1.0.0)
+Requirement already satisfied: prefect==0.15.13 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 85)) (0.15.13)
+Requirement already satisfied: prometheus-client==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 86)) (0.13.1)
+Requirement already satisfied: prompt-toolkit==3.0.26 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 87)) (3.0.26)
+Requirement already satisfied: psutil==5.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 88)) (5.9.0)
+Requirement already satisfied: ptyprocess==0.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 89)) (0.7.0)
+Requirement already satisfied: pure-eval==0.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 90)) (0.2.2)
+Requirement already satisfied: py==1.11.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 91)) (1.11.0)
+Requirement already satisfied: pycodestyle==2.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 92)) (2.8.0)
+Requirement already satisfied: pycparser==2.21 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 93)) (2.21)
+Requirement already satisfied: pyflakes==2.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 94)) (2.4.0)
+Requirement already satisfied: Pygments==2.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 95)) (2.11.2)
+Requirement already satisfied: PyJWT==2.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 96)) (2.3.0)
+Requirement already satisfied: pylint==2.12.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 97)) (2.12.2)
+Requirement already satisfied: pylint-quotes==0.2.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 98)) (0.2.3)
+Requirement already satisfied: pyparsing==3.0.7 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 99)) (3.0.7)
+Requirement already satisfied: pyrsistent==0.18.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 100)) (0.18.1)
+Requirement already satisfied: pytest==7.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 101)) (7.0.0)
+Requirement already satisfied: python-box==5.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 102)) (5.4.1)
+Requirement already satisfied: python-dateutil==2.8.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 103)) (2.8.2)
+Requirement already satisfied: python-slugify==5.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 104)) (5.0.2)
+Requirement already satisfied: pytz==2021.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 105)) (2021.3)
+Requirement already satisfied: pytzdata==2020.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 106)) (2020.1)
+Requirement already satisfied: PyYAML==6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 107)) (6.0)
+Requirement already satisfied: pyzmq==22.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 108)) (22.3.0)
+Requirement already satisfied: qtconsole==5.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 109)) (5.2.2)
+Requirement already satisfied: QtPy==2.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 110)) (2.0.1)
+Requirement already satisfied: requests==2.27.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 111)) (2.27.1)
+Requirement already satisfied: requests-oauthlib==1.3.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 112)) (1.3.1)
+Requirement already satisfied: rfc3339-validator==0.1.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 113)) (0.1.4)
+Requirement already satisfied: rfc3987==1.3.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 114)) (1.3.8)
+Requirement already satisfied: s3transfer==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 115)) (0.5.1)
+Requirement already satisfied: scikit-learn==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 116)) (1.0.2)
+Requirement already satisfied: scipy==1.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 117)) (1.8.0)
+Requirement already satisfied: seaborn==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 118)) (0.11.2)
+Requirement already satisfied: Send2Trash==1.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 119)) (1.8.0)
+Requirement already satisfied: simplejson==3.17.6 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 120)) (3.17.6)
+Requirement already satisfied: six==1.16.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 121)) (1.16.0)
+Requirement already satisfied: sklearn==0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 122)) (0.0)
+Requirement already satisfied: smmap==5.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 123)) (5.0.0)
+Requirement already satisfied: sortedcontainers==2.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 124)) (2.4.0)
+Requirement already satisfied: stack-data==0.1.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 125)) (0.1.4)
+Requirement already satisfied: statsmodels==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 126)) (0.13.1)
+Requirement already satisfied: swagger-spec-validator==2.7.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 127)) (2.7.4)
+Requirement already satisfied: tabulate==0.8.9 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 128)) (0.8.9)
+Requirement already satisfied: tblib==1.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 129)) (1.7.0)
+Requirement already satisfied: terminado==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 130)) (0.13.1)
+Requirement already satisfied: testpath==0.5.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 131)) (0.5.0)
+Requirement already satisfied: text-unidecode==1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 132)) (1.3)
+Requirement already satisfied: threadpoolctl==3.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 133)) (3.1.0)
+Requirement already satisfied: toml==0.10.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 134)) (0.10.2)
+Requirement already satisfied: tomli==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 135)) (2.0.0)
+Requirement already satisfied: toolz==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 136)) (0.11.2)
+Requirement already satisfied: tornado==6.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 137)) (6.1)
+Requirement already satisfied: tox==3.24.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 138)) (3.24.5)
+Requirement already satisfied: traitlets==5.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 139)) (5.1.1)
+Requirement already satisfied: typing_extensions==4.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 140)) (4.0.1)
+Requirement already satisfied: uri-template==1.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 141)) (1.1.0)
+Requirement already satisfied: urllib3==1.26.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 142)) (1.26.8)
+Requirement already satisfied: virtualenv==20.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 143)) (20.13.1)
+Requirement already satisfied: wcwidth==0.2.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 144)) (0.2.5)
+Requirement already satisfied: webcolors==1.11.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 145)) (1.11.1)
+Requirement already satisfied: webencodings==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 146)) (0.5.1)
+Requirement already satisfied: websocket-client==1.2.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 147)) (1.2.3)
+Requirement already satisfied: widgetsnbextension==3.5.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 148)) (3.5.2)
+Requirement already satisfied: wrapt==1.13.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 149)) (1.13.3)
+Requirement already satisfied: zict==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 150)) (2.0.0)
+Requirement already satisfied: torch==1.10.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 152)) (1.10.2)
+Requirement already satisfied: fastprogress==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 153)) (1.0.2)
+Requirement already satisfied: nptyping==1.4.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 154)) (1.4.4)
+Requirement already satisfied: optuna==2.10.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 155)) (2.10.0)
+Requirement already satisfied: plotly==5.6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 156)) (5.6.0)
+Requirement already satisfied: pytorch-lightning==1.5.10 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 157)) (1.5.10)
+Requirement already satisfied: kaleido==0.2.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 158)) (0.2.1)
+Requirement already satisfied: lazy-object-proxy>=1.4.0 in ./venv/lib/python3.8/site-packages (from astroid==2.9.3->-r requirements.txt (line 6)) (1.7.1)
+Requirement already satisfied: setuptools>=20.0 in ./venv/lib/python3.8/site-packages (from astroid==2.9.3->-r requirements.txt (line 6)) (49.2.1)
+Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./venv/lib/python3.8/site-packages (from boto3==1.20.49->-r requirements.txt (line 12)) (0.10.0)
+Requirement already satisfied: jsonschema[format]>=2.5.1 in ./venv/lib/python3.8/site-packages (from bravado-core==5.17.0->-r requirements.txt (line 15)) (4.4.0)
+Requirement already satisfied: jsonref in ./venv/lib/python3.8/site-packages (from bravado-core==5.17.0->-r requirements.txt (line 15)) (0.2)
+Requirement already satisfied: ipython>=4.0.0; python_version >= "3.3" in ./venv/lib/python3.8/site-packages (from ipywidgets==7.6.5->-r requirements.txt (line 45)) (8.1.1)
+Requirement already satisfied: ipykernel>=4.5.1 in ./venv/lib/python3.8/site-packages (from ipywidgets==7.6.5->-r requirements.txt (line 45)) (6.9.1)
+Requirement already satisfied: marshmallow<4.0.0,>=3.0.0 in ./venv/lib/python3.8/site-packages (from marshmallow-oneofschema==3.0.1->-r requirements.txt (line 53)) (3.14.1)
+Requirement already satisfied: fonttools>=4.22.0 in ./venv/lib/python3.8/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 55)) (4.30.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in ./venv/lib/python3.8/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 55)) (1.3.2)
+Requirement already satisfied: jinja2>=2.4 in ./venv/lib/python3.8/site-packages (from nbconvert==6.4.1->-r requirements.txt (line 64)) (3.0.3)
+Requirement already satisfied: GitPython>=2.0.8 in ./venv/lib/python3.8/site-packages (from neptune-client==0.14.3->-r requirements.txt (line 66)) (3.1.27)
+Requirement already satisfied: locket in ./venv/lib/python3.8/site-packages (from partd==1.2.0->-r requirements.txt (line 75)) (0.2.1)
+Requirement already satisfied: distributed>=2.17.0; python_version > "3.6" in ./venv/lib/python3.8/site-packages (from prefect==0.15.13->-r requirements.txt (line 85)) (2022.2.1)
+Requirement already satisfied: dask>=2.17.0; python_version > "3.6" in ./venv/lib/python3.8/site-packages (from prefect==0.15.13->-r requirements.txt (line 85)) (2022.2.1)
+Requirement already satisfied: isort<6,>=4.2.5 in ./venv/lib/python3.8/site-packages (from pylint==2.12.2->-r requirements.txt (line 97)) (5.10.1)
+Requirement already satisfied: joblib>=0.11 in ./venv/lib/python3.8/site-packages (from scikit-learn==1.0.2->-r requirements.txt (line 116)) (1.1.0)
+Requirement already satisfied: filelock>=3.0.0 in ./venv/lib/python3.8/site-packages (from tox==3.24.5->-r requirements.txt (line 138)) (3.6.0)
+Requirement already satisfied: typish>=1.7.0 in ./venv/lib/python3.8/site-packages (from nptyping==1.4.4->-r requirements.txt (line 154)) (1.9.3)
+Requirement already satisfied: tqdm in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (4.63.0)
+Requirement already satisfied: alembic in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.7.6)
+Requirement already satisfied: colorlog in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (6.6.0)
+Requirement already satisfied: cliff in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (3.10.1)
+Requirement already satisfied: cmaes>=0.8.2 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (0.8.2)
+Requirement already satisfied: sqlalchemy>=1.1.0 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.4.32)
+Requirement already satisfied: tenacity>=6.2.0 in ./venv/lib/python3.8/site-packages (from plotly==5.6.0->-r requirements.txt (line 156)) (8.0.1)
+Requirement already satisfied: pyDeprecate==0.3.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.3.1)
+Requirement already satisfied: tensorboard>=2.2.0 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.8.0)
+Requirement already satisfied: torchmetrics>=0.4.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.7.2)
+Requirement already satisfied: importlib-resources>=1.4.0; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (5.4.0)
+Requirement already satisfied: isoduration; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (20.11.0)
+Requirement already satisfied: jsonpointer>1.13; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (2.2)
+Requirement already satisfied: jedi>=0.16 in ./venv/lib/python3.8/site-packages (from ipython>=4.0.0; python_version >= "3.3"->ipywidgets==7.6.5->-r requirements.txt (line 45)) (0.18.1)
+Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.8/site-packages (from jinja2>=2.4->nbconvert==6.4.1->-r requirements.txt (line 64)) (2.1.0)
+Requirement already satisfied: importlib-metadata; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (4.11.2)
+Requirement already satisfied: Mako in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (1.2.0)
+Requirement already satisfied: cmd2>=1.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (2.4.0)
+Requirement already satisfied: autopage>=0.4.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (0.5.0)
+Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (5.8.1)
+Requirement already satisfied: PrettyTable>=0.7.2 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.2.0)
+Requirement already satisfied: stevedore>=2.0.1 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.5.0)
+Requirement already satisfied: greenlet!=0.4.17; python_version >= "3" and (platform_machine == "aarch64" or (platform_machine == "ppc64le" or (platform_machine == "x86_64" or (platform_machine == "amd64" or (platform_machine == "AMD64" or (platform_machine == "win32" or platform_machine == "WIN32")))))) in ./venv/lib/python3.8/site-packages (from sqlalchemy>=1.1.0->optuna==2.10.0->-r requirements.txt (line 155)) (1.1.2)
+Requirement already satisfied: markdown>=2.6.8 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.3.6)
+Requirement already satisfied: werkzeug>=0.11.15 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.0.3)
+Requirement already satisfied: wheel>=0.26 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.37.1)
+Requirement already satisfied: grpcio>=1.24.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.44.0)
+Requirement already satisfied: absl-py>=0.4 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.0.0)
+Requirement already satisfied: protobuf>=3.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.19.4)
+Requirement already satisfied: tensorboard-plugin-wit>=1.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.8.1)
+Requirement already satisfied: google-auth-oauthlib<0.5,>=0.4.1 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.6)
+Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.6.1)
+Requirement already satisfied: google-auth<3,>=1.6.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.6.0)
+Requirement already satisfied: zipp>=3.1.0; python_version < "3.10" in ./venv/lib/python3.8/site-packages (from importlib-resources>=1.4.0; python_version < "3.9"->jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (3.7.0)
+Requirement already satisfied: pyperclip>=1.6 in ./venv/lib/python3.8/site-packages (from cmd2>=1.0.0->cliff->optuna==2.10.0->-r requirements.txt (line 155)) (1.8.2)
+Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3.6" in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (4.8)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.2.8)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (5.0.0)
+Requirement already satisfied: pyasn1>=0.1.3 in ./venv/lib/python3.8/site-packages (from rsa<5,>=3.1.4; python_version >= "3.6"->google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.8)
+Installing collected packages: Masterproject, permetrics
+  Attempting uninstall: Masterproject
+    Found existing installation: Masterproject 1.0
+    Uninstalling Masterproject-1.0:
+      Successfully uninstalled Masterproject-1.0
+  Running setup.py develop for Masterproject
+  Attempting uninstall: permetrics
+    Found existing installation: permetrics 1.1.5
+    Uninstalling permetrics-1.1.5:
+      Successfully uninstalled permetrics-1.1.5
+  Running setup.py develop for permetrics
+Successfully installed Masterproject permetrics
+WARNING: You are using pip version 20.2.1; however, version 22.0.4 is available.
+You should consider upgrading via the '/cluster/home/sjsivert/Masteroppgave/venv/bin/python -m pip install --upgrade pip' command.
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/statsmodels/compat/pandas.py:65: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import Int64Index as NumericIndex
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/setuptools/distutils_patch.py:25: UserWarning: Distutils was imported before Setuptools. This usage is discouraged and may exhibit undesirable behaviors or errors. Please use Setuptools' objects directly or at least import Setuptools first.
+  warnings.warn(
+[2022-03-14,16:52:36] INFO {logger} [init_logging] Logger initialized. Log level: INFO, log file: ./log_file_tune_cat10.log
+[2022-03-14,16:52:36] INFO {main} [main] Started
+[2022-03-14,16:52:36] INFO {main} [main] Starting experiment: "lu-lstm-tune-category10": "lu-lstm-tune-category10"
+[2022-03-14,16:52:36] INFO {local_checkpoint_save_source} [wipe_and_init_checkpoint_save_location] Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+[2022-03-14,16:52:36] INFO {save_local_disk_source} [_create_save_location] Creating model save location models/lu-lstm-tune-category10
+[2022-03-14,16:52:36] INFO {neptune_save_source} [__init__] Creating new Neptune experiment
+https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-316
+[2022-03-14,16:52:49] INFO {neptune_save_source} [__init__] Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-316
+[2022-03-14,16:52:49] INFO {experiment} [run_tuning_experiment] Running tuning experiment with saving set to True
+[2022-03-14,16:52:49] INFO {experiment} [_choose_model_structure] Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x1498e3ed6160>
+[2022-03-14,16:52:49] INFO {lstm_model} [__init__] Running model on device: cuda
+[2022-03-14,16:52:49] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 2 layers, 165 hidden size, 0.001 learning rate, 0.2 dropout. Optimiser: Adam,  input window size: 5, output window size: 1
+[2022-03-14,16:52:50] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/cuda/__init__.py:143: UserWarning: 
+A100-PCIE-40GB with CUDA capability sm_80 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
+If you want to use the A100-PCIE-40GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+[2022-03-14,16:53:17] INFO {local_univariate_lstm_structure} [process_data] data preprocessing steps: 
+ ---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        
+/cluster/home/sjsivert/Masteroppgave/src/pipelines/market_insight_processing.py:22: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df.drop(columns, axis=1, inplace=True)
+[2022-03-14,16:54:34] INFO {time_function} [time_function] 
+------------------
+Starting new timer at 16:54:34
+[2022-03-14,16:54:34] INFO {lstm_model} [process_data] Data Pipeline for 10: ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 10)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- convert to np.array
+6- scale data between -1 and 1
+7- split up into training set (0.9) and test set (0.09999999999999998)
+8- split training set into train set (0.9) and validation set (0.09999999999999998)
+9- convert to timeseries dataset with input window size of 5, and output window size of 1
+---- End ----
+        
+[2022-03-14,16:54:34] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 32.
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+[2022-03-14,16:54:34] INFO {time_function} [time_function] Ending timer at: 16:54:34 
+Elapsed CPU time: 0.30428051666670325s
+Used real time: 0:00:00
+------------------
+[2022-03-14,16:54:34] INFO {local_univariate_lstm_structure} [auto_tuning] Tuning model: 10
+[32m[I 2022-03-14 16:54:35,240][0m Using an existing study with name 'lu-lstm-tune-category10_10' instead of creating a new one.[0m
+[2022-03-14,16:54:35] INFO {lstm_model} [method_evaluation] Loading or creating optuna study with name: lu-lstm-tune-category10_10
+Number of previous Trials with this name are #1
+[2022-03-14,16:54:35] INFO {loca_univariate_lstm_objective} [local_univariate_lstm_objective] Starting tuning trial number #1 of total 400
+with params: {'number_of_features': 1, 'hidden_layer_size': 380, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 18, 'learning_rate': 0.0986994157596285, 'batch_first': True, 'batch_size': 45, 'dropout': 0.01782460184372553, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 55}
+[2022-03-14,16:54:35] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 45.
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+[2022-03-14,16:54:35] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 18 layers, 380 hidden size, 0.0986994157596285 learning rate, 0.01782460184372553 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+[2022-03-14,16:54:35] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+[2022-03-14,16:54:35] INFO {time_function} [time_function] 
+------------------
+Starting new timer at 16:54:35
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+[33m[W 2022-03-14 16:54:36,377][0m Trial 1 failed because of the following error: RuntimeError('CUDA error: no kernel image is available for execution on the device\nCUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.')[0m
+Traceback (most recent call last):
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 213, in _run_trial
+    value_or_values = func(trial)
+  File "/cluster/home/sjsivert/Masteroppgave/src/data_types/lstm_model.py", line 236, in <lambda>
+    lambda trial: local_univariate_lstm_objective(
+  File "/cluster/home/sjsivert/Masteroppgave/src/optuna_tuning/loca_univariate_lstm_objective.py", line 50, in local_univariate_lstm_objective
+    errors = model.train(
+  File "/cluster/home/sjsivert/Masteroppgave/src/data_types/lstm_model.py", line 111, in train
+    self.trainer.fit(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 740, in fit
+    self._call_and_handle_interrupt(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 685, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 777, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1145, in _run
+    self.accelerator.setup(self)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/gpu.py", line 46, in setup
+    return super().setup(trainer)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/accelerator.py", line 91, in setup
+    self.setup_training_type_plugin()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/accelerator.py", line 363, in setup_training_type_plugin
+    self.training_type_plugin.setup()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/plugins/training_type/single_device.py", line 71, in setup
+    self.model_to_device()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/plugins/training_type/single_device.py", line 68, in model_to_device
+    self._model.to(self.root_device)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/core/mixins/device_dtype_mixin.py", line 111, in to
+    return super().to(*args, **kwargs)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 899, in to
+    return self._apply(convert)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 570, in _apply
+    module._apply(fn)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/rnn.py", line 189, in _apply
+    self.flatten_parameters()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/rnn.py", line 175, in flatten_parameters
+    torch._cudnn_rnn_flatten_weight(
+RuntimeError: CUDA error: no kernel image is available for execution on the device
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Traceback (most recent call last):
+  File "src/main.py", line 114, in <module>
+    main()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/click/core.py", line 1128, in __call__
+    return self.main(*args, **kwargs)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/click/core.py", line 1053, in main
+    rv = self.invoke(ctx)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/click/core.py", line 1395, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/click/core.py", line 754, in invoke
+    return __callback(*args, **kwargs)
+  File "src/main.py", line 70, in main
+    experiment.run_tuning_experiment(
+  File "/cluster/home/sjsivert/Masteroppgave/src/experiment.py", line 125, in run_tuning_experiment
+    self.model_structure.auto_tuning()
+  File "/cluster/home/sjsivert/Masteroppgave/src/model_strutures/local_univariate_lstm_structure.py", line 95, in auto_tuning
+    best_trial = base_model.method_evaluation(
+  File "/cluster/home/sjsivert/Masteroppgave/src/data_types/lstm_model.py", line 235, in method_evaluation
+    study.optimize(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/study.py", line 400, in optimize
+    _optimize(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 66, in _optimize
+    _optimize_sequential(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 163, in _optimize_sequential
+    trial = _run_trial(study, func, catch)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 264, in _run_trial
+    raise func_err
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 213, in _run_trial
+    value_or_values = func(trial)
+  File "/cluster/home/sjsivert/Masteroppgave/src/data_types/lstm_model.py", line 236, in <lambda>
+    lambda trial: local_univariate_lstm_objective(
+  File "/cluster/home/sjsivert/Masteroppgave/src/optuna_tuning/loca_univariate_lstm_objective.py", line 50, in local_univariate_lstm_objective
+    errors = model.train(
+  File "/cluster/home/sjsivert/Masteroppgave/src/data_types/lstm_model.py", line 111, in train
+    self.trainer.fit(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 740, in fit
+    self._call_and_handle_interrupt(
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 685, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 777, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1145, in _run
+    self.accelerator.setup(self)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/gpu.py", line 46, in setup
+    return super().setup(trainer)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/accelerator.py", line 91, in setup
+    self.setup_training_type_plugin()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/accelerators/accelerator.py", line 363, in setup_training_type_plugin
+    self.training_type_plugin.setup()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/plugins/training_type/single_device.py", line 71, in setup
+    self.model_to_device()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/plugins/training_type/single_device.py", line 68, in model_to_device
+    self._model.to(self.root_device)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/pytorch_lightning/core/mixins/device_dtype_mixin.py", line 111, in to
+    return super().to(*args, **kwargs)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 899, in to
+    return self._apply(convert)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 570, in _apply
+    module._apply(fn)
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/rnn.py", line 189, in _apply
+    self.flatten_parameters()
+  File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/nn/modules/rnn.py", line 175, in flatten_parameters
+    torch._cudnn_rnn_flatten_weight(
+RuntimeError: CUDA error: no kernel image is available for execution on the device
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Shutting down background jobs, please wait a moment...
+Done!
+Waiting for the remaining 141 operations to synchronize with Neptune. Do not kill this process.
+All 141 operations synced, thanks for waiting!

@@ -1,0 +1,327 @@
+Logger initialized. Log level: INFO, log file: ./log_file_tune_cat9.log
+Started
+Starting experiment: "lu-lstm-tune-category2-second-time": "lu-lstm-tune-category2-second-time"
+Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+Creating model save location models/lu-lstm-tune-category2-second-time
+Creating new Neptune experiment
+Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-314
+Running tuning experiment with saving set to True
+Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x14eb60deb1c0>
+Running model on device: cuda
+Initializing LSTM with 2 layers, 165 hidden size, 0.001 learning rate, 0.2 dropout. Optimiser: Adam,  input window size: 5, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+data preprocessing steps: 
+ ---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        
+
+------------------
+Starting new timer at 16:49:55
+Data Pipeline for 9: ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 9)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- convert to np.array
+6- scale data between -1 and 1
+7- split up into training set (0.9) and test set (0.09999999999999998)
+8- split training set into train set (0.9) and validation set (0.09999999999999998)
+9- convert to timeseries dataset with input window size of 5, and output window size of 1
+---- End ----
+        
+Converting dataset to dataloader using batch size 32.
+Ending timer at: 16:49:55 
+Elapsed CPU time: 0.31628995000000754s
+Used real time: 0:00:00
+------------------
+Tuning model: 9
+Loading or creating optuna study with name: lu-lstm-tune-category2-second-time_9
+Number of previous Trials with this name are #0
+Starting tuning trial number #0 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 226, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 9, 'learning_rate': 4.610073638722797e-05, 'batch_first': True, 'batch_size': 308, 'dropout': 0.018354698328810592, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 96}
+Converting dataset to dataloader using batch size 308.
+Initializing LSTM with 9 layers, 226 hidden size, 4.610073638722797e-05 learning rate, 0.018354698328810592 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 16:49:57
+Ending timer at: 16:52:59 
+Elapsed CPU time: 1026.90398975s
+Used real time: 0:03:02
+------------------
+Starting tuning trial number #1 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 44, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 4, 'learning_rate': 4.09879535607235e-05, 'batch_first': True, 'batch_size': 253, 'dropout': 0.33314004013261017, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 77}
+Converting dataset to dataloader using batch size 253.
+Initializing LSTM with 4 layers, 44 hidden size, 4.09879535607235e-05 learning rate, 0.33314004013261017 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 16:53:00
+Ending timer at: 16:55:27 
+Elapsed CPU time: 811.7398256666671s
+Used real time: 0:02:27
+------------------
+Starting tuning trial number #2 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 115, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 14, 'learning_rate': 2.5474769008448317e-06, 'batch_first': True, 'batch_size': 249, 'dropout': 0.053096841163191744, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 88}
+Converting dataset to dataloader using batch size 249.
+Initializing LSTM with 14 layers, 115 hidden size, 2.5474769008448317e-06 learning rate, 0.053096841163191744 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 16:55:28
+Ending timer at: 16:58:20 
+Elapsed CPU time: 1034.744564333333s
+Used real time: 0:02:52
+------------------
+Starting tuning trial number #3 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 13, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 21, 'learning_rate': 1.5733946884904646e-07, 'batch_first': True, 'batch_size': 67, 'dropout': 0.2908553733283865, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 92}
+Converting dataset to dataloader using batch size 67.
+Initializing LSTM with 21 layers, 13 hidden size, 1.5733946884904646e-07 learning rate, 0.2908553733283865 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 16:58:20
+Ending timer at: 17:01:43 
+Elapsed CPU time: 1444.0628887333332s
+Used real time: 0:03:23
+------------------
+Starting tuning trial number #4 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 167, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 13, 'learning_rate': 1.4796843859678209e-05, 'batch_first': True, 'batch_size': 162, 'dropout': 0.47332395940304806, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 20}
+Converting dataset to dataloader using batch size 162.
+Initializing LSTM with 13 layers, 167 hidden size, 1.4796843859678209e-05 learning rate, 0.47332395940304806 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:01:44
+Ending timer at: 17:02:25 
+Elapsed CPU time: 269.6197869166667s
+Used real time: 0:00:41
+------------------
+Starting tuning trial number #5 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 442, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 15, 'learning_rate': 1.4396249466911825e-06, 'batch_first': True, 'batch_size': 343, 'dropout': 0.2521102432564967, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 99}
+Converting dataset to dataloader using batch size 343.
+Initializing LSTM with 15 layers, 442 hidden size, 1.4396249466911825e-06 learning rate, 0.2521102432564967 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:26
+Starting tuning trial number #6 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 376, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 28, 'learning_rate': 2.3170519262986736e-07, 'batch_first': True, 'batch_size': 298, 'dropout': 0.19672999961001358, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 19}
+Converting dataset to dataloader using batch size 298.
+Initializing LSTM with 28 layers, 376 hidden size, 2.3170519262986736e-07 learning rate, 0.19672999961001358 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:27
+Starting tuning trial number #7 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 447, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 7, 'learning_rate': 1.983231181267281e-05, 'batch_first': True, 'batch_size': 284, 'dropout': 0.30963754160016566, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 76}
+Converting dataset to dataloader using batch size 284.
+Initializing LSTM with 7 layers, 447 hidden size, 1.983231181267281e-05 learning rate, 0.30963754160016566 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:29
+Starting tuning trial number #8 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 240, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 21, 'learning_rate': 0.0012680225830162023, 'batch_first': True, 'batch_size': 110, 'dropout': 0.25578145055838797, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 6}
+Converting dataset to dataloader using batch size 110.
+Initializing LSTM with 21 layers, 240 hidden size, 0.0012680225830162023 learning rate, 0.25578145055838797 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:31
+Starting tuning trial number #9 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 417, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 16, 'learning_rate': 3.019919840426413e-07, 'batch_first': True, 'batch_size': 85, 'dropout': 0.495249323165335, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 19}
+Converting dataset to dataloader using batch size 85.
+Initializing LSTM with 16 layers, 417 hidden size, 3.019919840426413e-07 learning rate, 0.495249323165335 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:32
+Starting tuning trial number #10 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 294, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 2, 'learning_rate': 0.09042445844787009, 'batch_first': True, 'batch_size': 190, 'dropout': 0.004565385160731742, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 50}
+Converting dataset to dataloader using batch size 190.
+Initializing LSTM with 2 layers, 294 hidden size, 0.09042445844787009 learning rate, 0.004565385160731742 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:02:34
+Ending timer at: 17:04:10 
+Elapsed CPU time: 575.029299s
+Used real time: 0:01:36
+------------------
+Starting tuning trial number #11 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 306, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 1, 'learning_rate': 0.05104316023265812, 'batch_first': True, 'batch_size': 9, 'dropout': 0.008963661601510796, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 51}
+Converting dataset to dataloader using batch size 9.
+Initializing LSTM with 1 layers, 306 hidden size, 0.05104316023265812 learning rate, 0.008963661601510796 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:04:11
+Starting tuning trial number #12 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 266, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 8, 'learning_rate': 0.001030611147328505, 'batch_first': True, 'batch_size': 193, 'dropout': 0.10987763687170335, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 50}
+Converting dataset to dataloader using batch size 193.
+Initializing LSTM with 8 layers, 266 hidden size, 0.001030611147328505 learning rate, 0.10987763687170335 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:04:12
+Starting tuning trial number #13 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 204, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 8, 'learning_rate': 0.0004236751822996407, 'batch_first': True, 'batch_size': 352, 'dropout': 0.1407429459413667, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 61}
+Converting dataset to dataloader using batch size 352.
+Initializing LSTM with 8 layers, 204 hidden size, 0.0004236751822996407 learning rate, 0.1407429459413667 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:04:14
+Starting tuning trial number #14 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 327, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 1, 'learning_rate': 0.02357114520242851, 'batch_first': True, 'batch_size': 170, 'dropout': 0.00476235186542102, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 39}
+Converting dataset to dataloader using batch size 170.
+Initializing LSTM with 1 layers, 327 hidden size, 0.02357114520242851 learning rate, 0.00476235186542102 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:04:15
+Ending timer at: 17:05:32 
+Elapsed CPU time: 442.88294653333276s
+Used real time: 0:01:17
+------------------
+Starting tuning trial number #15 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 340, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 1, 'learning_rate': 0.09303744748192919, 'batch_first': True, 'batch_size': 178, 'dropout': 0.10275317401748774, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 37}
+Converting dataset to dataloader using batch size 178.
+Initializing LSTM with 1 layers, 340 hidden size, 0.09303744748192919 learning rate, 0.10275317401748774 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:05:32
+Starting tuning trial number #16 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 496, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 4, 'learning_rate': 0.01080243850300417, 'batch_first': True, 'batch_size': 143, 'dropout': 0.17383848936938487, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 38}
+Converting dataset to dataloader using batch size 143.
+Initializing LSTM with 4 layers, 496 hidden size, 0.01080243850300417 learning rate, 0.17383848936938487 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:05:34
+Starting tuning trial number #17 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 297, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 4, 'learning_rate': 0.007666711042273028, 'batch_first': True, 'batch_size': 211, 'dropout': 0.07202234716420075, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 39}
+Converting dataset to dataloader using batch size 211.
+Initializing LSTM with 4 layers, 297 hidden size, 0.007666711042273028 learning rate, 0.07202234716420075 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:05:36
+Starting tuning trial number #18 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 364, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 30, 'learning_rate': 0.015220400645906388, 'batch_first': True, 'batch_size': 221, 'dropout': 0.009188959878644452, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 58}
+Converting dataset to dataloader using batch size 221.
+Initializing LSTM with 30 layers, 364 hidden size, 0.015220400645906388 learning rate, 0.009188959878644452 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:05:37
+Ending timer at: 17:07:52 
+Elapsed CPU time: 1022.0379558833334s
+Used real time: 0:02:15
+------------------
+Starting tuning trial number #19 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 155, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 12, 'learning_rate': 0.003078037214580071, 'batch_first': True, 'batch_size': 118, 'dropout': 0.19216159969962984, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 66}
+Converting dataset to dataloader using batch size 118.
+Initializing LSTM with 12 layers, 155 hidden size, 0.003078037214580071 learning rate, 0.19216159969962984 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:07:53
+Starting tuning trial number #20 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 298, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 20, 'learning_rate': 0.00024168869677917052, 'batch_first': True, 'batch_size': 38, 'dropout': 0.3744078026581196, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 30}
+Converting dataset to dataloader using batch size 38.
+Initializing LSTM with 20 layers, 298 hidden size, 0.00024168869677917052 learning rate, 0.3744078026581196 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:07:55
+Starting tuning trial number #21 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 231, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 10, 'learning_rate': 0.03340429709298943, 'batch_first': True, 'batch_size': 303, 'dropout': 9.460067963321193e-05, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 48}
+Converting dataset to dataloader using batch size 303.
+Initializing LSTM with 10 layers, 231 hidden size, 0.03340429709298943 learning rate, 9.460067963321193e-05 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:07:57
+Starting tuning trial number #22 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 198, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 6, 'learning_rate': 0.00013572595709986497, 'batch_first': True, 'batch_size': 240, 'dropout': 0.049256470406672595, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 69}
+Converting dataset to dataloader using batch size 240.
+Initializing LSTM with 6 layers, 198 hidden size, 0.00013572595709986497 learning rate, 0.049256470406672595 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:07:58
+Starting tuning trial number #23 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 332, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 1, 'learning_rate': 5.68552431669343e-06, 'batch_first': True, 'batch_size': 136, 'dropout': 0.05791778225855607, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 44}
+Converting dataset to dataloader using batch size 136.
+Initializing LSTM with 1 layers, 332 hidden size, 5.68552431669343e-06 learning rate, 0.05791778225855607 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:00
+Starting tuning trial number #24 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 267, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 5, 'learning_rate': 0.0025885823350618913, 'batch_first': True, 'batch_size': 275, 'dropout': 0.10556613405618573, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 28}
+Converting dataset to dataloader using batch size 275.
+Initializing LSTM with 5 layers, 267 hidden size, 0.0025885823350618913 learning rate, 0.10556613405618573 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:01
+Starting tuning trial number #25 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 116, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 10, 'learning_rate': 6.035455349128383e-05, 'batch_first': True, 'batch_size': 333, 'dropout': 0.04438447716190452, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 57}
+Converting dataset to dataloader using batch size 333.
+Initializing LSTM with 10 layers, 116 hidden size, 6.035455349128383e-05 learning rate, 0.04438447716190452 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:04
+Starting tuning trial number #26 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 394, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 3, 'learning_rate': 0.021036417602197686, 'batch_first': True, 'batch_size': 198, 'dropout': 0.08713005064101367, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 78}
+Converting dataset to dataloader using batch size 198.
+Initializing LSTM with 3 layers, 394 hidden size, 0.021036417602197686 learning rate, 0.08713005064101367 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:10
+Starting tuning trial number #27 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 324, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 9, 'learning_rate': 0.07899248341922496, 'batch_first': True, 'batch_size': 162, 'dropout': 0.14062692838451618, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 29}
+Converting dataset to dataloader using batch size 162.
+Initializing LSTM with 9 layers, 324 hidden size, 0.07899248341922496 learning rate, 0.14062692838451618 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:11
+Starting tuning trial number #28 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 255, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 17, 'learning_rate': 0.0005172619527199881, 'batch_first': True, 'batch_size': 316, 'dropout': 0.0220532978142767, 'bidirectional': False, 'optimizer_name': 'RMSprop', 'number_of_epochs': 68}
+Converting dataset to dataloader using batch size 316.
+Initializing LSTM with 17 layers, 255 hidden size, 0.0005172619527199881 learning rate, 0.0220532978142767 dropout. Optimiser: RMSprop,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:13
+Starting tuning trial number #29 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 121, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 3, 'learning_rate': 3.274228573126546e-05, 'batch_first': True, 'batch_size': 260, 'dropout': 0.3859796837607941, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 84}
+Converting dataset to dataloader using batch size 260.
+Initializing LSTM with 3 layers, 121 hidden size, 3.274228573126546e-05 learning rate, 0.3859796837607941 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:16
+Starting tuning trial number #30 of total 200
+with params: {'number_of_features': 1, 'hidden_layer_size': 77, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 11, 'learning_rate': 0.0062140319604073084, 'batch_first': True, 'batch_size': 226, 'dropout': 0.13492715123178123, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 100}
+Converting dataset to dataloader using batch size 226.
+Initializing LSTM with 11 layers, 77 hidden size, 0.0062140319604073084 learning rate, 0.13492715123178123 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:08:18

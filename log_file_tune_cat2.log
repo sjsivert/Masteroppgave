@@ -1,0 +1,55 @@
+Logger initialized. Log level: INFO, log file: ./log_file_tune_cat2.log
+Started
+Starting experiment: "lu-lstm-tune-category2-propet-this-time": "lu-lstm-tune-category2"
+Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+Creating model save location models/lu-lstm-tune-category2-propet-this-time
+Creating new Neptune experiment
+Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-318
+Running tuning experiment with saving set to True
+Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x154f59f08940>
+Running model on device: cuda
+Initializing LSTM with 2 layers, 165 hidden size, 0.001 learning rate, 0.2 dropout. Optimiser: Adam,  input window size: 5, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+data preprocessing steps: 
+ ---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        
+
+------------------
+Starting new timer at 17:06:42
+Data Pipeline for 2: ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 2)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- convert to np.array
+6- scale data between -1 and 1
+7- split up into training set (0.9) and test set (0.09999999999999998)
+8- split training set into train set (0.9) and validation set (0.09999999999999998)
+9- convert to timeseries dataset with input window size of 5, and output window size of 1
+---- End ----
+        
+Converting dataset to dataloader using batch size 32.
+Ending timer at: 17:06:42 
+Elapsed CPU time: 0.47275616666671755s
+Used real time: 0:00:00
+------------------
+Tuning model: 2
+Loading or creating optuna study with name: lu-lstm-tune-category2-propet-this-time_2
+Number of previous Trials with this name are #1
+Starting tuning trial number #1 of total 400
+with params: {'number_of_features': 1, 'hidden_layer_size': 285, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 2, 'learning_rate': 0.0015926223577648773, 'batch_first': True, 'batch_size': 328, 'dropout': 0.28716404205226265, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 12}
+Converting dataset to dataloader using batch size 328.
+Initializing LSTM with 2 layers, 285 hidden size, 0.0015926223577648773 learning rate, 0.28716404205226265 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 17:06:43
