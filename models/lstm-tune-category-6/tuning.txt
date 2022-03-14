@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 6
+
+Parameters: 6,25
+ Error: best_score:0.009308607317507267,best_params:{'batch_size': 219, 'dropout': 0.11304291701878558, 'hidden_layer_size': 268, 'learning_rate': 0.000313012901027482, 'number_of_epochs': 40, 'number_of_layers': 3, 'optimizer_name': 'AdaDelta'}
