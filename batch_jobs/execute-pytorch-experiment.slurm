@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/lu-lstm-tune-cat2.txt
+#SBATCH --output=batch_jobs/output/lu-lstm-tune-cat9.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
@@ -38,5 +38,5 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e "lu-lstm-tune-category2-second-time"  "lu-lstm-tune-category2-second-time" --tune
+python src/main.py -e "lu-lstm-tune-category9-second-time"  "lu-lstm-tune-category9-second-time" --tune
 

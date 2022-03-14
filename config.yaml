@@ -5,7 +5,7 @@ data:
 
 logger:
   log_level: 'INFO'
-  log_file: './log_file_tune_cat2.log' # Currently does nothing
+  log_file: './log_file_tune_cat9.log' # Currently does nothing
 
 experiment:
   tags:
@@ -66,7 +66,7 @@ model:
       optimizer_name: 'Adam'
 
     model_structure:
-      - time_series_id: 2
+      - time_series_id: 9
         learning_rate: 0.001
         hidden_layer_size: 165
         dropout: 0.2
