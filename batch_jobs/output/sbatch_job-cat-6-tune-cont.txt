@@ -1,0 +1,42 @@
+we are running from this directory: /cluster/home/sjsivert/Masteroppgave
+ the name of the job is: Run experiment
+Th job ID is 2789443
+The job was run on these nodes: idun-04-15
+Number of nodes: 1
+We are using 8 cores
+We are using 8 cores per node
+Total of 8 cores
+--Files in current directory--
+total 532
+drwxr-xr-x 19 sjsivert eall_s   4096 Mar 14 14:38 .
+drwx------ 14 sjsivert eall_s   4096 Mar 14 14:39 ..
+drwxr-xr-x  3 sjsivert eall_s   4096 Mar 14 14:39 batch_jobs
+-rw-r--r--  1 sjsivert eall_s   2693 Mar 14 14:38 config.yaml
+-rw-r--r--  1 sjsivert eall_s    552 Feb 21 13:45 .coveragerc
+drwxr-xr-x  6 sjsivert eall_s   4096 Mar 11 10:34 datasets
+-rw-r--r--  1 sjsivert eall_s    280 Feb  3 13:59 .env
+drwxr-xr-x  8 sjsivert eall_s   4096 Mar 14 14:37 .git
+-rw-r--r--  1 sjsivert eall_s      1 Nov 12 18:48 .gitattributes
+drwxr-xr-x  4 sjsivert eall_s   4096 Feb 21 13:45 .github
+-rw-r--r--  1 sjsivert eall_s    394 Mar 13 14:40 .gitignore
+-rw-r--r--  1 sjsivert eall_s     36 Feb 21 13:45 .gitkeep
+-rw-r--r--  1 sjsivert eall_s 409812 Mar 14 14:37 log_file-cat-6.log
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 14 12:43 Masterproject.egg-info
+drwxr-xr-x  7 sjsivert eall_s   4096 Mar 13 14:40 MastersThesis
+drwxr-xr-x 13 sjsivert eall_s   4096 Mar 14 14:37 models
+drwxr-xr-x  7 sjsivert eall_s   4096 Feb 21 13:45 MScTemplate
+drwxr-xr-x  3 sjsivert eall_s   4096 Feb 24 12:10 .neptune
+drwxr-xr-x  3 sjsivert eall_s   4096 Mar 13 14:40 notebooks
+drwxr-xr-x  3 sjsivert eall_s   4096 Feb 21 13:45 packages
+-rw-r--r--  1 sjsivert eall_s    150 Dec  9 17:31 .pylintrc
+-rw-r--r--  1 sjsivert eall_s    198 Feb 21 13:45 pyproject.toml
+-rw-r--r--  1 sjsivert eall_s   6985 Feb 24 11:32 README.md
+-rw-r--r--  1 sjsivert eall_s   2752 Mar 14 11:45 requirements.txt
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 13 14:40 scripts
+-rw-r--r--  1 sjsivert eall_s    398 Dec  9 17:31 setup.py
+drwxr-xr-x  8 sjsivert eall_s   4096 Mar 13 14:40 spec
+drwxr-xr-x 10 sjsivert eall_s   4096 Mar 13 14:40 src
+-rw-r--r--  1 sjsivert eall_s    349 Dec  9 17:31 tox.ini
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 14 11:45 utils
+drwxr-xr-x  7 sjsivert eall_s   4096 Mar 11 09:42 venv
+drwxr-xr-x  2 sjsivert eall_s   4096 Dec  9 17:31 .vscode

@@ -55,7 +55,7 @@ model:
       output_window_size: 1 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 20 # Number of tuning trials to run. The more the better.
+      number_of_trials: 50 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
       training_size: 0.9
