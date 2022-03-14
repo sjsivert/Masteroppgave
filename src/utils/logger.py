@@ -12,6 +12,6 @@ def init_logging(log_level: str = "INFO", log_file: str = "") -> None:
     if log_file != None and log_file != "":
         logger = logging.getLogger()
         # TODO: Make log file configurable
-        handler = logging.FileHandler("./log_file.log", mode="w")
+        handler = logging.FileHandler(f"{log_file}", mode="w")
         logger.addHandler(handler)
     logging.info(f"Logger initialized. Log level: {log_level}, log file: {log_file}")

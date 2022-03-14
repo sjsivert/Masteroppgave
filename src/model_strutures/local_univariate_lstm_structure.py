@@ -13,6 +13,7 @@ from src.data_types.lstm_model import LstmModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.time_function import time_function
 
 
 class LocalUnivariateLstmStructure(IModelStructure, ABC):
@@ -63,8 +64,9 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
 
         preprocessed_data = data_pipeline.run()
 
-        for model in self.models:
-            model.process_data(preprocessed_data, 0)
+        with time_function():
+            for model in self.models:
+                model.process_data(preprocessed_data, 0)
 
     def train(self) -> IModelStructure:
         """

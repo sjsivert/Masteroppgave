@@ -12,6 +12,7 @@ from typing import OrderedDict
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.time_function import time_function
 
 
 def local_univariate_lstm_objective(
@@ -45,11 +46,12 @@ def local_univariate_lstm_objective(
         callbacks=[PyTorchLightningPruningCallback(trial, monitor="validation_loss")],
     )
 
-    errors = model.train(
-        epochs=params["number_of_epochs"],
-    )
-    # TODO: Use config parameter 'metric'to use when tuning
-    # score = model.calculate_mean_score(errors[""])
+    with time_function():
+        errors = model.train(
+            epochs=params["number_of_epochs"],
+        )
+        # TODO: Use config parameter 'metric'to use when tuning
+        # score = model.calculate_mean_score(errors[""])
 
     return errors["validation_error"]
 

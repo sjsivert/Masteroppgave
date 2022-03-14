@@ -278,11 +278,13 @@ class LstmModel(IModel, ABC):
                 title=f"{self.get_name()} - Plot Parallel Coordinate"
             )
         )
-        self.figures.append(
-            plot_param_importances(study).update_layout(
-                title=f"{self.get_name()} - Plot Param Importances"
+        # Need multiple trials to plot this
+        if len(study.trials) > 1:
+            self.figures.append(
+                plot_param_importances(study).update_layout(
+                    title=f"{self.get_name()} - Plot Param Importances"
+                )
             )
-        )
 
     def get_figures(self) -> List[Figure]:
         """
