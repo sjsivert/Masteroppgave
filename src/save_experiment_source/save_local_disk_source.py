@@ -1,4 +1,6 @@
 import json
+from plotly.graph_objs import Figure as PlotlyFigure
+
 import logging
 import os
 import shutil
@@ -119,7 +121,11 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
             except FileExistsError:
                 pass
             title = combine_subfigure_titles(figure)
-            figure.savefig(f"{self.save_location}/figures/{title}.png")
+
+            if type(figure) is PlotlyFigure:
+                figure.write_image(f"{self.save_location}/figures/{title}.png")
+            else:
+                figure.savefig(f"{self.save_location}/figures/{title}.png")
 
     def _save_experiment_tags(self, tags: List[str]) -> None:
         with open(f"{self.save_location}/tags.txt", "a") as f:

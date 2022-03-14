@@ -240,9 +240,9 @@ class LstmModel(IModel, ABC):
                 model=self,
             ),
             # TODO: Fix pytorch network to handle concurrency
-            # n_jobs=2, # Use maximum number of cores
+            n_jobs=8,  # Use maximum number of cores
             n_trials=parameter_space["number_of_trials"],
-            show_progress_bar=True,
+            show_progress_bar=False,
             callbacks=[self.log_trial],
         )
         id = f"{self.get_name()},{study.best_trial.number}"
@@ -259,14 +259,30 @@ class LstmModel(IModel, ABC):
 
     def _generate_optuna_plots(self, study: Study) -> None:
         # TODO: Currently getting error Figure has not attribute axes. Fix
-        pass
-        # self.figures.append(plot_slice(study))
-        # self.figures.append(plot_edf(study))
-        # self.figures.append(plot_intermediate_values(study))
-        # self.figures.append(plot_optimization_history(study))
-        # self.figures.append(plot_parallel_coordinate(study))
-        # self.figures.append(plot_param_importances(study))
-        # self.figures.append(plot_slice(study))
+        self.figures.append(
+            plot_slice(study).update_layout(title=f"{self.get_name()} - Plot Slice")
+        )
+        self.figures.append(plot_edf(study).update_layout(title=f"{self.get_name()} - Plot EDF"))
+        self.figures.append(
+            plot_intermediate_values(study).update_layout(
+                title=f"{self.get_name()} - Plot Intermediate Values"
+            )
+        )
+        self.figures.append(
+            plot_optimization_history(study).update_layout(
+                title=f"{self.get_name()} - Plot Optimization History"
+            )
+        )
+        self.figures.append(
+            plot_parallel_coordinate(study).update_layout(
+                title=f"{self.get_name()} - Plot Parallel Coordinate"
+            )
+        )
+        self.figures.append(
+            plot_param_importances(study).update_layout(
+                title=f"{self.get_name()} - Plot Param Importances"
+            )
+        )
 
     def get_figures(self) -> List[Figure]:
         """
