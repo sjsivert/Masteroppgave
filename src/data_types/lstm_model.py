@@ -240,22 +240,25 @@ class LstmModel(IModel, ABC):
                 model=self,
             ),
             # TODO: Fix pytorch network to handle concurrency
-            n_jobs=8,  # Use maximum number of cores
+            # n_jobs=8,  # Use maximum number of cores
             n_trials=parameter_space["number_of_trials"],
             show_progress_bar=False,
             callbacks=[self.log_trial],
         )
         id = f"{self.get_name()},{study.best_trial.number}"
-        params = study.best_trial.params
-        print("Best params!", params)
-        test_params = self.hyper_parameters.copy()
-        print("Params updated with best params", test_params)
+        best_params = study.best_trial.params
+        logging.info("Best params!", best_params)
+        test_params = self.hyper_parameters.copy().update(best_params)
+        logging.info("Params updated with best params", test_params)
+
         self.init_neural_network(test_params)
         best_score = study.best_trial.value
-        logging.info(f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {params}")
+        logging.info(
+            f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {best_params}"
+        )
         self._generate_optuna_plots(study)
 
-        return {id: {"best_score": best_score, "best_params": params}}
+        return {id: {"best_score": best_score, "best_params": best_params}}
 
     def _generate_optuna_plots(self, study: Study) -> None:
         # TODO: Currently getting error Figure has not attribute axes. Fix
