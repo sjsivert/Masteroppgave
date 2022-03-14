@@ -5,7 +5,7 @@ data:
 
 logger:
   log_level: 'INFO'
-  log_file: './log_file2.log' # Currently does nothing
+  log_file: './log_file.log' # Currently does nothing
 
 experiment:
   tags:
@@ -49,13 +49,13 @@ model:
       #optimizer_name: ['Adam', 'AdaDelta', 'RMSprop']
       optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-1 ]
-      number_of_epochs: [ 50, 400 ]
+      number_of_epochs: [5, 10]
       batch_size: [ 2, 360]
       input_window_size: 10
       output_window_size: 1 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 50 # Number of tuning trials to run. The more the better.
+      number_of_trials: 1 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
       training_size: 0.9
@@ -63,7 +63,7 @@ model:
       output_window_size: 1
       multi_variable_nr: 1
       batch_size: 32
-      number_of_epochs: 100
+      number_of_epochs: 5
       optimizer_name: 'Adam'
 
     model_structure:

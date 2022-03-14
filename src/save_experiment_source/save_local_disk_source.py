@@ -13,6 +13,7 @@ from pandas import DataFrame
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
+from src.utils.config_parser import config
 from src.utils.file_hasher import generate_file_hash
 
 
@@ -146,7 +147,9 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def _save_log(self) -> None:
         # TODO Make log file configurable
         try:
-            shutil.copyfile("./log_file.log", f"{self.save_location}/log_file.log")
+            shutil.copyfile(
+                f"{config['logger']['log_file'].get()}", f"{self.save_location}/log_file.log"
+            )
         except FileNotFoundError:
             pass
 
