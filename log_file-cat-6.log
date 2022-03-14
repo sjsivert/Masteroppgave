@@ -1,5 +1,6 @@
 Logger initialized. Log level: INFO, log file: ./log_file-cat-6.log
 Started
+<<<<<<< HEAD
 Continues previous experiment
 
 Continue tuning from prev experiment
@@ -10,6 +11,15 @@ Neptune experiment id: MAS-312
 Loaded preview Neptune Experiment run: MAS-312 from checkpoint
 Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-312
 Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x14e46368ba60>
+=======
+Starting experiment: "lstm-predict-cat-6": "lstm-predict-cat-6"
+Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+Creating model save location models/lstm-predict-cat-6
+Creating new Neptune experiment
+Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-312
+Running complete with parameters in specified in config. Experiment with saving set to True
+Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x14e3ee07bb80>
+>>>>>>> 6928576bc7c3eed43e25798e2293a27ae63320b1
 Running model on device: cuda
 Initializing LSTM with 3 layers, 268 hidden size, 0.0003 learning rate, 0.113 dropout. Optimiser: AdaDelta,  input window size: 5, output window size: 1
 Using pre-existing neptune run for PytorchLightning
@@ -27,7 +37,11 @@ data preprocessing steps:
         
 
 ------------------
+<<<<<<< HEAD
 Starting new timer at 12:46:33
+=======
+Starting new timer at 12:37:58
+>>>>>>> 6928576bc7c3eed43e25798e2293a27ae63320b1
 Data Pipeline for 6: ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 6)
@@ -41,6 +55,7 @@ Data Pipeline for 6: ---- Start ----
 ---- End ----
         
 Converting dataset to dataloader using batch size 219.
+<<<<<<< HEAD
 Ending timer at: 12:46:33 
 Elapsed CPU time: 0.33236639999998374s
 Used real time: 0:00:00
@@ -2571,6 +2586,15 @@ Using pre-existing neptune run for PytorchLightning
 Best trial: 6,4
 best_score: 0.009010758250951767
 best_params: {'batch_size': 99, 'dropout': 0.36816603726337127, 'hidden_layer_size': 111, 'learning_rate': 0.0036094422831633556, 'number_of_epochs': 91, 'number_of_layers': 6, 'optimizer_name': 'AdaDelta'}
+=======
+Ending timer at: 12:37:58 
+Elapsed CPU time: 0.22300533333350359s
+Used real time: 0:00:00
+------------------
+Training model
+Testing model
+Testing error: {'MASE': 1.0544606447219849, 'SMAPE': 0.1348693072795868, 'MSE': 0.009350793436169624, 'MAE': 0.07645487785339355}.
+>>>>>>> 6928576bc7c3eed43e25798e2293a27ae63320b1
 Saving model
 Error occurred during asynchronous operation processing: Cannot upload file /cluster/home/sjsivert/Masteroppgave/log_file.log: Path not found or is a not a file.
 Finished
