@@ -1,47 +1,47 @@
 we are running from this directory: /cluster/home/sjsivert/Masteroppgave
  the name of the job is: Run experiment
-Th job ID is 2789535
+Th job ID is 2789577
 The job was run on these nodes: idun-05-14,idun-06-01
 Number of nodes: 2
 We are using 2 cores
 We are using 2 cores per node
 Total of 4 cores
 --Files in current directory--
-total 148
-drwxr-xr-x 19 sjsivert eall_s 4096 Mar 14 16:56 .
-drwx------ 14 sjsivert eall_s 4096 Mar 14 17:01 ..
-drwxr-xr-x  3 sjsivert eall_s 4096 Mar 14 17:01 batch_jobs
--rw-r--r--  1 sjsivert eall_s 2658 Mar 14 16:55 config.yaml
--rw-r--r--  1 sjsivert eall_s  552 Feb 21 13:45 .coveragerc
-drwxr-xr-x  6 sjsivert eall_s 4096 Mar 11 10:34 datasets
--rw-r--r--  1 sjsivert eall_s  280 Feb  3 13:59 .env
-drwxr-xr-x  8 sjsivert eall_s 4096 Mar 14 16:52 .git
--rw-r--r--  1 sjsivert eall_s    1 Nov 12 18:48 .gitattributes
-drwxr-xr-x  4 sjsivert eall_s 4096 Feb 21 13:45 .github
--rw-r--r--  1 sjsivert eall_s  394 Mar 13 14:40 .gitignore
--rw-r--r--  1 sjsivert eall_s   36 Feb 21 13:45 .gitkeep
--rw-r--r--  1 sjsivert eall_s 6232 Mar 14 17:01 log_file_tune_cat10.log
--rw-r--r--  1 sjsivert eall_s 2963 Mar 14 16:58 log_file_tune_cat2.log
--rw-r--r--  1 sjsivert eall_s 5419 Mar 14 16:58 log_file_tune_cat9.log
-drwxr-xr-x  2 sjsivert eall_s 4096 Mar 14 16:56 Masterproject.egg-info
-drwxr-xr-x  7 sjsivert eall_s 4096 Mar 13 14:40 MastersThesis
-drwxr-xr-x 18 sjsivert eall_s 4096 Mar 14 17:01 models
-drwxr-xr-x  7 sjsivert eall_s 4096 Feb 21 13:45 MScTemplate
-drwxr-xr-x  3 sjsivert eall_s 4096 Feb 24 12:10 .neptune
-drwxr-xr-x  3 sjsivert eall_s 4096 Mar 13 14:40 notebooks
-drwxr-xr-x  3 sjsivert eall_s 4096 Feb 21 13:45 packages
--rw-r--r--  1 sjsivert eall_s  150 Dec  9 17:31 .pylintrc
--rw-r--r--  1 sjsivert eall_s  198 Feb 21 13:45 pyproject.toml
--rw-r--r--  1 sjsivert eall_s 6985 Feb 24 11:32 README.md
--rw-r--r--  1 sjsivert eall_s 2752 Mar 14 11:45 requirements.txt
-drwxr-xr-x  2 sjsivert eall_s 4096 Mar 13 14:40 scripts
--rw-r--r--  1 sjsivert eall_s  398 Dec  9 17:31 setup.py
-drwxr-xr-x  8 sjsivert eall_s 4096 Mar 13 14:40 spec
-drwxr-xr-x 10 sjsivert eall_s 4096 Mar 13 14:40 src
--rw-r--r--  1 sjsivert eall_s  349 Dec  9 17:31 tox.ini
-drwxr-xr-x  2 sjsivert eall_s 4096 Mar 14 11:45 utils
-drwxr-xr-x  7 sjsivert eall_s 4096 Mar 11 09:42 venv
-drwxr-xr-x  2 sjsivert eall_s 4096 Dec  9 17:31 .vscode
+total 452
+drwxr-xr-x 19 sjsivert eall_s   4096 Mar 14 18:48 .
+drwx------ 14 sjsivert eall_s   4096 Mar 14 20:15 ..
+drwxr-xr-x  3 sjsivert eall_s   4096 Mar 14 20:15 batch_jobs
+-rw-r--r--  1 sjsivert eall_s   2658 Mar 14 16:55 config.yaml
+-rw-r--r--  1 sjsivert eall_s    552 Feb 21 13:45 .coveragerc
+drwxr-xr-x  6 sjsivert eall_s   4096 Mar 11 10:34 datasets
+-rw-r--r--  1 sjsivert eall_s    280 Feb  3 13:59 .env
+drwxr-xr-x  8 sjsivert eall_s   4096 Mar 14 19:35 .git
+-rw-r--r--  1 sjsivert eall_s      1 Nov 12 18:48 .gitattributes
+drwxr-xr-x  4 sjsivert eall_s   4096 Feb 21 13:45 .github
+-rw-r--r--  1 sjsivert eall_s    394 Mar 13 14:40 .gitignore
+-rw-r--r--  1 sjsivert eall_s     36 Feb 21 13:45 .gitkeep
+-rw-r--r--  1 sjsivert eall_s 289883 Mar 14 18:49 log_file_tune_cat10.log
+-rw-r--r--  1 sjsivert eall_s   2969 Mar 14 17:06 log_file_tune_cat2.log
+-rw-r--r--  1 sjsivert eall_s  25189 Mar 14 17:08 log_file_tune_cat9.log
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 14 17:02 Masterproject.egg-info
+drwxr-xr-x  7 sjsivert eall_s   4096 Mar 13 14:40 MastersThesis
+drwxr-xr-x 18 sjsivert eall_s   4096 Mar 14 20:15 models
+drwxr-xr-x  7 sjsivert eall_s   4096 Feb 21 13:45 MScTemplate
+drwxr-xr-x  3 sjsivert eall_s   4096 Feb 24 12:10 .neptune
+drwxr-xr-x  3 sjsivert eall_s   4096 Mar 13 14:40 notebooks
+drwxr-xr-x  3 sjsivert eall_s   4096 Feb 21 13:45 packages
+-rw-r--r--  1 sjsivert eall_s    150 Dec  9 17:31 .pylintrc
+-rw-r--r--  1 sjsivert eall_s    198 Feb 21 13:45 pyproject.toml
+-rw-r--r--  1 sjsivert eall_s   6985 Feb 24 11:32 README.md
+-rw-r--r--  1 sjsivert eall_s   2752 Mar 14 11:45 requirements.txt
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 13 14:40 scripts
+-rw-r--r--  1 sjsivert eall_s    398 Dec  9 17:31 setup.py
+drwxr-xr-x  8 sjsivert eall_s   4096 Mar 13 14:40 spec
+drwxr-xr-x 10 sjsivert eall_s   4096 Mar 13 14:40 src
+-rw-r--r--  1 sjsivert eall_s    349 Dec  9 17:31 tox.ini
+drwxr-xr-x  2 sjsivert eall_s   4096 Mar 14 11:45 utils
+drwxr-xr-x  7 sjsivert eall_s   4096 Mar 11 09:42 venv
+drwxr-xr-x  2 sjsivert eall_s   4096 Dec  9 17:31 .vscode
 Obtaining file:///cluster/home/sjsivert/Masteroppgave (from -r requirements.txt (line 54))
   Installing build dependencies: started
   Installing build dependencies: finished with status 'done'
@@ -224,45 +224,45 @@ Requirement already satisfied: isort<6,>=4.2.5 in ./venv/lib/python3.8/site-pack
 Requirement already satisfied: joblib>=0.11 in ./venv/lib/python3.8/site-packages (from scikit-learn==1.0.2->-r requirements.txt (line 116)) (1.1.0)
 Requirement already satisfied: filelock>=3.0.0 in ./venv/lib/python3.8/site-packages (from tox==3.24.5->-r requirements.txt (line 138)) (3.6.0)
 Requirement already satisfied: typish>=1.7.0 in ./venv/lib/python3.8/site-packages (from nptyping==1.4.4->-r requirements.txt (line 154)) (1.9.3)
-Requirement already satisfied: colorlog in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (6.6.0)
-Requirement already satisfied: sqlalchemy>=1.1.0 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.4.32)
 Requirement already satisfied: cmaes>=0.8.2 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (0.8.2)
+Requirement already satisfied: sqlalchemy>=1.1.0 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.4.32)
 Requirement already satisfied: cliff in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (3.10.1)
-Requirement already satisfied: tqdm in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (4.63.0)
 Requirement already satisfied: alembic in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.7.6)
+Requirement already satisfied: colorlog in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (6.6.0)
+Requirement already satisfied: tqdm in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (4.63.0)
 Requirement already satisfied: tenacity>=6.2.0 in ./venv/lib/python3.8/site-packages (from plotly==5.6.0->-r requirements.txt (line 156)) (8.0.1)
 Requirement already satisfied: torchmetrics>=0.4.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.7.2)
-Requirement already satisfied: tensorboard>=2.2.0 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.8.0)
 Requirement already satisfied: pyDeprecate==0.3.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.3.1)
+Requirement already satisfied: tensorboard>=2.2.0 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.8.0)
 Requirement already satisfied: importlib-resources>=1.4.0; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (5.4.0)
 Requirement already satisfied: jsonpointer>1.13; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (2.2)
 Requirement already satisfied: isoduration; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (20.11.0)
 Requirement already satisfied: jedi>=0.16 in ./venv/lib/python3.8/site-packages (from ipython>=4.0.0; python_version >= "3.3"->ipywidgets==7.6.5->-r requirements.txt (line 45)) (0.18.1)
 Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.8/site-packages (from jinja2>=2.4->nbconvert==6.4.1->-r requirements.txt (line 64)) (2.1.0)
 Requirement already satisfied: greenlet!=0.4.17; python_version >= "3" and (platform_machine == "aarch64" or (platform_machine == "ppc64le" or (platform_machine == "x86_64" or (platform_machine == "amd64" or (platform_machine == "AMD64" or (platform_machine == "win32" or platform_machine == "WIN32")))))) in ./venv/lib/python3.8/site-packages (from sqlalchemy>=1.1.0->optuna==2.10.0->-r requirements.txt (line 155)) (1.1.2)
-Requirement already satisfied: autopage>=0.4.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (0.5.0)
-Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (5.8.1)
-Requirement already satisfied: PrettyTable>=0.7.2 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.2.0)
 Requirement already satisfied: stevedore>=2.0.1 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.5.0)
+Requirement already satisfied: PrettyTable>=0.7.2 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.2.0)
 Requirement already satisfied: cmd2>=1.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (2.4.0)
+Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (5.8.1)
+Requirement already satisfied: autopage>=0.4.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (0.5.0)
 Requirement already satisfied: importlib-metadata; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (4.11.2)
 Requirement already satisfied: Mako in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (1.2.0)
-Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.6.1)
+Requirement already satisfied: google-auth<3,>=1.6.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.6.0)
+Requirement already satisfied: wheel>=0.26 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.37.1)
+Requirement already satisfied: protobuf>=3.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.19.4)
 Requirement already satisfied: werkzeug>=0.11.15 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.0.3)
 Requirement already satisfied: grpcio>=1.24.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.44.0)
-Requirement already satisfied: wheel>=0.26 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.37.1)
-Requirement already satisfied: absl-py>=0.4 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.0.0)
-Requirement already satisfied: protobuf>=3.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.19.4)
-Requirement already satisfied: google-auth<3,>=1.6.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.6.0)
 Requirement already satisfied: google-auth-oauthlib<0.5,>=0.4.1 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.6)
-Requirement already satisfied: markdown>=2.6.8 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.3.6)
+Requirement already satisfied: absl-py>=0.4 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.0.0)
+Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.6.1)
 Requirement already satisfied: tensorboard-plugin-wit>=1.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.8.1)
+Requirement already satisfied: markdown>=2.6.8 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.3.6)
 Requirement already satisfied: zipp>=3.1.0; python_version < "3.10" in ./venv/lib/python3.8/site-packages (from importlib-resources>=1.4.0; python_version < "3.9"->jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (3.7.0)
 Requirement already satisfied: pyperclip>=1.6 in ./venv/lib/python3.8/site-packages (from cmd2>=1.0.0->cliff->optuna==2.10.0->-r requirements.txt (line 155)) (1.8.2)
-Requirement already satisfied: pyasn1-modules>=0.2.1 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.2.8)
-Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3.6" in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (4.8)
 Requirement already satisfied: cachetools<6.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (5.0.0)
-Requirement already satisfied: pyasn1<0.5.0,>=0.4.6 in ./venv/lib/python3.8/site-packages (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.8)
+Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3.6" in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (4.8)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.2.8)
+Requirement already satisfied: pyasn1>=0.1.3 in ./venv/lib/python3.8/site-packages (from rsa<5,>=3.1.4; python_version >= "3.6"->google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.8)
 Installing collected packages: Masterproject, permetrics
   Attempting uninstall: Masterproject
     Found existing installation: Masterproject 1.0
@@ -281,19 +281,19 @@ You should consider upgrading via the '/cluster/home/sjsivert/Masteroppgave/venv
   from pandas import Int64Index as NumericIndex
 /cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/setuptools/distutils_patch.py:25: UserWarning: Distutils was imported before Setuptools. This usage is discouraged and may exhibit undesirable behaviors or errors. Please use Setuptools' objects directly or at least import Setuptools first.
   warnings.warn(
-[2022-03-14,17:04:35] INFO {logger} [init_logging] Logger initialized. Log level: INFO, log file: ./log_file_tune_cat2.log
-[2022-03-14,17:04:35] INFO {main} [main] Started
-[2022-03-14,17:04:35] INFO {main} [main] Starting experiment: "lu-lstm-tune-category2-propet-this-time": "lu-lstm-tune-category2"
-[2022-03-14,17:04:35] INFO {local_checkpoint_save_source} [wipe_and_init_checkpoint_save_location] Wiping and initializing checkpoint save location models/0_current_model_checkpoints
-[2022-03-14,17:04:35] INFO {save_local_disk_source} [_create_save_location] Creating model save location models/lu-lstm-tune-category2-propet-this-time
-[2022-03-14,17:04:35] INFO {neptune_save_source} [__init__] Creating new Neptune experiment
-https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-318
-[2022-03-14,17:04:49] INFO {neptune_save_source} [__init__] Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-318
-[2022-03-14,17:04:49] INFO {experiment} [run_tuning_experiment] Running tuning experiment with saving set to True
-[2022-03-14,17:04:49] INFO {experiment} [_choose_model_structure] Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x154f59f08940>
-[2022-03-14,17:04:49] INFO {lstm_model} [__init__] Running model on device: cuda
-[2022-03-14,17:04:49] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 2 layers, 165 hidden size, 0.001 learning rate, 0.2 dropout. Optimiser: Adam,  input window size: 5, output window size: 1
-[2022-03-14,17:04:50] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
+[2022-03-14,20:19:14] INFO {logger} [init_logging] Logger initialized. Log level: INFO, log file: ./log_file_tune_cat2.log
+[2022-03-14,20:19:14] INFO {main} [main] Started
+[2022-03-14,20:19:15] INFO {main} [main] Starting experiment: "lu-lstm-tune-category2-propet-this-time": "lu-lstm-tune-category2"
+[2022-03-14,20:19:15] INFO {local_checkpoint_save_source} [wipe_and_init_checkpoint_save_location] Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+[2022-03-14,20:19:15] INFO {save_local_disk_source} [_create_save_location] Creating model save location models/lu-lstm-tune-category2-propet-this-time
+[2022-03-14,20:19:15] INFO {neptune_save_source} [__init__] Creating new Neptune experiment
+https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-319
+[2022-03-14,20:19:28] INFO {neptune_save_source} [__init__] Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-319
+[2022-03-14,20:19:28] INFO {experiment} [run_tuning_experiment] Running tuning experiment with saving set to True
+[2022-03-14,20:19:28] INFO {experiment} [_choose_model_structure] Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x14b8ad2343a0>
+[2022-03-14,20:19:28] INFO {lstm_model} [__init__] Running model on device: cuda
+[2022-03-14,20:19:28] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 2 layers, 165 hidden size, 0.001 learning rate, 0.2 dropout. Optimiser: Adam,  input window size: 5, output window size: 1
+[2022-03-14,20:19:28] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
 /cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/cuda/__init__.py:143: UserWarning: 
 A100-PCIE-40GB with CUDA capability sm_80 is not compatible with the current PyTorch installation.
 The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
@@ -303,7 +303,7 @@ If you want to use the A100-PCIE-40GB GPU with PyTorch, please check the instruc
 GPU available: True, used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
-[2022-03-14,17:05:25] INFO {local_univariate_lstm_structure} [process_data] data preprocessing steps: 
+[2022-03-14,20:19:49] INFO {local_univariate_lstm_structure} [process_data] data preprocessing steps: 
  ---- Start ----
 1- load market insight data and categories and merge them
 2- convert date columns to date_time format
@@ -320,10 +320,10 @@ A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   df.drop(columns, axis=1, inplace=True)
-[2022-03-14,17:06:42] INFO {time_function} [time_function] 
+[2022-03-14,20:21:15] INFO {time_function} [time_function] 
 ------------------
-Starting new timer at 17:06:42
-[2022-03-14,17:06:42] INFO {lstm_model} [process_data] Data Pipeline for 2: ---- Start ----
+Starting new timer at 20:21:15
+[2022-03-14,20:21:15] INFO {lstm_model} [process_data] Data Pipeline for 2: ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 2)
 3- choose columns 'interest' and 'date'
@@ -335,32 +335,32 @@ Starting new timer at 17:06:42
 9- convert to timeseries dataset with input window size of 5, and output window size of 1
 ---- End ----
         
-[2022-03-14,17:06:42] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 32.
+[2022-03-14,20:21:15] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 32.
 /cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
-[2022-03-14,17:06:42] INFO {time_function} [time_function] Ending timer at: 17:06:42 
-Elapsed CPU time: 0.47275616666671755s
+[2022-03-14,20:21:15] INFO {time_function} [time_function] Ending timer at: 20:21:15 
+Elapsed CPU time: 0.3066668166667341s
 Used real time: 0:00:00
 ------------------
-[2022-03-14,17:06:42] INFO {local_univariate_lstm_structure} [auto_tuning] Tuning model: 2
-[32m[I 2022-03-14 17:06:42,857][0m Using an existing study with name 'lu-lstm-tune-category2-propet-this-time_2' instead of creating a new one.[0m
-[2022-03-14,17:06:42] INFO {lstm_model} [method_evaluation] Loading or creating optuna study with name: lu-lstm-tune-category2-propet-this-time_2
-Number of previous Trials with this name are #1
-[2022-03-14,17:06:43] INFO {loca_univariate_lstm_objective} [local_univariate_lstm_objective] Starting tuning trial number #1 of total 400
-with params: {'number_of_features': 1, 'hidden_layer_size': 285, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 2, 'learning_rate': 0.0015926223577648773, 'batch_first': True, 'batch_size': 328, 'dropout': 0.28716404205226265, 'bidirectional': False, 'optimizer_name': 'AdaDelta', 'number_of_epochs': 12}
-[2022-03-14,17:06:43] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 328.
+[2022-03-14,20:21:15] INFO {local_univariate_lstm_structure} [auto_tuning] Tuning model: 2
+[32m[I 2022-03-14 20:21:15,789][0m Using an existing study with name 'lu-lstm-tune-category2-propet-this-time_2' instead of creating a new one.[0m
+[2022-03-14,20:21:15] INFO {lstm_model} [method_evaluation] Loading or creating optuna study with name: lu-lstm-tune-category2-propet-this-time_2
+Number of previous Trials with this name are #2
+[2022-03-14,20:21:16] INFO {loca_univariate_lstm_objective} [local_univariate_lstm_objective] Starting tuning trial number #2 of total 400
+with params: {'number_of_features': 1, 'hidden_layer_size': 78, 'input_window_size': 10, 'output_window_size': 1, 'number_of_layers': 6, 'learning_rate': 0.00018883898652571082, 'batch_first': True, 'batch_size': 305, 'dropout': 0.36508879015532175, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 48}
+[2022-03-14,20:21:16] INFO {lstm_model} [_convert_dataset_to_dataloader] Converting dataset to dataloader using batch size 305.
 /cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
-[2022-03-14,17:06:43] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 2 layers, 285 hidden size, 0.0015926223577648773 learning rate, 0.28716404205226265 dropout. Optimiser: AdaDelta,  input window size: 10, output window size: 1
-[2022-03-14,17:06:43] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
+[2022-03-14,20:21:16] INFO {lstm_lightning_module} [__init__] Initializing LSTM with 6 layers, 78 hidden size, 0.00018883898652571082 learning rate, 0.36508879015532175 dropout. Optimiser: Adam,  input window size: 10, output window size: 1
+[2022-03-14,20:21:16] INFO {lstm_model} [_get_neptune_run_from_save_sources] Using pre-existing neptune run for PytorchLightning
 GPU available: True, used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
-[2022-03-14,17:06:43] INFO {time_function} [time_function] 
+[2022-03-14,20:21:16] INFO {time_function} [time_function] 
 ------------------
-Starting new timer at 17:06:43
+Starting new timer at 20:21:16
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2]
-[33m[W 2022-03-14 17:06:44,236][0m Trial 1 failed because of the following error: RuntimeError('CUDA error: no kernel image is available for execution on the device\nCUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.')[0m
+[33m[W 2022-03-14 20:21:16,974][0m Trial 2 failed because of the following error: RuntimeError('CUDA error: no kernel image is available for execution on the device\nCUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1.')[0m
 Traceback (most recent call last):
   File "/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/optuna/study/_optimize.py", line 213, in _run_trial
     value_or_values = func(trial)
