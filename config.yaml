@@ -46,13 +46,13 @@ model:
       hidden_size: [ 10, 400 ]
       number_of_layers: [ 1, 30 ]
       dropout: [ 0.0, 0.5 ]
-      optimizer_name: ['Adam', 'AdaDelta', 'RMSprop']
-      #optimizer_name: ['Adam']
+      #optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
+      optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-1 ]
       number_of_epochs: [5, 100]
       batch_size: [ 2, 360]
-      input_window_size: 7
-      output_window_size: 1 # must be equal output_window_size
+      input_window_size: 10
+      output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 50 # Number of tuning trials to run. The more the better.
@@ -60,11 +60,11 @@ model:
     common_parameters_for_all_models:
       training_size: 0.9
       input_window_size: 5
-      output_window_size: 1
+      output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 219
-      number_of_epochs: 40
-      optimizer_name: 'AdaDelta'
+      batch_size: 32
+      number_of_epochs: 50
+      optimizer_name: 'Adam'
 
     model_structure:
       - time_series_id: 6

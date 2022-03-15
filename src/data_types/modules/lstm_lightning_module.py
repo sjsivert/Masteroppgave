@@ -2,7 +2,7 @@ import logging
 
 import pytorch_lightning as pl
 import torch
-from src.utils.pytorch_error_calculations import calculate_errors
+from src.utils.pytorch_error_calculations import calculate_errors, calculate_error
 from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
@@ -52,7 +52,7 @@ class LSTMLightning(pl.LightningModule):
         )
 
         # Metric (loss / error)
-        self.metric = nn.MSELoss()
+        self.metric = calculate_error
 
         # LSTM model
         self.lstm = nn.LSTM(
@@ -86,8 +86,9 @@ class LSTMLightning(pl.LightningModule):
         return out_multi_feature
 
     def configure_optimizers(self):
-        # TODO Make configure optimizer configurable
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
+        optimizer = getattr(torch.optim, self.optimizer_name)(
+            self.parameters(), lr=self.learning_rate
+        )
         return optimizer
 
     def training_step(self, train_batch, batch_idx):
@@ -118,6 +119,7 @@ class LSTMLightning(pl.LightningModule):
             epoch_loss.append(out)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
         self.validation_errors.append(epoch_loss.cpu().detach().numpy().item())
+        self.validation_errors.append(epoch_loss.cpu().detach().numpy().item())
 
     def test_step(self, batch, batch_idx):
         x, y = batch
@@ -126,8 +128,10 @@ class LSTMLightning(pl.LightningModule):
         losses_dict = calculate_errors(y, yhat)
         self.test_losses.append(losses_dict)
         # Used for visualization -> TODO: Add multi step visualization support
-        self.test_targets.extend(y.reshape(y.shape[0]).tolist())
-        self.test_predictions.extend(yhat.reshape(yhat.shape[0]).tolist())
+        y_first_step = y[:, 0, :]
+        y_hat_first_step = yhat[:, 0, :]
+        self.test_targets.extend(y_first_step.tolist())
+        self.test_predictions.extend(y_hat_first_step.tolist())
 
         self.log("test_loss", loss)
         return loss
