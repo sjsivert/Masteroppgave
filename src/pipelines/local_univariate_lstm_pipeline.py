@@ -40,11 +40,12 @@ def local_univariate_lstm_pipeline(
             ("convert to np.array", market_processing.convert_to_np_array, {}),
             (f"scale data between -1 and 1", market_processing.scale_data, {"should_scale": True}),
             (f"split up into training set ({training_size}) and test set ({1 - training_size})",
-             market_processing.split_into_training_and_test_set,
-                {"training_size": training_size}),
+             market_processing.split_into_training_and_test_forecast_window,
+             # TODO: Make configurable
+                {"input_window_size": 10, "forecast_window_size": 7}),
             (f"split training set into train set ({training_size}) and validation set ({1 - training_size})",
-             market_processing.split_into_training_and_validation_set,
-                {"training_size": training_size}),
+             market_processing.split_into_training_and_validation_forecast_window,
+                {"input_window_size": 10, "forecast_window_size": 7}),
             (f"convert to timeseries dataset with input window size of {input_window_size}, "
                 f"and output window size of {output_window_size}", market_processing.convert_to_time_series_dataset,
                 {"input_window_size": input_window_size, "output_window_size": output_window_size}),

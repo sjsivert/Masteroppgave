@@ -1,5 +1,6 @@
 data:
-  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 
@@ -12,7 +13,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+      #  - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -58,18 +59,19 @@ model:
       number_of_trials: 50 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
-      training_size: 0.9
-      input_window_size: 5
+      # If int <= 1 then the testing set will be equal to output_window_size
+      training_size: 7
+      input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 32
-      number_of_epochs: 50
+      batch_size: 100
+      number_of_epochs: 20
       optimizer_name: 'Adam'
 
     model_structure:
-      - time_series_id: 6
-        learning_rate: 0.0003
-        hidden_layer_size: 268
+      - time_series_id: 11573
+        learning_rate: 0.03
+        hidden_layer_size: 30
         dropout: 0.113
         number_of_features: 1
         number_of_layers: 3
