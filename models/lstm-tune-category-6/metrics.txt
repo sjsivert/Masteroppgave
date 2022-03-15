@@ -1,0 +1,4 @@
+
+_____Results dataset-6_____
+training_error: 0.04549
+validation_error: 0.01882

@@ -1,18 +1,18 @@
 data:
-  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 
 logger:
   log_level: 'INFO'
-  log_file: './log_file.log' # Currently does nothing
+  log_file: './log_file-cat-6-cont2.log' # Currently does nothing
 
 experiment:
   tags:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-      # - 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -20,9 +20,9 @@ experiment:
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
     - 'MASE'
+    - 'SMAPE'
     - 'MSE'
     - 'MAE'
-    - 'SMAPE'
 
   save_source:
     disk:
@@ -43,19 +43,19 @@ model:
 
   local_univariate_lstm:
     hyperparameter_tuning_range:
-      hidden_size: [ 10, 500 ]
+      hidden_size: [ 10, 400 ]
       number_of_layers: [ 1, 30 ]
       dropout: [ 0.0, 0.5 ]
       #optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
       optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-1 ]
-      number_of_epochs: [5, 10]
+      number_of_epochs: [5, 100]
       batch_size: [ 2, 360]
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 1 # Number of tuning trials to run. The more the better.
+      number_of_trials: 50 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
       training_size: 0.9
@@ -67,12 +67,12 @@ model:
       optimizer_name: 'Adam'
 
     model_structure:
-      - time_series_id: 11573
-        learning_rate: 0.001
-        hidden_layer_size: 165
-        dropout: 0.2
+      - time_series_id: 6
+        learning_rate: 0.0003
+        hidden_layer_size: 268
+        dropout: 0.113
         number_of_features: 1
-        number_of_layers: 2
+        number_of_layers: 3
 
   local_univariate_arima:
     training_size: 0.8

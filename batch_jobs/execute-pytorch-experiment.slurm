@@ -3,18 +3,18 @@
 #SBATCH --gres=gpu:2 # Ask for two gpus
 #SBATCH --account=ie-idi
 #SBATCH --time=00:30:00
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=2
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/sbatch_job2.txt
+#SBATCH --output=batch_jobs/output/sbatch_job-cat-6-tune-cont2.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="first-experiment-on-hpc"
-export EXPERIMENT_DESCRIPTION="first-test"
+export EXPERIMENT_TITLE="lstm-tune-cat-6-continue"
+export EXPERIMENT_DESCRIPTION="lstm-tune-cat-6-continue"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
@@ -38,5 +38,6 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
+#python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
+python src/main.py -c --tune --neptune-id "MAS-311"
 
