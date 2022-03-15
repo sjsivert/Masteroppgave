@@ -19,9 +19,9 @@ experiment:
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
+    - 'MASE'
     - 'MSE'
     - 'MAE'
-    - 'MASE'
     - 'SMAPE'
 
   save_source:
@@ -46,13 +46,13 @@ model:
       hidden_size: [ 10, 500 ]
       number_of_layers: [ 1, 30 ]
       dropout: [ 0.0, 0.5 ]
-      #optimizer_name: ['Adam', 'AdaDelta', 'RMSprop']
+      #optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
       optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-1 ]
       number_of_epochs: [5, 10]
       batch_size: [ 2, 360]
       input_window_size: 10
-      output_window_size: 1 # must be equal output_window_size
+      output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 1 # Number of tuning trials to run. The more the better.
@@ -60,10 +60,10 @@ model:
     common_parameters_for_all_models:
       training_size: 0.9
       input_window_size: 5
-      output_window_size: 1
+      output_window_size: 7
       multi_variable_nr: 1
       batch_size: 32
-      number_of_epochs: 5
+      number_of_epochs: 50
       optimizer_name: 'Adam'
 
     model_structure:

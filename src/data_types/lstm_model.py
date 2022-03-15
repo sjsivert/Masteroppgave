@@ -118,8 +118,11 @@ class LstmModel(IModel, ABC):
         for batch_idx, batch in enumerate(self.training_data_loader):
             x, y = batch
             y_hat = self.model.predict_step(x, batch_idx)
-            training_targets.extend(y.reshape(y.size(0)).tolist())
-            training_predictions.extend(y_hat.reshape(y.size(0)).tolist())
+            # TODO: Visualize multistep ahead properly!
+            y_hat_first_prediction_step = y_hat[:, 0, :].flatten()
+            y_first_prediction_step = y[:, 0, :].flatten()
+            training_targets.extend(y_first_prediction_step.tolist())
+            training_predictions.extend(y_hat_first_prediction_step.tolist())
 
         self.metrics["training_error"] = self.model.training_errors[-1]
         self.metrics["validation_error"] = self.model.validation_errors[-1]
