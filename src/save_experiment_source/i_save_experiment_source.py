@@ -29,6 +29,16 @@ class ISaveExperimentSource(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def save_experiment_details(
+        self,
+        datasets: Dict[str, str],
+        experiment_tags: List[str],
+        options: str,
+    ) -> None:
+        # Interface, not to be implemented
+        pass
+
+    @abstractmethod
     def load_model_and_metadata(self) -> None:
         # Interface, not to be implemented
         pass

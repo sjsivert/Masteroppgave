@@ -93,6 +93,16 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         self._save_log()
         self._save_predictions(predictions)
 
+    def save_experiment_details(
+        self,
+        datasets: Dict[str, str],
+        experiment_tags: List[str],
+        options: str,
+    ) -> None:
+        self._save_options(options)
+        self._save_dataset_version(datasets)
+        self._save_experiment_tags(experiment_tags)
+
     def load_metadata(
         self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
     ) -> (str, bool, bool):

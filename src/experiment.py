@@ -92,6 +92,14 @@ class Experiment:
         """
         Run a complete experiment with preprocessing of data, training,testing and optional saving.
         """
+        logging.info("Saving experiment details before executing experiment")
+        if save and options_to_save:
+            for save_source in self.save_sources:
+                save_source.save_experiment_details(
+                    options=options_to_save,
+                    datasets=config["data"].get(),
+                    experiment_tags=self.experiment_tags,
+                )
         logging.info(
             f"Running complete with parameters in specified in config. Experiment with saving set to {save}"
         )
