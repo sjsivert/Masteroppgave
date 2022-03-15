@@ -1,0 +1,8 @@
+
+_____Results dataset-11573_____
+training_error: 0.98085
+validation_error: 0.78454
+MASE: 0.78454
+SMAPE: 0.06464
+MSE: 0.00545
+MAE: 0.05796

@@ -1,0 +1,895 @@
+Logger initialized. Log level: INFO, log file: ./log-file.log
+Started
+Starting experiment: "lstm-tune-cat-6-multi-output": "lstm-tune-cat-6-multi-output"
+Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+Creating model save location models/lstm-tune-cat-6-multi-output
+Creating new Neptune experiment
+Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-322
+Running tuning experiment with saving set to True
+Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x1527680f2eb0>
+Running model on device: cuda
+Initializing LSTM with 3 layers, 30 hidden size, 0.03 learning rate, 0.113 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+data preprocessing steps: 
+ ---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        
+
+------------------
+Starting new timer at 19:05:38
+Data Pipeline for 11573: ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 11573)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- convert to np.array
+6- scale data between -1 and 1
+7- split up into training set (7) and test set (-6)
+8- split training set into train set (7) and validation set (-6)
+9- convert to timeseries dataset with input window size of 10, and output window size of 7
+---- End ----
+        
+Converting dataset to dataloader using batch size 100.
+Ending timer at: 19:05:38 
+Elapsed CPU time: 0.5121141666667958s
+Used real time: 0:00:00
+------------------
+Tuning model: 11573
+Loading or creating optuna study with name: lstm-tune-cat-6-multi-output_11573
+Number of previous Trials with this name are #0
+Starting tuning trial number #0 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 16, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 23, 'learning_rate': 0.0006684795985190589, 'batch_first': True, 'batch_size': 154, 'dropout': 0.10006453814608668, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 94}
+Converting dataset to dataloader using batch size 154.
+Initializing LSTM with 23 layers, 16 hidden size, 0.0006684795985190589 learning rate, 0.10006453814608668 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:05:39
+Ending timer at: 19:07:24 
+Elapsed CPU time: 1375.73928085s
+Used real time: 0:01:45
+------------------
+Starting tuning trial number #1 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 247, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 1.187481852981644e-06, 'batch_first': True, 'batch_size': 276, 'dropout': 0.155268636440534, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 85}
+Converting dataset to dataloader using batch size 276.
+Initializing LSTM with 29 layers, 247 hidden size, 1.187481852981644e-06 learning rate, 0.155268636440534 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:07:24
+Ending timer at: 19:09:19 
+Elapsed CPU time: 1766.8228461666667s
+Used real time: 0:01:55
+------------------
+Starting tuning trial number #2 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 235, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 6, 'learning_rate': 0.00447448600024996, 'batch_first': True, 'batch_size': 243, 'dropout': 0.323365410219751, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 18}
+Converting dataset to dataloader using batch size 243.
+Initializing LSTM with 6 layers, 235 hidden size, 0.00447448600024996 learning rate, 0.323365410219751 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:09:20
+Ending timer at: 19:09:46 
+Elapsed CPU time: 421.03154489999974s
+Used real time: 0:00:26
+------------------
+Starting tuning trial number #3 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 211, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 0.05008901497831686, 'batch_first': True, 'batch_size': 87, 'dropout': 0.4941558057782463, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 67}
+Converting dataset to dataloader using batch size 87.
+Initializing LSTM with 25 layers, 211 hidden size, 0.05008901497831686 learning rate, 0.4941558057782463 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:09:47
+Ending timer at: 19:12:18 
+Elapsed CPU time: 2889.2016032333336s
+Used real time: 0:02:31
+------------------
+Starting tuning trial number #4 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 151, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 0.014772119178102845, 'batch_first': True, 'batch_size': 297, 'dropout': 0.29660025361111625, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 19}
+Converting dataset to dataloader using batch size 297.
+Initializing LSTM with 27 layers, 151 hidden size, 0.014772119178102845 learning rate, 0.29660025361111625 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:12:18
+Ending timer at: 19:12:53 
+Elapsed CPU time: 624.017399216666s
+Used real time: 0:00:35
+------------------
+Starting tuning trial number #5 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 320, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 2.2791406895717714e-06, 'batch_first': True, 'batch_size': 68, 'dropout': 0.1832462604003942, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 16}
+Converting dataset to dataloader using batch size 68.
+Initializing LSTM with 28 layers, 320 hidden size, 2.2791406895717714e-06 learning rate, 0.1832462604003942 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:12:54
+Starting tuning trial number #6 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 297, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 19, 'learning_rate': 0.0012634486630089337, 'batch_first': True, 'batch_size': 8, 'dropout': 0.3453363851350412, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 49}
+Converting dataset to dataloader using batch size 8.
+Initializing LSTM with 19 layers, 297 hidden size, 0.0012634486630089337 learning rate, 0.3453363851350412 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:03
+Starting tuning trial number #7 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 140, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 20, 'learning_rate': 0.00043556392956226996, 'batch_first': True, 'batch_size': 219, 'dropout': 0.16120817548889754, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 14}
+Converting dataset to dataloader using batch size 219.
+Initializing LSTM with 20 layers, 140 hidden size, 0.00043556392956226996 learning rate, 0.16120817548889754 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:04
+Ending timer at: 19:13:26 
+Elapsed CPU time: 461.63221135s
+Used real time: 0:00:22
+------------------
+Starting tuning trial number #8 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 383, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 19, 'learning_rate': 3.004185529104863e-06, 'batch_first': True, 'batch_size': 173, 'dropout': 0.18052234144713863, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 28}
+Converting dataset to dataloader using batch size 173.
+Initializing LSTM with 19 layers, 383 hidden size, 3.004185529104863e-06 learning rate, 0.18052234144713863 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:27
+Starting tuning trial number #9 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 322, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 1.7680748594379658e-05, 'batch_first': True, 'batch_size': 134, 'dropout': 0.24266110609395192, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 39}
+Converting dataset to dataloader using batch size 134.
+Initializing LSTM with 28 layers, 322 hidden size, 1.7680748594379658e-05 learning rate, 0.24266110609395192 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:28
+Starting tuning trial number #10 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 30, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 9, 'learning_rate': 6.762357652910561e-05, 'batch_first': True, 'batch_size': 344, 'dropout': 0.0010712748519823012, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 100}
+Converting dataset to dataloader using batch size 344.
+Initializing LSTM with 9 layers, 30 hidden size, 6.762357652910561e-05 learning rate, 0.0010712748519823012 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:29
+Starting tuning trial number #11 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 10, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 14, 'learning_rate': 0.0003424548562501133, 'batch_first': True, 'batch_size': 213, 'dropout': 0.06269165403152457, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 70}
+Converting dataset to dataloader using batch size 213.
+Initializing LSTM with 14 layers, 10 hidden size, 0.0003424548562501133 learning rate, 0.06269165403152457 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:30
+Starting tuning trial number #12 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 102, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 21, 'learning_rate': 0.00019242501490750657, 'batch_first': True, 'batch_size': 169, 'dropout': 0.09059482515874206, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 5}
+Converting dataset to dataloader using batch size 169.
+Initializing LSTM with 21 layers, 102 hidden size, 0.00019242501490750657 learning rate, 0.09059482515874206 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:31
+Starting tuning trial number #13 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 96, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 14, 'learning_rate': 0.0008731604520618395, 'batch_first': True, 'batch_size': 113, 'dropout': 0.08615891590706204, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 66}
+Converting dataset to dataloader using batch size 113.
+Initializing LSTM with 14 layers, 96 hidden size, 0.0008731604520618395 learning rate, 0.08615891590706204 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:33
+Starting tuning trial number #14 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 82, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 23, 'learning_rate': 3.323670520527615e-05, 'batch_first': True, 'batch_size': 228, 'dropout': 0.007759254193698953, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 98}
+Converting dataset to dataloader using batch size 228.
+Initializing LSTM with 23 layers, 82 hidden size, 3.323670520527615e-05 learning rate, 0.007759254193698953 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:37
+Starting tuning trial number #15 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 152, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 1, 'learning_rate': 0.002843915957145205, 'batch_first': True, 'batch_size': 146, 'dropout': 0.15162805625003134, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 50}
+Converting dataset to dataloader using batch size 146.
+Initializing LSTM with 1 layers, 152 hidden size, 0.002843915957145205 learning rate, 0.15162805625003134 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:39
+Starting tuning trial number #16 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 53, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 17, 'learning_rate': 0.00021147617190484547, 'batch_first': True, 'batch_size': 210, 'dropout': 0.22872464748569155, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 37}
+Converting dataset to dataloader using batch size 210.
+Initializing LSTM with 17 layers, 53 hidden size, 0.00021147617190484547 learning rate, 0.22872464748569155 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:40
+Starting tuning trial number #17 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 140, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 11, 'learning_rate': 0.010986828662205145, 'batch_first': True, 'batch_size': 23, 'dropout': 0.1145631302075702, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 85}
+Converting dataset to dataloader using batch size 23.
+Initializing LSTM with 11 layers, 140 hidden size, 0.010986828662205145 learning rate, 0.1145631302075702 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:13:41
+Ending timer at: 19:16:45 
+Elapsed CPU time: 2677.328797233334s
+Used real time: 0:03:04
+------------------
+Starting tuning trial number #18 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 179, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 10, 'learning_rate': 0.02975080986403082, 'batch_first': True, 'batch_size': 14, 'dropout': 0.391264473490998, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 83}
+Converting dataset to dataloader using batch size 14.
+Initializing LSTM with 10 layers, 179 hidden size, 0.02975080986403082 learning rate, 0.391264473490998 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:16:46
+Ending timer at: 19:20:23 
+Elapsed CPU time: 3200.8750081666676s
+Used real time: 0:03:37
+------------------
+Starting tuning trial number #19 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 68, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 12, 'learning_rate': 0.012050422218358411, 'batch_first': True, 'batch_size': 75, 'dropout': 0.10674436323910774, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 84}
+Converting dataset to dataloader using batch size 75.
+Initializing LSTM with 12 layers, 68 hidden size, 0.012050422218358411 learning rate, 0.10674436323910774 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:24
+Starting tuning trial number #20 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 104, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 4, 'learning_rate': 0.005105023460299307, 'batch_first': True, 'batch_size': 32, 'dropout': 0.04261247230557816, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 92}
+Converting dataset to dataloader using batch size 32.
+Initializing LSTM with 4 layers, 104 hidden size, 0.005105023460299307 learning rate, 0.04261247230557816 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:26
+Starting tuning trial number #21 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 136, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 23, 'learning_rate': 0.0008495059485882165, 'batch_first': True, 'batch_size': 268, 'dropout': 0.12918746785285806, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 76}
+Converting dataset to dataloader using batch size 268.
+Initializing LSTM with 23 layers, 136 hidden size, 0.0008495059485882165 learning rate, 0.12918746785285806 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:27
+Starting tuning trial number #22 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 194, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 17, 'learning_rate': 0.07768282653183296, 'batch_first': True, 'batch_size': 192, 'dropout': 0.20976167380297567, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 58}
+Converting dataset to dataloader using batch size 192.
+Initializing LSTM with 17 layers, 194 hidden size, 0.07768282653183296 learning rate, 0.20976167380297567 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:28
+Starting tuning trial number #23 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 126, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 22, 'learning_rate': 0.0019811892357770133, 'batch_first': True, 'batch_size': 330, 'dropout': 0.12701789977590522, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 91}
+Converting dataset to dataloader using batch size 330.
+Initializing LSTM with 22 layers, 126 hidden size, 0.0019811892357770133 learning rate, 0.12701789977590522 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:29
+Starting tuning trial number #24 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 49, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 0.0004890535752247502, 'batch_first': True, 'batch_size': 108, 'dropout': 0.048929002958475534, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 77}
+Converting dataset to dataloader using batch size 108.
+Initializing LSTM with 25 layers, 49 hidden size, 0.0004890535752247502 learning rate, 0.048929002958475534 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:30
+Starting tuning trial number #25 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 260, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 8, 'learning_rate': 9.968494908825802e-05, 'batch_first': True, 'batch_size': 146, 'dropout': 0.2748938699187392, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 58}
+Converting dataset to dataloader using batch size 146.
+Initializing LSTM with 8 layers, 260 hidden size, 9.968494908825802e-05 learning rate, 0.2748938699187392 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:31
+Starting tuning trial number #26 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 174, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 20, 'learning_rate': 0.011583580511881804, 'batch_first': True, 'batch_size': 48, 'dropout': 0.19041466056557943, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 8}
+Converting dataset to dataloader using batch size 48.
+Initializing LSTM with 20 layers, 174 hidden size, 0.011583580511881804 learning rate, 0.19041466056557943 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:33
+Starting tuning trial number #27 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 209, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 16, 'learning_rate': 1.1944729877532575e-05, 'batch_first': True, 'batch_size': 251, 'dropout': 0.1472407720150373, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 93}
+Converting dataset to dataloader using batch size 251.
+Initializing LSTM with 16 layers, 209 hidden size, 1.1944729877532575e-05 learning rate, 0.1472407720150373 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:50
+Starting tuning trial number #28 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 24, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 12, 'learning_rate': 8.799531584676794e-05, 'batch_first': True, 'batch_size': 306, 'dropout': 0.0876228534524536, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 43}
+Converting dataset to dataloader using batch size 306.
+Initializing LSTM with 12 layers, 24 hidden size, 8.799531584676794e-05 learning rate, 0.0876228534524536 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:51
+Starting tuning trial number #29 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 127, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 30, 'learning_rate': 0.007242493344120549, 'batch_first': True, 'batch_size': 192, 'dropout': 0.16671364457835858, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 78}
+Converting dataset to dataloader using batch size 192.
+Initializing LSTM with 30 layers, 127 hidden size, 0.007242493344120549 learning rate, 0.16671364457835858 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:20:52
+Starting tuning trial number #30 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 253, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 0.002034517461772045, 'batch_first': True, 'batch_size': 282, 'dropout': 0.12553354741197834, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 30}
+Converting dataset to dataloader using batch size 282.
+Initializing LSTM with 26 layers, 253 hidden size, 0.002034517461772045 learning rate, 0.12553354741197834 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:25
+Starting tuning trial number #31 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 173, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 11, 'learning_rate': 0.030677522193563077, 'batch_first': True, 'batch_size': 14, 'dropout': 0.3864180375978103, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 86}
+Converting dataset to dataloader using batch size 14.
+Initializing LSTM with 11 layers, 173 hidden size, 0.030677522193563077 learning rate, 0.3864180375978103 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:26
+Starting tuning trial number #32 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 175, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 9, 'learning_rate': 0.03638198576491667, 'batch_first': True, 'batch_size': 47, 'dropout': 0.4455569731329128, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 84}
+Converting dataset to dataloader using batch size 47.
+Initializing LSTM with 9 layers, 175 hidden size, 0.03638198576491667 learning rate, 0.4455569731329128 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:27
+Starting tuning trial number #33 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 235, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 6, 'learning_rate': 0.023038956570341978, 'batch_first': True, 'batch_size': 33, 'dropout': 0.3900066001529482, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 72}
+Converting dataset to dataloader using batch size 33.
+Initializing LSTM with 6 layers, 235 hidden size, 0.023038956570341978 learning rate, 0.3900066001529482 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:29
+Starting tuning trial number #34 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 190, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 15, 'learning_rate': 0.09556874293416551, 'batch_first': True, 'batch_size': 4, 'dropout': 0.48541483254600337, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 62}
+Converting dataset to dataloader using batch size 4.
+Initializing LSTM with 15 layers, 190 hidden size, 0.09556874293416551 learning rate, 0.48541483254600337 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:31
+Starting tuning trial number #35 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 152, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 11, 'learning_rate': 0.003758616291145095, 'batch_first': True, 'batch_size': 87, 'dropout': 0.26440883629597495, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 83}
+Converting dataset to dataloader using batch size 87.
+Initializing LSTM with 11 layers, 152 hidden size, 0.003758616291145095 learning rate, 0.26440883629597495 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:32
+Starting tuning trial number #36 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 230, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 7, 'learning_rate': 0.007605789606011651, 'batch_first': True, 'batch_size': 59, 'dropout': 0.3544950702908119, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 96}
+Converting dataset to dataloader using batch size 59.
+Initializing LSTM with 7 layers, 230 hidden size, 0.007605789606011651 learning rate, 0.3544950702908119 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:33
+Starting tuning trial number #37 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 121, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 18, 'learning_rate': 0.02020516213151346, 'batch_first': True, 'batch_size': 95, 'dropout': 0.3021287113658371, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 89}
+Converting dataset to dataloader using batch size 95.
+Initializing LSTM with 18 layers, 121 hidden size, 0.02020516213151346 learning rate, 0.3021287113658371 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:50
+Starting tuning trial number #38 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 279, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 24, 'learning_rate': 0.0006416448826467307, 'batch_first': True, 'batch_size': 247, 'dropout': 0.19808157760518966, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 24}
+Converting dataset to dataloader using batch size 247.
+Initializing LSTM with 24 layers, 279 hidden size, 0.0006416448826467307 learning rate, 0.19808157760518966 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:52
+Starting tuning trial number #39 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 384, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 5, 'learning_rate': 0.0016858718863707615, 'batch_first': True, 'batch_size': 32, 'dropout': 0.43478011055226423, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 79}
+Converting dataset to dataloader using batch size 32.
+Initializing LSTM with 5 layers, 384 hidden size, 0.0016858718863707615 learning rate, 0.43478011055226423 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:53
+Starting tuning trial number #40 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 218, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 3, 'learning_rate': 0.06072225415991066, 'batch_first': True, 'batch_size': 119, 'dropout': 0.21969490054839155, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 17}
+Converting dataset to dataloader using batch size 119.
+Initializing LSTM with 3 layers, 218 hidden size, 0.06072225415991066 learning rate, 0.21969490054839155 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:54
+Starting tuning trial number #41 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 152, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 0.013549647666712569, 'batch_first': True, 'batch_size': 305, 'dropout': 0.3050496659921433, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 11}
+Converting dataset to dataloader using batch size 305.
+Initializing LSTM with 27 layers, 152 hidden size, 0.013549647666712569 learning rate, 0.3050496659921433 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:58
+Starting tuning trial number #42 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 78, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 0.04311886970626404, 'batch_first': True, 'batch_size': 352, 'dropout': 0.35481128879585955, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 24}
+Converting dataset to dataloader using batch size 352.
+Initializing LSTM with 28 layers, 78 hidden size, 0.04311886970626404 learning rate, 0.35481128879585955 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:21:59
+Starting tuning trial number #43 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 337, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 21, 'learning_rate': 0.0002873214156686142, 'batch_first': True, 'batch_size': 268, 'dropout': 0.39450918771195087, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 32}
+Converting dataset to dataloader using batch size 268.
+Initializing LSTM with 21 layers, 337 hidden size, 0.0002873214156686142 learning rate, 0.39450918771195087 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:01
+Starting tuning trial number #44 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 108, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 0.0201684833494923, 'batch_first': True, 'batch_size': 164, 'dropout': 0.06809500867279816, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 13}
+Converting dataset to dataloader using batch size 164.
+Initializing LSTM with 26 layers, 108 hidden size, 0.0201684833494923 learning rate, 0.06809500867279816 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:02
+Ending timer at: 19:22:27 
+Elapsed CPU time: 740.269159416666s
+Used real time: 0:00:25
+------------------
+Starting tuning trial number #45 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 104, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 19, 'learning_rate': 0.007622872633222919, 'batch_first': True, 'batch_size': 168, 'dropout': 0.025445185958600784, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 13}
+Converting dataset to dataloader using batch size 168.
+Initializing LSTM with 19 layers, 104 hidden size, 0.007622872633222919 learning rate, 0.025445185958600784 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:28
+Starting tuning trial number #46 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 51, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 24, 'learning_rate': 0.0011965448237551278, 'batch_first': True, 'batch_size': 226, 'dropout': 0.06797276866549237, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 100}
+Converting dataset to dataloader using batch size 226.
+Initializing LSTM with 24 layers, 51 hidden size, 0.0011965448237551278 learning rate, 0.06797276866549237 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:29
+Starting tuning trial number #47 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 140, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 13, 'learning_rate': 1.1643534856708257e-06, 'batch_first': True, 'batch_size': 154, 'dropout': 0.07355107528949185, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 23}
+Converting dataset to dataloader using batch size 154.
+Initializing LSTM with 13 layers, 140 hidden size, 1.1643534856708257e-06 learning rate, 0.07355107528949185 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:33
+Starting tuning trial number #48 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 167, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 10, 'learning_rate': 0.00014715107914094669, 'batch_first': True, 'batch_size': 187, 'dropout': 0.11636177424245098, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 88}
+Converting dataset to dataloader using batch size 187.
+Initializing LSTM with 10 layers, 167 hidden size, 0.00014715107914094669 learning rate, 0.11636177424245098 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:34
+Starting tuning trial number #49 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 88, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 0.0034352747988883625, 'batch_first': True, 'batch_size': 129, 'dropout': 0.16151769216905174, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 95}
+Converting dataset to dataloader using batch size 129.
+Initializing LSTM with 26 layers, 88 hidden size, 0.0034352747988883625 learning rate, 0.16151769216905174 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:22:36
+Starting tuning trial number #50 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 10, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 21, 'learning_rate': 6.591997065420686e-06, 'batch_first': True, 'batch_size': 209, 'dropout': 0.09807845449044429, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 72}
+Converting dataset to dataloader using batch size 209.
+Initializing LSTM with 21 layers, 10 hidden size, 6.591997065420686e-06 learning rate, 0.09807845449044429 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:15
+Starting tuning trial number #51 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 192, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 0.017685024529551497, 'batch_first': True, 'batch_size': 19, 'dropout': 0.037461828148653245, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 20}
+Converting dataset to dataloader using batch size 19.
+Initializing LSTM with 29 layers, 192 hidden size, 0.017685024529551497 learning rate, 0.037461828148653245 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:22
+Starting tuning trial number #52 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 117, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 0.030463211585648794, 'batch_first': True, 'batch_size': 291, 'dropout': 0.13880751629871516, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 14}
+Converting dataset to dataloader using batch size 291.
+Initializing LSTM with 27 layers, 117 hidden size, 0.030463211585648794 learning rate, 0.13880751629871516 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:24
+Starting tuning trial number #53 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 153, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 23, 'learning_rate': 0.005347003993240645, 'batch_first': True, 'batch_size': 72, 'dropout': 0.24798939548276744, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 6}
+Converting dataset to dataloader using batch size 72.
+Initializing LSTM with 23 layers, 153 hidden size, 0.005347003993240645 learning rate, 0.24798939548276744 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:37
+Starting tuning trial number #54 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 106, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 2.8403127524524485e-05, 'batch_first': True, 'batch_size': 174, 'dropout': 0.3264734217457433, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 10}
+Converting dataset to dataloader using batch size 174.
+Initializing LSTM with 25 layers, 106 hidden size, 2.8403127524524485e-05 learning rate, 0.3264734217457433 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:38
+Starting tuning trial number #55 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 136, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 22, 'learning_rate': 0.06150555609699543, 'batch_first': True, 'batch_size': 329, 'dropout': 0.1699500789554097, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 16}
+Converting dataset to dataloader using batch size 329.
+Initializing LSTM with 22 layers, 136 hidden size, 0.06150555609699543 learning rate, 0.1699500789554097 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:46
+Starting tuning trial number #56 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 68, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 30, 'learning_rate': 0.0004365813748360454, 'batch_first': True, 'batch_size': 232, 'dropout': 0.10699896357984147, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 45}
+Converting dataset to dataloader using batch size 232.
+Initializing LSTM with 30 layers, 68 hidden size, 0.0004365813748360454 learning rate, 0.10699896357984147 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:23:48
+Starting tuning trial number #57 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 32, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 14, 'learning_rate': 0.012621556736537183, 'batch_first': True, 'batch_size': 155, 'dropout': 0.013963120797696876, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 21}
+Converting dataset to dataloader using batch size 155.
+Initializing LSTM with 14 layers, 32 hidden size, 0.012621556736537183 learning rate, 0.013963120797696876 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:00
+Starting tuning trial number #58 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 185, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 0.009173072831029108, 'batch_first': True, 'batch_size': 198, 'dropout': 0.05604264760093566, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 37}
+Converting dataset to dataloader using batch size 198.
+Initializing LSTM with 26 layers, 185 hidden size, 0.009173072831029108 learning rate, 0.05604264760093566 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:03
+Starting tuning trial number #59 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 159, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 0.0025397383876514384, 'batch_first': True, 'batch_size': 134, 'dropout': 0.07494163098147502, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 81}
+Converting dataset to dataloader using batch size 134.
+Initializing LSTM with 28 layers, 159 hidden size, 0.0025397383876514384 learning rate, 0.07494163098147502 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:04
+Starting tuning trial number #60 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 139, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 24, 'learning_rate': 0.0012801602464740428, 'batch_first': True, 'batch_size': 94, 'dropout': 0.2884592497484083, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 66}
+Converting dataset to dataloader using batch size 94.
+Initializing LSTM with 24 layers, 139 hidden size, 0.0012801602464740428 learning rate, 0.2884592497484083 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:06
+Starting tuning trial number #61 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 208, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 1, 'learning_rate': 0.004647408987778168, 'batch_first': True, 'batch_size': 248, 'dropout': 0.32971718403349826, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 28}
+Converting dataset to dataloader using batch size 248.
+Initializing LSTM with 1 layers, 208 hidden size, 0.004647408987778168 learning rate, 0.32971718403349826 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:08
+Starting tuning trial number #62 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 238, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 8, 'learning_rate': 0.01882423437748009, 'batch_first': True, 'batch_size': 217, 'dropout': 0.3677020172331027, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 19}
+Converting dataset to dataloader using batch size 217.
+Initializing LSTM with 8 layers, 238 hidden size, 0.01882423437748009 learning rate, 0.3677020172331027 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:16
+Starting tuning trial number #63 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 222, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 3, 'learning_rate': 0.0008984176694128356, 'batch_first': True, 'batch_size': 261, 'dropout': 0.41518029914940274, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 6}
+Converting dataset to dataloader using batch size 261.
+Initializing LSTM with 3 layers, 222 hidden size, 0.0008984176694128356 learning rate, 0.41518029914940274 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:17
+Starting tuning trial number #64 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 269, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 6, 'learning_rate': 0.02844323802786682, 'batch_first': True, 'batch_size': 238, 'dropout': 0.3227220134583924, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 27}
+Converting dataset to dataloader using batch size 238.
+Initializing LSTM with 6 layers, 269 hidden size, 0.02844323802786682 learning rate, 0.3227220134583924 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:19
+Starting tuning trial number #65 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 116, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 17, 'learning_rate': 0.04410682238048498, 'batch_first': True, 'batch_size': 294, 'dropout': 0.26608204831496657, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 14}
+Converting dataset to dataloader using batch size 294.
+Initializing LSTM with 17 layers, 116 hidden size, 0.04410682238048498 learning rate, 0.26608204831496657 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:21
+Starting tuning trial number #66 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 205, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 9, 'learning_rate': 0.00022357667893431118, 'batch_first': True, 'batch_size': 204, 'dropout': 0.14193040814716712, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 34}
+Converting dataset to dataloader using batch size 204.
+Initializing LSTM with 9 layers, 205 hidden size, 0.00022357667893431118 learning rate, 0.14193040814716712 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:23
+Starting tuning trial number #67 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 165, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 20, 'learning_rate': 4.574554351065045e-05, 'batch_first': True, 'batch_size': 178, 'dropout': 0.47370462124062507, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 10}
+Converting dataset to dataloader using batch size 178.
+Initializing LSTM with 20 layers, 165 hidden size, 4.574554351065045e-05 learning rate, 0.47370462124062507 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:24
+Starting tuning trial number #68 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 184, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 11, 'learning_rate': 0.005836566204413918, 'batch_first': True, 'batch_size': 46, 'dropout': 0.3717231089224456, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 51}
+Converting dataset to dataloader using batch size 46.
+Initializing LSTM with 11 layers, 184 hidden size, 0.005836566204413918 learning rate, 0.3717231089224456 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:26
+Starting tuning trial number #69 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 91, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 22, 'learning_rate': 0.014067140542903627, 'batch_first': True, 'batch_size': 166, 'dropout': 0.0856978196516381, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 54}
+Converting dataset to dataloader using batch size 166.
+Initializing LSTM with 22 layers, 91 hidden size, 0.014067140542903627 learning rate, 0.0856978196516381 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:28
+Starting tuning trial number #70 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 314, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 16, 'learning_rate': 0.0005737409411318939, 'batch_first': True, 'batch_size': 327, 'dropout': 0.28655079019078056, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 91}
+Converting dataset to dataloader using batch size 327.
+Initializing LSTM with 16 layers, 314 hidden size, 0.0005737409411318939 learning rate, 0.28655079019078056 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:30
+Starting tuning trial number #71 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 199, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 0.06353034958364512, 'batch_first': True, 'batch_size': 23, 'dropout': 0.41215149679672564, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 86}
+Converting dataset to dataloader using batch size 23.
+Initializing LSTM with 25 layers, 199 hidden size, 0.06353034958364512 learning rate, 0.41215149679672564 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:32
+Starting tuning trial number #72 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 218, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 0.009193391336038645, 'batch_first': True, 'batch_size': 6, 'dropout': 0.4610906254351871, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 82}
+Converting dataset to dataloader using batch size 6.
+Initializing LSTM with 27 layers, 218 hidden size, 0.009193391336038645 learning rate, 0.4610906254351871 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:33
+Starting tuning trial number #73 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 175, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 0.02415338470090076, 'batch_first': True, 'batch_size': 83, 'dropout': 0.4955069506028089, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 74}
+Converting dataset to dataloader using batch size 83.
+Initializing LSTM with 25 layers, 175 hidden size, 0.02415338470090076 learning rate, 0.4955069506028089 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:35
+Starting tuning trial number #74 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 144, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 0.04688997214423059, 'batch_first': True, 'batch_size': 102, 'dropout': 0.23541499180282846, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 69}
+Converting dataset to dataloader using batch size 102.
+Initializing LSTM with 29 layers, 144 hidden size, 0.04688997214423059 learning rate, 0.23541499180282846 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:36
+Starting tuning trial number #75 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 131, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 13, 'learning_rate': 0.015158733254421205, 'batch_first': True, 'batch_size': 61, 'dropout': 0.1807182994292223, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 60}
+Converting dataset to dataloader using batch size 61.
+Initializing LSTM with 13 layers, 131 hidden size, 0.015158733254421205 learning rate, 0.1807182994292223 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:37
+Starting tuning trial number #76 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 243, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 7, 'learning_rate': 0.010027239690195677, 'batch_first': True, 'batch_size': 220, 'dropout': 0.3106874355784447, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 95}
+Converting dataset to dataloader using batch size 220.
+Initializing LSTM with 7 layers, 243 hidden size, 0.010027239690195677 learning rate, 0.3106874355784447 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:39
+Starting tuning trial number #77 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 35, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 24, 'learning_rate': 0.09931750975801677, 'batch_first': True, 'batch_size': 42, 'dropout': 0.338690589280598, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 18}
+Converting dataset to dataloader using batch size 42.
+Initializing LSTM with 24 layers, 35 hidden size, 0.09931750975801677 learning rate, 0.338690589280598 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:44
+Starting tuning trial number #78 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 253, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 10, 'learning_rate': 0.03537454875870458, 'batch_first': True, 'batch_size': 150, 'dropout': 0.11571103748939485, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 89}
+Converting dataset to dataloader using batch size 150.
+Initializing LSTM with 10 layers, 253 hidden size, 0.03537454875870458 learning rate, 0.11571103748939485 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:46
+Starting tuning trial number #79 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 66, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 4, 'learning_rate': 0.022910111736583857, 'batch_first': True, 'batch_size': 62, 'dropout': 0.43948053792897673, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 98}
+Converting dataset to dataloader using batch size 62.
+Initializing LSTM with 4 layers, 66 hidden size, 0.022910111736583857 learning rate, 0.43948053792897673 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:47
+Starting tuning trial number #80 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 180, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 23, 'learning_rate': 0.0003405246071184498, 'batch_first': True, 'batch_size': 30, 'dropout': 0.19692631568323538, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 64}
+Converting dataset to dataloader using batch size 30.
+Initializing LSTM with 23 layers, 180 hidden size, 0.0003405246071184498 learning rate, 0.19692631568323538 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:48
+Starting tuning trial number #81 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 267, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 2.039788705475477e-06, 'batch_first': True, 'batch_size': 263, 'dropout': 0.12691234759630904, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 79}
+Converting dataset to dataloader using batch size 263.
+Initializing LSTM with 29 layers, 267 hidden size, 2.039788705475477e-06 learning rate, 0.12691234759630904 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:50
+Starting tuning trial number #82 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 230, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 0.00012123320475863578, 'batch_first': True, 'batch_size': 278, 'dropout': 0.08969599687738042, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 87}
+Converting dataset to dataloader using batch size 278.
+Initializing LSTM with 28 layers, 230 hidden size, 0.00012123320475863578 learning rate, 0.08969599687738042 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:51
+Starting tuning trial number #83 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 248, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 1.137780740580835e-05, 'batch_first': True, 'batch_size': 316, 'dropout': 0.21484171343578667, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 93}
+Converting dataset to dataloader using batch size 316.
+Initializing LSTM with 27 layers, 248 hidden size, 1.137780740580835e-05 learning rate, 0.21484171343578667 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:24:58
+Starting tuning trial number #84 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 282, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 0.000811904842163709, 'batch_first': True, 'batch_size': 278, 'dropout': 0.15136990475803574, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 16}
+Converting dataset to dataloader using batch size 278.
+Initializing LSTM with 26 layers, 282 hidden size, 0.000811904842163709 learning rate, 0.15136990475803574 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:00
+Starting tuning trial number #85 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 161, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 30, 'learning_rate': 0.0026126498751831537, 'batch_first': True, 'batch_size': 240, 'dropout': 0.039337706635085526, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 85}
+Converting dataset to dataloader using batch size 240.
+Initializing LSTM with 30 layers, 161 hidden size, 0.0026126498751831537 learning rate, 0.039337706635085526 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:02
+Starting tuning trial number #86 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 147, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 0.0015859677622051098, 'batch_first': True, 'batch_size': 133, 'dropout': 0.16856893053810593, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 76}
+Converting dataset to dataloader using batch size 133.
+Initializing LSTM with 28 layers, 147 hidden size, 0.0015859677622051098 learning rate, 0.16856893053810593 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:03
+Starting tuning trial number #87 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 198, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 18, 'learning_rate': 6.52391452149653e-05, 'batch_first': True, 'batch_size': 255, 'dropout': 0.059976150009631274, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 22}
+Converting dataset to dataloader using batch size 255.
+Initializing LSTM with 18 layers, 198 hidden size, 6.52391452149653e-05 learning rate, 0.059976150009631274 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:05
+Starting tuning trial number #88 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 221, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 26, 'learning_rate': 3.979386775467724e-06, 'batch_first': True, 'batch_size': 117, 'dropout': 0.10491964020422695, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 80}
+Converting dataset to dataloader using batch size 117.
+Initializing LSTM with 26 layers, 221 hidden size, 3.979386775467724e-06 learning rate, 0.10491964020422695 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:07
+Starting tuning trial number #89 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 123, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 0.0001762428946288565, 'batch_first': True, 'batch_size': 297, 'dropout': 0.2558394230215177, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 91}
+Converting dataset to dataloader using batch size 297.
+Initializing LSTM with 29 layers, 123 hidden size, 0.0001762428946288565 learning rate, 0.2558394230215177 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:08
+Starting tuning trial number #90 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 112, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 20, 'learning_rate': 0.01747892956525756, 'batch_first': True, 'batch_size': 160, 'dropout': 0.2878854266346355, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 12}
+Converting dataset to dataloader using batch size 160.
+Initializing LSTM with 20 layers, 112 hidden size, 0.01747892956525756 learning rate, 0.2878854266346355 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:09
+Starting tuning trial number #91 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 130, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 30, 'learning_rate': 0.0063021466790310005, 'batch_first': True, 'batch_size': 207, 'dropout': 0.15905848987190002, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 77}
+Converting dataset to dataloader using batch size 207.
+Initializing LSTM with 30 layers, 130 hidden size, 0.0063021466790310005 learning rate, 0.15905848987190002 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:10
+Starting tuning trial number #92 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 79, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 27, 'learning_rate': 0.052751978466734746, 'batch_first': True, 'batch_size': 191, 'dropout': 0.0800678602351099, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 83}
+Converting dataset to dataloader using batch size 191.
+Initializing LSTM with 27 layers, 79 hidden size, 0.052751978466734746 learning rate, 0.0800678602351099 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:11
+Starting tuning trial number #93 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 155, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 28, 'learning_rate': 0.004006423707020209, 'batch_first': True, 'batch_size': 222, 'dropout': 0.1357684263449094, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 70}
+Converting dataset to dataloader using batch size 222.
+Initializing LSTM with 28 layers, 155 hidden size, 0.004006423707020209 learning rate, 0.1357684263449094 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:14
+Starting tuning trial number #94 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 98, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 12, 'learning_rate': 0.007828761381151446, 'batch_first': True, 'batch_size': 141, 'dropout': 0.20336766397394562, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 26}
+Converting dataset to dataloader using batch size 141.
+Initializing LSTM with 12 layers, 98 hidden size, 0.007828761381151446 learning rate, 0.20336766397394562 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:15
+Starting tuning trial number #95 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 170, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 25, 'learning_rate': 0.012059595697664589, 'batch_first': True, 'batch_size': 184, 'dropout': 0.11673972472204563, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 9}
+Converting dataset to dataloader using batch size 184.
+Initializing LSTM with 25 layers, 170 hidden size, 0.012059595697664589 learning rate, 0.11673972472204563 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:16
+Starting tuning trial number #96 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 357, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 29, 'learning_rate': 0.0377718396244093, 'batch_first': True, 'batch_size': 194, 'dropout': 0.18861832251564314, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 46}
+Converting dataset to dataloader using batch size 194.
+Initializing LSTM with 29 layers, 357 hidden size, 0.0377718396244093 learning rate, 0.18861832251564314 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:18
+Starting tuning trial number #97 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 110, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 30, 'learning_rate': 0.006988923211064301, 'batch_first': True, 'batch_size': 14, 'dropout': 0.4244962280255624, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 74}
+Converting dataset to dataloader using batch size 14.
+Initializing LSTM with 30 layers, 110 hidden size, 0.006988923211064301 learning rate, 0.4244962280255624 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:20
+Starting tuning trial number #98 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 230, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 24, 'learning_rate': 0.0004392035468410376, 'batch_first': True, 'batch_size': 312, 'dropout': 0.4569092360936069, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 67}
+Converting dataset to dataloader using batch size 312.
+Initializing LSTM with 24 layers, 230 hidden size, 0.0004392035468410376 learning rate, 0.4569092360936069 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:21
+Starting tuning trial number #99 of total 100
+with params: {'number_of_features': 1, 'hidden_layer_size': 211, 'input_window_size': 10, 'output_window_size': 7, 'number_of_layers': 15, 'learning_rate': 0.03088543231251986, 'batch_first': True, 'batch_size': 230, 'dropout': 0.3996939732661082, 'bidirectional': False, 'optimizer_name': 'Adam', 'number_of_epochs': 15}
+Converting dataset to dataloader using batch size 230.
+Initializing LSTM with 15 layers, 211 hidden size, 0.03088543231251986 learning rate, 0.3996939732661082 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+
+------------------
+Starting new timer at 19:25:24
+Best params!
+Params updated with best params
+Initializing LSTM with 23 layers, 16 hidden size, 0.0006684795985190589 learning rate, 0.10006453814608668 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
+Using pre-existing neptune run for PytorchLightning
+Best trial: 11573,0
+best_score: 0.7827940583229065
+best_params: {'batch_size': 154, 'dropout': 0.10006453814608668, 'hidden_layer_size': 16, 'learning_rate': 0.0006684795985190589, 'number_of_epochs': 94, 'number_of_layers': 23, 'optimizer_name': 'Adam'}
+Training model
+Testing model
+Testing error: {'MASE': 0.7845395505428314, 'SMAPE': 0.06464280001819134, 'MSE': 0.005454162368550897, 'MAE': 0.05796069838106632}.
+Saving model
+Finished
