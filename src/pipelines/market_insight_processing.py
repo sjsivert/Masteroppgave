@@ -156,7 +156,7 @@ def split_into_training_and_test_forecast_window(
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (df, scaler) in stream:
         # The testing set is the same as the prediction output window
-        test_data_split_index = df.shape[0] - forecast_window_size - input_window_size - 1
+        test_data_split_index = df.shape[0] - forecast_window_size - input_window_size
         training_df = df[:test_data_split_index]
         testing_set = df[test_data_split_index:]
 
@@ -168,7 +168,7 @@ def split_into_training_and_validation_forecast_window(
     ) -> Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (training_set, testing_set, scaler) in stream:
         # The testing set is the same as the prediction output window
-        test_data_split_index = training_set.shape[0] - forecast_window_size - input_window_size - 1
+        test_data_split_index = training_set.shape[0] - forecast_window_size - input_window_size
         training_df = training_set[:test_data_split_index]
         validation_set = training_set[test_data_split_index:]
 
@@ -268,13 +268,19 @@ def simple_time_series_processor(stream: Iterable[DataFrame]) -> Iterable[DataFr
         scaler_test_dataset = MinMaxScaler(feature_range=(-1, 1))
         raw_data_scaled = scaler_test_dataset.fit_transform(raw_data)
 
-        simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
-        simple_data_test = raw_data_scaled[-int(test_size * len(raw_data)):]
-        simple_data_val = raw_data_scaled[-int(test_size * len(simple_data_train)) :]
+        #simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
+        #simple_data_test = raw_data_scaled[-int(test_size * len(raw_data)):]
+        #simple_data_val = raw_data_scaled[-int(test_size * len(simple_data_train)) :]
+        input_window_size = 10
+        output_window_size = 7
+        test_data_split_index = len(raw_data) - output_window_size - input_window_size
+        simple_data_train = raw_data_scaled[:test_data_split_index]
+        simple_data_test = raw_data_scaled[test_data_split_index:]
+        simple_data_val = simple_data_test
 
-        train_data = TimeseriesDataset(simple_data_train, seq_len=1, y_size=1)
-        test_data = TimeseriesDataset(simple_data_val, seq_len=1, y_size=1)
-        val_data = TimeseriesDataset(simple_data_test, seq_len=1, y_size=1)
+        train_data = TimeseriesDataset(simple_data_train, seq_len=10, y_size=7)
+        test_data = TimeseriesDataset(simple_data_val, seq_len=10, y_size=7)
+        val_data = TimeseriesDataset(simple_data_test, seq_len=10, y_size=7)
 
         #train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
         #test_loader = DataLoader(dataset=test_data, batch_size=32, shuffle=False)
