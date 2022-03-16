@@ -13,8 +13,8 @@ WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="lstm-tune-cat-6-multi-output"
-export EXPERIMENT_DESCRIPTION="lstm-tune-cat-6-multi-output"
+export EXPERIMENT_TITLE="lstm-tune-cat-6-multi-output-mse"
+export EXPERIMENT_DESCRIPTION="lstm-tune-cat-6-multi-output-mse"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"

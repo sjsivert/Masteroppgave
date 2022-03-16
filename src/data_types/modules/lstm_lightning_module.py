@@ -55,7 +55,8 @@ class LSTMLightning(pl.LightningModule):
         )
 
         # Metric (loss / error)
-        self.metric = calculate_error
+        #self.metric = calculate_error
+        self.metric = nn.MSELoss()
 
         # LSTM model
         self.lstm = nn.LSTM(
