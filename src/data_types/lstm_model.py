@@ -85,7 +85,9 @@ class LstmModel(IModel, ABC):
             deterministic=True,
             logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
             auto_select_gpus=True if self.device == "cuda" else False,
-            gpus=1 if torch.cuda.is_available() else 0,
+            # gpus=1 if torch.cuda.is_available() else 0,
+            # gpus= [i for i in range(torch.cuda.device_count())],
+            gpus=-1 if torch.cuda.is_available() else 0,
             **xargs,
         )
 
