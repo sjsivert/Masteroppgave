@@ -121,7 +121,7 @@ with description("main integration test", "integration") as self:
         test_local_univariate_pipeline = Pipeline(
             steps=test_pipeline.steps + [
                 ("split into test and training data", market_processing.split_into_training_and_test_set,
-                 {"training_size": 0.8},),
+                 {"forecast_window_size": 1},),
             ]
         )
         when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
@@ -147,7 +147,7 @@ with description("main integration test", "integration") as self:
             "model_type": "local_univariate_arima",
             "rng_seed": 42,
             "local_univariate_arima": {
-                "training_size": 0.8,
+                "forecast_window_size": 1,
                 "metric_to_use_when_tuning": "MASE",
                 "model_structure": [
                     {"time_series_id": 11573, "hyperparameters": {"p": 1, "d": 1, "q": 1}}
@@ -181,7 +181,7 @@ with description("main integration test", "integration") as self:
             "model_type": "local_univariate_arima",
             "rng_seed": 42,
             "local_univariate_arima": {
-                "training_size": 0.8,
+                "forecast_window_size": 1,
                 "metric_to_use_when_tuning": "MASE",
                 "hyperparameter_tuning_range": {
                     "p": [1,2],

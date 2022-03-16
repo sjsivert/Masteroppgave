@@ -59,7 +59,7 @@ with description(Experiment, "integration") as self:
             "model_type": "local_univariate_arima",
             "local_univariate_arima": {
                 "metric_to_use_when_tuning": "MASE",
-                "training_size": 0.8,
+                "forecast_window_size": 1,
                 "model_structure": [
                     {
                         "time_series_id": 11573,

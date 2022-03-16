@@ -30,7 +30,7 @@ def init_mock_config(
                 "rng_seed": 42,
                 "local_univariate_arima": {
                     "metric_to_use_when_tuning": "MASE",
-                    "training_size": 0.8,
+                    "forecast_window_size": 7,
                     "steps_to_predict": 2,
                     "multi_step_forecast": False,
                     "model_structure": [
