@@ -1,5 +1,5 @@
 # fmt: off
-from typing import Iterable, List, Tuple, Optional
+from typing import Iterable, List, Tuple, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -115,7 +115,8 @@ def filter_by_cat_id(
     stream: Iterable[DataFrame], cat_id: int
 ) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
-        yield df[df["cat_id"] == cat_id]
+        filtered_df = df[df["cat_id"] == cat_id]
+        yield filtered_df
 
 
 @declare.processor()
@@ -123,7 +124,8 @@ def choose_columns(
     stream: Iterable[DataFrame], columns: List["str"]
 ) -> Iterable[DataFrame]:  # pragma: no cover
     for df in stream:
-        yield df[columns]
+        chosen_columns = df[columns]
+        yield chosen_columns
 
 
 @declare.processor()
@@ -148,15 +150,45 @@ def scale_data(
         else:
             yield df, None
 
+@declare.processor()
+def split_into_training_and_test_forecast_window(
+        stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], forecast_window_size: int, input_window_size: int
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (df, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        test_data_split_index = df.shape[0] - forecast_window_size - input_window_size - 1
+        training_df = df[:test_data_split_index]
+        testing_set = df[test_data_split_index:]
+
+        yield training_df, testing_set, scaler
+
+@declare.processor()
+def split_into_training_and_validation_forecast_window(
+        stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], forecast_window_size: int, input_window_size: int
+    ) -> Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (training_set, testing_set, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        test_data_split_index = training_set.shape[0] - forecast_window_size - input_window_size - 1
+        training_df = training_set[:test_data_split_index]
+        validation_set = training_set[test_data_split_index:]
+
+        yield training_df, validation_set, testing_set, scaler
+
 
 @declare.processor()
 def split_into_training_and_test_set(
-    stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], training_size: float
+    stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], training_size: Union[int, float],
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (df, scaler) in stream:
-        training_set = int((df.shape[0] - 1) * training_size)
+        if type(training_size) == float:
+            # if the training size is a float, we take the percentage of the dataframe
+            training_set = int((df.shape[0] - 1) * training_size)
+        else:
+            # The testing set is the same as the prediction output window
+            training_set = df.shape[0] - training_size
         training_df = df[:training_set]
         testing_set = df[training_set:]
+
         yield training_df, testing_set, scaler
 
 
@@ -165,9 +197,17 @@ def split_into_training_and_validation_set(
     stream: Iterable[Tuple[DataFrame, DataFrame, Optional[StandardScaler]]], training_size: float
 ) -> Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (training_set, testing_set, scaler) in stream:
-        training_set_size = int((training_set.shape[0] - 1) * training_size)
+        if type(training_size) == float:
+            # if the training size is a float, we take the percentage of the dataframe
+            training_set_size = int((training_set.shape[0] - 1) * training_size)
+        else:
+            # The testing set is the same as the prediction output window
+            training_set_size = training_set.shape[0] - training_size
+        print("Training set size:", training_set_size)
         training_df = training_set[:training_set_size]
         validation_df = training_set[training_set_size:]
+        print("training set:", training_df.shape)
+        print("validation set:", validation_df.shape)
         yield training_df, validation_df, testing_set, scaler
 
 

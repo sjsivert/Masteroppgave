@@ -1,0 +1,22 @@
+---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 6)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- convert to np.array
+6- scale data between -1 and 1
+7- split up into training set (0.9) and test set (0.09999999999999998)
+8- split training set into train set (0.9) and validation set (0.09999999999999998)
+9- convert to timeseries dataset with input window size of 10, and output window size of 7
+---- End ----
+        

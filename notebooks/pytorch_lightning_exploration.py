@@ -41,29 +41,44 @@ class TimeseriesDataset(Dataset):
             self.time_series[index + self.seq_len : index + self.seq_len + self.y_size],
         )
 
-
 # %%
 test_size = 0.2
 raw_data = pd.read_csv("../datasets/external/Alcohol_Sales.csv", parse_dates=["DATE"])
 raw_data = raw_data["S4248SM144NCEN"].to_numpy()
 raw_data = np.expand_dims(raw_data, axis=1)
 
+input_window_size = 10
+output_window_size = 7
 scaler = MinMaxScaler(feature_range=(-1, 1))
 raw_data_scaled = scaler.fit_transform(raw_data)
 
-simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
-simple_data_val = raw_data_scaled[-int(test_size * len(raw_data)) :]
-train_data = TimeseriesDataset(simple_data_train, seq_len=1, y_size=1)
-val_data = TimeseriesDataset(simple_data_val, seq_len=1, y_size=1)
+print("RAW_DATA SHAPE", raw_data.shape)
+#simple_data_train = raw_data_scaled[: -int(test_size * len(raw_data))]
+#simple_data_val = raw_data_scaled[-int(test_size * len(raw_data)) :]
+test_data_split_index = len(raw_data) - output_window_size - input_window_size -1 
+
+simple_data_train = raw_data_scaled[ : test_data_split_index]
+simple_data_val = raw_data_scaled[(test_data_split_index):]
+
+print("Train data shape: ", simple_data_train.shape)
+print("test_data shape: ", simple_data_val.shape)
+train_data = TimeseriesDataset(simple_data_train, seq_len=10, y_size=7)
+val_data = TimeseriesDataset(simple_data_val, seq_len=10, y_size=7)
+print("length val data", len(val_data))
 train_loader = DataLoader(dataset=train_data, batch_size=32, shuffle=False)
-val_loader = DataLoader(dataset=val_data, batch_size=32, shuffle=False)
+val_loader = DataLoader(dataset=val_data, batch_size=1, shuffle=False)
+
 # %%
-neptune_logger = NeptuneLogger(
-    #api_key="ANONYMOUS",  # replace with your own
-    project="sjsivertandsanderkk/Masteroppgave",
-    tags=["test"],  # optional
-    log_model_checkpoints=False
-)
+for batch in val_loader:
+    print(batch[0].shape)
+    print(batch[1].shape)
+# %%
+#neptune_logger = NeptuneLogger(
+#    #api_key="ANONYMOUS",  # replace with your own
+#    project="sjsivertandsanderkk/Masteroppgave",
+#    tags=["test"],  # optional
+#    log_model_checkpoints=False
+#)
 
 # %%
 class LSTM(pl.LightningModule):
@@ -78,7 +93,7 @@ class LSTM(pl.LightningModule):
         dropout: float = 0.2,
         bidirectional: bool = False,
         optimizer_name: str = "Adam",
-        batch_size: int = 1,
+        #batch_size: int = 32,
     ):
         super().__init__()
 
@@ -88,7 +103,7 @@ class LSTM(pl.LightningModule):
         self.hidden_size = hidden_size  # hidden state
         self.learning_rate = learning_rate  # learning rate
         self.dropout = nn.Dropout(p=dropout)
-        self.batch_size = batch_size
+        #self.batch_size = batch_size
 
         self.lstm = nn.LSTM(
             input_size=self.input_size,
@@ -162,15 +177,15 @@ class LSTM(pl.LightningModule):
 # %%
 trainer = pl.Trainer(
     max_epochs=50,
-    logger=neptune_logger,
+    #logger=neptune_logger,
     )
 model = LSTM(
     input_size=1,
     hidden_size=20,
-    output_size=1,
+    output_size=7,
     num_layers=2,
     learning_rate=0.001,
-    batch_size=64,
+    #batch_size=64,
 )
 trainer.fit(model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 # %%
@@ -182,6 +197,8 @@ y_val_targets = []
 y_val_predictions = []
 for x_batch, y_batch in val_loader:
     y_pred = model(x_batch)
+    print(y_pred.shape)
+    print(y_batch.shape)
     y_val_predictions.extend(y_pred.detach().numpy().flatten())
     y_val_targets.extend(y_batch.flatten())
 
@@ -195,11 +212,28 @@ plt.show()
 # %%
 x_targets = []
 train_predictions = []
+x_targets_first_step = []
+train_predictions_first_step = []
+
 for x_batch, y_batch in train_loader:
     y_pred = model(x_batch)
-    train_predictions.extend(y_pred.detach().numpy().flatten())
-    x_targets.extend(x_batch.flatten())
+    print("y_pred", y_pred.shape)
+    print("y_batch", y_batch.shape)
+    y_pred_visualize = y_pred[::10, :, :].detach().numpy().flatten()
+    y_pred_visualize_first_step = y_pred[:, 0, :].detach().numpy().flatten()
+
+    y_target_visualize_first_step = y_batch[:,0, :].detach().numpy().flatten()
+    y_target_visualize = y_batch[::10, :, :].detach().numpy().flatten()
+
+    print("y_pred_visualize", y_pred_visualize.shape)
+    train_predictions.extend(y_pred_visualize)
+    x_targets.extend(y_target_visualize)
+    train_predictions_first_step.extend(y_pred_visualize_first_step)
+    x_targets_first_step.extend(y_target_visualize_first_step)
 
 # train_predictions = trainer.predict(model, dataloaders=train_loader)[0].flatten()
 plt.plot(x_targets)
 plt.plot(train_predictions)
+plt.show()
+plt.plot(x_targets_first_step)
+plt.plot(train_predictions_first_step)

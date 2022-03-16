@@ -119,14 +119,18 @@ class LstmModel(IModel, ABC):
             x, y = batch
             y_hat = self.model.predict_step(x, batch_idx)
             # TODO: Visualize multistep ahead properly!
-            y_hat_first_prediction_step = y_hat[:, 0, :].flatten()
-            y_first_prediction_step = y[:, 0, :].flatten()
+            input_size = self.hyper_parameters["input_window_size"]
+            # Skip every input size when visualising
+            y_hat_first_prediction_step = y_hat[::input_size, :, :].flatten()
+            y_first_prediction_step = y[::input_size, :, :].flatten()
+
             training_targets.extend(y_first_prediction_step.tolist())
             training_predictions.extend(y_hat_first_prediction_step.tolist())
 
         self.metrics["training_error"] = self.model.training_errors[-1]
         self.metrics["validation_error"] = self.model.validation_errors[-1]
         self._visualize_training(training_targets, training_predictions)
+        self._visualize_validation(self.model.val_targets, self.model.val_predictions)
         self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
         return self.metrics
 
@@ -162,6 +166,7 @@ class LstmModel(IModel, ABC):
             self.testing_dataset,
             self.min_max_scaler,
         ) = data_pipeline.run()
+
         self._convert_dataset_to_dataloader(
             self.training_dataset,
             self.validation_dataset,
@@ -186,13 +191,13 @@ class LstmModel(IModel, ABC):
         )
         self.validation_data_loader = DataLoader(
             dataset=validation_set,
-            batch_size=batch_size,
+            batch_size=1,
             shuffle=should_shuffle,
             num_workers=8,
         )
         self.testing_data_loader = DataLoader(
             dataset=testing_set,
-            batch_size=batch_size,
+            batch_size=1,
             shuffle=should_shuffle,
             num_workers=8,
         )

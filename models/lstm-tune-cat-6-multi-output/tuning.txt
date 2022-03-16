@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 11573
+
+Parameters: 11573,0
+ Error: best_score:0.7827940583229065,best_params:{'batch_size': 154, 'dropout': 0.10006453814608668, 'hidden_layer_size': 16, 'learning_rate': 0.0006684795985190589, 'number_of_epochs': 94, 'number_of_layers': 23, 'optimizer_name': 'Adam'}

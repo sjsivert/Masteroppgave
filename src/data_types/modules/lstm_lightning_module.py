@@ -34,6 +34,9 @@ class LSTMLightning(pl.LightningModule):
         self.test_targets = []
         self.test_predictions = []
 
+        self.val_targets = []
+        self.val_predictions = []
+
         # Set parameters
         self.output_window_size = output_window_size
         self.input_window_size = input_window_size
@@ -52,7 +55,8 @@ class LSTMLightning(pl.LightningModule):
         )
 
         # Metric (loss / error)
-        self.metric = calculate_error
+        #self.metric = calculate_error
+        self.metric = nn.MSELoss()
 
         # LSTM model
         self.lstm = nn.LSTM(
@@ -104,12 +108,24 @@ class LSTMLightning(pl.LightningModule):
             batch_loss = out["loss"]
             epoch_loss.append(batch_loss)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
+        self.log(
+            "training_epoch_loss",
+            epoch_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+        )
         self.training_errors.append(epoch_loss.cpu().detach().numpy().item())
 
     def validation_step(self, val_batch, batch_idx):
         x, y = val_batch
         yhat = self(x)
         loss = self.metric(y, yhat)
+
+        self.val_targets.extend(y.flatten().tolist())
+        self.val_predictions.extend(yhat.flatten().tolist())
+
         self.log("validation_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
@@ -119,7 +135,6 @@ class LSTMLightning(pl.LightningModule):
             epoch_loss.append(out)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
         self.validation_errors.append(epoch_loss.cpu().detach().numpy().item())
-        self.validation_errors.append(epoch_loss.cpu().detach().numpy().item())
 
     def test_step(self, batch, batch_idx):
         x, y = batch
@@ -127,17 +142,15 @@ class LSTMLightning(pl.LightningModule):
         loss = self.metric(y, yhat)
         losses_dict = calculate_errors(y, yhat)
         self.test_losses.append(losses_dict)
-        # Used for visualization -> TODO: Add multi step visualization support
-        y_first_step = y[:, 0, :]
-        y_hat_first_step = yhat[:, 0, :]
-        self.test_targets.extend(y_first_step.tolist())
-        self.test_predictions.extend(y_hat_first_step.tolist())
+        self.test_targets.extend(y.flatten().tolist())
+        self.test_predictions.extend(yhat.flatten().tolist())
 
         self.log("test_loss", loss)
         return loss
 
     def test_epoch_end(self, outputs):
         # Create dict containing mean of batch losses of all loss metrics
+        print("testlosses", self.test_losses)
         for key in self.test_losses[0].keys():
             self.test_losses_dict[key] = sum([x[key] for x in self.test_losses]) / len(
                 self.test_losses
