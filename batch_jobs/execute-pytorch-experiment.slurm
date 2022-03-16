@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --partition=GPUQ     #GPU
-#SBATCH --gres=gpu:2 # Ask for two gpus
+#SBATCH --gres=gpu:1 # Ask for two gpus
 #SBATCH --account=ie-idi
 #SBATCH --time=01:20:00
 #SBATCH --nodes=1
