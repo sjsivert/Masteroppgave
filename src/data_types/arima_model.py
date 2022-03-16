@@ -60,10 +60,10 @@ class ArimaModel(IModel, ABC):
         super().__init__()
 
     def process_data(
-        self, data_set: DataFrame, training_size: float = 0.8
+        self, data_set: DataFrame, training_size: float = 7
     ) -> Tuple[DataFrame, DataFrame]:
         self.data_pipeline = arima_model_pipeline(
-            data_set=data_set, cat_id=self.get_name(), training_size=training_size
+            data_set=data_set, cat_id=self.get_name(), forecast_size=int(training_size)
         )
         logging.info(
             f"ArimaModel: Data pipeline created for {self.get_name()}\n {self.data_pipeline.__repr__()}"

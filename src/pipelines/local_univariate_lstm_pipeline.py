@@ -43,7 +43,7 @@ def local_univariate_lstm_pipeline(
              market_processing.split_into_training_and_test_forecast_window,
              # TODO: Make configurable
                 {"input_window_size": input_window_size, "forecast_window_size": output_window_size}),
-            (f"split training set into train set ({training_size}) and validation set ({1 - training_size})",
+            (f"split training set into train set with val window of {output_window_size}) ",
              market_processing.split_into_training_and_validation_forecast_window,
                 {"input_window_size": input_window_size, "forecast_window_size": output_window_size}),
             (f"convert to timeseries dataset with input window size of {input_window_size}, "

@@ -163,6 +163,19 @@ def split_into_training_and_test_forecast_window(
         yield training_df, testing_set, scaler
 
 @declare.processor()
+def split_into_training_and_test_forecast_window_arima(
+        stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], forecast_window_size: int, input_window_size: int
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (df, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        test_data_split_index = df.shape[0] - forecast_window_size
+        training_df = df[:test_data_split_index]
+        testing_set = df[test_data_split_index:]
+
+
+        yield training_df, testing_set, scaler
+
+@declare.processor()
 def split_into_training_and_validation_forecast_window(
         stream: Iterable[Tuple[DataFrame, Optional[StandardScaler]]], forecast_window_size: int, input_window_size: int
     ) -> Iterable[Tuple[DataFrame, DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
@@ -203,11 +216,8 @@ def split_into_training_and_validation_set(
         else:
             # The testing set is the same as the prediction output window
             training_set_size = training_set.shape[0] - training_size
-        print("Training set size:", training_set_size)
         training_df = training_set[:training_set_size]
         validation_df = training_set[training_set_size:]
-        print("training set:", training_df.shape)
-        print("validation set:", validation_df.shape)
         yield training_df, validation_df, testing_set, scaler
 
 

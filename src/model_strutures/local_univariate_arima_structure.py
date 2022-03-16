@@ -21,7 +21,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        training_size: float,
+        forecast_window_size: float,
         model_structure: List,
         metric_to_use_when_tuning: str,
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
@@ -32,7 +32,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.log_sources = log_sources
         self.data_pipeline: Pipeline = None
         self.figures = []
-        self.training_size = training_size
+        self.forecast_window_size = forecast_window_size
         self.model_structures = model_structure
         self.steps_to_predict = steps_to_predict
         self.multi_step_prediction = multi_step_forecast
@@ -71,7 +71,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         preprocessed_data = data_pipeline.run()
 
         for model in self.models:
-            model.process_data(preprocessed_data, self.training_size)
+            model.process_data(preprocessed_data, self.forecast_window_size)
         return self.training_set
 
     def train(self) -> IModelStructure:
