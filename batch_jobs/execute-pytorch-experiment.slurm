@@ -2,19 +2,19 @@
 #SBATCH --partition=GPUQ     #GPU
 #SBATCH --gres=gpu:2 # Ask for two gpus
 #SBATCH --account=ie-idi
-#SBATCH --time=02:30:00
+#SBATCH --time=01:20:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
-#SBATCH --output=batch_jobs/output/test-multi-output.txt
+#SBATCH --output=batch_jobs/output/lstm-tune-simple-dataset.txt
 #SBATCH --mail-user=sindrejohan1@gmail.com
 WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="lstm-tune-cat-6-multi-output-mse"
-export EXPERIMENT_DESCRIPTION="lstm-tune-cat-6-multi-output-mse"
+export EXPERIMENT_TITLE="lstm-tune-simple-dataset"
+export EXPERIMENT_DESCRIPTION="lstm-tune-simple-dataset"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
