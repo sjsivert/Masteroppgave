@@ -150,7 +150,6 @@ class LSTMLightning(pl.LightningModule):
 
     def test_epoch_end(self, outputs):
         # Create dict containing mean of batch losses of all loss metrics
-        print("testlosses", self.test_losses)
         for key in self.test_losses[0].keys():
             self.test_losses_dict[key] = sum([x[key] for x in self.test_losses]) / len(
                 self.test_losses

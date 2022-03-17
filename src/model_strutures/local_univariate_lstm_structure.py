@@ -25,11 +25,9 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         # steps_to_predict: int = 5,
         # multi_step_forecast: bool = False,
-        metric_to_use_when_tuning: str = "MASE",
     ):
         super().__init__()
         self.tuning_parameter_error_sets = None
-        self.metric_to_use_when_tuning = metric_to_use_when_tuning
         self.log_sources = log_sources
         self.common_parameters_for_all_models = common_parameters_for_all_models
         self.data_pipeline: Pipeline
@@ -94,7 +92,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
 
             best_trial = base_model.method_evaluation(
                 parameters=self.hyperparameter_tuning_range,
-                metric=self.metric_to_use_when_tuning,
+                metric=None,
             )
             self.tuning_parameter_error_sets = {f"{base_model.get_name()}": best_trial}
 

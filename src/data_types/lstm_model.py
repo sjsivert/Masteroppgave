@@ -153,7 +153,6 @@ class LstmModel(IModel, ABC):
             data_set=data_set,
             cat_id=self.get_name(),
             training_size=self.training_size,
-            batch_size=self.batch_size,
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )
@@ -247,7 +246,6 @@ class LstmModel(IModel, ABC):
             lambda trial: local_univariate_lstm_objective(
                 trial=trial,
                 hyperparameter_tuning_range=parameter_space,
-                metric_to_use_when_tuning=metric,
                 model=self,
             ),
             # TODO: Fix pytorch network to handle concurrency
@@ -354,8 +352,6 @@ class LstmModel(IModel, ABC):
         )
 
     def _visualize_training(self, targets, predictions):
-        print("Type of targets", type(targets))
-        print("Type of targets", type(targets[0]))
         self.figures.append(
             visualize_data_series(
                 title=f"{self.get_name()}# Training set fit",
