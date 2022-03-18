@@ -40,6 +40,7 @@ class ArimaModel(IModel, ABC):
         self.data_pipeline = None
         self.value_approximation = None
         self.training_data = None
+        self.validation_data = None
         self.test_data = None
 
         self.log_sources: List[ILogTrainingSource] = log_sources
@@ -71,7 +72,7 @@ class ArimaModel(IModel, ABC):
         for log_source in self.log_sources:
             log_source.log_pipeline_steps(self.data_pipeline.__repr__())
 
-        self.training_data, self.test_data, _ = self.data_pipeline.run()
+        self.training_data, self.validation_data, self.test_data, _ = self.data_pipeline.run()
         return self.training_data, self.test_data
 
     def get_name(self) -> str:
