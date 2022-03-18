@@ -37,11 +37,10 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_lstm'
+  model_type: 'local_cnn_ae_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
-
   local_univariate_lstm:
     hyperparameter_tuning_range:
       hidden_size: [ 10, 400 ]
