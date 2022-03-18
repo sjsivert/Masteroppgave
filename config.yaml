@@ -37,7 +37,7 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_lstm'
+  model_type: 'local_univariate_arima'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -93,6 +93,6 @@ model:
       - time_series_id: 11037
         # 1
         hyperparameters:
-          p: 7
-          d: 2
-          q: 7
+          p: 10
+          d: 3
+          q: 4
