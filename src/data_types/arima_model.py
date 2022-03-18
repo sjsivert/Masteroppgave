@@ -1,5 +1,6 @@
 import logging
 import math
+import multiprocessing as mp
 import sys
 import warnings
 from abc import ABC
@@ -17,8 +18,6 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
-import multiprocessing as mp
-
 
 # from pathos.multiprocessing import ProcessingPool as Pool
 
@@ -84,21 +83,21 @@ class ArimaModel(IModel, ABC):
                 "Model does not have test og training data. Please call process_data() first."
             )
 
-        self.training_periode = len(self.training_data)
-
-        arima_model = ARIMA(self.training_data, order=self.order)
+        train_val_data = pd.concat([self.training_data, self.validation_data])
+        self.training_periode = len(train_val_data)
+        arima_model = ARIMA(train_val_data, order=self.order)
         arima_model_res = arima_model.fit()
-
         logging.info(arima_model_res.summary())
 
         self.model = arima_model_res
         self.value_approximation = DataFrame(self.model.predict(0, self.training_periode - 1))
         # Figures
-        self._visualize_training(self.training_data, self.value_approximation)
+        self._visualize_training(train_val_data, self.value_approximation)
         # Metrics
         metrics = calculate_error(
-            self.training_data["interest"], self.value_approximation["predicted_mean"]
+            train_val_data["interest"], self.value_approximation["predicted_mean"]
         )
+
         self.metrics = dict(map(lambda x: (f"Training_{x[0]}", x[1]), metrics.items()))
         logging.info(f"Training metrics: {self.metrics}")
         for log_source in self.log_sources:
@@ -116,18 +115,22 @@ class ArimaModel(IModel, ABC):
         )
         predictive_period = if_predictive_period_longer_than_dataset_use_max_length
         if single_step:
+            # Test data
             value_predictions = ArimaModel._single_step_prediction(
                 model=self.model, test_set=self.test_data
             )
             self.predictions = value_predictions[0][:predictive_period]
         else:
+            # Test data
             value_predictions = self.model.predict(
                 self.training_periode, self.training_periode + predictive_period - 1
             )
             self.predictions = value_predictions
+
         # Figures
+        train_val_data = pd.concat([self.training_data, self.validation_data])
         self._visualize_testing(
-            self.training_data, self.test_data[:predictive_period], self.predictions
+            train_val_data, self.test_data[:predictive_period], self.predictions
         )
         # Metrics
         metrics = calculate_error(self.test_data["interest"][:predictive_period], self.predictions)
@@ -194,7 +197,7 @@ class ArimaModel(IModel, ABC):
             visualize_data_series(
                 title=f"{self.get_name()}# Data Prediction",
                 data_series=[testing_set, prediction_set],
-                data_labels=["True prediction value", "Prediction"],
+                data_labels=["True value", "Prediction"],
                 colors=["blue", "red"],
                 x_label="date",
                 y_label="Interest",
@@ -205,7 +208,7 @@ class ArimaModel(IModel, ABC):
             visualize_data_series(
                 title=f"{self.get_name()}# Predictions",
                 data_series=[training_set, testing_set, prediction_set],
-                data_labels=["Training data", "Testing data", "Prediction"],
+                data_labels=["Test data", "Testing data", "Prediction"],
                 colors=["blue", "orange", "red"],
                 x_label="date",
                 y_label="Interest",
@@ -233,7 +236,7 @@ class ArimaModel(IModel, ABC):
         single_step: bool = True,
     ) -> Dict[str, Dict[str, float]]:
         assert self.training_data is not None, "Training data is not loaded"
-        assert self.test_data is not None, "Test data is not loaded"
+        assert self.validation_data is not None, "Validation data is not loaded"
         error_param_set = {}
         # Try catch block for numpy LU decomposition error
         cores = mp.cpu_count()
@@ -242,7 +245,7 @@ class ArimaModel(IModel, ABC):
         for order in parameters:
             result = pool.apply_async(
                 ArimaModel._eval_arima,
-                args=(order, self.training_data, self.test_data, single_step),
+                args=(order, self.training_data, self.validation_data, single_step),
             )
             results.append(result)
         pool.close()
