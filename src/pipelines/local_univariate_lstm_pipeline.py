@@ -12,7 +12,6 @@ def local_univariate_lstm_pipeline(
         training_size: float,
         input_window_size: int,
         output_window_size: int,
-        batch_size: int,
 ) -> Pipeline:
     """
     Datapipeline which processes the data to be on the correct format

@@ -37,7 +37,7 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_arima'
+  model_type: 'local_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -61,17 +61,18 @@ model:
     common_parameters_for_all_models:
       # If int <= 1 then the testing set will be equal to output_window_size
       training_size: 7
-      input_window_size: 35
-      output_window_size: 30
+      input_window_size: 10
+      output_window_size: 7
       multi_variable_nr: 1
       batch_size: 100
-      number_of_epochs: 20
+      number_of_epochs: 500
       optimizer_name: 'Adam'
 
     model_structure:
-      - time_series_id: 11573
+            #- time_series_id: 11573
+      - time_series_id: 6
         learning_rate: 0.03
-        hidden_layer_size: 30
+        hidden_layer_size: 10
         dropout: 0.113
         number_of_features: 1
         number_of_layers: 3

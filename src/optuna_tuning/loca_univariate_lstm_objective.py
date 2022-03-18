@@ -18,7 +18,6 @@ from src.utils.time_function import time_function
 def local_univariate_lstm_objective(
     trial: optuna.Trial,
     hyperparameter_tuning_range: OrderedDict[str, Tuple[int, int]],
-    metric_to_use_when_tuning: str,
     model: IModel,
 ) -> float:
 
@@ -53,7 +52,8 @@ def local_univariate_lstm_objective(
         # TODO: Use config parameter 'metric'to use when tuning
         # score = model.calculate_mean_score(errors[""])
 
-    return errors["validation_error"]
+    return errors["training_error"]
+    # return errors["validation_error"]
 
 
 def hyperparameter_range_to_optuna_range(
