@@ -156,7 +156,6 @@ class LstmModel(IModel, ABC):
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )
-        # data_pipeline = simple_time_series_pipeline()
 
         logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
         for log_source in self.log_sources:

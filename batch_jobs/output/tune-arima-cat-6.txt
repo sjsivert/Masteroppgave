@@ -1,0 +1,1383 @@
+we are running from this directory: /cluster/home/sjsivert/Masteroppgave
+ the name of the job is: Run experiment
+Th job ID is 2794867
+The job was run on these nodes: idun-02-[16-17]
+Number of nodes: 2
+We are using 2 cores
+We are using 2 cores per node
+Total of 4 cores
+--Files in current directory--
+total 164
+drwxr-xr-x 19 sjsivert eall_s  4096 Mar 16 18:59 .
+drwx------ 14 sjsivert eall_s  4096 Mar 17 09:46 ..
+drwxr-xr-x  3 sjsivert eall_s  4096 Mar 17 09:46 batch_jobs
+-rw-r--r--  1 sjsivert eall_s  2727 Mar 16 18:58 config.yaml
+-rw-r--r--  1 sjsivert eall_s   552 Feb 21 13:45 .coveragerc
+drwxr-xr-x  6 sjsivert eall_s  4096 Mar 11 10:34 datasets
+-rw-r--r--  1 sjsivert eall_s   280 Feb  3 13:59 .env
+drwxr-xr-x  8 sjsivert eall_s  4096 Mar 17 09:45 .git
+-rw-r--r--  1 sjsivert eall_s     1 Nov 12 18:48 .gitattributes
+drwxr-xr-x  4 sjsivert eall_s  4096 Feb 21 13:45 .github
+-rw-r--r--  1 sjsivert eall_s   394 Mar 13 14:40 .gitignore
+-rw-r--r--  1 sjsivert eall_s    36 Feb 21 13:45 .gitkeep
+-rw-r--r--  1 sjsivert eall_s 39304 Mar 17 01:02 log-file.log
+drwxr-xr-x  2 sjsivert eall_s  4096 Mar 17 00:19 Masterproject.egg-info
+drwxr-xr-x  7 sjsivert eall_s  4096 Mar 15 14:57 MastersThesis
+drwxr-xr-x 20 sjsivert eall_s  4096 Mar 17 09:46 models
+drwxr-xr-x  7 sjsivert eall_s  4096 Feb 21 13:45 MScTemplate
+drwxr-xr-x  3 sjsivert eall_s  4096 Feb 24 12:10 .neptune
+drwxr-xr-x  3 sjsivert eall_s  4096 Mar 16 18:55 notebooks
+drwxr-xr-x  3 sjsivert eall_s  4096 Feb 21 13:45 packages
+-rw-r--r--  1 sjsivert eall_s   150 Dec  9 17:31 .pylintrc
+-rw-r--r--  1 sjsivert eall_s   198 Feb 21 13:45 pyproject.toml
+-rw-r--r--  1 sjsivert eall_s  6985 Feb 24 11:32 README.md
+-rw-r--r--  1 sjsivert eall_s  2752 Mar 14 11:45 requirements.txt
+drwxr-xr-x  2 sjsivert eall_s  4096 Mar 13 14:40 scripts
+-rw-r--r--  1 sjsivert eall_s   398 Dec  9 17:31 setup.py
+drwxr-xr-x  8 sjsivert eall_s  4096 Mar 16 18:55 spec
+drwxr-xr-x 10 sjsivert eall_s  4096 Mar 15 18:55 src
+-rw-r--r--  1 sjsivert eall_s   349 Dec  9 17:31 tox.ini
+drwxr-xr-x  2 sjsivert eall_s  4096 Mar 14 11:45 utils
+drwxr-xr-x  7 sjsivert eall_s  4096 Mar 11 09:42 venv
+drwxr-xr-x  2 sjsivert eall_s  4096 Dec  9 17:31 .vscode
+Obtaining file:///cluster/home/sjsivert/Masteroppgave (from -r requirements.txt (line 54))
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Obtaining file:///cluster/home/sjsivert/Masteroppgave/packages/permetrics (from -r requirements.txt (line 151))
+Requirement already satisfied: argon2-cffi==21.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 2)) (21.3.0)
+Requirement already satisfied: argon2-cffi-bindings==21.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 3)) (21.2.0)
+Requirement already satisfied: args==0.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 4)) (0.1.0)
+Requirement already satisfied: arrow==1.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 5)) (1.2.2)
+Requirement already satisfied: astroid==2.9.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 6)) (2.9.3)
+Requirement already satisfied: asttokens==2.0.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 7)) (2.0.5)
+Requirement already satisfied: attrs==21.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 8)) (21.4.0)
+Requirement already satisfied: backcall==0.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 9)) (0.2.0)
+Requirement already satisfied: black==22.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 10)) (22.1.0)
+Requirement already satisfied: bleach==4.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 11)) (4.1.0)
+Requirement already satisfied: boto3==1.20.49 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 12)) (1.20.49)
+Requirement already satisfied: botocore==1.23.49 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 13)) (1.23.49)
+Requirement already satisfied: bravado==11.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 14)) (11.0.3)
+Requirement already satisfied: bravado-core==5.17.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 15)) (5.17.0)
+Requirement already satisfied: certifi==2021.10.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 16)) (2021.10.8)
+Requirement already satisfied: cffi==1.15.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 17)) (1.15.0)
+Requirement already satisfied: charset-normalizer==2.0.11 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 18)) (2.0.11)
+Requirement already satisfied: click==8.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 19)) (8.0.3)
+Requirement already satisfied: clint==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 20)) (0.5.1)
+Requirement already satisfied: cloudpickle==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 21)) (2.0.0)
+Requirement already satisfied: confuse==1.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 22)) (1.7.0)
+Requirement already satisfied: coverage==6.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 23)) (6.1.2)
+Requirement already satisfied: croniter==1.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 24)) (1.2.0)
+Requirement already satisfied: cycler==0.11.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 25)) (0.11.0)
+Requirement already satisfied: dataenforce==0.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 26)) (0.1.2)
+Requirement already satisfied: debugpy==1.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 27)) (1.5.1)
+Requirement already satisfied: decorator==5.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 28)) (5.1.1)
+Requirement already satisfied: defusedxml==0.7.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 29)) (0.7.1)
+Requirement already satisfied: distlib==0.3.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 30)) (0.3.4)
+Requirement already satisfied: docker==5.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 31)) (5.0.3)
+Requirement already satisfied: entrypoints==0.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 32)) (0.4)
+Requirement already satisfied: executing==0.8.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 33)) (0.8.2)
+Requirement already satisfied: expects==0.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 34)) (0.9.0)
+Requirement already satisfied: flake8==4.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 35)) (4.0.1)
+Requirement already satisfied: fqdn==1.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 36)) (1.5.1)
+Requirement already satisfied: fsspec==2022.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 37)) (2022.1.0)
+Requirement already satisfied: future==0.18.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 38)) (0.18.2)
+Requirement already satisfied: genpipes==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 39)) (1.0.0)
+Requirement already satisfied: gitdb==4.0.9 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 40)) (4.0.9)
+Requirement already satisfied: HeapDict==1.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 41)) (1.0.1)
+Requirement already satisfied: idna==3.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 42)) (3.3)
+Requirement already satisfied: iniconfig==1.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 43)) (1.1.1)
+Requirement already satisfied: ipython-genutils==0.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 44)) (0.2.0)
+Requirement already satisfied: ipywidgets==7.6.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 45)) (7.6.5)
+Requirement already satisfied: jupyter==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 46)) (1.0.0)
+Requirement already satisfied: jupyter-client==7.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 47)) (7.1.2)
+Requirement already satisfied: jupyter-console==6.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 48)) (6.4.0)
+Requirement already satisfied: jupyter-core==4.9.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 49)) (4.9.1)
+Requirement already satisfied: jupyterlab-pygments==0.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 50)) (0.1.2)
+Requirement already satisfied: jupyterlab-widgets==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 51)) (1.0.2)
+Requirement already satisfied: mamba==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 52)) (0.11.2)
+Requirement already satisfied: marshmallow-oneofschema==3.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 53)) (3.0.1)
+Requirement already satisfied: matplotlib==3.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 55)) (3.5.1)
+Requirement already satisfied: matplotlib-inline==0.1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 56)) (0.1.3)
+Requirement already satisfied: mccabe==0.6.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 57)) (0.6.1)
+Requirement already satisfied: mistune==0.8.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 58)) (0.8.4)
+Requirement already satisfied: mockito==1.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 59)) (1.3.0)
+Requirement already satisfied: monotonic==1.6 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 60)) (1.6)
+Requirement already satisfied: msgpack==1.0.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 61)) (1.0.3)
+Requirement already satisfied: mypy-extensions==0.4.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 62)) (0.4.3)
+Requirement already satisfied: nbclient==0.5.10 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 63)) (0.5.10)
+Requirement already satisfied: nbconvert==6.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 64)) (6.4.1)
+Requirement already satisfied: nbformat==5.1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 65)) (5.1.3)
+Requirement already satisfied: neptune-client==0.14.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 66)) (0.14.3)
+Requirement already satisfied: nest-asyncio==1.5.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 67)) (1.5.4)
+Requirement already satisfied: notebook==6.4.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 68)) (6.4.8)
+Requirement already satisfied: numpy==1.22.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 69)) (1.22.2)
+Requirement already satisfied: oauthlib==3.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 70)) (3.2.0)
+Requirement already satisfied: packaging==21.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 71)) (21.3)
+Requirement already satisfied: pandas==1.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 72)) (1.4.0)
+Requirement already satisfied: pandocfilters==1.5.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 73)) (1.5.0)
+Requirement already satisfied: parso==0.8.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 74)) (0.8.3)
+Requirement already satisfied: partd==1.2.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 75)) (1.2.0)
+Requirement already satisfied: pathspec==0.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 76)) (0.9.0)
+Requirement already satisfied: patsy==0.5.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 77)) (0.5.2)
+Requirement already satisfied: pendulum==2.1.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 78)) (2.1.2)
+Requirement already satisfied: pexpect==4.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 79)) (4.8.0)
+Requirement already satisfied: pickleshare==0.7.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 80)) (0.7.5)
+Requirement already satisfied: Pillow==9.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 81)) (9.0.1)
+Requirement already satisfied: pipe==1.6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 82)) (1.6.0)
+Requirement already satisfied: platformdirs==2.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 83)) (2.4.1)
+Requirement already satisfied: pluggy==1.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 84)) (1.0.0)
+Requirement already satisfied: prefect==0.15.13 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 85)) (0.15.13)
+Requirement already satisfied: prometheus-client==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 86)) (0.13.1)
+Requirement already satisfied: prompt-toolkit==3.0.26 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 87)) (3.0.26)
+Requirement already satisfied: psutil==5.9.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 88)) (5.9.0)
+Requirement already satisfied: ptyprocess==0.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 89)) (0.7.0)
+Requirement already satisfied: pure-eval==0.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 90)) (0.2.2)
+Requirement already satisfied: py==1.11.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 91)) (1.11.0)
+Requirement already satisfied: pycodestyle==2.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 92)) (2.8.0)
+Requirement already satisfied: pycparser==2.21 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 93)) (2.21)
+Requirement already satisfied: pyflakes==2.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 94)) (2.4.0)
+Requirement already satisfied: Pygments==2.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 95)) (2.11.2)
+Requirement already satisfied: PyJWT==2.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 96)) (2.3.0)
+Requirement already satisfied: pylint==2.12.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 97)) (2.12.2)
+Requirement already satisfied: pylint-quotes==0.2.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 98)) (0.2.3)
+Requirement already satisfied: pyparsing==3.0.7 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 99)) (3.0.7)
+Requirement already satisfied: pyrsistent==0.18.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 100)) (0.18.1)
+Requirement already satisfied: pytest==7.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 101)) (7.0.0)
+Requirement already satisfied: python-box==5.4.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 102)) (5.4.1)
+Requirement already satisfied: python-dateutil==2.8.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 103)) (2.8.2)
+Requirement already satisfied: python-slugify==5.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 104)) (5.0.2)
+Requirement already satisfied: pytz==2021.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 105)) (2021.3)
+Requirement already satisfied: pytzdata==2020.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 106)) (2020.1)
+Requirement already satisfied: PyYAML==6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 107)) (6.0)
+Requirement already satisfied: pyzmq==22.3.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 108)) (22.3.0)
+Requirement already satisfied: qtconsole==5.2.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 109)) (5.2.2)
+Requirement already satisfied: QtPy==2.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 110)) (2.0.1)
+Requirement already satisfied: requests==2.27.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 111)) (2.27.1)
+Requirement already satisfied: requests-oauthlib==1.3.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 112)) (1.3.1)
+Requirement already satisfied: rfc3339-validator==0.1.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 113)) (0.1.4)
+Requirement already satisfied: rfc3987==1.3.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 114)) (1.3.8)
+Requirement already satisfied: s3transfer==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 115)) (0.5.1)
+Requirement already satisfied: scikit-learn==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 116)) (1.0.2)
+Requirement already satisfied: scipy==1.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 117)) (1.8.0)
+Requirement already satisfied: seaborn==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 118)) (0.11.2)
+Requirement already satisfied: Send2Trash==1.8.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 119)) (1.8.0)
+Requirement already satisfied: simplejson==3.17.6 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 120)) (3.17.6)
+Requirement already satisfied: six==1.16.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 121)) (1.16.0)
+Requirement already satisfied: sklearn==0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 122)) (0.0)
+Requirement already satisfied: smmap==5.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 123)) (5.0.0)
+Requirement already satisfied: sortedcontainers==2.4.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 124)) (2.4.0)
+Requirement already satisfied: stack-data==0.1.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 125)) (0.1.4)
+Requirement already satisfied: statsmodels==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 126)) (0.13.1)
+Requirement already satisfied: swagger-spec-validator==2.7.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 127)) (2.7.4)
+Requirement already satisfied: tabulate==0.8.9 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 128)) (0.8.9)
+Requirement already satisfied: tblib==1.7.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 129)) (1.7.0)
+Requirement already satisfied: terminado==0.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 130)) (0.13.1)
+Requirement already satisfied: testpath==0.5.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 131)) (0.5.0)
+Requirement already satisfied: text-unidecode==1.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 132)) (1.3)
+Requirement already satisfied: threadpoolctl==3.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 133)) (3.1.0)
+Requirement already satisfied: toml==0.10.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 134)) (0.10.2)
+Requirement already satisfied: tomli==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 135)) (2.0.0)
+Requirement already satisfied: toolz==0.11.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 136)) (0.11.2)
+Requirement already satisfied: tornado==6.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 137)) (6.1)
+Requirement already satisfied: tox==3.24.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 138)) (3.24.5)
+Requirement already satisfied: traitlets==5.1.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 139)) (5.1.1)
+Requirement already satisfied: typing_extensions==4.0.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 140)) (4.0.1)
+Requirement already satisfied: uri-template==1.1.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 141)) (1.1.0)
+Requirement already satisfied: urllib3==1.26.8 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 142)) (1.26.8)
+Requirement already satisfied: virtualenv==20.13.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 143)) (20.13.1)
+Requirement already satisfied: wcwidth==0.2.5 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 144)) (0.2.5)
+Requirement already satisfied: webcolors==1.11.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 145)) (1.11.1)
+Requirement already satisfied: webencodings==0.5.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 146)) (0.5.1)
+Requirement already satisfied: websocket-client==1.2.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 147)) (1.2.3)
+Requirement already satisfied: widgetsnbextension==3.5.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 148)) (3.5.2)
+Requirement already satisfied: wrapt==1.13.3 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 149)) (1.13.3)
+Requirement already satisfied: zict==2.0.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 150)) (2.0.0)
+Requirement already satisfied: torch==1.10.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 152)) (1.10.2)
+Requirement already satisfied: fastprogress==1.0.2 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 153)) (1.0.2)
+Requirement already satisfied: nptyping==1.4.4 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 154)) (1.4.4)
+Requirement already satisfied: optuna==2.10.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 155)) (2.10.0)
+Requirement already satisfied: plotly==5.6.0 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 156)) (5.6.0)
+Requirement already satisfied: pytorch-lightning==1.5.10 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 157)) (1.5.10)
+Requirement already satisfied: kaleido==0.2.1 in ./venv/lib/python3.8/site-packages (from -r requirements.txt (line 158)) (0.2.1)
+Requirement already satisfied: lazy-object-proxy>=1.4.0 in ./venv/lib/python3.8/site-packages (from astroid==2.9.3->-r requirements.txt (line 6)) (1.7.1)
+Requirement already satisfied: setuptools>=20.0 in ./venv/lib/python3.8/site-packages (from astroid==2.9.3->-r requirements.txt (line 6)) (49.2.1)
+Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./venv/lib/python3.8/site-packages (from boto3==1.20.49->-r requirements.txt (line 12)) (0.10.0)
+Requirement already satisfied: jsonref in ./venv/lib/python3.8/site-packages (from bravado-core==5.17.0->-r requirements.txt (line 15)) (0.2)
+Requirement already satisfied: jsonschema[format]>=2.5.1 in ./venv/lib/python3.8/site-packages (from bravado-core==5.17.0->-r requirements.txt (line 15)) (4.4.0)
+Requirement already satisfied: ipykernel>=4.5.1 in ./venv/lib/python3.8/site-packages (from ipywidgets==7.6.5->-r requirements.txt (line 45)) (6.9.1)
+Requirement already satisfied: ipython>=4.0.0; python_version >= "3.3" in ./venv/lib/python3.8/site-packages (from ipywidgets==7.6.5->-r requirements.txt (line 45)) (8.1.1)
+Requirement already satisfied: marshmallow<4.0.0,>=3.0.0 in ./venv/lib/python3.8/site-packages (from marshmallow-oneofschema==3.0.1->-r requirements.txt (line 53)) (3.14.1)
+Requirement already satisfied: kiwisolver>=1.0.1 in ./venv/lib/python3.8/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 55)) (1.3.2)
+Requirement already satisfied: fonttools>=4.22.0 in ./venv/lib/python3.8/site-packages (from matplotlib==3.5.1->-r requirements.txt (line 55)) (4.30.0)
+Requirement already satisfied: jinja2>=2.4 in ./venv/lib/python3.8/site-packages (from nbconvert==6.4.1->-r requirements.txt (line 64)) (3.0.3)
+Requirement already satisfied: GitPython>=2.0.8 in ./venv/lib/python3.8/site-packages (from neptune-client==0.14.3->-r requirements.txt (line 66)) (3.1.27)
+Requirement already satisfied: locket in ./venv/lib/python3.8/site-packages (from partd==1.2.0->-r requirements.txt (line 75)) (0.2.1)
+Requirement already satisfied: distributed>=2.17.0; python_version > "3.6" in ./venv/lib/python3.8/site-packages (from prefect==0.15.13->-r requirements.txt (line 85)) (2022.2.1)
+Requirement already satisfied: dask>=2.17.0; python_version > "3.6" in ./venv/lib/python3.8/site-packages (from prefect==0.15.13->-r requirements.txt (line 85)) (2022.2.1)
+Requirement already satisfied: isort<6,>=4.2.5 in ./venv/lib/python3.8/site-packages (from pylint==2.12.2->-r requirements.txt (line 97)) (5.10.1)
+Requirement already satisfied: joblib>=0.11 in ./venv/lib/python3.8/site-packages (from scikit-learn==1.0.2->-r requirements.txt (line 116)) (1.1.0)
+Requirement already satisfied: filelock>=3.0.0 in ./venv/lib/python3.8/site-packages (from tox==3.24.5->-r requirements.txt (line 138)) (3.6.0)
+Requirement already satisfied: typish>=1.7.0 in ./venv/lib/python3.8/site-packages (from nptyping==1.4.4->-r requirements.txt (line 154)) (1.9.3)
+Requirement already satisfied: cliff in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (3.10.1)
+Requirement already satisfied: tqdm in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (4.63.0)
+Requirement already satisfied: alembic in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.7.6)
+Requirement already satisfied: cmaes>=0.8.2 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (0.8.2)
+Requirement already satisfied: sqlalchemy>=1.1.0 in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (1.4.32)
+Requirement already satisfied: colorlog in ./venv/lib/python3.8/site-packages (from optuna==2.10.0->-r requirements.txt (line 155)) (6.6.0)
+Requirement already satisfied: tenacity>=6.2.0 in ./venv/lib/python3.8/site-packages (from plotly==5.6.0->-r requirements.txt (line 156)) (8.0.1)
+Requirement already satisfied: torchmetrics>=0.4.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.7.2)
+Requirement already satisfied: tensorboard>=2.2.0 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.8.0)
+Requirement already satisfied: pyDeprecate==0.3.1 in ./venv/lib/python3.8/site-packages (from pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.3.1)
+Requirement already satisfied: importlib-resources>=1.4.0; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (5.4.0)
+Requirement already satisfied: jsonpointer>1.13; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (2.2)
+Requirement already satisfied: isoduration; extra == "format" in ./venv/lib/python3.8/site-packages (from jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (20.11.0)
+Requirement already satisfied: jedi>=0.16 in ./venv/lib/python3.8/site-packages (from ipython>=4.0.0; python_version >= "3.3"->ipywidgets==7.6.5->-r requirements.txt (line 45)) (0.18.1)
+Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.8/site-packages (from jinja2>=2.4->nbconvert==6.4.1->-r requirements.txt (line 64)) (2.1.0)
+Requirement already satisfied: cmd2>=1.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (2.4.0)
+Requirement already satisfied: stevedore>=2.0.1 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.5.0)
+Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (5.8.1)
+Requirement already satisfied: PrettyTable>=0.7.2 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (3.2.0)
+Requirement already satisfied: autopage>=0.4.0 in ./venv/lib/python3.8/site-packages (from cliff->optuna==2.10.0->-r requirements.txt (line 155)) (0.5.0)
+Requirement already satisfied: importlib-metadata; python_version < "3.9" in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (4.11.2)
+Requirement already satisfied: Mako in ./venv/lib/python3.8/site-packages (from alembic->optuna==2.10.0->-r requirements.txt (line 155)) (1.2.0)
+Requirement already satisfied: greenlet!=0.4.17; python_version >= "3" and (platform_machine == "aarch64" or (platform_machine == "ppc64le" or (platform_machine == "x86_64" or (platform_machine == "amd64" or (platform_machine == "AMD64" or (platform_machine == "win32" or platform_machine == "WIN32")))))) in ./venv/lib/python3.8/site-packages (from sqlalchemy>=1.1.0->optuna==2.10.0->-r requirements.txt (line 155)) (1.1.2)
+Requirement already satisfied: wheel>=0.26 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.37.1)
+Requirement already satisfied: werkzeug>=0.11.15 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.0.3)
+Requirement already satisfied: protobuf>=3.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.19.4)
+Requirement already satisfied: absl-py>=0.4 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.0.0)
+Requirement already satisfied: tensorboard-plugin-wit>=1.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.8.1)
+Requirement already satisfied: google-auth<3,>=1.6.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (2.6.0)
+Requirement already satisfied: markdown>=2.6.8 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (3.3.6)
+Requirement already satisfied: grpcio>=1.24.3 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (1.44.0)
+Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.6.1)
+Requirement already satisfied: google-auth-oauthlib<0.5,>=0.4.1 in ./venv/lib/python3.8/site-packages (from tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.6)
+Requirement already satisfied: zipp>=3.1.0; python_version < "3.10" in ./venv/lib/python3.8/site-packages (from importlib-resources>=1.4.0; python_version < "3.9"->jsonschema[format]>=2.5.1->bravado-core==5.17.0->-r requirements.txt (line 15)) (3.7.0)
+Requirement already satisfied: pyperclip>=1.6 in ./venv/lib/python3.8/site-packages (from cmd2>=1.0.0->cliff->optuna==2.10.0->-r requirements.txt (line 155)) (1.8.2)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (5.0.0)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.2.8)
+Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3.6" in ./venv/lib/python3.8/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (4.8)
+Requirement already satisfied: pyasn1<0.5.0,>=0.4.6 in ./venv/lib/python3.8/site-packages (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard>=2.2.0->pytorch-lightning==1.5.10->-r requirements.txt (line 157)) (0.4.8)
+Installing collected packages: Masterproject, permetrics
+  Attempting uninstall: Masterproject
+    Found existing installation: Masterproject 1.0
+    Uninstalling Masterproject-1.0:
+      Successfully uninstalled Masterproject-1.0
+  Running setup.py develop for Masterproject
+  Attempting uninstall: permetrics
+    Found existing installation: permetrics 1.1.5
+    Uninstalling permetrics-1.1.5:
+      Successfully uninstalled permetrics-1.1.5
+  Running setup.py develop for permetrics
+Successfully installed Masterproject permetrics
+WARNING: You are using pip version 20.2.1; however, version 22.0.4 is available.
+You should consider upgrading via the '/cluster/home/sjsivert/Masteroppgave/venv/bin/python -m pip install --upgrade pip' command.
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/statsmodels/compat/pandas.py:65: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import Int64Index as NumericIndex
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/setuptools/distutils_patch.py:25: UserWarning: Distutils was imported before Setuptools. This usage is discouraged and may exhibit undesirable behaviors or errors. Please use Setuptools' objects directly or at least import Setuptools first.
+  warnings.warn(
+[2022-03-17,09:54:22] INFO {logger} [init_logging] Logger initialized. Log level: INFO, log file: ./log-file.log
+[2022-03-17,09:54:22] INFO {main} [main] Started
+[2022-03-17,09:54:22] INFO {main} [main] Starting experiment: "arima-tune-cat-6-7-days": "arima-tune-cat-6-7-days"
+[2022-03-17,09:54:22] INFO {local_checkpoint_save_source} [wipe_and_init_checkpoint_save_location] Wiping and initializing checkpoint save location models/0_current_model_checkpoints
+[2022-03-17,09:54:22] INFO {save_local_disk_source} [_create_save_location] Creating model save location models/arima-tune-cat-6-7-days
+[2022-03-17,09:54:22] INFO {neptune_save_source} [__init__] Creating new Neptune experiment
+https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-333
+[2022-03-17,09:54:45] WARNING {gpu_monitor} [__nvml_get_or_else] Info (NVML): NVML Shared Library Not Found. GPU usage metrics may not be reported. For more information, see https://docs.neptune.ai/you-should-know/what-can-you-log-and-display#hardware-consumption
+[2022-03-17,09:54:45] INFO {neptune_save_source} [__init__] Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-333
+[2022-03-17,09:54:45] INFO {experiment} [run_tuning_experiment] Running tuning experiment with saving set to True
+[2022-03-17,09:54:45] INFO {experiment} [_choose_model_structure] Choosing model structure: <Local_univariate_arim> models: []>
+[2022-03-17,09:54:45] INFO {local_univariate_arima_structure} [process_data] data preprocessing steps: 
+ ---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        
+/cluster/home/sjsivert/Masteroppgave/src/pipelines/market_insight_processing.py:22: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df.drop(columns, axis=1, inplace=True)
+[2022-03-17,09:56:18] INFO {arima_model} [process_data] ArimaModel: Data pipeline created for 11037
+ ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 11037)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- Scaling data?: False
+6- split up into training set and test set of forecast window size7)
+---- End ----
+        
+[2022-03-17,09:56:19] INFO {local_univariate_arima_structure} [auto_tuning] Tuning models
+[2022-03-17,09:56:19] INFO {local_univariate_arima_structure} [auto_tuning] Parameter tuning ranges are: OrderedDict([('p', [1, 10]), ('d', [1, 10]), ('q', [1, 10])]) 
+ Metric to use when tuning is: ErrorMetricEnum.MASE
+Tuning parameter combinations to try are: 1000# for each of the 1 datasets.
+[2022-03-17,09:56:19] INFO {local_univariate_arima_structure} [auto_tuning] Tuning model: 11037
+[2022-03-17,09:56:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 1) used.
+[2022-03-17,09:56:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 1) used.
+[2022-03-17,09:56:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 1) used.
+[2022-03-17,09:56:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 1) used.
+[2022-03-17,09:56:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 1) used.
+[2022-03-17,09:56:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 1) used.
+[2022-03-17,09:56:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 1) used.
+[2022-03-17,09:56:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 1) used.
+[2022-03-17,09:56:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 1) used.
+[2022-03-17,09:56:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 1) used.
+[2022-03-17,09:56:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 1) used.
+[2022-03-17,09:56:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 1) used.
+[2022-03-17,09:56:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 1) used.
+[2022-03-17,09:56:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 1) used.
+[2022-03-17,09:56:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 1) used.
+[2022-03-17,09:56:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 1) used.
+[2022-03-17,09:56:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 1) used.
+[2022-03-17,09:56:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 1) used.
+[2022-03-17,09:56:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 1) used.
+[2022-03-17,09:56:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 1) used.
+[2022-03-17,09:56:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 1) used.
+[2022-03-17,09:56:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 1) used.
+[2022-03-17,09:56:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 1) used.
+[2022-03-17,09:56:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 1) used.
+[2022-03-17,09:56:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 1) used.
+[2022-03-17,09:56:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 1) used.
+[2022-03-17,09:56:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 1) used.
+[2022-03-17,09:56:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 1) used.
+[2022-03-17,09:56:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 1) used.
+[2022-03-17,09:57:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 1) used.
+[2022-03-17,09:57:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 1) used.
+[2022-03-17,09:57:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 1) used.
+[2022-03-17,09:57:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 1) used.
+[2022-03-17,09:57:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 1) used.
+[2022-03-17,09:57:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 1) used.
+[2022-03-17,09:57:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 1) used.
+[2022-03-17,09:57:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 1) used.
+[2022-03-17,09:57:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 1) used.
+[2022-03-17,09:57:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 1) used.
+[2022-03-17,09:57:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 1) used.
+[2022-03-17,09:57:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 1) used.
+[2022-03-17,09:57:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 1) used.
+[2022-03-17,09:57:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 1) used.
+[2022-03-17,09:57:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 1) used.
+[2022-03-17,09:57:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 1) used.
+[2022-03-17,09:57:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 1) used.
+[2022-03-17,09:57:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 1) used.
+[2022-03-17,09:57:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 1) used.
+[2022-03-17,09:57:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 1) used.
+[2022-03-17,09:57:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 1) used.
+[2022-03-17,09:57:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 1) used.
+[2022-03-17,09:57:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 1) used.
+[2022-03-17,09:58:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 1) used.
+[2022-03-17,09:58:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 1) used.
+[2022-03-17,09:58:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 1) used.
+[2022-03-17,09:58:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 1) used.
+[2022-03-17,09:58:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 1) used.
+[2022-03-17,09:58:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 1) used.
+[2022-03-17,09:58:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 1) used.
+[2022-03-17,09:58:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 1) used.
+[2022-03-17,09:58:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 1) used.
+[2022-03-17,09:58:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 1) used.
+[2022-03-17,09:58:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 1) used.
+[2022-03-17,09:58:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 1) used.
+[2022-03-17,09:58:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 1) used.
+[2022-03-17,09:58:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 1) used.
+[2022-03-17,09:58:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 1) used.
+[2022-03-17,09:58:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 1) used.
+[2022-03-17,09:58:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 1) used.
+[2022-03-17,09:58:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 1) used.
+[2022-03-17,09:58:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 1) used.
+[2022-03-17,09:58:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 1) used.
+[2022-03-17,09:58:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 1) used.
+[2022-03-17,09:59:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 1) used.
+[2022-03-17,09:59:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 1) used.
+[2022-03-17,09:59:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 1) used.
+[2022-03-17,09:59:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 1) used.
+[2022-03-17,09:59:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 1) used.
+[2022-03-17,09:59:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 1) used.
+[2022-03-17,09:59:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 1) used.
+[2022-03-17,09:59:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 1) used.
+[2022-03-17,09:59:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 1) used.
+[2022-03-17,09:59:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 2) used.
+[2022-03-17,09:59:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 2) used.
+[2022-03-17,09:59:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model (10, 7, 1) got an error. Calculations not completed.
+[2022-03-17,09:59:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 2) used.
+[2022-03-17,09:59:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 1) used.
+[2022-03-17,09:59:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 2) used.
+[2022-03-17,09:59:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 1) used.
+[2022-03-17,09:59:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 1) used.
+[2022-03-17,09:59:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 2) used.
+[2022-03-17,09:59:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 1) used.
+[2022-03-17,09:59:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 2) used.
+[2022-03-17,09:59:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 2) used.
+[2022-03-17,09:59:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 1) used.
+[2022-03-17,09:59:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 1) used.
+[2022-03-17,09:59:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 1) used.
+[2022-03-17,09:59:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 2) used.
+[2022-03-17,10:00:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 2) used.
+[2022-03-17,10:00:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 1) used.
+[2022-03-17,10:00:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 2) used.
+[2022-03-17,10:00:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 2) used.
+[2022-03-17,10:00:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 2) used.
+[2022-03-17,10:00:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 2) used.
+[2022-03-17,10:00:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 1) used.
+[2022-03-17,10:00:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 1) used.
+[2022-03-17,10:00:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 1) used.
+[2022-03-17,10:00:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 2) used.
+[2022-03-17,10:00:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 2) used.
+[2022-03-17,10:00:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 2) used.
+[2022-03-17,10:00:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 2) used.
+[2022-03-17,10:00:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 1) used.
+[2022-03-17,10:00:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 2) used.
+[2022-03-17,10:00:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 2) used.
+[2022-03-17,10:00:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 2) used.
+[2022-03-17,10:00:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 2) used.
+[2022-03-17,10:00:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 2) used.
+[2022-03-17,10:00:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 1) used.
+[2022-03-17,10:00:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 2) used.
+[2022-03-17,10:00:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model (8, 9, 1) got an error. Calculations not completed.
+[2022-03-17,10:00:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 1) used.
+[2022-03-17,10:00:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 2) used.
+[2022-03-17,10:00:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 2) used.
+[2022-03-17,10:01:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 2) used.
+[2022-03-17,10:01:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 1) used.
+[2022-03-17,10:01:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 2) used.
+[2022-03-17,10:01:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 2) used.
+[2022-03-17,10:01:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 2) used.
+[2022-03-17,10:01:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 2) used.
+[2022-03-17,10:01:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 2) used.
+[2022-03-17,10:01:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 2) used.
+[2022-03-17,10:01:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 2) used.
+[2022-03-17,10:01:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 1) used.
+[2022-03-17,10:01:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 2) used.
+[2022-03-17,10:01:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 2) used.
+[2022-03-17,10:01:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 2) used.
+[2022-03-17,10:01:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 2) used.
+[2022-03-17,10:01:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 2) used.
+[2022-03-17,10:01:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 2) used.
+[2022-03-17,10:01:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 2) used.
+[2022-03-17,10:01:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 2) used.
+[2022-03-17,10:01:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 2) used.
+[2022-03-17,10:02:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 2) used.
+[2022-03-17,10:02:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 2) used.
+[2022-03-17,10:02:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 2) used.
+[2022-03-17,10:02:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 2) used.
+[2022-03-17,10:02:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model (7, 4, 2) got an error. Calculations not completed.
+[2022-03-17,10:02:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 2) used.
+[2022-03-17,10:02:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 2) used.
+[2022-03-17,10:02:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 2) used.
+[2022-03-17,10:02:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 2) used.
+[2022-03-17,10:02:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 2) used.
+[2022-03-17,10:02:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 2) used.
+[2022-03-17,10:02:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 2) used.
+[2022-03-17,10:02:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 2) used.
+[2022-03-17,10:02:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 2) used.
+[2022-03-17,10:02:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 2) used.
+[2022-03-17,10:02:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 2) used.
+[2022-03-17,10:02:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model (7, 6, 2) got an error. Calculations not completed.
+[2022-03-17,10:02:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 2) used.
+[2022-03-17,10:02:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 2) used.
+[2022-03-17,10:02:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 2) used.
+[2022-03-17,10:02:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 2) used.
+[2022-03-17,10:03:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 2) used.
+[2022-03-17,10:03:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 2) used.
+[2022-03-17,10:03:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 2) used.
+[2022-03-17,10:03:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 2) used.
+[2022-03-17,10:03:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 2) used.
+[2022-03-17,10:03:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 2) used.
+[2022-03-17,10:03:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 2) used.
+[2022-03-17,10:03:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 2) used.
+[2022-03-17,10:03:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 2) used.
+[2022-03-17,10:03:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 2) used.
+[2022-03-17,10:03:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 2) used.
+[2022-03-17,10:03:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 2) used.
+[2022-03-17,10:03:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 2) used.
+[2022-03-17,10:03:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 2) used.
+[2022-03-17,10:03:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 2) used.
+[2022-03-17,10:04:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 2) used.
+[2022-03-17,10:04:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 2) used.
+[2022-03-17,10:04:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 2) used.
+[2022-03-17,10:04:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 2) used.
+[2022-03-17,10:04:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 2) used.
+[2022-03-17,10:04:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 3) used.
+[2022-03-17,10:04:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 2) used.
+[2022-03-17,10:04:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 3) used.
+[2022-03-17,10:04:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 2) used.
+[2022-03-17,10:04:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 3) used.
+[2022-03-17,10:04:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 2) used.
+[2022-03-17,10:04:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 3) used.
+[2022-03-17,10:04:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 3) used.
+[2022-03-17,10:04:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 2) used.
+[2022-03-17,10:04:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 2) used.
+[2022-03-17,10:04:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 2) used.
+[2022-03-17,10:04:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 3) used.
+[2022-03-17,10:04:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 2) used.
+[2022-03-17,10:04:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 3) used.
+[2022-03-17,10:05:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 2) used.
+[2022-03-17,10:05:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 2) used.
+[2022-03-17,10:05:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 3) used.
+[2022-03-17,10:05:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 3) used.
+[2022-03-17,10:05:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 3) used.
+[2022-03-17,10:05:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 2) used.
+[2022-03-17,10:05:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 3) used.
+[2022-03-17,10:05:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 3) used.
+[2022-03-17,10:05:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 2) used.
+[2022-03-17,10:05:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 3) used.
+[2022-03-17,10:05:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 3) used.
+[2022-03-17,10:05:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 3) used.
+[2022-03-17,10:05:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 2) used.
+[2022-03-17,10:05:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 2) used.
+[2022-03-17,10:05:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 3) used.
+[2022-03-17,10:05:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 3) used.
+[2022-03-17,10:05:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 3) used.
+[2022-03-17,10:05:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model (10, 9, 2) got an error. Calculations not completed.
+[2022-03-17,10:05:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 3) used.
+[2022-03-17,10:05:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 3) used.
+[2022-03-17,10:05:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 3) used.
+[2022-03-17,10:05:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 3) used.
+[2022-03-17,10:06:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 3) used.
+[2022-03-17,10:06:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 3) used.
+[2022-03-17,10:06:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 3) used.
+[2022-03-17,10:06:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 3) used.
+[2022-03-17,10:06:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 3) used.
+[2022-03-17,10:06:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 2) used.
+[2022-03-17,10:06:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 3) used.
+[2022-03-17,10:06:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 3) used.
+[2022-03-17,10:06:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 2) used.
+[2022-03-17,10:06:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 3) used.
+[2022-03-17,10:06:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 3) used.
+[2022-03-17,10:06:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 3) used.
+[2022-03-17,10:06:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 3) used.
+[2022-03-17,10:06:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 3) used.
+[2022-03-17,10:06:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 3) used.
+[2022-03-17,10:06:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 3) used.
+[2022-03-17,10:06:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 3) used.
+[2022-03-17,10:06:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 3) used.
+[2022-03-17,10:07:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 3) used.
+[2022-03-17,10:07:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 2) used.
+[2022-03-17,10:07:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 3) used.
+[2022-03-17,10:07:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 3) used.
+[2022-03-17,10:07:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 3) used.
+[2022-03-17,10:07:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 3) used.
+[2022-03-17,10:07:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 3) used.
+[2022-03-17,10:07:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 3) used.
+[2022-03-17,10:07:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model (7, 5, 3) got an error. Calculations not completed.
+[2022-03-17,10:07:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 3) used.
+[2022-03-17,10:07:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model (3, 6, 3) got an error. Calculations not completed.
+[2022-03-17,10:07:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 3) used.
+[2022-03-17,10:07:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 3) used.
+[2022-03-17,10:07:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 3) used.
+[2022-03-17,10:07:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 3) used.
+[2022-03-17,10:07:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 3) used.
+[2022-03-17,10:08:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 3) used.
+[2022-03-17,10:08:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 3) used.
+[2022-03-17,10:08:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 3) used.
+[2022-03-17,10:08:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 3) used.
+[2022-03-17,10:08:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 3) used.
+[2022-03-17,10:08:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 3) used.
+[2022-03-17,10:08:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 3) used.
+[2022-03-17,10:08:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 3) used.
+[2022-03-17,10:08:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 3) used.
+[2022-03-17,10:08:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 3) used.
+[2022-03-17,10:08:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 3) used.
+[2022-03-17,10:08:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 3) used.
+[2022-03-17,10:08:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 3) used.
+[2022-03-17,10:08:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 3) used.
+[2022-03-17,10:08:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 3) used.
+[2022-03-17,10:08:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 3) used.
+[2022-03-17,10:08:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 3) used.
+[2022-03-17,10:08:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 3) used.
+[2022-03-17,10:09:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 3) used.
+[2022-03-17,10:09:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 3) used.
+[2022-03-17,10:09:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 3) used.
+[2022-03-17,10:09:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 3) used.
+[2022-03-17,10:09:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 3) used.
+[2022-03-17,10:09:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 3) used.
+[2022-03-17,10:09:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 3) used.
+[2022-03-17,10:09:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 3) used.
+[2022-03-17,10:09:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 3) used.
+[2022-03-17,10:09:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model (2, 10, 3) got an error. Calculations not completed.
+[2022-03-17,10:09:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 3) used.
+[2022-03-17,10:09:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 4) used.
+[2022-03-17,10:09:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 3) used.
+[2022-03-17,10:09:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 4) used.
+[2022-03-17,10:10:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 3) used.
+[2022-03-17,10:10:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 3) used.
+[2022-03-17,10:10:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 3) used.
+[2022-03-17,10:10:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 4) used.
+[2022-03-17,10:10:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 3) used.
+[2022-03-17,10:10:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 3) used.
+[2022-03-17,10:10:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 4) used.
+[2022-03-17,10:10:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 3) used.
+[2022-03-17,10:10:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 4) used.
+[2022-03-17,10:10:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 4) used.
+[2022-03-17,10:10:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 3) used.
+[2022-03-17,10:10:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 3) used.
+[2022-03-17,10:10:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 4) used.
+[2022-03-17,10:10:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 4) used.
+[2022-03-17,10:10:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 4) used.
+[2022-03-17,10:10:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 4) used.
+[2022-03-17,10:10:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 4) used.
+[2022-03-17,10:10:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 4) used.
+[2022-03-17,10:11:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 3) used.
+[2022-03-17,10:11:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 3) used.
+[2022-03-17,10:11:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 4) used.
+[2022-03-17,10:11:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 3) used.
+[2022-03-17,10:11:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 4) used.
+[2022-03-17,10:11:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 4) used.
+[2022-03-17,10:11:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 4) used.
+[2022-03-17,10:11:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 4) used.
+[2022-03-17,10:11:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 3) used.
+[2022-03-17,10:11:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 3) used.
+[2022-03-17,10:11:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 3) used.
+[2022-03-17,10:11:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 4) used.
+[2022-03-17,10:11:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 4) used.
+[2022-03-17,10:11:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 3) used.
+[2022-03-17,10:11:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 4) used.
+[2022-03-17,10:11:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 4) used.
+[2022-03-17,10:11:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 3) used.
+[2022-03-17,10:11:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 4) used.
+[2022-03-17,10:11:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 3) used.
+[2022-03-17,10:11:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 4) used.
+[2022-03-17,10:11:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 4) used.
+[2022-03-17,10:11:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 4) used.
+[2022-03-17,10:11:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 4) used.
+[2022-03-17,10:12:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 4) used.
+[2022-03-17,10:12:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 4) used.
+[2022-03-17,10:12:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 4) used.
+[2022-03-17,10:12:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 4) used.
+[2022-03-17,10:12:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 4) used.
+[2022-03-17,10:12:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 4) used.
+[2022-03-17,10:12:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 4) used.
+[2022-03-17,10:12:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 4) used.
+[2022-03-17,10:12:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 4) used.
+[2022-03-17,10:12:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 4) used.
+[2022-03-17,10:12:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 4) used.
+[2022-03-17,10:12:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 4) used.
+[2022-03-17,10:12:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 4) used.
+[2022-03-17,10:12:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 4) used.
+[2022-03-17,10:12:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 4) used.
+[2022-03-17,10:13:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 4) used.
+[2022-03-17,10:13:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 4) used.
+[2022-03-17,10:13:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 4) used.
+[2022-03-17,10:13:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 4) used.
+[2022-03-17,10:13:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 4) used.
+[2022-03-17,10:13:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 4) used.
+[2022-03-17,10:13:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 4) used.
+[2022-03-17,10:13:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 4) used.
+[2022-03-17,10:13:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 4) used.
+[2022-03-17,10:13:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 4) used.
+[2022-03-17,10:13:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 4) used.
+[2022-03-17,10:13:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 4) used.
+[2022-03-17,10:13:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 4) used.
+[2022-03-17,10:14:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 4) used.
+[2022-03-17,10:14:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 4) used.
+[2022-03-17,10:14:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 4) used.
+[2022-03-17,10:14:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 4) used.
+[2022-03-17,10:14:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 4) used.
+[2022-03-17,10:14:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 4) used.
+[2022-03-17,10:14:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 4) used.
+[2022-03-17,10:14:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 4) used.
+[2022-03-17,10:14:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 4) used.
+[2022-03-17,10:14:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 4) used.
+[2022-03-17,10:14:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 4) used.
+[2022-03-17,10:14:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 4) used.
+[2022-03-17,10:14:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 4) used.
+[2022-03-17,10:14:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 4) used.
+[2022-03-17,10:14:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 4) used.
+[2022-03-17,10:15:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 4) used.
+[2022-03-17,10:15:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 4) used.
+[2022-03-17,10:15:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 4) used.
+[2022-03-17,10:15:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 4) used.
+[2022-03-17,10:15:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 4) used.
+[2022-03-17,10:15:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 4) used.
+[2022-03-17,10:15:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 4) used.
+[2022-03-17,10:15:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 4) used.
+[2022-03-17,10:15:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 4) used.
+[2022-03-17,10:15:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 4) used.
+[2022-03-17,10:15:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 4) used.
+[2022-03-17,10:15:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 4) used.
+[2022-03-17,10:15:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 4) used.
+[2022-03-17,10:15:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 4) used.
+[2022-03-17,10:16:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 5) used.
+[2022-03-17,10:16:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 5) used.
+[2022-03-17,10:16:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 4) used.
+[2022-03-17,10:16:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 4) used.
+[2022-03-17,10:16:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 5) used.
+[2022-03-17,10:16:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 4) used.
+[2022-03-17,10:16:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 5) used.
+[2022-03-17,10:16:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 4) used.
+[2022-03-17,10:16:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 4) used.
+[2022-03-17,10:16:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 4) used.
+[2022-03-17,10:16:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 5) used.
+[2022-03-17,10:16:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 4) used.
+[2022-03-17,10:16:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 5) used.
+[2022-03-17,10:16:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 5) used.
+[2022-03-17,10:16:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 4) used.
+[2022-03-17,10:16:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 5) used.
+[2022-03-17,10:17:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 4) used.
+[2022-03-17,10:17:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 5) used.
+[2022-03-17,10:17:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 4) used.
+[2022-03-17,10:17:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 5) used.
+[2022-03-17,10:17:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 4) used.
+[2022-03-17,10:17:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 5) used.
+[2022-03-17,10:17:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 4) used.
+[2022-03-17,10:17:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 5) used.
+[2022-03-17,10:17:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 5) used.
+[2022-03-17,10:17:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 4) used.
+[2022-03-17,10:17:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 5) used.
+[2022-03-17,10:17:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 5) used.
+[2022-03-17,10:17:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 5) used.
+[2022-03-17,10:17:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 4) used.
+[2022-03-17,10:17:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 5) used.
+[2022-03-17,10:17:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 5) used.
+[2022-03-17,10:17:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 4) used.
+[2022-03-17,10:18:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 5) used.
+[2022-03-17,10:18:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 5) used.
+[2022-03-17,10:18:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 4) used.
+[2022-03-17,10:18:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 5) used.
+[2022-03-17,10:18:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 5) used.
+[2022-03-17,10:18:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 5) used.
+[2022-03-17,10:18:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 5) used.
+[2022-03-17,10:18:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 4) used.
+[2022-03-17,10:18:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 5) used.
+[2022-03-17,10:18:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 5) used.
+[2022-03-17,10:18:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 5) used.
+[2022-03-17,10:18:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 5) used.
+[2022-03-17,10:18:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 5) used.
+[2022-03-17,10:18:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 5) used.
+[2022-03-17,10:18:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 5) used.
+[2022-03-17,10:18:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model (2, 5, 5) got an error. Calculations not completed.
+[2022-03-17,10:19:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 5) used.
+[2022-03-17,10:19:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 5) used.
+[2022-03-17,10:19:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 5) used.
+[2022-03-17,10:19:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 5) used.
+[2022-03-17,10:19:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 5) used.
+[2022-03-17,10:19:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 5) used.
+[2022-03-17,10:19:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 5) used.
+[2022-03-17,10:19:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 5) used.
+[2022-03-17,10:19:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 5) used.
+[2022-03-17,10:19:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 5) used.
+[2022-03-17,10:19:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 5) used.
+[2022-03-17,10:19:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 5) used.
+[2022-03-17,10:19:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 5) used.
+[2022-03-17,10:19:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 5) used.
+[2022-03-17,10:19:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 5) used.
+[2022-03-17,10:20:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 5) used.
+[2022-03-17,10:20:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 5) used.
+[2022-03-17,10:20:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 5) used.
+[2022-03-17,10:20:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 5) used.
+[2022-03-17,10:20:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 5) used.
+[2022-03-17,10:20:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 5) used.
+[2022-03-17,10:20:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 5) used.
+[2022-03-17,10:20:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 5) used.
+[2022-03-17,10:20:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 5) used.
+[2022-03-17,10:20:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 5) used.
+[2022-03-17,10:20:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 5) used.
+[2022-03-17,10:20:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 5) used.
+[2022-03-17,10:20:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 5) used.
+[2022-03-17,10:21:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 5) used.
+[2022-03-17,10:21:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model (2, 8, 5) got an error. Calculations not completed.
+[2022-03-17,10:21:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 5) used.
+[2022-03-17,10:21:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 5) used.
+[2022-03-17,10:21:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 5) used.
+[2022-03-17,10:21:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 5) used.
+[2022-03-17,10:21:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 5) used.
+[2022-03-17,10:21:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model (9, 6, 5) got an error. Calculations not completed.
+[2022-03-17,10:21:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 5) used.
+[2022-03-17,10:21:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 5) used.
+[2022-03-17,10:21:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 5) used.
+[2022-03-17,10:22:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 5) used.
+[2022-03-17,10:22:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 5) used.
+[2022-03-17,10:22:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 5) used.
+[2022-03-17,10:22:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 5) used.
+[2022-03-17,10:22:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 5) used.
+[2022-03-17,10:22:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 5) used.
+[2022-03-17,10:22:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 5) used.
+[2022-03-17,10:22:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 5) used.
+[2022-03-17,10:22:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 5) used.
+[2022-03-17,10:22:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 5) used.
+[2022-03-17,10:22:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 5) used.
+[2022-03-17,10:22:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 5) used.
+[2022-03-17,10:22:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 5) used.
+[2022-03-17,10:23:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 6) used.
+[2022-03-17,10:23:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 5) used.
+[2022-03-17,10:23:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 6) used.
+[2022-03-17,10:23:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 6) used.
+[2022-03-17,10:23:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 5) used.
+[2022-03-17,10:23:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 5) used.
+[2022-03-17,10:23:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 6) used.
+[2022-03-17,10:23:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 5) used.
+[2022-03-17,10:23:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 5) used.
+[2022-03-17,10:23:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 5) used.
+[2022-03-17,10:23:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 5) used.
+[2022-03-17,10:23:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 6) used.
+[2022-03-17,10:23:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 6) used.
+[2022-03-17,10:23:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 6) used.
+[2022-03-17,10:23:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 5) used.
+[2022-03-17,10:24:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 6) used.
+[2022-03-17,10:24:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model (9, 10, 5) got an error. Calculations not completed.
+[2022-03-17,10:24:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 5) used.
+[2022-03-17,10:24:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 5) used.
+[2022-03-17,10:24:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 6) used.
+[2022-03-17,10:24:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 6) used.
+[2022-03-17,10:24:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 5) used.
+[2022-03-17,10:24:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 6) used.
+[2022-03-17,10:24:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 6) used.
+[2022-03-17,10:24:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 6) used.
+[2022-03-17,10:24:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 6) used.
+[2022-03-17,10:24:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 6) used.
+[2022-03-17,10:24:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 6) used.
+[2022-03-17,10:24:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 6) used.
+[2022-03-17,10:24:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 5) used.
+[2022-03-17,10:24:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 5) used.
+[2022-03-17,10:24:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 6) used.
+[2022-03-17,10:24:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 6) used.
+[2022-03-17,10:24:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 5) used.
+[2022-03-17,10:25:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 6) used.
+[2022-03-17,10:25:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 6) used.
+[2022-03-17,10:25:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 6) used.
+[2022-03-17,10:25:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 6) used.
+[2022-03-17,10:25:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 6) used.
+[2022-03-17,10:25:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 6) used.
+[2022-03-17,10:25:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 6) used.
+[2022-03-17,10:25:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 6) used.
+[2022-03-17,10:25:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 5) used.
+[2022-03-17,10:25:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 6) used.
+[2022-03-17,10:25:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 6) used.
+[2022-03-17,10:25:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 6) used.
+[2022-03-17,10:25:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 6) used.
+[2022-03-17,10:25:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 6) used.
+[2022-03-17,10:26:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 6) used.
+[2022-03-17,10:26:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 6) used.
+[2022-03-17,10:26:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 6) used.
+[2022-03-17,10:26:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 6) used.
+[2022-03-17,10:26:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 6) used.
+[2022-03-17,10:26:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 6) used.
+[2022-03-17,10:26:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 6) used.
+[2022-03-17,10:26:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 6) used.
+[2022-03-17,10:26:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 6) used.
+[2022-03-17,10:26:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 6) used.
+[2022-03-17,10:26:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 6) used.
+[2022-03-17,10:26:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 6) used.
+[2022-03-17,10:27:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 6) used.
+[2022-03-17,10:27:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 6) used.
+[2022-03-17,10:27:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 6) used.
+[2022-03-17,10:27:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 6) used.
+[2022-03-17,10:27:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 6) used.
+[2022-03-17,10:27:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 6) used.
+[2022-03-17,10:27:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 6) used.
+[2022-03-17,10:27:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 6) used.
+[2022-03-17,10:27:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 6) used.
+[2022-03-17,10:27:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 6) used.
+[2022-03-17,10:28:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 6) used.
+[2022-03-17,10:28:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 6) used.
+[2022-03-17,10:28:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 6) used.
+[2022-03-17,10:28:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 6) used.
+[2022-03-17,10:28:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 6) used.
+[2022-03-17,10:28:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 6) used.
+[2022-03-17,10:28:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 6) used.
+[2022-03-17,10:28:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 6) used.
+[2022-03-17,10:28:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 6) used.
+[2022-03-17,10:28:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 6) used.
+[2022-03-17,10:28:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 6) used.
+[2022-03-17,10:28:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model (2, 8, 6) got an error. Calculations not completed.
+[2022-03-17,10:28:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 6) used.
+[2022-03-17,10:28:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 6) used.
+[2022-03-17,10:29:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 6) used.
+[2022-03-17,10:29:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 6) used.
+[2022-03-17,10:29:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 6) used.
+[2022-03-17,10:29:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 6) used.
+[2022-03-17,10:29:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 6) used.
+[2022-03-17,10:29:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 6) used.
+[2022-03-17,10:29:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 6) used.
+[2022-03-17,10:29:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 6) used.
+[2022-03-17,10:30:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 6) used.
+[2022-03-17,10:30:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 6) used.
+[2022-03-17,10:30:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 6) used.
+[2022-03-17,10:30:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 6) used.
+[2022-03-17,10:30:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model (2, 10, 6) got an error. Calculations not completed.
+[2022-03-17,10:30:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 7) used.
+[2022-03-17,10:30:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 6) used.
+[2022-03-17,10:30:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 6) used.
+[2022-03-17,10:30:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 6) used.
+[2022-03-17,10:30:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 6) used.
+[2022-03-17,10:30:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 7) used.
+[2022-03-17,10:30:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 6) used.
+[2022-03-17,10:30:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 6) used.
+[2022-03-17,10:30:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 7) used.
+[2022-03-17,10:31:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 6) used.
+[2022-03-17,10:31:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 6) used.
+[2022-03-17,10:31:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 6) used.
+[2022-03-17,10:31:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 6) used.
+[2022-03-17,10:31:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 7) used.
+[2022-03-17,10:31:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 7) used.
+[2022-03-17,10:31:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 7) used.
+[2022-03-17,10:31:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 6) used.
+[2022-03-17,10:31:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 6) used.
+[2022-03-17,10:31:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 7) used.
+[2022-03-17,10:31:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 7) used.
+[2022-03-17,10:31:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 7) used.
+[2022-03-17,10:32:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 7) used.
+[2022-03-17,10:32:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 7) used.
+[2022-03-17,10:32:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 7) used.
+[2022-03-17,10:32:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 6) used.
+[2022-03-17,10:32:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 7) used.
+[2022-03-17,10:32:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 6) used.
+[2022-03-17,10:32:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 7) used.
+[2022-03-17,10:32:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 6) used.
+[2022-03-17,10:32:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 7) used.
+[2022-03-17,10:32:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 6) used.
+[2022-03-17,10:32:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 6) used.
+[2022-03-17,10:32:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 7) used.
+[2022-03-17,10:32:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 7) used.
+[2022-03-17,10:32:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 7) used.
+[2022-03-17,10:33:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 7) used.
+[2022-03-17,10:33:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 7) used.
+[2022-03-17,10:33:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 7) used.
+[2022-03-17,10:33:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 7) used.
+[2022-03-17,10:33:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 6) used.
+[2022-03-17,10:33:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 7) used.
+[2022-03-17,10:33:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 7) used.
+[2022-03-17,10:33:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 7) used.
+[2022-03-17,10:33:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 7) used.
+[2022-03-17,10:33:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 7) used.
+[2022-03-17,10:33:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 7) used.
+[2022-03-17,10:33:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 7) used.
+[2022-03-17,10:33:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 7) used.
+[2022-03-17,10:34:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 7) used.
+[2022-03-17,10:34:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 7) used.
+[2022-03-17,10:34:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 7) used.
+[2022-03-17,10:34:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 7) used.
+[2022-03-17,10:34:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 7) used.
+[2022-03-17,10:34:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 7) used.
+[2022-03-17,10:34:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 7) used.
+[2022-03-17,10:34:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 7) used.
+[2022-03-17,10:34:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 6) used.
+[2022-03-17,10:35:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 7) used.
+[2022-03-17,10:35:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model (1, 6, 7) got an error. Calculations not completed.
+[2022-03-17,10:35:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 7) used.
+[2022-03-17,10:35:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 7) used.
+[2022-03-17,10:35:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 7) used.
+[2022-03-17,10:35:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 7) used.
+[2022-03-17,10:35:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 7) used.
+[2022-03-17,10:35:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 7) used.
+[2022-03-17,10:35:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model (1, 7, 7) got an error. Calculations not completed.
+[2022-03-17,10:36:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 7) used.
+[2022-03-17,10:36:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 7) used.
+[2022-03-17,10:36:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 7) used.
+[2022-03-17,10:36:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 7) used.
+[2022-03-17,10:36:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 7) used.
+[2022-03-17,10:36:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 7) used.
+[2022-03-17,10:36:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 7) used.
+[2022-03-17,10:36:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 7) used.
+[2022-03-17,10:36:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 7) used.
+[2022-03-17,10:36:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 7) used.
+[2022-03-17,10:37:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model (1, 8, 7) got an error. Calculations not completed.
+[2022-03-17,10:37:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 7) used.
+[2022-03-17,10:37:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 7) used.
+[2022-03-17,10:37:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 7) used.
+[2022-03-17,10:37:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 7) used.
+[2022-03-17,10:37:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 7) used.
+[2022-03-17,10:38:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 7) used.
+[2022-03-17,10:38:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 7) used.
+[2022-03-17,10:38:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 7) used.
+[2022-03-17,10:38:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 7) used.
+[2022-03-17,10:38:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 7) used.
+[2022-03-17,10:38:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 7) used.
+[2022-03-17,10:38:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model (5, 7, 7) got an error. Calculations not completed.
+[2022-03-17,10:38:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 7) used.
+[2022-03-17,10:38:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 7) used.
+[2022-03-17,10:39:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 7) used.
+[2022-03-17,10:39:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 7) used.
+[2022-03-17,10:39:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model (3, 7, 7) got an error. Calculations not completed.
+[2022-03-17,10:39:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 7) used.
+[2022-03-17,10:39:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 7) used.
+[2022-03-17,10:39:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 7) used.
+[2022-03-17,10:39:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model (3, 9, 7) got an error. Calculations not completed.
+[2022-03-17,10:39:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 7) used.
+[2022-03-17,10:39:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 7) used.
+[2022-03-17,10:40:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 7) used.
+[2022-03-17,10:40:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 7) used.
+[2022-03-17,10:40:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 7) used.
+[2022-03-17,10:40:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 7) used.
+[2022-03-17,10:40:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 8) used.
+[2022-03-17,10:40:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 7) used.
+[2022-03-17,10:40:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 7) used.
+[2022-03-17,10:40:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 8) used.
+[2022-03-17,10:40:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 7) used.
+[2022-03-17,10:40:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 8) used.
+[2022-03-17,10:40:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 7) used.
+[2022-03-17,10:40:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 8) used.
+[2022-03-17,10:40:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 8) used.
+[2022-03-17,10:41:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 7) used.
+[2022-03-17,10:41:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 8) used.
+[2022-03-17,10:41:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 8) used.
+[2022-03-17,10:41:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 8) used.
+[2022-03-17,10:41:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 8) used.
+[2022-03-17,10:41:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 8) used.
+[2022-03-17,10:41:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 7) used.
+[2022-03-17,10:41:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 7) used.
+[2022-03-17,10:41:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 8) used.
+[2022-03-17,10:41:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 7) used.
+[2022-03-17,10:41:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 8) used.
+[2022-03-17,10:41:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 8) used.
+[2022-03-17,10:41:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 7) used.
+[2022-03-17,10:42:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 7) used.
+[2022-03-17,10:42:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 8) used.
+[2022-03-17,10:42:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 7) used.
+[2022-03-17,10:42:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 7) used.
+[2022-03-17,10:42:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 8) used.
+[2022-03-17,10:42:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 8) used.
+[2022-03-17,10:42:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 8) used.
+[2022-03-17,10:42:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 8) used.
+[2022-03-17,10:42:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 8) used.
+[2022-03-17,10:43:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 8) used.
+[2022-03-17,10:43:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 8) used.
+[2022-03-17,10:43:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 8) used.
+[2022-03-17,10:43:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 8) used.
+[2022-03-17,10:43:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 7) used.
+[2022-03-17,10:43:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 8) used.
+[2022-03-17,10:43:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 8) used.
+[2022-03-17,10:43:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 8) used.
+[2022-03-17,10:43:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 8) used.
+[2022-03-17,10:43:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 8) used.
+[2022-03-17,10:43:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 8) used.
+[2022-03-17,10:43:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model (7, 3, 8) got an error. Calculations not completed.
+[2022-03-17,10:43:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 8) used.
+[2022-03-17,10:44:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 8) used.
+[2022-03-17,10:44:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 8) used.
+[2022-03-17,10:44:37] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 8) used.
+[2022-03-17,10:44:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 8) used.
+[2022-03-17,10:44:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 8) used.
+[2022-03-17,10:44:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 8) used.
+[2022-03-17,10:44:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 8) used.
+[2022-03-17,10:45:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 8) used.
+[2022-03-17,10:45:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 8) used.
+[2022-03-17,10:45:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 8) used.
+[2022-03-17,10:45:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 8) used.
+[2022-03-17,10:45:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 7) used.
+[2022-03-17,10:45:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 8) used.
+[2022-03-17,10:45:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 7) used.
+[2022-03-17,10:45:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 8) used.
+[2022-03-17,10:45:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 8) used.
+[2022-03-17,10:45:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 8) used.
+[2022-03-17,10:45:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 8) used.
+[2022-03-17,10:45:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 8) used.
+[2022-03-17,10:46:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 8) used.
+[2022-03-17,10:46:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 8) used.
+[2022-03-17,10:46:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 8) used.
+[2022-03-17,10:46:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 8) used.
+[2022-03-17,10:47:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 8) used.
+[2022-03-17,10:47:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 8) used.
+[2022-03-17,10:47:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 8) used.
+[2022-03-17,10:47:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 8) used.
+[2022-03-17,10:47:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 8) used.
+[2022-03-17,10:47:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 8) used.
+[2022-03-17,10:47:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 8) used.
+[2022-03-17,10:47:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 8) used.
+[2022-03-17,10:47:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 8) used.
+[2022-03-17,10:48:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 8) used.
+[2022-03-17,10:48:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 8) used.
+[2022-03-17,10:48:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 8) used.
+[2022-03-17,10:48:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 8) used.
+[2022-03-17,10:48:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 8) used.
+[2022-03-17,10:48:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 8) used.
+[2022-03-17,10:48:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 8) used.
+[2022-03-17,10:48:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 8) used.
+[2022-03-17,10:48:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 8) used.
+[2022-03-17,10:48:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 8) used.
+[2022-03-17,10:48:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model (1, 9, 8) got an error. Calculations not completed.
+[2022-03-17,10:49:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 8) used.
+[2022-03-17,10:49:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 8) used.
+[2022-03-17,10:49:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 8) used.
+[2022-03-17,10:49:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 8) used.
+[2022-03-17,10:49:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 8) used.
+[2022-03-17,10:50:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 8) used.
+[2022-03-17,10:50:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 8) used.
+[2022-03-17,10:50:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 8) used.
+[2022-03-17,10:50:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 8) used.
+[2022-03-17,10:50:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 8) used.
+[2022-03-17,10:50:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 9) used.
+[2022-03-17,10:50:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 8) used.
+[2022-03-17,10:50:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 8) used.
+[2022-03-17,10:50:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 8) used.
+[2022-03-17,10:50:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 8) used.
+[2022-03-17,10:51:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 8) used.
+[2022-03-17,10:51:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 8) used.
+[2022-03-17,10:51:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 8) used.
+[2022-03-17,10:51:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 9) used.
+[2022-03-17,10:51:25] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 9) used.
+[2022-03-17,10:51:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 9) used.
+[2022-03-17,10:51:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 8) used.
+[2022-03-17,10:51:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 8) used.
+[2022-03-17,10:51:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 8) used.
+[2022-03-17,10:51:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 9) used.
+[2022-03-17,10:51:58] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 9) used.
+[2022-03-17,10:52:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 8) used.
+[2022-03-17,10:52:09] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 9) used.
+[2022-03-17,10:52:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 9) used.
+[2022-03-17,10:52:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 9) used.
+[2022-03-17,10:52:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 9) used.
+[2022-03-17,10:52:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 9) used.
+[2022-03-17,10:52:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 9) used.
+[2022-03-17,10:52:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 8) used.
+[2022-03-17,10:52:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 9) used.
+[2022-03-17,10:52:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 9) used.
+[2022-03-17,10:53:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 9) used.
+[2022-03-17,10:53:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 9) used.
+[2022-03-17,10:53:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 8) used.
+[2022-03-17,10:53:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 8) used.
+[2022-03-17,10:53:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 9) used.
+[2022-03-17,10:53:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 9) used.
+[2022-03-17,10:53:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 9) used.
+[2022-03-17,10:53:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 8) used.
+[2022-03-17,10:53:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 9) used.
+[2022-03-17,10:53:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 9) used.
+[2022-03-17,10:53:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 8) used.
+[2022-03-17,10:54:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 9) used.
+[2022-03-17,10:54:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 8) used.
+[2022-03-17,10:54:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 9) used.
+[2022-03-17,10:54:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 9) used.
+[2022-03-17,10:54:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 8) used.
+[2022-03-17,10:54:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 9) used.
+[2022-03-17,10:54:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 9) used.
+[2022-03-17,10:55:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 9) used.
+[2022-03-17,10:55:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 9) used.
+[2022-03-17,10:55:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 9) used.
+[2022-03-17,10:55:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 9) used.
+[2022-03-17,10:55:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 9) used.
+[2022-03-17,10:55:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 9) used.
+[2022-03-17,10:55:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 9) used.
+[2022-03-17,10:55:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 9) used.
+[2022-03-17,10:55:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 9) used.
+[2022-03-17,10:55:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 9) used.
+[2022-03-17,10:55:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 9) used.
+[2022-03-17,10:56:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 9) used.
+[2022-03-17,10:56:04] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 9) used.
+[2022-03-17,10:56:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 9) used.
+[2022-03-17,10:56:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 9) used.
+[2022-03-17,10:56:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 9) used.
+[2022-03-17,10:56:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 9) used.
+[2022-03-17,10:56:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model (3, 6, 9) got an error. Calculations not completed.
+[2022-03-17,10:56:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 9) used.
+[2022-03-17,10:57:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 9) used.
+[2022-03-17,10:57:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 9) used.
+[2022-03-17,10:57:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 9) used.
+[2022-03-17,10:57:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 9) used.
+[2022-03-17,10:57:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 9) used.
+[2022-03-17,10:57:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model (1, 7, 9) got an error. Calculations not completed.
+[2022-03-17,10:57:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 9) used.
+[2022-03-17,10:58:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 9) used.
+[2022-03-17,10:58:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 9) used.
+[2022-03-17,10:58:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 9) used.
+[2022-03-17,10:58:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 9) used.
+[2022-03-17,10:58:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 9) used.
+[2022-03-17,10:58:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 9) used.
+[2022-03-17,10:58:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 9) used.
+[2022-03-17,10:58:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 9) used.
+[2022-03-17,10:58:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 9) used.
+[2022-03-17,10:58:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 9) used.
+[2022-03-17,10:58:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 9) used.
+[2022-03-17,10:59:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 9) used.
+[2022-03-17,10:59:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 9) used.
+[2022-03-17,10:59:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 9) used.
+[2022-03-17,11:00:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 9) used.
+[2022-03-17,11:00:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 9) used.
+[2022-03-17,11:00:12] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 9) used.
+[2022-03-17,11:00:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 9) used.
+[2022-03-17,11:00:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 9) used.
+[2022-03-17,11:00:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 9) used.
+[2022-03-17,11:00:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 9) used.
+[2022-03-17,11:00:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 9) used.
+[2022-03-17,11:00:53] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 9) used.
+[2022-03-17,11:01:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 8, 9) used.
+[2022-03-17,11:01:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 9) used.
+[2022-03-17,11:01:26] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 9) used.
+[2022-03-17,11:01:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 9) used.
+[2022-03-17,11:01:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 9) used.
+[2022-03-17,11:01:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 9) used.
+[2022-03-17,11:01:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 1, 10) used.
+[2022-03-17,11:02:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 9) used.
+[2022-03-17,11:02:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 9) used.
+[2022-03-17,11:02:34] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 9) used.
+[2022-03-17,11:02:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 1, 10) used.
+[2022-03-17,11:02:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 9) used.
+[2022-03-17,11:02:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 9) used.
+[2022-03-17,11:03:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 1, 10) used.
+[2022-03-17,11:03:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 1, 10) used.
+[2022-03-17,11:03:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 1, 10) used.
+[2022-03-17,11:03:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 9, 9) used.
+[2022-03-17,11:03:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 9) used.
+[2022-03-17,11:03:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 9) used.
+[2022-03-17,11:03:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 1, 10) used.
+[2022-03-17,11:04:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 1, 10) used.
+[2022-03-17,11:04:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 1, 10) used.
+[2022-03-17,11:04:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 9) used.
+[2022-03-17,11:04:39] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 2, 10) used.
+[2022-03-17,11:04:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 9) used.
+[2022-03-17,11:04:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 9) used.
+[2022-03-17,11:04:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 9) used.
+[2022-03-17,11:04:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 1, 10) used.
+[2022-03-17,11:04:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 9) used.
+[2022-03-17,11:05:02] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 9) used.
+[2022-03-17,11:05:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 9) used.
+[2022-03-17,11:05:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 2, 10) used.
+[2022-03-17,11:05:20] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 1, 10) used.
+[2022-03-17,11:05:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 2, 10) used.
+[2022-03-17,11:05:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 2, 10) used.
+[2022-03-17,11:05:27] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 2, 10) used.
+[2022-03-17,11:05:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 3, 10) used.
+[2022-03-17,11:05:40] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 9) used.
+[2022-03-17,11:05:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 9) used.
+[2022-03-17,11:06:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 2, 10) used.
+[2022-03-17,11:06:10] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 2, 10) used.
+[2022-03-17,11:06:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 3, 10) used.
+[2022-03-17,11:06:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 2, 10) used.
+[2022-03-17,11:06:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 9) used.
+[2022-03-17,11:06:44] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 3, 10) used.
+[2022-03-17,11:06:48] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 2, 10) used.
+[2022-03-17,11:06:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 3, 10) used.
+[2022-03-17,11:06:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 3, 10) used.
+[2022-03-17,11:06:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 9) used.
+[2022-03-17,11:06:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 2, 10) used.
+[2022-03-17,11:07:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 4, 10) used.
+[2022-03-17,11:07:30] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 3, 10) used.
+[2022-03-17,11:07:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 3, 10) used.
+[2022-03-17,11:07:33] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 3, 10) used.
+[2022-03-17,11:07:45] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 3, 10) used.
+[2022-03-17,11:07:47] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 3, 10) used.
+[2022-03-17,11:07:57] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 4, 10) used.
+[2022-03-17,11:08:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 4, 10) used.
+[2022-03-17,11:08:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 4, 10) used.
+[2022-03-17,11:08:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 4, 10) used.
+[2022-03-17,11:08:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 5, 10) used.
+[2022-03-17,11:08:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 4, 10) used.
+[2022-03-17,11:09:01] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 4, 10) used.
+[2022-03-17,11:09:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 5, 10) used.
+[2022-03-17,11:09:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 5, 10) used.
+[2022-03-17,11:09:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 4, 10) used.
+[2022-03-17,11:09:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 4, 10) used.
+[2022-03-17,11:09:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 5, 10) used.
+[2022-03-17,11:09:24] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 5, 10) used.
+[2022-03-17,11:09:29] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 6, 10) used.
+[2022-03-17,11:10:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 4, 10) used.
+[2022-03-17,11:10:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 5, 10) used.
+[2022-03-17,11:10:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 5, 10) used.
+[2022-03-17,11:10:03] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 5, 10) used.
+[2022-03-17,11:10:21] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 5, 10) used.
+[2022-03-17,11:10:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 5, 10) used.
+[2022-03-17,11:10:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 7, 10) used.
+[2022-03-17,11:11:43] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 6, 10) used.
+[2022-03-17,11:11:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 6, 10) used.
+[2022-03-17,11:12:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 6, 10) used.
+[2022-03-17,11:12:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 8, 10) used.
+[2022-03-17,11:12:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 6, 10) used.
+[2022-03-17,11:12:16] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 6, 10) used.
+[2022-03-17,11:12:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 6, 10) used.
+[2022-03-17,11:12:46] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 6, 10) used.
+[2022-03-17,11:12:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 7, 10) used.
+[2022-03-17,11:12:56] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 6, 10) used.
+[2022-03-17,11:13:05] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 7, 10) used.
+[2022-03-17,11:13:19] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 7, 10) used.
+[2022-03-17,11:13:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 7, 10) used.
+[2022-03-17,11:13:23] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 7, 10) used.
+[2022-03-17,11:13:28] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 7, 10) used.
+[2022-03-17,11:13:42] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 6, 10) used.
+[2022-03-17,11:13:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 7, 10) used.
+[2022-03-17,11:14:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model (4, 8, 10) got an error. Calculations not completed.
+[2022-03-17,11:14:13] INFO {arima_model} [_eval_arima] Tuning ARIMA model (3, 9, 10) got an error. Calculations not completed.
+[2022-03-17,11:14:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 9, 10) used.
+[2022-03-17,11:14:31] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 7, 10) used.
+[2022-03-17,11:14:36] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 7, 10) used.
+[2022-03-17,11:15:18] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 8, 10) used.
+[2022-03-17,11:15:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (1, 10, 10) used.
+[2022-03-17,11:16:08] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 8, 10) used.
+[2022-03-17,11:16:38] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 8, 10) used.
+[2022-03-17,11:16:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 8, 10) used.
+[2022-03-17,11:17:00] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 8, 10) used.
+[2022-03-17,11:17:14] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 8, 10) used.
+[2022-03-17,11:17:41] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 10, 10) used.
+[2022-03-17,11:17:50] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 9, 10) used.
+[2022-03-17,11:17:51] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 9, 10) used.
+[2022-03-17,11:17:54] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 8, 10) used.
+[2022-03-17,11:17:55] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 9, 10) used.
+[2022-03-17,11:17:59] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 8, 10) used.
+[2022-03-17,11:18:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 9, 10) used.
+[2022-03-17,11:18:07] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 9, 10) used.
+[2022-03-17,11:18:11] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 9, 10) used.
+[2022-03-17,11:18:17] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (2, 9, 10) used.
+[2022-03-17,11:18:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (4, 10, 10) used.
+[2022-03-17,11:18:32] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 10, 10) used.
+[2022-03-17,11:18:49] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (3, 10, 10) used.
+[2022-03-17,11:18:52] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (5, 9, 10) used.
+[2022-03-17,11:19:06] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (8, 10, 10) used.
+[2022-03-17,11:19:15] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (7, 10, 10) used.
+[2022-03-17,11:19:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (10, 10, 10) used.
+[2022-03-17,11:19:22] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (9, 10, 10) used.
+[2022-03-17,11:19:35] INFO {arima_model} [_eval_arima] Tuning ARIMA model. Parameters (6, 10, 10) used.
+[2022-03-17,11:19:36] INFO {experiment} [_train_model] Training model
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/statsmodels/tsa/statespace/sarimax.py:978: UserWarning: Non-invertible starting MA parameters found. Using zeros as starting parameters.
+  warn('Non-invertible starting MA parameters found.'
+/cluster/home/sjsivert/Masteroppgave/venv/lib/python3.8/site-packages/statsmodels/base/model.py:604: ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals
+  warnings.warn("Maximum Likelihood optimization failed to "
+[2022-03-17,11:19:43] INFO {arima_model} [train]                                SARIMAX Results                                
+==============================================================================
+Dep. Variable:               interest   No. Observations:                 1163
+Model:                 ARIMA(7, 2, 7)   Log Likelihood               -9061.722
+Date:                Thu, 17 Mar 2022   AIC                          18153.444
+Time:                        11:19:42   BIC                          18229.300
+Sample:                    12-02-2018   HQIC                         18182.065
+                         - 02-06-2022                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1         -0.8211      0.046    -17.958      0.000      -0.911      -0.731
+ar.L2         -0.9324      0.066    -14.125      0.000      -1.062      -0.803
+ar.L3         -0.6925      0.070     -9.840      0.000      -0.830      -0.555
+ar.L4         -0.3744      0.071     -5.303      0.000      -0.513      -0.236
+ar.L5         -0.3349      0.069     -4.877      0.000      -0.470      -0.200
+ar.L6          0.4371      0.065      6.759      0.000       0.310       0.564
+ar.L7          0.0246      0.028      0.871      0.384      -0.031       0.080
+ma.L1         -0.4840      0.043    -11.313      0.000      -0.568      -0.400
+ma.L2          0.0968      0.023      4.118      0.000       0.051       0.143
+ma.L3         -0.3098      0.037     -8.471      0.000      -0.382      -0.238
+ma.L4         -0.3397      0.034     -9.920      0.000      -0.407      -0.273
+ma.L5          0.0325      0.026      1.257      0.209      -0.018       0.083
+ma.L6         -0.7414      0.035    -21.383      0.000      -0.809      -0.673
+ma.L7          0.7475      0.044     17.124      0.000       0.662       0.833
+sigma2      3.604e+05   8427.534     42.759      0.000    3.44e+05    3.77e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   0.07   Jarque-Bera (JB):             15846.14
+Prob(Q):                              0.79   Prob(JB):                         0.00
+Heteroskedasticity (H):               2.66   Skew:                             1.82
+Prob(H) (two-sided):                  0.00   Kurtosis:                        20.73
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+[2022-03-17,11:19:43] INFO {arima_model} [train] Training metrics: {'Training_MASE': 0.993, 'Training_SMAPE': 0.234, 'Training_MSE': 349688.27573095064, 'Training_MAE': 292.294465086821}
+[2022-03-17,11:19:43] INFO {experiment} [_test_model] Testing model
+[2022-03-17,11:19:43] INFO {arima_model} [test] 
+Predictions ahead: 7
+Predicting from 1163 to 1169
+Testing metrics: {'Testing_MASE': 1.451, 'Testing_SMAPE': 0.35, 'Testing_MSE': 30898.889311730403, 'Testing_MAE': 160.79500585889258}
+[2022-03-17,11:19:43] INFO {experiment} [_save_model] Saving model
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:33] ERROR {async_operation_processor} [process_batch] Error occurred during asynchronous operation processing: Value of float attribute cannot be malformed.
+[2022-03-17,11:20:34] INFO {main} [main] Finished
+Shutting down background jobs, please wait a moment...
+Done!
+Waiting for the remaining 2 operations to synchronize with Neptune. Do not kill this process.
+All 2 operations synced, thanks for waiting!

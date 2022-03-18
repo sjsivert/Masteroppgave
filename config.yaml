@@ -56,7 +56,7 @@ model:
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 100 # Number of tuning trials to run. The more the better.
+      number_of_trials: 50 # Number of tuning trials to run. The more the better.
 
     common_parameters_for_all_models:
       # If int <= 1 then the testing set will be equal to output_window_size
@@ -78,24 +78,18 @@ model:
         number_of_layers: 3
 
   local_univariate_arima:
-    forecast_window_size: 14
+    forecast_window_size: 7
     steps_to_predict: 1000
     multi_step_forecast: true # alternative is recursive single step
     # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
-      p: [1, 2]
-      d: [1, 2]
-      q: [1, 2]
+      p: [1, 10]
+      d: [1, 10]
+      q: [1, 10]
 
     metric_to_use_when_tuning: 'MASE'
 
     model_structure:
-      - time_series_id: 11573
-        # 1
-        hyperparameters:
-          p: 7
-          d: 2
-          q: 7
       - time_series_id: 11037
         # 1
         hyperparameters:

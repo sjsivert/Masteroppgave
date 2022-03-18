@@ -40,7 +40,6 @@ def local_univariate_lstm_pipeline(
             (f"scale data between -1 and 1", market_processing.scale_data, {"should_scale": True}),
             (f"split up into training set ({training_size}) and test set ({1 - training_size})",
              market_processing.split_into_training_and_test_forecast_window,
-             # TODO: Make configurable
                 {"input_window_size": input_window_size, "forecast_window_size": output_window_size}),
             (f"split training set into train set with val window of {output_window_size}) ",
              market_processing.split_into_training_and_validation_forecast_window,
