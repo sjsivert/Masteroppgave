@@ -13,8 +13,8 @@ WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="lstm-tune-overfit-cat-6"
-export EXPERIMENT_DESCRIPTION="lstm-tune-overfit-cat-6"
+export EXPERIMENT_TITLE="lstm-overfit-cat-6"
+export EXPERIMENT_DESCRIPTION="lstm-overfit-cat-6"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
@@ -39,6 +39,6 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION} --tune
+python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION} 
 #python src/main.py -c --tune --neptune-id "MAS-311"
 
