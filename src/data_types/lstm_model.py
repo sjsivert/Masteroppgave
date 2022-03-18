@@ -48,7 +48,6 @@ class LstmModel(NeuralNetModel):
         params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
-        # TODO: Init data pipeline type (Use enum?)
         super(LstmModel, self).__init__(
             log_sources,
             time_series_id,

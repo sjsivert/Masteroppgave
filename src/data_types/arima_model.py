@@ -1,5 +1,6 @@
 import logging
 import math
+import multiprocessing as mp
 import sys
 import warnings
 from abc import ABC
@@ -17,8 +18,6 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
-import multiprocessing as mp
-
 
 # from pathos.multiprocessing import ProcessingPool as Pool
 
@@ -105,7 +104,7 @@ class ArimaModel(IModel, ABC):
 
         return metrics
 
-    def test(self, predictive_period: int = 5, single_step: bool = True) -> Dict:
+    def test(self, predictive_period: int = 5, single_step: bool = False) -> Dict:
         if self.training_data is None or self.test_data is None:
             raise ValueError(
                 "Model does not have test og training data. Please call process_data() first."
