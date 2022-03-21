@@ -9,6 +9,7 @@ from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from torch.utils.data import Dataset, DataLoader
 
+from src.datasets.global_time_series_dataset import GlobalTimeseriesDataset
 from src.datasets.time_series_dataset import TimeseriesDataset
 from src.utils.config_parser import config
 
@@ -144,11 +145,70 @@ def scale_data(
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
             scaled_df = scaler.fit_transform(df)
             yield scaled_df, scaler
         else:
             yield df, None
+
+@declare.processor()
+def global_pipeline_processor(
+        stream: Iterable[DataFrame],
+        cat_ids,
+        input_window_size: int,
+        output_window_size: int,
+) -> Iterable[DataFrame]:  # pragma: no cover
+    datasets = []
+    train_datasets = []
+    val_datasets = []
+    test_datasets = []
+    scalers = []
+    for df in stream:
+        for cat_id in cat_ids:
+            data_chosen_cat = df.loc[df["cat_id"] == cat_id][["interest", "date"]]
+            if (data_chosen_cat.empty):
+                raise ValueError(f"Dataframe is empty after filtering by cat_id {cat_id}")
+
+            data_chosen_cat_filled_dates = data_chosen_cat.groupby(pd.Grouper(key="date", freq="D")).sum()
+
+            dates = data_chosen_cat_filled_dates.index.tolist()
+
+            data = np.array(data_chosen_cat_filled_dates)
+
+
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
+
+            data_scaled = scaler.fit_transform(data)
+
+            test_data_split_index = len(data) - output_window_size - input_window_size
+            print("split index", test_data_split_index)
+            data_train = data_scaled[:test_data_split_index]
+            data_test = data_scaled[test_data_split_index:]
+
+            val_data_split_index = len(data_train) - output_window_size - input_window_size
+            print("val_data_split_index", val_data_split_index)
+            print("data_train", data_train.shape)
+            data_val = data_train[val_data_split_index:]
+            data_train = data_train[:val_data_split_index]
+
+            print("data_train shape: ", data_train.shape)
+            print("data_val shape: ", data_val.shape)
+            print("data_test shape: ", data_test.shape)
+
+            train_datasets.append(data_train)
+            val_datasets.append(data_val)
+            test_datasets.append(data_test)
+            scalers.append(scaler)
+
+            # return train_loader, val_loader
+        combined_train_dataset = GlobalTimeseriesDataset(time_series=train_datasets, seq_len=input_window_size,
+                                                         y_size=output_window_size)
+        combined_val_dataset = GlobalTimeseriesDataset(time_series=val_datasets, seq_len=input_window_size,
+                                                       y_size=output_window_size)
+        combined_test_dataset = GlobalTimeseriesDataset(time_series=test_datasets, seq_len=input_window_size,
+                                                        y_size=output_window_size)
+        yield combined_train_dataset, combined_val_dataset, combined_test_dataset, scalers
+
 
 @declare.processor()
 def split_into_training_and_test_forecast_window(
