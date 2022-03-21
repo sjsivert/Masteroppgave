@@ -28,6 +28,7 @@ from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
+from src.pipelines.global_univariate_lstm_pipeline import global_univariate_lstm_pipeline
 from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
@@ -153,6 +154,12 @@ class LstmModel(IModel, ABC):
             data_set=data_set,
             cat_id=self.get_name(),
             training_size=self.training_size,
+            input_window_size=self.input_window_size,
+            output_window_size=self.output_window_size,
+        )
+        data_pipeline = global_univariate_lstm_pipeline(
+            data_set=data_set,
+            cat_ids=[self.get_name()],
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )
