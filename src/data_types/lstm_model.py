@@ -74,38 +74,31 @@ class LstmModel(NeuralNetModel):
 
     def train(self, epochs: int = None, **xargs) -> Dict:
         # Visualization
-        training_targets = []
-        training_predictions = []
+
         self.trainer.fit(
             self.model,
             train_dataloaders=self.training_data_loader,
             val_dataloaders=self.validation_data_loader,
         )
-
-        # TODO: Visualize training set and training fit
-        for batch_idx, batch in enumerate(self.training_data_loader):
-            x, y = batch
-            y_hat = self.model.predict_step(x, batch_idx)
-            # TODO: Visualize multistep ahead properly!
-            input_size = self.hyper_parameters["input_window_size"]
-            # Skip every input size when visualising
-            y_hat_first_prediction_step = y_hat[::input_size, :, :].flatten()
-            y_first_prediction_step = y[::input_size, :, :].flatten()
-
-            training_targets.extend(y_first_prediction_step.tolist())
-            training_predictions.extend(y_hat_first_prediction_step.tolist())
+        training_targets, training_predictions = self.model.visualize_predictions(
+            self.training_dataset
+        )
 
         self.metrics["training_error"] = self.model.training_errors[-1]
         self.metrics["validation_error"] = self.model.validation_errors[-1]
-        self._visualize_training(training_targets, training_predictions)
-        self._visualize_validation(self.model.val_targets, self.model.val_predictions)
-        self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
+        self._visualize_predictions(training_targets, training_predictions, "Training predictions")
+        self._visualize_errors(
+            self.model.training_errors,
+            self.model.validation_errors,
+            ["Training errors", "Validation errors"],
+        )
         return self.metrics
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
         self.trainer.test(self.model, dataloaders=self.testing_data_loader)
         # Visualize predictions -> TODO: Add multi step visualization
-        self._visualize_test(self.model.test_targets, self.model.test_predictions)
+        test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
+        self._visualize_predictions(test_targets, test_predictions, "Test predictions")
         # Trainer get list of errors
         logging.info(f"Testing error: {self.model.test_losses_dict}.")
         self.metrics.update(self.model.test_losses_dict)

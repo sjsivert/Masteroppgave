@@ -236,55 +236,29 @@ class NeuralNetModel(IModel, ABC):
         """
         raise NotImplementedError()
 
-    def _visualize_training_errors(
-        self, training_error: List[float], validation_error: List[float]
+    def _visualize_errors(
+        self, errors: List[List[float]], labels: List[str] = ["Training error", "Validation error"]
     ) -> None:
         # Visualize training and validation loss
         self.figures.append(
             visualize_data_series(
                 title=f"{self.get_name()}# Training and Validation error",
-                data_series=[training_error, validation_error],
-                data_labels=["Training error", "Validation error"],
-                colors=["blue", "orange"],
+                data_series=[x for x in errors],
+                data_labels=labels,
+                colors=["blue", "orange", "red", "green"],
                 x_label="Epoch",
                 y_label="Error",
             )
         )
 
-    def _visualize_training(self, targets, predictions):
-        print("Type of targets", type(targets))
-        print("Type of targets", type(targets[0]))
+    def _visualize_predictions(self, targets, predictions, name: str):
         self.figures.append(
             visualize_data_series(
-                title=f"{self.get_name()}# Training set fit",
+                title=f"{self.get_name()}# {name}",
                 data_series=[targets, predictions],
-                data_labels=["Training targets", "Training predictions"],
+                data_labels=["Targets", "Predictions"],
                 colors=["blue", "orange"],
                 x_label="Time",
                 y_label="Interest",
-            )
-        )
-
-    def _visualize_validation(self, targets, predictions):
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Validation set fit",
-                data_series=[targets, predictions],
-                data_labels=["Validation targets", "Validation predictions"],
-                colors=["blue", "orange"],
-                x_label="Time",
-                y_label="Interest",
-            )
-        )
-
-    def _visualize_test(self, targets, predictions):
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Test set predictions",
-                data_series=[targets, predictions],
-                data_labels=["Test targets", "Test predictions"],
-                colors=["blue", "orange"],
-                x_label="Time",
-                y_label="Interest scaled",
             )
         )
