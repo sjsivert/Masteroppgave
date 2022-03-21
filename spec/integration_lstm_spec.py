@@ -71,7 +71,6 @@ with description("main Local Univariate LSTM integration test", "integration") a
             training_size=ANY,
             input_window_size=ANY,
             output_window_size=ANY,
-            batch_size=ANY,
 
         ).thenReturn(self.mocked_pipeline)
         when(self.mocked_pipeline).run().thenReturn((train_set, val_set, test_set, mock(MinMaxScaler)))
