@@ -2,10 +2,12 @@ import logging
 
 import pytorch_lightning as pl
 import torch
-from src.utils.pytorch_error_calculations import calculate_errors, calculate_error
+from src.utils.pytorch_error_calculations import (calculate_error,
+                                                  calculate_errors)
 from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
+from torch.utils.data import DataLoader
 
 
 class LSTMLightning(pl.LightningModule):
@@ -142,9 +144,6 @@ class LSTMLightning(pl.LightningModule):
         loss = self.metric(y, yhat)
         losses_dict = calculate_errors(y, yhat)
         self.test_losses.append(losses_dict)
-        self.test_targets.extend(y.flatten().tolist())
-        self.test_predictions.extend(yhat.flatten().tolist())
-
         self.log("test_loss", loss)
         return loss
 
@@ -160,3 +159,13 @@ class LSTMLightning(pl.LightningModule):
             test_loss.append(out.item())
         self.test_loss = sum(test_loss) / len(test_loss)
         self.log("Test_loss", self.test_loss)
+
+    def visualize_predictions(self, dataset: DataLoader):
+        targets = []
+        predictions = []
+        for batch_idx, batch in enumerate(self.training_data_loader):
+            x, y = batch
+            y_hat = self.predict_step(x, batch_idx)
+            targets.extend(y.reshape(y.size(0)).tolist())
+            predictions.extend(y_hat.reshape(y.size(0)).tolist())
+        return targets, predictions
