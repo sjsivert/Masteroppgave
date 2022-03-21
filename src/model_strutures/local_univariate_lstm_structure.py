@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 from pandas import DataFrame
 
 from src.data_types.i_model import IModel
+from src.data_types.lstm_global_model import LstmGlobalModel
 from src.data_types.lstm_model import LstmModel
 from src.model_strutures.i_model_structure import IModelStructure
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
@@ -37,16 +38,29 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         self.models: List[IModel] = []
 
     def init_models(self, load: bool = False):
+        # TODO: Rewrite this to handle global models with the config
         hyperparameters = self.common_parameters_for_all_models.copy()
+        is_global_model = True
+        if is_global_model:
+            models_ids = []
+            hyperparameters.update(self.model_structure[0])
+            for model_structure in self.model_structure:
+                models_ids.append(model_structure["time_series_id"])
 
-        for model_structure in self.model_structure:
-            hyperparameters.update(model_structure)
-            model = LstmModel(
-                log_sources=self.log_sources,
-                params=hyperparameters,
-                time_series_id=model_structure["time_series_id"],
+            model = LstmGlobalModel(
+                log_sources=self.log_sources, params=hyperparameters, time_series_ids=models_ids
             )
             self.models.append(model)
+
+        else:
+            for model_structure in self.model_structure:
+                hyperparameters.update(model_structure)
+                model = LstmModel(
+                    log_sources=self.log_sources,
+                    params=hyperparameters,
+                    time_series_id=model_structure["time_series_id"],
+                )
+                self.models.append(model)
 
     def process_data(self, data_pipeline: Pipeline) -> None:
         """
