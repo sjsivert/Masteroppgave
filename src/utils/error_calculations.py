@@ -6,11 +6,10 @@ from typing import Dict
 from xml.dom import NotFoundErr
 
 import numpy as np
+from packages.permetrics.permetrics.regression import Metrics
 from pandas import DataFrame
 from pipe import map, tee, where
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
-
-from packages.permetrics.permetrics.regression import Metrics
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
 
@@ -61,7 +60,8 @@ def calculate_mase(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
 
 def calculate_smape(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
     metric = Metrics(data_set.to_numpy(), proposed_data_set.to_numpy())
-    err = metric.SMAPECustom()
+    # err = metric.SMAPECustom()
+    err = metric.SMAPE()
     return float(err)
 
 
