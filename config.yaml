@@ -93,6 +93,6 @@ model:
       - time_series_id: 11037
         # 1
         hyperparameters:
-          p: 7
-          d: 2
-          q: 7
+          p: 10
+          d: 3
+          q: 4

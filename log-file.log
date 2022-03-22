@@ -1,16 +1,15 @@
 Logger initialized. Log level: INFO, log file: ./log-file.log
 Started
-Starting experiment: "lstm-overfit-cat-6": "lstm-overfit-cat-6"
+Starting experiment: "arima-predict-cat-11037-7-days": "arima-tune-cat-1103-7-days"
 Wiping and initializing checkpoint save location models/0_current_model_checkpoints
-Creating model save location models/lstm-overfit-cat-6
+Creating model save location models/arima-predict-cat-11037-7-days
 Creating new Neptune experiment
-Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-339
+Info (NVML): NVML Shared Library Not Found. GPU usage metrics may not be reported. For more information, see https://docs.neptune.ai/you-should-know/what-can-you-log-and-display#hardware-consumption
+Neptune run URL: https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/e/MAS-340
 Saving experiment details before executing experiment
 Running complete with parameters in specified in config. Experiment with saving set to True
-Choosing model structure: <src.model_strutures.local_univariate_lstm_structure.LocalUnivariateLstmStructure object at 0x154af5c14730>
-Running model on device: cuda
-Initializing LSTM with 3 layers, 10 hidden size, 0.03 learning rate, 0.113 dropout. Optimiser: Adam,  input window size: 10, output window size: 7
-Using pre-existing neptune run for PytorchLightning
+Choosing model structure: <Local_univariate_arim> models: []>
+
 data preprocessing steps: 
  ---- Start ----
 1- load market insight data and categories and merge them
@@ -22,29 +21,6 @@ data preprocessing steps:
 7- filter out data from early 2018-12-01
 8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
 ---- End ----
-        
-
-------------------
-Starting new timer at 21:56:57
-Data Pipeline for 6: ---- Start ----
-1- Convert input dataset to generator object
-2- filter out category 6)
-3- choose columns 'interest' and 'date'
-4- fill in dates with zero values
-5- convert to np.array
-6- scale data between -1 and 1
-7- split up into training set (7) and test set (-6)
-8- split training set into train set with val window of 7) 
-9- convert to timeseries dataset with input window size of 10, and output window size of 7
----- End ----
-        
-Converting dataset to dataloader using batch size 100.
-Ending timer at: 21:56:57 
-Elapsed CPU time: 0.4177821333333516s
-Used real time: 0:00:00
-------------------
-Training model
-Testing model
-Testing error: {'MASE': 1.128372073173523, 'SMAPE': 0.19366388022899628, 'MSE': 0.01556913647800684, 'MAE': 0.10415248572826385}.
+       
 Saving model
 Finished

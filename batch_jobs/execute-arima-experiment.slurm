@@ -1,8 +1,8 @@
 #!/bin/sh
 #SBATCH --partition=CPUQ     #CPU
 #SBATCH --account=ie-idi
-#SBATCH --time=02:00:00
-#SBATCH --nodes=2
+#SBATCH --time=00:10:00
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=24000
 #SBATCH --job-name="Run experiment"
@@ -12,8 +12,8 @@ WORKDIR=${SLURM_SUBMIT_DIR}
 OUTPUT_DIR=${SLURM_SUBMIT_DIR}/batch_jobs/output
 
 cd ${WORKDIR}
-export EXPERIMENT_TITLE="arima-tune-cat-6-7-days"
-export EXPERIMENT_DESCRIPTION="arima-tune-cat-6-7-days"
+export EXPERIMENT_TITLE="arima-predict-cat-11037-7-days"
+export EXPERIMENT_DESCRIPTION="arima-tune-cat-1103-7-days"
 
 echo "we are running from this directory: $SLURM_SUBMIT_DIR"
 echo " the name of the job is: $SLURM_JOB_NAME"
@@ -37,6 +37,6 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION} --tune
+python src/main.py -e ${EXPERIMENT_TITLE} ${EXPERIMENT_DESCRIPTION}
 #python src/main.py -c --tune --neptune-id "MAS-311"
 
