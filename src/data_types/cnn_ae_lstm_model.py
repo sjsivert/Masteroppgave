@@ -15,7 +15,7 @@ from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.utils.visuals import visualize_data_series
 
 
-class CNNAEModel(NeuralNetModel):
+class CNNAELSTMModel(NeuralNetModel):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
@@ -23,7 +23,7 @@ class CNNAEModel(NeuralNetModel):
         params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
-        super(CNNAEModel, self).__init__(
+        super(CNNAELSTMModel, self).__init__(
             log_sources,
             time_series_id,
             params,
@@ -65,16 +65,36 @@ class CNNAEModel(NeuralNetModel):
         training_targets, training_predictions = self.ae.visualize_predictions(
             self.training_data_loader
         )
-        validation_targets, validation_predictions = self.ae.visualize_predictions(
-            self.validation_data_loader
-        )
         self._visualize_predictions(
             training_targets, training_predictions, "Auto encoder training set"
+        )
+        validation_targets, validation_predictions = self.ae.visualize_predictions(
+            self.validation_data_loader
         )
         self._visualize_predictions(
             validation_targets, validation_predictions, "Auto encoder validation set"
         )
 
+        # Training the AE and LSTM model
+        self.trainer.fit(
+            self.model,
+            train_dataloader=self.training_data_loader,
+            val_dataloaders=self.validation_data_loader,
+        )
+        training_targets, training_predictions = self.model.visualize_predictions(
+            self.training_data_loader
+        )
+        self._visualize_predictions(
+            training_targets, training_predictions, "CNN-AE-LSTM training set"
+        )
+        validation_targets, validation_predictions = self.model.visualize_predictions(
+            self.validation_data_loader
+        )
+        self._visualize_predictions(
+            validation_targets, validation_predictions, "CNN-AE-LSTM validation set"
+        )
+
+        # TODO
         self.metrics["training_error"] = 0
         return self.metrics
 

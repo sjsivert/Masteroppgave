@@ -2,6 +2,7 @@ import logging
 import typing
 from typing import List, OrderedDict, Optional, Any, Tuple
 
+from src.data_types.cnn_ae_lstm_model import CNNAELSTMModel
 from src.data_types.cnn_ae_model import CNNAEModel
 from src.data_types.lstm_model import LstmModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
@@ -33,7 +34,7 @@ class LocalUnivariateCNNAELSTMStructure(NeuralNetworkModelStructure):
 
         for model_structure in self.model_structure:
             hyperparameters.update(model_structure)
-            model = CNNAEModel(
+            model = CNNAELSTMModel(
                 log_sources=self.log_sources,
                 params=hyperparameters,
                 time_series_id=model_structure["time_series_id"],

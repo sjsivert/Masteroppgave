@@ -38,9 +38,15 @@ class CNN_AE(pl.LightningModule):
         x_hat = x_hat.view(x_hat.shape[0], x_hat.shape[2], x_hat.shape[1])
         return x_hat
 
-    def training_step(self, train_batch: Tuple(Tensor), batch_idx: int):
-        x, y = train_batch
+    def training_step(self, batch: Tuple(Tensor), batch_idx: int):
+        x, y = batch
         x_hat = self.forward(x)
+        loss = self.criterion(x_hat, x)
+        return loss
+
+    def validation_step(self, batch: Tuple(Tensor), batch_idx: int):
+        x, y = batch
+        x_hat = self.predict_step(x, batch_idx)
         loss = self.criterion(x_hat, x)
         return loss
 
