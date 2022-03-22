@@ -40,14 +40,15 @@ class CNN_AE_LSTM(pl.LightningModule):
 
     def validation_step(self, val_batch: Tuple(Tensor), batch_idx: int):
         x, y = val_batch
-        y_hat = self.forward(x)
+        y_hat = self.predict_step(x, batch_idx)
         loss = self.criterion(y_hat, y)
+        self.log("validation_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
     def test_step(self, batch, batch_idx):
         # Auto encoder
         x, y = batch
-        y_hat = self.forward(x)
+        y_hat = self.predict_step(x, batch_idx)
         loss = self.criterion(y_hat, y)
         return loss
 
@@ -62,8 +63,7 @@ class CNN_AE_LSTM(pl.LightningModule):
     def validation_epoch_end(self, outputs):
         epoch_loss = []
         for out in outputs:
-            batch_loss = out["loss"]
-            epoch_loss.append(batch_loss)
+            epoch_loss.append(out)
         epoch_loss = sum(epoch_loss) / len(epoch_loss)
         self.validation_error.append(epoch_loss.detach().item())
 
