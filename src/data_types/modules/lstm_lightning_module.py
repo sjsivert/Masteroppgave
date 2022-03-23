@@ -94,6 +94,7 @@ class LSTMLightning(pl.LightningModule):
         optimizer = getattr(torch.optim, self.optimizer_name)(
             self.parameters(), lr=self.learning_rate
         )
+        logging.info(f"Using optimizer: {optimizer.__class__.__name__}")
         return optimizer
 
     def training_step(self, train_batch, batch_idx):
