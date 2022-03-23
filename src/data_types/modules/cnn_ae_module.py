@@ -23,7 +23,6 @@ class CNN_AE(pl.LightningModule):
         self.decoder = nn.Sequential(
             nn.ConvTranspose1d(16, 8, 5), nn.ReLU(True), nn.ConvTranspose1d(8, 1, 3)
         )
-
         self.criterion = nn.MSELoss()
 
     def configure_optimizers(self):
@@ -50,7 +49,13 @@ class CNN_AE(pl.LightningModule):
         loss = self.criterion(x_hat, x)
         return loss
 
-    def visualize_predictions(self, dataset: DataLoader):
+    def test_step(self, batch: Tuple(Tensor), batch_idx: int):
+        x, y = batch
+        x_hat = self.predict_step(x, batch_idx)
+        loss = self.criterion(x_hat, x)
+        return loss
+
+    def visualize_predictions(self, dataset: DataLoader, first: bool = True):
         """
         Return selected targets and predictions for visualization of current predictive ability
         """
@@ -60,8 +65,9 @@ class CNN_AE(pl.LightningModule):
         for batch_idx, batch in enumerate(dataset):
             x, y = batch
             x_hat = self.predict_step(x, batch_idx)
-            x_true = x[:, 0]
-            x_pred = x_hat[:, 0]
-            targets.extend(x_true.detach().numpy().flatten())
-            predictions.extend(x_pred.detach().numpy().flatten())
+            if first:
+                x = x[:, 0]
+                x_hat = x_hat[:, 0]
+            targets.extend(x.detach().numpy().flatten())
+            predictions.extend(x_hat.detach().numpy().flatten())
         return targets, predictions

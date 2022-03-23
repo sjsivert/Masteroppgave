@@ -46,7 +46,7 @@ class CNNAELSTMModel(NeuralNetModel):
         )
         self.trainer = pl.Trainer(
             enable_checkpointing=False,
-            max_epochs=50,
+            max_epochs=300,
             deterministic=True,
             logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
             auto_select_gpus=True if self.device == "cuda" else False,
@@ -62,14 +62,15 @@ class CNNAELSTMModel(NeuralNetModel):
             train_dataloader=self.training_data_loader,
             val_dataloaders=self.validation_data_loader,
         )
+        # Visualize Autoencoder results on test and validation data
         training_targets, training_predictions = self.ae.visualize_predictions(
-            self.training_data_loader
+            self.training_data_loader,
         )
         self._visualize_predictions(
             training_targets, training_predictions, "Auto encoder training set"
         )
         validation_targets, validation_predictions = self.ae.visualize_predictions(
-            self.validation_data_loader
+            self.validation_data_loader, first=False
         )
         self._visualize_predictions(
             validation_targets, validation_predictions, "Auto encoder validation set"
@@ -93,14 +94,24 @@ class CNNAELSTMModel(NeuralNetModel):
         self._visualize_predictions(
             validation_targets, validation_predictions, "CNN-AE-LSTM validation set"
         )
+        self._visualize_errors(self.model.training_error, self.model.validation_error)
 
-        # TODO
-        self.metrics["training_error"] = 0
+        self.metrics["training_error"] = self.model.training_error[-1]
+        self.metrics["validation_error"] = self.model.validation_error[-1]
         return self.metrics
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing CNN-AE model")
-        pass
+        # Test AE model
+        self.ae_trainer.test(self.ae, self.testing_data_loader)
+        test_targets, test_predictions = self.ae.visualize_predictions(self.testing_data_loader)
+        self._visualize_predictions(test_targets, test_predictions)
+        # Testing AE-LSTM model
+        self.trainer.test(self.model, self.testing_data_loader)
+        test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
+        self._visualize_predictions(test_targets, test_predictions)
+        self.metrics["test error"] = self.model.test_error
+        return self.metrics
 
     def method_evaluation(
         self,
@@ -108,7 +119,8 @@ class CNNAELSTMModel(NeuralNetModel):
         metric: str,
         singe_step: bool = True,
     ) -> Dict[str, Dict[str, str]]:
-        logging.info("Tuning CNN-AE model")
+        logging.info("Tuning CNN-AE and LSTM model")
+        # TODO!
         pass
 
     def get_model(self):
