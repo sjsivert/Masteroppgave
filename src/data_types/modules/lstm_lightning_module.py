@@ -2,7 +2,8 @@ import logging
 
 import pytorch_lightning as pl
 import torch
-from src.utils.pytorch_error_calculations import calculate_errors, calculate_error
+from src.utils.pytorch_error_calculations import (calculate_error,
+                                                  calculate_errors)
 from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
@@ -93,6 +94,7 @@ class LSTMLightning(pl.LightningModule):
         optimizer = getattr(torch.optim, self.optimizer_name)(
             self.parameters(), lr=self.learning_rate
         )
+        logging.info(f"Using optimizer: {optimizer.__class__.__name__}")
         return optimizer
 
     def training_step(self, train_batch, batch_idx):
