@@ -78,7 +78,6 @@ class CNN_AE_LSTM(pl.LightningModule):
         """
         Return selected targets and predictions for visualization of current predictive ability
         """
-        # Visualize autoencoder (Only first value)
         targets = []
         predictions = []
         for batch_idx, batch in enumerate(dataset):

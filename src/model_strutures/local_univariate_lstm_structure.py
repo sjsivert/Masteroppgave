@@ -17,6 +17,7 @@ class LocalUnivariateLstmStructure(NeuralNetworkModelStructure):
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         # steps_to_predict: int = 5,
         # multi_step_forecast: bool = False,
+        metric_to_use_when_tuning: str = "MASE",
     ):
         super().__init__(
             log_sources,
