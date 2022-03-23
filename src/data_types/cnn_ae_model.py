@@ -32,18 +32,7 @@ class CNNAEModel(NeuralNetModel):
         )
 
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
-        self.ae = CNN_AE()
-        self.lstm = LSTMLightning(**params)
-        self.model = CNN_AE_LSTM(autoencoder=self.ae, lstm=self.lstm)
-        self.ae_trainer = pl.Trainer(
-            enable_checkpointing=False,
-            max_epochs=50,
-            deterministic=True,
-            logger=self._get_neptune_run_from_save_sources() if logger is None else logger,
-            auto_select_gpus=True if self.device == "cuda" else False,
-            gpus=1 if torch.cuda.is_available() else 0,
-            **xargs,
-        )
+        self.model = CNN_AE()
         self.trainer = pl.Trainer(
             enable_checkpointing=False,
             max_epochs=50,
@@ -57,15 +46,15 @@ class CNNAEModel(NeuralNetModel):
     def train(self, epochs: int = None, **xargs) -> Dict:
         logging.info("Training")
         # Training the Auto encoder
-        self.ae_trainer.fit(
-            self.ae,
+        self.trainer.fit(
+            self.model,
             train_dataloader=self.training_data_loader,
             val_dataloaders=self.validation_data_loader,
         )
-        training_targets, training_predictions = self.ae.visualize_predictions(
+        training_targets, training_predictions = self.model.visualize_predictions(
             self.training_data_loader
         )
-        validation_targets, validation_predictions = self.ae.visualize_predictions(
+        validation_targets, validation_predictions = self.model.visualize_predictions(
             self.validation_data_loader
         )
         self._visualize_predictions(
@@ -74,13 +63,14 @@ class CNNAEModel(NeuralNetModel):
         self._visualize_predictions(
             validation_targets, validation_predictions, "Auto encoder validation set"
         )
-
-        self.metrics["training_error"] = 0
+        self.metrics["training_error"] = 0  # TODO
         return self.metrics
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing CNN-AE model")
-        pass
+        self.trainer.test(self.model, self.testing_data_loader)
+        test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
+        self._visualize_predictions(test_targets, test_predictions)
 
     def method_evaluation(
         self,
@@ -89,6 +79,7 @@ class CNNAEModel(NeuralNetModel):
         singe_step: bool = True,
     ) -> Dict[str, Dict[str, str]]:
         logging.info("Tuning CNN-AE model")
+        # TODO: Tune model
         pass
 
     def get_model(self):

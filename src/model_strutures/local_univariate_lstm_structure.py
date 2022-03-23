@@ -4,8 +4,7 @@ from typing import Any, List, Optional, OrderedDict, Tuple
 
 from genpipes.compose import Pipeline
 from src.data_types.lstm_model import LstmModel
-from src.model_strutures.neural_net_model_structure import \
-    NeuralNetworkModelStructure
+from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 

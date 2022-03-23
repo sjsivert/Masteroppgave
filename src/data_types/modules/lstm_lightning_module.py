@@ -2,8 +2,7 @@ import logging
 
 import pytorch_lightning as pl
 import torch
-from src.utils.pytorch_error_calculations import (calculate_error,
-                                                  calculate_errors)
+from src.utils.pytorch_error_calculations import calculate_error, calculate_errors
 from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
