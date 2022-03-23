@@ -160,11 +160,14 @@ class LSTMLightning(pl.LightningModule):
         self.log("Test_loss", self.test_loss)
 
     def visualize_predictions(self, dataset: DataLoader):
+        """
+        Return selected targets and predictions for visualization of current predictive ability
+        """
         targets = []
         predictions = []
-        for batch_idx, batch in enumerate(self.training_data_loader):
+        for batch_idx, batch in enumerate(dataset):
             x, y = batch
             y_hat = self.predict_step(x, batch_idx)
-            targets.extend(y.reshape(y.size(0)).tolist())
-            predictions.extend(y_hat.reshape(y.size(0)).tolist())
+            targets.extend(y.detach().numpy().flatten())
+            predictions.extend(y_hat.detach().numpy().flatten())
         return targets, predictions

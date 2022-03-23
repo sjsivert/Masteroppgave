@@ -81,7 +81,7 @@ class LstmModel(NeuralNetModel):
             val_dataloaders=self.validation_data_loader,
         )
         training_targets, training_predictions = self.model.visualize_predictions(
-            self.training_dataset
+            self.training_data_loader
         )
 
         self.metrics["training_error"] = self.model.training_errors[-1]
@@ -90,7 +90,6 @@ class LstmModel(NeuralNetModel):
         self._visualize_errors(
             self.model.training_errors,
             self.model.validation_errors,
-            ["Training errors", "Validation errors"],
         )
         return self.metrics
 
