@@ -42,12 +42,12 @@ model:
     placeholder: 0
   local_univariate_lstm:
     hyperparameter_tuning_range:
-      hidden_size: [ 10, 400 ]
-      number_of_layers: [ 1, 30 ]
+      hidden_size: [ 10, 15]
+      number_of_layers: [ 1, 5]
       dropout: [ 0.0, 0.5 ]
       #optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
-      optimizer_name: ['Adam']
-      learning_rate: [ 1e-6, 1e-1 ]
+      optimizer_name: ['Adam', 'Adadelta', 'LBFGS', 'RMSprop']
+      learning_rate: [ 1e-6, 1e-4 ]
       number_of_epochs: [5, 100]
       batch_size: [ 2, 360]
       input_window_size: 10
@@ -63,7 +63,7 @@ model:
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 100
-      number_of_epochs: 500
+      number_of_epochs: 50
       optimizer_name: 'Adam'
 
     model_structure:
