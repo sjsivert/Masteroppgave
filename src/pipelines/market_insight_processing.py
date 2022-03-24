@@ -266,6 +266,22 @@ def convert_to_pytorch_dataloader(
         )
         yield training_dataloader, validation_dataloader, testing_dataloader, scaler
 
+@declare.processor()
+def sliding_window_x_y_generator(
+        stream: Iterable[Tuple[ndarray, Optional[StandardScaler]]],
+        input_window_size: int,
+        output_window_size: int,
+) -> Iterable[Tuple[ndarray, ndarray, Optional[StandardScaler]]]:  # pragma: no cover
+    for data, scaler in stream:
+        X = []
+        Y = []
+        for i in range(0, len(data) - input_window_size - output_window_size):
+            x = data[i:i + input_window_size]
+            y = data[i + input_window_size:i + input_window_size + output_window_size]
+            X.append(x)
+            Y.append(y)
+        yield np.array(X), np.array(Y), scaler
+
 
 @declare.processor()
 def simple_time_series_processor(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:

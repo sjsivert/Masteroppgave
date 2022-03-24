@@ -68,3 +68,23 @@ with description("Market insight prosessing pipeline", "unit") as self:
                 ]
             )
             train_data, test_data, scaler = pipeline_scale_data.run()
+
+    with it("sliding window should work as predicted"):
+        input_window_size = 3
+        output_window_size = 2
+        test_pipeline = Pipeline(
+            steps=[("load random generated test data", random_data_loader, {}),
+                   ("fill inn dates", market_processing.fill_in_dates, {}),
+                   ("convert to np.array", market_processing.convert_to_np_array, {}),
+                   ("scale data", market_processing.scale_data, {}),
+                   ("sliding window", market_processing.sliding_window_x_y_generator,
+                    {"input_window_size": input_window_size, "output_window_size": output_window_size}),
+                   ]
+        )
+        X, Y, _ = test_pipeline.run()
+
+        expect(len(X)).to(equal(len(Y)))
+        expect(len(X[0])).to(equal(input_window_size))
+        expect(len(Y[0])).to(equal(output_window_size))
+        expect(np.array_equal(X[0][1], X[1][0])).to(be_true)
+        expect(np.array_equal(X[input_window_size][0], Y[0][0])).to(be_true)
