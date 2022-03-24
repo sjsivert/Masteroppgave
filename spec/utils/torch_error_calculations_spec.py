@@ -12,7 +12,7 @@ from spec.mock_config import init_mock_config
 from src.utils import config_parser
 from src.utils.pytorch_error_calculations import *
 
-with description("error_calculations", "this") as self:
+with description("error_calculations", "unit") as self:
     with before.each:
         init_mock_config()
         config["experiment"].set({"error_metrics": ["MSE", "MAE"]})
