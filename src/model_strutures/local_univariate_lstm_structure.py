@@ -23,11 +23,14 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
         log_sources: List[ILogTrainingSource],
         model_structure: List,
         common_parameters_for_all_models: OrderedDict[str, Any],
+        local_model: bool,
+        model_structure_global: List = [],
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         # steps_to_predict: int = 5,
         # multi_step_forecast: bool = False,
     ):
         super().__init__()
+        self.is_global_model = not local_model
         self.tuning_parameter_error_sets = None
         self.log_sources = log_sources
         self.common_parameters_for_all_models = common_parameters_for_all_models
@@ -40,8 +43,7 @@ class LocalUnivariateLstmStructure(IModelStructure, ABC):
     def init_models(self, load: bool = False):
         # TODO: Rewrite this to handle global models with the config
         hyperparameters = self.common_parameters_for_all_models.copy()
-        is_global_model = True
-        if is_global_model:
+        if self.is_global_model:
             models_ids = []
             hyperparameters.update(self.model_structure[0])
             for model_structure in self.model_structure:

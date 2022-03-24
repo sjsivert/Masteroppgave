@@ -147,21 +147,19 @@ class Experiment:
                 self.model_structure = LocalUnivariateArimaStructure(
                     self.save_sources, **model_options["local_univariate_arima"]
                 )
-            elif model_structure == ModelStructureEnum.local_univariate_lstm:
+            elif model_structure == ModelStructureEnum.univariate_lstm:
                 self.model_structure = LocalUnivariateLstmStructure(
-                    self.save_sources, **model_options["local_univariate_lstm"]
+                    self.save_sources, **model_options["univariate_lstm"]
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")
             self.model_structure.init_models()
             return self.model_structure
-
-        except Exception as e:
-            logging.error(
-                f"Not a valid ModelType error: {e} \n \
-                Valid ModelTypes are: {ModelStructureEnum.__members__}"
+        except KeyError:
+            raise KeyError(
+                f"{model_options['model_type']} is not a valid model structure. Valid options are "
+                f"{ModelStructureEnum.__members__}"
             )
-            raise e
 
     def _load_and_process_data(self, data_pipeline: Pipeline) -> DataFrame:
         return self.model_structure.process_data(data_pipeline)

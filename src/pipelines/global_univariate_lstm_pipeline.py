@@ -29,7 +29,7 @@ def global_univariate_lstm_pipeline(
     return Pipeline(
         steps=[
             ("Convert input dataset to generator object", dataframe_to_generator, {"df": data_set}),
-            ("split into multiple datasets from the columns", market_processing.global_pipeline_processor,
+            ("doing the rest of the pipeline", market_processing.global_pipeline_processor,
              {"cat_ids": cat_ids,
               "input_window_size": input_window_size,
               "output_window_size": output_window_size,

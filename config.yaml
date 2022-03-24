@@ -21,9 +21,9 @@ experiment:
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
     - 'MASE'
+    - 'MAE'
     - 'SMAPE'
     - 'MSE'
-    - 'MAE'
 
   save_source:
     disk:
@@ -37,12 +37,14 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_lstm'
+  #model_type: 'local_univariate_lstm'
+  model_type: 'univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
 
-  local_univariate_lstm:
+  univariate_lstm:
+    local_model: false # Bool for a local vs a global model
     hyperparameter_tuning_range:
       hidden_size: [ 10, 400 ]
       number_of_layers: [ 1, 30 ]
@@ -65,10 +67,21 @@ model:
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 100
-      number_of_epochs: 5
+      number_of_epochs: 4
       optimizer_name: 'Adam'
 
-    model_structure:
+    model_structure_global:
+      - name: model_1
+        learning_rate: 0.03
+        hidden_layer_size: 10
+        dropout: 0.113
+        number_of_features: 1
+        number_of_layers: 3
+        time_series_ids:
+          - 11573
+          - 11091
+
+    model_structure_local:
       - time_series_id: 11573
       #- time_series_id: 6
         learning_rate: 0.03
@@ -77,7 +90,7 @@ model:
         number_of_features: 1
         number_of_layers: 3
 
-      - time_series_id: 11091
+      - time_series_id: 11573
         #- time_series_id: 6
         learning_rate: 0.03
         hidden_layer_size: 10
