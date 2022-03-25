@@ -42,7 +42,7 @@ def init_mock_config(
                         "training_size": 0.8,
                         "input_window_size": 7,
                         "output_window_size": 1,
-                        "batch_size": 32,
+                        "batch_size": 2,
                         "optimizer_name": "SGD",
                         "number_of_epochs": 1,
                     },
