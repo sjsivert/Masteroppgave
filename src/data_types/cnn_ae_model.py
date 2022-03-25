@@ -69,8 +69,10 @@ class CNNAEModel(NeuralNetModel):
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing CNN-AE model")
         self.trainer.test(self.model, self.testing_data_loader)
-        test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
-        self._visualize_predictions(test_targets, test_predictions)
+        test_targets, test_predictions = self.model.visualize_predictions(
+            self.testing_data_loader, first=False
+        )
+        self._visualize_predictions(test_targets, test_predictions, "CNN-AE test predictions")
 
     def method_evaluation(
         self,

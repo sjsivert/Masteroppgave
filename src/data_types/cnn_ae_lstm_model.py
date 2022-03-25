@@ -105,11 +105,13 @@ class CNNAELSTMModel(NeuralNetModel):
         # Test AE model
         self.ae_trainer.test(self.ae, self.testing_data_loader)
         test_targets, test_predictions = self.ae.visualize_predictions(self.testing_data_loader)
-        self._visualize_predictions(test_targets, test_predictions)
+        self._visualize_predictions(test_targets, test_predictions, "Autoencoder test predictions")
         # Testing AE-LSTM model
         self.trainer.test(self.model, self.testing_data_loader)
         test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
-        self._visualize_predictions(test_targets, test_predictions)
+        self._visualize_predictions(
+            test_targets, test_predictions, "CNN-AE and LSTM test predictions"
+        )
         self.metrics["test error"] = self.model.test_error
         return self.metrics
 
