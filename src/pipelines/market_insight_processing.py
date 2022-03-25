@@ -280,6 +280,7 @@ def sliding_window_x_y_generator(
             y = data[i + input_window_size:i + input_window_size + output_window_size]
             X.append(x)
             Y.append(y)
+
         yield np.array(X), np.array(Y), scaler
 
 

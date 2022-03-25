@@ -13,26 +13,26 @@ class KerasOptimizer:
 
     @staticmethod
     def _opt_Adam(learning_rate: float):
-        return optimizers.adam_v2.Adam(lr=learning_rate)
+        return optimizers.adam_v2.Adam(learning_rate=learning_rate)
 
     @staticmethod
     def _opt_SGD(learning_rate: float):
-        return optimizers.adadelta_v2.Adadelta(lr=learning_rate)
+        return optimizers.adadelta_v2.Adadelta(learning_rate=learning_rate)
 
     @staticmethod
     def _opt_SGD(learning_rate: float):
-        return optimizers.gradient_descent_v2.SGD(lr=learning_rate)
+        return optimizers.gradient_descent_v2.SGD(learning_rate=learning_rate)
 
     @staticmethod
     def _opt_RMSprop(learning_rate: float):
-        return optimizers.rmsprop_v2.RMSprop(lr=learning_rate)
+        return optimizers.rmsprop_v2.RMSprop(learning_rate=learning_rate)
 
     @staticmethod
     def opt_Adamax(learning_rate: float):
-        return optimizers.adamax_v2.Adamax(lr=learning_rate)
+        return optimizers.adamax_v2.Adamax(learning_rate=learning_rate)
 
     @staticmethod
     def _opt_Adadelta(learning_rate: float):
-        return optimizers.adadelta_v2.Adadelta(lr=learning_rate)
+        return optimizers.adadelta_v2.Adadelta(learning_rate=learning_rate)
 
     # and so on for how many cases you would need
