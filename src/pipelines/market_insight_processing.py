@@ -144,7 +144,7 @@ def scale_data(
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
             scaled_df = scaler.fit_transform(df)
             yield scaled_df, scaler
         else:
@@ -161,6 +161,20 @@ def split_into_training_and_test_forecast_window(
         testing_set = df[test_data_split_index:]
 
         yield training_df, testing_set, scaler
+
+@declare.processor()
+def keras_split_into_training_and_test_set(
+        stream: Iterable[Tuple[Tuple[ndarray], Tuple[ndarray], Tuple[ndarray], Optional[StandardScaler]]],
+        test_window_size: int,
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (x, y, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        x_train = x[:-1]
+        y_train = y[:-1]
+        x_test = x[-1:]
+        y_test = y[-1:]
+
+        yield ((x_train, y_train),  (x_test, y_test), scaler)
 
 @declare.processor()
 def split_into_training_and_test_forecast_window_arima(

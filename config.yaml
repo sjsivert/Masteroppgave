@@ -63,7 +63,7 @@ model:
       input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 100
+      batch_size: 32
       number_of_epochs: 5
       optimizer_name: 'Adam'
 
