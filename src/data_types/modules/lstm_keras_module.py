@@ -30,7 +30,8 @@ class LstmKerasModule:
             true_if_layer_is_not_last = True if layer < number_of_layers - 1 else False
             self.model.add(
                 LSTM(
-                    batch_input_shape=(batch_size, input_window_size, number_of_features),
+                    # batch_input_shape=(batch_size, input_window_size, number_of_features),
+                    input_shape=(input_window_size, number_of_features),
                     units=hidden_layer_size,
                     return_sequences=true_if_layer_is_not_last,
                     dropout=dropout,
