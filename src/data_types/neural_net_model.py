@@ -51,13 +51,13 @@ class NeuralNetModel(IModel, ABC):
     ):
         # Init global variables
         self.model = None
-        self.trainer = None
         self.figures: List[Figure] = []
         self.metrics: Dict = {}
         self.log_sources: List[ILogTrainingSource] = log_sources
         self.name = time_series_id
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.batch_size = params["batch_size"]
+        # TODO: What is training size?
         self.training_size = params["training_size"]
         self.input_window_size = params["input_window_size"]
         self.output_window_size = params["output_window_size"]

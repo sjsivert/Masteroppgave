@@ -10,6 +10,7 @@ from src.model_strutures.local_univariate_arima_structure import LocalUnivariate
 from src.model_strutures.local_univariate_cnn_ae_lstm_structure import (
     LocalUnivariateCNNAELSTMStructure,
 )
+from src.model_strutures.local_univariate_cnn_ae_structure import LocalUnivariateCNNAEStructure
 from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -143,7 +144,6 @@ class Experiment:
 
     def _choose_model_structure(self, model_options: Dict) -> IModelStructure:
         try:
-            print("model options:", model_options["model_type"])
             model_structure = ModelStructureEnum[model_options["model_type"]]
             if model_structure == ModelStructureEnum.validation_model:
                 self.model_structure = ValidationModelStructure(self.save_sources)
@@ -155,9 +155,14 @@ class Experiment:
                 self.model_structure = LocalUnivariateLstmStructure(
                     self.save_sources, **model_options["local_univariate_lstm"]
                 )
+            elif model_structure == ModelStructureEnum.local_cnn_ae:
+                self.model_structure = LocalUnivariateCNNAEStructure(
+                    self.save_sources, **model_options["local_univariate_cnn_ae"]
+                )
+
             elif model_structure == ModelStructureEnum.local_cnn_ae_lstm:
                 self.model_structure = LocalUnivariateCNNAELSTMStructure(
-                    self.save_sources, **model_options["local_univariate_lstm"]
+                    self.save_sources, **model_options["local_univariate_cnn_ae_lstm"]
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")

@@ -1,7 +1,7 @@
 data:
-  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
-  #data_path: './datasets/raw/market_insights_overview_5p_full.csv'
-  categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
+  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
 
 logger:
   log_level: 'INFO'
@@ -12,7 +12,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+    #- 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -36,7 +36,7 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_cnn_ae_lstm'
+  model_type: 'local_cnn_ae'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -67,13 +67,73 @@ model:
       optimizer_name: 'Adam'
 
     model_structure:
-            #- time_series_id: 11573
-      - time_series_id: 6
+      - time_series_id: 11573
         learning_rate: 0.03
         hidden_layer_size: 10
         dropout: 0.113
         number_of_features: 1
         number_of_layers: 3
+
+  local_univariate_cnn_ae:
+    common_parameters_for_all_models:
+      training_size: 7
+      input_window_size: 10
+      output_window_size: 7
+      multi_variable_nr: 1
+      batch_size: 32
+      number_of_epochs: 50
+      optimizer_name: 'adam'
+      loss: "mse"
+
+    model_structure:
+      - time_series_id: 11573
+        learning_rate: 0.03
+        encoder:
+          - filters: 8
+            kernel_size: 3
+            activation: "relu"
+          - filters: 16
+            kernel_size: 5
+        decoder:
+          - filters: 8
+            kernel_size: 5
+            activation: "relu"
+          - filters: 1
+            kernel_size: 3
+
+  local_univariate_cnn_ae_lstm:
+    common_parameters_for_all_models:
+      training_size: 7
+      input_window_size: 10
+      output_window_size: 7
+      multi_variable_nr: 1
+      batch_size: 100
+      number_of_epochs: 50
+      optimizer_name: 'adam'
+      loss: "mse"
+
+    model_structure:
+      - time_series_id: 11573
+        learning_rate: 0.03
+        lstm:
+          learning_rate: 0.03
+          hidden_layer_size: 10
+          dropout: 0.113
+          number_of_features: 1
+          number_of_layers: 3
+        encoder:
+          - filters: 8
+            kernel_size: 3
+            activation: "relu"
+          - filters: 16
+            kernel_size: 5
+        decoder:
+          - filters: 8
+            kernel_size: 5
+            activation: "relu"
+          - filters: 1
+            kernel_size: 3
+
 
   local_univariate_arima:
     forecast_window_size: 7
