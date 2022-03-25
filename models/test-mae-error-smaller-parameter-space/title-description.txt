@@ -1,0 +1,2 @@
+test-mae-error-smaller-parameter-space
+Test MAE as error and a smaller parameters space

@@ -2,17 +2,18 @@ import logging
 import os.path
 from abc import ABC
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
 
 import neptune.new as neptune
 from matplotlib.figure import Figure
 from neptune.new.exceptions import FileUploadError
 from neptune.new.types import File
 from pandas import DataFrame
-
 from src.data_types.i_model import IModel
-from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.i_save_experiment_source import \
+    ISaveExperimentSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
 from src.utils.config_parser import config
 from src.utils.file_hasher import generate_file_hash
@@ -39,9 +40,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
 
         if not load_from_checkpoint:
             logging.info("Creating new Neptune experiment")
-            self.run = neptune.init(
-                project=project_id, name=title, mode=neptune_connection_mode, **xargs
-            )
+            self.run = neptune.init(project=project_id, name=title, mode=neptune_connection_mode, **xargs)
             self.run_url = self.run.get_run_url()
             self._write_neptune_id_to_checkpoint()
             self.run["sys/tags"].add(["Experiment"])
@@ -51,16 +50,15 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
             self.run["Experiment description"] = description
 
         elif load_from_checkpoint and neptune_id_to_load is not None:
-            logging.info(
-                f"Loaded preview Neptune Experiment run: {neptune_id_to_load } from checkpoint"
-            )
+            logging.info(f"Loaded preview Neptune Experiment run: {neptune_id_to_load } from checkpoint")
             self.run = neptune.init(
-                project=project_id, run=neptune_id_to_load, mode=neptune_connection_mode, **xargs
+                project=project_id,
+                run=neptune_id_to_load,
+                mode=neptune_connection_mode,
+                **xargs,
             )
         else:
-            raise AssertionError(
-                "Illegal state, NeptuneSaveSource did not create new run or load a previous run"
-            )
+            raise AssertionError("Illegal state, NeptuneSaveSource did not create new run or load a previous run")
 
         logging.info(f"Neptune run URL: {self.run.get_run_url()}")
 
@@ -103,9 +101,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         self._save_dataset_version(datasets)
         self._save_experiment_tags(experiment_tags)
 
-    def load_metadata(
-        self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str
-    ) -> (str, bool, bool):
+    def load_metadata(self, datasets: Dict[str, Dict[str, float]], data_pipeline_steps: str) -> (str, bool, bool):
         """
         :return: (str: Stored options, bool: Dataset version validation, bool: Pipeline step validation)
         """
@@ -183,9 +179,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
         """
         :return: (str: File Hash, str: File name)
         """
-        return self.run[f"datasets/{data_type_name}"].fetch(), str(
-            self.run[f"datasets/{data_type_name}_name"].fetch()
-        )
+        return self.run[f"datasets/{data_type_name}"].fetch(), str(self.run[f"datasets/{data_type_name}_name"].fetch())
 
     def _load_models(self, models: List[IModel]) -> None:
         # Load models from neptune to temp folder, before loading data to models
