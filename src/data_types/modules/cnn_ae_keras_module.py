@@ -15,7 +15,7 @@ def CNN_AE_Module(encoder_config: List[Dict] = None, decoder_config: List[Dict] 
             )
         )
     # Decoder layers
-    for e in encoder_config:
+    for e in decoder_config:
         model.add(
             Conv1DTranspose(
                 e["filters"],
