@@ -41,9 +41,9 @@ with description("error_calculations", "this") as self:
 
     with it("can caluclate SMAPE"):
         with included_context("mock_dataset"):
-            expected_smape = 0.3493
+            expected_smape = 0.356
             smape = calculate_smape(targets, predictions)
-            expect(round(smape.item(), 4)).to(equal(expected_smape))
+            expect(round(smape.item(), 3)).to(equal(expected_smape))
 
     with it("can calculate errors"):
         with included_context("mock_dataset"):
