@@ -77,7 +77,8 @@ class LstmKerasModel(NeuralNetModel, ABC):
 
         model.compile(optimizer=optim, loss="mse")
         logging.info(
-            f"Model compiled with optimizer {params['optimizer_name']}\n" f"{prettify_dict_string(params)}"
+            f"Model compiled with optimizer {params['optimizer_name']}\n"
+            f"{prettify_dict_string(params)}"
         )
         if return_model:
             return model

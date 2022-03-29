@@ -143,7 +143,8 @@ def scale_data(
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
         if (df.size == 0):
-            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration")
+            print("Empty dataframe",df)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
             scaler = MinMaxScaler(feature_range=(0.1, 1))
