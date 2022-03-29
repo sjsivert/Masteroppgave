@@ -11,16 +11,16 @@ from mockito import ANY, mock, when
 from mockito.mockito import unstub
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
-from torch.utils.data import DataLoader
-
 from src import main
 from src.datasets.time_series_dataset import TimeseriesDataset
 from src.pipelines import local_univariate_arima_pipeline as arima_pipeline
+from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.pipelines import market_insight_processing as market_processing
-from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config
+from torch.utils.data import DataLoader
 
 from spec.mock_config import init_mock_config
 from spec.test_logger import init_test_logging

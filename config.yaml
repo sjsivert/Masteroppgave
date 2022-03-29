@@ -65,6 +65,8 @@ model:
       multi_variable_nr: 1
       batch_size: 39
       number_of_epochs: 5
+      stateful_lstm: False
+      should_shuffle_batches: True
       optimizer_name: 'Adam'
 
     model_structure:

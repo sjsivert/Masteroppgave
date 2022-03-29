@@ -1,11 +1,10 @@
 import logging
 
+import tensorflow as tf
 from keras import Sequential
 from keras.layers import LSTM, Dense
 from numpy import ndarray
-
 from src.utils.keras_optimizer import KerasOptimizer
-import tensorflow as tf
 
 
 class LstmKerasModule:
@@ -18,6 +17,7 @@ class LstmKerasModule:
         number_of_features: int,
         hidden_layer_size: int,
         learning_rate: float,
+        stateful_lstm: bool,
         dropout: float = 0.0,
         recurrent_dropout=0.0,
         **kwargs,
@@ -41,7 +41,7 @@ class LstmKerasModule:
                     kernel_initializer="glorot_uniform",
                     recurrent_initializer="orthogonal",
                     bias_initializer="zeros",
-                    stateful=False,
+                    stateful=stateful_lstm,
                 )
             )
         self.model.add(

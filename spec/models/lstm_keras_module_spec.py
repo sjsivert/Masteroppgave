@@ -1,9 +1,8 @@
 import numpy as np
-from expects import expect, be_true, be, match, equal
+from expects import be, be_true, equal, expect, match
 from genpipes.compose import Pipeline
-from mamba import description, it, shared_context, included_context
+from mamba import description, included_context, it, shared_context
 from mockito import mock
-
 from spec.mock_config import init_mock_config
 from spec.utils.mock_time_series_generator import mock_time_series_generator
 from spec.utils.test_data import random_data_loader
@@ -28,6 +27,7 @@ with description(LstmKerasModule, "this") as self:
             recurrent_dropout=0.0,
             learning_rate=0.001,
             dropout=0.0,
+            stateful_lstm=False,
         ).model
 
     with it("should be instantiable"):
