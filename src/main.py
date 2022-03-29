@@ -26,6 +26,11 @@ from src.utils.lock_random_seed import seed_everything
     default=True,
     help="Boolean flag for saving the results or not. Overrides config.yaml.",
 )
+@click.option(
+    "--overwrite/--no-overwrite",
+    default=False,
+    help="Bool flag used in combination with --save. If True, will overwrite existing files.",
+)
 @click.option("--tune/--no-tune", default=False, help="Boolean flag for tuning the models or not.")
 @click.option(
     "--continue-experiment", "-c", is_flag=True, help="Continues the last experiment executed."
@@ -36,6 +41,7 @@ from src.utils.lock_random_seed import seed_everything
 def main(
     experiment: Tuple[str, str],
     save: bool,
+    overwrite: bool,
     tune: bool,
     continue_experiment: bool,
     tags: Tuple[str],
@@ -63,6 +69,7 @@ def main(
             else [],
             save_source_options=config["experiment"]["save_source"].get() if save else {},
             experiment_tags=experiment_tags,
+            overwrite_save_location=overwrite,
         )
 
         # TODO: Should options to save always be sendt with, both with save and no save?

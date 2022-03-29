@@ -3,16 +3,14 @@ from unittest.mock import Mock
 import matplotlib.pyplot as plt
 from expects import be_true, equal, expect
 from genpipes.compose import Pipeline
-from mamba import (after, before, description, included_context, it,
-                   shared_context)
+from mamba import after, before, description, included_context, it, shared_context
 from mockito import mock, unstub, verify, when
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
 from spec.mock_config import init_mock_config
 from spec.utils.mock_pipeline import create_mock_pipeline
 from src.data_types.lstm_model import LstmModel
-from src.model_strutures.local_univariate_lstm_structure import \
-    LocalUnivariateLstmStructure
+from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
 from src.pipelines import local_univariate_lstm_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.pipelines import market_insight_processing as p

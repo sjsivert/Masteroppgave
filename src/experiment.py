@@ -6,23 +6,28 @@ from pandas import DataFrame
 
 from src.data_types.model_type_enum import ModelStructureEnum
 from src.model_strutures.i_model_structure import IModelStructure
-from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
-from src.model_strutures.local_univariate_cnn_ae_lstm_structure import (
-    LocalUnivariateCNNAELSTMStructure,
-)
-from src.model_strutures.local_univariate_cnn_ae_structure import LocalUnivariateCNNAEStructure
-from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
-from src.model_strutures.validation_model_structure import ValidationModelStructure
+from src.model_strutures.local_univariate_arima_structure import \
+    LocalUnivariateArimaStructure
+from src.model_strutures.local_univariate_cnn_ae_lstm_structure import \
+    LocalUnivariateCNNAELSTMStructure
+from src.model_strutures.local_univariate_cnn_ae_structure import \
+    LocalUnivariateCNNAEStructure
+from src.model_strutures.local_univariate_lstm_structure import \
+    LocalUnivariateLstmStructure
+from src.model_strutures.validation_model_structure import \
+    ValidationModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
+from src.save_experiment_source.i_save_experiment_source import \
+    ISaveExperimentSource
 from src.save_experiment_source.local_checkpoint_save_source import (
-    LocalCheckpointSaveSource,
-    init_local_checkpoint_save_location,
-)
-from src.save_experiment_source.local_log_training_source import LocalLogTrainingSource
-from src.save_experiment_source.neptune_log_training_source import NeptuneLogTrainingSource
+    LocalCheckpointSaveSource, init_local_checkpoint_save_location)
+from src.save_experiment_source.local_log_training_source import \
+    LocalLogTrainingSource
+from src.save_experiment_source.neptune_log_training_source import \
+    NeptuneLogTrainingSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
-from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+from src.save_experiment_source.save_local_disk_source import \
+    SaveLocalDiskSource
 from src.utils.config_parser import config
 
 
@@ -40,14 +45,19 @@ class Experiment:
         save_source_options={},
         experiment_tags: Optional[List[str]] = [],
         load_from_checkpoint: bool = False,
+        overwrite_save_location: bool = False,
     ) -> None:
+
         self.model_structure: IModelStructure = None
         self.title = title
         self.description = description
         self.experiment_description = description
         self.experiment_tags = experiment_tags
         self.save_sources = self._init_save_sources(
-            save_sources_to_use, save_source_options, load_from_checkpoint
+            save_sources_to_use,
+            save_source_options,
+            load_from_checkpoint,
+            overwrite_save_location=overwrite_save_location,
         )
 
     def _init_save_sources(
@@ -56,6 +66,7 @@ class Experiment:
         save_source_options: Dict,
         load_from_checkpoint: bool,
         neptune_id_to_load: Optional[str] = None,
+        overwrite_save_location: bool = False,
     ) -> List[ILogTrainingSource]:
         sources = []
 
@@ -71,6 +82,7 @@ class Experiment:
                         title=self.title,
                         description=self.experiment_description,
                         load_from_checkpoint=load_from_checkpoint,
+                        overwrite_save_location=overwrite_save_location,
                     )
                 )
             elif source == "neptune":

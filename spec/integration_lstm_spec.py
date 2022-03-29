@@ -75,7 +75,6 @@ with description("main Local Univariate LSTM integration test", "integration") a
         ).thenReturn(self.mocked_pipeline)
         when(self.mocked_pipeline).run().thenReturn((train_set, val_set, test_set, mock(MinMaxScaler)))
 
-
     with after.each:
         unstub()
 
