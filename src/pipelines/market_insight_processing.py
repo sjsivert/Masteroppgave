@@ -1,5 +1,5 @@
 # fmt: off
-from typing import Iterable, List, Tuple, Optional, Union
+from typing import Iterable, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -7,10 +7,9 @@ from genpipes import declare
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from torch.utils.data import Dataset, DataLoader
-
 from src.datasets.time_series_dataset import TimeseriesDataset
 from src.utils.config_parser import config
+from torch.utils.data import DataLoader, Dataset
 
 
 @declare.processor()
