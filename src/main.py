@@ -9,10 +9,8 @@ import click
 from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
-from src.pipelines.simpe_time_series_pipeline import \
-    simple_time_series_pipeline
-from src.save_experiment_source.local_checkpoint_save_source import \
-    LocalCheckpointSaveSource
+from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils import logger
 from src.utils.config_parser import config
 from src.utils.extract_tags_from_config import extract_tags_from_config

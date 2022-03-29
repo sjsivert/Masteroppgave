@@ -1,18 +1,16 @@
 import logging
 import typing
 from collections import OrderedDict
-from typing import Tuple, Dict, List
+from typing import Dict, List, OrderedDict, Tuple
 
 import optuna
 from optuna.integration import PyTorchLightningPruningCallback, pytorch_lightning
-from torch.utils.data import DataLoader
-
-from typing import OrderedDict
-
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.prettify_dict_string import prettify_dict_string
 from src.utils.time_function import time_function
+from torch.utils.data import DataLoader
 
 
 def local_univariate_lstm_objective(

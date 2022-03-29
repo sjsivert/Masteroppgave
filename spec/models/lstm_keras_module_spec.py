@@ -39,7 +39,7 @@ with description(LstmKerasModule, "this") as self:
 
     with it("should be able to train"):
         with included_context("init_lstm"):
-            
+
             input_window_size = 1
             output_window_size = 1
             test_pipeline = mock_time_series_generator(
