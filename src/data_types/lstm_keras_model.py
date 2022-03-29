@@ -17,6 +17,7 @@ from src.save_experiment_source.local_checkpoint_save_source import \
     LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.keras_optimizer import KerasOptimizer
+from src.utils.prettify_dict_string import prettify_dict_string
 
 
 class LstmKerasModel(NeuralNetModel, ABC):
@@ -76,7 +77,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
 
         model.compile(optimizer=optim, loss="mse")
         logging.info(
-            f"Model compiled with optimizer {params['optimizer_name']}\n" f"{model.summary()}"
+            f"Model compiled with optimizer {params['optimizer_name']}\n" f"{prettify_dict_string(params)}"
         )
         if return_model:
             return model
@@ -88,7 +89,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
         examples_to_drop_to_make_all_batches_same_size = (
             self.training_data[0].shape[0] % self.batch_size
         )
-        print(
+        logging.info(
             f"Examples to drop to make all batches same size: {examples_to_drop_to_make_all_batches_same_size}"
         )
         x_train, y_train = (
