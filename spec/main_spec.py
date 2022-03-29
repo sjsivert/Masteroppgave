@@ -9,8 +9,7 @@ from src import main
 from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
 from src.pipelines import market_insight_preprocessing_pipeline as pipeline
-from src.save_experiment_source.local_checkpoint_save_source import \
-    LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.logger import init_logging
 
 from spec.mock_config import init_mock_config
@@ -89,5 +88,5 @@ with description("main.py", "unit") as self:
             save_sources_to_use=ANY,
             save_source_options=ANY,
             experiment_tags=["tag1", "tag2", "validation_model", "tag3", "tag4"],
-            overwrite_save_location=False
+            overwrite_save_location=False,
         )
