@@ -8,6 +8,7 @@ import optuna
 import tensorflow as tf
 from numpy import ndarray
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
+from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.data_types.neural_net_model import NeuralNetModel
 from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
     local_univariate_lstm_keras_objective
@@ -22,7 +23,7 @@ from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
 
 
-class LstmKerasModel(NeuralNetModel, ABC):
+class LstmKerasModel(NeuralNetKerasModel, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
@@ -60,20 +61,6 @@ class LstmKerasModel(NeuralNetModel, ABC):
         else:
             self.model = model
 
-    def process_data(self, data_set: Any, training_size: float) -> None:
-        data_pipeline = self.pipeline(
-            data_set=data_set,
-            cat_id=self.get_name(),
-            training_size=self.training_size,
-            input_window_size=self.input_window_size,
-            output_window_size=self.output_window_size,
-        )
-        logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
-        for log_source in self.log_sources:
-            log_source.log_pipeline_steps(data_pipeline.__repr__())
-
-        self.training_data, self.testing_data, self.min_max_scaler = data_pipeline.run()
-
     def train(self, epochs: int = None, **xargs) -> Dict:
         logging.info("Training")
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
@@ -107,19 +94,19 @@ class LstmKerasModel(NeuralNetModel, ABC):
             **xargs,
         )
         history = history.history
-        # Visualize
+
         if not is_tuning:
-            self._copy_trained_weights_to_model_with_different_batch_size()
-            training_predictions, training_targets = self.predict_and_rescale(x_train, y_train[:, 0, :])
-            validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val[:, 0, :])
+            training_predictions = self.predict(self.x_train)
+            validation_predictions = self.predict(self.x_val)
+            # Visualize
             self._visualize_predictions(
-                (training_targets.flatten()),
+                (self.y_train[:, 0].flatten()),
                 (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
             self._visualize_predictions(
-                validation_targets.flatten(),
-                validation_predictions[:, 0].flatten(),
+                self.y_val[:, 0, 0],
+                validation_predictions[:, 0],
                 "Validation predictions",
             )
             self._visualize_errors(
@@ -151,14 +138,13 @@ class LstmKerasModel(NeuralNetModel, ABC):
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
-        x_test, y_test = self.testing_data[0], self.testing_data[1]
-        results = self.prediction_model.evaluate(self._rescale_data(x_test[:, :, 0]), self._rescale_data(y_test[:, :, 0]), batch_size=1)
+        results = self.prediction_model.evaluate(self.x_test, self.y_test, batch_size=1)
 
         # Visualize
-        test_predictions, test_targets = self.predict_and_rescale(x_test, y_test[:, :, 0])
+        test_predictions = self.prediction_model.predict(self.x_test, batch_size=1)
         self._visualize_predictions(
-            test_targets.flatten(),
-            test_predictions.flatten(),
+            tf.reshape(self.y_test, (-1,)),
+            tf.reshape(test_predictions, (-1,)),
             "Test predictions",
         )
         self.metrics["test_error"] = results
