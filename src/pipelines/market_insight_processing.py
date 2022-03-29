@@ -142,6 +142,9 @@ def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
+        if (df.size == 0):
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration")
+
         if should_scale:
             scaler = MinMaxScaler(feature_range=(0.1, 1))
             scaled_df = scaler.fit_transform(df)
