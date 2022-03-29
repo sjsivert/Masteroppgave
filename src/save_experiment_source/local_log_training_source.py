@@ -7,10 +7,10 @@ from typing import Dict, List, Set, Tuple
 
 import pipe
 from pipe import map, tee, where
-
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.save_local_disk_source import SaveLocalDiskSource
+from src.save_experiment_source.save_local_disk_source import \
+    SaveLocalDiskSource
 
 
 class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
@@ -21,9 +21,10 @@ class LocalLogTrainingSource(SaveLocalDiskSource, ILogTrainingSource, ABC):
         description: str = "",
         options_dump: str = "",
         load_from_checkpoint: bool = False,
+        overwrite_save_location: bool = False,
     ):
         super().__init__(
-            model_save_location, title, description, options_dump, load_from_checkpoint
+            model_save_location, title, description, options_dump, load_from_checkpoint, overwrite_save_location
         )
         self.log_location = Path(f"{self.save_location}/logging/")
         self.epoch_counter = 0
