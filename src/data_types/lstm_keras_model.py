@@ -111,17 +111,19 @@ class LstmKerasModel(NeuralNetModel, ABC):
         )
         self._copy_trained_weights_to_model_with_different_batch_size()
         history = history.history
-        training_predictions = self.predict(x_train)
-        validation_predictions = self.predict(x_val)
+        training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
+        validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val)
+        print("training targets", training_targets.shape)
+        print("training predictions", training_predictions.shape)
         # Visualize
         self._visualize_predictions(
-            (y_train[:, 0].flatten()),
+            (training_targets.flatten()),
             (training_predictions[:, 0].flatten()),
             "Training predictions",
         )
         self._visualize_predictions(
-            y_val[:, 0, 0],
-            validation_predictions[:, 0],
+            validation_targets.flatten(),
+            validation_predictions[:, 0].flatten(),
             "Validation predictions",
         )
         self._visualize_errors(
@@ -140,9 +142,16 @@ class LstmKerasModel(NeuralNetModel, ABC):
         prediction_model.set_weights(trained_weights)
         self.prediction_model = prediction_model
 
-    def predict(self, input_data: ndarray, model: keras.Model = None) -> ndarray:
+    def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
         logging.info("Predicting")
-        return self.prediction_model.predict(input_data, batch_size=1)
+        predictions = self.prediction_model.predict(input_data, batch_size=1)
+        predictions_rescaled = self._rescale_data(predictions)
+        targets_rescaled = self._rescale_data(targets[:, 0, :])
+
+        return predictions_rescaled, targets_rescaled
+
+    def _rescale_data(self, data: ndarray) -> ndarray:
+        return self.min_max_scaler.inverse_transform(data)
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
