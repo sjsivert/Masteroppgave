@@ -1,8 +1,11 @@
+from unittest.mock import ANY
+
 import numpy as np
 from expects import be, be_true, equal, expect, match
 from genpipes.compose import Pipeline
 from mamba import description, included_context, it, shared_context
-from mockito import mock
+from mockito import mock, when
+from sklearn.preprocessing import MinMaxScaler
 from spec.mock_config import init_mock_config
 from spec.utils.mock_time_series_generator import mock_time_series_generator
 from spec.utils.test_data import random_data_loader
@@ -36,6 +39,7 @@ with description(LstmKerasModule, "this") as self:
 
     with it("should be able to train"):
         with included_context("init_lstm"):
+            
             input_window_size = 1
             output_window_size = 1
             test_pipeline = mock_time_series_generator(
@@ -68,6 +72,10 @@ with description(LstmKerasModule, "this") as self:
             time_series_id=str(time_series_id),
             params=common_params,
         )
+        min_max_scaler = mock(MinMaxScaler)
+        when(min_max_scaler, strict=False).inverse_transform(ANY).thenReturn(np.array([[1]]))
+        model.min_max_scaler = min_max_scaler
+
     with it("should initialize LstmKerasModuel"):
         with included_context("init_lstm_model"):
             pass
