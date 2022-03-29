@@ -7,15 +7,17 @@ import numpy as np
 import optuna
 import tensorflow as tf
 from numpy import ndarray
+from optkeras.optkeras import OptKeras
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_model import NeuralNetModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
-    local_univariate_lstm_keras_objective,
-)
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
+    local_univariate_lstm_keras_objective
+from src.pipelines import \
+    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
@@ -38,23 +40,26 @@ class LstmKerasModel(NeuralNetModel, ABC):
         )
         self.should_shuffle_batches = params["should_shuffle_batches"]
 
-        # Encoder contains a list of dicts or lists. Each with layer type, activation function if any, given a conv, number of filters and filter size
-        # Encoder config
-        # Placeholder data
-        """
-        self.training_data = tf.random.uniform(
-            shape=(100, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=14
+    def init_neural_network(
+        self, params: dict, logger=None, return_model: bool = False, **xargs
+    ) -> Union[keras.Sequential, None]:
+        # When tuning, update model parameters with the ones from the trial
+        self.hyper_parameters = params
+
+        model = LstmKerasModule(**params).model
+        optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
+
+        model.compile(optimizer=optim, loss="mse")
+        logging.info(
+            f"Model compiled with optimizer {params['optimizer_name']}\n"
+            f"{prettify_dict_string(params)} \
+            \n{model.summary()}"
         )
-        self.training_labels = None
-        self.validation_data = tf.random.uniform(
-            shape=(1, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=15
-        )
-        self.validation_lavels = None
-        self.testing_data = tf.random.uniform(
-            shape=(1, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=16
-        )
-        self.test_labels = None
-        """
+
+        if return_model:
+            return model
+        else:
+            self.model = model
 
     def process_data(self, data_set: Any, training_size: float) -> None:
         data_pipeline = self.pipeline(
@@ -70,24 +75,9 @@ class LstmKerasModel(NeuralNetModel, ABC):
 
         self.training_data, self.testing_data, self.min_max_scaler = data_pipeline.run()
 
-    def init_neural_network(
-        self, params: dict, logger=None, return_model: bool = False, **xargs
-    ) -> Union[keras.Sequential, None]:
-        model = LstmKerasModule(**params).model
-        optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
-
-        model.compile(optimizer=optim, loss="mse")
-        logging.info(
-            f"Model compiled with optimizer {params['optimizer_name']}\n"
-            f"{prettify_dict_string(params)}"
-        )
-        if return_model:
-            return model
-        else:
-            self.model = model
-
     def train(self, epochs: int = None, **xargs) -> Dict:
         logging.info("Training")
+        is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
         examples_to_drop_to_make_all_batches_same_size = (
             self.training_data[0].shape[0] % self.batch_size
         )
@@ -98,6 +88,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
             self.training_data[0][:-examples_to_drop_to_make_all_batches_same_size],
             self.training_data[1][:-examples_to_drop_to_make_all_batches_same_size],
         )
+        # Make validation set equal to one batch size
         x_val, y_val = (
             x_train[-self.batch_size :],
             y_train[-self.batch_size :],
@@ -105,31 +96,31 @@ class LstmKerasModel(NeuralNetModel, ABC):
         history = self.model.fit(
             x=x_train,
             y=y_train,
-            epochs=self.number_of_epochs,
+            epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(x_val, y_val),
+            **xargs,
         )
-        self._copy_trained_weights_to_model_with_different_batch_size()
         history = history.history
-        training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
-        validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val)
-        print("training targets", training_targets.shape)
-        print("training predictions", training_predictions.shape)
         # Visualize
-        self._visualize_predictions(
-            (training_targets.flatten()),
-            (training_predictions[:, 0].flatten()),
-            "Training predictions",
-        )
-        self._visualize_predictions(
-            validation_targets.flatten(),
-            validation_predictions[:, 0].flatten(),
-            "Validation predictions",
-        )
-        self._visualize_errors(
-            [history["loss"], history["val_loss"]], ["Training_errors", "Validation_errors"]
-        )
+        if not is_tuning:
+            self._copy_trained_weights_to_model_with_different_batch_size()
+            training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
+            validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val)
+            self._visualize_predictions(
+                (training_targets.flatten()),
+                (training_predictions[:, 0].flatten()),
+                "Training predictions",
+            )
+            self._visualize_predictions(
+                validation_targets.flatten(),
+                validation_predictions[:, 0].flatten(),
+                "Validation predictions",
+            )
+            self._visualize_errors(
+                [history["loss"], history["val_loss"]], ["Training_errors", "Validation_errors"]
+            )
 
         self.metrics["training_error"] = history["loss"][-1]
         self.metrics["validation_error"] = history["val_loss"][-1]
@@ -175,18 +166,17 @@ class LstmKerasModel(NeuralNetModel, ABC):
         metric: str,
         singe_step: bool = True,
     ) -> Dict[str, Dict[str, str]]:
-        """
         logging.info("Tuning model")
         title, _ = LocalCheckpointSaveSource.load_title_and_description()
         study_name = f"{title}_{self.get_name()}"
+
         study = optuna.create_study(
             study_name=study_name,
             direction="minimize",
             sampler=optuna.samplers.TPESampler(),
             pruner=optuna.pruners.MedianPruner(),
-            storage=
             # TODO: IModel should not rely on the config. Fix this
-            f"sqlite:///{config['experiment']['save_source']['disk']['model_save_location'].get()}/optuna-tuning.db"
+            storage=f"sqlite:///{config['experiment']['save_source']['disk']['model_save_location'].get()}/optuna-tuning.db"
             if len(self.log_sources) > 0
             else None,
             load_if_exists=True,
@@ -195,17 +185,17 @@ class LstmKerasModel(NeuralNetModel, ABC):
             f"Loading or creating optuna study with name: {study_name}\n"
             f"Number of previous Trials with this name are #{len(study.trials)}"
         )
-        parameter_space = parameters
         study.optimize(
-            lambda trial: local_univariate_lstm_objective(
+            lambda trial: local_univariate_lstm_keras_objective(
                 trial=trial,
-                hyperparameter_tuning_range=parameter_space,
+                hyperparameter_tuning_range=parameters,
                 model=self,
             ),
+            timeout=parameters["time_to_tune_in_minutes"] * 60,
             # TODO: Fix pytorch network to handle concurrency
             # n_jobs=8,  # Use maximum number of cores
-            n_trials=parameter_space["number_of_trials"],
-            show_progress_bar=False,
+            # n_trials=parameters["number_of_trials"],
+            # show_progress_bar=False,
             callbacks=[self.log_trial],
         )
         id = f"{self.get_name()},{study.best_trial.number}"
@@ -222,9 +212,6 @@ class LstmKerasModel(NeuralNetModel, ABC):
         self._generate_optuna_plots(study)
 
         return {id: {"best_score": best_score, "best_params": best_params}}
-        # TODO: Tune model
-        pass
-        """
 
     def get_model(self):
         return self.model

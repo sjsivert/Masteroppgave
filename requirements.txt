@@ -159,3 +159,4 @@ kaleido==0.2.1
 keras==2.8.0
 tensorflow==2.8.0
 tensorflow-io-gcs-filesystem==0.24.0
+optkeras==0.0.7
