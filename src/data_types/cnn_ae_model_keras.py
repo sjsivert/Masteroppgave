@@ -2,6 +2,8 @@ import logging
 from abc import ABC
 from typing import List, Dict, Optional, Any
 
+from src.data_types.neural_net_keras_model import NeuralNetKerasModel
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.data_types.modules.cnn_ae_keras_module import CNN_AE_Module
 from src.data_types.neural_net_model import NeuralNetModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -13,40 +15,7 @@ from src.utils.visuals import visualize_data_series
 import tensorflow as tf
 
 
-class CNNAEModel(NeuralNetModel):
-    def __init__(
-        self,
-        log_sources: List[ILogTrainingSource],
-        time_series_id: str,
-        params: Dict,
-        optuna_trial: Optional[optuna.trial.Trial] = None,
-    ):
-        super(CNNAEModel, self).__init__(
-            log_sources,
-            time_series_id,
-            params,
-            optuna_trial,
-            pipeline=lstm_pipeline.local_univariate_lstm_pipeline,
-        )
-        # Placeholder data
-        self.training_data = None
-        self.training_labels = None
-        self.validation_data = None
-        self.validation_labels = None
-        self.test_data = None
-        self.test_labels = None
-
-    def process_data(self, data_set: Any, training_size: float) -> None:
-        self.training_data = tf.random.uniform(
-            shape=(100, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=14
-        )
-        self.validation_data = tf.random.uniform(
-            shape=(1, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=15
-        )
-        self.test_data = tf.random.uniform(
-            shape=(1, 7, 1), minval=0, maxval=1, dtype=tf.dtypes.float32, seed=16
-        )
-
+class CNNAEModel(NeuralNetKerasModel, ABC):
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         self.model = CNN_AE_Module(params["encoder"], params["decoder"])
         self.model.compile(optimizer=params["optimizer_name"], loss=params["loss"])
@@ -55,24 +24,24 @@ class CNNAEModel(NeuralNetModel):
         logging.info("Training")
         # Training the Auto encoder
         history = self.model.fit(
-            x=self.training_data,
-            y=self.training_data,
+            x=self.x_train,
+            y=self.x_train,
             epochs=self.number_of_epochs,
             batch_size=self.batch_size,
             shuffle=True,
-            validation_data=(self.validation_data, self.validation_data),
+            validation_data=(self.x_val, self.x_val),
         )
         history = history.history
-        training_predictions = self.model.predict(self.training_data)
-        validation_predictions = self.model.predict(self.validation_data)
+        training_predictions = self.model.predict(self.x_train)
+        validation_predictions = self.model.predict(self.x_val)
         # Visualize
         self._visualize_predictions(
-            tf.reshape(self.training_data, (-1,)),
+            tf.reshape(self.x_train, (-1,)),
             tf.reshape(training_predictions, (-1,)),
             "Training predictions",
         )
         self._visualize_predictions(
-            tf.reshape(self.validation_data, (-1,)),
+            tf.reshape(self.x_val, (-1,)),
             tf.reshape(validation_predictions, (-1,)),
             "Validation predictions",
         )
@@ -83,11 +52,11 @@ class CNNAEModel(NeuralNetModel):
         return self.metrics
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
-        results = self.model.evaluate(self.test_data, self.test_data, batch_size=32)
+        results = self.model.evaluate(self.x_test, self.x_test, batch_size=32)
         # Visualize
-        test_predictions = self.model.predict(self.test_data)
+        test_predictions = self.model.predict(self.x_test)
         self._visualize_predictions(
-            tf.reshape(self.test_data, (-1,)),
+            tf.reshape(self.x_test, (-1,)),
             tf.reshape(test_predictions, (-1,)),
             "Test predictions",
         )
