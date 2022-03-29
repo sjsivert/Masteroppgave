@@ -1,20 +1,20 @@
 import logging
 from abc import ABC
-from typing import List, Dict, Optional, Any, Union
+from typing import Any, Dict, List, Optional, Union
 
 import keras
 import numpy as np
 import optuna
+import tensorflow as tf
 from numpy import ndarray
-
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_model import NeuralNetModel
-from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-
-import tensorflow as tf
+from src.pipelines import \
+    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.keras_optimizer import KerasOptimizer
 
@@ -34,6 +34,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
             optuna_trial,
             pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
         )
+        self.should_shuffle_batches = params["should_shuffle_batches"]
 
         # Encoder contains a list of dicts or lists. Each with layer type, activation function if any, given a conv, number of filters and filter size
         # Encoder config
@@ -103,7 +104,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
             y=y_train,
             epochs=self.number_of_epochs,
             batch_size=self.batch_size,
-            shuffle=True,
+            shuffle=self.should_shuffle_batches,
             validation_data=(x_val, y_val),
         )
         self._copy_trained_weights_to_model_with_different_batch_size()
