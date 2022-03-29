@@ -4,10 +4,12 @@ from keras import optimizers
 class KerasOptimizer:
     @staticmethod
     def get(optimizer_name: str, learning_rate: float):
+        print("optimizer_name: ", optimizer_name)
+        print("learning_rate: ", learning_rate)
         """Dispatch method"""
         method_name = "_opt_" + str(optimizer_name)
         # Get the method from 'self'. Default to a lambda.
-        method = getattr(KerasOptimizer, method_name, lambda: "Invalid optimizier")
+        method = getattr(KerasOptimizer, method_name, lambda x: f"Invalid optimizier: {x}")
         # Call the method as we return it
         return method(learning_rate)
 

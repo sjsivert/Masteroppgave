@@ -3,8 +3,14 @@ import typing
 from collections import OrderedDict
 from typing import Dict, List, OrderedDict, Tuple
 
+import keras.backend as K
 import optuna
-from optuna.integration import PyTorchLightningPruningCallback, pytorch_lightning
+from optuna.integration import (
+    KerasPruningCallback,
+    PyTorchLightningPruningCallback,
+    TFKerasPruningCallback,
+    pytorch_lightning,
+)
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -13,11 +19,14 @@ from src.utils.time_function import time_function
 from torch.utils.data import DataLoader
 
 
-def local_univariate_lstm_objective(
+def local_univariate_lstm_keras_objective(
     trial: optuna.Trial,
     hyperparameter_tuning_range: OrderedDict[str, Tuple[int, int]],
     model: IModel,
 ) -> float:
+
+    # Clear keras session to avoid memory leak
+    K.clear_session()
 
     params = hyperparameter_range_to_optuna_range(trial, hyperparameter_tuning_range)
 
@@ -28,24 +37,20 @@ def local_univariate_lstm_objective(
 
     logging.info(
         f"Starting tuning trial number #{trial.number} of total {hyperparameter_tuning_range['number_of_trials']}\n"
-        f"with params: {prettify_dict_string(params)}"
-    )
-
-    model._convert_dataset_to_dataloader(
-        model.training_dataset,
-        model.validation_dataset,
-        model.testing_dataset,
-        batch_size=params["batch_size"],
     )
 
     model.init_neural_network(
-        params,
-        callbacks=[PyTorchLightningPruningCallback(trial, monitor="validation_loss")],
+        params=params,
+        return_model=False,
+        # TODO: Fix for pruning for keras
+        # callbacks=[PyTorchLightningPruningCallback(trial, monitor="validation_loss")],
     )
 
     with time_function():
         errors = model.train(
             epochs=params["number_of_epochs"],
+            is_tuning=True,
+            callbacks=[TFKerasPruningCallback(trial, "val_loss")],
         )
         # TODO: Use config parameter 'metric'to use when tuning
         # score = model.calculate_mean_score(errors[""])
@@ -75,9 +80,7 @@ def hyperparameter_range_to_optuna_range(
             float(config_params["learning_rate"][1]),
         ),
         "batch_first": True,
-        "batch_size": trial.suggest_int(
-            "batch_size", config_params["batch_size"][0], config_params["batch_size"][1]
-        ),
+        "batch_size": config_params["batch_size"],
         "dropout": trial.suggest_float(
             "dropout", config_params["dropout"][0], config_params["dropout"][1]
         ),
@@ -91,4 +94,5 @@ def hyperparameter_range_to_optuna_range(
             config_params["number_of_epochs"][0],
             config_params["number_of_epochs"][1],
         ),
+        "stateful_lstm": config_params["stateful_lstm"],
     }

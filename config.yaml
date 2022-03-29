@@ -13,7 +13,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+      #- 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -46,16 +46,18 @@ model:
       hidden_size: [ 10, 15]
       number_of_layers: [ 1, 5]
       dropout: [ 0.0, 0.5 ]
-      #optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
-      optimizer_name: ['Adam', 'Adadelta', 'LBFGS', 'RMSprop']
+      optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
+      #optimizer_name: ['Adam']
       learning_rate: [ 1e-6, 1e-4 ]
       number_of_epochs: [5, 100]
-      batch_size: [ 2, 360]
+      batch_size: 50
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 50 # Number of tuning trials to run. The more the better.
+      time_to_tune_in_minutes: 1 # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      stateful_lstm: False
 
     common_parameters_for_all_models:
       # If int <= 1 then the testing set will be equal to output_window_size
