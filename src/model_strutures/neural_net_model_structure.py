@@ -1,13 +1,12 @@
 import logging
 import typing
 from abc import ABC, abstractmethod
-from typing import List, Optional, Dict, OrderedDict, Tuple, Any
+from typing import Any, Dict, List, Optional, OrderedDict, Tuple
 
 import optuna
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas import DataFrame
-
 from src.data_types.i_model import IModel
 from src.data_types.lstm_model import LstmModel
 from src.model_strutures.i_model_structure import IModelStructure
