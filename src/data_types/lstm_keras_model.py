@@ -35,7 +35,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             time_series_id,
             params,
             optuna_trial,
-            pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
         )
         self.should_shuffle_batches = params["should_shuffle_batches"]
 
