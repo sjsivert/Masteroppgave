@@ -4,8 +4,7 @@ from typing import Any, Dict, List, Optional
 
 import optuna
 from src.data_types.neural_net_model import NeuralNetModel
-from src.pipelines import \
-    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
