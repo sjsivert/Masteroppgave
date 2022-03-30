@@ -13,7 +13,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-      #- 'neptune'
+    #- 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -36,8 +36,8 @@ experiment:
 
 
 model:
-  # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_arima'
+  # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
+  model_type: 'local_cnn_ae_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -73,7 +73,6 @@ model:
 
     model_structure:
       - time_series_id: 11573
-      # - time_series_id: 2
         learning_rate: 0.03
         hidden_layer_size: 10
         dropout: 0.113
@@ -110,23 +109,35 @@ model:
   local_univariate_cnn_ae_lstm:
     common_parameters_for_all_models:
       training_size: 7
+      optimizer_name: 'Adam'
+      loss: "mse"
+      batch_size: 32
+      epochs: 20
+      number_of_epochs: 20
       input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 100
-      number_of_epochs: 50
-      optimizer_name: 'adam'
-      loss: "mse"
+      lstm-shared:
+        input_window_size: 10
+        output_window_size: 7
+        multi_variable_nr: 1
+        epochs: 20
 
     model_structure:
       - time_series_id: 11573
-        learning_rate: 0.03
         lstm:
-          learning_rate: 0.03
+          optimizer_name: 'Adam'
+          loss: "mse"
+          learning_rate: 0.001
           hidden_layer_size: 10
           dropout: 0.113
           number_of_features: 1
           number_of_layers: 3
+        ae:
+          optimizer_name: 'Adam'
+          loss: "mse"
+          learning_rate: 0.001
+          epochs: 40
         encoder:
           - filters: 8
             kernel_size: 3
