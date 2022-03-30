@@ -37,7 +37,7 @@ experiment:
 
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm'
-  model_type: 'local_univariate_lstm'
+  model_type: 'local_univariate_arima'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -143,13 +143,13 @@ model:
 
   local_univariate_arima:
     forecast_window_size: 7
-    steps_to_predict: 1000
+    steps_to_predict: 7
     multi_step_forecast: true # alternative is recursive single step
     # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
       p: [1, 10]
       d: [1, 10]
-      q: [1, 10]
+      q: [1, 16]
 
       #metric_to_use_when_tuning: 'MASE'
     metric_to_use_when_tuning: 'MSE'
@@ -158,6 +158,30 @@ model:
       - time_series_id: 2
         # 1
         hyperparameters:
-          p: 10
-          d: 3
-          q: 4
+          p: 7
+          d: 2
+          q: 7
+      - time_series_id: 6
+        # 2
+        hyperparameters:
+          p: 7
+          d: 2
+          q: 7
+      - time_series_id: 9
+        # 3
+        hyperparameters:
+          p: 7
+          d: 2
+          q: 7
+      - time_series_id: 10
+        # 4
+        hyperparameters:
+          p: 7
+          d: 2
+          q: 7
+      - time_series_id: 11
+        # 5
+        hyperparameters:
+          p: 7
+          d: 2
+          q: 7
