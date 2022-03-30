@@ -13,15 +13,15 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-      #    - 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
-    - 'MSE'
     - 'MASE'
+    - 'MSE'
     - 'MAPE'
     - 'SMAPE'
     - 'MAE'
@@ -67,14 +67,14 @@ model:
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 39
-      number_of_epochs: 5
+      number_of_epochs: 51
       stateful_lstm: False
       should_shuffle_batches: True
       optimizer_name: 'RMSprop'
 
     model_structure:
-      - time_series_id: 11573
-      #- time_series_id: 6
+      #- time_series_id: 11573
+      - time_series_id: 2
         learning_rate: 5.65e-05
         hidden_layer_size: 14
         dropout: 0.142
