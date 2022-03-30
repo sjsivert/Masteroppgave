@@ -1,19 +1,19 @@
 from click.testing import CliRunner
-from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from expects import be_true, expect
 from expects.matchers.built_in import be
 from genpipes.compose import Pipeline
 from mamba import after, before, description, it
-from mockito import mock, when, ANY
+from mockito import ANY, mock, when
 from mockito.mockito import unstub, verify
-
-from spec.mock_config import init_mock_config
-from spec.test_logger import init_test_logging
 from src import main
 from src.continue_experiment import ContinueExperiment
 from src.experiment import Experiment
+from src.pipelines import market_insight_preprocessing_pipeline as pipeline
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.logger import init_logging
+
+from spec.mock_config import init_mock_config
+from spec.test_logger import init_test_logging
 
 with description("main.py", "unit") as self:
     with before.all:
@@ -73,6 +73,7 @@ with description("main.py", "unit") as self:
             save_sources_to_use=ANY,
             save_source_options=ANY,
             experiment_tags=["tag1", "tag2", "validation_model", "tag3", "tag4"],
+            overwrite_save_location=False,
         ).thenReturn(mock_experiment)
         # Act
         self.runner.invoke(
@@ -87,4 +88,5 @@ with description("main.py", "unit") as self:
             save_sources_to_use=ANY,
             save_source_options=ANY,
             experiment_tags=["tag1", "tag2", "validation_model", "tag3", "tag4"],
+            overwrite_save_location=False,
         )

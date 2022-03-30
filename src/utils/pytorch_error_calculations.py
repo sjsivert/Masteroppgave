@@ -4,11 +4,10 @@ from typing import Dict
 
 import numpy as np
 import torch
-from torch import nn
 from pipe import map, tee, where
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
-
+from torch import nn
 
 # TODO!
 """
@@ -80,7 +79,5 @@ def calculate_mase(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Te
 
 def calculate_smape(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     epsilon = 0.1
-    loss = 2 * torch.mean(
-        ((predictions - targets).abs()) / (predictions.abs() + targets.abs() + epsilon)
-    )
+    loss = 2 * torch.mean(((predictions - targets).abs()) / (predictions.abs() + targets.abs()))
     return loss

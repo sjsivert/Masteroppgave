@@ -1,3 +1,5 @@
+import logging
+
 from genpipes import compose
 from src.pipelines import data_loader
 from src.pipelines import market_insight_processing as p
@@ -15,7 +17,8 @@ columns_to_drop = [
 
 # fmt: off
 def market_insight_pipeline() -> compose.Pipeline:
-    market_insight_path= get_absolute_path(config['data']['data_path'].get())
+    market_insight_path = get_absolute_path(config['data']['data_path'].get())
+    logging.info(f"Dataset used is {market_insight_path}")
     categories_path = get_absolute_path(config['data']['categories_path'].get())
     pipeline = compose.Pipeline(steps=[
         ("load market insight data and categories and merge them",

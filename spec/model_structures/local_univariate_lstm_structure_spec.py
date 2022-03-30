@@ -1,25 +1,24 @@
 from unittest.mock import Mock
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 from expects import be_true, equal, expect
 from genpipes.compose import Pipeline
-from mamba import description, before, after, shared_context, it, included_context
-from mockito import unstub, mock, when, verify
+from mamba import after, before, description, included_context, it, shared_context
+from mockito import mock, unstub, verify, when
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
-from torch.utils.data import DataLoader
-
-from src.data_types.lstm_model import LstmModel
-from src.pipelines import market_insight_processing as p, local_univariate_lstm_pipeline
-from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-
 from spec.mock_config import init_mock_config
 from spec.utils.mock_pipeline import create_mock_pipeline
+from src.data_types.lstm_model import LstmModel
 from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
+from src.pipelines import local_univariate_lstm_pipeline
+from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
+from src.pipelines import market_insight_processing as p
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.config_parser import config
+from torch.utils.data import DataLoader
 
-with description(LocalUnivariateLstmStructure, "unit") as self:
+with description(LocalUnivariateLstmStructure, "unt") as self:
     with before.all:
         init_mock_config()
         self.options = config["model"].get()
@@ -69,7 +68,7 @@ with description(LocalUnivariateLstmStructure, "unit") as self:
                 ]
             )
             when(Pipeline, strict=False).run().thenReturn(
-                (mock(DataLoader), mock(DataLoader), mock(DataLoader), mock(MinMaxScaler))
+                (mock(DataLoader), mock(DataLoader), mock(MinMaxScaler))
             )
 
             model_structure.init_models()

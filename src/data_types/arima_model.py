@@ -105,7 +105,7 @@ class ArimaModel(IModel, ABC):
 
         return metrics
 
-    def test(self, predictive_period: int = 5, single_step: bool = True) -> Dict:
+    def test(self, predictive_period: int = 5, single_step: bool = False) -> Dict:
         if self.training_data is None or self.test_data is None:
             raise ValueError(
                 "Model does not have test og training data. Please call process_data() first."

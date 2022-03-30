@@ -1,5 +1,5 @@
 # fmt: off
-from typing import Iterable, List, Tuple, Optional, Union
+from typing import Iterable, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -7,10 +7,9 @@ from genpipes import declare
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from torch.utils.data import Dataset, DataLoader
-
 from src.datasets.time_series_dataset import TimeseriesDataset
 from src.utils.config_parser import config
+from torch.utils.data import DataLoader, Dataset
 
 
 @declare.processor()
@@ -143,8 +142,12 @@ def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
     for df in stream:
+        if (df.size == 0):
+            print("Empty dataframe",df)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
+
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
             scaled_df = scaler.fit_transform(df)
             yield scaled_df, scaler
         else:
@@ -161,6 +164,20 @@ def split_into_training_and_test_forecast_window(
         testing_set = df[test_data_split_index:]
 
         yield training_df, testing_set, scaler
+
+@declare.processor()
+def keras_split_into_training_and_test_set(
+        stream: Iterable[Tuple[Tuple[ndarray], Tuple[ndarray], Tuple[ndarray], Optional[StandardScaler]]],
+        test_window_size: int,
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (x, y, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        x_train = x[:-1]
+        y_train = y[:-1]
+        x_test = x[-1:]
+        y_test = y[-1:]
+
+        yield ((x_train, y_train),  (x_test, y_test), scaler)
 
 @declare.processor()
 def split_into_training_and_test_forecast_window_arima(
@@ -277,6 +294,23 @@ def convert_to_pytorch_dataloader(
             dataset=testing_data, batch_size=batch_size, shuffle=False
         )
         yield training_dataloader, validation_dataloader, testing_dataloader, scaler
+
+@declare.processor()
+def sliding_window_x_y_generator(
+        stream: Iterable[Tuple[ndarray, Optional[StandardScaler]]],
+        input_window_size: int,
+        output_window_size: int,
+) -> Iterable[Tuple[ndarray, ndarray, Optional[StandardScaler]]]:  # pragma: no cover
+    for data, scaler in stream:
+        X = []
+        Y = []
+        for i in range(0, len(data) - input_window_size - output_window_size):
+            x = data[i:i + input_window_size]
+            y = data[i + input_window_size:i + input_window_size + output_window_size]
+            X.append(x)
+            Y.append(y)
+
+        yield np.array(X), np.array(Y), scaler
 
 
 @declare.processor()

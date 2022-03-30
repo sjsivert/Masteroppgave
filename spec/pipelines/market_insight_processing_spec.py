@@ -1,15 +1,20 @@
 # fmt: off
+import numpy as np
+
+from spec.utils.mock_time_series_generator import mock_time_series_generator
+from src.pipelines import market_insight_processing as market_processing
 import pandas as pd
 from expects import be_true, equal, expect
 from genpipes import compose
+from genpipes.compose import Pipeline
 from mamba import _it, before, description, included_context, it, shared_context
 from pandas import DataFrame, Timestamp
 from spec.test_logger import init_test_logging
 from spec.utils.mock_pipeline import create_mock_pipeline
-from spec.utils.test_data import mock_data, test_data
+from spec.utils.test_data import mock_data, test_data, random_data_loader
 from src.pipelines import market_insight_processing as p
 
-with description("Market insight prosessing pipeline", "unit") as self:
+with description("Market insight prosessing pipeline", "this") as self:
     with before.all:
         init_test_logging()
 
@@ -68,3 +73,15 @@ with description("Market insight prosessing pipeline", "unit") as self:
                 ]
             )
             train_data, test_data, scaler = pipeline_scale_data.run()
+
+    with it("sliding window should work as predicted"):
+        input_window_size = 3
+        output_window_size = 2
+        test_pipeline = mock_time_series_generator(input_window_size, output_window_size)
+        X, Y, _ = test_pipeline.run()
+
+        expect(len(X)).to(equal(len(Y)))
+        expect(len(X[0])).to(equal(input_window_size))
+        expect(len(Y[0])).to(equal(output_window_size))
+        expect(np.array_equal(X[0][1], X[1][0])).to(be_true)
+        expect(np.array_equal(X[input_window_size][0], Y[0][0])).to(be_true)

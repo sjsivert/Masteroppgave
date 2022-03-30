@@ -1,6 +1,4 @@
 import json
-from plotly.graph_objs import Figure as PlotlyFigure
-
 import logging
 import os
 import shutil
@@ -10,6 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 from matplotlib.figure import Figure
 from pandas import DataFrame
+from plotly.graph_objs import Figure as PlotlyFigure
 from src.data_types.i_model import IModel
 from src.save_experiment_source.i_save_experiment_source import ISaveExperimentSource
 from src.utils.combine_subfigure_titles import combine_subfigure_titles
@@ -25,22 +24,28 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         description: str = "",
         options_dump: str = "",
         load_from_checkpoint: bool = False,
+        overwrite_save_location: bool = False,
     ) -> None:
         super().__init__()
 
         self.save_location = Path(model_save_location).joinpath(title)
 
         if not load_from_checkpoint:
-            self._create_save_location()
+            self._create_save_location(overwrite_save_location)
             self._save_title_and_description(title=title, description=description)
 
-    def _create_save_location(self):
+    def _create_save_location(self, overwrite: bool = False) -> None:
         try:
             logging.info(f"Creating model save location {self.save_location}")
             os.mkdir(self.save_location.__str__())
         except FileExistsError:
             logging.warning(f"{self.save_location} already exists")
-            raise FileExistsError
+            if overwrite:
+                logging.warning(f"Overwriting {self.save_location}")
+                shutil.rmtree(self.save_location.__str__())
+                os.mkdir(self.save_location.__str__())
+            else:
+                raise FileExistsError
 
     def save_model_and_metadata(
         self,

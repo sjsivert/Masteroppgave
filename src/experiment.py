@@ -7,6 +7,10 @@ from pandas import DataFrame
 from src.data_types.model_type_enum import ModelStructureEnum
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
+from src.model_strutures.local_univariate_cnn_ae_lstm_structure import (
+    LocalUnivariateCNNAELSTMStructure,
+)
+from src.model_strutures.local_univariate_cnn_ae_structure import LocalUnivariateCNNAEStructure
 from src.model_strutures.local_univariate_lstm_structure import LocalUnivariateLstmStructure
 from src.model_strutures.validation_model_structure import ValidationModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -36,14 +40,19 @@ class Experiment:
         save_source_options={},
         experiment_tags: Optional[List[str]] = [],
         load_from_checkpoint: bool = False,
+        overwrite_save_location: bool = False,
     ) -> None:
+
         self.model_structure: IModelStructure = None
         self.title = title
         self.description = description
         self.experiment_description = description
         self.experiment_tags = experiment_tags
         self.save_sources = self._init_save_sources(
-            save_sources_to_use, save_source_options, load_from_checkpoint
+            save_sources_to_use,
+            save_source_options,
+            load_from_checkpoint,
+            overwrite_save_location=overwrite_save_location,
         )
 
     def _init_save_sources(
@@ -52,6 +61,7 @@ class Experiment:
         save_source_options: Dict,
         load_from_checkpoint: bool,
         neptune_id_to_load: Optional[str] = None,
+        overwrite_save_location: bool = False,
     ) -> List[ILogTrainingSource]:
         sources = []
 
@@ -67,6 +77,7 @@ class Experiment:
                         title=self.title,
                         description=self.experiment_description,
                         load_from_checkpoint=load_from_checkpoint,
+                        overwrite_save_location=overwrite_save_location,
                     )
                 )
             elif source == "neptune":
@@ -150,6 +161,15 @@ class Experiment:
             elif model_structure == ModelStructureEnum.local_univariate_lstm:
                 self.model_structure = LocalUnivariateLstmStructure(
                     self.save_sources, **model_options["local_univariate_lstm"]
+                )
+            elif model_structure == ModelStructureEnum.local_cnn_ae:
+                self.model_structure = LocalUnivariateCNNAEStructure(
+                    self.save_sources, **model_options["local_univariate_cnn_ae"]
+                )
+
+            elif model_structure == ModelStructureEnum.local_cnn_ae_lstm:
+                self.model_structure = LocalUnivariateCNNAELSTMStructure(
+                    self.save_sources, **model_options["local_univariate_cnn_ae_lstm"]
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")

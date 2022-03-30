@@ -68,9 +68,9 @@ with description("error_calculations", "unit") as self:
                 ]
             )
             proposed_data = DataFrame([3, 2, 1])
-            expected_smape = 0.349
+            expected_smape = 0.356
             smape = calculate_smape(data_set, proposed_data)
-            expect(round(smape, 4)).to(equal(expected_smape))
+            expect(round(smape, 3)).to(equal(expected_smape))
 
     with it("can caluclate OWA"):
         with included_context("mock_dataset"):

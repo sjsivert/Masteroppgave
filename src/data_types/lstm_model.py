@@ -26,6 +26,7 @@ from pytorch_lightning.loggers import NeptuneLogger
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_lightning_module import LSTMLightning
 from src.data_types.modules.lstm_module import LstmModule
+from src.data_types.neural_net_model import NeuralNetModel
 from src.optuna_tuning.loca_univariate_lstm_objective import local_univariate_lstm_objective
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.pipelines.simpe_time_series_pipeline import simple_time_series_pipeline
@@ -40,7 +41,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
 
 
-class LstmModel(IModel, ABC):
+class LstmModel(NeuralNetModel):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
@@ -48,33 +49,13 @@ class LstmModel(IModel, ABC):
         params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
     ):
-
-        # Init global variables
-        self.model = None
-        self.trainer = None
-        self.figures: List[Figure] = []
-        self.metrics: Dict = {}
-        self.log_sources: List[ILogTrainingSource] = log_sources
-        self.name = time_series_id
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.batch_size = params["batch_size"]
-        self.training_size = params["training_size"]
-        self.input_window_size = params["input_window_size"]
-        self.output_window_size = params["output_window_size"]
-        self.number_of_epochs = params["number_of_epochs"]
-
-        self.training_data_loader = None
-        self.validation_data_loader = None
-        self.testing_data_loader = None
-        self.min_max_scaler = None
-
-        self.optuna_trial = optuna_trial
-
-        self.hyper_parameters = params
-
-        logging.info("Running model on device: {}".format(self.device))
-
-        self.init_neural_network(params)
+        super(LstmModel, self).__init__(
+            log_sources,
+            time_series_id,
+            params,
+            optuna_trial,
+            pipeline=lstm_pipeline.local_univariate_lstm_pipeline,
+        )
 
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         # Creating LSTM module
@@ -91,126 +72,36 @@ class LstmModel(IModel, ABC):
             **xargs,
         )
 
-    def _get_neptune_run_from_save_sources(self) -> Optional[NeptuneLogger]:
-        for log_source in self.log_sources:
-            if isinstance(log_source, NeptuneSaveSource):
-                cast(NeptuneSaveSource, log_source)
-                neptune_run = log_source.run
-                logging.info("Using pre-existing neptune run for PytorchLightning")
-                neptune_logger = NeptuneLogger(log_model_checkpoints=False, run=neptune_run)
-                return neptune_logger
-
-    def calculate_mean_score(self, losses: List[float]) -> float64:
-        return np.mean(losses)
-
-    def get_name(self) -> str:
-        return self.name
-
     def train(self, epochs: int = None, **xargs) -> Dict:
         # Visualization
-        training_targets = []
-        training_predictions = []
+
         self.trainer.fit(
             self.model,
             train_dataloaders=self.training_data_loader,
             val_dataloaders=self.validation_data_loader,
         )
-
-        # TODO: Visualize training set and training fit
-        for batch_idx, batch in enumerate(self.training_data_loader):
-            x, y = batch
-            y_hat = self.model.predict_step(x, batch_idx)
-            # TODO: Visualize multistep ahead properly!
-            input_size = self.hyper_parameters["input_window_size"]
-            # Skip every input size when visualising
-            y_hat_first_prediction_step = y_hat[::input_size, :, :].flatten()
-            y_first_prediction_step = y[::input_size, :, :].flatten()
-
-            training_targets.extend(y_first_prediction_step.tolist())
-            training_predictions.extend(y_hat_first_prediction_step.tolist())
+        training_targets, training_predictions = self.model.visualize_predictions(
+            self.training_data_loader
+        )
 
         self.metrics["training_error"] = self.model.training_errors[-1]
         self.metrics["validation_error"] = self.model.validation_errors[-1]
-        self._visualize_training(training_targets, training_predictions)
-        self._visualize_validation(self.model.val_targets, self.model.val_predictions)
-        self._visualize_training_errors(self.model.training_errors, self.model.validation_errors)
+        self._visualize_predictions(training_targets, training_predictions, "Training predictions")
+        self._visualize_errors(
+            self.model.training_errors,
+            self.model.validation_errors,
+        )
         return self.metrics
 
     def test(self, predictive_period: int = 6, single_step: bool = False) -> Dict:
         self.trainer.test(self.model, dataloaders=self.testing_data_loader)
         # Visualize predictions -> TODO: Add multi step visualization
-        self._visualize_test(self.model.test_targets, self.model.test_predictions)
+        test_targets, test_predictions = self.model.visualize_predictions(self.testing_data_loader)
+        self._visualize_predictions(test_targets, test_predictions, "Test predictions")
         # Trainer get list of errors
         logging.info(f"Testing error: {self.model.test_losses_dict}.")
         self.metrics.update(self.model.test_losses_dict)
         return self.model.test_losses_dict
-
-    def get_name(self) -> str:
-        return self.name
-
-    def process_data(self, data_set: DataFrame, training_size: float) -> None:
-        data_pipeline = lstm_pipeline.local_univariate_lstm_pipeline(
-            data_set=data_set,
-            cat_id=self.get_name(),
-            training_size=self.training_size,
-            input_window_size=self.input_window_size,
-            output_window_size=self.output_window_size,
-        )
-
-        logging.info(f"Data Pipeline for {self.get_name()}: {data_pipeline}")
-        for log_source in self.log_sources:
-            log_source.log_pipeline_steps(data_pipeline.__repr__())
-
-        (
-            self.training_dataset,
-            self.validation_dataset,
-            self.testing_dataset,
-            self.min_max_scaler,
-        ) = data_pipeline.run()
-
-        self._convert_dataset_to_dataloader(
-            self.training_dataset,
-            self.validation_dataset,
-            self.testing_dataset,
-            batch_size=self.batch_size,
-        )
-
-    def _convert_dataset_to_dataloader(
-        self,
-        training_set: Dataset,
-        validation_set: Dataset,
-        testing_set: Dataset,
-        batch_size: int,
-        should_shuffle: bool = False,
-    ) -> None:
-        logging.info(f"Converting dataset to dataloader using batch size {batch_size}.")
-        self.training_data_loader = DataLoader(
-            dataset=training_set,
-            batch_size=batch_size,
-            shuffle=should_shuffle,
-            num_workers=0,
-        )
-        self.validation_data_loader = DataLoader(
-            dataset=validation_set,
-            batch_size=1,
-            shuffle=should_shuffle,
-            num_workers=0,
-        )
-        self.testing_data_loader = DataLoader(
-            dataset=testing_set,
-            batch_size=1,
-            shuffle=should_shuffle,
-            num_workers=0,
-        )
-
-    def log_trial(self, study: Study, trial: FrozenTrial) -> None:
-        for log_source in self.log_sources:
-            trial_info = trial.params
-            trial_info["score"] = trial.value
-            trial_info["Trial number"] = trial.number
-            log_source.log_tuning_metrics(
-                {f"{self.get_name():{trial.number}}": {"Parameters": trial_info}}
-            )
 
     def method_evaluation(
         self,
@@ -268,120 +159,3 @@ class LstmModel(IModel, ABC):
         self._generate_optuna_plots(study)
 
         return {id: {"best_score": best_score, "best_params": best_params}}
-
-    def _generate_optuna_plots(self, study: Study) -> None:
-        # TODO: Currently getting error Figure has not attribute axes. Fix
-        self.figures.append(
-            plot_slice(study).update_layout(title=f"{self.get_name()} - Plot Slice")
-        )
-        self.figures.append(plot_edf(study).update_layout(title=f"{self.get_name()} - Plot EDF"))
-        self.figures.append(
-            plot_intermediate_values(study).update_layout(
-                title=f"{self.get_name()} - Plot Intermediate Values"
-            )
-        )
-        self.figures.append(
-            plot_optimization_history(study).update_layout(
-                title=f"{self.get_name()} - Plot Optimization History"
-            )
-        )
-        self.figures.append(
-            plot_parallel_coordinate(study).update_layout(
-                title=f"{self.get_name()} - Plot Parallel Coordinate"
-            )
-        )
-        # Need multiple trials to plot this
-        if len(study.trials) > 1:
-            self.figures.append(
-                plot_param_importances(study).update_layout(
-                    title=f"{self.get_name()} - Plot Param Importances"
-                )
-            )
-
-    def get_figures(self) -> List[Figure]:
-        """
-        Return a list of figures created by the model for visualization
-        """
-        return self.figures
-
-    def get_metrics(self) -> Dict:
-        """
-        Fetch metrics from model training or testing
-        """
-        return self.metrics
-
-    def save(self, path: str) -> str:
-        """
-        Save the model to the specified path.
-        :returns: Path to saved model file
-        """
-        save_path = f"{path}LSTM_{self.get_name()}.pt"
-        torch.save(self.model.state_dict(), save_path)
-        return save_path
-
-    def load(self, path: str) -> IModel:
-        """
-        Load the model from the specified path.
-        The correct model should already be created as self.model.
-        The load function only sets the pretrained verctor values from the saved model.
-        """
-        load_path = f"{path}LSTM_{self.get_name()}.pt"
-        self.model.load_state_dict(torch.load(load_path))
-        return self
-
-    def get_predictions(self) -> Optional[Dict]:
-        """
-        Returns the predicted values if test() has been called.
-        """
-        raise NotImplementedError()
-
-    def _visualize_training_errors(
-        self, training_error: List[float], validation_error: List[float]
-    ) -> None:
-        # Visualize training and validation loss
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Training and Validation error",
-                data_series=[training_error, validation_error],
-                data_labels=["Training error", "Validation error"],
-                colors=["blue", "orange"],
-                x_label="Epoch",
-                y_label="Error",
-            )
-        )
-
-    def _visualize_training(self, targets, predictions):
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Training set fit",
-                data_series=[targets, predictions],
-                data_labels=["Training targets", "Training predictions"],
-                colors=["blue", "orange"],
-                x_label="Time",
-                y_label="Interest",
-            )
-        )
-
-    def _visualize_validation(self, targets, predictions):
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Validation set fit",
-                data_series=[targets, predictions],
-                data_labels=["Validation targets", "Validation predictions"],
-                colors=["blue", "orange"],
-                x_label="Time",
-                y_label="Interest",
-            )
-        )
-
-    def _visualize_test(self, targets, predictions):
-        self.figures.append(
-            visualize_data_series(
-                title=f"{self.get_name()}# Test set predictions",
-                data_series=[targets, predictions],
-                data_labels=["Test targets", "Test predictions"],
-                colors=["blue", "orange"],
-                x_label="Time",
-                y_label="Interest scaled",
-            )
-        )
