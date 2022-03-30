@@ -1,0 +1,30 @@
+
+_____Results dataset-2_____
+Testing_MASE: 2.132
+Testing_SMAPE: 0.138
+Testing_MSE: 143105.12767
+Testing_MAE: 328.65199
+
+_____Results dataset-6_____
+Testing_MASE: 0.761
+Testing_SMAPE: 0.135
+Testing_MSE: 1481.69654
+Testing_MAE: 28.54584
+
+_____Results dataset-9_____
+Testing_MASE: 1.42
+Testing_SMAPE: 0.124
+Testing_MSE: 22272.24529
+Testing_MAE: 137.24442
+
+_____Results dataset-10_____
+Testing_MASE: 0.627
+Testing_SMAPE: 0.085
+Testing_MSE: 1797.304
+Testing_MAE: 37.01476
+
+_____Results dataset-11_____
+Testing_MASE: 1.317
+Testing_SMAPE: 0.308
+Testing_MSE: 1546.53555
+Testing_MAE: 36.66841
