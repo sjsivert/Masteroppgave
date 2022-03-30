@@ -1,13 +1,12 @@
 import os
 import shutil
 
-from expects import expect, match, be_true, equal
-from mamba import description, it, before, after
-
+from expects import be_true, equal, expect, match
+from mamba import after, before, description, it
 from spec.mock_config import init_mock_config
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 
-with description(LocalCheckpointSaveSource, "this") as self:
+with description(LocalCheckpointSaveSource, "unit") as self:
     with before.each:
         init_mock_config()
         self.checkpoint_save_location = LocalCheckpointSaveSource().get_checkpoint_save_location()

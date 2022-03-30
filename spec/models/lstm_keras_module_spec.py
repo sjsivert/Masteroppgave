@@ -15,7 +15,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.config_parser import config
 from src.utils.keras_optimizer import KerasOptimizer
 
-with description(LstmKerasModule, "this") as self:
+with description(LstmKerasModule, "unit") as self:
     with shared_context("init_lstm"):
         batch_size = 3
         model = LstmKerasModule(
