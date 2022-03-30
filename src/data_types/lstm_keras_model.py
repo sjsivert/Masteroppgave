@@ -93,6 +93,11 @@ class LstmKerasModel(NeuralNetModel, ABC):
             x_train[-self.batch_size :],
             y_train[-self.batch_size :],
         )
+        # Drop validation set from training set
+        x_train, y_train = (
+            self.training_data[0][:-self.batch_size ],
+            self.training_data[1][:-self.batch_size ],
+        )
         history = self.model.fit(
             x=x_train,
             y=y_train,
