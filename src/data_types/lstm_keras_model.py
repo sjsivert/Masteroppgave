@@ -7,7 +7,6 @@ import numpy as np
 import optuna
 import tensorflow as tf
 from numpy import ndarray
-from optkeras.optkeras import OptKeras
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_model import NeuralNetModel
 from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
@@ -111,8 +110,8 @@ class LstmKerasModel(NeuralNetModel, ABC):
         # Visualize
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
-            training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
-            validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val)
+            training_predictions, training_targets = self.predict_and_rescale(x_train, y_train[:, 0, :])
+            validation_predictions, validation_targets = self.predict_and_rescale(x_val, y_val[:, 0, :])
             self._visualize_predictions(
                 (training_targets.flatten()),
                 (training_predictions[:, 0].flatten()),
@@ -143,7 +142,7 @@ class LstmKerasModel(NeuralNetModel, ABC):
         logging.info("Predicting")
         predictions = self.prediction_model.predict(input_data, batch_size=1)
         predictions_rescaled = self._rescale_data(predictions)
-        targets_rescaled = self._rescale_data(targets[:, 0, :])
+        targets_rescaled = self._rescale_data(targets)
 
         return predictions_rescaled, targets_rescaled
 
@@ -153,13 +152,13 @@ class LstmKerasModel(NeuralNetModel, ABC):
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
         x_test, y_test = self.testing_data[0], self.testing_data[1]
-        results = self.prediction_model.evaluate(x_test, y_test, batch_size=1)
+        results = self.prediction_model.evaluate(self._rescale_data(x_test[:, :, 0]), self._rescale_data(y_test[:, :, 0]), batch_size=1)
 
         # Visualize
-        test_predictions = self.prediction_model.predict(x_test, batch_size=1)
+        test_predictions, test_targets = self.predict_and_rescale(x_test, y_test[:, :, 0])
         self._visualize_predictions(
-            tf.reshape(y_test, (-1,)),
-            tf.reshape(test_predictions, (-1,)),
+            test_targets.flatten(),
+            test_predictions.flatten(),
             "Test predictions",
         )
         self.metrics["test_error"] = results
