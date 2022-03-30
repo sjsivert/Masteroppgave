@@ -108,6 +108,7 @@ model:
 
   local_univariate_cnn_ae_lstm:
     common_parameters_for_all_models:
+      should_shuffle_batches: True
       training_size: 7
       optimizer_name: 'Adam'
       loss: "mse"
@@ -127,6 +128,7 @@ model:
       - time_series_id: 11573
         lstm:
           optimizer_name: 'Adam'
+          stateful_lstm: False
           loss: "mse"
           learning_rate: 0.001
           hidden_layer_size: 10
