@@ -10,14 +10,13 @@ from numpy import ndarray
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.data_types.neural_net_model import NeuralNetModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
-    local_univariate_lstm_keras_objective
-from src.pipelines import \
-    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
+    local_univariate_lstm_keras_objective,
+)
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import \
-    LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
@@ -81,8 +80,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         )
         # Drop validation set from training set
         x_train, y_train = (
-            self.training_data[0][:-self.batch_size ],
-            self.training_data[1][:-self.batch_size ],
+            self.training_data[0][: -self.batch_size],
+            self.training_data[1][: -self.batch_size],
         )
         history = self.model.fit(
             x=x_train,
