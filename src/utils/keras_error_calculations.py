@@ -4,11 +4,13 @@ from typing import Dict, List
 
 import numpy as np
 import pipe
+import tensorflow as tf
 import torch
 from numpy import ndarray
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
 from tensorflow import keras
+from tensorflow.keras.backend import abs, mean
 
 pipe_enumurate = pipe.Pipe(lambda list: enumerate(list))
 
@@ -52,9 +54,9 @@ def choose_metric(metric: ErrorMetricEnum):
     elif metric == ErrorMetricEnum.MAE:
         return "mean_absolute_error"
     elif metric == ErrorMetricEnum.MASE:
-        return "mean_absolute_scaled_error"
+        return keras_mase
     elif metric == ErrorMetricEnum.SMAPE:
-        return "symetric_mean_absolute_percentage_error"
+        return keras_smape
     elif metric == ErrorMetricEnum.MAPE:
         return "mean_absolute_percentage_error"
     else:
@@ -68,3 +70,20 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
         raise KeyError(
             f" '{key}' is not an implemented error metric. Valid values are {ErrorMetricEnum.__members__}"
         )
+
+
+def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
+
+    loss = 2 * abs((abs(y_pred - y_true)) / (abs(y_pred) + abs(y_true)))
+    return loss
+
+
+def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
+    sust = tf.reduce_mean(tf.abs(y_true[:, 1:] - y_true[:, :-1]))
+    diff = tf.reduce_mean(tf.abs(y_pred - y_true))
+    return diff / sust
+
+
+def keras_mae(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
+    loss = abs(mean((y_true - y_pred)))
+    return loss
