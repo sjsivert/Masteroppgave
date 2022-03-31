@@ -94,15 +94,23 @@ class LstmKerasModel(NeuralNetModel, ABC):
             self.training_data[0][:-examples_to_drop_to_make_all_batches_same_size],
             self.training_data[1][:-examples_to_drop_to_make_all_batches_same_size],
         )
+        examples_to_drop_to_make_all_batches_same_size = x_train.shape[0] % self.batch_size
+        logging.info(
+            f"Examples to drop to make all train batches same size: {examples_to_drop_to_make_all_batches_same_size}"
+        )
         # Make validation set equal to one batch size
         x_val, y_val = (
             x_train[-self.batch_size :],
             y_train[-self.batch_size :],
         )
+        examples_to_drop_to_make_all_batches_same_size = x_val.shape[0] % self.batch_size
+        logging.info(
+            f"Examples to drop to make all val batches same size: {examples_to_drop_to_make_all_batches_same_size}"
+        )
         # Drop validation set from training set
         x_train, y_train = (
-            self.training_data[0][: -self.batch_size],
-            self.training_data[1][: -self.batch_size],
+            x_train[: -self.batch_size],
+            y_train[: -self.batch_size],
         )
         history = self.model.fit(
             x=x_train,
@@ -164,7 +172,9 @@ class LstmKerasModel(NeuralNetModel, ABC):
         logging.info("Testing")
         x_test, y_test = self.testing_data[0], self.testing_data[1]
         results: List[float] = self.prediction_model.evaluate(
-            self._rescale_data(x_test[:, :, 0]), self._rescale_data(y_test[:, :, 0]), batch_size=1
+            x_test,
+            y_test,
+            batch_size=1,
         )
         # Remove first element because it it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
