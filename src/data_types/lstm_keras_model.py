@@ -68,46 +68,23 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             self.model = model
 
     def train(self, epochs: int = None, **xargs) -> Dict:
+        logging.info("Training")
         # TODO: Fix up this mess of repeated code. should only use dictionarys for hyperparameters
         self.batch_size = self.hyper_parameters["batch_size"]
-        logging.info("Training")
+
+        self.split_data_sets()
+
+        logging.info(f"Splitting training data into")
+
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
-        examples_to_drop_to_make_all_batches_same_size = (
-            self.training_data[0].shape[0] % self.batch_size
-        )
-        logging.info(
-            f"Examples to drop to make all batches same size: {examples_to_drop_to_make_all_batches_same_size}"
-        )
-        # Remove the first few examples to make all batches same size. First few are less important than the last few
-        x_train, y_train = (
-            self.training_data[0][examples_to_drop_to_make_all_batches_same_size:],
-            self.training_data[1][examples_to_drop_to_make_all_batches_same_size:],
-        )
-        examples_to_drop_to_make_all_batches_same_size = x_train.shape[0] % self.batch_size
-        logging.info(
-            f"Examples to drop to make all train batches same size: {examples_to_drop_to_make_all_batches_same_size}"
-        )
-        # Make validation set equal to one batch size
-        x_val, y_val = (
-            x_train[-self.batch_size :],
-            y_train[-self.batch_size :],
-        )
-        examples_to_drop_to_make_all_batches_same_size = x_val.shape[0] % self.batch_size
-        logging.info(
-            f"Examples to drop to make all val batches same size: {examples_to_drop_to_make_all_batches_same_size}"
-        )
-        # Drop validation set from training set
-        x_train, y_train = (
-            x_train[: -self.batch_size],
-            y_train[: -self.batch_size],
-        )
+
         history = self.model.fit(
-            x=x_train,
-            y=y_train,
+            x=self.x_train,
+            y=self.y_train,
             epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
-            validation_data=(x_val, y_val),
+            validation_data=(self.x_val, self.y_val),
             **xargs,
         )
         history = history.history
@@ -115,19 +92,21 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
             training_predictions, training_targets = self.predict_and_rescale(
-                x_train, y_train[:, 0, :]
+                self.x_train, self.y_train[:, 0, :]
             )
             validation_predictions, validation_targets = self.predict_and_rescale(
-                x_val, y_val[:, 0, :]
+                self.x_val, self.y_val[:, 0, :]
             )
+            print("training_targets", training_targets.shape)
+            print("training_predictions", training_predictions.shape)
             self._visualize_predictions(
-                (self.y_train[:, 0].flatten()),
+                (training_targets.flatten()),
                 (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
             self._visualize_predictions(
-                self.y_val[:, 0, 0],
-                validation_predictions[:, 0],
+                validation_targets.flatten(),
+                validation_predictions[:, 0].flatten(),
                 "Validation predictions",
             )
             self._visualize_errors(
@@ -177,13 +156,14 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         # Remove first element because it it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
 
-        self.prediction_model.reset_states()
-        self.predict_and_rescale(x_train, y_train[:, 0, :])
         # Visualize
-        test_predictions = self.prediction_model.predict(self.x_test, batch_size=1)
+        self.prediction_model.reset_states()
+        self.predict_and_rescale(x_train, y_train[0, :, :])
+        test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test[0, :, :])
+
         self._visualize_predictions(
-            tf.reshape(self.y_test, (-1,)),
-            tf.reshape(test_predictions, (-1,)),
+            (test_targets.flatten()),
+            (test_predictions[:, 0].flatten()),
             "Test predictions",
         )
         self.metrics.update(test_metrics)
