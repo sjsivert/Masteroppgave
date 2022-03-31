@@ -1,0 +1,7 @@
+
+_____Results dataset-11037_____
+Testing_MASE: 0.356
+Testing_SMAPE: 0.1
+Testing_MAPE: 0.0946
+Testing_MSE: 2004.43177
+Testing_MAE: 39.44497
