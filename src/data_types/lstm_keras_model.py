@@ -82,6 +82,8 @@ class LstmKerasModel(NeuralNetModel, ABC):
         self.training_data, self.testing_data, self.min_max_scaler = data_pipeline.run()
 
     def train(self, epochs: int = None, **xargs) -> Dict:
+        # TODO: Fix up this mess of repeated code. should only use dictionarys for hyperparameters
+        self.batch_size = self.hyper_parameters["batch_size"]
         logging.info("Training")
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
         examples_to_drop_to_make_all_batches_same_size = (

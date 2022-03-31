@@ -80,7 +80,9 @@ def hyperparameter_range_to_optuna_range(
             float(config_params["learning_rate"][1]),
         ),
         "batch_first": True,
-        "batch_size": config_params["batch_size"],
+        "batch_size": trial.suggest_int(
+            "batch_size", config_params["batch_size"][0], config_params["batch_size"][1]
+        ),
         "dropout": trial.suggest_float(
             "dropout", config_params["dropout"][0], config_params["dropout"][1]
         ),
