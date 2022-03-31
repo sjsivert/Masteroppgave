@@ -1,0 +1,2 @@
+lstm-predict-cat2-stateful-predict-training-first2
+Predict cat 2.statefull, no shuffle, predict training first and reset hidden state
