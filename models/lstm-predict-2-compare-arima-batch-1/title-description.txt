@@ -1,0 +1,2 @@
+lstm-predict-2-compare-arima-batch-1
+predict with batch size lstm cat2 vs arima multistep 7 days ahead

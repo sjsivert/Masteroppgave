@@ -1,0 +1,86 @@
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_02_14.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - SMAPE
+    - MAPE
+    - MSE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave
+model:
+    model_type: local_univariate_arima
+    rng_seed: 42
+    validation_model:
+        placeholder: 0
+    local_univariate_lstm:
+        hyperparameter_tuning_range:
+            hidden_size: [10, 15]
+            number_of_layers: [1, 5]
+            dropout: [0.0, 0.5]
+            optimizer_name: [Adam, RMSprop]
+            learning_rate: [1e-6, 1e-4]
+            number_of_epochs: [5, 100]
+            batch_size: [10, 130]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 1
+            number_of_trials: 30
+            stateful_lstm: yes
+        common_parameters_for_all_models:
+            training_size: 7
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            batch_size: 1
+            number_of_epochs: 26
+            stateful_lstm: yes
+            should_shuffle_batches: no
+            optimizer_name: Adam
+        model_structure: [{time_series_id: 11037, learning_rate: 7.88e-05, hidden_layer_size: 14, dropout: 0.132, number_of_features: 1, number_of_layers: 3}]
+    local_univariate_cnn_ae:
+        common_parameters_for_all_models:
+            training_size: 7
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            batch_size: 50
+            number_of_epochs: 51
+            optimizer_name: adam
+            loss: mse
+        model_structure: [{time_series_id: 11573, learning_rate: 0.03, encoder: [{filters: 8, kernel_size: 3, activation: relu}, {filters: 16, kernel_size: 5}], decoder: [{filters: 8, kernel_size: 5, activation: relu}, {filters: 1, kernel_size: 3}]}]
+    local_univariate_cnn_ae_lstm:
+        common_parameters_for_all_models:
+            training_size: 7
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            batch_size: 100
+            number_of_epochs: 50
+            optimizer_name: adam
+            loss: mse
+        model_structure: [{time_series_id: 11573, learning_rate: 0.03, lstm: {learning_rate: 0.03, hidden_layer_size: 10, dropout: 0.113, number_of_features: 1, number_of_layers: 3}, encoder: [{filters: 8, kernel_size: 3, activation: relu}, {filters: 16, kernel_size: 5}], decoder: [{filters: 8, kernel_size: 5, activation: relu}, {filters: 1, kernel_size: 3}]}]
+    local_univariate_arima:
+        forecast_window_size: 7
+        steps_to_predict: 1000
+        multi_step_forecast: yes
+        hyperparameter_tuning_range:
+            p: [1, 10]
+            d: [1, 10]
+            q: [1, 10]
+        metric_to_use_when_tuning: MASE
+        model_structure: [{time_series_id: 2, hyperparameters: {p: 9, d: 2, q: 11}}]
