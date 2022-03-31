@@ -54,6 +54,8 @@ def main(
     logging.info("Started")
     seed_everything(config["model"]["rng_seed"].get())
 
+    hide_gpu(not config["use_gpu_if_available"].get())
+
     if experiment:
         logging.info(f'Starting experiment: "{experiment[0]}": "{experiment[1]}"')
 
@@ -115,6 +117,16 @@ def main(
 
     logging.info("Finished")
     return 0
+
+
+def hide_gpu(hide: bool = False) -> None:
+    if hide:
+        import os
+
+        os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+        logging.info("Hiding GPU")
+    else:
+        logging.info("Not hiding GPU")
 
 
 if __name__ == "__main__":
