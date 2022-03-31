@@ -8,6 +8,7 @@ def init_mock_config(
     config.read(user=False)
     config.set(
         {
+            "use_gpu_if_available": False,  # Some experience indicate that GPU is slower
             "logger": {
                 "log_level": "ERROR",
                 "log_file": "",
