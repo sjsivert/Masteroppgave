@@ -1,0 +1,2 @@
+lstm-predict-cat2-stateful-no-suffle
+Predict cat 2. Stateful, no shuffle
