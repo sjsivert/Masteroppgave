@@ -126,7 +126,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             error_parameter_sets = base_model.method_evaluation(
                 parameters,
                 metric=self.metric_to_use_when_tuning.value,
-                single_step=True,
+                single_step=(not self.multi_step_prediction),
                 auto_arima=self.auto_arima,
             )
             # Merge error sets
