@@ -76,9 +76,10 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         logging.info(
             f"Examples to drop to make all batches same size: {examples_to_drop_to_make_all_batches_same_size}"
         )
+        # Remove the first few examples to make all batches same size. First few are less important than the last few
         x_train, y_train = (
-            self.training_data[0][:-examples_to_drop_to_make_all_batches_same_size],
-            self.training_data[1][:-examples_to_drop_to_make_all_batches_same_size],
+            self.training_data[0][examples_to_drop_to_make_all_batches_same_size:],
+            self.training_data[1][examples_to_drop_to_make_all_batches_same_size:],
         )
         examples_to_drop_to_make_all_batches_same_size = x_train.shape[0] % self.batch_size
         logging.info(
@@ -217,7 +218,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
                 hyperparameter_tuning_range=parameters,
                 model=self,
             ),
-            timeout=parameters["time_to_tune_in_minutes"] * 60,
+            timeout=parameters.get("time_to_tune_in_minutes", None),
             # TODO: Fix pytorch network to handle concurrency
             # n_jobs=8,  # Use maximum number of cores
             # n_trials=parameters["number_of_trials"],
