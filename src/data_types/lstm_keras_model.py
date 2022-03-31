@@ -170,7 +170,16 @@ class LstmKerasModel(NeuralNetModel, ABC):
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
+        x_train, y_train = self.training_data[0], self.training_data[1]
         x_test, y_test = self.testing_data[0], self.testing_data[1]
+
+        # Reset hidden states
+        self.prediction_model.reset_states()
+        results: List[float] = self.prediction_model.evaluate(
+            x_train,
+            y_train,
+            batch_size=1,
+        )
         results: List[float] = self.prediction_model.evaluate(
             x_test,
             y_test,
@@ -179,6 +188,8 @@ class LstmKerasModel(NeuralNetModel, ABC):
         # Remove first element because it it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
 
+        self.prediction_model.reset_states()
+        self.predict_and_rescale(x_train, y_train[:, 0, :])
         # Visualize
         test_predictions, test_targets = self.predict_and_rescale(x_test, y_test[:, :, 0])
         self._visualize_predictions(
