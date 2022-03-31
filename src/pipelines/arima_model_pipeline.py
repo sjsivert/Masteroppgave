@@ -1,7 +1,6 @@
 # fmt: off
 from genpipes.compose import Pipeline
 from pandas import DataFrame
-
 from src.pipelines import market_insight_processing as market_processing
 from src.pipelines.data_loader import dataframe_to_generator
 
