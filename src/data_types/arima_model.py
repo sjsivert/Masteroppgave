@@ -35,7 +35,7 @@ class ArimaModel(IModel, ABC):
         self,
         log_sources: List[ILogTrainingSource],
         name: str = "placeholder",
-        hyperparameters: Dict[str, int] = OrderedDict({"p": 2, "d": 6, "q": 11}),
+        hyperparameters: Dict[str, int] = OrderedDict({"p": 9, "d": 2, "q": 11}),
     ):
         self.data_pipeline = None
         self.value_approximation = None
@@ -122,10 +122,9 @@ class ArimaModel(IModel, ABC):
             )
             self.predictions = value_predictions[0][:predictive_period]
         else:
+            # Test data
             logging.info("ArimaModel: Multi step prediction")
-            value_predictions = self.model.predict(
-                self.training_periode, self.training_periode + predictive_period - 1
-            )
+            value_predictions = self.model.forecast(predictive_period)
             self.predictions = value_predictions
 
         # Figures
@@ -282,7 +281,7 @@ class ArimaModel(IModel, ABC):
         self,
         parameters: List,
         metric: str,
-        single_step: bool = True,
+        single_step: bool = False,
         auto_arima: bool = True,
     ) -> Dict[str, Dict[str, float]]:
         assert self.training_data is not None, "Training data is not loaded"
@@ -335,6 +334,7 @@ class ArimaModel(IModel, ABC):
                 model = arima_base.fit()
                 if not single_step:
                     forecast = model.forecast(len(test_set))
+                    forecast = DataFrame(forecast)
                 # Evaluate model with single step evaluation and Walk-forward validation
                 else:
                     forecast = ArimaModel._single_step_prediction(model=model, test_set=test_set)
