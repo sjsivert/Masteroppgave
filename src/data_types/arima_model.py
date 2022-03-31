@@ -114,11 +114,13 @@ class ArimaModel(IModel, ABC):
         )
         predictive_period = if_predictive_period_longer_than_dataset_use_max_length
         if single_step:
+            logging.info("ArimaModel: Single step prediction")
             value_predictions = ArimaModel._single_step_prediction(
                 model=self.model, test_set=self.test_data
             )
             self.predictions = value_predictions[0][:predictive_period]
         else:
+            logging.info("ArimaModel: Multi step prediction")
             value_predictions = self.model.predict(
                 self.training_periode, self.training_periode + predictive_period - 1
             )
