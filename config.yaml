@@ -22,11 +22,11 @@ experiment:
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
+    - 'MAE'
     - 'MASE'
     - 'SMAPE'
     - 'MAPE'
     - 'MSE'
-    - 'MAE'
 
   save_source:
     disk:
@@ -49,17 +49,17 @@ model:
       hidden_size: [ 10, 15]
       number_of_layers: [ 1, 5]
       dropout: [ 0.0, 0.5 ]
-      optimizer_name: ['Adam', 'Adadelta', 'RMSprop']
+      optimizer_name: ['Adam', 'RMSprop']
       #optimizer_name: ['Adam']
       learning_rate: [ 1e-6, 1e-4 ]
       number_of_epochs: [5, 100]
-      batch_size: 50
+      batch_size: [10, 130]
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 50 # Number of tuning trials to run. The more the better.
-      time_to_tune_in_minutes: 60  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      number_of_trials: 30 # Number of tuning trials to run. The more the better.
+      #time_to_tune_in_minutes: 3600  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
 
     common_parameters_for_all_models:
@@ -68,18 +68,19 @@ model:
       input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 50
-      number_of_epochs: 51
+      batch_size: 1
+      number_of_epochs: 26
       stateful_lstm: true
       should_shuffle_batches: false
-      optimizer_name: 'RMSprop'
+      optimizer_name: 'Adam'
 
     model_structure:
       #- time_series_id: 11573
       - time_series_id: 2
-        learning_rate: 5.65e-05
+      #- time_series_id: 11037
+        learning_rate: 7.88e-05
         hidden_layer_size: 14
-        dropout: 0.142
+        dropout: 0.132
         number_of_features: 1
         number_of_layers: 3
 
@@ -95,7 +96,8 @@ model:
       loss: "mse"
 
     model_structure:
-      - time_series_id: 11573
+      #- time_series_id: 11573
+      - time_series_id: 2
         learning_rate: 0.03
         encoder:
           - filters: 8
@@ -130,6 +132,7 @@ model:
 
     model_structure:
       - time_series_id: 11573
+        learning_rate: 0.03
         lstm:
           optimizer_name: 'Adam'
           stateful_lstm: False
@@ -168,37 +171,13 @@ model:
       d: [1, 10]
       q: [1, 16]
 
-      #metric_to_use_when_tuning: 'MASE'
-    metric_to_use_when_tuning: 'MSE'
+    metric_to_use_when_tuning: 'MASE'
+    #metric_to_use_when_tuning: 'MSE'
 
     model_structure:
       - time_series_id: 2
         # 1
         hyperparameters:
-          p: 7
+          p: 9
           d: 2
-          q: 7
-      - time_series_id: 6
-        # 2
-        hyperparameters:
-          p: 7
-          d: 2
-          q: 7
-      - time_series_id: 9
-        # 3
-        hyperparameters:
-          p: 7
-          d: 2
-          q: 7
-      - time_series_id: 10
-        # 4
-        hyperparameters:
-          p: 7
-          d: 2
-          q: 7
-      - time_series_id: 11
-        # 5
-        hyperparameters:
-          p: 7
-          d: 2
-          q: 7
+          q: 11
