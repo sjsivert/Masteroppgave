@@ -2,6 +2,7 @@ import os
 import random
 
 import numpy as np
+import tensorflow as tf
 import torch
 
 
@@ -12,3 +13,4 @@ def seed_everything(seed: int) -> None:
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
+    tf.random.set_seed(seed)
