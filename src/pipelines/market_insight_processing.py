@@ -330,7 +330,7 @@ def sliding_window_x_y_generator(
     for data, scaler in stream:
         X = []
         Y = []
-        for i in range(0, len(data) - input_window_size - output_window_size):
+        for i in range(0, len(data) - input_window_size - output_window_size + 1):
             x = data[i:i + input_window_size]
             y = data[i + input_window_size:i + input_window_size + output_window_size]
             X.append(x)
