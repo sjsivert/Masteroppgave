@@ -30,5 +30,6 @@ def arima_model_pipeline(data_set: DataFrame, cat_id: str, forecast_size: int) -
             (f"split up training set into training and  validation set of forecast window size{forecast_size})",
              market_processing.split_into_training_and_validation_forecast_window_arima,
              {"forecast_window_size": forecast_size, "input_window_size": 0}),
+             #("save datasets to file", market_processing.save_datasets_to_file_arima, {"name": "scaled"}),
         ]
     )

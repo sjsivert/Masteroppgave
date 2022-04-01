@@ -45,7 +45,6 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
         self.training_data, self.testing_data, self.min_max_scaler = data_pipeline.run()
-        print("keras net trainingdata", self.training_data[0].shape)
         self.split_data_sets()
 
     def split_data_sets(self):
@@ -54,22 +53,22 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         )
 
         examples_to_drop_to_make_all_batches_same_size = (
-            1
+            None
             if examples_to_drop_to_make_all_batches_same_size == 0
-            else examples_to_drop_to_make_all_batches_same_size
+            else -examples_to_drop_to_make_all_batches_same_size
         )
 
         logging.info(
             f"Examples to drop to make all batches same size: {examples_to_drop_to_make_all_batches_same_size}"
         )
         x_train, y_train = (
-            self.training_data[0][:-examples_to_drop_to_make_all_batches_same_size],
-            self.training_data[1][:-examples_to_drop_to_make_all_batches_same_size],
+            self.training_data[0][:examples_to_drop_to_make_all_batches_same_size],
+            self.training_data[1][:examples_to_drop_to_make_all_batches_same_size],
         )
         self.x_val, self.y_val = (
-            x_train[-self.batch_size * 20 :],
-            y_train[-self.batch_size * 20 :],
+            x_train[-self.batch_size :],
+            y_train[-self.batch_size :],
         )
-        self.x_train = x_train[: -self.batch_size * 20]
-        self.y_train = y_train[: -self.batch_size * 20]
+        self.x_train = x_train[: -self.batch_size]
+        self.y_train = y_train[: -self.batch_size]
         self.x_test, self.y_test = self.testing_data[0], self.testing_data[1]

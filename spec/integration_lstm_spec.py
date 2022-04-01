@@ -53,21 +53,24 @@ with description("main Local Univariate LSTM integration test", "skip") as self:
             steps=[("load random generated test data", random_data_loader, {})]
         )
         # fmt: off
+        input_window_size = 1
+        output_window_size = 1
+        training_size = output_window_size
         test_local_univariate_pipeline = Pipeline(
             steps=test_pipeline.steps + [
                 ("choose columns date and interest", market_processing.choose_columns, {"columns": ["date", "interest"]}),
                 ("fill inn dates", market_processing.fill_in_dates, {}),
                 ("convert to np.array", market_processing.convert_to_np_array, {}),
                 ("scale data", market_processing.scale_data, {}),
-                ("split into test and training data", market_processing.split_into_training_and_test_set,
-                 {"training_size": 0.8},),
-                ("split into validationa nd training data", market_processing.split_into_training_and_validation_set,
-                 {"training_size": 0.8},),
-                ("convert to timeseries dataset", market_processing.convert_to_time_series_dataset,
-                 {"input_window_size": 1, "output_window_size": 1}),
+                (f"generate x y pairs with sliding window with input size {input_window_size}, and output size {output_window_size}",
+                    market_processing.sliding_window_x_y_generator,
+                    {"input_window_size": input_window_size, "output_window_size": output_window_size}),
+
+                (f"generate training and validation data with training size {training_size}",
+                    market_processing.keras_split_into_training_and_test_set, {"test_window_size": training_size}),
             ]
         )
-        train_set, test_set, scaler, _ = test_local_univariate_pipeline.run()
+        train_set, test_set, scaler = test_local_univariate_pipeline.run()
         # when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
         when(pipeline).market_insight_pipeline().thenReturn(test_pipeline)
         when(lstm_keras_pipeline, strict=False).local_univariate_lstm_keras_pipeline(
@@ -94,7 +97,7 @@ with description("main Local Univariate LSTM integration test", "skip") as self:
 
         # Act
         result = self.runner.invoke(
-            main.main, ["--experiment", exp_name, "description", "--save"], catch_exceptions=False
+            main.main, ["--experiment", exp_name, "description", "--save", "--overwrite"], catch_exceptions=False
         )
 
         # Assert
@@ -118,7 +121,7 @@ with description("main Local Univariate LSTM integration test", "skip") as self:
 
         # Act
         result = self.runner.invoke(
-            main.main, ["--experiment", exp_name, "description", "--tune"], catch_exceptions=False
+            main.main, ["--experiment", exp_name, "description", "--tune", "--overwrite"], catch_exceptions=False
         )
 
         # Assert
@@ -142,7 +145,7 @@ with description("main Local Univariate LSTM integration test", "skip") as self:
 
         # Act
         self.runner.invoke(
-        main.main, ["--experiment", exp_name, "description", "--tune"], catch_exceptions=False
+        main.main, ["--experiment", exp_name, "description", "--tune", "--overwrite"], catch_exceptions=False
         )
         result = self.runner.invoke(
             main.main, ["-c", "--tune"], catch_exceptions=False
