@@ -80,7 +80,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         # TODO: Do something with the training metrics returned by 'train' method
         # TODO: Pass training data to the 'train' method
         for model in self.models:
-            model.train(self.training_set)
+            model.train()
 
     def test(self) -> Dict:
         # TODO: Do something with the test metrics data returned by the 'test' method
