@@ -1,0 +1,2 @@
+epoch,model_id,Training_MSE,Training_MASE,Training_SMAPE,Training_MAE
+0,2,778728.8342715511,0.89,0.138,507.40132741851664
