@@ -53,8 +53,8 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         )
 
         examples_to_drop_to_make_all_batches_same_size = (
-            None
-            if examples_to_drop_to_make_all_batches_same_size == 0
+            -self.hyper_parameters["output_window_size"]
+            if examples_to_drop_to_make_all_batches_same_size == 0 and self.batch_size == 1
             else -examples_to_drop_to_make_all_batches_same_size
         )
 

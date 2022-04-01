@@ -26,7 +26,6 @@ def profiler(fnc: Callable[..., T], enable: bool = True) -> T:
             ps = pstats.Stats(profiler, stream=stream).sort_stats(sortby)
             # logging.INFO(ps.print_stats())
             ps.print_stats()
-            print(stream.getvalue())
             return return_value
         else:
             # Call the function
