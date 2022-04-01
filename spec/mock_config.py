@@ -41,7 +41,7 @@ def init_mock_config(
                 "local_univariate_lstm": {
                     "common_parameters_for_all_models": {
                         "training_size": 0.8,
-                        "input_window_size": 7,
+                        "input_window_size": 1,
                         "output_window_size": 1,
                         "batch_size": 2,
                         "optimizer_name": "SGD",
@@ -61,7 +61,8 @@ def init_mock_config(
                         "output_window_size": 1,
                         "number_of_features": 1,
                         "number_of_trials": 1,
-                        "batch_size": [1, 32],
+                        "batch_size": [1, 2],
+                        "stateful_lstm": True,
                     },
                     "model_structure": [
                         {

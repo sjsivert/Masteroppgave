@@ -178,6 +178,18 @@ def keras_split_into_training_and_test_set(
         y_test = y[-1:]
 
         yield ((x_train, y_train),  (x_test, y_test), scaler)
+@declare.processor()
+def save_datasets_to_file(
+        stream: Iterable[Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], Optional[StandardScaler]]],
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (training, testing, scaler) in stream:
+        # The testing set is the same as the prediction output window
+        training_df = pd.DataFrame(training[1][:, 0, 0])
+        testing_df = pd.DataFrame(testing[1][0, :, 0])
+        training_df.to_csv("./datasets/interim/lstm_training_set.csv")
+        testing_df.to_csv("./datasets/interim/lstm_testing_set.csv")
+
+        yield (training, testing, scaler)
 
 @declare.processor()
 def split_into_training_and_test_forecast_window_arima(
@@ -191,6 +203,20 @@ def split_into_training_and_test_forecast_window_arima(
 
 
         yield training_df, testing_set, scaler
+@declare.processor()
+def save_datasets_to_file_arima(
+        stream: Iterable[Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], Optional[StandardScaler]]],
+        name: str,
+) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
+    for (training, validation_set, testing, scaler) in stream:
+        print(training.shape)
+        training_df = pd.DataFrame(training)
+        print(training_df.head())
+        testing_df = pd.DataFrame(testing)
+        training_df.to_csv(f"./datasets/interim/arima_training_set{name}.csv")
+        testing_df.to_csv(f"./datasets/interim/arima_testing_set{name}.csv")
+
+        yield (training, validation_set, testing, scaler)
 
 @declare.processor()
 def split_into_training_and_validation_forecast_window_arima(
