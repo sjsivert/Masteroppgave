@@ -209,9 +209,7 @@ def save_datasets_to_file_arima(
         name: str,
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     for (training, validation_set, testing, scaler) in stream:
-        print(training.shape)
         training_df = pd.DataFrame(training)
-        print(training_df.head())
         testing_df = pd.DataFrame(testing)
         training_df.to_csv(f"./datasets/interim/arima_training_set{name}.csv")
         testing_df.to_csv(f"./datasets/interim/arima_testing_set{name}.csv")

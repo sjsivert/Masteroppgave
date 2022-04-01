@@ -95,18 +95,16 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
                 self.x_train, self.y_train[:, 0, :]
             )
             validation_predictions, validation_targets = self.predict_and_rescale(
-                self.x_val, self.y_val[:, 0, :]
+                self.x_val, self.y_val.reshape(-1, 1)
             )
-            print("training_targets", training_targets.shape)
-            print("training_predictions", training_predictions.shape)
             self._visualize_predictions(
                 (training_targets.flatten()),
-                (training_predictions[:, 0].flatten()),
+                (training_predictions[:: self.output_window_size, :].flatten()),
                 "Training predictions",
             )
             self._visualize_predictions(
                 validation_targets.flatten(),
-                validation_predictions[:, 0].flatten(),
+                validation_predictions.flatten(),
                 "Validation predictions",
             )
             self._visualize_errors(
@@ -163,7 +161,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         self._visualize_predictions(
             (test_targets.flatten()),
-            (test_predictions[:, 0].flatten()),
+            (test_predictions.flatten()),
             "Test predictions",
         )
         self.metrics.update(test_metrics)
