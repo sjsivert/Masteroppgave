@@ -85,6 +85,7 @@ jobs:
         # Override the commit sha
         #git-commit: # optional
   check-code-formatting:
+    if: ${{ false }}  # disable becuase black version not compatible with click. Outdated package (https://github.com/psf/black/issues/2964)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
