@@ -265,7 +265,7 @@ model:
   local_univariate_cnn_ae:
     common_parameters_for_all_models:
       training_size: 7
-      input_window_size: 10
+      input_window_size: 14
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 1
