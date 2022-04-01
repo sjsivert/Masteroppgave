@@ -1,6 +1,6 @@
 data:
-  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
-  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  # data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   #categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
@@ -15,7 +15,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-      #- 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -46,14 +46,14 @@ model:
     placeholder: 0
   local_univariate_lstm:
     hyperparameter_tuning_range:
-      hidden_size: [ 10, 15]
+      hidden_size: [ 10, 50]
       number_of_layers: [ 1, 5]
       dropout: [ 0.0, 0.5 ]
       optimizer_name: ['Adam', 'RMSprop']
       #optimizer_name: ['Adam']
       learning_rate: [ 1e-6, 1e-4 ]
       number_of_epochs: [5, 100]
-      batch_size: [10, 130]
+      batch_size: 1
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
@@ -75,9 +75,10 @@ model:
       optimizer_name: 'Adam'
 
     model_structure:
-      - time_series_id: 11573
+      #- time_series_id: 11573
       # - time_series_id: 2
       #- time_series_id: 11037
+      - time_series_id: 12322
         learning_rate: 7.88e-05
         hidden_layer_size: 14
         dropout: 0.132
