@@ -46,7 +46,6 @@ class LSTMLightning(pl.LightningModule):
         self.hidden_size = hidden_layer_size
         self.learning_rate = learning_rate
         self.optimizer_name = optimizer_name
-        dropout = dropout
 
         logging.info(
             f"Initializing LSTM with {self.num_layers} layers, {self.hidden_size} hidden size, "

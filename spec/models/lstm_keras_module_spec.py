@@ -17,10 +17,9 @@ from src.utils.keras_optimizer import KerasOptimizer
 
 with description(LstmKerasModule, "unit") as self:
     with shared_context("init_lstm"):
-        batch_size = 3
+        batch_size = 1
         model = LstmKerasModule(
             optimizer_name="Adam",
-            stateful=False,
             output_window_size=1,
             number_of_layers=3,
             batch_size=batch_size,
@@ -30,7 +29,7 @@ with description(LstmKerasModule, "unit") as self:
             recurrent_dropout=0.0,
             learning_rate=0.001,
             dropout=0.0,
-            stateful_lstm=False,
+            stateful_lstm=True,
         ).model
 
     with it("should be instantiable"):
@@ -80,7 +79,7 @@ with description(LstmKerasModule, "unit") as self:
         with included_context("init_lstm_model"):
             pass
 
-    with it("should be able to train"):
+    with it("lstm_keras_model should be able to train"):
         with included_context("init_lstm_model"):
             input_window_size = 1
             output_window_size = 1

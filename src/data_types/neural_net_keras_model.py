@@ -48,6 +48,7 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         self.split_data_sets()
 
     def split_data_sets(self):
+        # Do not look a the code in the next 11 lines below, it is ugly and I am not proud of it
         examples_to_drop_to_make_all_batches_same_size = (
             self.training_data[0].shape[0] % self.batch_size
         )
@@ -56,6 +57,11 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
             -self.hyper_parameters["output_window_size"]
             if examples_to_drop_to_make_all_batches_same_size == 0 and self.batch_size == 1
             else -examples_to_drop_to_make_all_batches_same_size
+        )
+        examples_to_drop_to_make_all_batches_same_size = (
+            None
+            if examples_to_drop_to_make_all_batches_same_size == 0
+            else examples_to_drop_to_make_all_batches_same_size
         )
 
         logging.info(
