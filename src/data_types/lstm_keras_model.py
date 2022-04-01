@@ -74,7 +74,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         self.split_data_sets()
 
-        logging.info(f"Splitting training data into")
+        logging.info("Splitting training data into")
 
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
 
