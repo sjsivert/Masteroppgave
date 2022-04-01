@@ -12,21 +12,22 @@ from sklearn import metrics
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.data_types.neural_net_model import NeuralNetModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
-    local_univariate_lstm_keras_objective,
-)
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
+    local_univariate_lstm_keras_objective
+from src.pipelines import \
+    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics,
-    generate_error_metrics_dict,
-)
+    config_metrics_to_keras_metrics, generate_error_metrics_dict)
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
-from tensorflow.keras.losses import MeanAbsoluteError, MeanAbsolutePercentageError, MeanSquaredError
+from tensorflow.keras.losses import (MeanAbsoluteError,
+                                     MeanAbsolutePercentageError,
+                                     MeanSquaredError)
 
 
 class LstmKerasModel(NeuralNetKerasModel, ABC):
@@ -200,7 +201,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             ),
             timeout=parameters.get("time_to_tune_in_minutes", None),
             # TODO: Fix pytorch network to handle concurrency
-            # n_jobs=8,  # Use maximum number of cores
+            n_jobs=-1,  # Use maximum number of cores
             # n_trials=parameters["number_of_trials"],
             # show_progress_bar=False,
             callbacks=[self.log_trial],
