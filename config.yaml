@@ -58,8 +58,8 @@ model:
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 30 # Number of tuning trials to run. The more the better.
-      #time_to_tune_in_minutes: 3600  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      number_of_trials: 1 # Number of tuning trials to run. The more the better.
+      time_to_tune_in_minutes: 1  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
 
     common_parameters_for_all_models:
