@@ -35,7 +35,8 @@ class ArimaModel(IModel, ABC):
         self,
         log_sources: List[ILogTrainingSource],
         name: str = "placeholder",
-        hyperparameters: Dict[str, int] = OrderedDict({"p": 9, "d": 2, "q": 11}),
+        hyperparameters: Dict[str, int] = OrderedDict({"p": 2, "d": 1, "q": 3, "P": 3, "D": 2, "Q": 1, "s": 12}),
+        seasonal: bool = True
     ):
         self.data_pipeline = None
         self.value_approximation = None
@@ -58,6 +59,7 @@ class ArimaModel(IModel, ABC):
             0  # Integer defining the number of data-points used to train the ARIMA model
         )
         self.training_residuals = None  # Dataframe of training residuals
+        self.seasonal = seasonal
         super().__init__()
 
     def process_data(
@@ -86,7 +88,10 @@ class ArimaModel(IModel, ABC):
 
         train_val_data = pd.concat([self.training_data, self.validation_data])
         self.training_periode = len(train_val_data)
-        arima_model = ARIMA(train_val_data, order=self.order)
+        if self.seasonal:  # SARIMA
+            arima_model = ARIMA(train_val_data, order=self.order[:3], seasonal_order=self.order[3:])
+        else:  # ARIMA
+            arima_model = ARIMA(train_val_data, order=self.order[:3])
         arima_model_res = arima_model.fit()
         logging.info(arima_model_res.summary())
 
@@ -299,7 +304,7 @@ class ArimaModel(IModel, ABC):
         for order in parameters:
             result = pool.apply_async(
                 ArimaModel._eval_arima,
-                args=(order, self.training_data, self.validation_data, single_step),
+                args=(order, self.training_data, self.validation_data, single_step, self.seasonal),
             )
             results.append(result)
         pool.close()
@@ -321,16 +326,20 @@ class ArimaModel(IModel, ABC):
 
     @staticmethod
     def _eval_arima(
-        order: Tuple[int, int, int],
+        order: Tuple[Tuple[int, int, int], Tuple[int, int, int, int]],
         training_set: DataFrame,
         test_set: DataFrame,
         single_step: bool,
+        seasonal: bool = True,
     ) -> Tuple[str, float]:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             try:
-                # Create and fit model with training data
-                arima_base = ARIMA(training_set, order=order)
+                # Create and fit model with training data. Either ARIMA or SARIMA
+                if seasonal:
+                    arima_base = ARIMA(training_set, order=order[0], seasonal_order=order[1])
+                else:
+                    arima_base = ARIMA(training_set, order=order[0])
                 model = arima_base.fit()
                 if not single_step:
                     forecast = model.forecast(len(test_set))
@@ -345,6 +354,8 @@ class ArimaModel(IModel, ABC):
                 sys.exit()
                 return None, None
             except Exception as e:
+                print()
+                logging.info(e)
                 logging.info(
                     f"Tuning ARIMA model {order} got an error. Calculations not completed."
                 )
