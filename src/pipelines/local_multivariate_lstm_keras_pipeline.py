@@ -7,7 +7,7 @@ from src.pipelines.date_feature_generator import (calculate_day_of_the_week,
                                                   calculate_season)
 
 
-def local_univariate_lstm_keras_pipeline(
+def local_multivariate_lstm_keras_pipeline(
         data_set: DataFrame,
         cat_id: str,
         training_size: float,
@@ -37,6 +37,13 @@ def local_univariate_lstm_keras_pipeline(
                 {"cat_id": cat_id},),
             ("choose columns 'interest' and 'date'", market_processing.choose_columns, {"columns": ["date", "interest"]}),
             ("fill in dates with zero values", market_processing.fill_in_dates, {}),
+            ("add feature month", market_processing.generate_feature, 
+                {"new_feature_name": "month", 
+                "function": lambda date: date.month}),
+            ("add feature season ", market_processing.generate_feature, 
+                {"new_feature_name": "season", "function": calculate_season}),
+            ("add feature day_of_the_week", market_processing.generate_feature, 
+                {"new_feature_name": "day_of_the_week", "function": calculate_day_of_the_week}),
             ("convert to np.array", market_processing.convert_to_np_array, {}),
             (f"scale data between 0.1 and 1", market_processing.scale_data, {"should_scale": True}),
             (f"generate x y pairs with sliding window with input size {input_window_size}, and output size {output_window_size}",

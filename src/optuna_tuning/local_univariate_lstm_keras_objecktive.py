@@ -5,9 +5,12 @@ from typing import Dict, List, OrderedDict, Tuple
 
 import keras.backend as K
 import optuna
-from optuna.integration import (KerasPruningCallback,
-                                PyTorchLightningPruningCallback,
-                                TFKerasPruningCallback, pytorch_lightning)
+from optuna.integration import (
+    KerasPruningCallback,
+    PyTorchLightningPruningCallback,
+    TFKerasPruningCallback,
+    pytorch_lightning,
+)
 from src.data_types.i_model import IModel
 from src.data_types.modules.lstm_module import LstmModule
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
