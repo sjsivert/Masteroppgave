@@ -1,0 +1,2 @@
+lstm-predict-cat-12322-low-epoch
+Using best parameters to predict cat 12322, mse-low-epoch

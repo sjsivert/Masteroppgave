@@ -1,0 +1,2 @@
+lstm-predict-cat-12322-values-taken-from-log
+Using best parameters to predict cat 12322. Using best parameters taken from tuning logg

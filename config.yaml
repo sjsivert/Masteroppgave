@@ -23,10 +23,10 @@ experiment:
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
     - 'MAE'
+    - 'MSE'
     - 'MASE'
     - 'SMAPE'
     - 'MAPE'
-    - 'MSE'
 
   save_source:
     disk:
@@ -46,14 +46,14 @@ model:
     placeholder: 0
   local_univariate_lstm:
     hyperparameter_tuning_range:
-      hidden_size: [ 10, 50]
+      hidden_size: [ 20, 100]
       number_of_layers: [ 1, 5]
       dropout: [ 0.0, 0.5 ]
       optimizer_name: ['Adam', 'RMSprop']
       #optimizer_name: ['Adam']
-      learning_rate: [ 1e-6, 1e-4 ]
+      learning_rate: [ 1e-4, 1e-2 ]
       number_of_epochs: [5, 100]
-      batch_size: 1
+      batch_size: 10
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
@@ -68,17 +68,18 @@ model:
       input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 1
+      batch_size: 10
       number_of_epochs: 26
       stateful_lstm: true
       should_shuffle_batches: false
-      optimizer_name: 'Adam'
+      optimizer_name: 'RMSprop'
 
     model_structure:
       #- time_series_id: 11573
-      # - time_series_id: 2
+      #- time_series_id: 2
       #- time_series_id: 11037
-      - time_series_id: 12322
+      #- time_series_id: 12322
+      - time_series_id: 20
         learning_rate: 7.88e-05
         hidden_layer_size: 14
         dropout: 0.132

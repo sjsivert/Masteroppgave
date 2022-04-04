@@ -1,0 +1,9 @@
+
+_____Results dataset-2_____
+training_error: 0.05502
+validation_error: 0.0299
+test_MAE: 0.01677
+test_MASE: 1.16478
+test_SMAPE: 0.07372
+test_MAPE: 7.77443
+test_MSE: 0.00046
