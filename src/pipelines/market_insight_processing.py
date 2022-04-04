@@ -135,8 +135,31 @@ def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma
 
 @declare.processor()
 def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
-    for df in stream:
-        yield np.array(df)
+    for (df, scaler) in stream:
+        print(df.info())
+        print(df.describe())
+        np_array = np.array(df)
+        yield np_array, scaler
+
+@declare.processor()
+def scale_data_dataframe(
+    stream: Iterable[DataFrame], should_scale: bool = False
+) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
+    for (df) in stream:
+        if (df.size == 0):
+            print("Empty dataframe",df)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
+
+        if should_scale:
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
+            df["interest"] = scaler.fit_transform(df[["interest"]])
+            for col in df.columns:
+                if col != "interest":
+                    feature_scaler = MinMaxScaler(feature_range=(0, 1))
+                    df[col] = feature_scaler.fit_transform(df[[col]])
+            yield df, scaler
+        else:
+            yield df, scaler
 
 @declare.processor()
 def scale_data(
@@ -149,8 +172,10 @@ def scale_data(
 
         if should_scale:
             scaler = MinMaxScaler(feature_range=(0.1, 1))
-            scaled_df = scaler.fit_transform(df)
-            yield scaled_df, scaler
+            scaled_data = scaler.fit_transform(df)
+            df = pd.DataFrame(scaled_data)
+            df.to_csv("./datasets/interim/scaled_data.csv")
+            yield scaled_data, scaler
         else:
             yield df, None
 
@@ -332,8 +357,10 @@ def sliding_window_x_y_generator(
         for i in range(0, len(data) - input_window_size - output_window_size + 1):
             x = data[i:i + input_window_size]
             y = data[i + input_window_size:i + input_window_size + output_window_size]
+            # Chose only the interest column in the y array
+            y_interest = y[:, 0]
             X.append(x)
-            Y.append(y)
+            Y.append(y_interest)
 
         yield np.array(X), np.array(Y), scaler
 
@@ -375,6 +402,10 @@ def generate_feature(
     new_feature_name: str
 ) -> Iterable[DataFrame]:
     for df in stream:
+        if (df.size == 0):
+            print("Empty dataframe", df)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
+
         all_dates = df.index.date
         vector_function = np.vectorize(function)
         df[new_feature_name] = vector_function(all_dates)

@@ -8,6 +8,7 @@ import optuna
 import pipe
 import tensorflow as tf
 from numpy import ndarray
+from pandas import DataFrame
 from sklearn import metrics
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
@@ -92,13 +93,13 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
             training_predictions, training_targets = self.predict_and_rescale(
-                self.x_train, self.y_train[:, 0, :]
+                self.x_train, self.y_train
             )
             validation_predictions, validation_targets = self.predict_and_rescale(
                 self.x_val, self.y_val.reshape(-1, 1)
             )
             self._visualize_predictions(
-                (training_targets.flatten()),
+                (training_targets[:, 0].flatten()),
                 (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
@@ -126,8 +127,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
         logging.info("Predicting")
         predictions = self.prediction_model.predict(input_data, batch_size=1)
-        predictions_rescaled = self._rescale_data(predictions)
-        targets_rescaled = self._rescale_data(targets)
+        # predictions_rescaled = self._rescale_data(predictions)
+        # targets_rescaled = self._rescale_data(targets)
+        # predictions_rescaled = self._rescale_data(DataFrame(predictions))
+        # targets_rescaled = self._rescale_data(DataFrame(predictions))
+        predictions_rescaled = predictions
+        targets_rescaled = targets
 
         return predictions_rescaled, targets_rescaled
 
@@ -156,8 +161,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         # Visualize
         self.prediction_model.reset_states()
-        self.predict_and_rescale(x_train, y_train[0, :, :])
-        test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test[0, :, :])
+        self.predict_and_rescale(x_train, y_train)
+        test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
 
         self._visualize_predictions(
             (test_targets.flatten()),

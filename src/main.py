@@ -90,7 +90,7 @@ def main(
                 options_to_save=config.dump(),
             )
     elif continue_experiment:
-        logging.info(f"Continues previous experiment")
+        logging.info("Continues previous experiment")
 
         experiment_checkpoints_location = LocalCheckpointSaveSource().get_checkpoint_save_location()
 
