@@ -171,8 +171,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
-        print("test_predictions", test_predictions.shape)
-        print("test_targets", test_targets.shape)
 
         self._visualize_predictions(
             (test_targets.flatten()),
