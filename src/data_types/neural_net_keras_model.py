@@ -4,10 +4,8 @@ from typing import Any, Dict, List, Optional
 
 import optuna
 from src.data_types.neural_net_model import NeuralNetModel
-from src.pipelines import \
-    local_multivariate_lstm_keras_pipeline as multivariate_pipeline
-from src.pipelines import \
-    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.pipelines import local_multivariate_lstm_keras_pipeline as multivariate_pipeline
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
@@ -24,8 +22,8 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
             time_series_id,
             params,
             optuna_trial,
-            pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
-            # pipeline=multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
+            # pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
+            pipeline=multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
         )
         self.should_shuffle_batches = params["should_shuffle_batches"]
         # Defining data set varaibles

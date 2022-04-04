@@ -16,16 +16,16 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+    # - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
+    - 'MASE'
     - 'MAE'
     - 'MSE'
-    - 'MASE'
     - 'SMAPE'
     - 'MAPE'
 
@@ -57,35 +57,34 @@ model:
       batch_size: 10
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
-      multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 1 # Number of tuning trials to run. The more the better.
+      multi_variable_nr: 4 # must be equal to number of variables used in multi variable (1 if uni variate)
+      number_of_features: 4 # must be equal to number of features in data
+      number_of_trials: 10 # Number of tuning trials to run. The more the better.
       time_to_tune_in_minutes: 1  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
 
     common_parameters_for_all_models:
       # If int <= 1 then the testing set will be equal to output_window_size
-      training_size: 7
-      input_window_size: 10
-      output_window_size: 7
-      multi_variable_nr: 1
-      batch_size: 10
-      number_of_epochs: 26
-      stateful_lstm: true
-      should_shuffle_batches: false
-      optimizer_name: 'RMSprop'
+       training_size: 7
+       input_window_size: 10
+       output_window_size: 7
+       multi_variable_nr: 4
+       batch_size: 10
+       number_of_epochs: 86
+       stateful_lstm: yes
+       should_shuffle_batches: no
+       optimizer_name: Adam
 
     model_structure:
       #- time_series_id: 11573
-      #- time_series_id: 2
-      #- time_series_id: 11037
+      # - time_series_id: 2
+      - time_series_id: 11037
+        learning_rate: 0.000218
+        hidden_layer_size: 54
+        dropout: 0.1916
+        number_of_features: 4
+        number_of_layers: 1
       #- time_series_id: 12322
-      - time_series_id: 20
-        learning_rate: 7.88e-05
-        hidden_layer_size: 14
-        dropout: 0.132
-        number_of_features: 1
-        number_of_layers: 3
 
   local_univariate_cnn_ae:
     common_parameters_for_all_models:
