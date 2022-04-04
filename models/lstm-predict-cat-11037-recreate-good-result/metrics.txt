@@ -1,0 +1,9 @@
+
+_____Results dataset-11037_____
+training_error: 0.04167
+validation_error: 0.01422
+test_MAE: 0.00429
+test_MSE: 2e-05
+test_MASE: 0.60771
+test_SMAPE: 0.03406
+test_MAPE: 3.39323

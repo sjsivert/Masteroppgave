@@ -1,0 +1,2 @@
+lstm-predict-cat-11037-recreate-good-result-batch-size-1
+Try to recrete good results on cat 11037: Change batch size to 1

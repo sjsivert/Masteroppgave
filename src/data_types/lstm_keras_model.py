@@ -100,7 +100,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             )
             self._visualize_predictions(
                 (training_targets.flatten()),
-                (training_predictions[:: self.output_window_size, :].flatten()),
+                (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
             self._visualize_predictions(
@@ -201,7 +201,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             ),
             timeout=parameters.get("time_to_tune_in_minutes", None),
             # TODO: Fix pytorch network to handle concurrency
-            n_jobs=-1,  # Use maximum number of cores
+            # n_jobs=-1,  # Use maximum number of cores
             # n_trials=parameters["number_of_trials"],
             # show_progress_bar=False,
             callbacks=[self.log_trial],

@@ -1,0 +1,9 @@
+
+_____Results dataset-12322_____
+training_error: 1.20848
+validation_error: 0.6832
+test_MASE: 0.8626
+test_SMAPE: 0.05065
+test_MAE: 0.01255
+test_MSE: 0.00029
+test_MAPE: 4.89923

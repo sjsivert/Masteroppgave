@@ -1,0 +1,2 @@
+lstm-predict-cat-12322-use-good-parameters-from-11573-change-val-set-to-forecast-window
+Try to use the non tunable parameters, which gave good results on cat 12322. And change the validation set to equal forecast window

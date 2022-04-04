@@ -1,0 +1,2 @@
+lstm-predict-cat-11037-recreate-good-rmsprop
+Try to recrete good results on cat 11037: Change optimizer to RMSprop
