@@ -28,6 +28,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         steps_to_predict: int = 5,
         multi_step_forecast: bool = False,
         auto_arima: bool = True,
+        seasonal: bool = True
     ) -> None:
         self.models: List[IModel] = []
         self.log_sources = log_sources
@@ -37,6 +38,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.model_structures = model_structure
         self.steps_to_predict = steps_to_predict
         self.multi_step_prediction = multi_step_forecast
+        self.seasonal = seasonal
 
         self.metrics: Dict = {}
         # Data
@@ -58,6 +60,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                     log_sources=self.log_sources,
                     hyperparameters=model_structure["hyperparameters"],
                     name=model_structure["time_series_id"],
+                    seasonal=self.seasonal
                 ),
                 self.model_structures,
             )
@@ -99,6 +102,10 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
             p_range=self.hyperparameter_tuning_range["p"],
             d_range=self.hyperparameter_tuning_range["d"],
             q_range=self.hyperparameter_tuning_range["q"],
+            P_range=self.hyperparameter_tuning_range["p"],
+            D_range=self.hyperparameter_tuning_range["d"],
+            Q_range=self.hyperparameter_tuning_range["q"],
+            s_range=self.hyperparameter_tuning_range["s"],
         )
         logging.info(
             f"Parameter tuning ranges are: {self.hyperparameter_tuning_range} \n "
@@ -144,12 +151,29 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         p_range: Tuple[int, int],
         d_range: Tuple[int, int],
         q_range: Tuple[int, int],
+        P_range: Tuple[int, int],
+        D_range: Tuple[int, int],
+        Q_range: Tuple[int, int],
+        s_range: Tuple[int, int],
     ) -> List[Tuple[int, int, int]]:
         parameters = []
         for q in range(q_range[0], q_range[1] + 1):
             for d in range(d_range[0], d_range[1] + 1):
                 for p in range(p_range[0], p_range[1] + 1):
-                    parameters.append((p, d, q))
+                    if self.seasonal:  # SARIMA parameters
+                        for P in range(P_range[0], P_range[1] + 1):
+                            for D in range(D_range[0], D_range[1] + 1):
+                                for Q in range(Q_range[0], Q_range[1] + 1):
+                                    for s in range(s_range[0], s_range[1] + 1):
+                                        parameters.append((
+                                            (p, d, q),
+                                            (P, D, Q, s)
+                                        ))
+                    else:  # ARIMA parameters
+                        parameters.append((
+                            (p, d, q),
+                            None
+                        ))
         return parameters
 
     def get_models(self) -> List[IModel]:
