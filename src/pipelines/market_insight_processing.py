@@ -1,5 +1,5 @@
 # fmt: off
-from typing import Iterable, List, Optional, Tuple, Union
+from typing import Callable, Iterable, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -8,6 +8,7 @@ from numpy import ndarray
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from src.datasets.time_series_dataset import TimeseriesDataset
+from src.pipelines.date_feature_generator import calculate_season
 from src.utils.config_parser import config
 from torch.utils.data import DataLoader, Dataset
 
@@ -366,3 +367,15 @@ def simple_time_series_processor(stream: Iterable[DataFrame]) -> Iterable[DataFr
         #test_loader = DataLoader(dataset=test_data, batch_size=32, shuffle=False)
         #val_loader = DataLoader(dataset=val_data, batch_size=32, shuffle=False)
         yield train_data, test_data, val_data, scaler_test_dataset
+
+@declare.processor()
+def generate_feature(
+    stream: Iterable[DataFrame],
+    function: Callable,
+    new_feature_name: str
+) -> Iterable[DataFrame]:
+    for df in stream:
+        all_dates = df.index.date
+        vector_function = np.vectorize(function)
+        df[new_feature_name] = vector_function(all_dates)
+        yield df

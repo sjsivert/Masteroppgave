@@ -1,20 +1,20 @@
 # fmt: off
 import numpy as np
-
-from spec.utils.mock_time_series_generator import mock_time_series_generator
-from src.pipelines import market_insight_processing as market_processing
 import pandas as pd
 from expects import be_true, equal, expect
 from genpipes import compose
 from genpipes.compose import Pipeline
-from mamba import _it, before, description, included_context, it, shared_context
+from mamba import (_it, before, description, included_context, it,
+                   shared_context)
 from pandas import DataFrame, Timestamp
 from spec.test_logger import init_test_logging
 from spec.utils.mock_pipeline import create_mock_pipeline
-from spec.utils.test_data import mock_data, test_data, random_data_loader
+from spec.utils.mock_time_series_generator import mock_time_series_generator
+from spec.utils.test_data import mock_data, random_data_loader, test_data
+from src.pipelines import market_insight_processing as market_processing
 from src.pipelines import market_insight_processing as p
 
-with description("Market insight prosessing pipeline", "this") as self:
+with description("Market insight prosessing pipeline", "unit") as self:
     with before.all:
         init_test_logging()
 
