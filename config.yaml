@@ -16,7 +16,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+    # - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -70,22 +70,136 @@ model:
        input_window_size: 10
        output_window_size: 7
        multi_variable_nr: 4
-       batch_size: 1
-       number_of_epochs: 1
+       batch_size: 32
+       number_of_epochs: 40
        stateful_lstm: yes
        should_shuffle_batches: no
        optimizer_name: RMSprop
 
     model_structure:
       #- time_series_id: 11573
-      - time_series_id: 12322
-      # - time_series_id: 11037
-        learning_rate: 0.000299
-        hidden_layer_size: 94
-        dropout: 0.227
+      # - time_series_id: 12322
+      - time_series_id: 11037
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
         number_of_features: 4
-        number_of_layers: 5
+        number_of_layers: 2
       #- time_series_id: 12322
+      - time_series_id: 2
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 6
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 10
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 11
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 13
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 20
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 22
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 24
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 26
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 27
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 28
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 29
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 32
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 33
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 34
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 39
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 41
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 51
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
+      - time_series_id: 54
+        learning_rate: 0.000522
+        hidden_layer_size: 86
+        dropout: 0.0192
+        number_of_features: 4
+        number_of_layers: 2
 
   local_univariate_cnn_ae:
     common_parameters_for_all_models:
