@@ -7,3 +7,4 @@ class ModelStructureEnum(Enum):
     local_univariate_lstm = "local_univariate_lstm_structure"
     local_cnn_ae_lstm = "local_cnn_ae_lstm"
     local_cnn_ae = "local_cnn_ae"
+    global_univariate_lstm = "global_univariate_lstm_structure"

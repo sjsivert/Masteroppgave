@@ -1,43 +1,33 @@
 import logging
 import typing
-from typing import Any, List, Optional, OrderedDict, Tuple
-
-from genpipes.compose import Pipeline
+from typing import List, OrderedDict, Any, Optional, Tuple
 
 from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
 from src.data_types.lstm_model import LstmModel
-from src.data_types.lstm_keras_model import LstmKerasModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
 
-class LocalUnivariateLstmStructure(NeuralNetworkModelStructure):
+class GlobalLstmStructure(NeuralNetworkModelStructure):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        model_structure: List,
-        common_parameters_for_all_models: OrderedDict[str, Any],
+        parameters_for_all_models: OrderedDict[str, Any],
+        datasets: List[str],
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
-        # steps_to_predict: int = 5,
-        # multi_step_forecast: bool = False,
     ):
         super().__init__(log_sources, hyperparameter_tuning_range)
-        self.model_structure = model_structure
-        self.tuning_parameter_error_sets = None
-        self.common_parameters_for_all_models = common_parameters_for_all_models
-        self.data_pipeline: Pipeline
+        self.datasets = datasets
+        self.parameters_for_all_models = parameters_for_all_models
 
     def init_models(self, load: bool = False):
-        hyperparameters = self.common_parameters_for_all_models.copy()
-
-        for model_structure in self.model_structure:
-            hyperparameters.update(model_structure)
-            model = LstmKerasModel(
+        self.models.append(
+            LstmKerasGlobalModel(
                 log_sources=self.log_sources,
-                params=hyperparameters,
-                time_series_id=model_structure["time_series_id"],
+                params=self.parameters_for_all_models,
+                time_series_ids=self.datasets,
             )
-            self.models.append(model)
+        )
 
     def auto_tuning(self) -> None:
         """

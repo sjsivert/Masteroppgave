@@ -5,6 +5,7 @@ from genpipes.compose import Pipeline
 from pandas import DataFrame
 
 from src.data_types.model_type_enum import ModelStructureEnum
+from src.model_strutures.global_lstm_structure import GlobalLstmStructure
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
 from src.model_strutures.local_univariate_cnn_ae_lstm_structure import (
@@ -160,7 +161,11 @@ class Experiment:
                 )
             elif model_structure == ModelStructureEnum.local_univariate_lstm:
                 self.model_structure = LocalUnivariateLstmStructure(
-                    self.save_sources, **model_options["local_univariate_lstm"]
+                    self.save_sources,
+                    hyperparameter_tuning_range=model_options["univariate_lstm"][
+                        "hyperparameter_tuning_range"
+                    ],
+                    **model_options["univariate_lstm"]["local_model"],
                 )
             elif model_structure == ModelStructureEnum.local_cnn_ae:
                 self.model_structure = LocalUnivariateCNNAEStructure(
@@ -170,6 +175,14 @@ class Experiment:
             elif model_structure == ModelStructureEnum.local_cnn_ae_lstm:
                 self.model_structure = LocalUnivariateCNNAELSTMStructure(
                     self.save_sources, **model_options["local_univariate_cnn_ae_lstm"]
+                )
+            elif model_structure == ModelStructureEnum.global_univariate_lstm:
+                self.model_structure = GlobalLstmStructure(
+                    self.save_sources,
+                    hyperparameter_tuning_range=model_options["univariate_lstm"][
+                        "hyperparameter_tuning_range"
+                    ],
+                    **model_options["univariate_lstm"]["global_model"],
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")

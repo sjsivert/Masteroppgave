@@ -74,7 +74,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         # TODO: Fix up this mess of repeated code. should only use dictionarys for hyperparameters
         self.batch_size = self.hyper_parameters["batch_size"]
 
-        self.split_data_sets()
+        # This is commented out because we now have a fixed batch size and does not neeed to update datasets
+        # self.split_data_sets()
 
         logging.info("Splitting training data into")
 
@@ -133,6 +134,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         # targets_rescaled = self._rescale_data(targets)
         # predictions_rescaled = self._rescale_data(DataFrame(predictions))
         # targets_rescaled = self._rescale_data(DataFrame(predictions))
+
+        # After fixing multivariate pipeline there was a bug that made rescaling not work
+        # Therefore this is disabled for now
         predictions_rescaled = predictions
         targets_rescaled = targets
 
@@ -143,8 +147,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
-        x_train, y_train = self.training_data[0], self.training_data[1]
-        x_test, y_test = self.testing_data[0], self.testing_data[1]
+        x_train, y_train = self.x_train, self.y_train
+        x_test, y_test = self.x_test, self.y_test
 
         # Reset hidden states
         self.prediction_model.reset_states()
