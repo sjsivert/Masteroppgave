@@ -37,7 +37,7 @@ def local_univariate_lstm_keras_pipeline(
                 {"cat_id": cat_id},),
             ("choose columns 'interest' and 'date'", market_processing.choose_columns, {"columns": ["date", "interest"]}),
             ("fill in dates with zero values", market_processing.fill_in_dates, {}),
-            ("convert to np.array", market_processing.convert_to_np_array, {}),
+            ("convert to np.array", market_processing.convert_to_np_array_univariate, {}),
             (f"scale data between 0.1 and 1", market_processing.scale_data, {"should_scale": True}),
             (f"generate x y pairs with sliding window with input size {input_window_size}, and output size {output_window_size}",
                 market_processing.sliding_window_x_y_generator,

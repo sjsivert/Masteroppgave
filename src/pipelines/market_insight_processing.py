@@ -142,6 +142,14 @@ def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pr
         yield np_array, scaler
 
 @declare.processor()
+def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
+    for df in stream:
+        print(df.info())
+        print(df.describe())
+        np_array = np.array(df)
+        yield np_array
+
+@declare.processor()
 def scale_data_dataframe(
     stream: Iterable[DataFrame], should_scale: bool = False
 ) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
