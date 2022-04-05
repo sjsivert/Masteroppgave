@@ -6,6 +6,10 @@ import numpy as np
 import optuna
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.utils.keras_error_calculations import (
+    config_metrics_to_keras_metrics,
+    generate_error_metrics_dict,
+)
 from tensorflow.keras.callbacks import LambdaCallback
 
 
@@ -30,6 +34,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         self.y_val_seperated = []
         self.x_test_seperated = []
         self.y_test_seperated = []
+        self.x_train_seperated_with_val_set = []
+        self.y_train_seperated_with_val_set = []
+        self.scalers = []
 
     def process_data(self, data_set: Any, training_size: float) -> None:
         x_train, y_train, x_val, y_val, x_test, y_test = [], [], [], [], [], []
@@ -60,6 +67,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self.y_val_seperated.append(validation_data[1])
             self.x_test_seperated.append(testing_data[0])
             self.y_test_seperated.append(testing_data[1])
+            self.x_train_seperated_with_val_set.append(training_data[0])
+            self.y_train_seperated_with_val_set.append(training_data[1])
+            self.scalers.append(min_max_scaler)
 
         print("x_train", list(map(lambda x: x.shape, x_train)))
         print("x_test", list(map(lambda x: x.shape, x_test)))
@@ -88,12 +98,8 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self.batch_count + self.batches_in_each_series[self.time_series_count] <= batch_number
         )
         if batch_number_grater_than_batches_in_series:
-            print(f"You are done with time series {self.time_series_count}")
             self.batch_count += self.batches_in_each_series[self.time_series_count]
             self.time_series_count += 1
-            print(f"batches past {self.batch_count}")
-            print("batch_number", batch_number)
-            print("batches_in_each_series", self.batches_in_each_series)
             return True
         return False
 
@@ -161,4 +167,44 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
         self.metrics["training_error"] = history["loss"][-1]
         self.metrics["validation_error"] = history["val_loss"][-1]
+        return self.metrics
+
+    def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
+        logging.info("Testing")
+
+        for i in range(len(self.x_test_seperated)):
+            testing_set_name = self.time_series_ids[i]
+            x_test = self.x_test_seperated[i]
+            y_test = self.y_test_seperated[i]
+            x_train = self.x_train_seperated_with_val_set[i]
+            y_train = self.y_train_seperated_with_val_set[i]
+
+            # Reset hidden states
+            self.prediction_model.reset_states()
+            results: List[float] = self.prediction_model.evaluate(
+                x_train,
+                y_train,
+                batch_size=1,
+            )
+            results: List[float] = self.prediction_model.evaluate(
+                x_test,
+                y_test,
+                batch_size=1,
+            )
+            # Remove first element because it it is a duplication of the second element.
+            test_metrics = generate_error_metrics_dict(results[1:], prefix=testing_set_name)
+
+            # Visualize
+            self.prediction_model.reset_states()
+            self.predict_and_rescale(x_train, y_train)
+            test_predictions, test_targets = self.predict_and_rescale(x_test, y_test)
+
+            self._visualize_predictions(
+                (test_targets.flatten()),
+                (test_predictions.flatten()),
+                f"Test predictions for {testing_set_name}",
+            )
+            self.metrics.update(test_metrics)
+        # Run predictions on all data as well!
+        super().test()
         return self.metrics
