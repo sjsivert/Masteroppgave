@@ -15,7 +15,7 @@ from tensorflow.keras.backend import abs, mean
 pipe_enumurate = pipe.Pipe(lambda list: enumerate(list))
 
 
-def generate_error_metrics_dict(errors: ndarray) -> Dict[str, float]:
+def generate_error_metrics_dict(errors: ndarray, prefix: str = None) -> Dict[str, float]:
     """
     Takes in a list of errors and returns a dictionary of error metrics names.
     Generate a dictionary of error metrics names and values.
@@ -30,7 +30,7 @@ def generate_error_metrics_dict(errors: ndarray) -> Dict[str, float]:
         list(enumerate(list_of_metrics))  # enumerate returns a list of tuples (index, value)
         | pipe.map(
             lambda metric_id: (
-                "test_" + metric_id[1],
+                f"test_{prefix}_" + metric_id[1],
                 errors[metric_id[0]],
             )  # map the tuples to a dictionary
         )
