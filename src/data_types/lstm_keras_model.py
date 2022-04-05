@@ -51,8 +51,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self, params: dict, logger=None, return_model: bool = False, **xargs
     ) -> Union[keras.Sequential, None]:
         # When tuning, update model parameters with the ones from the trial
-        if not return_model:
-            self.hyper_parameters = params
 
         model = LstmKerasModule(**params).model
         optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
@@ -65,6 +63,10 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             \n{model.summary()}"
         )
 
+        copy_of_params = params.copy()
+        copy_of_params.pop("batch_size")
+        self.hyper_parameters.update(copy_of_params)
+        print(self.hyper_parameters)
         if return_model:
             return model
         else:
