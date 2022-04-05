@@ -1,0 +1,4 @@
+
+_____Results dataset-12322_____
+training_error: 2.37448
+validation_error: 0.86177

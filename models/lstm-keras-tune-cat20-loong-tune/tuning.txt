@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 20
+
+Parameters: 20,129
+ Error: best_score:0.05863510072231293,best_params:{'dropout': 0.07648424769935269, 'hidden_layer_size': 82, 'learning_rate': 0.00011347656010634288, 'number_of_epochs': 48, 'number_of_layers': 5, 'optimizer_name': 'RMSprop'}

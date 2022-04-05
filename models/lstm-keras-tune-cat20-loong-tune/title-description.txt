@@ -1,0 +1,2 @@
+lstm-keras-tune-cat20-loong-tune
+Tune Cat 20, batch size of 10

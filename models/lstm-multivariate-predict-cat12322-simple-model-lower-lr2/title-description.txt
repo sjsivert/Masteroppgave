@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-simple-model-lower-lr2
+predict cat 12322 simple model high learning rate. RMSprop optimizer. Lower lr higher epoch

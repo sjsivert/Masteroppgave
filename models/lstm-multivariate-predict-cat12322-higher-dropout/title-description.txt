@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-higher-dropout
+predict cat 12322 higher dropout, 2 layers

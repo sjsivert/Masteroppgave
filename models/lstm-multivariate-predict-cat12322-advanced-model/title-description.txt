@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-advanced-model
+predict cat 12322. Advanved model, low lr

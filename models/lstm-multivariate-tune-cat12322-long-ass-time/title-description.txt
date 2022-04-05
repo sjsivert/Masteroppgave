@@ -1,0 +1,2 @@
+lstm-multivariate-tune-cat12322-long-ass-time
+First tune on multivairate full dataset cat 12322 for a long time

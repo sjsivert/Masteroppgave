@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-a-bit-simpler-model
+predict cat 12322. A bit simpler model, low lr
