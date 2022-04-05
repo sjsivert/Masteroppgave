@@ -1,0 +1,2 @@
+lstm-univariate-predict-cat-12322-big-validation-set
+Predict univariate lstm with bigger validation set
