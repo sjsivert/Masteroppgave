@@ -13,6 +13,10 @@ import optuna
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 import tensorflow as tf
 
+from src.utils.keras_error_calculations import (
+    config_metrics_to_keras_metrics,
+    generate_error_metrics_dict,
+)
 from src.utils.keras_optimizer import KerasOptimizer
 
 
@@ -35,11 +39,12 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         # Init LSTM
         lstm = LstmKerasModule(**params["lstm"]).model
         # Init Model class for merginig the two models
+        keras_metrics = config_metrics_to_keras_metrics()
         self.model = CNN_AE_LSTM_Module(self.ae, lstm)
         optim = KerasOptimizer.get(
             params["lstm"]["optimizer_name"], learning_rate=params["lstm"]["learning_rate"]
         )
-        self.model.compile(optimizer=optim, loss=params["lstm"]["loss"])
+        self.model.compile(optimizer=optim, loss=keras_metrics[0], metrics=[keras_metrics])
 
     def train(self, epochs: int = None, **xargs) -> Dict:
         logging.info("Training Autoencoder")
@@ -103,13 +108,15 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         )
         # Evaluate model
         results = self.model.evaluate(self.x_test, self.y_test, batch_size=1)
+        test_metrics = generate_error_metrics_dict(results[1:])
+
         test_predictions = self.model.predict(self.x_test)
         self._visualize_predictions(
             tf.reshape(self.y_test, (-1,)),
             tf.reshape(test_predictions, (-1,)),
             "Test predictions",
         )
-        self.metrics["test error"] = results
+        self.metrics.update(test_metrics)
         return self.metrics
 
     def _copy_trained_weights_to_model_with_different_batch_size(self) -> None:
@@ -119,7 +126,10 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         self.lstm = LstmKerasModule(**params).model
         self.lstm.set_weights(trained_lstm_weights)
         self.model = CNN_AE_LSTM_Module(self.ae, self.lstm)
-        self.model.compile(optimizer=params["optimizer_name"], loss=params["loss"])
+        keras_metrics = config_metrics_to_keras_metrics()
+        self.model.compile(
+            optimizer=params["optimizer_name"], loss=keras_metrics[0], metrics=[keras_metrics]
+        )
 
     def method_evaluation(
         self,
