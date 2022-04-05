@@ -19,21 +19,13 @@ class NeuralNetworkModelStructure(IModelStructure, ABC):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        model_structure: List,
-        common_parameters_for_all_models: OrderedDict[str, Any],
-        hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
-        metric_to_use_when_tuning: str = "MASE",
+        hyperparameter_tuning_range: Dict,
     ):
         super().__init__()
-        self.tuning_parameter_error_sets = None
-        self.metric_to_use_when_tuning = metric_to_use_when_tuning
-        self.log_sources = log_sources
-        self.common_parameters_for_all_models = common_parameters_for_all_models
-        self.data_pipeline: Pipeline
-        self.model_structure = model_structure
-        self.hyperparameter_tuning_range = hyperparameter_tuning_range
 
         self.models: List[IModel] = []
+        self.log_sources = log_sources
+        self.hyperparameter_tuning_range = hyperparameter_tuning_range
 
     @abstractmethod
     def init_models(self, load: bool = False):
