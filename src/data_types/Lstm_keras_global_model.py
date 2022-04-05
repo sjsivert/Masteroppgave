@@ -126,6 +126,15 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         reset_states_on_epoch_begin_callback = LambdaCallback(
             on_epoch_begin=lambda epoch, logs: self.epoch_end_callback(epoch, logs)
         )
+        reset_states_on_train_end = LambdaCallback(
+            on_train_end=lambda logs: self.model.reset_states()
+        )
+        all_callbacks = [
+            reset_states_callback_on_time_series_end,
+            reset_states_on_epoch_begin_callback,
+            reset_states_on_train_end,
+        ]
+        all_callbacks.extend(xargs.pop("callbacks", []))
 
         history = self.model.fit(
             x=self.x_train,
@@ -134,11 +143,7 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
-            callbacks=[
-                reset_states_callback_on_time_series_end,
-                reset_states_on_epoch_begin_callback,
-            ],
-            **xargs,
+            callbacks=all_callbacks,
         )
         history = history.history
 
