@@ -109,7 +109,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
             self._visualize_predictions(
                 validation_targets.flatten(),
-                validation_predictions.flatten(),
+                validation_predictions.flatten()
+                if validation_predictions.shape[0] > 1
+                else validation_predictions[:, 0].flatten(),
                 "Validation predictions",
             )
             self._visualize_errors(
