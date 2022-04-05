@@ -55,11 +55,11 @@ model:
       #optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-2 ]
       number_of_epochs: [5, 40]
-      batch_size: [32, 35]
+      batch_size: [32, 32]
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
-      multi_variable_nr: 4 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 4 # must be equal to number of features in data
+      multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
+      number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 5000 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
@@ -69,7 +69,7 @@ model:
        training_size: 50 # Number of samles in validation set
        input_window_size: 10
        output_window_size: 7
-       multi_variable_nr: 4
+       multi_variable_nr: 1
        batch_size: 32
        number_of_epochs: 40
        stateful_lstm: yes
@@ -77,123 +77,123 @@ model:
        optimizer_name: RMSprop
 
     model_structure:
-      #- time_series_id: 11573
+      # - time_series_id: 11573
       # - time_series_id: 12322
-      #- time_series_id: 12322
-      - time_series_id: 2
+      - time_series_id: 12322
+      # - time_series_id: 2
         learning_rate: 0.000522
         hidden_layer_size: 86
         dropout: 0.0192
-        number_of_features: 4
+        number_of_features: 1
         number_of_layers: 2
-      - time_series_id: 6
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 10
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 11
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 13
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 20
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 22
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 24
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 26
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 27
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 28
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 29
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 32
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 33
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 34
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 39
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 41
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 51
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
-      - time_series_id: 54
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
+      # - time_series_id: 6
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 10
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 11
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 13
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 20
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 22
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 24
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 26
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 27
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 28
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 29
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 32
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 33
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 34
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 39
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 41
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 51
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
+      # - time_series_id: 54
+      #   learning_rate: 0.000522
+      #   hidden_layer_size: 86
+      #   dropout: 0.0192
+      #   number_of_features: 4
+      #   number_of_layers: 2
 
   local_univariate_cnn_ae:
     common_parameters_for_all_models:
