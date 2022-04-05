@@ -28,7 +28,7 @@ def load_csv_data(path: str) -> DataFrame:  # pragma: no cover
     :param path:
     :return: pandas dataframe containing the data
     """
-    return pd.read_csv(path)
+    return (pd.read_csv(path), None)
 
 
 @declare.generator()

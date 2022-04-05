@@ -2,7 +2,7 @@
 import src.pipelines.market_insight_processing as market_processing
 from genpipes.compose import Pipeline
 from pandas import DataFrame
-from src.pipelines.data_loader import dataframe_to_generator
+from src.pipelines.data_loader import dataframe_to_generator, load_csv_data
 from src.pipelines.date_feature_generator import (calculate_day_of_the_week,
                                                   calculate_season)
 
