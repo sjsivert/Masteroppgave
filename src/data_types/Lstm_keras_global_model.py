@@ -1,11 +1,12 @@
+import logging
 from abc import ABC
-from typing import List, Dict, Optional, Any
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import optuna
-
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from tensorflow.keras.callbacks import LambdaCallback
 
 
 class LstmKerasGlobalModel(LstmKerasModel, ABC):
@@ -22,11 +23,17 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             params,
             optuna_trial,
         )
+        self.time_series_ids = time_series_ids
+        self.x_train_seperated = []
+        self.y_train_seperated = []
+        self.x_val_seperated = []
+        self.y_val_seperated = []
+        self.x_test_seperated = []
+        self.y_test_seperated = []
 
     def process_data(self, data_set: Any, training_size: float) -> None:
-        cat_ids = [11573, 11037]
         x_train, y_train, x_val, y_val, x_test, y_test = [], [], [], [], [], []
-        for cat_id in cat_ids:
+        for cat_id in self.time_series_ids:
             data_pipeline = self.pipeline(
                 data_set=data_set,
                 cat_id=cat_id,
@@ -47,9 +54,111 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             x_test.append(testing_data[0])
             y_test.append(testing_data[1])
 
+            self.x_train_seperated.append(training_data_splitted[0])
+            self.y_train_seperated.append(training_data_splitted[1])
+            self.x_val_seperated.append(validation_data[0])
+            self.y_val_seperated.append(validation_data[1])
+            self.x_test_seperated.append(testing_data[0])
+            self.y_test_seperated.append(testing_data[1])
+
+        print("x_train", list(map(lambda x: x.shape, x_train)))
+        print("x_test", list(map(lambda x: x.shape, x_test)))
+        print("x_val", list(map(lambda x: x.shape, x_val)))
         self.x_train = np.concatenate(x_train, axis=0)
         self.y_train = np.concatenate(y_train, axis=0)
         self.x_val = np.concatenate(x_val, axis=0)
         self.y_val = np.concatenate(y_val, axis=0)
         self.x_test = np.concatenate(x_test, axis=0)
         self.y_test = np.concatenate(y_test, axis=0)
+
+        self.batch_count = 0
+        self.time_series_count = 0
+        self.batches_in_each_series = []
+        for series in self.x_train_seperated:
+            print("series", series.shape)
+            self.batches_in_each_series.append(series.shape[0] // self.batch_size)
+
+    def reset_batch_counter(self):
+        self.batch_count = 0
+        self.time_series_count = 0
+
+    def is_done_with_time_series(self, batch_number: int) -> bool:
+
+        batch_number_grater_than_batches_in_series = (
+            self.batch_count + self.batches_in_each_series[self.time_series_count] <= batch_number
+        )
+        if batch_number_grater_than_batches_in_series:
+            print(f"You are done with time series {self.time_series_count}")
+            self.batch_count += self.batches_in_each_series[self.time_series_count]
+            self.time_series_count += 1
+            print(f"batches past {self.batch_count}")
+            print("batch_number", batch_number)
+            print("batches_in_each_series", self.batches_in_each_series)
+            return True
+        return False
+
+    def epoch_end_callback(self, epoch, logs):
+        self.model.reset_states()
+        self.reset_batch_counter()
+
+    def train(self, epochs: int = None, **xargs) -> Dict:
+        logging.info(f"Training {self.get_name()}")
+        # TODO: Fix up this mess of repeated code. should only use dictionarys for hyperparameters
+        self.batch_size = self.hyper_parameters["batch_size"]
+
+        # This is commented out because we now have a fixed batch size and does not neeed to update datasets
+        # self.split_data_sets()
+
+        logging.info("Splitting training data into")
+
+        is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
+        reset_states_callback_on_time_series_end = LambdaCallback(
+            on_batch_begin=lambda batch, logs: self.model.reset_states()
+            if self.is_done_with_time_series(batch)
+            else None
+        )
+        reset_states_on_epoch_begin_callback = LambdaCallback(
+            on_epoch_begin=lambda epoch, logs: self.epoch_end_callback(epoch, logs)
+        )
+
+        history = self.model.fit(
+            x=self.x_train,
+            y=self.y_train,
+            epochs=self.hyper_parameters["number_of_epochs"],
+            batch_size=self.batch_size,
+            shuffle=self.should_shuffle_batches,
+            validation_data=(self.x_val, self.y_val),
+            callbacks=[
+                reset_states_callback_on_time_series_end,
+                reset_states_on_epoch_begin_callback,
+            ],
+            **xargs,
+        )
+        history = history.history
+
+        if not is_tuning:
+            self._copy_trained_weights_to_model_with_different_batch_size()
+            training_predictions, training_targets = self.predict_and_rescale(
+                self.x_train, self.y_train
+            )
+            validation_predictions, validation_targets = self.predict_and_rescale(
+                self.x_val, self.y_val.reshape(-1, 1)
+            )
+            self._visualize_predictions(
+                (training_targets[:, 0].flatten()),
+                (training_predictions[:, 0].flatten()),
+                "Training predictions",
+            )
+
+            self._visualize_predictions(
+                validation_targets.flatten(),
+                validation_predictions.flatten(),
+                "Validation predictions",
+            )
+            self._visualize_errors(
+                [history["loss"], history["val_loss"]], ["Training_errors", "Validation_errors"]
+            )
+
+        self.metrics["training_error"] = history["loss"][-1]
+        self.metrics["validation_error"] = history["val_loss"][-1]
+        return self.metrics

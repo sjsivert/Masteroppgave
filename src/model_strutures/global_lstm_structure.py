@@ -1,6 +1,6 @@
 import logging
 import typing
-from typing import List, OrderedDict, Any, Optional, Tuple
+from typing import Any, List, Optional, OrderedDict, Tuple
 
 from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
 from src.data_types.lstm_model import LstmModel
@@ -19,6 +19,7 @@ class GlobalLstmStructure(NeuralNetworkModelStructure):
         super().__init__(log_sources, hyperparameter_tuning_range)
         self.datasets = datasets
         self.parameters_for_all_models = parameters_for_all_models
+        self.tuning_parameter_error_sets = None
 
     def init_models(self, load: bool = False):
         self.models.append(
