@@ -1,0 +1,2 @@
+lstm-global-predict-seasonal-cats-reset-during-training
+Reset during training
