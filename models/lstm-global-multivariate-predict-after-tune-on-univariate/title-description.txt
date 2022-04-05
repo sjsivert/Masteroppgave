@@ -1,0 +1,2 @@
+lstm-global-multivariate-predict-after-tune-on-univariate
+lstm global multivariate predict after tuning done on global univariate
