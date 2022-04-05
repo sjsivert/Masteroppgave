@@ -28,6 +28,7 @@ experiment:
     - 'MSE'
     - 'SMAPE'
     - 'MAPE'
+    #- 'MASE_Periodic'
 
   save_source:
     disk:
@@ -73,15 +74,15 @@ model:
         output_window_size: 7
         multi_variable_nr: 1
         batch_size: 32
-        number_of_epochs: 40
+        number_of_epochs: 31
         stateful_lstm: yes
         should_shuffle_batches: no
         optimizer_name: RMSprop
-        learning_rate: 0.000522
-        hidden_layer_size: 86
+        learning_rate: 0.0002414651643043749
+        hidden_layer_size: 50
         dropout: 0.0192
-        number_of_features: 1
-        number_of_layers: 2
+        number_of_features: 4
+        number_of_layers: 1
       datasets:
         - 11573
         - 11037
