@@ -1,0 +1,2 @@
+lstm-global-univiariate-first-prediction
+first prediction lstm univariate global model
