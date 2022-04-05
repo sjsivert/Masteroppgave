@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-1-layer-20-hidden-size
+predict cat 12322. A bit simpler model, low lr

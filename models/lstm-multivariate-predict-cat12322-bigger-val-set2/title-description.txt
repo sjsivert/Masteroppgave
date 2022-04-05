@@ -1,0 +1,2 @@
+lstm-multivariate-predict-cat12322-bigger-val-set2
+Try predict on cat12322 on bigger validation set

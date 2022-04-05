@@ -51,7 +51,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self, params: dict, logger=None, return_model: bool = False, **xargs
     ) -> Union[keras.Sequential, None]:
         # When tuning, update model parameters with the ones from the trial
-        self.hyper_parameters = params
+        if not return_model: 
+            self.hyper_parameters = params
 
         model = LstmKerasModule(**params).model
         optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
@@ -70,7 +71,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             self.model = model
 
     def train(self, epochs: int = None, **xargs) -> Dict:
-        logging.info("Training")
+        logging.info(f"Training {self.get_name()}")
         # TODO: Fix up this mess of repeated code. should only use dictionarys for hyperparameters
         self.batch_size = self.hyper_parameters["batch_size"]
 

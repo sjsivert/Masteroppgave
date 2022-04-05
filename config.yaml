@@ -16,7 +16,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    # - 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -79,12 +79,6 @@ model:
     model_structure:
       #- time_series_id: 11573
       # - time_series_id: 12322
-      - time_series_id: 11037
-        learning_rate: 0.000522
-        hidden_layer_size: 86
-        dropout: 0.0192
-        number_of_features: 4
-        number_of_layers: 2
       #- time_series_id: 12322
       - time_series_id: 2
         learning_rate: 0.000522

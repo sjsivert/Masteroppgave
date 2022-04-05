@@ -1,0 +1,2 @@
+lstm-multivariate-tune-cat12322-bigger-val-set
+Try tune on cat12322 on bigger validation set

@@ -1,0 +1,2 @@
+lstm-keras-predict-dataset1-corr-20
+Predict all datasets in corr 20 based on best parameters found when tuning cat 12322
