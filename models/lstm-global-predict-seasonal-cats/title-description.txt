@@ -1,0 +1,2 @@
+lstm-global-predict-seasonal-cats
+First prediction without tuning of seasonal categories
