@@ -27,6 +27,7 @@ from src.utils.keras_error_calculations import (
 )
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
+from tensorflow.keras.callbacks import LambdaCallback
 from tensorflow.keras.losses import MeanAbsoluteError, MeanAbsolutePercentageError, MeanSquaredError
 
 
@@ -149,6 +150,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         logging.info("Testing")
         x_train, y_train = self.x_train, self.y_train
         x_test, y_test = self.x_test, self.y_test
+        print("x_test", x_test.shape)
 
         # Reset hidden states
         self.prediction_model.reset_states()
@@ -169,6 +171,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
+        print("test_predictions", test_predictions.shape)
+        print("test_targets", test_targets.shape)
 
         self._visualize_predictions(
             (test_targets.flatten()),
