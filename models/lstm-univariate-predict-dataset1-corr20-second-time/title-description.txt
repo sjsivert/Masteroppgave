@@ -1,0 +1,2 @@
+lstm-univariate-predict-dataset1-corr20-second-time
+LSTM univaraite predict dataset1 after tuning on bigger validation set
