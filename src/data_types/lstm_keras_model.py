@@ -103,9 +103,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
                 (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
+
             self._visualize_predictions(
                 validation_targets.flatten(),
-                validation_predictions.flatten(),
+                validation_predictions.flatten()
+                if validation_predictions.shape[0] > 1
+                else validation_predictions[:, 0].flatten(),
                 "Validation predictions",
             )
             self._visualize_errors(
@@ -206,7 +209,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             timeout=parameters.get("time_to_tune_in_minutes", None),
             # TODO: Fix pytorch network to handle concurrency
             # n_jobs=-1,  # Use maximum number of cores
-            # n_trials=parameters["number_of_trials"],
+            n_trials=parameters.get("number_of_trials", None),
             # show_progress_bar=False,
             callbacks=[self.log_trial],
         )

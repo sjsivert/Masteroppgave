@@ -16,15 +16,15 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    # - 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
-    - 'MASE'
     - 'MAE'
+    - 'MASE'
     - 'MSE'
     - 'SMAPE'
     - 'MAPE'
@@ -47,43 +47,44 @@ model:
     placeholder: 0
   local_univariate_lstm:
     hyperparameter_tuning_range:
-      hidden_size: [ 20, 100]
+      hidden_size: [ 2, 100]
       number_of_layers: [ 1, 5]
-      dropout: [ 0.0, 0.5 ]
-      optimizer_name: ['Adam', 'RMSprop']
+      dropout: [ 0.0, 0.4 ]
+      #optimizer_name: ['Adam', 'RMSprop']
+      optimizer_name: ['RMSprop']
       #optimizer_name: ['Adam']
-      learning_rate: [ 1e-4, 1e-2 ]
-      number_of_epochs: [5, 100]
-      batch_size: 10
+      learning_rate: [ 1e-7, 1e-2 ]
+      number_of_epochs: [5, 40]
+      batch_size: [32, 35]
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 4 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 4 # must be equal to number of features in data
-      number_of_trials: 10 # Number of tuning trials to run. The more the better.
-      time_to_tune_in_minutes: 1  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      number_of_trials: 5000 # Number of tuning trials to run. The more the better.
+      #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
 
     common_parameters_for_all_models:
       # If int <= 1 then the testing set will be equal to output_window_size
-       training_size: 7
+       training_size: 50 # Number of samles in validation set
        input_window_size: 10
        output_window_size: 7
        multi_variable_nr: 4
-       batch_size: 10
-       number_of_epochs: 86
+       batch_size: 1
+       number_of_epochs: 1
        stateful_lstm: yes
        should_shuffle_batches: no
-       optimizer_name: Adam
+       optimizer_name: RMSprop
 
     model_structure:
       #- time_series_id: 11573
-      # - time_series_id: 2
-      - time_series_id: 11037
-        learning_rate: 0.000218
-        hidden_layer_size: 54
-        dropout: 0.1916
+      - time_series_id: 12322
+      # - time_series_id: 11037
+        learning_rate: 0.000299
+        hidden_layer_size: 94
+        dropout: 0.227
         number_of_features: 4
-        number_of_layers: 1
+        number_of_layers: 5
       #- time_series_id: 12322
 
   local_univariate_cnn_ae:
