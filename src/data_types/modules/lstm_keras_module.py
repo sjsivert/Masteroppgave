@@ -22,7 +22,6 @@ class LstmKerasModule:
         recurrent_dropout=0.0,
         **kwargs,
     ):
-
         super().__init__()
 
         self.model = Sequential()

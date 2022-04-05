@@ -11,6 +11,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 import optuna
 import pytorch_lightning as pl
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
+from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.visuals import visualize_data_series
 import tensorflow as tf
 
@@ -18,7 +19,8 @@ import tensorflow as tf
 class CNNAEModel(NeuralNetKerasModel, ABC):
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         self.model = CNN_AE_Module(params["encoder"], params["decoder"])
-        self.model.compile(optimizer=params["optimizer_name"], loss=params["loss"])
+        optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
+        self.model.compile(optimizer=optim, loss=params["loss"])
 
     def train(self, epochs: int = None, **xargs) -> Dict:
         logging.info("Training")
@@ -26,7 +28,7 @@ class CNNAEModel(NeuralNetKerasModel, ABC):
         history = self.model.fit(
             x=self.x_train,
             y=self.x_train,
-            epochs=self.number_of_epochs,
+            epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
             shuffle=True,
             validation_data=(self.x_val, self.x_val),
