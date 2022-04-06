@@ -23,8 +23,8 @@ experiment:
 
   # Possible metrics: MSE, MAE, MSE; MAE
   error_metrics:
-    - 'MASE'
     - 'MAE'
+    - 'MASE'
     - 'MSE'
     - 'SMAPE'
     - 'MAPE'
@@ -43,7 +43,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  model_type: 'global_univariate_lstm'
+  model_type: 'local_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -74,14 +74,14 @@ model:
         output_window_size: 7
         multi_variable_nr: 1
         batch_size: 32
-        number_of_epochs: 31
+        number_of_epochs: 21
         stateful_lstm: yes
         should_shuffle_batches: no
         optimizer_name: RMSprop
-        learning_rate: 0.0002414651643043749
-        hidden_layer_size: 50
-        dropout: 0.0192
-        number_of_features: 4
+        learning_rate: 0.00025783
+        hidden_layer_size: 100
+        dropout: 0.01773
+        number_of_features: 1
         number_of_layers: 1
       datasets:
         - 11573
@@ -102,21 +102,57 @@ model:
          output_window_size: 7
          multi_variable_nr: 1
          batch_size: 32
-         number_of_epochs: 40
+         number_of_epochs: 15
          stateful_lstm: yes
          should_shuffle_batches: no
          optimizer_name: RMSprop
 
       model_structure:
-        - time_series_id: 11573
-        # - time_series_id: 12322
+        # - time_series_id: 11573
+        - time_series_id: 12322
         #- time_series_id: 12322
         # - time_series_id: 2
-          learning_rate: 0.000522
-          hidden_layer_size: 86
-          dropout: 0.0192
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
           number_of_features: 1
-          number_of_layers: 2
+          number_of_layers: 1
+        - time_series_id: 11428
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
+        - time_series_id: 11850
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
+        - time_series_id: 11852
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
+        - time_series_id: 273
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
+        - time_series_id: 11036
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
+        - time_series_id: 11213
+          learning_rate: 0.00013756
+          hidden_layer_size: 94
+          dropout: 0.21199
+          number_of_features: 1
+          number_of_layers: 1
         # - time_series_id: 6
         #   learning_rate: 0.000522
         #   hidden_layer_size: 86
