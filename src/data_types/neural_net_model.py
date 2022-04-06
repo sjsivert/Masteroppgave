@@ -72,7 +72,7 @@ class NeuralNetModel(IModel, ABC):
 
         self.optuna_trial = optuna_trial
 
-        self.hyper_parameters = params
+        self.hyper_parameters = params.copy()
 
         logging.info("Running model on device: {}".format(self.device))
 
