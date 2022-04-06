@@ -55,8 +55,8 @@ def local_univariate_lstm_keras_objective(
         # TODO: Use config parameter 'metric'to use when tuning
         # score = model.calculate_mean_score(errors[""])
 
-    return errors["training_error"]
-    # return errors["validation_error"]
+    # return errors["training_error"]
+    return errors["validation_error"]
 
 
 def hyperparameter_range_to_optuna_range(
