@@ -26,7 +26,7 @@ def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
 
 
 # TODO: Replace with config value
-table_save_location = "../MScTemplate/tables/code_generated/data_exploration/"
+table_save_location = "../MastersThesis/tables/code_generated/data_exploration/"
 def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_index=False) -> pd.DataFrame:
     """
     Save dataframe to latex tabular tex file for raport
