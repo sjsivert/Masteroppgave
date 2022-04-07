@@ -27,6 +27,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
         steps_to_predict: int = 5,
         multi_step_forecast: bool = False,
+        auto_arima: bool = True,
     ) -> None:
         self.models: List[IModel] = []
         self.log_sources = log_sources
@@ -42,6 +43,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         self.training_set: DataFrame = None
         self.testing_set: DataFrame = None
         # Tuning
+        self.auto_arima = auto_arima
         self.tuning_parameter_error_sets = {}
         self.hyperparameter_tuning_range = hyperparameter_tuning_range
         self.metric_to_use_when_tuning = ErrorMetricEnum[metric_to_use_when_tuning]
@@ -122,7 +124,10 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
             # Calculating Error
             error_parameter_sets = base_model.method_evaluation(
-                parameters, metric=self.metric_to_use_when_tuning.value, single_step=True
+                parameters,
+                metric=self.metric_to_use_when_tuning.value,
+                single_step=True,
+                auto_arima=self.auto_arima,
             )
             # Merge error sets
             if self.tuning_parameter_error_sets.get(base_model.get_name(), False):
