@@ -5,24 +5,26 @@ import shutil
 from typing import List
 
 # TODO: Replace with config value
-figure_save_location = "../MScTemplate/figs/code_generated/data_exploration/"
+figure_save_location = "../MastersThesis/figs/code_generated/data_exploration/"
+
+
 def save_fig_for_raport(fig: plt.Axes, name: str) -> plt.Axes:
-  """
-  Save figure for raport with given name
-  
-  Parameters:
-    fig (MplAxes): Figure to save
-    name (str): Name of the figure
-    
-  Returns:
-    MplAxes: Original figure
-  """
-  plt.figure()
-  ax = fig
-  plt.rcParams['font.size'] = '16'
-  plt.tick_params(labelsize=20)
-  ax.set_title(name, fontsize=20)
-  return ax.get_figure().savefig(f"{figure_save_location}/{name}.png", bbox_inches='tight', facecolor='w', edgecolor='w')
+    """
+    Save figure for raport with given name
+
+    Parameters:
+      fig (MplAxes): Figure to save
+      name (str): Name of the figure
+
+    Returns:
+      MplAxes: Original figure
+    """
+    plt.figure()
+    ax = fig
+    plt.rcParams['font.size'] = '16'
+    plt.tick_params(labelsize=20)
+    ax.set_title(name, fontsize=20)
+    return ax.get_figure().savefig(f"{figure_save_location}/{name}.png", bbox_inches='tight', facecolor='w', edgecolor='w')
 
 
 # TODO: Replace with config value
@@ -30,7 +32,7 @@ table_save_location = "../MastersThesis/tables/code_generated/data_exploration/"
 def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_index=False) -> pd.DataFrame:
     """
     Save dataframe to latex tabular tex file for raport
-    
+
     Parameters:
       df (pd.Dataframe): Dataframe to save
       caption (str): Caption of the table
@@ -51,23 +53,27 @@ def dataframe_to_latex_tabular(df: pd.DataFrame, caption: str, label: bool, add_
         multicolumn_format="c",
         # Dont know if this works yet
         position="h",
-        )
+    )
     table_split = table_string.split("\n")
     table_join = "\n".join(table_split)
     with open(f"{table_save_location}/{label}.tex", "w") as f:
-          f.write(table_join)
+        f.write(table_join)
 
 
 # Copy experiment figures from experiments
 thesis_figure_location = "./MastersThesis/figs/results"
 figure_name = ["Predictions", "Data Prediction"]
+
+
 def transfer_experiment_figures(experiment: str, figure_types: List[str]):
     # Check if experiment exists and experiment has figures folder
     if not os.path.isdir(f"./models/{experiment}") or not os.path.isdir(f"./models/{experiment}/figures"):
-        raise NotADirectoryError(f"The experiment {experiment} does not exist or have a figure directory.")
+        raise NotADirectoryError(
+            f"The experiment {experiment} does not exist or have a figure directory.")
     # Check that the folder to store files exists
     if not os.path.isdir(thesis_figure_location):
-        raise NotADirectoryError(f"The directory for storing result images does not exist. Create a driectory at: {thesis_figure_location}")
+        raise NotADirectoryError(
+            f"The directory for storing result images does not exist. Create a driectory at: {thesis_figure_location}")
     if not os.path.isfile(f"{thesis_figure_location}/{experiment}"):
         os.mkdir(f"{thesis_figure_location}/{experiment}")
 
