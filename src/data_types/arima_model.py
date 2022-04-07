@@ -18,6 +18,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
+import pmdarima as pm
 
 # from pathos.multiprocessing import ProcessingPool as Pool
 
@@ -228,15 +229,58 @@ class ArimaModel(IModel, ABC):
         forecast = DataFrame(pd.concat(DataFrame(x) for x in forecast))
         return forecast
 
+    def auto_arima(self):
+        train_val_data = pd.concat([self.training_data, self.validation_data])
+        model = pm.auto_arima(
+            train_val_data,
+            start_p=0,
+            d=1,
+            start_q=0,
+            max_p=5,
+            max_q=5,
+            max_d=5,
+            start_P=0,
+            D=1,
+            start_Q=0,
+            max_P=5,
+            max_D=5,
+            max_Q=5,
+            m=4,
+            seasonal=True,
+            error_action="warn",
+            trace=True,
+            suppress_warnings=True,
+            stepwise=True,
+            random_state=40,
+            n_fits=50,
+            scoring="mse",
+            information_criterion="bic",
+        )
+        logging.info(model.summary())
+        selected_order = f"{model.order}{model.seasonal_order}"
+        forecast = model.predict(len(self.test_data))
+        forecast = DataFrame(forecast, index=self.test_data.index)
+        metrics = calculate_error(self.test_data, forecast)
+        self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
+        self._visualize_testing(train_val_data, self.test_data, forecast)
+        logging.info(self.metrics)
+        return {selected_order: metrics}
+
     # Static method evaluating an Arima model
     def method_evaluation(
         self,
         parameters: List,
         metric: str,
         single_step: bool = True,
+        auto_arima: bool = True,
     ) -> Dict[str, Dict[str, float]]:
         assert self.training_data is not None, "Training data is not loaded"
         assert self.validation_data is not None, "Validation data is not loaded"
+        # Auto Arima
+        if auto_arima:
+            metrics = self.auto_arima()
+            return metrics
+
         error_param_set = {}
         # Try catch block for numpy LU decomposition error
         cores = mp.cpu_count()
