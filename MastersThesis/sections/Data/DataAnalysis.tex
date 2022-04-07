@@ -26,10 +26,55 @@ TODO [Move to B and T?]
 White noise is just a random sample of numbers not following any pattern what so ever, as seen in
 \Cref{fig:dataset:random_walk}.
 
-
-A random walk is different from white noise, because the next value in the series is dependent on the previous value as seen in
+A random walk is different from white noise, because the next value in the series is dependent on the previous value plus some noise.
+\begin{equation}
+  y_t+1 = y_t + r
+  \label{eq:random_walk}
+\end{equation}
+where $r$ is some random number.
+An example of a random walk graph is shown in \Cref{fig:dataset:random_walk}.
 
 \Cref{fig:dataset:random_walk}.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/illustrations/random_walk_autocorrelation.png}
+  \hfill
+  \caption{A Random walk autocorrelation}
+  \label{fig:dataset:random_walk_autocorrelation}
+\end{figure}
+
+Since a random walk is highly dependable on previous values this will clearly show in an autocorrelation plot.
+Which plots how much a series correlates with its previous values.
+\Cref{fig:dataset:random_walk_autocorrelation} shows how a autocorrelation plot for the random walk in \Cref{fig:dataset:random_walk}.
+It is a steadily decreasing trend which follows a linear pattern in the first 500 days.
+
+One way to show if a series follows a random walk is to remove the temporal dependence by subtracting each value in the series by the previous value.
+This will leave only the noise $r$ in Equation \cref{eq:random_walk}.
+If the series follows a random walk it will look a lot like the white noise shown in \Cref{fig:dataset:white_noise}.
+
+Plotting the autocorrelation of the remainding noise $r$ in \Cref{fig:dataset:random_walk_noise_autocorrelation}
+we can see the correlations are small, close to zero and below the 95\% (vertical dotted line) and the 99\% (vertical full line)
+confidence levels.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/illustrations/random_walk_noise_autocorrelation.png}
+  \hfill
+  \caption{A Random walk noise autocorrelatoin}
+  \label{fig:dataset:random_walk_noise_autocorrelation}
+\end{figure}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/random_walk_decomposed_additive.png}
+  \hfill
+  \caption{A Random walk decomposed in Trend, Season, and rest}
+  \label{fig:dataset:random_walk_decomposed}
+\end{figure}
+
+
+Characteristics of a random walk:
+The time series shows a strong temporal dependence that decays linearly or in a similar pattern.
+The time series is non-stationary and making it stationary shows no obviously learnable structure in the data.
+The persistence model provides the best source of reliable predictions.
 
 We chose a random sample of correlating categories to analyse,
 and a set of highly seasonal categories.
@@ -55,6 +100,14 @@ The lag plot of.
 % Write about how difference plot of random walk looks liks
 % Write about lag plot and difference plot of our data 
 % Check autocorrelation on random walk diff: https://machinelearningmastery.com/gentle-introduction-random-walk-times-series-forecasting-python/
+\import{./tables/code_generated/data_exploration/}{dicky_fuller_test_residuals.tex}
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/code_generated/time-serie-MP3-spiller_decomposed.png}
+  \hfill
+  \caption{"MP3-spiller" decomposed}
+  \label{fig:dataset:mp3-spiller-decomposed}
+\end{figure}
 
 
