@@ -24,6 +24,7 @@ from src.utils.config_parser import config
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
+    keras_mase_periodic,
 )
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.prettify_dict_string import prettify_dict_string
@@ -175,6 +176,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
+
+        mase_seven_days, y_true_last_period = keras_mase_periodic(
+            y_true=y_test, y_true_last_period=x_test[:, 3:, 0], y_pred=test_predictions
+        )
+        test_metrics["mase_seven_days"] = mase_seven_days.numpy()
 
         self._visualize_predictions(
             (test_targets.flatten()),

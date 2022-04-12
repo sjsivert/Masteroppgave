@@ -84,6 +84,14 @@ def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
     return diff / sust
 
 
+def keras_mase_periodic(
+    y_true: ndarray, y_pred: ndarray, y_true_last_period: ndarray
+) -> torch.Tensor:
+    diff = tf.reduce_mean(tf.abs(y_pred - y_true))
+    sust = tf.reduce_mean(tf.abs(y_true - y_true_last_period))
+    return diff / sust, y_true_last_period
+
+
 def keras_mae(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
     loss = abs(mean((y_true - y_pred)))
     return loss
