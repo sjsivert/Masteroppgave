@@ -1,5 +1,5 @@
 
-\subsubsection{ARMA}
+\subsection{ARMA}
 
 Auto-Regressive Moving Average \textbf{ARMA} is a statistical model for time-series prediction.
 It is one of the most commonly used methods for univariate time-series forecasting.
@@ -29,8 +29,45 @@ Combining the past observations \Cref{eq:arma_ar(p)} and past error terms \Cref{
 \end{equation}
 
 
+\subsection{ARIMA}
+% TODO: Describe ARIMA as an extension to the ARMA method
+% TODO: Explain SARIMA as an extension to the ARIMA method
+The ARIMA model is an extension to the ARMA model, and works as a more generalized model.
+ARIMA models differ from ARMA models in their ability to transform a non-stationary time series into a stationary one.
 
-\subsubsection{SARIMA}
+The first part of SARIMA is the autoregression model
+$AR(p)$ where $p$ is the maximum lag.
+
+The second part is the moving average model $MA(q)$ where $q$ is the maximum lag.
+
+The third part is the order of integration $I(d)$ where $d$ is the number of
+differences required to make the series stationary.
+
+% TODO: Add formula?
+
+\subsection{SARIMA}
+In addition to the ARIMA model, the SARIMA has been developed.
+The SARIMA model extends the ARIMA model by adding a seasonal component to the model,
+enabling the model to apply different transformations to a non-stationary seasonal time series in order to remove seasonality and non-stationary behaviors.
+\citep[p. 327-385]{Utlaut2008}.
+
+The SARIMA model extends the ARIMA by adding a final component for seasonality.
+
+The final component is seasonality $S(P, D, Q, s)$, where $s$ is the length
+of the season.
+$s$ is dependent on $P$ and $Q$, which are equal to $p$ and $q$ but for the seasonal component.
+$D$ is the number of differences required to remove seasonality from the series.
+% Is it correct that it is equal to q and q? Should both be q?
+
+The combination of all these parts is the SARIMA model,
+$SARIMA(p, d, q)(P, D, Q, s)$.
+
+% TODO: Add formula?
+
+
+
+\iffalse
+\subsection{SARIMA}
 SARIMA is an extension to the ARMA model that supports the direct modeling of a seasonal component and incorporates a parameter $d$
 to transform a non-stationary time-series into a stationary one.
 
@@ -55,3 +92,4 @@ The combination of all these parts is the SARIMA model,
 $SARIMA(p, d, q)(P, D, Q, s)$.
 
 \textbf{ARIMA} is the same method as SARIMA, but without the seasonal component.
+\fi

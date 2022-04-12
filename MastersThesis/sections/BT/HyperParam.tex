@@ -1,0 +1,45 @@
+\subsection{Hyperparameter selection}
+% Things to mention -> Grid search, random search, bayesian search, the other one that auto_arima uses?
+
+Machine learning algorithms are heavily dependent on the selected hyperparameters for individual situations.
+There are several different approaches to hyperparameter tuning that are used within the field of machine learning.
+Some methods approach the problem with heavily exhaustive search methods,
+whilst others optimize the search space by selecting only a subspace of the search range for finding optimal parameters for a model.
+
+\subsubsection{Grid search}
+Grids search is an example of a hyperparameter tuning method relying on an exhaustive search of the parameter range.
+By trying out all possible combinations of parameters, the model is likely to find a combination that fits the model well for the current problem space.
+In order to evaluate the models fitted through the extensive search, some sort of performance metric is required in order to compare parameters.
+Such metrics can be measured through the use of methods such as cross-validation or through the use of a separate validation set.
+
+In order to tune models, the range of parameters to be selected must be specified beforehand so that it is clear as to which range of parameters should be tuned.
+\cite{Geron2017}
+
+
+\subsubsection{Randomized search}
+In cases where the number of parameter combinations is limited, Grid search is a fitting approach.
+However, when the range of parameter combinations is large, resulting in high time consumption in order to fit all the different combinations,
+other methods are often more relevant to utilize.
+One such method is \textit{Randomized search} or \textit{Random search}.
+Randomized search reduces the parameter search space by selecting only a limited number of parameter combinations at random.
+In contrast to Grid search where the range of values for each parameter is limited as to not create a too large parameter search space,
+random search does not share this problem.
+The random search method runs only a selected number of iterations before completing, disregarding the range of the search space.
+Thus the computational budget of the parameter search is determined by the number of iterations, not by the size of the parameter search space.
+\cite{Geron2017}
+
+
+\subsubsection{Bayesian tuning}
+% TODO: https://arxiv.org/abs/1206.2944
+
+Although random search reduces the search space of grid search, the selection of parameters is only random.
+The next step is therefore to consider a more informed search of parameters.
+One such approach is to use \textit{Bayesian Optimization} or \textit{Bayesian search}.
+
+Bayesian optimization is an optimization method constructing a probabilistic model in order to evaluate parameter selections.
+When a sets of parameters are selected, these are compared and the results are observed.
+The observed results are used as a measure of generalization of the model performance with the selected hyperparameters.
+The method then attempts to optimize the selection of parameters in order to improve the model.
+
+The Bayesian optimization method thusly reduce the search space of hyperparameters using information available from previous evaluations of the model. 
+
