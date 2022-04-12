@@ -136,15 +136,15 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
         logging.info("Predicting")
         predictions = self.prediction_model.predict(input_data, batch_size=1)
-        # predictions_rescaled = self._rescale_data(predictions)
-        # targets_rescaled = self._rescale_data(targets)
+        predictions_rescaled = self._rescale_data(predictions)
+        targets_rescaled = self._rescale_data(targets)
         # predictions_rescaled = self._rescale_data(DataFrame(predictions))
         # targets_rescaled = self._rescale_data(DataFrame(predictions))
 
         # After fixing multivariate pipeline there was a bug that made rescaling not work
         # Therefore this is disabled for now
-        predictions_rescaled = predictions
-        targets_rescaled = targets
+        # predictions_rescaled = predictions
+        # targets_rescaled = targets
 
         return predictions_rescaled, targets_rescaled
 
