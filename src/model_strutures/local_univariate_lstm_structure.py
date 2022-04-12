@@ -3,10 +3,9 @@ import typing
 from typing import Any, List, Optional, OrderedDict, Tuple
 
 from genpipes.compose import Pipeline
-
 from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
-from src.data_types.lstm_model import LstmModel
 from src.data_types.lstm_keras_model import LstmKerasModel
+from src.data_types.lstm_model import LstmModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
@@ -23,7 +22,7 @@ class LocalUnivariateLstmStructure(NeuralNetworkModelStructure):
     ):
         super().__init__(log_sources, hyperparameter_tuning_range)
         self.model_structure = model_structure
-        self.tuning_parameter_error_sets = None
+        self.tuning_parameter_error_sets = {}
         self.common_parameters_for_all_models = common_parameters_for_all_models
         self.data_pipeline: Pipeline
 
@@ -47,10 +46,14 @@ class LocalUnivariateLstmStructure(NeuralNetworkModelStructure):
             # Specify the class to compiler
             base_model = typing.cast(LstmModel, base_model)
 
-            logging.info(f"Tuning model: {base_model.get_name()}")
+            logging.info(
+                f"------------------------------------------------ \
+            Tuning model: {base_model.get_name()}\
+                ---------------------------------------------------------------"
+            )
 
             best_trial = base_model.method_evaluation(
                 parameters=self.hyperparameter_tuning_range,
                 metric=None,
             )
-            self.tuning_parameter_error_sets = {f"{base_model.get_name()}": best_trial}
+            self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = best_trial

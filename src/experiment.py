@@ -144,6 +144,10 @@ class Experiment:
 
         self.model_structure.auto_tuning()
 
+        self._train_model()
+
+        self._test_model()
+
         if save and options_to_save:
             self._save_model(options=options_to_save)
 
