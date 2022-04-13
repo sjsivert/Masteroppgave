@@ -1,5 +1,4 @@
 from typing import List, OrderedDict, Optional, Any, Tuple
-
 from src.data_types.cnn_ae_model_keras import CNNAEModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
