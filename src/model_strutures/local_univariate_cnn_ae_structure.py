@@ -16,11 +16,11 @@ class LocalUnivariateCNNAEStructure(NeuralNetworkModelStructure):
     ):
         super().__init__(
             log_sources,
-            model_structure,
-            common_parameters_for_all_models,
             hyperparameter_tuning_range,
-            metric_to_use_when_tuning,
         )
+        self.model_structure = model_structure
+        self.common_parameters_for_all_models = common_parameters_for_all_models
+        self.metric_to_use_when_tuning = metric_to_use_when_tuning
 
     def init_models(self, load: bool = False):
         hyperparameters = self.common_parameters_for_all_models.copy()
