@@ -26,6 +26,9 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         lstm_params = self.hyper_parameters["lstm-shared"]
         lstm_params.update(self.hyper_parameters["lstm"])
         lstm_params["batch_size"] = self.hyper_parameters["batch_size"]
+        print("Params for LSTM")
+        print(lstm_params)
+        print()
         self.hyper_parameters["lstm"] = lstm_params
 
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
@@ -37,7 +40,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         )
         self.ae.compile(optimizer=optim, loss=params["ae"]["loss"])
         # Init LSTM
-        lstm = LstmKerasModule(**params["lstm"]).model
+        lstm = LstmKerasModule(**self.hyper_parameters["lstm"]).model
         # Init Model class for merginig the two models
         keras_metrics = config_metrics_to_keras_metrics()
         self.model = CNN_AE_LSTM_Module(self.ae, lstm)
