@@ -215,6 +215,17 @@ class ArimaModel(IModel, ABC):
                 y_label="Interest",
             )
         )
+        # True training data, test data, and predictions
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# Predictions with context",
+                data_series=[training_set[-17:], testing_set, prediction_set],
+                data_labels=["Test data", "Testing data", "Prediction"],
+                colors=["blue", "orange", "red"],
+                x_label="date",
+                y_label="Interest",
+            )
+        )
 
     @staticmethod
     def _single_step_prediction(model: ARIMAResults, test_set: DataFrame) -> DataFrame:
