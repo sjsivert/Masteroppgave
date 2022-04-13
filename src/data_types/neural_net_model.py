@@ -33,7 +33,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.pytorch_error_calculations import *
-from src.utils.visuals import visualize_data_series
+from src.utils.visuals import visualize_data_series, visualize_data_series_with_specified_x_axis
 from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
@@ -263,6 +263,21 @@ class NeuralNetModel(IModel, ABC):
                 data_labels=["Targets", "Predictions"],
                 colors=["blue", "orange"],
                 x_label="Time",
+                y_label="Interest",
+            )
+        )
+
+    def _visualize_predictions_with_context(self, context, targets, predictions):
+        context_axis = [x for x in range(len(context))]
+        predictions_axis = [x + len(context) for x in range(len(predictions))]
+        self.figures.append(
+            visualize_data_series_with_specified_x_axis(
+                title=f"{self.get_name()}# Test predictions with context",
+                data_series=[context, targets, predictions],
+                data_axis=[context_axis, predictions_axis, predictions_axis],
+                data_labels=["Contextual Data", "Targets", "Prediction"],
+                colors=["blue", "orange", "red"],
+                x_label="date",
                 y_label="Interest",
             )
         )

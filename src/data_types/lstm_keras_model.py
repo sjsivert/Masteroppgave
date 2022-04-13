@@ -169,7 +169,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             y_test,
             batch_size=1,
         )
-        # Remove first element because it it is a duplication of the second element.
+        # Remove first element because it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
 
         # Visualize
@@ -180,12 +180,19 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         mase_seven_days, y_true_last_period = keras_mase_periodic(
             y_true=y_test, y_true_last_period=x_test[:, 3:, 0], y_pred=test_predictions
         )
-        test_metrics["mase_seven_days"] = mase_seven_days.numpy()
+        test_metrics["test_MASE_7_DAYS"] = mase_seven_days.numpy()
 
         self._visualize_predictions(
             (test_targets.flatten()),
             (test_predictions.flatten()),
             "Test predictions",
+        )
+        x_test_values = self.min_max_scaler.inverse_transform(x_test[:, :, 0])
+        x_test_values_flattened = x_test_values.flatten()
+        self._visualize_predictions_with_context(
+            context=x_test_values_flattened,
+            targets=test_targets.flatten(),
+            predictions=test_predictions.flatten(),
         )
         self.metrics.update(test_metrics)
         return self.metrics
