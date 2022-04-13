@@ -26,6 +26,7 @@ class NeuralNetworkModelStructure(IModelStructure, ABC):
         self.models: List[IModel] = []
         self.log_sources = log_sources
         self.hyperparameter_tuning_range = hyperparameter_tuning_range
+        self.tuning_parameter_error_sets = {}
 
     @abstractmethod
     def init_models(self, load: bool = False):

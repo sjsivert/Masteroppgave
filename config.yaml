@@ -42,7 +42,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  model_type: 'global_univariate_lstm'
+  model_type: 'local_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -314,21 +314,23 @@ model:
 #          dropout: 0.21199
 #          number_of_features: 1
   local_univariate_cnn_ae:
+    hyperparameter_tuning_range:
+      placeholder: 4
     common_parameters_for_all_models:
       training_size: 7
       input_window_size: 14
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 1
-      number_of_epochs: 51
-      optimizer_name: 'adam'
-      loss: 'mse'
-      should_shuffle_batches: True
+      number_of_epochs: 10
+      optimizer_name: 'Adam'
+      loss: "mse"
+      should_shuffle_batches: False
 
     model_structure:
-      #- time_series_id: 11573
-      - time_series_id: 12322
-        learning_rate: 0.003
+      - time_series_id: 11573
+      #- time_series_id: 12322
+        learning_rate: 0.001
         encoder:
           - layer: 'Conv1d'
             filters: 8
@@ -369,10 +371,11 @@ model:
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 1
-        epochs: 26
+        epochs: 20
 
     model_structure:
-      - time_series_id: 12322
+      - time_series_id: 11573
+      #- time_series_id: 12322
         lstm:
           optimizer_name: 'RMSprop'
           stateful_lstm: True
