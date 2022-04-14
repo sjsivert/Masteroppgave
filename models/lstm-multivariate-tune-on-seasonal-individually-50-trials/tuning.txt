@@ -1,0 +1,43 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 12322
+
+Parameters: 12322,53
+ Error: best_score:0.02113102190196514,best_params:{'batch_size': 32, 'dropout': 0.3494317439427146, 'hidden_layer_size': 95, 'learning_rate': 0.00010013194277843992, 'number_of_epochs': 39, 'number_of_layers': 3, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11428
+
+Parameters: 11428,158
+ Error: best_score:0.03409869596362114,best_params:{'batch_size': 32, 'dropout': 0.15265319501318006, 'hidden_layer_size': 79, 'learning_rate': 0.0002968118996417968, 'number_of_epochs': 11, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11850
+
+Parameters: 11850,316
+ Error: best_score:0.0722246766090393,best_params:{'batch_size': 32, 'dropout': 0.05508781964664519, 'hidden_layer_size': 90, 'learning_rate': 0.0011484413887352955, 'number_of_epochs': 20, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11852
+
+Parameters: 11852,10
+ Error: best_score:0.09005144238471985,best_params:{'batch_size': 32, 'dropout': 0.3927297707768408, 'hidden_layer_size': 97, 'learning_rate': 0.0027214276343718717, 'number_of_epochs': 40, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 273
+
+Parameters: 273,436
+ Error: best_score:0.02195548266172409,best_params:{'batch_size': 32, 'dropout': 0.29866201974494083, 'hidden_layer_size': 37, 'learning_rate': 0.0010720590620745046, 'number_of_epochs': 22, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11036
+
+Parameters: 11036,239
+ Error: best_score:0.017273664474487305,best_params:{'batch_size': 32, 'dropout': 0.06895898295003608, 'hidden_layer_size': 10, 'learning_rate': 0.0025086307047172724, 'number_of_epochs': 12, 'number_of_layers': 3, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11213
+
+Parameters: 11213,428
+ Error: best_score:0.048935115337371826,best_params:{'batch_size': 32, 'dropout': 0.246138195355662, 'hidden_layer_size': 60, 'learning_rate': 0.0004224671223093165, 'number_of_epochs': 10, 'number_of_layers': 4, 'optimizer_name': 'RMSprop'}

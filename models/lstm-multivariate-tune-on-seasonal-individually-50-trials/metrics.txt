@@ -1,0 +1,28 @@
+
+_____Results dataset-12322_____
+training_error: 0.03635
+validation_error: 0.02375
+
+_____Results dataset-11428_____
+training_error: 0.03332
+validation_error: 0.03441
+
+_____Results dataset-11850_____
+training_error: 0.04496
+validation_error: 0.08562
+
+_____Results dataset-11852_____
+training_error: 0.03965
+validation_error: 0.09473
+
+_____Results dataset-273_____
+training_error: 0.03861
+validation_error: 0.02196
+
+_____Results dataset-11036_____
+training_error: 0.03004
+validation_error: 0.01882
+
+_____Results dataset-11213_____
+training_error: 0.04122
+validation_error: 0.05343

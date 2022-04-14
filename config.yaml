@@ -1,9 +1,9 @@
 data:
-  # data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
-  #data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
-  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
-  categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
-  # categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  # data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
+  # data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  #categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
+  categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 logger:
   log_level: 'INFO'
@@ -16,7 +16,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    # - 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -50,10 +50,10 @@ model:
   univariate_lstm:
     hyperparameter_tuning_range:
       hidden_size: [ 2, 100]
-      number_of_layers: [ 1, 5]
+      number_of_layers: [ 1, 2]
       dropout: [ 0.0, 0.4 ]
       #optimizer_name: ['Adam', 'RMSprop']
-      optimizer_name: ['RMSprop']
+      optimizer_name: ['RMSprop', 'Adam']
       #optimizer_name: ['Adam']
       learning_rate: [ 1e-7, 1e-2 ]
       number_of_epochs: [5, 40]
@@ -62,7 +62,7 @@ model:
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 5000 # Number of tuning trials to run. The more the better.
+      number_of_trials: 200 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
 
@@ -72,7 +72,7 @@ model:
         training_size: 50 # Number of samles in validation set
         input_window_size: 10
         output_window_size: 7
-        multi_variable_nr: 1
+        multi_variable_nr: 4
         batch_size: 32
         number_of_epochs: 21
         stateful_lstm: yes
@@ -81,7 +81,7 @@ model:
         learning_rate: 0.00025783
         hidden_layer_size: 100
         dropout: 0.01773
-        number_of_features: 1
+        number_of_features: 4
         number_of_layers: 1
       datasets:
         - 11573
@@ -109,50 +109,57 @@ model:
 
       model_structure:
         # - time_series_id: 11573
-        - time_series_id: 12322
-        #- time_series_id: 12322
+         - time_series_id: 12322
+        # - time_series_id: 12322
+           learning_rate: 0.00013756
+           hidden_layer_size: 94
+           dropout: 0.21199
+           number_of_features: 4
+           number_of_layers: 1
+        # # - time_series_id: 2
+        # # - time_series_id: 11091
+        # - time_series_id: 11428
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
+        # - time_series_id: 11850
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
+        # - time_series_id: 11852
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
+        # - time_series_id: 273
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
+        # - time_series_id: 11036
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
+        # - time_series_id: 11213
+        #   learning_rate: 0.00013756
+        #   hidden_layer_size: 94
+        #   dropout: 0.21199
+        #   number_of_features: 4
+        #   number_of_layers: 1
         # - time_series_id: 2
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 11428
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 11850
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 11852
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 273
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 11036
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
-        - time_series_id: 11213
-          learning_rate: 0.00013756
-          hidden_layer_size: 94
-          dropout: 0.21199
-          number_of_features: 1
-          number_of_layers: 1
+        #   learning_rate: 0.000522
+        #   hidden_layer_size: 86
+        #   dropout: 0.0192
+        #   number_of_features: 4
+        #   number_of_layers: 2
         # - time_series_id: 6
         #   learning_rate: 0.000522
         #   hidden_layer_size: 86

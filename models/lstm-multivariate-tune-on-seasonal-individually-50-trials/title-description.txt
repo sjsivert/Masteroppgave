@@ -1,0 +1,2 @@
+lstm-multivariate-tune-on-seasonal-individually-50-trials
+Run 50 tuning trails on each seasonal cat
