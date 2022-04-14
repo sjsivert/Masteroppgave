@@ -58,3 +58,27 @@ natural language processing, and more
 
 
 % [ Legge til Wikipedia kilde? ]
+
+\subsection*{Stateful and stateless LSTMs}
+\label{section:BT:stateful-vs-stateless}
+An LSTM takes three vectors as input. The hidden previous hidden state $H_{t-t}$
+which is the short term vector described above, the previous cell state
+$C_{t-1}$ which is the long term vector, and the input vector $X_t$.
+These are not to be confused with the cells internal weights $W_i$
+which is the weight matrix for the hidden state vector, and $U_t$,
+the weight matrix for the input $X_t$.
+
+During training these weight matrixes are shaped by backpropegation.
+The hidden state and internal state vectors are not touched by backpropegation,
+but will be constantly changing during forward passes through the network.
+
+A stateful LSTM refers to an architecture where the hidden state and cell state
+are initialized once but never reset during training. This is typically
+when the batches in the training set are dependent on each other, like
+one long time series.
+
+In a stateless LSTM the hidden states are reset many times during training,
+typically at the end of each batch. A typical example is if the training
+data is a set of unrelated sentences.
+
+
