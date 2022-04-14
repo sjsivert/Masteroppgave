@@ -1,0 +1,37 @@
+\section{ARIMA and SARIMA baseline}
+\label{section:Architecture:Baselines:Arima}
+
+\iffalse
+% Move to the "Architecture" section
+This section presents the overarching methods and method architectures used in this paper.
+In an effort to analyse data and make predictions on the problem space, predictive models are applied.
+Using well established methods, we intend on creating baseline predictions in order to evaluate a new model.
+These baseline methods are pressented here.
+\fi
+
+
+As a means to measure the predictive ability of new models, a comparison with current well established methods can be usefull.
+Two such predictive methods are the ARIMA and SARIMA models.
+While the ARIMA model designed as an extension to the ARMA model, extended with the ability to make predictions on non stationary data.
+Additionaly, the SARIMA model extends the ARIMA model, adding a seasonal component.
+
+As described in \Cref{section:Data} the available data is both non-stationary, in addition to having a varrying degree of seasonality.
+With this in mind, both ARIMA and SARIMA models were created.
+
+
+\subsection{Model selection}
+In order to select usefull ARIMA and SARIMA models, tuning methods were introduced.
+With the aim of finding a set of optimal model parameters, two different methods of model tuning was used.
+Both Grid Search and Auto-ARIMA % TODO: Add Auto_arima reference
+is used for tuning of the models for each time-series.
+
+As the models are aiming at making a 7 day prediciton, Grid search is conducted using a 7 day validation set as a measurement for accuracy.
+Each parameter set is used to make a 7 day prediction, where this prediction is compared to the true values in the validation set.
+An error metrics such as the MAE, MSE, MASE or others can be used to find the best model.
+When a set of parameters are selected, the validation data is added to the training set, and the model is retrained, before it attempts to make a new prediction on a test set.
+This is then used as a measure for the model.
+
+Additionaly, Auto-Arima is used as a second method for tuning the ARIMA and SARIMA models.
+This approach uses Bayesian optimization for parameter tuning, attempting to find the best hyper parameters for the models.
+Using an error metric such as the MSE, the auto-arima model is tuned to find the best parameters for each time series.
+

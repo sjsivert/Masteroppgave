@@ -1,0 +1,35 @@
+
+
+\subsection{LSTM Baseline}
+% TODO
+% Using a different versions of this. Local univariate and mulitvariate, global univariate and multivariate
+% Descibing the basic architecture of the different LSTM-s.
+% Is there a large difference in LSTM design between the different types of LSTM?
+% Describe tuning of the model? Or that is should or can be tuned?
+
+The LSTM model is described in \cref{section:BT:LSTM}, and is the current state of the art method for making time series predictions.
+Comparing new models agains the current state of the art models serves as a good measure for weither or not the new models is usefull.
+
+\subsection{Global and local methods}
+Unline the ARIMA and SARIMA models serving as the first baseline,
+the LSTM model is able to work both as a local and a global methods.
+
+First a local model is created. This can be directly compared agains the ARIMA model described in the previous section.
+This model only use one time series as data for training, validation and testing, similar to the ARIMA model.
+
+However, the LSTM model differs vastly from the ARIMA model in that it is able to be used as a global model.
+Unlike the local method using only one time series for training and testing,
+a global model is able to use multiple time series.
+Using a set of time-series both for training, validation and testing,
+the LSTM should be able to increase the predictive ability and accuracy by increasing the ammount of data available.
+Additonaly, the use of a global model enables the LSTM to extract features from different time-series that hopefully can be used to make more accurate predictions on the original dataset.
+
+\subsection{Univariate and Multivariate}
+The LSTM model is configurable as both a univariate and a multivariate model.
+While the univariate model only uses one input variable per time-step, a multivariate model takes multiple inputs for each time-step.
+For seasonal data, one could then extract information from the dataset, adding multiple new values per time-step in order to encode information such as season or month.
+
+\subsection{Model selection}
+In order to find a LSTM model 
+% Explain optune tuning with Bayesian optimization
+
