@@ -43,14 +43,14 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  model_type: 'local_univariate_lstm'
+  model_type: 'global_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
   univariate_lstm:
     hyperparameter_tuning_range:
       hidden_size: [ 2, 100]
-      number_of_layers: [ 1, 2]
+      number_of_layers: [ 1, 4]
       dropout: [ 0.0, 0.4 ]
       #optimizer_name: ['Adam', 'RMSprop']
       optimizer_name: ['RMSprop', 'Adam']
@@ -61,7 +61,7 @@ model:
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 1 # must be equal to number of features in data
+      number_of_features: 4 # must be equal to number of features in data
       number_of_trials: 200 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
@@ -74,18 +74,18 @@ model:
         output_window_size: 7
         multi_variable_nr: 4
         batch_size: 32
-        number_of_epochs: 21
+        number_of_epochs: 22
         stateful_lstm: yes
         should_shuffle_batches: no
-        optimizer_name: RMSprop
-        learning_rate: 0.00025783
-        hidden_layer_size: 100
-        dropout: 0.01773
+        optimizer_name: Adam
+        learning_rate: 0.00043177648728211254
+        hidden_layer_size: 50
+        dropout: 7.057973795771e-06
         number_of_features: 4
         number_of_layers: 1
       datasets:
-        - 11573
-        - 11037
+        # - 11573
+        # - 11037
         # - 12322
         # - 11428
         # - 11850
@@ -93,6 +93,27 @@ model:
         # - 273
         # - 11036
         # - 11213
+
+        - 2
+        - 6
+        - 10
+        - 11
+        - 13
+        - 20
+        - 22
+        - 24
+        - 26
+        - 27
+        - 28
+        - 29
+        - 32
+        - 33
+        - 34
+        - 39
+        - 41
+        - 51
+        - 54
+
 
     local_model:
       common_parameters_for_all_models:

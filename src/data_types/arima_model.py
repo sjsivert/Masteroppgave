@@ -35,8 +35,10 @@ class ArimaModel(IModel, ABC):
         self,
         log_sources: List[ILogTrainingSource],
         name: str = "placeholder",
-        hyperparameters: Dict[str, int] = OrderedDict({"p": 2, "d": 1, "q": 3, "P": 3, "D": 2, "Q": 1, "s": 12}),
-        seasonal: bool = True
+        hyperparameters: Dict[str, int] = OrderedDict(
+            {"p": 2, "d": 1, "q": 3, "P": 3, "D": 2, "Q": 1, "s": 12}
+        ),
+        seasonal: bool = True,
     ):
         self.data_pipeline = None
         self.value_approximation = None

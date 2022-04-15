@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 2,6,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54
+
+Parameters: 2,6,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54,103
+ Error: best_score:0.03494292497634888,best_params:{'batch_size': 32, 'dropout': 7.057973795771e-06, 'hidden_layer_size': 50, 'learning_rate': 0.00043177648728211254, 'number_of_epochs': 22, 'number_of_layers': 1, 'optimizer_name': 'Adam'}

@@ -1,0 +1,2 @@
+lstm-global-univariate-tune-dataset1-200-trials
+Tune lstm global on dataset 1 corr

@@ -1,0 +1,2 @@
+dataset,parameters,errorvalue
+2,6,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54: trial.number;Parameters;hidden_layer_size:54,number_of_layers:1,learning_rate:0.000423831381594583,batch_size:32,dropout:0.0005535883089514963,optimizer_name:Adam,number_of_epochs:15,score:0.03549034520983696,Trial number:201
