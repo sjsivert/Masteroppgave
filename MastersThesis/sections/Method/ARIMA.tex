@@ -1,0 +1,46 @@
+
+\subsection{Experiment 1 - Arima baseline test}
+\label{section:Method:Experiment1-Arima}
+
+Experiment 1 is defined in order to create an initial predictive baseline.
+This baseline is created to serve as a comparison for other more complex methods.
+% TODO: What research questions does this experiment answer
+
+For each of the time series in datasets 1 and 2 defined in \cref{section:Data:Dataset},
+an ARIMA model is created. 
+
+% What are we doing?
+\subsubsection{Outline}
+For each chosen category in [TODO]\cref{TODO} we are creating a Local Univariate Arima (\textbf{LUA})
+model. Each model will forecast a multistep ahead prediction of 1, 3, and 7 days ahead.
+We will evaluate each model with the metrics MASE and SMAPE.
+
+
+% How are we conducting the experient?
+\subsubsection{Parameter tuning}
+\label{section:Method:Arima:Tuning}
+In order to find a fitting ARIMA model for the available dataset, tuning of parameters are important.
+There are several methods available for model tuning, but only a few were selected for this project.
+
+The first method of tuning were manual tuning of parameters.
+Comprised of guess work and domain konwledge, a small set of model parameters were tested in order to find a fitting set of parameters.
+This method is time-consuming but was useful in cases where time constraints limited the use of excessive search of parameter sets.
+
+% TODO: The use of Excessive Grid Search withing (1,7) (1,7) (1,11)
+The second method used was excessive grid search, testing every set of parameters within a range of parameter values.
+With the ARIMA model, three parameters are configurable. p, d and q.
+The grid search was run with parameters ranging from 1 to 8 for p, 1 to 10 for q, as well as 1 to 16 for q.
+This parameter range is only limited by the computational power available to the researcher, as well as the limitation of time.
+
+
+% What do we expect to happen?
+\subsubsection{Expectations}
+As descrive in section TODO \cref{TODO} statistical models like ARIMA does
+fall short on highly volatile time series.
+We expect the models to outperform the naive forecast, and get a SMAPE metric
+lower than 1.0 for one-step-ahead predictions.
+We expect the model to show the underlying trends in the dataset, but to
+undershoot its predictions.
+
+We expect the model to perform progressively worse for multistep-ahead 3 and 7
+days ahead. Our prediction is that a 3 days forecast is worse than the naive forecast.
