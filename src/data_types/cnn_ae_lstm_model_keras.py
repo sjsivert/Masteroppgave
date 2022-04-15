@@ -26,26 +26,29 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         lstm_params = self.hyper_parameters["lstm-shared"]
         lstm_params.update(self.hyper_parameters["lstm"])
         lstm_params["batch_size"] = self.hyper_parameters["batch_size"]
-        print("Params for LSTM")
-        print(lstm_params)
-        print()
         self.hyper_parameters["lstm"] = lstm_params
 
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         self.order_config()
         # Init CNN-AE
-        self.ae = CNN_AE_Module(params["encoder"], params["decoder"])
-        optim = KerasOptimizer.get(
-            params["ae"]["optimizer_name"], learning_rate=params["ae"]["learning_rate"]
-        )
-        self.ae.compile(optimizer=optim, loss=params["ae"]["loss"])
+        self.init_autoencoder()
         # Init LSTM
+        self.init_autoencoder_and_lstm()
+
+    def init_autoencoder(self):
+        self.ae = CNN_AE_Module(self.hyper_parameters["encoder"], self.hyper_parameters["decoder"])
+        optim = KerasOptimizer.get(
+            self.hyper_parameters["ae"]["optimizer_name"], learning_rate=self.hyper_parameters["ae"]["learning_rate"]
+        )
+        self.ae.compile(optimizer=optim, loss=self.hyper_parameters["ae"]["loss"])
+
+    def init_autoencoder_and_lstm(self):
         lstm = LstmKerasModule(**self.hyper_parameters["lstm"]).model
         # Init Model class for merginig the two models
         keras_metrics = config_metrics_to_keras_metrics()
         self.model = CNN_AE_LSTM_Module(self.ae, lstm)
         optim = KerasOptimizer.get(
-            params["lstm"]["optimizer_name"], learning_rate=params["lstm"]["learning_rate"]
+            self.hyper_parameters["lstm"]["optimizer_name"], learning_rate=self.hyper_parameters["lstm"]["learning_rate"]
         )
         self.model.compile(optimizer=optim, loss=keras_metrics[0], metrics=[keras_metrics])
 

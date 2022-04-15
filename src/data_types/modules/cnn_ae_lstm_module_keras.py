@@ -6,8 +6,10 @@ class CNN_AE_LSTM_Module(tf.keras.Model):
         super().__init__()
         self.ae = ae
         self.lstm = lstm
+        for layer in self.ae.layers:
+            layer.trainable = False
 
     def call(self, inputs):
-        ae_data = self.ae(inputs, training=False)
+        ae_data = self.ae(inputs)
         out = self.lstm(ae_data)
         return out
