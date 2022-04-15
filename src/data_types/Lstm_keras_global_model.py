@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 import optuna
+from sklearn.preprocessing import MinMaxScaler
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.keras_error_calculations import (
@@ -149,12 +150,16 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
-            training_predictions, training_targets = self.predict_and_rescale(
-                self.x_train, self.y_train
-            )
-            validation_predictions, validation_targets = self.predict_and_rescale(
-                self.x_val, self.y_val.reshape(-1, 1)
-            )
+
+            # Cannot rescale data because it consists of multiple datasets with multiple scalers
+            training_predictions = self.prediction_model.predict(self.x_train, batch_size=1)
+            training_targets = self.y_train
+
+            # validation_predictions, validation_targets = self.predict_and_rescale(
+            #     self.x_val, self.y_val.reshape(-1, 1)
+            # )
+            validation_predictions = self.prediction_model.predict(self.x_val, batch_size=1)
+            validation_targets = self.y_val
             self._visualize_predictions(
                 (training_targets[:, 0].flatten()),
                 (training_predictions[:, 0].flatten()),
@@ -201,8 +206,10 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
             # Visualize
             self.prediction_model.reset_states()
-            self.predict_and_rescale(x_train, y_train)
-            test_predictions, test_targets = self.predict_and_rescale(x_test, y_test)
+            self.predict_and_rescale(x_train, y_train, self.scalers[i])
+            test_predictions, test_targets = self.predict_and_rescale(
+                x_test, y_test, self.scalers[i]
+            )
 
             self._visualize_predictions(
                 (test_targets.flatten()),
@@ -213,3 +220,13 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         # Run predictions on all data as well!
         super().test()
         return self.metrics
+
+    def predict_and_rescale(
+        self, input_data: np.ndarray, targets: np.ndarray, scaler: MinMaxScaler = None
+    ) -> np.ndarray:
+        logging.info("Predicting")
+        predictions = self.prediction_model.predict(input_data, batch_size=1)
+        predictions_rescaled = scaler.inverse_transform(predictions) if scaler else predictions
+        targets_rescaled = scaler.inverse_transform(targets) if scaler else targets
+
+        return predictions_rescaled, targets_rescaled

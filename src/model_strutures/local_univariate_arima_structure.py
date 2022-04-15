@@ -28,7 +28,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
         steps_to_predict: int = 5,
         multi_step_forecast: bool = False,
         auto_arima: bool = True,
-        seasonal: bool = True
+        seasonal: bool = True,
     ) -> None:
         self.models: List[IModel] = []
         self.log_sources = log_sources
@@ -60,7 +60,7 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                     log_sources=self.log_sources,
                     hyperparameters=model_structure["hyperparameters"],
                     name=model_structure["time_series_id"],
-                    seasonal=self.seasonal
+                    seasonal=self.seasonal,
                 ),
                 self.model_structures,
             )
@@ -165,15 +165,9 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
                             for D in range(D_range[0], D_range[1] + 1):
                                 for Q in range(Q_range[0], Q_range[1] + 1):
                                     for s in range(s_range[0], s_range[1] + 1):
-                                        parameters.append((
-                                            (p, d, q),
-                                            (P, D, Q, s)
-                                        ))
+                                        parameters.append(((p, d, q), (P, D, Q, s)))
                     else:  # ARIMA parameters
-                        parameters.append((
-                            (p, d, q),
-                            None
-                        ))
+                        parameters.append(((p, d, q), None))
         return parameters
 
     def get_models(self) -> List[IModel]:

@@ -187,7 +187,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             (test_predictions.flatten()),
             "Test predictions",
         )
-        x_test_values = self.min_max_scaler.inverse_transform(x_test[:, :, 0])
+        x_test_values = (
+            self.min_max_scaler.inverse_transform(x_test[:, :, 0])
+            if self.min_max_scaler
+            else x_test[:, :, 0]
+        )
         x_test_values_flattened = x_test_values.flatten()
         self._visualize_predictions_with_context(
             context=x_test_values_flattened,
