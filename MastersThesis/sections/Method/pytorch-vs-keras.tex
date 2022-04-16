@@ -1,0 +1,34 @@
+\section{Pytorch vs Keras}
+\todo[inline]{Should we ad the actual experiment results here, or is that too much?}
+We did some prototype testing when choosing which framework to use for
+building the neural networks.
+Our two candidates was Keras and Pytorch.
+In two different jupyter notebooks
+we implemented a simple LSTM network in both frameworks with the exact same
+hyperparameters. Then we ran some experiments, changing the hyperparameters,
+but always using the same parameters on both models.
+Our results found that Keras outperformed Pytorch by roughly 20\% each time.
+These perfomance differences was suriprisingly big between the two.
+The only reason we could find that explain this is
+\begin{enumerate}
+  \item We did something wrong while implementing Pytorch LSTM.
+  \item There are some default parameters which we did not know about, and Keras
+        default parameters was better tuned for this problem than Pytorch.
+\end{enumerate}
+Explenation one is plausible, as Pytorch requires a lot more understanding
+of the inner workings of a method in order to implement it.
+LSTMs are also a quite advanced method. Our Pytorch model did in fact learn
+from the data. Nothing seemed wrong on the surface, it just did underperform compared to Keras.
+
+The initial parameters were:
+\begin{itemize}
+  \item input window: 1
+  \item output window: 1
+  \item optimizer: Adam
+  \item learning rate: 0.001
+  \item stateful: false
+  \item batch size: 39
+  \item hidden state: 50
+\end{itemize}
+Because of this we ended up using Keras in our experiments. And we can not
+garantee reproducible results with the Pytorch framework.
