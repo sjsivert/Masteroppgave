@@ -35,7 +35,8 @@ One such model is the Long-Short Term Memory model (LSTM) \cite[p.~469-472]{Gero
 The LSTM introduces a new memory cell, adding Long-term memory to the network.
 
 The LSTM memory cells are comprised of two vectors, one for long-term and one for short-term memory,
-as well as an input gate, output gate, and a forget gate.
+as well as an input gate (\Cref{eq:lstm:input_gate}), output gate (\Cref{eq:lstm:output-gate}),
+and a forget gate (\Cref{eq:lstm:forget-gate}). The
 The forget gate allows for the memory cell to remove unneeded parts of the memory in order to replace it with new data from the input gate.
 The long-term memory retains some of its information while replacing other parts.
 
@@ -55,6 +56,27 @@ natural language processing, and more
   \label{fig:lstm-memory-cell}
 \end{figure}
 
+\begin{equation}
+  f_t = \sigma (X_t * U_f, + H_{t-t} * W_f)
+  \label{eq:lstm:forget-gate}
+\end{equation}
+\begin{equation}
+  i_t = \sigma (X_t * U_i, + H_{t-t} * W_i)
+  \label{eq:lstm:input_gate}
+\end{equation}
+\begin{equation}
+  i_t = \sigma (X_t * U_o, + H_{t-t} * W_o)
+  \label{eq:lstm:output-gate}
+\end{equation}
+\begin{itemize}
+  \item $X_t$: input to the current timestamp.
+  \item $U_f$: weight associated with the input.
+  \item $H_{t-1}$: the hidden state of the previous timestamp.
+  \item $W_f$: weight matrix associated with hidden state.
+\end{itemize}
+
+
+
 
 
 % [ Legge til Wikipedia kilde? ]
@@ -65,7 +87,7 @@ An LSTM takes three vectors as input. The hidden previous hidden state $H_{t-t}$
 which is the short term vector described above, the previous cell state
 $C_{t-1}$ which is the long term vector, and the input vector $X_t$.
 These are not to be confused with the cells internal weights $W_i$
-which is the weight matrix for the hidden state vector, and $U_t$,
+which is the weight matrix for the hidden state vector, and $U_i$,
 the weight matrix for the input $X_t$.
 
 During training these weight matrixes are shaped by backpropegation.
