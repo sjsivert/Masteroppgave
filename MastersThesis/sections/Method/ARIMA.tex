@@ -1,46 +1,81 @@
+% TODO: Add reference to the goals pressented in the introduction, and evaluate if the experiments here is used to ansewer some of the research questions 
 
-\subsection{Experiment 1 - Arima baseline test}
-\label{section:Method:Experiment1-Arima}
+\section{Experiment 1 - ARIMA baseline}
+\label{section:Method:Experiment1}
+The first experiment conducted is done in order to create an ARIMA baseline.
+The ARIMA model is used to make multi step predictions that is going to be used as reference for other models.
 
-Experiment 1 is defined in order to create an initial predictive baseline.
-This baseline is created to serve as a comparison for other more complex methods.
-% TODO: What research questions does this experiment answer
+Experiments with the ARIMA model is done on each time-series in the datasets introduced in \cref{section:Data:Dataset}.
+A number of experiments are therefor ran on each time-series in both \textit{dataset 1} and \textit{dataset 2}.
 
-For each of the time series in datasets 1 and 2 defined in \cref{section:Data:Dataset},
-an ARIMA model is created. 
-
-% What are we doing?
-\subsubsection{Outline}
-For each chosen category in [TODO]\cref{TODO} we are creating a Local Univariate Arima (\textbf{LUA})
-model. Each model will forecast a multistep ahead prediction of 1, 3, and 7 days ahead.
-We will evaluate each model with the metrics MASE and SMAPE.
+ARIMA models are first tuned on each time-series in order to make predicitons.
+The hyper-parmeters fond after the tuning is then used in order to created models capable of making predictions.
+The model attempts to make a 7 day ahead prediction.
+% TODO: Add more about the 7 day prediction?
 
 
-% How are we conducting the experient?
-\subsubsection{Parameter tuning}
-\label{section:Method:Arima:Tuning}
-In order to find a fitting ARIMA model for the available dataset, tuning of parameters are important.
-There are several methods available for model tuning, but only a few were selected for this project.
+\subsection{Tuning of parameters}
+Hyper-parmeter tuning for ARIMA is done in two different ways.
+The first one is through the parameter search method \textit{Grid search},
+while the secound approach used \textit{Bayesian optimization} with the \textit{auto_arima} framework.
 
-The first method of tuning were manual tuning of parameters.
-Comprised of guess work and domain konwledge, a small set of model parameters were tested in order to find a fitting set of parameters.
-This method is time-consuming but was useful in cases where time constraints limited the use of excessive search of parameter sets.
+\subsubsection*{Grid search}
+Using the parameter tuning method of grid search, a well suited ARIMA model is searched for.
+Grid search is an excessive search method where each parameter compoison is tested.
+Each set of parameters are  used to define a model, training it using the training dataset,
+and then validating it agains the validation set.
+With the goal of making a 7 day prediction, a 7 day forecast is compared to the validation data,
+so that the 7 day prediction error is measured.
+The model with the best 7 day prediction resulting in the lowest validation error,
+is then selected as the best model found after parameter tuning.
+Prediction error is measured in each of the loss functions \textit{MAE, MSE, MASE and SMAPE}.
 
-% TODO: The use of Excessive Grid Search withing (1,7) (1,7) (1,11)
-The second method used was excessive grid search, testing every set of parameters within a range of parameter values.
-With the ARIMA model, three parameters are configurable. p, d and q.
-The grid search was run with parameters ranging from 1 to 8 for p, 1 to 10 for q, as well as 1 to 16 for q.
-This parameter range is only limited by the computational power available to the researcher, as well as the limitation of time.
+\subsubsection{Auto ARIMA}
+The secound method used for parameter tuning is the Auto ARIMA method from the \textit{pmdarima} python library.
+%% TODO: Add "pmdarima" reference
+This method utilizes Bayesian optimization for search in the search space for hyper parameters.
+Evaluating models using cross-validation and error metrics such as the "mse",
+the auto_arima method find a well suited hyper parameter set in a fraction of the time used by the exchaustive grid search.
 
+\subsection{Trained models}
+When the models are tuned through Grid search and auto_arima,
+the searched hyper parameters are applied to models in order to run predictions.
+While the tuning trains the ARIMA model on the training data, while validating it on the validation data,
+it still runs the risk of overfitting the model.
+The tuning may select a model with such a high complexity that while it fits the validation data well,
+but do not generalize enough to be usable on a unseen test set.
+The tuned models are therefor trained using both the training data and validation data for training,
+before it is used to predict the next 7 values coinsiding with the test set.
+The predictive capability of the resuling models serve as a benchmark for actual prediction
+of unknown data as it is not possible to tune models on data which have not yet been recorded.
+Therefor, this is the true measure of the predictive capability of the ARIMA model.
 
-% What do we expect to happen?
-\subsubsection{Expectations}
-As descrive in section TODO \cref{TODO} statistical models like ARIMA does
-fall short on highly volatile time series.
-We expect the models to outperform the naive forecast, and get a SMAPE metric
-lower than 1.0 for one-step-ahead predictions.
+\subsection{Expected results}
+
+Using the ARIMA model for creating a 7 day multi step ahead prediction is not expected to yeald wery good results.
+The ARIMA model has problems with data where there is a high volatility in the data, with a high standard variation.
+The data available, as described in \cref{section:Data:DataAnalysis},
+is highly volatile and thus makes the predictions more dificult for the ARIMA model.
+
 We expect the model to show the underlying trends in the dataset, but to
 undershoot its predictions.
+It is also expected that the ARIMA model is going to have a larger problem with making predictions on data with a high seasonality.
+Because of this, the SARIMA model will also serve as a baseline.
 
-We expect the model to perform progressively worse for multistep-ahead 3 and 7
-days ahead. Our prediction is that a 3 days forecast is worse than the naive forecast.
+
+\section{Experiment 2 - SARIMA baselin}
+\label{section:Method:Experiment2}
+
+The secound experiment conducted is done with the SARIMA model.
+Just like the ARIMA model from experiment 1, the SARIMA model is used on the datasets defined in \cref{section:Data:Dataset}.
+Experiment 2 shares the same method for tuning of the model as in experiment 1,
+as well as using the same method for evaluating the tuned models.
+Se experiment 1 for reference \cref{section:Method:Experiment1}.
+
+\subsection{Expected results}
+As with the ARIMA model, the SARIMA is not expected to yeald great results either as it suffers from the same problems as the ARIMA model.
+However, the SARIMA model is expected to be an improvement to the ARIMA model for data with a high seasonality.
+
+With the available data, seasonality differ from dataset to dataset. While some time-series have a high seasonal component,
+others have little to no seasonality.
+The SARIMA model is therefor only expected to outperform the ARIMA model on time-series with seasonality.
