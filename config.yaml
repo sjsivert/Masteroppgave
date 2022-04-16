@@ -61,7 +61,7 @@ model:
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 4 # must be equal to number of features in data
+      number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 200 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
@@ -81,7 +81,7 @@ model:
         learning_rate: 0.00043177648728211254
         hidden_layer_size: 50
         dropout: 7.057973795771e-06
-        number_of_features: 4
+        number_of_features: 1
         number_of_layers: 1
       datasets:
         # - 11573
@@ -93,28 +93,27 @@ model:
         # - 273
         # - 11036
         # - 11213
-
-        - 2
-        - 6
-        - 10
-        - 11
-        - 13
-        - 20
-        - 22
-        - 24
-        - 26
-        - 27
-        - 28
-        - 29
-        - 32
-        - 33
-        - 34
-        - 39
-        - 41
-        - 51
-        - 54
-
-
+        - 12532
+        - 11694
+        - 11716
+        - 11950
+        - 11195
+        - 11998
+        - 274
+        - 11407
+        - 46
+        - 11326
+        - 11335
+        - 12197
+        - 11693
+        - 11780
+        - 12502
+        - 11866
+        - 11400
+        - 12256
+        - 10320
+        - 10030
+    
     local_model:
       common_parameters_for_all_models:
         # If int <= 1 then the testing set will be equal to output_window_size
@@ -394,7 +393,7 @@ model:
     steps_to_predict: 7
     multi_step_forecast: true # alternative is recursive single step
     auto_arima: true
-    seasonal: false
+    seasonal: true
     # Ranges used for autotuning if --tune parameter is set
     hyperparameter_tuning_range:
       p: [1, 3]
@@ -405,8 +404,8 @@ model:
       Q: [0, 3]
       s: [12, 12]
 
-    metric_to_use_when_tuning: 'MASE'
-    #metric_to_use_when_tuning: 'MSE'
+    # metric_to_use_when_tuning: 'MASE'
+    metric_to_use_when_tuning: 'MAE'
 
     model_structure:
       #- time_series_id: 11573
@@ -420,3 +419,23 @@ model:
           D: 2
           Q: 1
           s: 12
+
+        # - 2
+        # - 6
+        # - 10
+        # - 11
+        # - 13
+        # - 20
+        # - 22
+        # - 24
+        # - 26
+        # - 27
+        # - 28
+        # - 29
+        # - 32
+        # - 33
+        # - 34
+        # - 39
+        # - 41
+        # - 51
+        # - 54

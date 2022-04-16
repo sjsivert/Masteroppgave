@@ -1,0 +1,2 @@
+lstm-global-multivariate-tune-dataset2-1000-trials
+Tune lstm global on dataset 2 no-corr
