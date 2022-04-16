@@ -41,3 +41,24 @@ These methods create a baseline that can be used to establish the comparative pe
 
 The motivation behind the proposed framework is explored in further detail later in \Cref{section:Discussion}.
 
+
+\subsection{The autoencoder}
+The goal behind the use of the convolutional autoencoder is to process the input data before the LSTM is used to make predictions.
+A convolutional autoencoder is well suited for tasks such as reducing noise in the data, with extreme values.
+Additionaly, the autoencoder can later be used for anomaly detection if this is needed.
+
+
+The design of the autoencoder \dots ...
+
+
+Tuning of the autoencoder \dots ...
+
+
+
+\subsection{The LSTM}
+Similar to the LSTM baseline defined in \cref{section:Architecture:Baselines:LSTM},
+the LSTM module in the Hybrid architecture shares the same design methods.
+Using a set of different architectures such as univariate vs multivariate, and local vs global methods,
+the Hybrid model can be directly compared to the baseline LSTM.
+The difference is contained in the autoencoder applied to the input values before the LSTM model is applied.
+
