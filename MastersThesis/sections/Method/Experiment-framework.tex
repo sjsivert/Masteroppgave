@@ -1,0 +1,100 @@
+\section{Experiment Framework}
+\label{section:method:experiment-framework}
+In order to make it easier to execute multiple experiments, which all saved
+enough metadata for the experiment to be recreatable and repeatable we made
+a framework.
+
+The framework is called \textit{"Experimently"}. It can be deconstructed into
+four main modules. The configuration module, data processing module, experiment module, and the save experiment module.
+The configuration module is to keep everything which is configurable and relevant
+for the experiment in one place. This helps keeping code changes down to a minumum,
+and its easy to go back in time and check detatails of a ran experiment at a glans.
+
+
+\subsection{Pipeline}
+\label{section:Method:Pipeline}
+The data processing modules two main goals are, one, to keep all data processing steps,
+in one place, and two to have a self documenting data module which easily can be
+saved, and documents every single processing step done to the data sets before the
+experiments gets conducted.
+
+\todo[inline]{Finnish this section.}
+
+\begin{table}[h]
+  \centering
+  \caption{Base data processing steps}
+  \label{table:base_data_processing_steps}
+  \begin{tabular}{ll}
+    \toprule
+    Step       & Description                                                   \\
+    \midrule
+    \textbf{1} & load market insight data and categories and merge them        \\
+    \textbf{2} & convert date columns to date\_time format                     \\
+    \textbf{3} & sum up clicks to category level [groupBy(date, cat\_id)]      \\
+    \textbf{4} & rename column 'title' to 'cat\_name'                          \\
+    \textbf{5} & combine feature 'hits' and 'clicks' to new feature 'interest' \\
+    \textbf{6} & drop columns 'hits' and 'clicks'                              \\
+    \textbf{7} & filter out data from early 2018-12-01                         \\
+    \textbf{8} & drop uninteresting colums                                     \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{LSTM data processing steps}
+  \label{table:lstm_data_processing_steps}
+  \begin{tabular}{ll}
+    \toprule
+    Step       & Description                                                                  \\
+    \textbf{1} & Convert input dataset to generator object                                    \\
+    \textbf{2} & filter out category 12322                                                    \\
+    \textbf{3} & choose columns 'interest' and 'date'                                         \\
+    \textbf{4} & fill in dates with zero values                                               \\
+    \textbf{5} & convert to np.array                                                          \\
+    \textbf{6} & scale data between 0.1 and 1                                                 \\
+    \textbf{7} & generate x y pairs with sliding window with input size 10, and output size 7 \\
+    \textbf{8} & generate training and validation data with training size 7                   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \centering
+  \caption{LSTM data processing steps}
+  \label{table:arima_data_processing_steps}
+  \begin{tabular}{ll}
+    \toprule
+    Step       & Description                                                     \\
+    \textbf{1} & Convert input dataset to generator object                       \\
+    \textbf{2} & filter out category 2)                                          \\
+    \textbf{3} & choose columns 'interest' and 'date'                            \\
+    \textbf{4} & fill in dates with zero values                                  \\
+    \textbf{5} & Scaling data?: False                                            \\
+    \textbf{6} & split up into training set and test set of forecast window size \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% TODO: What is the functionality of the pipeline, and why is it created?
+% TODO: Add illustration of the project pipeline
+
+%With the aim of running several experiments with ease, a experiment pipeline was created in this project.
+%Running a project is done through the use of the shared pipeline, through the use of different data pipelines, model structure and model implementations, and different configureations.
+
+\subsection{Config}
+The experiment pipeline contains multiple paramteres that can be adjusted and configured to alter the experiments.
+Configuration is done through the use of the ``config.yaml'' file defined in the project source code.
+This config file is used to configure the different aspects of the projects to be run.
+Ranging from the selected dataset and data files to be used, to the selected model and model structure, with model parameters and random seed.
+
+The condig is parsed through the runntime of the experiment, reading the needed information when it becomes relevant.
+The file can be found in the source code at ``./config.yaml''.
+
+\subsection{Data Pipeline}
+
+
+
+
+\subsection{Save sources}
+
+\import{./sections/Method/}{Pipeline.tex}
