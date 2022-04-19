@@ -28,3 +28,4 @@ log-file.log
 */0_current_model_checkpoints/*
 **.egg-info/*
 */permetrics.egg-info/*
+**/*.pkl

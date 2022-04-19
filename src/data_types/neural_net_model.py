@@ -161,7 +161,7 @@ class NeuralNetModel(IModel, ABC):
             trial_info["score"] = trial.value
             trial_info["Trial number"] = trial.number
             log_source.log_tuning_metrics(
-                {"" + self.get_name() + ": " + "trial.number": {"Parameters": trial_info}}
+                {"" + str(self.get_name()) + ": " + "trial.number": {"Parameters": trial_info}}
             )
 
     @abstractmethod

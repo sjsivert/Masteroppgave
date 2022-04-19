@@ -145,8 +145,8 @@ class Experiment:
         self.model_structure.auto_tuning()
 
         # Comment out for now. Config is not updated, thus the tuned values are not used
-        #self._train_model()
-        #self._test_model()
+        self._train_model()
+        self._test_model()
 
         if save and options_to_save:
             self._save_model(options=options_to_save)

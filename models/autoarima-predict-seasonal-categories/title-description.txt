@@ -1,0 +1,2 @@
+autoarima-predict-seasonal-categories
+Autoarima predict on seasonal categories
