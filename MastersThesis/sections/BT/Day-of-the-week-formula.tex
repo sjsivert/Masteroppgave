@@ -1,0 +1,50 @@
+\section{Day of the week formula}
+\label{section:BT:day-of-the-week-formula}
+The book \cite{Hale-Evans2006} has an algorithm which can be used to calculate
+the day of the week from a date, for example 14.01.1996.
+%\todo[inline]{Move to B&T}
+\begin{equation}
+  day\_of\_the\_week
+  = (YC + MC + CC + DC - LYC) \mod{7}
+  \label{eq:day_of_the_week}
+\end{equation}
+
+\begin{itemize}
+  \item YC = Year code.
+  \item MC = Month code.
+  \item CC = Century code.
+  \item DC = Date number.
+  \item LYC = Leap year code.
+\end{itemize}
+
+The year code is calculated using
+$YC = (YY + (YY)/4) \mod{7}$, where $YY$ is the last
+two digits of the year. For the year 1996, $YY = 96$.
+
+The \textit{Month Code} is derived from \Cref{table:month_codes}.
+The date number \textit{DC} is just what day of the month it is.
+
+The century code \textit{CC} is 4. The leap year code \textit{LYC} is 1 the
+month is january or february of a leap year.
+
+\begin{table}[h]
+  \centering
+  \caption{Month Code table}
+  \label{table:month_codes}
+  \begin{tabular}{|l|l|}\hline
+    Month     & Code \\ \hline
+    January   & 0    \\
+    February  & 3    \\
+    March     & 3    \\
+    April     & 6    \\
+    May       & 1    \\
+    June      & 4    \\
+    July      & 6    \\
+    August    & 2    \\
+    September & 5    \\
+    October   & 0    \\
+    November  & 3    \\
+    December  & 5    \\
+    \hline
+  \end{tabular}
+\end{table}
