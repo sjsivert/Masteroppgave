@@ -33,10 +33,10 @@ get the same benefits by scaling the input data.
 %The different model structures required some differences in processing steps.
 
 \subsection{Univariate to Multivariate feature engeneering}
-Since the E-commerce domain are heavily influence by external factors, such as
-holidays, christmas, and yearly seasons we thought it would be benefitual
-for the neural net models to be aware which day of the week it is,
-which month it is, and if it is closer to summer of winter.
+Since the E-commerce domain is heavily influenced by external factors, such as
+holidays, Christmas, and yearly seasons we thought it would be beneficial
+for the neural net models to be aware of which day of the week it is,
+which month it is, and if it is closer to summer than winter.
 
 We add the \textit{month} feature, a number between [0, 11] depending on which month.
 
@@ -59,8 +59,8 @@ We add the feature \textit{season} which is a number between [-1, 1] using \Cref
   \label{fig:season-feature}
 \end{figure}
 
-\Cref{fig:season-feature} show the output of the season feature.
-If the month is close to christmas (december, januar) this feature will be close to 1.
+\Cref{fig:season-feature} shows the output of the season feature.
+If the month is close to Christmas (december, januar) this feature will be close to 1.
 If the month is closer to summer (may, june) this feature will be close to -1.
 
 In the and all added features are scaled between [0.1, 1] as described above.
