@@ -42,7 +42,7 @@ because the validation step in keras is incorporated into the training function.
 Due to time consraints we did not want to dive deep into the keras internals
 to see if it was possible to solve this problem by hand.
 
-Our solution ended up being to remove a number of samples in the begining of
+Our solution ended up being to remove a number of samples in the beginning of
 the datasaet in order to make the total number of samples dividable by the batch size,
 and then make the validation set equal to one batch. Removing data from the beginning,
 seemed obvious as newer data will have more relevance than older data.
@@ -105,7 +105,8 @@ during training.
   \item time\_series\_counter = 0
   \item time\_series\_number\_of\_batches\_list = [TS.length() // batch size for each TS in time-series ]
   \item start\_training\_loop()
-  \item after each batch: if current batch number == time\_seires\_number\_of\_batches\_list[time\_series\_counter]
+  \item after each batch: if current batch number ==
+        time\_seires\_number\_of\_batches\_list[time\_series\_counter]
         then -\> reset\_hidden\_state()
   \item time\_series\_counter += 1
 \end{enumerate}

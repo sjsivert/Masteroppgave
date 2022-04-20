@@ -17,7 +17,7 @@ The model attempts to make a 7 day ahead prediction.
 \subsection{Tuning of parameters}
 Hyper-parmeter tuning for ARIMA is done in two different ways.
 The first one is through the parameter search method \textit{Grid search},
-while the secound approach used \textit{Bayesian optimization} with the \textit{auto_arima} framework.
+while the secound approach used \textit{Bayesian optimization} with the \textit{auto\_arima} framework.
 
 \subsubsection*{Grid search}
 Using the parameter tuning method of grid search, a well suited ARIMA model is searched for.
@@ -35,10 +35,10 @@ The secound method used for parameter tuning is the Auto ARIMA method from the \
 %% TODO: Add "pmdarima" reference
 This method utilizes Bayesian optimization for search in the search space for hyper parameters.
 Evaluating models using cross-validation and error metrics such as the "mse",
-the auto_arima method find a well suited hyper parameter set in a fraction of the time used by the exchaustive grid search.
+the auto\_arima method find a well suited hyper parameter set in a fraction of the time used by the exchaustive grid search.
 
 \subsection{Trained models}
-When the models are tuned through Grid search and auto_arima,
+When the models are tuned through Grid search and auto\_arima,
 the searched hyper parameters are applied to models in order to run predictions.
 While the tuning trains the ARIMA model on the training data, while validating it on the validation data,
 it still runs the risk of overfitting the model.
@@ -49,6 +49,7 @@ before it is used to predict the next 7 values coinsiding with the test set.
 The predictive capability of the resuling models serve as a benchmark for actual prediction
 of unknown data as it is not possible to tune models on data which have not yet been recorded.
 Therefor, this is the true measure of the predictive capability of the ARIMA model.
+
 
 \subsection{Expected results}
 
