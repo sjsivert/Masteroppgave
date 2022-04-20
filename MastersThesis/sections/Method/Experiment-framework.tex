@@ -6,22 +6,18 @@ a framework.
 
 The framework is called \textit{"Experimently"}. It can be deconstructed into
 four main modules. The configuration module, data processing module, experiment module, and the save experiment module.
-The configuration module is to keep everything which is configurable and relevant
-for the experiment in one place. This helps keeping code changes down to a minumum,
-and its easy to go back in time and check detatails of a ran experiment at a glans.
 
 
-\subsection{Pipeline}
+\subsection{Pipeline module}
 \label{section:Method:Pipeline}
-The data processing modules two main goals are, one, to keep all data processing steps,
-in one place, and two to have a self documenting data module which easily can be
-saved, and documents every single processing step done to the data sets before the
-experiments gets conducted.
-
-\todo[inline]{Finnish this section.}
+The data processing module's two main goals are, one, to keep all data processing steps,
+in one place, and two to have a self-documenting data module that easily can
+save every single processing step done to the data sets before the
+experiments get conducted.
+An example of a pipeline steps output are shown in \Cref{table:base_data_processing_steps}
+and in \Cref{table:lstm_data_processing_steps}.
 
 \begin{table}[h]
-  \centering
   \caption{Base data processing steps}
   \label{table:base_data_processing_steps}
   \begin{tabular}{ll}
@@ -41,7 +37,6 @@ experiments gets conducted.
 \end{table}
 
 \begin{table}[h]
-  \centering
   \caption{LSTM data processing steps}
   \label{table:lstm_data_processing_steps}
   \begin{tabular}{ll}
@@ -58,22 +53,24 @@ experiments gets conducted.
     \bottomrule
   \end{tabular}
 \end{table}
-\begin{table}[h]
-  \centering
-  \caption{LSTM data processing steps}
-  \label{table:arima_data_processing_steps}
-  \begin{tabular}{ll}
-    \toprule
-    Step       & Description                                                     \\
-    \textbf{1} & Convert input dataset to generator object                       \\
-    \textbf{2} & filter out category 2)                                          \\
-    \textbf{3} & choose columns 'interest' and 'date'                            \\
-    \textbf{4} & fill in dates with zero values                                  \\
-    \textbf{5} & Scaling data?: False                                            \\
-    \textbf{6} & split up into training set and test set of forecast window size \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+% TODO: Do we need the ARIMA pipline steps as well? I think it might be overkill.
+% commented out for now..
+%\begin{table}[h]
+%  \centering
+%  \caption{LSTM data processing steps}
+%  \label{table:arima_data_processing_steps}
+%  \begin{tabular}{ll}
+%    \toprule
+%    Step       & Description                                                     \\
+%    \textbf{1} & Convert input dataset to generator object                       \\
+%    \textbf{2} & filter out category 2)                                          \\
+%    \textbf{3} & choose columns 'interest' and 'date'                            \\
+%    \textbf{4} & fill in dates with zero values                                  \\
+%    \textbf{5} & Scaling data?: False                                            \\
+%    \textbf{6} & split up into training set and test set of forecast window size \\
+%    \bottomrule
+%  \end{tabular}
+%\end{table}
 
 % TODO: What is the functionality of the pipeline, and why is it created?
 % TODO: Add illustration of the project pipeline
@@ -81,20 +78,45 @@ experiments gets conducted.
 %With the aim of running several experiments with ease, a experiment pipeline was created in this project.
 %Running a project is done through the use of the shared pipeline, through the use of different data pipelines, model structure and model implementations, and different configureations.
 
-\subsection{Config}
+\subsection{Config module}
+The configuration module is to keep everything which is configurable and relevant
+for the experiment in one place. This helps keeping code changes down to a minumum,
+and it's easy to go back in time and check details of a ran experiment at a glans.
+
 The experiment pipeline contains multiple paramteres that can be adjusted and configured to alter the experiments.
 Configuration is done through the use of the ``config.yaml'' file defined in the project source code.
 This config file is used to configure the different aspects of the projects to be run.
 Ranging from the selected dataset and data files to be used, to the selected model and model structure, with model parameters and random seed.
 
-The condig is parsed through the runntime of the experiment, reading the needed information when it becomes relevant.
+The config is parsed through at runtime reading the needed information when it becomes relevant.
 The file can be found in the source code at ``./config.yaml''.
+An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}.
 
-\subsection{Data Pipeline}
+\subsection{Save Experiment module}
+The save source module handled everything related to logging and saving an experiment.
+Each experiment is associated with an unique descriptive ID and a description text to easily
+differentiate between experiments.
+Each experiment saves trained models, configs, dataset used, stdout logs, training metrics, validation metrics,
+testing metrics and figures.
 
-
-
-
-\subsection{Save sources}
-
-\import{./sections/Method/}{Pipeline.tex}
+Everything is save to the local ``./models/`` folder, and to an exernal ML experiment tracking tool
+named \textit{neptune.ai}
+\dirtree{%
+  .1 arima-predict-cat-11037-7-days .
+  .2 Arima-11037.pkl .
+  .2 data-processing-steps.txt .
+  .2 datasets.json .
+  .2 figures .
+  .3 11037-Data-Prediction.png .
+  .3 11037-Predictions.png .
+  .3 11037-Training-data-approximation.png .
+  .3 11037-Training-data.png .
+  .2 logging .
+  .2 training-errors.csv .
+  .2 metrics.txt .
+  .2 options.yaml .
+  .2 predictions.csv .
+  .2 tags.txt .
+  .2 title-description.txt .
+}
+2 directories, 13 files
