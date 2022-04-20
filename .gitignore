@@ -29,3 +29,5 @@ log-file.log
 **.egg-info/*
 */permetrics.egg-info/*
 **/*.pkl
+todo.md
+datasets/processed
