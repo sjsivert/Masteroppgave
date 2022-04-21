@@ -23,8 +23,8 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
             time_series_id,
             params,
             optuna_trial,
-            # pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
-            pipeline=multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
+            pipeline=lstm_keras_pipeline.local_univariate_lstm_keras_pipeline,
+            # pipeline=multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
             # pipeline= multivariate_pipeline.already_processed_dataset
         )
         self.should_shuffle_batches = params["should_shuffle_batches"]
