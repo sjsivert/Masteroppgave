@@ -85,9 +85,15 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
 
+        if not is_tuning:
+            x_train = np.concatenate([self.x_trian, self.x_val], axis=0)
+            y_train = np.concatenate([self.y_train, self.y_val], axis=0)
+        else:
+            x_train = self.x_train
+            y_train = self.y_train
         history = self.model.fit(
-            x=self.x_train,
-            y=self.y_train,
+            x=x_train,
+            y=y_train,
             epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
