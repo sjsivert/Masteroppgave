@@ -204,11 +204,11 @@ def keras_split_into_training_and_test_set(
         stream: Iterable[Tuple[Tuple[ndarray], Tuple[ndarray], Tuple[ndarray], Optional[StandardScaler]]],
         test_window_size: int,
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
-    input_size = 10
+    output_size = test_window_size
     for (x, y, scaler) in stream:
         # The testing set is the same as the prediction output window
-        x_train = x[:-input_size]
-        y_train = y[:-input_size]
+        x_train = x[:-output_size]
+        y_train = y[:-output_size]
         x_test = x[-1:]
         y_test = y[-1:]
         print("x_train.shape", x_train.shape)
