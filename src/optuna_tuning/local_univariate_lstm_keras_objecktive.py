@@ -59,6 +59,44 @@ def local_univariate_lstm_keras_objective(
     return errors["validation_error"]
 
 
+def local_univariate_cnn_ae_lstm_keras_objective(
+    trial: optuna.Trial,
+    hyperparameter_tuning_range: OrderedDict[str, Tuple[int, int]],
+    model: IModel,
+) -> float:
+
+    # Clear keras session to avoid memory leak
+    K.clear_session()
+
+    params = hyperparameter_range_to_optuna_range(trial, hyperparameter_tuning_range)
+
+    # The default logger in PyTorch Lightning writes to event files to be consumed by
+    # TensorBoard. We create a simple logger instead that holds the log in memory so that the
+    # final accuracy can be obtained after optimization. When using the default logger, the
+    # final accuracy could be stored in an attribute of the `Trainer` instead.
+
+    logging.info(
+        f"Starting tuning trial number #{trial.number} of total {hyperparameter_tuning_range['number_of_trials']}\n"
+    )
+
+    model.init_autoencoder_and_lstm(
+        params=params,
+        return_model=False,
+        # TODO: Fix for pruning for keras
+        # callbacks=[PyTorchLightningPruningCallback(trial, monitor="validation_loss")],
+    )
+
+    with time_function():
+        errors, _ = model.train_lstm(
+            epochs=params["number_of_epochs"],
+            callbacks=[TFKerasPruningCallback(trial, "val_loss")],
+            tuning=True,
+        )
+        # TODO: Use config parameter 'metric'to use when tuning
+        # score = model.calculate_mean_score(errors[""])
+    return errors["validation_error"]
+
+
 def hyperparameter_range_to_optuna_range(
     trial: optuna.Trial, config_params: OrderedDict[str, Tuple[int, int]]
 ) -> Dict[str, Tuple[float, float]]:

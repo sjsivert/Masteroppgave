@@ -44,7 +44,7 @@ class LocalUnivariateLstmStructure(NeuralNetworkModelStructure):
         """
         for base_model in self.models:
             # Specify the class to compiler
-            base_model = typing.cast(LstmModel, base_model)
+            base_model = typing.cast(LstmKerasModel, base_model)
 
             logging.info(
                 f"------------------------------------------------ \
