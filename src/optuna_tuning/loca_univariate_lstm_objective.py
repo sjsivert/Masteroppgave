@@ -50,30 +50,51 @@ def local_univariate_lstm_objective(
         # TODO: Use config parameter 'metric'to use when tuning
         # score = model.calculate_mean_score(errors[""])
 
-    return errors["training_error"]
-    # return errors["validation_error"]
+    # return errors["training_error"]
+    return errors["validation_error"]
 
 
 def hyperparameter_range_to_optuna_range(
     trial: optuna.Trial, config_params: OrderedDict[str, Tuple[int, int]]
 ) -> Dict[str, Tuple[float, float]]:
-    return {
-        "number_of_features": config_params["number_of_features"],
-        "hidden_layer_size": trial.suggest_int(
-            "hidden_layer_size", config_params["hidden_size"][0], config_params["hidden_size"][1]
-        ),
-        "input_window_size": config_params["input_window_size"],
-        "output_window_size": config_params["output_window_size"],
-        "number_of_layers": trial.suggest_int(
+    number_of_layers = (
+        trial.suggest_int(
             "number_of_layers",
             config_params["number_of_layers"][0],
             config_params["number_of_layers"][1],
         ),
+    )
+    layers = []
+    for layer in number_of_layers:
+        layers.append(
+            {
+                "droput": trial.suggest_float(
+                    "dropout", config_params["dropout"][0], config_params["dropout"][1]
+                ),
+                "hidden_size": trial.suggest_int(
+                    "hidden_size", config_params["hidden_size"][0], config_params["hidden_size"][1]
+                ),
+                "recurrent_dropout": trial.suggest_float(
+                    "recurrent_dropout",
+                    config_params["recurrent_dropout"][0],
+                    config_params["recurrent_dropout"][1],
+                ),
+            }
+        )
+
+    return {
+        "number_of_features": config_params["number_of_features"],
+        # "hidden_layer_size": trial.suggest_int(
+        #     "hidden_layer_size", config_params["hidden_size"][0], config_params["hidden_size"][1]
+        # ),
+        "input_window_size": config_params["input_window_size"],
+        "output_window_size": config_params["output_window_size"],
         "learning_rate": trial.suggest_loguniform(
             "learning_rate",
             float(config_params["learning_rate"][0]),
             float(config_params["learning_rate"][1]),
         ),
+        "layers": layers,
         "batch_first": True,
         "batch_size": trial.suggest_int(
             "batch_size", config_params["batch_size"][0], config_params["batch_size"][1]
