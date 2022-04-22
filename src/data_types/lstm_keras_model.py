@@ -86,7 +86,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
 
         if not is_tuning:
-            x_train = np.concatenate([self.x_trian, self.x_val], axis=0)
+            x_train = np.concatenate([self.x_train, self.x_val], axis=0)
             y_train = np.concatenate([self.y_train, self.y_val], axis=0)
         else:
             x_train = self.x_train
@@ -104,9 +104,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
-            training_predictions, training_targets = self.predict_and_rescale(
-                self.x_train, self.y_train
-            )
+            training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
             validation_predictions, validation_targets = self.predict_and_rescale(
                 self.x_val, self.y_val.reshape(-1, 1)
             )
@@ -161,7 +159,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         logging.info("Testing")
         x_train, y_train = self.x_train, self.y_train
         x_test, y_test = self.x_test, self.y_test
-        print("x_test", x_test.shape)
 
         # Reset hidden states
         self.prediction_model.reset_states()
