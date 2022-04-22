@@ -16,7 +16,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    # - 'neptune'
+    #- 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -46,6 +46,7 @@ model:
   rng_seed: 42
   validation_model:
     placeholder: 0
+
   univariate_lstm:
     hyperparameter_tuning_range:
       hidden_size: [2, 100]
@@ -317,51 +318,63 @@ model:
     hyperparameter_tuning_range:
       placeholder: 4
     common_parameters_for_all_models:
-      training_size: 7
-      input_window_size: 14
+      training_size: 50
+      input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
-      batch_size: 1
-      number_of_epochs: 10
+      batch_size: 32
+      number_of_epochs: 100
       optimizer_name: 'Adam'
-      loss: "mse"
-      should_shuffle_batches: False
+      loss: "mean_absolute_percentage_error"
+      should_shuffle_batches: True
 
     model_structure:
-      - time_series_id: 11573
-      #- time_series_id: 12322
-        learning_rate: 0.001
+      #- time_series_id: 11573
+      - time_series_id: 12322
+        learning_rate: 0.0003
         encoder:
-          - layer: 'Conv1d'
-            filters: 8
+          - layer: "Conv1d"
+            filters: 64
             kernel_size: 3
-            activation: 'relu'
-          - layer: 'MaxPool'
-            size: 2
-            padding: 'valid'
-          - layer: 'Conv1d'
-            filters: 16
-            kernel_size: 3
-        decoder:
-          - layer: 'Conv1d'
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
             kernel_size: 5
-            filters: 8
-            activation: 'relu'
-          - layer: 'Conv1d'
-            kernel_size: 3
-            filters: 4
-            activation: 'relu'
-          - layer: 'Conv1d'
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
             kernel_size: 3
             filters: 1
+            activation: "relu"
 
   local_univariate_cnn_ae_lstm:
+    hyperparameter_tuning_range:
+      hidden_size: [ 2, 100 ]
+      number_of_layers: [ 1, 4 ]
+      dropout: [ 0.0, 0.4 ]
+      #optimizer_name: ['Adam', 'RMSprop']
+      optimizer_name: [ 'RMSprop', 'Adam' ]
+      #optimizer_name: ['Adam']
+      learning_rate: [ 1e-7, 1e-2 ]
+      number_of_epochs: [ 5, 40 ]
+      batch_size: [ 32, 32 ]
+      input_window_size: 10
+      output_window_size: 7 # must be equal output_window_size
+      multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
+      number_of_features: 1 # must be equal to number of features in data
+      number_of_trials: 200 # Number of tuning trials to run. The more the better.
+      #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      stateful_lstm: true
     common_parameters_for_all_models:
       should_shuffle_batches: True
-      training_size: 7
+      training_size: 50
       optimizer_name: 'Adam'
       loss: 'mae'
-      batch_size: 10
+      batch_size: 32
       epochs: 20
       number_of_epochs: 20
       input_window_size: 10
@@ -371,7 +384,7 @@ model:
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 1
-        epochs: 20
+        epochs: 9
 
     model_structure:
       - time_series_id: 11573
@@ -384,35 +397,31 @@ model:
           hidden_layer_size: 14
           dropout: 0.132
           number_of_features: 1
-          number_of_layers: 3
+          number_of_layers: 1
         ae:
           optimizer_name: 'Adam'
-          loss: 'mse'
-          learning_rate: 0.003
-          epochs: 20
+          loss: "mean_absolute_percentage_error"
+          learning_rate: 0.0003
+          epochs: 100
         encoder:
-          - layer: 'Conv1d'
-            filters: 8
+          - layer: "Conv1d"
+            filters: 64
             kernel_size: 3
-            activation: 'relu'
-          - layer: 'MaxPool'
-            size: 2
-            padding: 'valid'
-          - layer: 'Conv1d'
-            filters: 16
-            kernel_size: 3
-        decoder:
-          - layer: 'Conv1d'
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
             kernel_size: 5
-            filters: 8
-            activation: 'relu'
-          - layer: 'Conv1d'
-            kernel_size: 3
-            filters: 4
-            activation: 'relu'
-          - layer: 'Conv1d'
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
             kernel_size: 3
             filters: 1
+            activation: "relu"
+
 
   local_univariate_arima:
     forecast_window_size: 7

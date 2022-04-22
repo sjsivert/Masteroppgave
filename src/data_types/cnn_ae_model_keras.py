@@ -54,7 +54,7 @@ class CNNAEModel(NeuralNetKerasModel, ABC):
         return self.metrics
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
-        results = self.model.evaluate(self.x_test, self.x_test, batch_size=32)
+        results = self.model.evaluate(self.x_test, self.x_test, batch_size=self.batch_size)
         # Visualize
         test_predictions = self.model.predict(self.x_test)
         self._visualize_predictions(
