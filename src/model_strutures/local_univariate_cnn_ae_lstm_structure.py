@@ -2,6 +2,8 @@ from typing import List, OrderedDict, Optional, Any, Tuple
 from src.data_types.cnn_ae_lstm_model_keras import CNNAELSTMModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+import typing
+import logging
 
 
 class LocalUnivariateCNNAELSTMStructure(NeuralNetworkModelStructure):
@@ -36,5 +38,18 @@ class LocalUnivariateCNNAELSTMStructure(NeuralNetworkModelStructure):
         """
         Automatic tuning of the model
         """
-        # TODO!
-        pass
+        for base_model in self.models:
+            # Specify the class to compiler
+            base_model = typing.cast(CNNAELSTMModel, base_model)
+
+            logging.info(
+                f"------------------------------------------------ \
+            Tuning model: {base_model.get_name()}\
+                ---------------------------------------------------------------"
+            )
+
+            best_trial = base_model.method_evaluation(
+                parameters=self.hyperparameter_tuning_range,
+                metric=None,
+            )
+            self.tuning_parameter_error_sets[f"{base_model.get_name()}"] = best_trial
