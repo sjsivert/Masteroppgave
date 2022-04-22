@@ -54,6 +54,7 @@ def init_mock_config(
                         "hidden_size": [10, 200],
                         "number_of_layers": [1, 5],
                         "dropout": [0.0, 0.5],
+                        "recurrent_dropout": [0.0, 0.4],
                         "optimizer_name": ["Adam", "SGD", "RMSprop"],
                         "learning_rate": [1e-5, 1e-1],
                         "number_of_epochs": [1, 2],
@@ -67,6 +68,18 @@ def init_mock_config(
                     "model_structure": [
                         {
                             "time_series_id": 12532,
+                            "layers": [
+                                {
+                                    "hidden_size": 10,
+                                    "dropout": 0.0,
+                                    "recurrent_dropout": 0.0,
+                                },
+                                {
+                                    "hidden_size": 20,
+                                    "dropout": 0.2,
+                                    "recurrent_dropout": 0.1,
+                                },
+                            ],
                             "learning_rate": 0.001,
                             "hidden_layer_size": 100,
                             "dropout": 0.1,
