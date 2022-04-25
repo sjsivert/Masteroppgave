@@ -1,7 +1,7 @@
 data:
-  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
   #data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
-  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  #data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   #categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
@@ -131,7 +131,7 @@ model:
       model_structure:
         # - time_series_id: 11573
         - time_series_id: 12322
-        # - time_series_id: 2
+        #- time_series_id: 2
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
@@ -206,25 +206,25 @@ model:
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 1
-        epochs: 9
+        epochs: 25
 
     model_structure:
-      - time_series_id: 11573
-      #- time_series_id: 12322
+      #- time_series_id: 11573
+      - time_series_id: 12322
         lstm:
-          optimizer_name: 'RMSprop'
+          optimizer_name: 'Adam'
           stateful_lstm: True
           loss: "mae"
-          learning_rate: 0.00028345282219663603
-          hidden_layer_size: 60
-          dropout: 0.24970090559798974
+          learning_rate: 0.0009186249482184715
+          hidden_layer_size: 77
+          dropout: 0.2538193303094626
           number_of_features: 1
           number_of_layers: 1
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"
           learning_rate: 0.0003
-          epochs: 100
+          epochs: 40
         encoder:
           - layer: "Conv1d"
             filters: 64
@@ -243,6 +243,73 @@ model:
             kernel_size: 3
             filters: 1
             activation: "relu"
+      - time_series_id: 2
+        lstm:
+          optimizer_name: 'Adam'
+          stateful_lstm: True
+          loss: "mae"
+          learning_rate: 0.0009186249482184715
+          hidden_layer_size: 77
+          dropout: 0.2538193303094626
+          number_of_features: 1
+          number_of_layers: 1
+        ae:
+          optimizer_name: 'Adam'
+          loss: "mean_absolute_percentage_error"
+          learning_rate: 0.0003
+          epochs: 40
+        encoder:
+          - layer: "Conv1d"
+            filters: 64
+            kernel_size: 3
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
+            kernel_size: 5
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 3
+            filters: 1
+            activation: "relu"
+      - time_series_id: 6
+        lstm:
+          optimizer_name: 'Adam'
+          stateful_lstm: True
+          loss: "mae"
+          learning_rate: 0.0009186249482184715
+          hidden_layer_size: 77
+          dropout: 0.2538193303094626
+          number_of_features: 1
+          number_of_layers: 1
+        ae:
+          optimizer_name: 'Adam'
+          loss: "mean_absolute_percentage_error"
+          learning_rate: 0.0003
+          epochs: 40
+        encoder:
+          - layer: "Conv1d"
+            filters: 64
+            kernel_size: 3
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
+            kernel_size: 5
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 3
+            filters: 1
+            activation: "relu"
+
 
 
 
