@@ -401,25 +401,25 @@ model:
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 1
-        epochs: 25
+        epochs: 16
 
     model_structure:
       #- time_series_id: 11573
       - time_series_id: 12322
         lstm:
-          optimizer_name: 'Adam'
+          optimizer_name: 'RMSprop'
           stateful_lstm: True
           loss: "mae"
-          learning_rate: 0.0009186249482184715
-          hidden_layer_size: 77
-          dropout: 0.2538193303094626
+          learning_rate: 0.007554484327571506
+          hidden_layer_size: 36
+          dropout: 0.06175860578073811
           number_of_features: 1
           number_of_layers: 1
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"
           learning_rate: 0.0003
-          epochs: 40
+          epochs: 100
         encoder:
           - layer: "Conv1d"
             filters: 64
@@ -438,21 +438,22 @@ model:
             kernel_size: 3
             filters: 1
             activation: "relu"
+
       - time_series_id: 2
         lstm:
-          optimizer_name: 'Adam'
+          optimizer_name: 'RMSprop'
           stateful_lstm: True
           loss: "mae"
-          learning_rate: 0.0009186249482184715
-          hidden_layer_size: 77
-          dropout: 0.2538193303094626
+          learning_rate: 0.007554484327571506
+          hidden_layer_size: 36
+          dropout: 0.06175860578073811
           number_of_features: 1
           number_of_layers: 1
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"
           learning_rate: 0.0003
-          epochs: 40
+          epochs: 100
         encoder:
           - layer: "Conv1d"
             filters: 64
@@ -471,21 +472,22 @@ model:
             kernel_size: 3
             filters: 1
             activation: "relu"
+
       - time_series_id: 6
         lstm:
-          optimizer_name: 'Adam'
+          optimizer_name: 'RMSprop'
           stateful_lstm: True
           loss: "mae"
-          learning_rate: 0.0009186249482184715
-          hidden_layer_size: 77
-          dropout: 0.2538193303094626
+          learning_rate: 0.007554484327571506
+          hidden_layer_size: 36
+          dropout: 0.06175860578073811
           number_of_features: 1
           number_of_layers: 1
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"
           learning_rate: 0.0003
-          epochs: 40
+          epochs: 100
         encoder:
           - layer: "Conv1d"
             filters: 64
