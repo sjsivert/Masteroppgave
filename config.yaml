@@ -128,28 +128,10 @@ model:
         number_of_features: 1
 
       model_structure:
-<<<<<<< HEAD
-        # - time_series_id: 2
-        - time_series_id: 11573
-          number_of_epochs: 30 
-          optimizer_name: 'RMSprop'
-          learning_rate: 0.0016330596392901727 
-=======
-<<<<<<< HEAD
         - time_series_id: 11037
           number_of_epochs: 15
           optimizer_name: RMSprop
           learning_rate: 0.00013756
-=======
-        # - time_series_id: 11573
-        - time_series_id: 12322
-        #- time_series_id: 2
-          learning_rate: 0.00028345282219663603
-          hidden_layer_size: 60
-          dropout: 0.24970090559798974
-          number_of_features: 1
->>>>>>> 1b73266 (feat/CNN-AE-LSTM-tuning-fix)
->>>>>>> 2723117 (feat/CNN-AE-LSTM-tuning-fix)
           #number_of_layers: 1
           layers:
             - hidden_size: 23 
@@ -373,6 +355,7 @@ model:
       hidden_size: [ 2, 100 ]
       number_of_layers: [ 1, 4 ]
       dropout: [ 0.0, 0.4 ]
+      recurrent_dropout: [0.0, 0.4]
       #optimizer_name: ['Adam', 'RMSprop']
       optimizer_name: [ 'RMSprop', 'Adam' ]
       #optimizer_name: ['Adam']
@@ -383,7 +366,7 @@ model:
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 200 # Number of tuning trials to run. The more the better.
+      number_of_trials: 1 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
     common_parameters_for_all_models:
@@ -404,17 +387,19 @@ model:
         epochs: 16
 
     model_structure:
-      #- time_series_id: 11573
-      - time_series_id: 12322
+      - time_series_id: 11573
+      #- time_series_id: 12322
         lstm:
           optimizer_name: 'RMSprop'
           stateful_lstm: True
           loss: "mae"
           learning_rate: 0.007554484327571506
-          hidden_layer_size: 36
           dropout: 0.06175860578073811
           number_of_features: 1
-          number_of_layers: 1
+          layers:
+            - hidden_size: 94
+              dropout: 0.21199
+              recurrent_dropout: 0.0
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"
@@ -438,75 +423,6 @@ model:
             kernel_size: 3
             filters: 1
             activation: "relu"
-
-      - time_series_id: 2
-        lstm:
-          optimizer_name: 'RMSprop'
-          stateful_lstm: True
-          loss: "mae"
-          learning_rate: 0.007554484327571506
-          hidden_layer_size: 36
-          dropout: 0.06175860578073811
-          number_of_features: 1
-          number_of_layers: 1
-        ae:
-          optimizer_name: 'Adam'
-          loss: "mean_absolute_percentage_error"
-          learning_rate: 0.0003
-          epochs: 100
-        encoder:
-          - layer: "Conv1d"
-            filters: 64
-            kernel_size: 3
-            activation: "relu"
-          - layer: "Conv1d"
-            filters: 128
-            kernel_size: 5
-            activation: "relu"
-        decoder:
-          - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
-            activation: "relu"
-          - layer: "Conv1dTranspose"
-            kernel_size: 3
-            filters: 1
-            activation: "relu"
-
-      - time_series_id: 6
-        lstm:
-          optimizer_name: 'RMSprop'
-          stateful_lstm: True
-          loss: "mae"
-          learning_rate: 0.007554484327571506
-          hidden_layer_size: 36
-          dropout: 0.06175860578073811
-          number_of_features: 1
-          number_of_layers: 1
-        ae:
-          optimizer_name: 'Adam'
-          loss: "mean_absolute_percentage_error"
-          learning_rate: 0.0003
-          epochs: 100
-        encoder:
-          - layer: "Conv1d"
-            filters: 64
-            kernel_size: 3
-            activation: "relu"
-          - layer: "Conv1d"
-            filters: 128
-            kernel_size: 5
-            activation: "relu"
-        decoder:
-          - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
-            activation: "relu"
-          - layer: "Conv1dTranspose"
-            kernel_size: 3
-            filters: 1
-            activation: "relu"
-
 
 
   local_univariate_arima:
