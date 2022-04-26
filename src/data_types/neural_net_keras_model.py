@@ -40,7 +40,6 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         data_pipeline = self.pipeline(
             data_set=data_set,
             cat_id=self.get_name(),
-            training_size=self.training_size,
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )

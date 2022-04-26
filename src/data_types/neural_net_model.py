@@ -60,7 +60,6 @@ class NeuralNetModel(IModel, ABC):
         # TODO: What is training size?
         self.input_window_size = params["input_window_size"]
         self.output_window_size = params["output_window_size"]
-        self.training_size = params["training_size"]
         """
         self.number_of_epochs = params["number_of_epochs"]
         """
@@ -107,7 +106,6 @@ class NeuralNetModel(IModel, ABC):
         data_pipeline = self.pipeline(
             data_set=data_set,
             cat_id=self.get_name(),
-            training_size=self.training_size,
             input_window_size=self.input_window_size,
             output_window_size=self.output_window_size,
         )

@@ -10,7 +10,6 @@ from src.pipelines.date_feature_generator import (calculate_day_of_the_week,
 def local_univariate_lstm_keras_pipeline(
         data_set: DataFrame,
         cat_id: str,
-        training_size: float,
         input_window_size: int,
         output_window_size: int,
 ) -> Pipeline:
@@ -42,7 +41,7 @@ def local_univariate_lstm_keras_pipeline(
             (f"generate x y pairs with sliding window with input size {input_window_size}, and output size {output_window_size}",
                 market_processing.sliding_window_x_y_generator,
                 {"input_window_size": input_window_size, "output_window_size": output_window_size}),
-            (f"generate training and test data with test data size {training_size}, and training data = sequence_length - {output_window_size}",
+            (f"generate training and test data with test data size {output_window_size}, and training data = sequence_length - {output_window_size}",
                 market_processing.keras_split_into_training_and_test_set, {"test_window_size": output_window_size}),
 
             #(f"split up into training set ({training_size}) and test set ({1 - training_size})",

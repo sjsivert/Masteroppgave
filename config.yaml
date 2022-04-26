@@ -42,7 +42,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  model_type: 'global_univariate_lstm'
+  model_type: 'local_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -100,18 +100,18 @@ model:
     local_model:
       common_parameters_for_all_models:
         # If int <= 1 then the testing set will be equal to output_window_size
-        training_size: 50 # Number of samles in validation set
+        #training_size: 50 # Number of samles in validation set
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 1
         batch_size: 32
-        number_of_epochs: 15
         stateful_lstm: yes
         should_shuffle_batches: no
-        optimizer_name: RMSprop
 
       model_structure:
         - time_series_id: 11037
+          number_of_epochs: 15
+          optimizer_name: RMSprop
           learning_rate: 0.00013756
           number_of_features: 1
           #number_of_layers: 1
