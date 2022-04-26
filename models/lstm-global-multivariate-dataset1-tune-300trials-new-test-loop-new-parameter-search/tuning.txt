@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 2,6,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54
+
+Parameters: 2,6,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54,19
+ Error: best_score:0.04672969877719879,best_params:{'batch_size': 32, 'dropout': 0.20880660781340096, 'dropout_0': 0.13690774943243586, 'dropout_1': 0.2412069010568659, 'hidden_size_0': 94, 'hidden_size_1': 84, 'learning_rate': 0.002759386224676296, 'number_of_epochs': 23, 'number_of_layers': 2, 'optimizer_name': 'RMSprop', 'recurrent_dropout_0': 0.39904667673138394, 'recurrent_dropout_1': 0.38022777904538657}

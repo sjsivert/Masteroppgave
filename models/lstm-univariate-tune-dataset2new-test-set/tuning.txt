@@ -1,0 +1,121 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 12532
+
+Parameters: 12532,15
+ Error: best_score:0.004750086460262537,best_params:{'batch_size': 32, 'dropout': 0.16355741731704768, 'hidden_layer_size': 40, 'learning_rate': 0.009458191314088323, 'number_of_epochs': 36, 'number_of_layers': 2, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11694
+
+Parameters: 11694,35
+ Error: best_score:0.001100917812436819,best_params:{'batch_size': 32, 'dropout': 0.27951783341375513, 'hidden_layer_size': 100, 'learning_rate': 8.378122885820579e-05, 'number_of_epochs': 23, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11716
+
+Parameters: 11716,45
+ Error: best_score:0.035762786865234375,best_params:{'batch_size': 32, 'dropout': 0.15589128713133582, 'hidden_layer_size': 2, 'learning_rate': 0.007048014242549231, 'number_of_epochs': 27, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11950
+
+Parameters: 11950,136
+ Error: best_score:0.02802315726876259,best_params:{'batch_size': 32, 'dropout': 0.02521357772404642, 'hidden_layer_size': 100, 'learning_rate': 0.00046343401071565903, 'number_of_epochs': 10, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11195
+
+Parameters: 11195,98
+ Error: best_score:0.0013623347040265799,best_params:{'batch_size': 32, 'dropout': 0.045193948403937576, 'hidden_layer_size': 39, 'learning_rate': 0.00031110329317494864, 'number_of_epochs': 25, 'number_of_layers': 2, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11998
+
+Parameters: 11998,133
+ Error: best_score:0.01878190226852894,best_params:{'batch_size': 32, 'dropout': 0.0990074946479699, 'hidden_layer_size': 30, 'learning_rate': 0.0004925786817184355, 'number_of_epochs': 8, 'number_of_layers': 3, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 274
+
+Parameters: 274,161
+ Error: best_score:0.0035969798918813467,best_params:{'batch_size': 32, 'dropout': 0.026567514919202905, 'hidden_layer_size': 46, 'learning_rate': 0.00022023910961083379, 'number_of_epochs': 32, 'number_of_layers': 3, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11407
+
+Parameters: 11407,21
+ Error: best_score:0.047335557639598846,best_params:{'batch_size': 32, 'dropout': 0.001840327030707684, 'hidden_layer_size': 23, 'learning_rate': 0.004819943071639999, 'number_of_epochs': 40, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 46
+
+Parameters: 46,195
+ Error: best_score:0.028824269771575928,best_params:{'batch_size': 32, 'dropout': 0.015450879016118309, 'hidden_layer_size': 49, 'learning_rate': 0.009379257664692773, 'number_of_epochs': 36, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11326
+
+Parameters: 11326,129
+ Error: best_score:0.0029143148567527533,best_params:{'batch_size': 32, 'dropout': 0.0055773688912761354, 'hidden_layer_size': 31, 'learning_rate': 0.0008738330984059672, 'number_of_epochs': 8, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11335
+
+Parameters: 11335,4
+ Error: best_score:0.007498802151530981,best_params:{'batch_size': 32, 'dropout': 0.1818310266820189, 'hidden_layer_size': 9, 'learning_rate': 0.0007410056188293985, 'number_of_epochs': 9, 'number_of_layers': 3, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 12197
+
+Parameters: 12197,92
+ Error: best_score:0.0025625107809901237,best_params:{'batch_size': 32, 'dropout': 0.06931036066100207, 'hidden_layer_size': 81, 'learning_rate': 0.00017911282219175114, 'number_of_epochs': 11, 'number_of_layers': 2, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11693
+
+Parameters: 11693,35
+ Error: best_score:0.03923279792070389,best_params:{'batch_size': 32, 'dropout': 0.36910023095313294, 'hidden_layer_size': 57, 'learning_rate': 0.0026544274383799825, 'number_of_epochs': 27, 'number_of_layers': 1, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 11780
+
+Parameters: 11780,180
+ Error: best_score:0.0032562422566115856,best_params:{'batch_size': 32, 'dropout': 0.014894010785338113, 'hidden_layer_size': 84, 'learning_rate': 0.00015017490468502106, 'number_of_epochs': 13, 'number_of_layers': 3, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 12502
+
+Parameters: 12502,161
+ Error: best_score:0.014569621533155441,best_params:{'batch_size': 32, 'dropout': 0.2193740859416736, 'hidden_layer_size': 40, 'learning_rate': 0.0010781292881632334, 'number_of_epochs': 5, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11866
+
+Parameters: 11866,176
+ Error: best_score:0.003250536974519491,best_params:{'batch_size': 32, 'dropout': 0.010122942564105801, 'hidden_layer_size': 97, 'learning_rate': 0.00013082610592890455, 'number_of_epochs': 11, 'number_of_layers': 3, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 11400
+
+Parameters: 11400,126
+ Error: best_score:0.1195833683013916,best_params:{'batch_size': 32, 'dropout': 0.09250252251942788, 'hidden_layer_size': 67, 'learning_rate': 0.001955179672461221, 'number_of_epochs': 33, 'number_of_layers': 2, 'optimizer_name': 'Adam'}
+
+
+Model tuning: Dataset 12256
+
+Parameters: 12256,103
+ Error: best_score:0.004185467027127743,best_params:{'batch_size': 32, 'dropout': 0.017507184940318263, 'hidden_layer_size': 35, 'learning_rate': 0.005702929733905987, 'number_of_epochs': 11, 'number_of_layers': 2, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 10320
+
+Parameters: 10320,81
+ Error: best_score:0.0789295956492424,best_params:{'batch_size': 32, 'dropout': 0.0009986227685857933, 'hidden_layer_size': 34, 'learning_rate': 0.003662734628250953, 'number_of_epochs': 22, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
+
+
+Model tuning: Dataset 10030
+
+Parameters: 10030,152
+ Error: best_score:0.07990878820419312,best_params:{'batch_size': 32, 'dropout': 0.009044461872408385, 'hidden_layer_size': 96, 'learning_rate': 0.004391736864674689, 'number_of_epochs': 11, 'number_of_layers': 1, 'optimizer_name': 'RMSprop'}
