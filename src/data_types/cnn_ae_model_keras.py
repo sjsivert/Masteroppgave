@@ -30,7 +30,7 @@ class CNNAEModel(NeuralNetKerasModel, ABC):
             y=self.x_train,
             epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
-            shuffle=True,
+            shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.x_val),
         )
         history = history.history

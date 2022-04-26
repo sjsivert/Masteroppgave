@@ -76,7 +76,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             y=self.x_train,
             epochs=self.hyper_parameters["ae"]["epochs"],
             batch_size=self.batch_size,
-            shuffle=True,
+            shuffle=True,  # self.should_shuffle_batches,
             validation_data=(self.x_val, self.x_val),
         )
         history = history.history
@@ -99,7 +99,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             y=y_train,
             epochs=epochs,
             batch_size=self.batch_size,
-            shuffle=True,
+            shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
         )
         history = history.history
