@@ -265,6 +265,18 @@ class NeuralNetModel(IModel, ABC):
             )
         )
 
+    def _visualize_predictions_and_last_period(self, targets, predictions, last_period, name: str):
+        self.figures.append(
+            visualize_data_series(
+                title=f"{self.get_name()}# {name}",
+                data_series=[targets, last_period, predictions],
+                data_labels=["Targets", "last_period", "Predictions"],
+                colors=["blue", "green", "orange"],
+                x_label="Time",
+                y_label="Interest",
+            )
+        )
+
     def _visualize_predictions_with_context(self, context, targets, predictions):
         context_axis = [x for x in range(len(context))]
         predictions_axis = [x + len(context) for x in range(len(predictions))]
@@ -274,7 +286,7 @@ class NeuralNetModel(IModel, ABC):
                 data_series=[context, targets, predictions],
                 data_axis=[context_axis, predictions_axis, predictions_axis],
                 data_labels=["Contextual Data", "Targets", "Prediction"],
-                colors=["blue", "orange", "red"],
+                colors=["blue", "green", "orange"],
                 x_label="date",
                 y_label="Interest",
             )

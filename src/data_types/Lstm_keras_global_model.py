@@ -10,6 +10,7 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
+    keras_mase_periodic,
 )
 from tensorflow.keras.callbacks import LambdaCallback
 
@@ -94,14 +95,18 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
     def is_done_with_time_series(self, batch_number: int) -> bool:
 
-        batch_number_grater_than_batches_in_series = (
-            self.batch_count + self.batches_in_each_series[self.time_series_count] <= batch_number
-        )
-        if batch_number_grater_than_batches_in_series:
-            self.batch_count += self.batches_in_each_series[self.time_series_count]
-            self.time_series_count += 1
-            return True
-        return False
+        try:
+            batch_number_grater_than_batches_in_series = (
+                self.batch_count + self.batches_in_each_series[self.time_series_count]
+                <= batch_number
+            )
+            if batch_number_grater_than_batches_in_series:
+                self.batch_count += self.batches_in_each_series[self.time_series_count]
+                self.time_series_count += 1
+                return True
+            return False
+        except IndexError:
+            return False
 
     def epoch_end_callback(self, epoch, logs):
         self.model.reset_states()
@@ -115,9 +120,15 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         # This is commented out because we now have a fixed batch size and does not neeed to update datasets
         # self.split_data_sets()
 
-        logging.info("Splitting training data into")
-
         is_tuning = xargs.pop("is_tuning") if "is_tuning" in xargs else False
+
+        if not is_tuning:
+            x_train = np.concatenate([self.x_train, self.x_val], axis=0)
+            y_train = np.concatenate([self.y_train, self.y_val], axis=0)
+        else:
+            x_train = self.x_train
+            y_train = self.y_train
+
         reset_states_callback_on_time_series_end = LambdaCallback(
             on_batch_begin=lambda batch, logs: self.model.reset_states()
             if self.is_done_with_time_series(batch)
@@ -137,8 +148,8 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         all_callbacks.extend(xargs.pop("callbacks", []))
 
         history = self.model.fit(
-            x=self.x_train,
-            y=self.y_train,
+            x=x_train,
+            y=y_train,
             epochs=self.hyper_parameters["number_of_epochs"],
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
@@ -151,8 +162,8 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self._copy_trained_weights_to_model_with_different_batch_size()
 
             # Cannot rescale data because it consists of multiple datasets with multiple scalers
-            training_predictions = self.prediction_model.predict(self.x_train, batch_size=1)
-            training_targets = self.y_train
+            training_predictions = self.prediction_model.predict(x_train, batch_size=1)
+            training_targets = y_train
 
             # validation_predictions, validation_targets = self.predict_and_rescale(
             #     self.x_val, self.y_val.reshape(-1, 1)
@@ -185,8 +196,12 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             testing_set_name = self.time_series_ids[i]
             x_test = self.x_test_seperated[i]
             y_test = self.y_test_seperated[i]
-            x_train = self.x_train_seperated_with_val_set[i]
-            y_train = self.y_train_seperated_with_val_set[i]
+            x_train = np.concatenate(
+                [self.x_train_seperated_with_val_set[i], self.x_val_seperated[i]], axis=0
+            )
+            y_train = np.concatenate(
+                [self.y_train_seperated_with_val_set[i], self.y_val_seperated[i]], axis=0
+            )
 
             # Reset hidden states
             self.prediction_model.reset_states()
@@ -215,6 +230,23 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 (test_predictions.flatten()),
                 f"Test predictions for {testing_set_name}",
             )
+            x_test_values = (
+                self.scalers[i].inverse_transform(x_test[:, :, 0])
+                if self.min_max_scaler
+                else x_test[:, :, 0]
+            )
+            x_test_values_flattened = x_test_values.flatten()
+            self._visualize_predictions_with_context(
+                context=x_test_values_flattened,
+                targets=test_targets.flatten(),
+                predictions=test_predictions.flatten(),
+            )
+            last_period_targets = self.scalers[i].inverse_transform(x_test[:, 3:, 0])
+            mase_seven_days, y_true_last_period = keras_mase_periodic(
+                y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
+            )
+            test_metrics[f"test_MASE_7_DAYS_{self.get_name()}"] = mase_seven_days.numpy()
+
             self.metrics.update(test_metrics)
         # Run predictions on all data as well!
         super().test()

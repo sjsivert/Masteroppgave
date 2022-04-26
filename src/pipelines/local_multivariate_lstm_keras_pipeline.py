@@ -10,7 +10,6 @@ from src.pipelines.date_feature_generator import (calculate_day_of_the_week,
 def local_multivariate_lstm_keras_pipeline(
         data_set: DataFrame,
         cat_id: str,
-        training_size: float,
         input_window_size: int,
         output_window_size: int,
 ) -> Pipeline:

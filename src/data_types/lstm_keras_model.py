@@ -113,6 +113,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
                 (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
+            self._visualize_predictions(
+                (self.x_train[:, 0, 0].flatten()),
+                (self.y_train[0, 0].flatten()),
+                "Training predictions without validation set",
+            )
 
             self._visualize_predictions(
                 validation_targets.flatten(),
@@ -157,7 +162,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
-        x_train, y_train = self.x_train, self.y_train
+        x_train = np.concatenate([self.x_train, self.x_val], axis=0)
+        y_train = np.concatenate([self.y_train, self.y_val], axis=0)
         x_test, y_test = self.x_test, self.y_test
 
         # Reset hidden states
@@ -179,9 +185,13 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
-
+        last_period_targets = (
+            self.min_max_scaler.inverse_transform(x_test[:, 3:, 0])
+            if self.min_max_scaler
+            else x_test[:, 3:, 0]
+        )
         mase_seven_days, y_true_last_period = keras_mase_periodic(
-            y_true=y_test, y_true_last_period=x_test[:, 3:, 0], y_pred=test_predictions
+            y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
         )
         test_metrics["test_MASE_7_DAYS"] = mase_seven_days.numpy()
 
@@ -189,6 +199,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             (test_targets.flatten()),
             (test_predictions.flatten()),
             "Test predictions",
+        )
+        self._visualize_predictions_and_last_period(
+            (test_targets.flatten()),
+            (test_predictions.flatten()),
+            last_period_targets.flatten(),
+            "Test predictions with last period targets",
         )
         x_test_values = (
             self.min_max_scaler.inverse_transform(x_test[:, :, 0])

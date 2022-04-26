@@ -1,5 +1,5 @@
 data:
-  data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_04_26.csv'
   # data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
   # data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   #categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
@@ -16,7 +16,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    - 'neptune'
+    # - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -42,7 +42,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  model_type: 'local_univariate_lstm'
+  model_type: 'global_univariate_lstm'
   rng_seed: 42
   validation_model:
     placeholder: 0
@@ -69,7 +69,6 @@ model:
     global_model:
       model_structure:
         # If int <= 1 then the testing set will be equal to output_window_size
-        training_size: 50 # Number of samles in validation set
         input_window_size: 10
         output_window_size: 7
         multi_variable_nr: 4
@@ -79,14 +78,14 @@ model:
         should_shuffle_batches: no
         optimizer_name: Adam
         learning_rate: 0.00043177648728211254
-        number_of_features: 4
+        number_of_features: 1
         layers:
             - hidden_size: 94
               dropout: 0.21199
               recurrent_dropout: 0.0
       datasets:
-        # - 11573
-        # - 11037
+        - 11573
+        - 11037
         # - 12322
         # - 11428
         # - 11850
@@ -94,25 +93,25 @@ model:
         # - 273
         # - 11036
         # - 11213
-        - 2
-        - 6
-        - 10
-        - 11
-        - 13
-        - 20
-        - 22
-        - 24
-        - 26
-        - 27
-        - 28
-        - 29
-        - 32
-        - 33
-        - 34
-        - 39
-        - 41
-        - 51
-        - 54
+        # - 2
+        # - 6
+        # - 10
+        # - 11
+        # - 13
+        # - 20
+        # - 22
+        # - 24
+        # - 26
+        # - 27
+        # - 28
+        # - 29
+        # - 32
+        # - 33
+        # - 34
+        # - 39
+        # - 41
+        # - 51
+        # - 54
 
 
     local_model:
@@ -128,170 +127,175 @@ model:
         number_of_features: 1
 
       model_structure:
-        - time_series_id: 11037
-          number_of_epochs: 15
-          optimizer_name: RMSprop
-          learning_rate: 0.00013756
+        # - time_series_id: 2
+        - time_series_id: 11573
+          number_of_epochs: 30 
+          optimizer_name: 'RMSprop'
+          learning_rate: 0.0016330596392901727 
           #number_of_layers: 1
           layers:
-            - hidden_size: 94
-              dropout: 0.21199
+            - hidden_size: 23 
+              dropout: 0.016406595527129978 
               recurrent_dropout: 0.0
-            - hidden_size: 20
-              dropout: 0.0
-              recurrent_dropout: 0.0
-        - time_series_id: 2
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 6
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 10
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 11
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 13
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 20
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 22
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 24
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 26
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 27
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 28
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 29
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 32
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 33
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 34
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 39
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 41
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 51
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
-        - time_series_id: 54
-          learning_rate: 0.00013756
-          number_of_features: 1
-          #number_of_layers: 1
-          layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
+        # - time_series_id: 6
+        #   learning_rate: 0.0005122276184287306
+        #   number_of_epochs: 25
+        #   optimizer_name: 'RMSprop'
+        #   learning_rate: 0.00013756
+        #   #number_of_layers: 1
+        #   layers:
+        #     - recurrent_dropout: 0.0
+        #       dropout: 0.08613713284048026
+        #       hidden_size: 51
+        # - time_series_id: 10
+        #   learning_rate: 0.00983984268591986
+        #   number_of_epochs: 11
+        #   optimizer_name: 'RMSprop'
+        #   #number_of_layers: 1
+        #   layers:
+        #     - dropout: 0.39992188220583275
+        #       hidden_size: 7
+        #       recurrent_dropout: 0.0
+        #     - dropout: 0.39992188220583275
+        #       hidden_size: 7
+        #       recurrent_dropout: 0.0
+        #     - dropout: 0.39992188220583275
+        #       hidden_size: 7
+        #       recurrent_dropout: 0.0
+        #     - dropout: 0.39992188220583275
+        #       hidden_size: 7
+        #       recurrent_dropout: 0.0
+        #     - dropout: 0.39992188220583275
+        #       hidden_size: 7
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 11
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 13
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 20
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 22
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 24
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 26
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 27
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 28
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 29
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 32
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 33
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 34
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 39
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 41
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 51
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
+        # - time_series_id: 54
+        #   learning_rate: 0.00013756
+        #   number_of_features: 1
+        #   #number_of_layers: 1
+        #   layers:
+        #     - hidden_size: 94
+        #       dropout: 0.21199
+        #       recurrent_dropout: 0.0
 
 #        - time_series_id: 33
 #          learning_rate: 0.00013756
