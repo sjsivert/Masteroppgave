@@ -20,7 +20,7 @@ from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pip
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
-from src.utils.config_parser import config
+from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
@@ -244,16 +244,20 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         )
         id = f"{self.get_name()},{study.best_trial.number}"
         best_params = study.best_trial.params
+        best_params["time_series_id"] = self.get_name()
         logging.info("Best params!", best_params)
-        test_params = self.hyper_parameters.copy()
-        test_params.update(best_params)
-        logging.info("Params updated with best params", test_params)
-        self.init_neural_network(test_params)
+        params_copied = self.hyper_parameters.copy()
+        params_copied.update(best_params)
+        logging.info("Params updated with best params", params_copied)
+        self.init_neural_network(params_copied)
         best_score = study.best_trial.value
         logging.info(
             f"Best trial: {id}\n" f"best_score: {best_score}\n" f"best_params: {best_params}"
         )
         self._generate_optuna_plots(study)
+
+        # Update config with best params
+        update_config_lstm_params(best_params)
 
         return {id: {"best_score": best_score, "best_params": best_params}}
 

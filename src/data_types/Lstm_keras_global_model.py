@@ -45,7 +45,6 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             data_pipeline = self.pipeline(
                 data_set=data_set,
                 cat_id=cat_id,
-                training_size=training_size,
                 input_window_size=self.input_window_size,
                 output_window_size=self.output_window_size,
             )
