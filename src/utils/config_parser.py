@@ -9,6 +9,7 @@ root_dir = Path(current_dir.parent.parent.parent)
 
 config = confuse.Configuration("Masteroppgave", __name__)
 config.set_file(f"{root_dir}/config.yaml")
+config.set_file(f"config/{config['model']['config']}.yaml")
 config.set_env()
 config.exists()
 
@@ -23,9 +24,11 @@ def update_config_lstm_params(config_value: dict):
         if config["model"]["model_type"].get() == "local_univariate_lstm"
         else "global_model"
     )
-    old_config = config["model"]["univariate_lstm"][global_or_local]["model_structure"].get()
+    old_config = config["model"]["model_config"][global_or_local]["model_structure"].get()
+    print("old_config", old_config)
     converted_config_value = convert_numbered_config_items_to_list(config_value)
-    config["model"]["univariate_lstm"][global_or_local]["model_structure"].set(
+    print("new_cofnig", converted_config_value)
+    config["model"]["model_config"][global_or_local]["model_structure"].set(
         [converted_config_value]
     )
 

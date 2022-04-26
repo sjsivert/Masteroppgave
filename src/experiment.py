@@ -158,32 +158,32 @@ class Experiment:
                 self.model_structure = ValidationModelStructure(self.save_sources)
             elif model_structure == ModelStructureEnum.local_univariate_arima:
                 self.model_structure = LocalUnivariateArimaStructure(
-                    self.save_sources, **model_options["local_univariate_arima"]
+                    self.save_sources, **model_options["model_config"]
                 )
             elif model_structure == ModelStructureEnum.local_univariate_lstm:
                 self.model_structure = LocalUnivariateLstmStructure(
                     self.save_sources,
-                    hyperparameter_tuning_range=model_options["univariate_lstm"][
+                    hyperparameter_tuning_range=model_options["model_config"][
                         "hyperparameter_tuning_range"
                     ],
-                    **model_options["univariate_lstm"]["local_model"],
+                    **model_options["model_config"]["local_model"],
                 )
             elif model_structure == ModelStructureEnum.local_cnn_ae:
                 self.model_structure = LocalUnivariateCNNAEStructure(
-                    self.save_sources, **model_options["local_univariate_cnn_ae"]
+                    self.save_sources, **model_options["model_config"]
                 )
 
             elif model_structure == ModelStructureEnum.local_cnn_ae_lstm:
                 self.model_structure = LocalUnivariateCNNAELSTMStructure(
-                    self.save_sources, **model_options["local_univariate_cnn_ae_lstm"]
+                    self.save_sources, **model_options["model_config"]
                 )
             elif model_structure == ModelStructureEnum.global_univariate_lstm:
                 self.model_structure = GlobalLstmStructure(
                     self.save_sources,
-                    hyperparameter_tuning_range=model_options["univariate_lstm"][
+                    hyperparameter_tuning_range=model_options["model_config"][
                         "hyperparameter_tuning_range"
                     ],
-                    **model_options["univariate_lstm"]["global_model"],
+                    **model_options["model_config"]["global_model"],
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")
