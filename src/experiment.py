@@ -124,7 +124,7 @@ class Experiment:
         self._test_model()
 
         if save and options_to_save:
-            self._save_model(options=options_to_save)
+            self._save_model(options=config.dump())
 
     def run_tuning_experiment(
         self,
@@ -149,7 +149,7 @@ class Experiment:
         self._test_model()
 
         if save and options_to_save:
-            self._save_model(options=options_to_save)
+            self._save_model(options=config.dump())
 
     def _choose_model_structure(self, model_options: Dict) -> IModelStructure:
         try:

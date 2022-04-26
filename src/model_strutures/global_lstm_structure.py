@@ -12,13 +12,13 @@ class GlobalLstmStructure(NeuralNetworkModelStructure):
     def __init__(
         self,
         log_sources: List[ILogTrainingSource],
-        parameters_for_all_models: OrderedDict[str, Any],
+        model_structure: OrderedDict[str, Any],
         datasets: List[str],
         hyperparameter_tuning_range: Optional[OrderedDict[str, Tuple[int, int]]] = None,
     ):
         super().__init__(log_sources, hyperparameter_tuning_range)
         self.datasets = datasets
-        self.parameters_for_all_models = parameters_for_all_models
+        self.parameters_for_all_models = model_structure
         self.tuning_parameter_error_sets = None
 
     def init_models(self, load: bool = False):
