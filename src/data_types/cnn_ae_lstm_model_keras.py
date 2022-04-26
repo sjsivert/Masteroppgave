@@ -124,25 +124,46 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         }, history
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
+        x_train = np.concatenate([self.x_train, self.x_val], axis=0)
+        y_train = np.concatenate([self.y_train, self.y_val], axis=0)
+        x_test, y_test = self.x_test, self.y_test
         # Copy LSTM weights for different batch sizes
         self._copy_trained_weights_to_model_with_different_batch_size()
 
         logging.info("Testing CNN-AE model")
         # Test AE model
-        ae_test_predictions = self.ae.predict(self.x_test, batch_size=1)
+        ae_test_predictions = self.ae.predict(x_test, batch_size=1)
         self._visualize_predictions(
-            tf.reshape(self.x_test, (-1,)),
+            tf.reshape(x_test, (-1,)),
             tf.reshape(ae_test_predictions, (-1,)),
             "AE Test predictions",
         )
+
         # Evaluate model
-        # TODO: Evaluate on training and validation data to update hidden value in statefull LSTM
-        results = self.model.evaluate(self.x_test, self.y_test, batch_size=1)
+        self.model.lstm.reset_states()
+        results: List[float] = self.model.evaluate(
+            x_train,
+            y_train,
+            batch_size=1,
+        )
+        results: List[float] = self.model.evaluate(
+            x_test,
+            y_test,
+            batch_size=1,
+        )
         test_metrics = generate_error_metrics_dict(results[1:])
 
-        test_predictions = self.model.predict(self.x_test)
+        # Generate predicitons for visualization
+        # Copy LSTM weights for different batch sizes
+        self.model.lstm.reset_states()
+        self.model.evaluate(
+            x_train,
+            y_train,
+            batch_size=1,
+        )
+        test_predictions = self.model.predict(x_test)
         self._visualize_predictions(
-            tf.reshape(self.y_test, (-1,)),
+            tf.reshape(y_test, (-1,)),
             tf.reshape(test_predictions, (-1,)),
             "Test predictions",
         )
