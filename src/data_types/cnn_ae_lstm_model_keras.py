@@ -1,6 +1,6 @@
 import logging
 from typing import List, Dict, Optional, Any
-
+import numpy as np
 import keras
 from numpy import ndarray
 
@@ -86,11 +86,17 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         }, history
 
     def train_lstm(self, epochs=1, tuning=False, **xargs):
+        if not tuning:
+            x_train = np.concatenate([self.x_train, self.x_val], axis=0)
+            y_train = np.concatenate([self.y_train, self.y_val], axis=0)
+        else:
+            x_train = self.x_train
+            y_train = self.y_train
         # Training CNN-AE-LSTM
         logging.info("Training CNN-AE and LSTM model")
         history = self.model.fit(
-            x=self.x_train,
-            y=self.y_train,
+            x=x_train,
+            y=y_train,
             epochs=epochs,
             batch_size=self.batch_size,
             shuffle=True,
@@ -130,6 +136,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             "AE Test predictions",
         )
         # Evaluate model
+        # TODO: Evaluate on training and validation data to update hidden value in statefull LSTM
         results = self.model.evaluate(self.x_test, self.y_test, batch_size=1)
         test_metrics = generate_error_metrics_dict(results[1:])
 

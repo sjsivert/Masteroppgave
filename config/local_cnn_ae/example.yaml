@@ -1,0 +1,39 @@
+model:
+  rng_seed: 42
+  model_type: 'local_cnn_ae'
+  model_config:
+    hyperparameter_tuning_range:
+      placeholder: 4
+    common_parameters_for_all_models:
+      training_size: 50
+      input_window_size: 10
+      output_window_size: 7
+      multi_variable_nr: 1
+      batch_size: 32
+      number_of_epochs: 100
+      optimizer_name: 'Adam'
+      loss: "mean_absolute_percentage_error"
+      should_shuffle_batches: True
+
+    model_structure:
+      #- time_series_id: 11573
+      - time_series_id: 12322
+        learning_rate: 0.0003
+        encoder:
+          - layer: "Conv1d"
+            filters: 64
+            kernel_size: 3
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
+            kernel_size: 5
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 3
+            filters: 1
+            activation: "relu"
