@@ -211,10 +211,6 @@ def keras_split_into_training_and_test_set(
         y_train = y[:-output_size]
         x_test = x[-1:]
         y_test = y[-1:]
-        print("x_train.shape", x_train.shape)
-        print("x_train", x_train[-1])
-        print("X_test.shape", x_test.shape)
-        print("x_test", x_test)
 
         yield ((x_train, y_train),  (x_test, y_test), scaler)
 @declare.processor()

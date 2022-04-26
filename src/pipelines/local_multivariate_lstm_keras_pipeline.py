@@ -54,7 +54,7 @@ def local_multivariate_lstm_keras_pipeline(
                 market_processing.sliding_window_x_y_generator,
                 {"input_window_size": input_window_size, "output_window_size": output_window_size}),
             (f"generate training and validation data with training size {training_size}",
-                market_processing.keras_split_into_training_and_test_set, {"test_window_size": training_size}),
+                market_processing.keras_split_into_training_and_test_set, {"test_window_size": output_window_size}),
 
             #(f"split up into training set ({training_size}) and test set ({1 - training_size})",
                 #market_processing.split_into_training_and_test_forecast_window,

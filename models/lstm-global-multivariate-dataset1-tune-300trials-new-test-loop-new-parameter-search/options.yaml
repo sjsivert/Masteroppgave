@@ -1,0 +1,279 @@
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_02_14.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - MSE
+    - SMAPE
+    - MAPE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave
+model:
+    model_type: global_univariate_lstm
+    rng_seed: 42
+    validation_model:
+        placeholder: 0
+    univariate_lstm:
+        hyperparameter_tuning_range:
+            hidden_size: [2, 100]
+            number_of_layers: [1, 4]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            number_of_epochs: [5, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 4
+            number_of_features: 4
+            number_of_trials: 300
+            stateful_lstm: yes
+        global_model:
+            parameters_for_all_models:
+                training_size: 50
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 4
+                batch_size: 32
+                number_of_epochs: 22
+                stateful_lstm: yes
+                should_shuffle_batches: no
+                optimizer_name: Adam
+                learning_rate: 0.00043177648728211254
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            datasets:
+            - 2
+            - 6
+            - 10
+            - 11
+            - 13
+            - 20
+            - 22
+            - 24
+            - 26
+            - 27
+            - 28
+            - 29
+            - 32
+            - 33
+            - 34
+            - 39
+            - 41
+            - 51
+            - 54
+        local_model:
+            common_parameters_for_all_models:
+                training_size: 50
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                batch_size: 32
+                number_of_epochs: 15
+                stateful_lstm: yes
+                should_shuffle_batches: no
+                optimizer_name: RMSprop
+            model_structure:
+            -   time_series_id: 11037
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}, {hidden_size: 20, dropout: 0.0, recurrent_dropout: 0.0}]
+            -   time_series_id: 2
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 6
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 10
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 13
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 20
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 22
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 24
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 26
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 27
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 28
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 29
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 32
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 33
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 34
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 39
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 41
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 51
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 54
+                learning_rate: 0.00013756
+                number_of_features: 1
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+    local_univariate_cnn_ae:
+        common_parameters_for_all_models:
+            training_size: 7
+            input_window_size: 14
+            output_window_size: 7
+            multi_variable_nr: 1
+            batch_size: 1
+            number_of_epochs: 51
+            optimizer_name: adam
+            loss: mse
+            should_shuffle_batches: yes
+        model_structure: [{time_series_id: 12322, learning_rate: 0.003, encoder: [{layer: Conv1d, filters: 8, kernel_size: 3, activation: relu}, {layer: MaxPool, size: 2, padding: valid}, {layer: Conv1d, filters: 16, kernel_size: 3}], decoder: [{layer: Conv1d, kernel_size: 5, filters: 8, activation: relu}, {layer: Conv1d, kernel_size: 3, filters: 4, activation: relu}, {layer: Conv1d, kernel_size: 3, filters: 1}]}]
+    local_univariate_cnn_ae_lstm:
+        common_parameters_for_all_models:
+            should_shuffle_batches: yes
+            training_size: 7
+            optimizer_name: Adam
+            loss: mae
+            batch_size: 10
+            epochs: 20
+            number_of_epochs: 20
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            lstm-shared:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                epochs: 26
+        model_structure: [{time_series_id: 12322, lstm: {optimizer_name: RMSprop, stateful_lstm: yes, loss: mae, learning_rate: 7.88e-05, hidden_layer_size: 14, dropout: 0.132, number_of_features: 1, number_of_layers: 3}, ae: {optimizer_name: Adam, loss: mse, learning_rate: 0.003, epochs: 20}, encoder: [{layer: Conv1d, filters: 8, kernel_size: 3, activation: relu}, {layer: MaxPool, size: 2, padding: valid}, {layer: Conv1d, filters: 16, kernel_size: 3}], decoder: [{layer: Conv1d, kernel_size: 5, filters: 8, activation: relu}, {layer: Conv1d, kernel_size: 3, filters: 4, activation: relu}, {layer: Conv1d, kernel_size: 3, filters: 1}]}]
+    local_univariate_arima:
+        forecast_window_size: 7
+        steps_to_predict: 7
+        multi_step_forecast: yes
+        auto_arima: yes
+        seasonal: yes
+        hyperparameter_tuning_range:
+            p: [1, 3]
+            d: [1, 3]
+            q: [1, 3]
+            P: [0, 3]
+            D: [0, 3]
+            Q: [0, 3]
+            s: [12, 12]
+        metric_to_use_when_tuning: MAE
+        model_structure:
+        -   time_series_id: 12322
+            hyperparameters:
+                p: 0
+                d: 1
+                q: 0
+                P: 5
+                D: 1
+                Q: 0
+                s: 4
+        -   time_series_id: 11428
+            hyperparameters:
+                p: 2
+                d: 1
+                q: 0
+                P: 5
+                D: 1
+                Q: 0
+                s: 4
+        -   time_series_id: 11850
+            hyperparameters:
+                p: 0
+                d: 1
+                q: 0
+                P: 4
+                D: 1
+                Q: 0
+                s: 4
+        -   time_series_id: 11852
+            hyperparameters:
+                p: 0
+                d: 1
+                q: 0
+                P: 5
+                D: 1
+                Q: 1
+                s: 4
+        -   time_series_id: 273
+            hyperparameters:
+                p: 2
+                d: 1
+                q: 0
+                P: 5
+                D: 1
+                Q: 0
+                s: 4
+        -   time_series_id: 11036
+            hyperparameters:
+                p: 0
+                d: 1
+                q: 0
+                P: 5
+                D: 1
+                Q: 0
+                s: 4
+        -   time_series_id: 11213
+            hyperparameters:
+                p: 0
+                d: 1
+                q: 1
+                P: 5
+                D: 1
+                Q: 0
+                s: 4

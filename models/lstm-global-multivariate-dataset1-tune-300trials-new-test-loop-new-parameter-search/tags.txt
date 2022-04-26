@@ -1,0 +1,2 @@
+global_univariate_lstm
+market_insights

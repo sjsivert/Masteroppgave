@@ -1,0 +1,2 @@
+lstm-global-multivariate-dataset1-tune-300trials-new-test-loop-new-parameter-search
+Tune 300 trials after update to prediction loop and tune individual LSTM layers
