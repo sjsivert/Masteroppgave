@@ -30,7 +30,13 @@ A batch size bigger than one means that the number of samples in
 the training data and validation data and test data has to all be
 dividable by the batch size. If not the last batch will have too few samples in it,
 and the network will reject it.
-Also our test data contains of excactly 1 sample per time-series.
+The most common solution is to find the highest common factor
+between the training data and the test data, and use that as a batch size.
+This is not a solution that works on this problem because in our global model
+we train our model on many different time series of different lengths,
+and
+also our test data consists of excactly 1 sample with a size equal the
+forecasting horizon, per time-series.
 We managed to solve the test data problem by creating two models with
 different batch sizes. We trained the first model on the training data,
 then copied the internal weights over to the second model, which had a
@@ -77,6 +83,9 @@ the test set. In MAS-396 we used the exact same setup, but with reseting states
 before test set. MAS-396 achieved a MAS score of $1.67$.
 
 \subsubsection{Global models}
+For global models we followed the concept presented by \cite{Smyl2020},
+with global weights, but local states.
+
 As described in [TODO: WHere we describe the pipeline behind the global models]
 we concatinates multiple time series after one another during training of a global model.
 This means we have to reset the hidden state during training of a global model
