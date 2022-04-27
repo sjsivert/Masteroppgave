@@ -8,10 +8,8 @@ from sklearn.preprocessing import MinMaxScaler
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics,
-    generate_error_metrics_dict,
-    keras_mase_periodic,
-)
+    config_metrics_to_keras_metrics, generate_error_metrics_dict,
+    keras_mase_periodic)
 from tensorflow.keras.callbacks import LambdaCallback
 
 
@@ -245,7 +243,7 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             mase_seven_days, y_true_last_period = keras_mase_periodic(
                 y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
             )
-            test_metrics[f"test_MASE_7_DAYS_{self.get_name()}"] = mase_seven_days.numpy()
+            test_metrics[f"test_MASE_7_DAYS_{i}"] = mase_seven_days.numpy()
 
             self.metrics.update(test_metrics)
         # Run predictions on all data as well!
