@@ -1,0 +1,52 @@
+
+model:
+  rng_seed: 42
+  model_type: 'local_cnn_ae_lstm'
+  model_config:
+    common_parameters_for_all_models:
+      should_shuffle_batches: False
+      batch_size: 32
+      input_window_size: 10
+      output_window_size: 7
+      multi_variable_nr: 1
+      lstm-shared:
+        input_window_size: 10
+        output_window_size: 7
+        multi_variable_nr: 1
+
+    model_structure:
+      - time_series_id: 12322
+        lstm:
+          optimizer_name: 'RMSprop'
+          stateful_lstm: True
+          loss: "mae"
+          learning_rate: 0.00028345282219663603
+          number_of_features: 1
+          epochs: 9
+          layers:
+            - hidden_size: 60
+              dropout: 0.24970090559798974
+              recurrent_dropout: 0.0
+        ae:
+          optimizer_name: 'Adam'
+          loss: "mean_absolute_percentage_error"
+          learning_rate: 0.0003
+          epochs: 80
+        encoder:
+          - layer: "Conv1d"
+            filters: 64
+            kernel_size: 3
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
+            kernel_size: 5
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 3
+            filters: 1
+            activation: "relu"

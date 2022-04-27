@@ -1,0 +1,28 @@
+model:
+  rng_seed: 42
+  model_type: 'local_univariate_lstm'
+  model_config:
+    hyperparameter_tuning_range:
+      placeholder: True
+    local_model:
+      common_parameters_for_all_models:
+        # If int <= 1 then the testing set will be equal to output_window_size
+        #training_size: 50 # Number of samles in validation set
+        input_window_size: 10
+        output_window_size: 7
+        multi_variable_nr: 1
+        batch_size: 32
+        stateful_lstm: yes
+        should_shuffle_batches: no
+        number_of_features: 1
+
+      model_structure:
+        - time_series_id: 12322
+          number_of_epochs: 9
+          optimizer_name: RMSprop
+          learning_rate: 0.00028345282219663603
+          number_of_features: 1
+          layers:
+            - hidden_size: 60
+              dropout: 0.24970090559798974
+              recurrent_dropout: 0.0

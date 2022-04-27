@@ -1,3 +1,7 @@
+data:
+  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
+
 model:
   rng_seed: 42
   model_type: 'local_cnn_ae_lstm'
@@ -39,14 +43,49 @@ model:
           optimizer_name: 'RMSprop'
           stateful_lstm: True
           loss: "mae"
-          learning_rate: 0.007554484327571506
-          dropout: 0.06175860578073811
+          learning_rate: 0.00047070683642977303
           number_of_features: 1
-          epochs: 16
+          epochs: 29
           layers:
-            - hidden_size: 94
-              dropout: 0.21199
-              recurrent_dropout: 0.0
+            - hidden_size: 39
+              dropout: 0.33687060558950066
+              recurrent_dropout: 0.2348005213837976
+        ae:
+          optimizer_name: 'Adam'
+          loss: "mean_absolute_percentage_error"
+          learning_rate: 0.0003
+          epochs: 10
+        encoder:
+          - layer: "Conv1d"
+            filters: 64
+            kernel_size: 3
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 128
+            kernel_size: 5
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 5
+            filters: 64
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 3
+            filters: 1
+            activation: "relu"
+
+      - time_series_id: 11091
+        lstm:
+          optimizer_name: 'RMSprop'
+          stateful_lstm: True
+          loss: "mae"
+          learning_rate: 0.00067070683642977303
+          number_of_features: 1
+          epochs: 20
+          layers:
+            - hidden_size: 20
+              dropout: 0.23687060558950066
+              recurrent_dropout: 0.2948005213837976
         ae:
           optimizer_name: 'Adam'
           loss: "mean_absolute_percentage_error"

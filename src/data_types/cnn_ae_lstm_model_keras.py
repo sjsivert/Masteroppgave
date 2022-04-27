@@ -1,9 +1,11 @@
 import logging
-from typing import List, Dict, Optional, Any
-import numpy as np
-import keras
-from numpy import ndarray
+from typing import Any, Dict, List, Optional
 
+import keras
+import numpy as np
+import optuna
+import tensorflow as tf
+from numpy import ndarray
 from src.data_types.modules.cnn_ae_keras_module import CNN_AE_Module
 from src.data_types.modules.cnn_ae_lstm_module_keras import CNN_AE_LSTM_Module
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
@@ -12,12 +14,9 @@ from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
     local_univariate_cnn_ae_lstm_keras_objective,
 )
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-import optuna
-from src.utils.config_parser import config
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-import tensorflow as tf
-
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.utils.config_parser import config
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
@@ -31,14 +30,14 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         lstm_params = self.hyper_parameters["lstm-shared"]
         lstm_params.update(self.hyper_parameters["lstm"])
         lstm_params["batch_size"] = self.hyper_parameters["batch_size"]
-        self.hyper_parameters["lstm"] = lstm_params
+        self.hyper_parameters["lstm"] = lstm_params.copy()
 
     def init_neural_network(self, params: dict, logger=None, **xargs) -> None:
         self.order_config()
         # Init CNN-AE
         self.init_autoencoder()
         # Init LSTM
-        self.init_autoencoder_and_lstm(self.hyper_parameters["lstm"])
+        self.init_autoencoder_and_lstm(self.hyper_parameters["lstm"].copy())
 
     def init_autoencoder(self):
         self.ae = CNN_AE_Module(self.hyper_parameters["encoder"], self.hyper_parameters["decoder"])
@@ -68,12 +67,16 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         self.metrics.update(lstm_ae_metrics)
         return self.metrics
 
-    def train_auto_encoder(self, **xargs):
+    def train_auto_encoder(self, tuning=False, **xargs):
+        if not tuning:
+            x_train = np.concatenate([self.x_train, self.x_val], axis=0)
+        else:
+            x_train = self.x_train
         logging.info("Training Autoencoder")
         # Training the Auto encoder
         history = self.ae.fit(
-            x=self.x_train,
-            y=self.x_train,
+            x=x_train,
+            y=x_train,
             epochs=self.hyper_parameters["ae"]["epochs"],
             batch_size=self.batch_size,
             shuffle=True,  # self.should_shuffle_batches,
@@ -172,7 +175,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
 
     def _copy_trained_weights_to_model_with_different_batch_size(self) -> None:
         trained_lstm_weights = self.model.lstm.get_weights()
-        params = self.hyper_parameters["lstm"]
+        params = self.hyper_parameters["lstm"].copy()
         params["batch_size"] = 1
         self.lstm = LstmKerasModule(**params).model
         self.lstm.set_weights(trained_lstm_weights)
