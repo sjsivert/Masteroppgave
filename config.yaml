@@ -1,8 +1,7 @@
 data:
-  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  data_path: './datasets/raw/market_insights_overview_all_2022_04_26.csv'
   #data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
-  data_path: './datasets/raw/market_insights_overview_5p_full.csv'
-  #categories_path: './datasets/raw/solr_categories_all_16_09_2021.csv'
+  # data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 logger:
@@ -16,7 +15,7 @@ experiment:
     - market_insights
   save_sources_to_use: # Which sources the experiment should be saved to
     - 'disk'
-    #- 'neptune'
+    - 'neptune'
 
   checkpoint_save_location: './models/0_current_model_checkpoints/'
   log_model_every_n_epoch: 10
@@ -42,7 +41,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  config: 'local_cnn_ae_lstm/example'
+  config: 'lstm/global-dataset1'
   rng_seed: 42
   model_config:
     placeholder: True
