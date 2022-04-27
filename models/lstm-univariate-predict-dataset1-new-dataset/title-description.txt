@@ -1,0 +1,2 @@
+lstm-univariate-predict-dataset1-new-dataset
+LSTM Global predict new dataset1 with old tuning
