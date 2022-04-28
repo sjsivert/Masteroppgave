@@ -186,9 +186,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
         last_period_targets = (
-            self.min_max_scaler.inverse_transform(x_test[:, 3:, 0])
+            self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size :, 0])
             if self.min_max_scaler
-            else x_test[:, 3:, 0]
+            else x_test[:, -self.output_window_size :, 0]
         )
         mase_seven_days, y_true_last_period = keras_mase_periodic(
             y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
