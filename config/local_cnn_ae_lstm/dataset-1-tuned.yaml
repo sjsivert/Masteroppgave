@@ -1,0 +1,358 @@
+model:
+    rng_seed: 42
+    model_type: local_cnn_ae_lstm
+    model_config:
+        hyperparameter_tuning_range:
+            hidden_size: [1, 100]
+            number_of_layers: [1, 2]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            number_of_epochs: [1, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 1
+            number_of_trials: 200
+            stateful_lstm: yes
+        common_parameters_for_all_models:
+            should_shuffle_batches: no
+            batch_size: 32
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            lstm-shared:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: &id001 [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+                batch_size: 32
+        model_structure:
+        -   time_series_id: 2
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.00012331911733003793
+                number_of_features: 1
+                epochs: 20
+                layers: [{hidden_size: 84, dropout: 0.011609334829524132, recurrent_dropout: 0.1456470651964667}, {hidden_size: 94, dropout: 0.20344013294500046, recurrent_dropout: 0.3804909232802323}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 6
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.00047070683642977303
+                number_of_features: 1
+                epochs: 29
+                layers: [{hidden_size: 39, dropout: 0.33687060558950066, recurrent_dropout: 0.2348005213837976}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 9
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0008403872984399756
+                number_of_features: 1
+                epochs: 16
+                layers: [{hidden_size: 24, dropout: 0.0006298411581473207, recurrent_dropout: 0.3757795967441889}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 10
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0014748521468404662
+                number_of_features: 1
+                epochs: 4
+                layers: [{hidden_size: 80, dropout: 0.2531872567876781, recurrent_dropout: 0.3752092266234909}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 11
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 13
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 20
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 22
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 24
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 26
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 27
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 28
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 29
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 32
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 33
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 34
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 39
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 41
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 51
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: [{hidden_size: 15, dropout: 0.06573998225987032, recurrent_dropout: 0.1333657564218162}]
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
+        -   time_series_id: 54
+            lstm:
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0033873287276159794
+                number_of_features: 1
+                epochs: 3
+                layers: *id001
+            ae:
+                optimizer_name: Adam
+                loss: mean_absolute_percentage_error
+                learning_rate: 0.0003
+                epochs: 100
+            encoder: [{layer: Conv1d, filters: 64, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 128, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 64, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1, activation: relu}]
