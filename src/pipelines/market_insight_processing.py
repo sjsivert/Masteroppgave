@@ -159,7 +159,7 @@ def scale_data_dataframe(
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(0.1, 1))
+            scaler = MinMaxScaler(feature_range=(-1, 1))
             df["interest"] = scaler.fit_transform(df[["interest"]])
             for col in df.columns:
                 if col != "interest":
@@ -179,7 +179,7 @@ def scale_data(
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(0.1, 1))
+            scaler = MinMaxScaler(feature_range=(-1, 1))
             scaled_data = scaler.fit_transform(df)
             df = pd.DataFrame(scaled_data)
             df.to_csv("./datasets/interim/scaled_data.csv")
