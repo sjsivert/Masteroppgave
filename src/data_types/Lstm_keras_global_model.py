@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 import optuna
+import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
@@ -12,6 +13,7 @@ from src.utils.keras_error_calculations import (
     generate_error_metrics_dict,
     keras_mase_periodic,
 )
+from src.utils.lr_scheduler import scheduler
 from tensorflow.keras.callbacks import LambdaCallback
 
 
@@ -72,9 +74,6 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self.y_train_seperated_with_val_set.append(training_data[1])
             self.scalers.append(min_max_scaler)
 
-        print("x_train", list(map(lambda x: x.shape, x_train)))
-        print("x_test", list(map(lambda x: x.shape, x_test)))
-        print("x_val", list(map(lambda x: x.shape, x_val)))
         self.x_train = np.concatenate(x_train, axis=0)
         self.y_train = np.concatenate(y_train, axis=0)
         self.x_val = np.concatenate(x_val, axis=0)
@@ -86,7 +85,6 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         self.time_series_count = 0
         self.batches_in_each_series = []
         for series in self.x_train_seperated:
-            print("series", series.shape)
             self.batches_in_each_series.append(series.shape[0] // self.batch_size)
 
     def reset_batch_counter(self):
@@ -140,10 +138,12 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
         reset_states_on_train_end = LambdaCallback(
             on_train_end=lambda logs: self.model.reset_states()
         )
+        learning_rate_callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
         all_callbacks = [
             reset_states_callback_on_time_series_end,
             reset_states_on_epoch_begin_callback,
             reset_states_on_train_end,
+            learning_rate_callback,
         ]
         all_callbacks.extend(xargs.pop("callbacks", []))
 

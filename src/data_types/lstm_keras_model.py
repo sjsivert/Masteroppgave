@@ -1,5 +1,7 @@
 import logging
 from abc import ABC
+from subprocess import call
+from tabnanny import verbose
 from typing import Any, Dict, List, Optional, Union
 
 import keras
@@ -27,6 +29,7 @@ from src.utils.keras_error_calculations import (
     keras_mase_periodic,
 )
 from src.utils.keras_optimizer import KerasOptimizer
+from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
 from tensorflow.keras.callbacks import LambdaCallback
 from tensorflow.keras.losses import MeanAbsoluteError, MeanAbsolutePercentageError, MeanSquaredError
@@ -58,6 +61,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         keras_metrics = config_metrics_to_keras_metrics()
         model.compile(optimizer=optim, loss=keras_metrics[0], metrics=[keras_metrics])
+        round(model.optimizer.lr.numpy(), 5)
         logging.info(
             f"Model compiled with optimizer {params['optimizer_name']}\n"
             f"{prettify_dict_string(params)} \
@@ -91,6 +95,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         else:
             x_train = self.x_train
             y_train = self.y_train
+        callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
         history = self.model.fit(
             x=x_train,
             y=y_train,
@@ -98,6 +103,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
+            callbacks=[callback],
             **xargs,
         )
         history = history.history
