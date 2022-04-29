@@ -73,8 +73,7 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
 
 
 def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
-
-    loss = 2 * abs((abs(y_pred - y_true)) / (abs(y_pred) + abs(y_true)))
+    loss = 2 * tf.abs((tf.abs(y_pred - y_true)) / (tf.abs(y_pred) + tf.abs(y_true)))
     return loss
 
 

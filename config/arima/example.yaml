@@ -21,66 +21,183 @@ model:
     metric_to_use_when_tuning: 'MAE'
 
     model_structure:
-      - time_series_id: 12322
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 0
-          P: 5
-          D: 1
-          Q: 0
-          s: 4
-      - time_series_id: 11428
-        hyperparameters:
-          p: 2
-          d: 1
-          q: 0
-          P: 5
-          D: 1
-          Q: 0
-          s: 4
-      - time_series_id: 11850
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 0
-          P: 4
-          D: 1
-          Q: 0
-          s: 4
-      - time_series_id: 11852
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 0
-          P: 5
-          D: 1
-          Q: 1
-          s: 4
-      - time_series_id: 273
-        hyperparameters:
-          p: 2
-          d: 1
-          q: 0
-          P: 5
-          D: 1
-          Q: 0
-          s: 4
-      - time_series_id: 11036
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 0
-          P: 5
-          D: 1
-          Q: 0
-          s: 4
-      - time_series_id: 11213
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 1
-          P: 5
-          D: 1
-          Q: 0
-          s: 4
+        - time_series_id: 2
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 6
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 9
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 10
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 11
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 13
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 20
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 22
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 24
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 26
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 27
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 28
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 29
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 32
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 33
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 34
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 39
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 41
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 51
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4
+        - time_series_id: 54
+          hyperparameters:
+            p: 0
+            d: 1
+            q: 0
+            P: 5
+            D: 1
+            Q: 0
+            s: 4

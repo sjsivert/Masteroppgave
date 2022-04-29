@@ -4,6 +4,10 @@ from typing import Callable, Iterable, List, Optional, Tuple, Union
 import numpy as np
 import pandas as pd
 from genpipes import declare
+from kats.consts import TimeSeriesData
+from kats.detectors.outlier import OutlierDetector
+from kats.detectors.seasonality import FFTDetector
+from kats.utils.decomposition import TimeSeriesDecomposition
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
@@ -419,3 +423,56 @@ def generate_feature(
         vector_function = np.vectorize(function)
         df[new_feature_name] = vector_function(all_dates)
         yield df
+
+@declare.processor()
+def replace_outliers(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma: no cover
+    for df in stream:
+        df["time"] = df.index
+        ts = TimeSeriesData(df)
+        # Do shit
+        # Detect seasonality
+        # fft_detector = FFTDetector(ts)
+        # fft_detector.detector()
+        # print("SEASONALITY------", fft_detector)
+        # Remove outliers
+        outlier_detector = OutlierDetector(ts, "additive")
+        outlier_detector.detector()
+        # outliers = outlier_detector.outliers
+        ts_outliers_interpolated = outlier_detector.remover(interpolate=True)
+        # Decompose
+        decomposer = TimeSeriesDecomposition(
+            ts_outliers_interpolated, 
+            decomposition="additive",
+            seasonal=365,
+            robust=True,
+            )
+        decomposed_ts = decomposer.decomposer()
+
+        # df_new = decomposed_ts["rem"].to_dataframe()
+        df_new = decomposed_ts["rem"].to_dataframe()
+        df_new = pd.DataFrame(decomposed_ts["rem"].to_dataframe()["resid"] + decomposed_ts["trend"].to_dataframe()["trend"], columns=["interest"])
+        # df_new.rename(columns={"rem": "interest"}, inplace=True)
+        # df_new.drop("time", axis=1, inplace=True)
+        yield df_new
+        # df["time"] = df.index
+        # ts = TimeSeriesData(df)
+        # # Do shit
+        # # Detect seasonality
+        # # fft_detector = FFTDetector(ts)
+        # # fft_detector.detector()
+        # # print("SEASONALITY------", fft_detector)
+        # # Remove outliers
+        # outlier_detector = OutlierDetector(ts, "additive")
+        # outlier_detector.detector()
+        # # outliers = outlier_detector.outliers
+        # ts_outliers_interpolated = outlier_detector.remover(interpolate=True)
+        # # Decompose
+        # decomposer = TimeSeriesDecomposition(ts_outliers_interpolated, decomposition="additive")
+        # # decomposer = TimeSeriesDecomposition(ts_outliers_interpolated, decomposition="additive", robust=True, period=365)
+        # decomposed_ts = decomposer.decomposer()
+
+        # df_new = decomposed_ts["rem"].to_dataframe()
+        # #df_new = pd.DataFrame(results_outliers["rem"].to_dataframe()["resid"] + results_outliers["trend"].to_dataframe()["trend"], columns=["interest"])
+        # df_new.rename(columns={"rem": "interest"}, inplace=True)
+        # df_new.drop("time", axis=1, inplace=True)
+        # yield df_new

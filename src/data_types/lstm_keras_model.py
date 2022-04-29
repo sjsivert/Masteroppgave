@@ -26,7 +26,9 @@ from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
+    keras_mase,
     keras_mase_periodic,
+    keras_smape,
 )
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
@@ -59,8 +61,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         model = LstmKerasModule(**params).model
         optim = KerasOptimizer.get(params["optimizer_name"], learning_rate=params["learning_rate"])
 
-        keras_metrics = config_metrics_to_keras_metrics()
-        model.compile(optimizer=optim, loss=keras_metrics[0], metrics=[keras_metrics])
+        self.keras_metrics = config_metrics_to_keras_metrics()
+        print("METRICS", self.keras_metrics)
+        model.compile(optimizer=optim, loss=self.keras_metrics[0], metrics=[self.keras_metrics])
         round(model.optimizer.lr.numpy(), 5)
         logging.info(
             f"Model compiled with optimizer {params['optimizer_name']}\n"
@@ -96,6 +99,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             x_train = self.x_train
             y_train = self.y_train
         callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
+        callbacks = [callback] + xargs.pop("callbacks", [])
         history = self.model.fit(
             x=x_train,
             y=y_train,
@@ -103,7 +107,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
-            callbacks=[callback],
+            callbacks=[callbacks],
             **xargs,
         )
         history = history.history
@@ -184,6 +188,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             y_test,
             batch_size=1,
         )
+        custom_results = self.custom_evaluate(x_test, y_test, self.metrics)
+        print("Custom results", custom_results)
         # Remove first element because it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
 
@@ -294,3 +300,21 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def load(self, path: str) -> None:
         load_path = f"{path}{self.get_name}.h5"
         self.model.load_weights(load_path)
+
+    def custom_evaluate(self, x_test, y_test, post_processing=None):
+        predictions = self.prediction_model(x_test, training=False)
+        # TODO Post processing
+        results = {}
+        kerast_metrics_to_calculate = [
+            tf.keras.metrics.MeanSquaredError,
+            tf.keras.metrics.MeanAbsoluteError,
+            tf.keras.metrics.MeanAbsolutePercentageError,
+        ]
+
+        for metric_func in kerast_metrics_to_calculate:
+            metric = metric_func()
+            metric.update_state(y_test, predictions)
+            results[metric.name] = metric.result().numpy()
+        results["mase"] = keras_mase(y_true=y_test, y_pred=predictions.numpy()).numpy()
+        # results["smape"] = keras_smape(y_true=y_test, y_pred=predictions.numpy()).numpy()
+        return results

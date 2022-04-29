@@ -8,6 +8,7 @@ from collections import OrderedDict
 from typing import Dict, List, Tuple
 
 import pandas as pd
+import pmdarima as pm
 from genpipes.compose import Pipeline
 from matplotlib.figure import Figure
 from pandas import DataFrame, Series
@@ -18,7 +19,6 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.error_calculations import calculate_error
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
-import pmdarima as pm
 
 # from pathos.multiprocessing import ProcessingPool as Pool
 
@@ -270,8 +270,10 @@ class ArimaModel(IModel, ABC):
             stepwise=True,
             random_state=40,
             n_fits=50,
-            scoring="mse",
+            scoring="mae",
             information_criterion="bic",
+            # Added because error: https://github.com/statsmodels/statsmodels/issues/5459
+            # enforce_stationary=True,
         )
         logging.info(model.summary())
         selected_order = f"{model.order}{model.seasonal_order}"
