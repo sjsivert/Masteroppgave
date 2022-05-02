@@ -1,4 +1,4 @@
-\section{Model Architecture}
+\section{Hybrid Model Architecture}
 \label{section:Architecture:Model}
 
 We propose a prediction framework based on the one presented in \cite{Zhao2019}.
@@ -41,3 +41,69 @@ These methods create a baseline that can be used to establish the comparative pe
 
 The motivation behind the proposed framework is explored in further detail later in \Cref{section:Discussion}.
 
+
+
+\subsection{The Auto-encoder}
+
+The first part of the proposed hybrid model is the convolutional autoencoder used to process the input data.
+As described, the task of the autoencoder is to encode and reconstruct the input data,
+while decreasing the noise.
+
+The design of the autoencoder is based on the paper by \cref{Zhao2019},
+detailing a convolutional autoencoder comprised only of 1 dimentional convolutional and trans-convolutional layers.
+
+% How was the selected model comprised?
+% Why do we not use max pooling?
+% Why do we not use dropout?
+% Why do we not use batch normalization?
+% Why do we not use fully connected layers?
+
+In order to find a well suited autoencoder model for our problemspace,
+we designed a model with the aim of reconstructing the input data with high accuracy,
+while still removing noise from the dataset.
+Due to the fact that all the data in the different datasets share similar characteristics
+a shared autoencoder model is developed.
+
+\todo[inline]{Update this in correspondance with the selected architecture.}
+The autoencoder consists of 4 layers, 2 encoder layers, and 2 decoder layers.
+The encoder is created as two 1 dimentional convolutional layers with an increasing number of filters.
+With a kernel size of [3, 5], and filter size if [16, 32], and a dropout of 0.1 in both layers.
+The decoder is constructed similarly with two layers, where both are 1 dimentional trans-convolutional layers
+with kernel size [5, 3] and number of filters [16, 1].
+The decoder does not contain any dropout.
+
+
+\todo[inline]{Realy not sure about this one! I honestly have no idea. It just does not work with the other layers.}
+While the autoencoder does contain convolutional and trans convolutional layers,
+there are other aspects of the model that are not used.
+Methods such as batch-normalization and MaxPooling is not used.
+This is because adding these measures results in quite poor reconstructive results.
+This is likely because of the high volatility of the data.
+Other laysers such as the dense fulle connected layers, which often represent the coding in the autoencoder,
+is not used either.
+This is because it was found to be an unneeded increase in complexity of the model,
+as the convolutional layers were well suited to solve the task on their own.
+
+
+\todo[inline]{This is important no note, but should this be noted here or in the discussion section?}
+There is two reasons for this.
+Primarily this is due to the fact that during experimentation with the autoencoder models architecture,
+it was found that the same autoencoder performed similar on each of the individual time series.
+Secondly, this was a descision that was made in connection with the limited time available for experimentation and optimization of models.
+
+
+
+\subsection{LSTM}
+
+The secound part of the hybird model is the LSTM model.
+This model is attached at the end of the autoencoder,
+using the reconstructed values from the autoencoder as input data.
+
+% What can be said about the LSTM?
+% Add use of local and global methods such as the with the LSTM model
+
+
+
+% TODO:
+% Explain the use of univarite and multivariate models
+% Explain the use of global and local models
