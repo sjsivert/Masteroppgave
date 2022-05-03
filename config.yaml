@@ -1,7 +1,7 @@
 data:
   data_path: './datasets/raw/market_insights_overview_all_2022_04_26_filtered.csv'
-  #data_path: './datasets/raw/market_insights_overview_all_2021_11_12.csv'
-  # data_path: './datasets/raw/market_insights_overview_5p_full.csv'
+  #data_path: './datasets/raw/market_insights_overview_all_2022_02_14.csv'
+  #data_path: './datasets/raw/market_insights_overview_5p_full.csv'
   categories_path: './datasets/raw/solr_categories_all_2022_02_14.csv'
 
 logger:
@@ -41,7 +41,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  config: 'local_cnn_ae_lstm/dataset-1-tuned'
+  config: 'local_cnn_ae_lstm/test'
   rng_seed: 42
   model_config:
     placeholder: True
