@@ -155,8 +155,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
         logging.info("Predicting")
         predictions = self.prediction_model.predict(input_data, batch_size=1)
-        predictions_rescaled = self._rescale_data(predictions)
-        targets_rescaled = self._rescale_data(targets)
+        predictions_rescaled = predictions
+        targets_rescaled = targets
+        # predictions_rescaled = self._rescale_data(predictions)
+        # targets_rescaled = self._rescale_data(targets)
+
         # predictions_rescaled = self._rescale_data(DataFrame(predictions))
         # targets_rescaled = self._rescale_data(DataFrame(predictions))
 
@@ -188,7 +191,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             y_test,
             batch_size=1,
         )
-        custom_results = self.custom_evaluate(x_test, y_test, self.metrics)
+        custom_results, test_predictions_scaled = self.custom_evaluate(x_test, y_test, self.metrics)
+        test_targets_scaled = self._rescale_data(y_test[:, :, 0])
+
         print("Custom results", custom_results)
         # Remove first element because it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
@@ -197,37 +202,36 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
-        last_period_targets = (
-            self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size :, 0])
-            if self.min_max_scaler
-            else x_test[:, -self.output_window_size :, 0]
-        )
+
+        last_period_targets = self._reverse_pipeline(x_test[:, -self.output_window_size, :])
         mase_seven_days, y_true_last_period = keras_mase_periodic(
             y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
         )
         test_metrics["test_MASE_7_DAYS"] = mase_seven_days.numpy()
+        test_metrics.update(custom_results)
 
         self._visualize_predictions(
             (test_targets.flatten()),
-            (test_predictions.flatten()),
+            (test_predictions_scaled.flatten()),
             "Test predictions",
         )
+        self._visualize_predictions(
+            (test_targets_scaled.flatten()),
+            (test_predictions_scaled.flatten()),
+            "Test predictions scaled",
+        )
         self._visualize_predictions_and_last_period(
-            (test_targets.flatten()),
-            (test_predictions.flatten()),
+            (test_targets_scaled.flatten()),
+            (test_predictions_scaled.flatten()),
             last_period_targets.flatten(),
             "Test predictions with last period targets",
         )
-        x_test_values = (
-            self.min_max_scaler.inverse_transform(x_test[:, :, 0])
-            if self.min_max_scaler
-            else x_test[:, :, 0]
-        )
+        x_test_values = self._reverse_pipeline(x_test[0, :, :])
         x_test_values_flattened = x_test_values.flatten()
         self._visualize_predictions_with_context(
             context=x_test_values_flattened,
-            targets=test_targets.flatten(),
-            predictions=test_predictions.flatten(),
+            targets=test_targets_scaled.flatten(),
+            predictions=test_predictions_scaled.flatten(),
         )
         self.metrics.update(test_metrics)
         return self.metrics
@@ -303,6 +307,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
     def custom_evaluate(self, x_test, y_test, post_processing=None):
         predictions = self.prediction_model(x_test, training=False)
+
+        predictions_re_composed = self._reverse_pipeline(predictions)
+        predictions = predictions_re_composed
+        y_test_rescaled = self._rescale_data(y_test[:, :, 0])
+        print("predictions", predictions)
+        print("y_test_rescaled", y_test_rescaled)
         # TODO Post processing
         results = {}
         kerast_metrics_to_calculate = [
@@ -313,8 +323,26 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         for metric_func in kerast_metrics_to_calculate:
             metric = metric_func()
-            metric.update_state(y_test, predictions)
+            metric.update_state(y_test_rescaled, predictions)
             results[metric.name] = metric.result().numpy()
-        results["mase"] = keras_mase(y_true=y_test, y_pred=predictions.numpy()).numpy()
+        results["mase"] = keras_mase(y_true=y_test_rescaled, y_pred=predictions).numpy()
         # results["smape"] = keras_smape(y_true=y_test, y_pred=predictions.numpy()).numpy()
-        return results
+        return results, predictions
+
+    def _reverse_pipeline(self, predictions):
+        # Scale data
+        predictions_scaled = self._rescale_data(predictions)
+
+        # Add last seen tend to whole prediction
+        # predictions_re_composed = predictions_scaled + self.training_trend["trend"].iloc[-1]
+        predictions_re_composed = predictions_scaled
+        # Add last periods seasonality to prediction
+        predictions_re_composed = (
+            predictions_re_composed[0, :]
+            + self.training_seasonal["season"].iloc[-self.output_window_size :]
+        )
+        # Shape to match the shape of the training data
+        predictions_re_composed = np.array(predictions_re_composed).reshape(
+            -1, self.output_window_size, 1
+        )
+        return predictions_re_composed[:, :, 0]

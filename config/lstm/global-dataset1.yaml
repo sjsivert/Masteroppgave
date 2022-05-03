@@ -78,7 +78,7 @@ model:
 
       model_structure:
         - time_series_id: 2
-          number_of_epochs: 15
+          number_of_epochs: 30
           optimizer_name: Adam
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60

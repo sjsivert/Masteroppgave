@@ -1,4 +1,5 @@
 # fmt: off
+from contextlib import contextmanager
 from typing import Callable, Iterable, List, Optional, Tuple, Union
 
 import numpy as np
@@ -147,11 +148,8 @@ def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pr
 
 @declare.processor()
 def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
-    for df in stream:
-        print(df.info())
-        print(df.describe())
-        np_array = np.array(df)
-        yield np_array
+    for (training_data, decomposed_data, test_data, scaler) in stream:
+        yield np.array(training_data), decomposed_data, np.array(test_data), scaler
 
 @declare.processor()
 def scale_data_dataframe(
@@ -177,19 +175,20 @@ def scale_data_dataframe(
 def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
-    for df in stream:
-        if (df.size == 0):
-            print("Empty dataframe",df)
-            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
+    for (training_data, data_decomposed, test_data) in stream:
+
+        if (training_data.size == 0):
+            print("Empty dataframe",training_data)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", training_data)
 
         if should_scale:
             scaler = MinMaxScaler(feature_range=(-1, 1))
-            scaled_data = scaler.fit_transform(df)
-            df = pd.DataFrame(scaled_data)
-            df.to_csv("./datasets/interim/scaled_data.csv")
-            yield scaled_data, scaler
+            training_data["interest"] = scaler.fit_transform(training_data[["interest"]])
+            test_data = scaler.transform(test_data[["interest"]])
+            # training_data.to_csv("./datasets/interim/scaled_data.csv")
+            yield training_data, data_decomposed, test_data, scaler
         else:
-            yield df, None
+            yield training_data, data_decomposed, test_data, None
 
 @declare.processor()
 def split_into_training_and_test_forecast_window(
@@ -209,14 +208,17 @@ def keras_split_into_training_and_test_set(
         test_window_size: int,
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     output_size = test_window_size
-    for (x, y, scaler) in stream:
+    for (array) in stream:
         # The testing set is the same as the prediction output window
-        x_train = x[:-output_size]
-        y_train = y[:-output_size]
-        x_test = x[-1:]
-        y_test = y[-1:]
+        training_data = array[:-output_size]
+        test_data = array[-output_size:]
+        # x_train = x[:-output_size]
+        # y_train = y[:-output_size]
+        # x_test = x[-1:]
+        # y_test = y[-1:]
 
-        yield ((x_train, y_train),  (x_test, y_test), scaler)
+        # yield ((x_train, y_train),  (x_test, y_test), scaler)
+        yield training_data, test_data
 @declare.processor()
 def save_datasets_to_file(
         stream: Iterable[Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], Optional[StandardScaler]]],
@@ -364,18 +366,21 @@ def sliding_window_x_y_generator(
         input_window_size: int,
         output_window_size: int,
 ) -> Iterable[Tuple[ndarray, ndarray, Optional[StandardScaler]]]:  # pragma: no cover
-    for data, scaler in stream:
+    for (training_data, decomposed_data, test_data, scaler) in stream:
         X = []
         Y = []
-        for i in range(0, len(data) - input_window_size - output_window_size + 1):
-            x = data[i:i + input_window_size]
-            y = data[i + input_window_size:i + input_window_size + output_window_size]
+        for i in range(0, len(training_data) - input_window_size - output_window_size + 1):
+            x = training_data[i:i + input_window_size]
+            y = training_data[i + input_window_size:i + input_window_size + output_window_size]
             # Chose only the interest column in the y array
             y_interest = y[:, 0]
             X.append(x)
             Y.append(y_interest)
 
-        yield np.array(X), np.array(Y), scaler
+        x_test = [training_data[-input_window_size:]]
+        print("Test data in sliding window", test_data)
+        y_test = [test_data]
+        yield ((np.array(X), np.array(Y)), (np.array(x_test), np.array(y_test)), scaler, decomposed_data)
 
 
 @declare.processor()
@@ -439,40 +444,32 @@ def replace_outliers(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pra
         outlier_detector.detector()
         # outliers = outlier_detector.outliers
         ts_outliers_interpolated = outlier_detector.remover(interpolate=True)
+        df_new = ts_outliers_interpolated.to_dataframe()
+        df_new.rename(columns={"y_0": "interest", "time": "date"}, inplace=True)
+        df_new.set_index("date", inplace=True)
+        print("df_new", df_new)
+        yield df_new
+
+
+@declare.processor()
+def decompose_time_series(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:
+    for (training_data, test_data) in stream:
+        training_data["time"] = training_data.index
+        ts = TimeSeriesData(training_data)
         # Decompose
         decomposer = TimeSeriesDecomposition(
-            ts_outliers_interpolated, 
+            ts, 
             decomposition="additive",
             seasonal=365,
             robust=True,
             )
         decomposed_ts = decomposer.decomposer()
 
+        # Filter out resid
         # df_new = decomposed_ts["rem"].to_dataframe()
-        df_new = decomposed_ts["rem"].to_dataframe()
         df_new = pd.DataFrame(decomposed_ts["rem"].to_dataframe()["resid"] + decomposed_ts["trend"].to_dataframe()["trend"], columns=["interest"])
-        # df_new.rename(columns={"rem": "interest"}, inplace=True)
-        # df_new.drop("time", axis=1, inplace=True)
-        yield df_new
-        # df["time"] = df.index
-        # ts = TimeSeriesData(df)
-        # # Do shit
-        # # Detect seasonality
-        # # fft_detector = FFTDetector(ts)
-        # # fft_detector.detector()
-        # # print("SEASONALITY------", fft_detector)
-        # # Remove outliers
-        # outlier_detector = OutlierDetector(ts, "additive")
-        # outlier_detector.detector()
-        # # outliers = outlier_detector.outliers
-        # ts_outliers_interpolated = outlier_detector.remover(interpolate=True)
-        # # Decompose
-        # decomposer = TimeSeriesDecomposition(ts_outliers_interpolated, decomposition="additive")
-        # # decomposer = TimeSeriesDecomposition(ts_outliers_interpolated, decomposition="additive", robust=True, period=365)
-        # decomposed_ts = decomposer.decomposer()
-
-        # df_new = decomposed_ts["rem"].to_dataframe()
-        # #df_new = pd.DataFrame(results_outliers["rem"].to_dataframe()["resid"] + results_outliers["trend"].to_dataframe()["trend"], columns=["interest"])
-        # df_new.rename(columns={"rem": "interest"}, inplace=True)
-        # df_new.drop("time", axis=1, inplace=True)
-        # yield df_new
+        df_new["date"] = training_data.index
+        # df_new.rename(columns={"resid": "interest", "time": "date"}, inplace=True)
+        df_new.rename(columns={"time": "date"}, inplace=True)
+        df_new.set_index("date", inplace=True)
+        yield (df_new, (decomposed_ts["trend"].to_dataframe(),decomposed_ts["seasonal"].to_dataframe()), test_data)

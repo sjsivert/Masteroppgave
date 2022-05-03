@@ -48,7 +48,15 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         for log_source in self.log_sources:
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
-        training_data, testing_data, self.min_max_scaler = data_pipeline.run()
+        (
+            training_data,
+            testing_data,
+            self.min_max_scaler,
+            decomposed_training_data,
+        ) = data_pipeline.run()
+        self.training_trend = decomposed_training_data[0]
+        self.training_seasonal = decomposed_training_data[1]
+
         training_data, validation_data, testing_data = self.split_data_sets(
             training_data=training_data, testing_data=testing_data
         )

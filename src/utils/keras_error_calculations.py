@@ -78,8 +78,12 @@ def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
 
 
 def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
+    print(y_true[:, 1:])
+    print(y_pred)
     sust = tf.reduce_mean(tf.abs(y_true[:, 1:] - y_true[:, :-1]))
     diff = tf.reduce_mean(tf.abs(y_pred - y_true))
+    print(sust)
+    print(diff)
     return diff / sust
 
 
