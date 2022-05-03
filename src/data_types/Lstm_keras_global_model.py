@@ -9,8 +9,10 @@ from sklearn.preprocessing import MinMaxScaler
 from src.data_types.lstm_keras_model import LstmKerasModel
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics, generate_error_metrics_dict,
-    keras_mase_periodic)
+    config_metrics_to_keras_metrics,
+    generate_error_metrics_dict,
+    keras_mase_periodic,
+)
 from src.utils.lr_scheduler import scheduler
 from tensorflow.keras.callbacks import LambdaCallback
 

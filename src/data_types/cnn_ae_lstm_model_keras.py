@@ -288,10 +288,10 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         return self.model
 
     def save(self, path: str) -> str:
-        save_path = f"{path}{self.get_name}.h5"
+        save_path = f"{path}{self.get_name()}.h5"
         # self.model.save_weights(save_path)
         return save_path
 
     def load(self, path: str) -> None:
-        load_path = f"{path}{self.get_name}.h5"
+        load_path = f"{path}{self.get_name()}.h5"
         # self.model.load_weights(load_path)
