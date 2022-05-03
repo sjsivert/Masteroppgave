@@ -16,30 +16,28 @@ from sklearn.preprocessing import StandardScaler
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.data_types.neural_net_model import NeuralNetModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
-    local_univariate_lstm_keras_objective,
-)
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
+    local_univariate_lstm_keras_objective
+from src.pipelines import \
+    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics,
-    generate_error_metrics_dict,
-    keras_mase,
-    keras_mase_periodic,
-)
+    config_metrics_to_keras_metrics, generate_error_metrics_dict, keras_mase,
+    keras_mase_periodic)
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
-from src.utils.reverse_pipeline import (
-    reverse_decrease_variance,
-    reverse_differencing,
-    reverse_sliding_window,
-)
+from src.utils.reverse_pipeline import (reverse_decrease_variance,
+                                        reverse_differencing,
+                                        reverse_sliding_window)
 from tensorflow.keras.callbacks import LambdaCallback
-from tensorflow.keras.losses import MeanAbsoluteError, MeanAbsolutePercentageError, MeanSquaredError
+from tensorflow.keras.losses import (MeanAbsoluteError,
+                                     MeanAbsolutePercentageError,
+                                     MeanSquaredError)
 from zmq import PROTOCOL_ERROR_ZMTP_MALFORMED_COMMAND_UNSPECIFIED
 
 
@@ -209,7 +207,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             if self.min_max_scaler
             else x_test[:, -self.output_window_size :, 0]
         )
-        mase_seven_days, y_true_last_period = keras_mase_periodic(
+        mase_periode, y_true_last_period = keras_mase_periodic(
             y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
         )
 
@@ -222,7 +220,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         print("CUSTOM METRRICS-----------")
         print(custom_metrics)
         # self.metrics.update(custom_metrics)
-        test_metrics["test_MASE_7_DAYS"] = mase_seven_days.numpy()
+        test_metrics[f"test_MASE_{len(self.x_test)}_DAYS"] = mase_periode.numpy()
 
         self._visualize_predictions(
             (test_targets_reversted.flatten()),

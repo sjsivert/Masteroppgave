@@ -5,35 +5,33 @@ model:
     hyperparameter_tuning_range:
       placeholder: 4
     common_parameters_for_all_models:
-      training_size: 50
       input_window_size: 10
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 32
       number_of_epochs: 100
       optimizer_name: 'Adam'
-      loss: "mean_absolute_percentage_error"
+      loss: "mae"
       should_shuffle_batches: True
 
     model_structure:
       #- time_series_id: 11573
-      - time_series_id: 12322
-        learning_rate: 0.0003
+      #- time_series_id: 11852
+        learning_rate: 0.0001
         encoder:
           - layer: "Conv1d"
-            filters: 64
+            filters: 16
             kernel_size: 3
             activation: "relu"
           - layer: "Conv1d"
-            filters: 128
+            filters: 32
             kernel_size: 5
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
             kernel_size: 5
-            filters: 64
+            filters: 32
             activation: "relu"
           - layer: "Conv1dTranspose"
             kernel_size: 3
             filters: 1
-            activation: "relu"

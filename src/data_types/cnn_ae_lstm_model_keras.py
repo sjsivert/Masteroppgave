@@ -13,6 +13,12 @@ from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
     local_univariate_cnn_ae_lstm_keras_objective,
 )
+from src.utils.lr_scheduler import scheduler
+from src.utils.keras_error_calculations import (
+    config_metrics_to_keras_metrics,
+    generate_error_metrics_dict,
+    keras_mase_periodic,
+)
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
@@ -97,6 +103,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             y_train = self.y_train
         # Training CNN-AE-LSTM
         logging.info("Training CNN-AE and LSTM model")
+        callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
         history = self.model.fit(
             x=x_train,
             y=y_train,
@@ -104,6 +111,8 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
+            callbacks=[callback],
+            **xargs,
         )
         history = history.history
 
@@ -154,24 +163,58 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             y_test,
             batch_size=1,
         )
+        # Remove first element because it is a duplication of the second element.
         test_metrics = generate_error_metrics_dict(results[1:])
 
-        # Generate predicitons for visualization
+        # Visualize
         # Copy LSTM weights for different batch sizes
         self.model.lstm.reset_states()
-        self.model.evaluate(
-            x_train,
-            y_train,
-            batch_size=1,
+        self.predict_and_rescale(x_train, y_train)
+        test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
+        last_period_targets = (
+            self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size :, 0])
+            if self.min_max_scaler
+            else x_test[:, -self.output_window_size :, 0]
         )
-        test_predictions = self.model.predict(x_test)
+        mase_periode, y_true_last_period = keras_mase_periodic(
+            y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
+        )
+        test_metrics[f"test_MASE_{len(self.x_test)}_DAYS"] = mase_periode.numpy()
+
         self._visualize_predictions(
-            tf.reshape(y_test, (-1,)),
+            tf.reshape(test_targets, (-1,)),
             tf.reshape(test_predictions, (-1,)),
             "Test predictions",
         )
+        self._visualize_predictions_and_last_period(
+            (test_targets.flatten()),
+            (test_predictions.flatten()),
+            last_period_targets.flatten(),
+            "Test predictions with last period targets",
+        )
+        x_test_values = (
+            self.min_max_scaler.inverse_transform(x_test[:, :, 0])
+            if self.min_max_scaler
+            else x_test[:, :, 0]
+        )
+        x_test_values_flattened = x_test_values.flatten()
+        self._visualize_predictions_with_context(
+            context=x_test_values_flattened,
+            targets=test_targets.flatten(),
+            predictions=test_predictions.flatten(),
+        )
         self.metrics.update(test_metrics)
         return self.metrics
+
+    def _rescale_data(self, data: ndarray) -> ndarray:
+        return self.min_max_scaler.inverse_transform(data)
+
+    def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
+        logging.info("Predicting")
+        predictions = self.model.predict(input_data, batch_size=1)
+        predictions_rescaled = self._rescale_data(predictions)
+        targets_rescaled = self._rescale_data(targets)
+        return predictions_rescaled, targets_rescaled
 
     def _copy_trained_weights_to_model_with_different_batch_size(self) -> None:
         trained_lstm_weights = self.model.lstm.get_weights()
