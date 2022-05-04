@@ -94,7 +94,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             "validation_error": history["val_loss"][0],
         }, history
 
-    def train_lstm(self, epochs=1, tuning=False, **xargs):
+    def train_lstm(self, epochs=1, tuning=False, callbacks=[], **xargs):
         if not tuning:
             x_train = np.concatenate([self.x_train, self.x_val], axis=0)
             y_train = np.concatenate([self.y_train, self.y_val], axis=0)
@@ -104,6 +104,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         # Training CNN-AE-LSTM
         logging.info("Training CNN-AE and LSTM model")
         callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
+        callbacks = [callback].extend(callbacks)
         history = self.model.fit(
             x=x_train,
             y=y_train,
@@ -111,7 +112,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
             batch_size=self.batch_size,
             shuffle=self.should_shuffle_batches,
             validation_data=(self.x_val, self.y_val),
-            callbacks=[callback],
+            callbacks=callbacks,
             **xargs,
         )
         history = history.history
