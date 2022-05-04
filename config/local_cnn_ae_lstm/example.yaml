@@ -13,11 +13,11 @@ model:
       learning_rate: [ 1e-7, 1e-2 ]
       number_of_epochs: [ 5, 40 ]
       batch_size: [ 32, 32 ]
-      input_window_size: 10
-      output_window_size: 7 # must be equal output_window_size
+      input_window_size: 40
+      output_window_size: 30 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
       number_of_features: 1 # must be equal to number of features in data
-      number_of_trials: 200 # Number of tuning trials to run. The more the better.
+      number_of_trials: 2 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
     common_parameters_for_all_models:
