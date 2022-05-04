@@ -219,7 +219,7 @@ class Experiment:
                 metrics=self.model_structure.get_metrics(),
                 datasets=config["data"].get(),
                 models=self.model_structure.get_models(),
-                figures=self.model_structure.get_figures(),
+                figures=None,  # self.model_structure.get_figures(),
                 data_pipeline_steps=save_source.get_pipeline_steps(),
                 experiment_tags=self.experiment_tags,
                 tuning=self.model_structure.get_tuning_parameters(),
