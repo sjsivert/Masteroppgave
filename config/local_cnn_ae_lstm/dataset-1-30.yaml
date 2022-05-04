@@ -53,20 +53,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 7
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 16
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 16
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 7
             filters: 1
 
       # Data Series 6
@@ -89,20 +89,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 7
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 16
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 16
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 7
             filters: 1
 
       # Data Series 9
@@ -125,20 +125,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 7
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 16
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 16
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 7
             filters: 1
 
       # Data Series 10
@@ -161,20 +161,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 7
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 16
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 16
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 7
             filters: 1
 
       # Data Series 11
@@ -197,20 +197,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 5
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 32
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 32
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 5
             filters: 1
 
       # Data Series 13
@@ -233,20 +233,20 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 5
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 32
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 32
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 5
             filters: 1
 
       # Data Series 20
@@ -269,18 +269,18 @@ model:
           epochs: 100
         encoder:
           - layer: "Conv1d"
-            filters: 32
-            kernel_size: 3
+            filters: 16
+            kernel_size: 5
             activation: "relu"
           - layer: "Conv1d"
-            filters: 64
-            kernel_size: 5
+            filters: 32
+            kernel_size: 9
             activation: "relu"
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 64
+            kernel_size: 9
+            filters: 32
             activation: "relu"
           - layer: "Conv1dTranspose"
-            kernel_size: 3
+            kernel_size: 5
             filters: 1

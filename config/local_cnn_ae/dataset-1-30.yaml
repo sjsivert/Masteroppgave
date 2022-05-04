@@ -1,0 +1,76 @@
+model:
+  rng_seed: 42
+  model_type: 'local_cnn_ae'
+  model_config:
+    hyperparameter_tuning_range:
+      placeholder: 4
+    common_parameters_for_all_models:
+      input_window_size: 40
+      output_window_size: 30
+      multi_variable_nr: 1
+      batch_size: 32
+      number_of_epochs: 100
+      optimizer_name: 'Adam'
+      loss: "mae"
+      should_shuffle_batches: True
+
+    model_structure:
+      - time_series_id: 2
+        learning_rate: 0.0001
+        encoder:
+          - layer: "Conv1d"
+            filters: 16
+            kernel_size: 7
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 32
+            kernel_size: 9
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 9
+            filters: 32
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 7
+            filters: 1
+
+      - time_series_id: 6
+        learning_rate: 0.0001
+        encoder:
+          - layer: "Conv1d"
+            filters: 16
+            kernel_size: 7
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 32
+            kernel_size: 9
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 9
+            filters: 32
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 7
+            filters: 1
+
+      - time_series_id: 9
+        learning_rate: 0.0001
+        encoder:
+          - layer: "Conv1d"
+            filters: 16
+            kernel_size: 7
+            activation: "relu"
+          - layer: "Conv1d"
+            filters: 32
+            kernel_size: 9
+            activation: "relu"
+        decoder:
+          - layer: "Conv1dTranspose"
+            kernel_size: 9
+            filters: 32
+            activation: "relu"
+          - layer: "Conv1dTranspose"
+            kernel_size: 7
+            filters: 1
