@@ -1,2 +1,54 @@
 
-\subsection{Experiment 1 - Arima baseline}
+\subsection{Hybrid method - CNN-AE and LSTM}
+
+% --------------------------------------------
+% __ Contents __
+% What model is used?
+% What dataset is used? (Is there a split?)
+% Error metrics used and recorded?
+% Tuning method used
+% Experiments run after tuning
+% Expectations from experiments
+% Add which research questions this answers or helps to answer
+% --------------------------------------------
+
+
+% Model
+As described in \cref{section:Architecture:Model}, the Convolutional autoencoder and LSTM model
+is based on two individual models.
+Initially, the Autoencoder is used to manipulate the models input data,
+while the LSTM model thereafter uses the altered input data.
+
+The autoencoder used in this hybrid method is a shared model accross the different time-series
+available in the dataset. The same model architecture is used for all models.
+\cref{section:Method:AE} describes the development of the autoencoder, alongside with the model architecture selection and tuning.
+This autoencoder is then used in the conjoined hybrid model.
+
+Secondly, the LSTM model is added to the hybrid model.
+The LSTM model is similar to the model described in \cref{section:Method:LSTM},
+where it shares the same dataset, tuning, and architectures.
+% There are two different LSTM models that are used. The first is the one tuned by the LSTM. The secound is the one tuned by the hybrid model.
+
+
+
+% Dataset (This is the same as the LSTM and the other ones)
+% Should this be its own section? I do belive so since it is used accross all methods. Perhaps do this before the pipeline?
+
+
+% Error metrics
+% The same error metrics are used for all the models, except the AE.
+% Create a unique section for the error metric selection?
+
+
+% Tuning
+% The tuning is the same as with the LSTM.
+
+
+% Expectations
+% It is expected that the results are better, although marginaly.
+% This is due to the high stocastic nature of the dataset
+
+
+
+% What research questions are answered?
+

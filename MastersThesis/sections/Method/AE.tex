@@ -1,0 +1,66 @@
+
+\section{Autoencoder}
+\label{section:Method:AE}
+
+% --------------------------------------------
+% __ Contents __
+% What model is used?
+% What dataset is used? (Is there a split?)
+% Error metrics used and recorded?
+% Tuning method used
+% Experiments run after tuning
+% Expectations from experiments
+% Add which resarch questions this answers or helps to answer
+% --------------------------------------------
+
+
+% What model is used
+As part of the hybrid convolutional autoencoder and LSTM model structure,
+a convolutional autoencoder is needed.
+The autoencoder is intended to encode and reconstruct the input values of a time series,
+before the reconstructed values can be used as input for the LSTM model.
+
+The model is created using 1D convolutional and trans-convolutional layers,
+encoding the spacial data from the available time-series.
+
+% What datasets are used
+The autoencoder is used and tested on the available datasets as defined in \cref{section:Data:Dataset}.
+However, due to the nature of manual tuning and time limitations, a sub subset of the time-series were extracted and tested with the autoencoder.
+This includes time-series 2,6,9,10,11 from dataset 1.
+\todo[inline]{Add more datasets as a testing basis for the manual tuning of the autoencoder.}
+\todo[inline]{Add reference to LSTM method where the train, val and test split is described.}
+
+
+% Error metrics used
+Due to the fact that the only aim for the autoencoder is to create a recreation of the time series data,
+it has no need for the same measure of accuracy such as the SARIMA model and the LSTM model.
+This is because it does not performe future predictions, and it is therefor not compared to the other models.
+However, it has its own goals which it aims to achieve.
+In order to tune the autoencoder, a loss function is selected to be used duing the training process.
+Taking inspiration from \cref{Zhao2019}, the error metrics MAPE (Mean average percentage error) was selected.
+\todo[inline]{Are there other reasons for selection of this error metric?}
+
+
+% Tuning method used
+% TODO: Manual tuning
+In order to find a well suited autoencoder design manual tuning of the model was conducted.
+Tuning of the model was done incrementally, with different compositions of layer types and sizes.
+Using layers such as the convolutional 1 dimentional layer, dense layers, MinMaxPooling, BatchNormalization, and different dropouts,
+an ideal model architecture was attempted.
+
+% Experiments run after tuning
+% Were there experiments that was not tuning?
+As the stand-alone convolutional autoencoder only serves as a way of testing, benchmarking and tuning the autoencoder,
+it is not used to run experiments.
+
+
+% Expectations from experiments
+Using the autoencoder, it is expected to accurately encode and reconstruct the datasets.
+It is however expected for the autoencoder to reconstruct data that is close to the original data,
+but with lower variance.
+Extreme values which might cause the LSTM to performe porly should be removed by the autoencoder reconstruction
+making the predictions from the LSTM more accurate.
+
+
+% Research questions?
+\todo[inline]{Does this connect to any of the "Research Questions"?}
