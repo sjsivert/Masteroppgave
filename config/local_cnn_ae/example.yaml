@@ -15,7 +15,7 @@ model:
       should_shuffle_batches: True
 
     model_structure:
-      #- time_series_id: 11573
+      - time_series_id: 11573
       #- time_series_id: 11852
         learning_rate: 0.0001
         encoder:
