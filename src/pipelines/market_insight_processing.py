@@ -1,4 +1,5 @@
 # fmt: off
+import math
 from typing import Callable, Iterable, List, Optional, Tuple, Union
 
 import numpy as np
@@ -170,6 +171,33 @@ def scale_data_dataframe(
             yield df, scaler
 
 @declare.processor()
+def decrease_variance(
+    stream: Iterable[ndarray]
+) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
+    for df in stream:
+        decrease_variance = lambda x: math.log(x+1)
+        vector_func = np.vectorize(decrease_variance)
+        df_decreased_variance = vector_func(df)
+        yield df_decreased_variance
+
+@declare.processor()
+def scale_down_outliers(
+    stream: Iterable[ndarray]
+) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
+    for df in stream:
+        df = pd.DataFrame(df)
+        std = (df.describe().transpose()["std"]).to_numpy()[0]
+        mean = (df.describe().transpose()["mean"]).to_numpy()[0]
+
+        minimize_outliers = lambda x: x if (x <= (5 *std)) else  x * 0.3
+        vector_func = np.vectorize(minimize_outliers)
+        removed_outliers = vector_func(df)
+
+        df.plot().get_figure().savefig("normal.png")
+        pd.DataFrame(removed_outliers).plot().get_figure().savefig("outliers.png")
+        yield removed_outliers
+
+@declare.processor()
 def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
@@ -179,13 +207,24 @@ def scale_data(
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(-1, 1))
+            # scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaler = StandardScaler()
             scaled_data = scaler.fit_transform(df)
             df = pd.DataFrame(scaled_data)
             df.to_csv("./datasets/interim/scaled_data.csv")
             yield scaled_data, scaler
         else:
             yield df, None
+
+@declare.processor()
+def differencing(
+        stream: Iterable[Tuple[ndarray, Optional[StandardScaler]]],
+) -> Iterable[Tuple[ndarray, Optional[StandardScaler]]]:  # pragma: no cover
+    for data, scaler in stream:
+        diff = np.ndarray(shape=data.shape)
+        for i in range(1, data.shape[0]):
+            diff[i] = data[i] - data[i-1]
+        yield diff, scaler
 
 @declare.processor()
 def split_into_training_and_test_forecast_window(
@@ -205,14 +244,14 @@ def keras_split_into_training_and_test_set(
         test_window_size: int,
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     output_size = test_window_size
-    for (x, y, scaler) in stream:
+    for (x, y, scaler, data) in stream:
         # The testing set is the same as the prediction output window
         x_train = x[:-output_size]
         y_train = y[:-output_size]
         x_test = x[-1:]
         y_test = y[-1:]
 
-        yield ((x_train, y_train),  (x_test, y_test), scaler)
+        yield ((x_train, y_train),  (x_test, y_test), scaler, data)
 @declare.processor()
 def save_datasets_to_file(
         stream: Iterable[Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], Optional[StandardScaler]]],
@@ -371,7 +410,7 @@ def sliding_window_x_y_generator(
             X.append(x)
             Y.append(y_interest)
 
-        yield np.array(X), np.array(Y), scaler
+        yield np.array(X), np.array(Y), scaler, data
 
 
 @declare.processor()

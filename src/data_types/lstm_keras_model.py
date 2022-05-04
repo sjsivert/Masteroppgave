@@ -12,6 +12,7 @@ import tensorflow as tf
 from numpy import ndarray
 from pandas import DataFrame
 from sklearn import metrics
+from sklearn.preprocessing import StandardScaler
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
 from src.data_types.neural_net_model import NeuralNetModel
@@ -26,13 +27,20 @@ from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
+    keras_mase,
     keras_mase_periodic,
 )
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
+from src.utils.reverse_pipeline import (
+    reverse_decrease_variance,
+    reverse_differencing,
+    reverse_sliding_window,
+)
 from tensorflow.keras.callbacks import LambdaCallback
 from tensorflow.keras.losses import MeanAbsoluteError, MeanAbsolutePercentageError, MeanSquaredError
+from zmq import PROTOCOL_ERROR_ZMTP_MALFORMED_COMMAND_UNSPECIFIED
 
 
 class LstmKerasModel(NeuralNetKerasModel, ABC):
@@ -191,6 +199,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.prediction_model.reset_states()
         self.predict_and_rescale(x_train, y_train)
         test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
+
+        test_predictions_reversed, test_targets_reversted = self.predict_and_reverse_pipeline(
+            self.x_test, self.y_test, self.min_max_scaler, self.original_data
+        )
+
         last_period_targets = (
             self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size :, 0])
             if self.min_max_scaler
@@ -199,11 +212,20 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         mase_seven_days, y_true_last_period = keras_mase_periodic(
             y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
         )
+
+        # Custom evaluate function with rescale before metrics
+        custom_metrics = self.custom_evaluate(
+            x_test=x_test,
+            y_test=y_test,
+        )
+        print("CUSTOM METRRICS-----------")
+        print(custom_metrics)
+        # self.metrics.update(custom_metrics)
         test_metrics["test_MASE_7_DAYS"] = mase_seven_days.numpy()
 
         self._visualize_predictions(
-            (test_targets.flatten()),
-            (test_predictions.flatten()),
+            (test_targets_reversted.flatten()),
+            (test_predictions_reversed.flatten()),
             "Test predictions",
         )
         self._visualize_predictions_and_last_period(
@@ -225,6 +247,18 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         )
         self.metrics.update(test_metrics)
         return self.metrics
+
+    def predict_and_reverse_pipeline(
+        self, input_data: ndarray, targets: ndarray, min_max_scaler: StandardScaler, original_data
+    ) -> ndarray:
+        # reverse training data
+        logging.info("Predicting")
+        predictions = self.prediction_model.predict(input_data, batch_size=1)
+        predictions_reversed_pipeline = self._reverse_pipeline(
+            predictions, min_max_scaler, original_data
+        )
+        targets_reversed_pipeline = self._reverse_pipeline(targets, min_max_scaler, original_data)
+        return predictions_reversed_pipeline, targets_reversed_pipeline
 
     def method_evaluation(
         self,
@@ -294,3 +328,41 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def load(self, path: str) -> None:
         load_path = f"{path}{self.get_name}.h5"
         self.model.load_weights(load_path)
+
+    def custom_evaluate(self, x_test, y_test, post_processing=None):
+        predictions = self.prediction_model(x_test, training=False)
+
+        predictions_re_composed = self._reverse_pipeline(
+            predictions, self.min_max_scaler, self.original_data
+        )
+        targets_re_composed = self._reverse_pipeline(
+            y_test, self.min_max_scaler, self.original_data
+        )
+        print("predictions", predictions)
+        print("y_test_rescaled", targets_re_composed)
+        # TODO Post processing
+        results = {}
+        kerast_metrics_to_calculate = [
+            tf.keras.metrics.MeanSquaredError,
+            tf.keras.metrics.MeanAbsoluteError,
+            tf.keras.metrics.MeanAbsolutePercentageError,
+        ]
+
+        for metric_func in kerast_metrics_to_calculate:
+            metric = metric_func()
+            metric.update_state(targets_re_composed, predictions_re_composed)
+            results[metric.name] = metric.result().numpy()
+        results["mase"] = keras_mase(
+            y_true=targets_re_composed, y_pred=predictions_re_composed
+        ).numpy()
+        # results["smape"] = keras_smape(y_true=y_test, y_pred=predictions.numpy()).numpy()
+        return results, predictions
+
+    def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
+        predictions_reversed_diff = reverse_differencing(
+            noise=predictions, last_observed=original_data[-1]
+        )
+        predictions_rescaled = self._rescale_data(predictions_reversed_diff)
+
+        predictions_original_scale = reverse_decrease_variance(predictions_rescaled)
+        return predictions_original_scale
