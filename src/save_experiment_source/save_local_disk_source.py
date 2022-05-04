@@ -65,13 +65,13 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         self._save_options(options)
         self._save_metrics(metrics)
         self._save_dataset_version(datasets)
-        self._save_models(models)
-        self._save_figures(figures)
+        self._save_tuning_metrics(tuning)
+        self._save_predictions(predictions)
+        # self._save_models(models)
+        # self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
-        self._save_tuning_metrics(tuning)
         self._save_log()
-        self._save_predictions(predictions)
 
     def save_experiment_details(
         self,
