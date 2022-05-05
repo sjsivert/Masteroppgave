@@ -148,6 +148,7 @@ class NeptuneSaveSource(ISaveExperimentSource, ABC):
     def _save_figures(self, figures: List[Figure]) -> None:
         for figure in figures:
             title = combine_subfigure_titles(figure)
+            title = title.replace(" ", "_")
             self.run[f"figures/fig_{title}"].upload(figure, True)
 
     def _save_experiment_tags(self, tags: List[str]) -> None:
