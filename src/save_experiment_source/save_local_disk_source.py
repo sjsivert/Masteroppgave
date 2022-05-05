@@ -137,7 +137,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
             except FileExistsError:
                 pass
             title = combine_subfigure_titles(figure)
-
+            title = title.replace(" ", "_")
             if type(figure) is PlotlyFigure:
                 figure.write_image(f"{self.save_location}/figures/{title}.png")
             else:
