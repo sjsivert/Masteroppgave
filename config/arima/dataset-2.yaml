@@ -21,7 +21,7 @@ model:
     metric_to_use_when_tuning: 'MAE'
 
     model_structure:
-      - time_series_id: 12322
+      - time_series_id: 12532
         hyperparameters:
           p: 0
           d: 1
@@ -30,7 +30,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11694
         hyperparameters:
           p: 0
           d: 1
@@ -39,7 +39,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11716
         hyperparameters:
           p: 0
           d: 1
@@ -48,7 +48,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11950
         hyperparameters:
           p: 0
           d: 1
@@ -57,7 +57,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11195
         hyperparameters:
           p: 0
           d: 1
@@ -66,7 +66,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11998
         hyperparameters:
           p: 0
           d: 1
@@ -75,7 +75,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 274
         hyperparameters:
           p: 0
           d: 1
@@ -84,7 +84,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11407
         hyperparameters:
           p: 0
           d: 1
@@ -93,7 +93,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 46
         hyperparameters:
           p: 0
           d: 1
@@ -102,7 +102,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11326
         hyperparameters:
           p: 0
           d: 1
@@ -111,7 +111,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11335
         hyperparameters:
           p: 0
           d: 1
@@ -120,7 +120,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 12197
         hyperparameters:
           p: 0
           d: 1
@@ -129,7 +129,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11693
         hyperparameters:
           p: 0
           d: 1
@@ -138,7 +138,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11780
         hyperparameters:
           p: 0
           d: 1
@@ -147,7 +147,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 12502
         hyperparameters:
           p: 0
           d: 1
@@ -156,7 +156,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11866
         hyperparameters:
           p: 0
           d: 1
@@ -165,7 +165,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 11400
         hyperparameters:
           p: 0
           d: 1
@@ -174,7 +174,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 12256
         hyperparameters:
           p: 0
           d: 1
@@ -183,7 +183,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
+      - time_series_id: 10320
         hyperparameters:
           p: 0
           d: 1
@@ -192,16 +192,7 @@ model:
           D: 1
           Q: 0
           s: 12
-      - time_series_id: 12322
-        hyperparameters:
-          p: 0
-          d: 1
-          q: 0
-          P: 0
-          D: 1
-          Q: 0
-          s: 12
-      - time_series_id: 12322
+      - time_series_id: 10030
         hyperparameters:
           p: 0
           d: 1
