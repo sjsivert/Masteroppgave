@@ -1,0 +1,168 @@
+
+_____Results dataset-2_____
+Testing_MAE: 357.05158
+Testing_MASE: 1.892
+Testing_MSE: 154803.71214
+Testing_SMAPE: 0.237
+Testing_MAPE: 0.27391
+Testing_MASE_7_days: 3.0467
+
+_____Results dataset-6_____
+Testing_MAE: 47.18856
+Testing_MASE: 0.677
+Testing_MSE: 2848.74915
+Testing_SMAPE: 0.216
+Testing_MAPE: 0.20623
+Testing_MASE_7_days: 1.21326
+
+_____Results dataset-9_____
+Testing_MAE: 140.46712
+Testing_MASE: 0.963
+Testing_MSE: 29898.57417
+Testing_SMAPE: 0.165
+Testing_MAPE: 0.14745
+Testing_MASE_7_days: 0.83739
+
+_____Results dataset-10_____
+Testing_MAE: 54.86737
+Testing_MASE: 0.61
+Testing_MSE: 3954.11923
+Testing_SMAPE: 0.15
+Testing_MAPE: 0.16508
+Testing_MASE_7_days: 1.12132
+
+_____Results dataset-11_____
+Testing_MAE: 79.32325
+Testing_MASE: 3.869
+Testing_MSE: 6444.25066
+Testing_SMAPE: 0.696
+Testing_MAPE: 1.11054
+Testing_MASE_7_days: 1.34761
+
+_____Results dataset-13_____
+Testing_MAE: 27.79898
+Testing_MASE: 0.613
+Testing_MSE: 1273.66727
+Testing_SMAPE: 0.089
+Testing_MAPE: 0.09612
+Testing_MASE_7_days: 1.09857
+
+_____Results dataset-20_____
+Testing_MAE: 17.28571
+Testing_MASE: 0.652
+Testing_MSE: 446.71429
+Testing_SMAPE: 0.352
+Testing_MAPE: 0.4135
+Testing_MASE_7_days: 0.58423
+
+_____Results dataset-22_____
+Testing_MAE: 65.05331
+Testing_MASE: 0.657
+Testing_MSE: 5922.15619
+Testing_SMAPE: 0.141
+Testing_MAPE: 0.14452
+Testing_MASE_7_days: 0.82022
+
+_____Results dataset-24_____
+Testing_MAE: 53.94122
+Testing_MASE: 1.471
+Testing_MSE: 5750.66609
+Testing_SMAPE: 0.114
+Testing_MAPE: 0.1041
+Testing_MASE_7_days: 1.33364
+
+_____Results dataset-26_____
+Testing_MAE: 34.14166
+Testing_MASE: 0.975
+Testing_MSE: 1690.11627
+Testing_SMAPE: 0.175
+Testing_MAPE: 0.18461
+Testing_MASE_7_days: 0.37732
+
+_____Results dataset-27_____
+Testing_MAE: 72.80606
+Testing_MASE: 2.44
+Testing_MSE: 6265.26591
+Testing_SMAPE: 0.275
+Testing_MAPE: 0.2374
+Testing_MASE_7_days: 0.8815
+
+_____Results dataset-28_____
+Testing_MAE: 12.08422
+Testing_MASE: 1.151
+Testing_MSE: 188.16663
+Testing_SMAPE: 0.383
+Testing_MAPE: 0.54669
+Testing_MASE_7_days: 1.143
+
+_____Results dataset-29_____
+Testing_MAE: 304.17453
+Testing_MASE: 2.086
+Testing_MSE: 134664.74407
+Testing_SMAPE: 0.194
+Testing_MAPE: 0.17438
+Testing_MASE_7_days: 1.2829
+
+_____Results dataset-32_____
+Testing_MAE: 213.35095
+Testing_MASE: 1.169
+Testing_MSE: 61361.59884
+Testing_SMAPE: 0.207
+Testing_MAPE: 0.24199
+Testing_MASE_7_days: 0.59765
+
+_____Results dataset-33_____
+Testing_MAE: 77.72466
+Testing_MASE: 1.032
+Testing_MSE: 7351.70938
+Testing_SMAPE: 0.157
+Testing_MAPE: 0.16254
+Testing_MASE_7_days: 0.84383
+
+_____Results dataset-34_____
+Testing_MAE: 11.50751
+Testing_MASE: 0.759
+Testing_MSE: 300.16617
+Testing_SMAPE: 0.263
+Testing_MAPE: 0.27245
+Testing_MASE_7_days: 0.69442
+
+_____Results dataset-39_____
+Testing_MAE: 93.57203
+Testing_MASE: 1.447
+Testing_MSE: 12274.19401
+Testing_SMAPE: 0.446
+Testing_MAPE: 0.34712
+Testing_MASE_7_days: 1.00907
+
+_____Results dataset-41_____
+Testing_MAE: 12.37854
+Testing_MASE: 0.646
+Testing_MSE: 216.52233
+Testing_SMAPE: 0.274
+Testing_MAPE: 0.275
+Testing_MASE_7_days: 1.37447
+
+_____Results dataset-51_____
+Testing_MAE: 630.97892
+Testing_MASE: 1.742
+Testing_MSE: 542454.97506
+Testing_SMAPE: 0.212
+Testing_MAPE: 0.18641
+Testing_MASE_7_days: 1.16678
+
+_____Results dataset-54_____
+Testing_MAE: 27.93287
+Testing_MASE: 1.035
+Testing_MSE: 1015.72262
+Testing_SMAPE: 0.039
+Testing_MAPE: 0.0381
+Testing_MASE_7_days: 0.48184
+
+_____Average_____
+Testing_MAE: 116.6814525
+Testing_MASE: 1.2943
+Testing_MSE: 48956.28952399999
+Testing_SMAPE: 0.2392499999999999
+Testing_MAPE: 0.26640700000000006
+Testing_MASE_7_days: 1.0627859999999998
