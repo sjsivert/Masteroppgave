@@ -4,6 +4,7 @@ import os
 import shutil
 from abc import ABC
 from pathlib import Path
+from re import L
 from typing import Dict, List, Optional, Tuple
 
 from matplotlib.figure import Figure
@@ -30,6 +31,8 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
 
         self.save_location = Path(model_save_location).joinpath(title)
 
+        self.title: str = title
+        self.description: str = description
         if not load_from_checkpoint:
             self._create_save_location(overwrite_save_location)
             self._save_title_and_description(title=title, description=description)
@@ -102,12 +105,22 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
             f.write(options)
 
     def _save_metrics(self, metrics: Dict[str, Dict[str, float]]) -> None:
+        self._save_metrics_latex_table(metrics)
         average = {}
         with open(f"{self.save_location}/metrics.txt", "w") as f:
             for model_name, model_metrics in metrics.items():
                 f.writelines("\n_____Results dataset-{}_____\n".format(model_name))
                 for metric_name in model_metrics.keys():
+                    # Average calc
+                    if not metric_name in average:
+                        average[metric_name] = 0
+                    average[metric_name] += round(model_metrics[metric_name], 5)
+                    # Write to file
                     f.writelines(f"{metric_name}: {round(model_metrics[metric_name], 5)}\n")
+            average_val = {k: v / len(metrics) for k, v in average.items()}
+            f.writelines("\n_____Average_____\n")
+            for name, value in average_val.items():
+                f.writelines(f"{name}: {value}\n")
 
     def _save_data_pipeline_steps(self, data_pipeline_steps: List[str]) -> None:
         with open(f"{self.save_location}/data_processing_steps.txt", "w") as f:
@@ -229,3 +242,42 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
     def _save_predictions(self, predictions: DataFrame) -> None:
         if predictions is not None:
             predictions.to_csv(f"{self.save_location}/predictions.csv")
+
+    def _save_metrics_latex_table(self, metrics: Dict[str, Dict[str, float]]):
+        # Remove unneeded Metrics text
+        metrics_altered = {}
+        for i, j in metrics.items():
+            metrics_altered[i] = {}
+            for k, l in j.items():
+                metrics_altered[i][k.split("_", 1)[1]] = l
+        # Convert to dataframe
+        metrics_dataframe: DataFrame = DataFrame(metrics_altered)
+        # Save dataframe
+        SaveLocalDiskSource.dataframe_to_latex_tabular(
+            metrics_dataframe,
+            "metrics_table",
+            self.description,
+            add_index=True,
+            save_local=self.save_location,
+        )
+
+    @staticmethod
+    def dataframe_to_latex_tabular(
+        df: DataFrame, caption: str, label: bool, add_index=False, save_local="./models"
+    ) -> DataFrame:
+        table_string = df.to_latex(
+            index=add_index,
+            bold_rows=True,
+            caption=caption,
+            label=f"table:{label}",
+            header=True,
+            multicolumn=True,
+            multirow=True,
+            multicolumn_format="c",
+            # Dont know if this works yet
+            position="h",
+        )
+        table_split = table_string.split("\n")
+        table_join = "\n".join(table_split)
+        with open(f"{save_local}/{label}.tex", "w") as f:
+            f.write(table_join)
