@@ -132,13 +132,13 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
                 training_predictions[:, 0], self.training_data_without_diff
             )
             self._visualize_predictions(
-                (training_data_original_scale),
-                (training_predictions_original_scale),
+                (training_data_original_scale.flatten()),
+                (training_predictions_original_scale.flatten()),
                 "Training predictions original scale",
             )
             self._visualize_predictions(
-                (self.training_data_no_windows),
-                (training_predictions.flatten()),
+                (self.training_data_no_windows.flatten()),
+                (training_predictions[:, 0].flatten()),
                 "Training predictions",
             )
             self._visualize_predictions(
@@ -252,7 +252,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self._visualize_predictions(
             (self.y_test.flatten()),
             (test_predictions_reversed.flatten()),
-            "Test predictions",
+            "Test predictions rescaled",
+        )
+        self._visualize_predictions(
+            (self.y_test.flatten()),
+            (test_predictions.flatten()),
+            "Test predictions not scaled",
         )
         self._visualize_predictions_and_last_period(
             (self.y_test.flatten()),
@@ -379,10 +384,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
     def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
         predictions_scaled = self._rescale_data(predictions)
-        predictions_reversed_diff = reverse_differencing_forecast(
-            noise=predictions_scaled, last_observed=original_data[-1]
-        )
-        predictions_added_variance = reverse_decrease_variance(predictions_reversed_diff)
+        # predictions_reversed_diff = reverse_differencing_forecast(
+        #     noise=predictions_scaled, last_observed=original_data[-1]
+        # )
+        predictions_reversed_diff = predictions_scaled
+        # predictions_added_variance = reverse_decrease_variance(predictions_reversed_diff)
+        predictions_added_variance = predictions_reversed_diff
 
         return predictions_added_variance
 
@@ -406,7 +413,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     y_label="Interest",
         # ).savefig("rescaled_data.png")
 
-        reverse_diff = reverse_differencing(rescaled, original_data)
+        # reverse_diff = reverse_differencing(rescaled, original_data)
+        reverse_diff = rescaled
 
         # visualize_data_series(
         #     title=f"re-reverse_diff",
@@ -416,7 +424,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     x_label="Time",
         #     y_label="Interest",
         # ).savefig("re-reverse-diff.png")
-        increase_variance = reverse_decrease_variance(reverse_diff)
+        # increase_variance = reverse_decrease_variance(reverse_diff)
+        increase_variance = reverse_diff
         # visualize_data_series(
         #     title=f"incverage_variance",
         #     data_series=[increase_variance],
