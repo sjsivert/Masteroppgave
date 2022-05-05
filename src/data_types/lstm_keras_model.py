@@ -172,7 +172,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         return predictions_rescaled, targets_rescaled
 
     def _rescale_data(self, data: ndarray) -> ndarray:
-        return self.min_max_scaler.inverse_transform(data)
+        return self.min_max_scaler.inverse_transform(data) if self.min_max_scaler else data
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
@@ -214,10 +214,11 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         )
 
         # Custom evaluate function with rescale before metrics
-        custom_metrics = self.custom_evaluate(
+        custom_metrics, _ = self.custom_evaluate(
             x_test=x_test,
             y_test=y_test,
         )
+        self.metrics.update(custom_metrics)
         print("CUSTOM METRRICS-----------")
         print(custom_metrics)
         # self.metrics.update(custom_metrics)
@@ -330,7 +331,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         self.model.load_weights(load_path)
 
     def custom_evaluate(self, x_test, y_test, post_processing=None):
-        predictions = self.prediction_model(x_test, training=False)
+        predictions = self.prediction_model.predict(x_test, batch_size=1)
 
         predictions_re_composed = self._reverse_pipeline(
             predictions, self.min_max_scaler, self.original_data

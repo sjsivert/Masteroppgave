@@ -53,7 +53,8 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             )
             for log_source in self.log_sources:
                 log_source.log_pipeline_steps(data_pipeline.__repr__())
-            training_data, testing_data, min_max_scaler = data_pipeline.run()
+
+            training_data, testing_data, min_max_scaler, self.original_data = data_pipeline.run()
             training_data_splitted, validation_data, testing_data = self.split_data_sets(
                 training_data, testing_data
             )

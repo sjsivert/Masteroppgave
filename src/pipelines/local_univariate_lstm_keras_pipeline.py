@@ -40,7 +40,7 @@ def local_univariate_lstm_keras_pipeline(
             ("scale down outliers", market_processing.scale_down_outliers, {}),
             ("decrease variance by taking the log", market_processing.decrease_variance, {}),
             (f"Normalize the data ", market_processing.scale_data, {"should_scale": True}),
-            (f"Remove trend and seasons by differencing the series t[i] - t[i-1]", market_processing.differencing, {}),
+            # (f"Remove trend and seasons by differencing the series t[i] - t[i-1]", market_processing.differencing, {}),
             (f"generate x y pairs with sliding window with input size {input_window_size}, and output size {output_window_size}",
                 market_processing.sliding_window_x_y_generator,
                 {"input_window_size": input_window_size, "output_window_size": output_window_size}),
