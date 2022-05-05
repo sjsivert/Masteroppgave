@@ -146,7 +146,7 @@ class ArimaModel(IModel, ABC):
         periodic_mase = calculate_periodic_mase(
             self.test_data["interest"][:predictive_period],
             self.predictions,
-            self.train_val_data["interest"][-predictive_period:],
+            train_val_data["interest"][-predictive_period:],
         )
         self.metrics[f"Testing_MASE_{str(predictive_period)}_days"] = periodic_mase
 
