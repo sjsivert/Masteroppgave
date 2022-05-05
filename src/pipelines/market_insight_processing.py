@@ -218,8 +218,8 @@ def scale_data(
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", training_data)
 
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(0.1, 1))
-            # scaler = StandardScaler()
+            # scaler = MinMaxScaler(feature_range=(0.1, 1))
+            scaler = StandardScaler()
             scaled_data = scaler.fit_transform(training_data)
             training_data = pd.DataFrame(scaled_data)
             training_data.to_csv("./datasets/interim/scaled_data.csv")
@@ -255,6 +255,12 @@ def differencing(
         #     y_label="Interest",
         # ).savefig("differenced_data.png")
         yield diff, test_data, data
+@declare.processor()
+def differencing_not(
+        stream: Iterable[Tuple[ndarray, Optional[StandardScaler]]],
+) -> Iterable[Tuple[ndarray, Optional[StandardScaler]]]:  # pragma: no cover
+    for data, test_data in stream:
+        yield data, test_data, data
 
 @declare.processor()
 def split_into_training_and_test_forecast_window(
