@@ -71,6 +71,12 @@ def calculate_owa(data_set: DataFrame, proposed_data_set: DataFrame) -> float:
     return float(err)
 
 
+def calculate_periodic_mase(target: DataFrame, predictions: DataFrame, naive: DataFrame):
+    prediction_mase = calculate_mase(target, predictions)
+    naive_mase = calculate_mase(target, naive)
+    return float(prediction_mase / naive_mase)
+
+
 def try_convert_to_enum(key: str) -> ErrorMetricEnum:
     try:
         return ErrorMetricEnum[key]
