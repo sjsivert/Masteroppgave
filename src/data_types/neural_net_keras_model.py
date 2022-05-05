@@ -48,7 +48,13 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         for log_source in self.log_sources:
             log_source.log_pipeline_steps(data_pipeline.__repr__())
 
-        training_data, testing_data, self.min_max_scaler, self.original_data = data_pipeline.run()
+        (
+            training_data,
+            testing_data,
+            self.min_max_scaler,
+            self.training_data_no_windows,
+            self.training_data_without_diff,
+        ) = data_pipeline.run()
         training_data, validation_data, testing_data = self.split_data_sets(
             training_data=training_data, testing_data=testing_data
         )
