@@ -15,7 +15,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from src.data_types.i_model import IModel
 from src.pipelines.arima_model_pipeline import arima_model_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.utils.error_calculations import calculate_error
+from src.utils.error_calculations import calculate_error, calculate_periodic_mase
 from src.utils.visuals import visualize_data_series
 from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 import pmdarima as pm
@@ -142,6 +142,14 @@ class ArimaModel(IModel, ABC):
         # Metrics
         metrics = calculate_error(self.test_data["interest"][:predictive_period], self.predictions)
         self.metrics = dict(map(lambda x: (f"Testing_{x[0]}", x[1]), metrics.items()))
+        # Periodic naive mase
+        periodic_mase = calculate_periodic_mase(
+            self.test_data["interest"][:predictive_period],
+            self.predictions,
+            self.train_val_data["interest"][-predictive_period:],
+        )
+        self.metrics[f"Testing_MASE_{str(predictive_period)}_days"] = periodic_mase
+
         logging.info(
             f"\nPredictions ahead: {predictive_period}\n"
             + f"Predicting from {self.training_periode} to {self.training_periode + predictive_period - 1}\n"
