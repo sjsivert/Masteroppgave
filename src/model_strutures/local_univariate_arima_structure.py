@@ -115,36 +115,59 @@ class LocalUnivariateArimaStructure(IModelStructure, ABC):
 
         for base_model in self.models:
             logging.info(f"Tuning model: {base_model.get_name()}")
-            if str(base_model.get_name()) in self.tuning_parameter_error_sets:
-                logging.info(
-                    f"{base_model.get_name()} was already tuned. Results can be found in the logg."
+            # Auto ARIMA
+            if self.auto_arima:
+                error_parameter_set = base_model.auto_arima(
+                    p=self.hyperparameter_tuning_range["p"][0],
+                    d=self.hyperparameter_tuning_range["d"][0],
+                    q=self.hyperparameter_tuning_range["q"][0],
+                    max_p=self.hyperparameter_tuning_range["p"][1],
+                    max_d=self.hyperparameter_tuning_range["d"][1],
+                    max_q=self.hyperparameter_tuning_range["q"][1],
+                    P=self.hyperparameter_tuning_range["P"][0],
+                    D=self.hyperparameter_tuning_range["D"][0],
+                    Q=self.hyperparameter_tuning_range["Q"][0],
+                    max_P=self.hyperparameter_tuning_range["P"][1],
+                    max_D=self.hyperparameter_tuning_range["D"][1],
+                    max_Q=self.hyperparameter_tuning_range["Q"][1],
+                    m=self.hyperparameter_tuning_range["s"][0],
+                    epochs=100,
+                    metric="mae",
                 )
-                # Remove already tested parameters from the list
-                parameters = [
-                    param
-                    for param in all_parameters_to_test
-                    if str(param)
-                    not in self.tuning_parameter_error_sets[str(base_model.get_name())]
-                ]
+                self.tuning_parameter_error_sets[base_model.get_name()] = error_parameter_set
+            # Grid search
             else:
-                parameters = all_parameters_to_test
+                if str(base_model.get_name()) in self.tuning_parameter_error_sets:
+                    logging.info(
+                        f"{base_model.get_name()} was already tuned. Results can be found in the logg."
+                    )
+                    # Remove already tested parameters from the list
+                    parameters = [
+                        param
+                        for param in all_parameters_to_test
+                        if str(param)
+                        not in self.tuning_parameter_error_sets[str(base_model.get_name())]
+                    ]
+                else:
+                    parameters = all_parameters_to_test
 
-            # Calculating Error
-            error_parameter_sets = base_model.method_evaluation(
-                parameters,
-                metric=self.metric_to_use_when_tuning.value,
-                single_step=(not self.multi_step_prediction),
-                auto_arima=self.auto_arima,
-            )
-            # Merge error sets
-            if self.tuning_parameter_error_sets.get(base_model.get_name(), False):
-                self.tuning_parameter_error_sets[f"{base_model.get_name()}"].update(
-                    error_parameter_sets
+                # Calculating Error
+                error_parameter_sets = base_model.method_evaluation(
+                    parameters,
+                    metric=self.metric_to_use_when_tuning.value,
+                    single_step=(not self.multi_step_prediction),
                 )
-            else:
-                self.tuning_parameter_error_sets[base_model.get_name()] = error_parameter_sets
-            for log_source in self.log_sources:
-                log_source.log_tuning_metrics({f"{base_model.get_name()}": error_parameter_sets})
+                # Merge error sets
+                if self.tuning_parameter_error_sets.get(base_model.get_name(), False):
+                    self.tuning_parameter_error_sets[f"{base_model.get_name()}"].update(
+                        error_parameter_sets
+                    )
+                else:
+                    self.tuning_parameter_error_sets[base_model.get_name()] = error_parameter_sets
+                for log_source in self.log_sources:
+                    log_source.log_tuning_metrics(
+                        {f"{base_model.get_name()}": error_parameter_sets}
+                    )
 
     def _generate_parameter_grid(
         self,

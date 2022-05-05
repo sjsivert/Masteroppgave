@@ -246,32 +246,49 @@ class ArimaModel(IModel, ABC):
         forecast = DataFrame(pd.concat(DataFrame(x) for x in forecast))
         return forecast
 
-    def auto_arima(self):
+    def auto_arima(
+        self,
+        p=0,
+        d=1,
+        q=0,
+        max_p=1,
+        max_d=1,
+        max_q=1,
+        P=0,
+        D=1,
+        Q=0,
+        max_P=1,
+        max_D=1,
+        max_Q=1,
+        m=4,
+        epochs=50,
+        metric="mae",
+    ):
         train_val_data = pd.concat([self.training_data, self.validation_data])
         model = pm.auto_arima(
             train_val_data,
-            start_p=0,
-            d=1,
-            start_q=0,
-            max_p=5,
-            max_q=5,
-            max_d=5,
-            start_P=0,
-            D=1,
-            start_Q=0,
-            max_P=5,
-            max_D=5,
-            max_Q=5,
-            m=4,
-            seasonal=True,
+            start_p=p,
+            d=d,
+            start_q=q,
+            max_p=max_p,
+            max_q=max_q,
+            max_d=max_d,
+            start_P=P,
+            D=D,
+            start_Q=Q,
+            max_P=max_P,
+            max_D=max_D,
+            max_Q=max_Q,
+            m=m,
+            seasonal=self.seasonal,
             error_action="warn",
             trace=True,
             suppress_warnings=True,
             stepwise=True,
             random_state=40,
-            n_fits=50,
-            scoring="mse",
-            information_criterion="bic",
+            n_fits=epochs,
+            scoring=metric,
+            information_criterion="bic",  # Bayesian Information Criterion
         )
         logging.info(model.summary())
         selected_order = f"{model.order}{model.seasonal_order}"
@@ -289,14 +306,9 @@ class ArimaModel(IModel, ABC):
         parameters: List,
         metric: str,
         single_step: bool = False,
-        auto_arima: bool = True,
     ) -> Dict[str, Dict[str, float]]:
         assert self.training_data is not None, "Training data is not loaded"
         assert self.validation_data is not None, "Validation data is not loaded"
-        # Auto Arima
-        if auto_arima:
-            metrics = self.auto_arima()
-            return metrics
 
         error_param_set = {}
         # Try catch block for numpy LU decomposition error
