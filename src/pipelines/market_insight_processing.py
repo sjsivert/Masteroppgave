@@ -11,6 +11,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from src.datasets.time_series_dataset import TimeseriesDataset
 from src.pipelines.date_feature_generator import calculate_season
 from src.utils.config_parser import config
+from src.utils.visuals import visualize_data_series
 from torch.utils.data import DataLoader, Dataset
 
 
@@ -136,35 +137,37 @@ def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma
 
 @declare.processor()
 def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
-    for (df, scaler) in stream:
-        print(df.info())
-        print(df.describe())
-        np_array = np.array(df)
-        yield np_array, scaler
+    for (df, test_data, scaler) in stream:
+        yield np.array(df), np.array(test_data), scaler
 
 @declare.processor()
 def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
-    for df in stream:
-        print(df.info())
-        print(df.describe())
-        np_array = np.array(df)
-        yield np_array
+    for df, test_data in stream:
+        # visualize_data_series(
+        #     title=f"original_training_data",
+        #     data_series=[df],
+        #     data_labels=["Targets", ],
+        #     colors=["blue",],
+        #     x_label="Time",
+        #     y_label="Interest",
+        # ).savefig("original_training_data.png")
+        yield np.array(df), np.array(test_data, dtype=np.float64)
 
 @declare.processor()
 def scale_data_dataframe(
     stream: Iterable[DataFrame], should_scale: bool = False
 ) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
-    for (df) in stream:
+    for (df, test_data) in stream:
         if (df.size == 0):
             print("Empty dataframe",df)
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
-            scaler = MinMaxScaler(feature_range=(-1, 1))
+            scaler = StandardScaler()
             df["interest"] = scaler.fit_transform(df[["interest"]])
             for col in df.columns:
                 if col != "interest":
-                    feature_scaler = MinMaxScaler(feature_range=(0, 1))
+                    feature_scaler = StandardScaler()
                     df[col] = feature_scaler.fit_transform(df[[col]])
             yield df, scaler
         else:
@@ -174,17 +177,25 @@ def scale_data_dataframe(
 def decrease_variance(
     stream: Iterable[ndarray]
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
-    for df in stream:
+    for df, test_data in stream:
         decrease_variance = lambda x: math.log(x+1)
         vector_func = np.vectorize(decrease_variance)
         df_decreased_variance = vector_func(df)
-        yield df_decreased_variance
+        # visualize_data_series(
+        #     title=f"decreased_variance",
+        #     data_series=[df_decreased_variance],
+        #     data_labels=["Targets", ],
+        #     colors=["blue",],
+        #     x_label="Time",
+        #     y_label="Interest",
+        # ).savefig("decrease_variance.png")
+        yield df_decreased_variance, test_data
 
 @declare.processor()
 def scale_down_outliers(
     stream: Iterable[ndarray]
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
-    for df in stream:
+    for df, test_data in stream:
         df = pd.DataFrame(df)
         std = (df.describe().transpose()["std"]).to_numpy()[0]
         mean = (df.describe().transpose()["mean"]).to_numpy()[0]
@@ -195,36 +206,55 @@ def scale_down_outliers(
 
         df.plot().get_figure().savefig("normal.png")
         pd.DataFrame(removed_outliers).plot().get_figure().savefig("outliers.png")
-        yield removed_outliers
+        yield removed_outliers, test_data
 
 @declare.processor()
 def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
-    for df in stream:
-        if (df.size == 0):
-            print("Empty dataframe",df)
-            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
+    for training_data, test_data, not_differenced_data in stream:
+        if (training_data.size == 0):
+            print("Empty dataframe",training_data)
+            raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", training_data)
 
         if should_scale:
-            # scaler = MinMaxScaler(feature_range=(-1, 1))
-            scaler = StandardScaler()
-            scaled_data = scaler.fit_transform(df)
-            df = pd.DataFrame(scaled_data)
-            df.to_csv("./datasets/interim/scaled_data.csv")
-            yield scaled_data, scaler
+            scaler = MinMaxScaler(feature_range=(0.1, 1))
+            # scaler = StandardScaler()
+            scaled_data = scaler.fit_transform(training_data)
+            training_data = pd.DataFrame(scaled_data)
+            training_data.to_csv("./datasets/interim/scaled_data.csv")
+            
+            # visualize_data_series(
+            #     title=f"scaled_data",
+            #     data_series=[scaled_data],
+            #     data_labels=["Targets", ],
+            #     colors=["blue",],
+            #     x_label="Time",
+            #     y_label="Interest",
+            # ).savefig("scaled_down_data.png")
+
+            yield scaled_data, test_data, not_differenced_data, scaler
         else:
-            yield df, None
+            yield training_data, test_data, not_differenced_data, None
 
 @declare.processor()
 def differencing(
         stream: Iterable[Tuple[ndarray, Optional[StandardScaler]]],
 ) -> Iterable[Tuple[ndarray, Optional[StandardScaler]]]:  # pragma: no cover
-    for data, scaler in stream:
+    for data, test_data in stream:
         diff = np.ndarray(shape=data.shape)
         for i in range(1, data.shape[0]):
             diff[i] = data[i] - data[i-1]
-        yield diff, scaler
+        
+        # visualize_data_series(
+        #     title=f"differenced_data",
+        #     data_series=[diff],
+        #     data_labels=["Targets", ],
+        #     colors=["blue",],
+        #     x_label="Time",
+        #     y_label="Interest",
+        # ).savefig("differenced_data.png")
+        yield diff, test_data, data
 
 @declare.processor()
 def split_into_training_and_test_forecast_window(
@@ -244,14 +274,18 @@ def keras_split_into_training_and_test_set(
         test_window_size: int,
 ) -> Iterable[Tuple[DataFrame, DataFrame, Optional[MinMaxScaler]]]:  # pragma: no cover
     output_size = test_window_size
-    for (x, y, scaler, data) in stream:
+    for (array) in stream:
         # The testing set is the same as the prediction output window
-        x_train = x[:-output_size]
-        y_train = y[:-output_size]
-        x_test = x[-1:]
-        y_test = y[-1:]
+        training_data = array[:-output_size]
+        test_data = array[-output_size:]
+        # x_train = x[:-output_size]
+        # y_train = y[:-output_size]
+        # x_test = x[-1:]
+        # y_test = y[-1:]
 
-        yield ((x_train, y_train),  (x_test, y_test), scaler, data)
+        # yield ((x_train, y_train),  (x_test, y_test), scaler)
+        yield training_data, test_data
+
 @declare.processor()
 def save_datasets_to_file(
         stream: Iterable[Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], Optional[StandardScaler]]],
@@ -399,18 +433,20 @@ def sliding_window_x_y_generator(
         input_window_size: int,
         output_window_size: int,
 ) -> Iterable[Tuple[ndarray, ndarray, Optional[StandardScaler]]]:  # pragma: no cover
-    for data, scaler in stream:
+    for training_data, test_data, de_differ_data, scaler in stream:
         X = []
         Y = []
-        for i in range(0, len(data) - input_window_size - output_window_size + 1):
-            x = data[i:i + input_window_size]
-            y = data[i + input_window_size:i + input_window_size + output_window_size]
+        for i in range(0, len(training_data) - input_window_size - output_window_size + 1):
+            x = training_data[i:i + input_window_size]
+            y = training_data[i + input_window_size:i + input_window_size + output_window_size]
             # Chose only the interest column in the y array
             y_interest = y[:, 0]
             X.append(x)
             Y.append(y_interest)
+        x_test = [training_data[-input_window_size:]]
+        y_test = [test_data]
 
-        yield np.array(X), np.array(Y), scaler, data
+        yield (np.array(X), np.array(Y)), (np.array(x_test)[:, :, 0], np.array(y_test)[:, :, 0]), scaler, training_data, de_differ_data
 
 
 @declare.processor()
