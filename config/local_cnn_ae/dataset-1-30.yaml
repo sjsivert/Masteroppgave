@@ -5,8 +5,8 @@ model:
     hyperparameter_tuning_range:
       placeholder: 4
     common_parameters_for_all_models:
-      input_window_size: 40
-      output_window_size: 30
+      input_window_size: 10
+      output_window_size: 7
       multi_variable_nr: 1
       batch_size: 32
       number_of_epochs: 100
@@ -20,19 +20,22 @@ model:
         encoder:
           - layer: "Conv1d"
             filters: 16
-            kernel_size: 7
+            kernel_size: 3
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1d"
             filters: 32
-            kernel_size: 9
+            kernel_size: 5
             activation: "relu"
+            dropout: 0.2
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 9
+            kernel_size: 5
             filters: 32
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1dTranspose"
-            kernel_size: 7
+            kernel_size: 3
             filters: 1
 
       - time_series_id: 6
@@ -40,19 +43,22 @@ model:
         encoder:
           - layer: "Conv1d"
             filters: 16
-            kernel_size: 7
+            kernel_size: 3
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1d"
             filters: 32
-            kernel_size: 9
+            kernel_size: 5
             activation: "relu"
+            dropout: 0.2
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 9
+            kernel_size: 5
             filters: 32
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1dTranspose"
-            kernel_size: 7
+            kernel_size: 3
             filters: 1
 
       - time_series_id: 9
@@ -60,17 +66,20 @@ model:
         encoder:
           - layer: "Conv1d"
             filters: 16
-            kernel_size: 7
+            kernel_size: 3
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1d"
             filters: 32
-            kernel_size: 9
+            kernel_size: 5
             activation: "relu"
+            dropout: 0.2
         decoder:
           - layer: "Conv1dTranspose"
-            kernel_size: 9
+            kernel_size: 5
             filters: 32
             activation: "relu"
+            dropout: 0.2
           - layer: "Conv1dTranspose"
-            kernel_size: 7
+            kernel_size: 3
             filters: 1
