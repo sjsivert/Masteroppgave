@@ -251,7 +251,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
             for k, l in j.items():
                 metrics_altered[i][k.split("_", 1)[1]] = l
         # Convert to dataframe
-        metrics_dataframe: DataFrame = DataFrame(metrics_altered)
+        metrics_dataframe: DataFrame = DataFrame(metrics_altered).transpose()
         # Save dataframe
         SaveLocalDiskSource.dataframe_to_latex_tabular(
             metrics_dataframe,
