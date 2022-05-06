@@ -151,7 +151,7 @@ def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndar
         #     x_label="Time",
         #     y_label="Interest",
         # ).savefig("original_training_data.png")
-        yield np.array(df), np.array(test_data, dtype=np.float64)
+        yield np.array(df), np.array(test_data, dtype=np.float32)
 
 @declare.processor()
 def scale_data_dataframe(

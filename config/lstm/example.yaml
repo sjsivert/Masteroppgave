@@ -41,7 +41,7 @@ model:
             recurrent_dropout: 0.0
       datasets:
         - 11573
-        # - 11037
+        - 11037
 
     local_model:
       common_parameters_for_all_models:
