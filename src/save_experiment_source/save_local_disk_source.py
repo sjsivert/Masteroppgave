@@ -68,7 +68,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         self._save_tuning_metrics(tuning)
         self._save_predictions(predictions)
         # self._save_models(models)
-        # self._save_figures(figures)
+        self._save_figures(figures)
         self._save_data_pipeline_steps(data_pipeline_steps)
         self._save_experiment_tags(experiment_tags)
         self._save_log()
@@ -249,7 +249,7 @@ class SaveLocalDiskSource(ISaveExperimentSource, ABC):
         for i, j in metrics.items():
             metrics_altered[i] = {}
             for k, l in j.items():
-                metrics_altered[i][k.split("_", 1)[1]] = l
+                metrics_altered[i][k.split("_", 1)[-1]] = l
         # Convert to dataframe
         metrics_dataframe: DataFrame = DataFrame(metrics_altered).transpose()
         # Save dataframe
