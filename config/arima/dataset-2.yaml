@@ -23,181 +23,181 @@ model:
     model_structure:
       - time_series_id: 12532
         hyperparameters:
-          p: 0
+          p: 4
           d: 1
-          q: 0
+          q: 2
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11694
         hyperparameters:
           p: 0
           d: 1
-          q: 0
+          q: 2
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11716
         hyperparameters:
-          p: 0
+          p: 6
           d: 1
-          q: 0
-          P: 0
-          D: 1
+          q: 2
+          P: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11950
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11195
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
           q: 0
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11998
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 274
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
           q: 0
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11407
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 46
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11326
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
-          q: 0
+          q: 2
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11335
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 12197
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11693
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
-          P: 0
-          D: 1
+          q: 1
+          P: 2
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11780
         hyperparameters:
-          p: 0
+          p: 1
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 12502
         hyperparameters:
           p: 0
           d: 1
-          q: 0
+          q: 2
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11866
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 11400
         hyperparameters:
-          p: 0
+          p: 2
           d: 1
-          q: 0
+          q: 3
           P: 0
-          D: 1
-          Q: 0
+          D: 0
+          Q: 1
           s: 12
       - time_series_id: 12256
         hyperparameters:
-          p: 0
+          p: 4
           d: 1
-          q: 0
+          q: 3
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 10320
         hyperparameters:
-          p: 0
+          p: 7
           d: 1
           q: 0
-          P: 0
-          D: 1
+          P: 1
+          D: 0
           Q: 0
           s: 12
       - time_series_id: 10030
         hyperparameters:
           p: 0
           d: 1
-          q: 0
+          q: 1
           P: 0
-          D: 1
+          D: 0
           Q: 0
           s: 12
