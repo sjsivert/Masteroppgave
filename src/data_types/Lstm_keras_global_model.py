@@ -217,7 +217,8 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 batch_size=1,
             )
             custom_metrics, _ = self.custom_evaluate(x_test, y_test, scaler=self.scalers[i])
-            self.metrics[f"MASE_proper_scale_{i}"] = custom_metrics["mase"]
+            for key, value in custom_metrics.items():
+                self.metrics[f"{key}_proper_scale_{i}"] = value
 
             results: List[float] = self.prediction_model.evaluate(
                 x_test,
@@ -231,7 +232,7 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self.prediction_model.reset_states()
             self.predict_and_rescale(x_train, y_train, self.scalers[i])
             test_predictions_reversed, test_targets_reversed = self.predict_and_reverse_pipeline(
-                x_test, y_test, self.scalers[i], None
+                x_test, y_test, self.scalers[i], self.training_data_without_diff
             )
             test_predictions, test_targets = self.predict_and_rescale(
                 x_test, y_test, self.scalers[i]
