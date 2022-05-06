@@ -31,17 +31,16 @@ from src.utils.keras_error_calculations import (
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
-from src.utils.reverse_pipeline import (
-    reverse_decrease_variance,
-    reverse_differencing,
-    reverse_differencing_forecast,
-    reverse_sliding_window,
-)
+from src.utils.reverse_pipeline import (reverse_decrease_variance,
+                                        reverse_differencing,
+                                        reverse_differencing_forecast,
+                                        reverse_sliding_window)
 from src.utils.visuals import visualize_data_series
 from tensorflow.keras.callbacks import LambdaCallback
 from tensorflow.keras.losses import (MeanAbsoluteError,
                                      MeanAbsolutePercentageError,
                                      MeanSquaredError)
+from torch import _make_per_channel_quantized_tensor
 from zmq import PROTOCOL_ERROR_ZMTP_MALFORMED_COMMAND_UNSPECIFIED
 
 
@@ -185,8 +184,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         return predictions_rescaled, targets_rescaled
 
-    def _rescale_data(self, data: ndarray) -> ndarray:
-        return self.min_max_scaler.inverse_transform(data) if self.min_max_scaler else data
+    def _rescale_data(self, data: ndarray, scaler=None) -> ndarray:
+        scaler = self.min_max_scaler if scaler is None else scaler
+        return scaler.inverse_transform(data) if scaler is not None else data
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
@@ -229,10 +229,14 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             original_data=self.training_data_without_diff[-self.output_window_size :, :],
         )
 
-        mase_seven_days, y_true_last_period = keras_mase_periodic(
-            y_true=self.y_test,
-            y_true_last_period=last_period_targets,
-            y_pred=test_predictions_reversed,
+        mase_seven_days, y_true_last_period = (
+            keras_mase_periodic(
+                y_true=self.y_test,
+                y_true_last_period=last_period_targets,
+                y_pred=test_predictions_reversed,
+            )
+            if self.min_max_scaler is not None
+            else (420, None)
         )
 
         # Custom evaluate function with rescale before metrics
@@ -360,11 +364,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         load_path = f"{path}{self.get_name()}.h5"
         self.model.load_weights(load_path)
 
-    def custom_evaluate(self, x_test, y_test, post_processing=None):
+    def custom_evaluate(self, x_test, y_test, scaler: StandardScaler = None):
+        scaler = self.min_max_scaler if scaler is None else scaler
         predictions = self.prediction_model.predict(x_test, batch_size=1)
 
         predictions_re_composed = self._reverse_pipeline(
-            predictions, self.min_max_scaler, self.training_data_without_diff
+            predictions, scaler, self.training_data_without_diff
         )
         # TODO Post processing
         results = {}
@@ -383,7 +388,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         return results, predictions
 
     def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
-        predictions_scaled = self._rescale_data(predictions)
+        predictions_scaled = self._rescale_data(predictions, min_max_scaler)
         # predictions_reversed_diff = reverse_differencing_forecast(
         #     noise=predictions_scaled, last_observed=original_data[-1]
         # )

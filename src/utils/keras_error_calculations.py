@@ -85,6 +85,8 @@ def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
 
 
 def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
+    y_true = tf.cast(y_true, tf.float32)
+    y_pred = tf.cast(y_pred, tf.float32)
     sust = tf.reduce_mean(tf.abs(y_true[:, 1:] - y_true[:, :-1]))
     diff = tf.reduce_mean(tf.abs(y_pred - y_true))
     return diff / sust
@@ -93,6 +95,8 @@ def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
 def keras_mase_periodic(
     y_true: ndarray, y_pred: ndarray, y_true_last_period: ndarray
 ) -> torch.Tensor:
+    y_true = tf.cast(y_true, tf.float32)
+    y_pred = tf.cast(y_pred, tf.float32)
     diff = tf.reduce_mean(tf.abs(y_pred - y_true))
     sust = tf.reduce_mean(tf.abs(y_true - y_true_last_period))
     return diff / sust, y_true_last_period

@@ -53,8 +53,13 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             )
             for log_source in self.log_sources:
                 log_source.log_pipeline_steps(data_pipeline.__repr__())
-
-            training_data, testing_data, min_max_scaler, self.original_data = data_pipeline.run()
+            (
+                training_data,
+                testing_data,
+                min_max_scaler,
+                self.training_data_no_windows,
+                self.training_data_without_diff,
+            ) = data_pipeline.run()
             training_data_splitted, validation_data, testing_data = self.split_data_sets(
                 training_data, testing_data
             )
@@ -211,6 +216,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 y_train,
                 batch_size=1,
             )
+            custom_metrics, _ = self.custom_evaluate(x_test, y_test, scaler=self.scalers[i])
+            self.metrics[f"MASE_proper_scale_{i}"] = custom_metrics["mase"]
+
             results: List[float] = self.prediction_model.evaluate(
                 x_test,
                 y_test,
@@ -222,6 +230,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             # Visualize
             self.prediction_model.reset_states()
             self.predict_and_rescale(x_train, y_train, self.scalers[i])
+            test_predictions_reversed, test_targets_reversed = self.predict_and_reverse_pipeline(
+                x_test, y_test, self.scalers[i], None
+            )
             test_predictions, test_targets = self.predict_and_rescale(
                 x_test, y_test, self.scalers[i]
             )
@@ -229,30 +240,32 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             self._visualize_predictions(
                 (test_targets.flatten()),
                 (test_predictions.flatten()),
-                f"Test predictions for {testing_set_name}",
+                f"Test predictions not rescaled for {testing_set_name}",
             )
-            x_test_values = (
-                self.scalers[i].inverse_transform(x_test[:, :, 0])
-                if self.min_max_scaler
-                else x_test[:, :, 0]
+            self._visualize_predictions(
+                (test_targets.flatten()),
+                (test_predictions_reversed.flatten()),
+                f"Test predictions rescaled for {testing_set_name}",
             )
-            x_test_values_flattened = x_test_values.flatten()
             self._visualize_predictions_with_context(
-                context=x_test_values_flattened,
+                context=x_test.flatten(),
                 targets=test_targets.flatten(),
                 predictions=test_predictions.flatten(),
             )
-            last_period_targets = self.scalers[i].inverse_transform(
-                x_test[:, -self.output_window_size :, 0]
+            last_period_targets = self._reverse_pipeline_training(
+                training_data=self.x_test[i, -self.output_window_size :],
+                original_data=self.training_data_without_diff[-self.output_window_size :, :],
             )
             mase_seven_days, y_true_last_period = keras_mase_periodic(
-                y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
+                y_true=test_targets,
+                y_true_last_period=last_period_targets,
+                y_pred=test_predictions_reversed,
             )
             test_metrics[f"test_MASE_7_DAYS_{i}"] = mase_seven_days.numpy()
 
             self.metrics.update(test_metrics)
         # Run predictions on all data as well!
-        super().test()
+        # super().test()
         return self.metrics
 
     def predict_and_rescale(
