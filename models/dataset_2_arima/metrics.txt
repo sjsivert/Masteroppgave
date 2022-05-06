@@ -2,7 +2,7 @@
 _____Results dataset-12532_____
 Testing_MAE: 154.78169
 Testing_MASE: 1.217
-Testing_MSE: 34785.3842
+Testing_MSE: 34785.38411
 Testing_SMAPE: 0.512
 Testing_MAPE: 0.39119
 Testing_MASE_7_days: 0.68065
@@ -16,11 +16,11 @@ Testing_MAPE: 0.47067
 Testing_MASE_7_days: 0.54736
 
 _____Results dataset-11716_____
-Testing_MAE: 3.293
+Testing_MAE: 3.29297
 Testing_MASE: 0.988
-Testing_MSE: 12.513
+Testing_MSE: 12.51279
 Testing_SMAPE: 1.083
-Testing_MAPE: 5799836640330007.0
+Testing_MAPE: 5799753753589262.0
 Testing_MASE_7_days: 0.88929
 
 _____Results dataset-11950_____
@@ -44,13 +44,13 @@ Testing_MAE: 3.06834
 Testing_MASE: 2.63
 Testing_MSE: 10.30394
 Testing_SMAPE: 0.978
-Testing_MAPE: 3134818166412661.0
+Testing_MAPE: 3134818167096957.5
 Testing_MASE_7_days: 0.75143
 
 _____Results dataset-274_____
 Testing_MAE: 88.13234
 Testing_MASE: 0.754
-Testing_MSE: 13862.8587
+Testing_MSE: 13862.85869
 Testing_SMAPE: 0.323
 Testing_MAPE: 0.25941
 Testing_MASE_7_days: 0.43184
@@ -74,7 +74,7 @@ Testing_MASE_7_days: 0.94678
 _____Results dataset-11326_____
 Testing_MAE: 29.45699
 Testing_MASE: 0.866
-Testing_MSE: 1257.49465
+Testing_MSE: 1257.49438
 Testing_SMAPE: 0.351
 Testing_MAPE: 0.30623
 Testing_MASE_7_days: 0.75239
@@ -108,7 +108,7 @@ Testing_MAE: 0.65288
 Testing_MASE: 0.783
 Testing_MSE: 0.51779
 Testing_SMAPE: 1.268
-Testing_MAPE: 1178522418151966.2
+Testing_MAPE: 1178522417584202.5
 Testing_MASE_7_days: 0.522
 
 _____Results dataset-12502_____
@@ -124,23 +124,23 @@ Testing_MAE: 3.7062
 Testing_MASE: 0.855
 Testing_MSE: 18.43737
 Testing_SMAPE: 0.853
-Testing_MAPE: 3748676372201153.5
+Testing_MAPE: 3748676370365153.5
 Testing_MASE_7_days: 0.78585
 
 _____Results dataset-11400_____
-Testing_MAE: 43.97455
+Testing_MAE: 43.97622
 Testing_MASE: 2.537
-Testing_MSE: 2326.94027
+Testing_MSE: 2326.96967
 Testing_SMAPE: 0.491
-Testing_MAPE: 0.6909
+Testing_MAPE: 0.69093
 Testing_MASE_7_days: 0.75081
 
 _____Results dataset-12256_____
-Testing_MAE: 241.12458
+Testing_MAE: 241.13224
 Testing_MASE: 1.373
-Testing_MSE: 78925.58802
+Testing_MSE: 78935.48616
 Testing_SMAPE: 0.258
-Testing_MAPE: 0.22119
+Testing_MAPE: 0.22118
 Testing_MASE_7_days: 0.64189
 
 _____Results dataset-10320_____
@@ -160,9 +160,9 @@ Testing_MAPE: 0.30944
 Testing_MASE_7_days: 0.47569
 
 _____Average_____
-Testing_MAE: 42.81966500000001
+Testing_MAE: 42.82013000000001
 Testing_MASE: 1.4715
-Testing_MSE: 8227.372591000001
+Testing_MSE: 8227.868939
 Testing_SMAPE: 0.6331999999999999
-Testing_MAPE: 693092679854789.8
+Testing_MAPE: 693088535431779.1
 Testing_MASE_7_days: 0.7068395000000001
