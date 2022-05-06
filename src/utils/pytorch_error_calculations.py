@@ -79,5 +79,5 @@ def calculate_mase(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Te
 
 def calculate_smape(targets: torch.Tensor, predictions: torch.Tensor) -> torch.Tensor:
     epsilon = 0.1
-    loss = 2 * torch.mean(((predictions - targets).abs()) / (predictions.abs() + targets.abs()))
+    loss = torch.mean(((predictions - targets).abs()) / ((predictions.abs() + targets.abs()) / 2))
     return loss

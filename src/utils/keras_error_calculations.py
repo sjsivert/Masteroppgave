@@ -7,7 +7,6 @@ import pipe
 import tensorflow as tf
 import torch
 from numpy import ndarray
-
 from permetrics.regression import Metrics
 from src.data_types.error_metrics_enum import ErrorMetricEnum
 from src.utils.config_parser import config
@@ -75,12 +74,11 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
 
 
 def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
-    loss = abs((abs(y_pred - y_true)) / (abs(y_pred) + abs(y_true) / 2))
-    # y_true = y_true.numpy()
-    # y_pred = y_pred.numpy()
-    # metric = Metrics(y_true, y_pred)
-    # err = metric.SMAPECustom()
-    # err = metric.SMAPE()
+    y_true = tf.convert_to_tensor(y_true, dtype=tf.float32)
+    y_pred = tf.convert_to_tensor(y_pred, dtype=tf.float32)
+    loss = tf.math.reduce_sum(
+        tf.abs((tf.abs(y_pred - y_true)) / (tf.abs(y_pred) + tf.abs(y_true)) / 2)
+    )
     return loss
 
 
