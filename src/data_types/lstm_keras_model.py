@@ -389,10 +389,10 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
     def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
         predictions_scaled = self._rescale_data(predictions, min_max_scaler)
-        predictions_reversed_diff = reverse_differencing_forecast(
-            noise=predictions_scaled, last_observed=original_data[-1]
-        )
-        # predictions_reversed_diff = predictions_scaled
+        # predictions_reversed_diff = reverse_differencing_forecast(
+        #     noise=predictions_scaled, last_observed=original_data[-1]
+        # )
+        predictions_reversed_diff = predictions_scaled
         # predictions_added_variance = reverse_decrease_variance(predictions_reversed_diff)
         predictions_added_variance = predictions_reversed_diff
 

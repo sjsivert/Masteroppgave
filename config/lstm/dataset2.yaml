@@ -1,6 +1,6 @@
 model:
   rng_seed: 42
-  model_type: 'local_univariate_lstm'
+  model_type: 'global_univariate_lstm'
   model_config:
     hyperparameter_tuning_range:
       hidden_size: [1, 100]
