@@ -27,7 +27,7 @@ from src.save_experiment_source.local_checkpoint_save_source import \
 from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics, generate_error_metrics_dict, keras_mase,
-    keras_mase_periodic)
+    keras_mase_periodic, keras_smape)
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
@@ -384,15 +384,15 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             metric.update_state(y_test, predictions_re_composed)
             results[metric.name] = metric.result().numpy()
         results["mase"] = keras_mase(y_true=y_test, y_pred=predictions_re_composed).numpy()
-        # results["smape"] = keras_smape(y_true=y_test, y_pred=predictions.numpy()).numpy()
+        results["smape"] = keras_smape(y_true=y_test, y_pred=predictions_re_composed).numpy()
         return results, predictions
 
     def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
         predictions_scaled = self._rescale_data(predictions, min_max_scaler)
-        # predictions_reversed_diff = reverse_differencing_forecast(
-        #     noise=predictions_scaled, last_observed=original_data[-1]
-        # )
-        predictions_reversed_diff = predictions_scaled
+        predictions_reversed_diff = reverse_differencing_forecast(
+            noise=predictions_scaled, last_observed=original_data[-1]
+        )
+        # predictions_reversed_diff = predictions_scaled
         # predictions_added_variance = reverse_decrease_variance(predictions_reversed_diff)
         predictions_added_variance = predictions_reversed_diff
 
@@ -418,8 +418,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     y_label="Interest",
         # ).savefig("rescaled_data.png")
 
-        # reverse_diff = reverse_differencing(rescaled, original_data)
-        reverse_diff = rescaled
+        reverse_diff = reverse_differencing(rescaled, original_data)
+        # reverse_diff = rescaled
 
         # visualize_data_series(
         #     title=f"re-reverse_diff",
