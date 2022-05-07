@@ -253,8 +253,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 targets=test_targets.flatten(),
                 predictions=test_predictions.flatten(),
             )
+            y_true_last_period = self.x_test[i, -self.output_window_size :, -1]
             last_period_targets = self._reverse_pipeline_training(
-                training_data=self.x_test[i, -self.output_window_size :],
+                training_data=y_true_last_period,
                 original_data=self.training_data_without_diff[-self.output_window_size :, :],
             )
             mase_seven_days, y_true_last_period = keras_mase_periodic(

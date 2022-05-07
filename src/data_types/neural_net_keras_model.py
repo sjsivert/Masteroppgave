@@ -18,8 +18,7 @@ class NeuralNetKerasModel(NeuralNetModel, ABC):
         params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
         pipeline: Any = lstm_keras_pipeline.local_univariate_lstm_keras_pipeline
-        # pipeline: Any = multivariate_pipeline.local_multivariate_lstm_keras_pipeline
-        # pipeline: Any = multivariate_pipeline.already_processed_dataset
+        # pipeline: Any = multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
     ):
         super(NeuralNetKerasModel, self).__init__(
             log_sources,
