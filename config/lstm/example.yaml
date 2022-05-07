@@ -34,7 +34,7 @@ model:
         should_shuffle_batches: no
         optimizer_name: Adam
         learning_rate: 0.00043177648728211254
-        number_of_features: 1
+        number_of_features: 4
         layers:
           - hidden_size: 94
             dropout: 0.21199

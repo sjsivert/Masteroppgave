@@ -1,4 +1,5 @@
 # fmt: off
+import logging
 import math
 from typing import Callable, Iterable, List, Optional, Tuple, Union
 
@@ -137,8 +138,8 @@ def fill_in_dates(stream: Iterable[DataFrame]) -> Iterable[DataFrame]:  # pragma
 
 @declare.processor()
 def convert_to_np_array(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
-    for (df, test_data, scaler) in stream:
-        yield np.array(df), np.array(test_data), scaler
+    for (df) in stream:
+        yield np.array(df)
 
 @declare.processor()
 def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndarray]:  # pragma: no cover
@@ -157,9 +158,10 @@ def convert_to_np_array_univariate(stream: Iterable[DataFrame]) -> Iterable[ndar
 def scale_data_dataframe(
     stream: Iterable[DataFrame], should_scale: bool = False
 ) -> (Iterable[DataFrame], Optional[MinMaxScaler]):  # pragma: no cover
-    for (df, test_data) in stream:
+    for (df, test_data, not_differenced_data) in stream:
+        df = pd.DataFrame(df, columns=["interest", "month", "season", "day_of_the_week"])
         if (df.size == 0):
-            print("Empty dataframe",df)
+            logging.error("Empty dataframe",df)
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)
 
         if should_scale:
@@ -169,9 +171,9 @@ def scale_data_dataframe(
                 if col != "interest":
                     feature_scaler = StandardScaler()
                     df[col] = feature_scaler.fit_transform(df[[col]])
-            yield df, scaler
+            yield np.array(df), test_data, not_differenced_data, scaler
         else:
-            yield df, scaler
+            yield np.array(df), test_data, not_differenced_data, scaler
 
 @declare.processor()
 def decrease_variance(
@@ -204,8 +206,6 @@ def scale_down_outliers(
         vector_func = np.vectorize(minimize_outliers)
         removed_outliers = vector_func(df)
 
-        df.plot().get_figure().savefig("normal.png")
-        pd.DataFrame(removed_outliers).plot().get_figure().savefig("outliers.png")
         yield removed_outliers, test_data
 
 @declare.processor()
@@ -283,7 +283,7 @@ def keras_split_into_training_and_test_set(
     for (array) in stream:
         # The testing set is the same as the prediction output window
         training_data = array[:-output_size]
-        test_data = array[-output_size:]
+        test_data = array["interest"][-output_size:]
         # x_train = x[:-output_size]
         # y_train = y[:-output_size]
         # x_test = x[-1:]
@@ -449,10 +449,11 @@ def sliding_window_x_y_generator(
             y_interest = y[:, 0]
             X.append(x)
             Y.append(y_interest)
-        x_test = [training_data[-input_window_size:]]
-        y_test = [test_data]
+        x_test = np.array([training_data[-input_window_size:]])
+        y_test = np.array([test_data])
 
-        yield (np.array(X), np.array(Y)), (np.array(x_test)[:, :, 0], np.array(y_test)[:, :, 0]), scaler, training_data, de_differ_data
+
+        yield (np.array(X), np.array(Y)), (np.array(x_test), np.array(y_test)), scaler, training_data, de_differ_data
 
 
 @declare.processor()
@@ -491,7 +492,7 @@ def generate_feature(
     function: Callable,
     new_feature_name: str
 ) -> Iterable[DataFrame]:
-    for df in stream:
+    for (df) in stream:
         if (df.size == 0):
             print("Empty dataframe", df)
             raise ValueError("Numpy is empty after earlier filtering steps. Check your category configuration", df)

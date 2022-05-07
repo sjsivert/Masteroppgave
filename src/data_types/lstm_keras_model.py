@@ -188,6 +188,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         return predictions_rescaled, targets_rescaled
 
     def _rescale_data(self, data: ndarray, scaler=None) -> ndarray:
+        print("rescale data", data.shape)
         scaler = self.min_max_scaler if scaler is None else scaler
         return scaler.inverse_transform(data) if scaler is not None else data
 
@@ -227,8 +228,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     if self.min_max_scaler
         #     else x_test[:, -self.output_window_size:]
         # )
+        y_true_last_period = self.x_test[:, -self.output_window_size :, 0]
         last_period_targets = self._reverse_pipeline_training(
-            training_data=self.x_test[:, -self.output_window_size :],
+            training_data=y_true_last_period,
             original_data=self.training_data_without_diff[-self.output_window_size :, :],
         )
 
@@ -250,10 +252,9 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
             y_test=y_test,
         )
         self.metrics.update(custom_metrics)
-        print("CUSTOM METRRICS-----------")
-        print(custom_metrics)
+        logging.info("CUSTOM METRRICS-----------\n", custom_metrics)
         # self.metrics.update(custom_metrics)
-        test_metrics[f"test_MASE_{len(self.x_test)}_DAYS"] = mase_periode.numpy()
+        test_metrics[f"test_MASE_{self.output_window_size}_DAYS"] = mase_periode.numpy()
         self.metrics.update(custom_metrics)
 
         self._visualize_predictions(
@@ -421,8 +422,8 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     y_label="Interest",
         # ).savefig("rescaled_data.png")
 
-        reverse_diff = reverse_differencing(rescaled, original_data)
-        # reverse_diff = rescaled
+        # reverse_diff = reverse_differencing(rescaled, original_data)
+        reverse_diff = rescaled
 
         # visualize_data_series(
         #     title=f"re-reverse_diff",
