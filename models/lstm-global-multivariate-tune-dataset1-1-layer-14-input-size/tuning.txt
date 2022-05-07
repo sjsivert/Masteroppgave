@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54
+
+Parameters: 2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54,28
+ Error: best_score:0.029194284230470657,best_params:{'batch_size': 32, 'learning_rate': 0.0005341379505210235, 'number_of_epochs': 30, 'number_of_layers': 1, 'optimizer_name': 'Adam', 'time_series_id': '2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54', 'layers': [OrderedDict([('hidden_size', 51), ('dropout', 0.021332249570353186), ('recurrent_dropout', 0.335477933072708)])]}

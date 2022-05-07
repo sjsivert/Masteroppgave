@@ -1,0 +1,2 @@
+lstm-global-multivariate-tune-dataset1-1-layer-14-input-size
+Global multivariate tune on dataset1 with just 1 layer and 14 as input size

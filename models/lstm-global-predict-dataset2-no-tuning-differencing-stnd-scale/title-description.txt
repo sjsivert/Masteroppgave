@@ -1,0 +1,2 @@
+lstm-global-predict-dataset2-no-tuning-differencing-stnd-scale
+ global. Differencing.. standardscaler

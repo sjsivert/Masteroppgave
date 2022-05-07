@@ -1,0 +1,2 @@
+lstm-global-univariate-predict-dataset1-decrease-variance-scale-outliers-5xstd-standarscaler-differencing
+Try decrase variance without reaaplying it again and scale down outliers. use standardscaler instead of minmaxscaler and try differencing

@@ -1,0 +1,2 @@
+lstm-global-univariate-predict-dataset1-decrease-variance-scale-outliers-3xstd
+Try decrase variance without reaaplying it again and scale down outliers

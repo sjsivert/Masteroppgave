@@ -1,0 +1,2 @@
+lstm-global-multivariate-tune-50-latest-dataset2-scale--1-1-add-scheduler
+Predict dataset 2 with scale between -1 and 1. Add learning rate scheduler

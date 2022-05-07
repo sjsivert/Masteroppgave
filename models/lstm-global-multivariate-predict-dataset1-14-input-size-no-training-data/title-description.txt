@@ -1,0 +1,2 @@
+lstm-global-multivariate-predict-dataset1-14-input-size-no-training-data
+predict dataset1 14 input size. Not passing training data through when testing

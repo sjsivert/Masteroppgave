@@ -1,0 +1,2 @@
+lstm-global-multivariate-predict-latest-dataset2-scale--1-2
+Predict dataset 2 with scale between -1 and 1
