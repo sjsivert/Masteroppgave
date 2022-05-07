@@ -1,0 +1,2 @@
+lstm-univariate-predict-dataset1-new-dataset-MSE-error
+LSTM Global predict new dataset1 with old tuning using mse instead of MAE

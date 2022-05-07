@@ -1,0 +1,30 @@
+
+_____Results dataset-2_____
+training_error: 0.04568
+validation_error: 0.02497
+test_None_MAE: 0.02131
+test_None_MASE: 2.57821
+test_None_MSE: 0.00062
+test_None_SMAPE: 0.09563
+test_None_MAPE: 9.03026
+test_MASE_7_DAYS: 103569.74436
+
+_____Results dataset-6_____
+training_error: 0.06294
+validation_error: 0.04345
+test_None_MAE: 0.04587
+test_None_MASE: 1.36736
+test_None_MSE: 0.00279
+test_None_SMAPE: 0.15262
+test_None_MAPE: 16.80806
+test_MASE_7_DAYS: 6369.6648
+
+_____Results dataset-10_____
+training_error: 0.05083
+validation_error: 0.0246
+test_None_MAE: 0.02625
+test_None_MASE: 1.4907
+test_None_MSE: 0.00085
+test_None_SMAPE: 0.10916
+test_None_MAPE: 11.73435
+test_MASE_7_DAYS: 13298.75901

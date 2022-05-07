@@ -1,0 +1,200 @@
+
+_____Results dataset-2_____
+training_error: 0.06708
+validation_error: 0.04871
+test_None_MAE: 0.07997
+test_None_MASE: 2.84397
+test_None_MSE: 0.00711
+test_None_SMAPE: 0.15354
+test_None_MAPE: 16.81432
+test_MASE_7_DAYS: 4.83708
+
+_____Results dataset-6_____
+training_error: 0.09543
+validation_error: 0.05776
+test_None_MAE: 0.06108
+test_None_MASE: 0.65033
+test_None_MSE: 0.00477
+test_None_SMAPE: 0.11068
+test_None_MAPE: 10.90901
+test_MASE_7_DAYS: 1.1536
+
+_____Results dataset-9_____
+training_error: 0.05557
+validation_error: 0.04272
+test_None_MAE: 0.03968
+test_None_MASE: 1.10132
+test_None_MSE: 0.002
+test_None_SMAPE: 0.07525
+test_None_MAPE: 7.90879
+test_MASE_7_DAYS: 0.8647
+
+_____Results dataset-10_____
+training_error: 0.07354
+validation_error: 0.04537
+test_None_MAE: 0.04259
+test_None_MASE: 0.68754
+test_None_MSE: 0.00241
+test_None_SMAPE: 0.08991
+test_None_MAPE: 9.53753
+test_MASE_7_DAYS: 1.27387
+
+_____Results dataset-11_____
+training_error: 0.10646
+validation_error: 0.10865
+test_None_MAE: 0.09903
+test_None_MASE: 1.27406
+test_None_MSE: 0.01135
+test_None_SMAPE: 0.24598
+test_None_MAPE: 28.55068
+test_MASE_7_DAYS: 0.63076
+
+_____Results dataset-13_____
+training_error: 0.0778
+validation_error: 0.03975
+test_None_MAE: 0.02574
+test_None_MASE: 0.66885
+test_None_MSE: 0.00156
+test_None_SMAPE: 0.05041
+test_None_MAPE: 5.37216
+test_MASE_7_DAYS: 1.24923
+
+_____Results dataset-20_____
+training_error: 0.11065
+validation_error: 0.25327
+test_None_MAE: 0.09864
+test_None_MASE: 0.57834
+test_None_MSE: 0.01404
+test_None_SMAPE: 1.06981
+test_None_MAPE: 145.06232
+test_MASE_7_DAYS: 0.5805
+
+_____Results dataset-22_____
+training_error: 0.06224
+validation_error: 0.0489
+test_None_MAE: 0.05903
+test_None_MASE: 1.13702
+test_None_MSE: 0.00449
+test_None_SMAPE: 0.12623
+test_None_MAPE: 13.76779
+test_MASE_7_DAYS: 1.35883
+
+_____Results dataset-24_____
+training_error: 0.07962
+validation_error: 0.04351
+test_None_MAE: 0.02343
+test_None_MASE: 1.21421
+test_None_MSE: 0.00093
+test_None_SMAPE: 0.04077
+test_None_MAPE: 3.99124
+test_MASE_7_DAYS: 1.03204
+
+_____Results dataset-26_____
+training_error: 0.08378
+validation_error: 0.06948
+test_None_MAE: 0.04872
+test_None_MASE: 0.98991
+test_None_MSE: 0.00391
+test_None_SMAPE: 0.11984
+test_None_MAPE: 13.19533
+test_MASE_7_DAYS: 0.43824
+
+_____Results dataset-27_____
+training_error: 0.08109
+validation_error: 0.06183
+test_None_MAE: 0.04234
+test_None_MASE: 1.47643
+test_None_MSE: 0.00203
+test_None_SMAPE: 0.09312
+test_None_MAPE: 8.98075
+test_MASE_7_DAYS: 0.51263
+
+_____Results dataset-28_____
+training_error: 0.15006
+validation_error: 0.11532
+test_None_MAE: 0.09998
+test_None_MASE: 0.61929
+test_None_MSE: 0.02037
+test_None_SMAPE: 0.33456
+test_None_MAPE: 65.27878
+test_MASE_7_DAYS: 0.72581
+
+_____Results dataset-29_____
+training_error: 0.06105
+validation_error: 0.03795
+test_None_MAE: 0.05981
+test_None_MASE: 2.96029
+test_None_MSE: 0.00465
+test_None_SMAPE: 0.11311
+test_None_MAPE: 12.24974
+test_MASE_7_DAYS: 1.89942
+
+_____Results dataset-32_____
+training_error: 0.06623
+validation_error: 0.04684
+test_None_MAE: 0.08777
+test_None_MASE: 2.20205
+test_None_MSE: 0.00864
+test_None_SMAPE: 0.18214
+test_None_MAPE: 20.3485
+test_MASE_7_DAYS: 1.34047
+
+_____Results dataset-33_____
+training_error: 0.0618
+validation_error: 0.04982
+test_None_MAE: 0.04521
+test_None_MASE: 1.28022
+test_None_MSE: 0.00328
+test_None_SMAPE: 0.09864
+test_None_MAPE: 10.75141
+test_MASE_7_DAYS: 0.95791
+
+_____Results dataset-34_____
+training_error: 0.13262
+validation_error: 0.10572
+test_None_MAE: 0.08809
+test_None_MASE: 0.65397
+test_None_MSE: 0.0158
+test_None_SMAPE: 0.26339
+test_None_MAPE: 29.86223
+test_MASE_7_DAYS: 0.68706
+
+_____Results dataset-39_____
+training_error: 0.07437
+validation_error: 0.05984
+test_None_MAE: 0.10605
+test_None_MASE: 1.29519
+test_None_MSE: 0.01415
+test_None_SMAPE: 0.20761
+test_None_MAPE: 18.80491
+test_MASE_7_DAYS: 0.81827
+
+_____Results dataset-41_____
+training_error: 0.13453
+validation_error: 0.11932
+test_None_MAE: 0.09763
+test_None_MASE: 0.65073
+test_None_MSE: 0.01496
+test_None_SMAPE: 0.33899
+test_None_MAPE: 50.07604
+test_MASE_7_DAYS: 1.49999
+
+_____Results dataset-51_____
+training_error: 0.04819
+validation_error: 0.03389
+test_None_MAE: 0.03254
+test_None_MASE: 1.51092
+test_None_MSE: 0.00151
+test_None_SMAPE: 0.06489
+test_None_MAPE: 6.81134
+test_MASE_7_DAYS: 0.88971
+
+_____Results dataset-54_____
+training_error: 0.06345
+validation_error: 0.02878
+test_None_MAE: 0.01463
+test_None_MASE: 1.58772
+test_None_MSE: 0.00032
+test_None_SMAPE: 0.02388
+test_None_MAPE: 2.34625
+test_MASE_7_DAYS: 0.70475

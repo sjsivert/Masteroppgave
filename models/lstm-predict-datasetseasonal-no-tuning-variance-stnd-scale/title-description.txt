@@ -1,0 +1,2 @@
+lstm-predict-datasetseasonal-no-tuning-variance-stnd-scale
+No differencing. decrease variance. standardscaler

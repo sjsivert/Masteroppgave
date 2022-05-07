@@ -1,0 +1,2 @@
+lstm-univariate-tune-dataset1-stl-with-trend
+Finished stl decomposed lstm on residuals and trend

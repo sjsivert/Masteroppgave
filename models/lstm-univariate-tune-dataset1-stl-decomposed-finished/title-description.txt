@@ -1,0 +1,2 @@
+lstm-univariate-tune-dataset1-stl-decomposed-finished
+Finished stl decomposed lstm on residuals

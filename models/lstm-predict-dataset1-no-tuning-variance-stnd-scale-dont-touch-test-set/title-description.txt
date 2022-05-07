@@ -1,0 +1,2 @@
+lstm-predict-dataset1-no-tuning-variance-stnd-scale-dont-touch-test-set
+No differencing. decrease variance. standardscaler

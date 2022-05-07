@@ -1,0 +1,2 @@
+lstm-univariate-predict-dataset1-decrease-variance
+Try decrase variance without reaaplying it again

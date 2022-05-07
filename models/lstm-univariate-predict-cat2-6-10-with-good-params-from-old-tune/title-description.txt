@@ -1,0 +1,2 @@
+lstm-univariate-predict-cat2-6-10-with-good-params-from-old-tune
+Predict cat 2 6 10 with paremeters that tcame from old tune

@@ -1,0 +1,2 @@
+lstm-local-univariate-predict-dataset-seasonal-without-tune-differencing-done
+Done with differencing and not touching test set

@@ -1,0 +1,2 @@
+lstm-local-final-tune-dataset1-300-trials
+Final tuning on dataset1. Only standardscaling as preprocessing

@@ -1,0 +1,2 @@
+lstm-predict-dataset2-no-tuning-differencing-stnd-scale
+Differencing.. standardscaler
