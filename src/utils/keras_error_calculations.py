@@ -74,15 +74,12 @@ def try_convert_to_enum(key: str) -> ErrorMetricEnum:
 
 
 def keras_smape(y_true: ndarray, y_pred: ndarray) -> ndarray:
-    y_true = tf.convert_to_tensor(y_true, dtype=tf.float32)
-    y_pred = tf.convert_to_tensor(y_pred, dtype=tf.float32)
-    loss = tf.math.reduce_sum(
-        tf.abs((tf.abs(y_pred - y_true)) / (tf.abs(y_pred) + tf.abs(y_true)) / 2)
-    )
-    return loss
+    metric = Metrics(y_true, y_pred)
+    err = metric.SMAPE()
+    return np.mean(err)
 
 
-def keras_mase(y_true: ndarray, y_pred: ndarray) -> torch.Tensor:
+def keras_mase(y_true: tf.Tensor, y_pred: tf.Tensor) -> torch.Tensor:
     y_true = tf.cast(y_true, tf.float32)
     y_pred = tf.cast(y_pred, tf.float32)
     sust = tf.reduce_mean(tf.abs(y_true[:, 1:] - y_true[:, :-1]))
