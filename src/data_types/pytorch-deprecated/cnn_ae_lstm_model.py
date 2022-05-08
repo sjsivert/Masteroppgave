@@ -1,5 +1,4 @@
 import logging
-from abc import ABC
 from typing import List, Dict, Optional, Any
 
 import torch
@@ -12,7 +11,6 @@ from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 import optuna
 import pytorch_lightning as pl
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
-from src.utils.visuals import visualize_data_series
 
 
 class CNNAELSTMModel(NeuralNetModel):

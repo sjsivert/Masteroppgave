@@ -2,10 +2,8 @@ import logging
 from abc import ABC
 from typing import Any, Dict, List, Optional
 
-import numpy as np
 import optuna
 from src.data_types.neural_net_model import NeuralNetModel
-from src.pipelines import local_multivariate_lstm_keras_pipeline as multivariate_pipeline
 from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
