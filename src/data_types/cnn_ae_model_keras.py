@@ -8,13 +8,13 @@ import pytorch_lightning as pl
 import tensorflow as tf
 from src.data_types.modules.cnn_ae_keras_module import CNN_AE_Module
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
-from src.data_types.neural_net_model import NeuralNetModel
 from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
     local_univariate_cnn_ae_keras_objective,
 )
 from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.visuals import visualize_data_series
 

@@ -216,7 +216,9 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 y_train,
                 batch_size=1,
             )
-            custom_metrics, _ = self.custom_evaluate(x_test, y_test, scaler=self.scalers[i])
+            custom_metrics, _ = self.custom_evaluate(
+                x_test, y_test, self.prediction_model, scaler=self.scalers[i]
+            )
             for key, value in custom_metrics.items():
                 self.metrics[f"{key}_proper_scale_{i}"] = value
 

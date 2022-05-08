@@ -3,7 +3,7 @@ import typing
 from typing import Any, List, Optional, OrderedDict, Tuple
 
 from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
-from src.data_types.lstm_model import LstmModel
+from src.data_types.lstm_keras_model import LstmKerasModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
@@ -36,7 +36,7 @@ class GlobalLstmStructure(NeuralNetworkModelStructure):
         """
         for base_model in self.models:
             # Specify the class to compiler
-            base_model = typing.cast(LstmModel, base_model)
+            base_model = typing.cast(LstmKerasModel, base_model)
 
             logging.info(f"Tuning model: {base_model.get_name()}")
 
