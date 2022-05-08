@@ -41,7 +41,7 @@ experiment:
 model:
   # Model types: 'validation_model'. 'local_univariate_arima', 'local_univariate_lstm', 'local_cnn_ae', 'local_cnn_ae_lstm'
   # global
-  config: 'lstm/dataset2'
+  config: 'local_cnn_ae_lstm/dataset-1-scale'
   rng_seed: 42
   model_config:
     placeholder: True
