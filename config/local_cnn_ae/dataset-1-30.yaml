@@ -9,77 +9,37 @@ model:
       output_window_size: 7
       multi_variable_nr: 1
       batch_size: 32
-      number_of_epochs: 100
+      number_of_epochs: 80
       optimizer_name: 'Adam'
       loss: "mae"
       should_shuffle_batches: True
+      learning_rate: 0.0001
+      encoder:
+        - layer: "Conv1d"
+          filters: 32
+          kernel_size: 3
+          activation: "relu"
+          dropout: 0.1
+        - layer: "Conv1d"
+          filters: 32
+          kernel_size: 5
+          activation: "relu"
+          dropout: 0.1
+      decoder:
+        - layer: "Conv1dTranspose"
+          kernel_size: 5
+          filters: 32
+          activation: "relu"
+          dropout: 0.1
+        - layer: "Conv1dTranspose"
+          kernel_size: 3
+          filters: 1
 
     model_structure:
       - time_series_id: 2
-        learning_rate: 0.0001
-        encoder:
-          - layer: "Conv1d"
-            filters: 16
-            kernel_size: 3
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1d"
-            filters: 32
-            kernel_size: 5
-            activation: "relu"
-            dropout: 0.2
-        decoder:
-          - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 32
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1dTranspose"
-            kernel_size: 3
-            filters: 1
-
       - time_series_id: 6
-        learning_rate: 0.0001
-        encoder:
-          - layer: "Conv1d"
-            filters: 16
-            kernel_size: 3
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1d"
-            filters: 32
-            kernel_size: 5
-            activation: "relu"
-            dropout: 0.2
-        decoder:
-          - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 32
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1dTranspose"
-            kernel_size: 3
-            filters: 1
-
       - time_series_id: 9
-        learning_rate: 0.0001
-        encoder:
-          - layer: "Conv1d"
-            filters: 16
-            kernel_size: 3
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1d"
-            filters: 32
-            kernel_size: 5
-            activation: "relu"
-            dropout: 0.2
-        decoder:
-          - layer: "Conv1dTranspose"
-            kernel_size: 5
-            filters: 32
-            activation: "relu"
-            dropout: 0.2
-          - layer: "Conv1dTranspose"
-            kernel_size: 3
-            filters: 1
+      - time_series_id: 10
+      - time_series_id: 11
+      - time_series_id: 13
+      - time_series_id: 20
