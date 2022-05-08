@@ -13,29 +13,24 @@ from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
-    local_univariate_lstm_keras_objective,
-)
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
+    local_univariate_lstm_keras_objective
+from src.pipelines import \
+    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import \
+    LocalCheckpointSaveSource
 from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics,
-    generate_error_metrics_dict,
-    keras_mase,
-    keras_mase_periodic,
-    keras_smape,
-)
+    config_metrics_to_keras_metrics, generate_error_metrics_dict, keras_mase,
+    keras_mase_periodic, keras_smape)
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
-from src.utils.reverse_pipeline import (
-    reverse_decrease_variance,
-    reverse_differencing,
-    reverse_differencing_forecast,
-    reverse_sliding_window,
-)
+from src.utils.reverse_pipeline import (reverse_decrease_variance,
+                                        reverse_differencing,
+                                        reverse_differencing_forecast,
+                                        reverse_sliding_window)
 from src.utils.visuals import visualize_data_series
 
 
@@ -99,6 +94,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         else:
             x_train = self.x_train
             y_train = self.y_train
+
         callback = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
         callbacks = [callback] + xargs.pop("callbacks", [])
         history = self.model.fit(
@@ -115,41 +111,12 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         if not is_tuning:
             self._copy_trained_weights_to_model_with_different_batch_size()
-            # training_predictions, training_targets = self.predict_and_rescale(x_train, y_train)
+            # training_predictions, training_targets = self.predict_and_rescale(x_train, y_train, self.prediction_model)
             training_predictions = self.prediction_model.predict(x_train, batch_size=1)
             validation_predictions = self.prediction_model.predict(self.x_val, batch_size=1)
 
-            training_data_original_scale = self._reverse_pipeline_training(
-                self.training_data_no_windows, self.training_data_without_diff
-            )
-            training_predictions_original_scale = self._reverse_pipeline_training(
-                training_predictions[:, 0], self.training_data_without_diff
-            )
-            self._visualize_predictions(
-                (training_data_original_scale.flatten()),
-                (training_predictions_original_scale.flatten()),
-                "Training predictions original scale",
-            )
-            self._visualize_predictions(
-                (self.training_data_no_windows.flatten()),
-                (training_predictions[:, 0].flatten()),
-                "Training predictions",
-            )
-            self._visualize_predictions(
-                (self.x_train[:, 0, 0].flatten()),
-                (self.y_train[0, 0].flatten()),
-                "Training predictions without validation set",
-            )
-
-            self._visualize_predictions(
-                self.y_val.flatten(),
-                validation_predictions.flatten()
-                if validation_predictions.shape[0] > 1
-                else validation_predictions[:, 0].flatten(),
-                "Validation predictions",
-            )
-            self._visualize_errors(
-                [history["loss"], history["val_loss"]], ["Training_errors", "Validation_errors"]
+            self._no_tuning_visualization_predictions(
+                training_predictions, validation_predictions, history
             )
 
         self.metrics["training_error"] = history["loss"][-1]
@@ -163,26 +130,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         prediction_model = self.init_neural_network(params=params, return_model=True)
         prediction_model.set_weights(trained_weights)
         self.prediction_model = prediction_model
-
-    def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
-        logging.info("Predicting")
-        predictions = self.prediction_model.predict(input_data, batch_size=1)
-        predictions_rescaled = self._rescale_data(predictions)
-        targets_rescaled = self._rescale_data(targets)
-        # predictions_rescaled = self._rescale_data(DataFrame(predictions))
-        # targets_rescaled = self._rescale_data(DataFrame(predictions))
-
-        # After fixing multivariate pipeline there was a bug that made rescaling not work
-        # Therefore this is disabled for now
-        # predictions_rescaled = predictions
-        # targets_rescaled = targets
-
-        return predictions_rescaled, targets_rescaled
-
-    def _rescale_data(self, data: ndarray, scaler=None) -> ndarray:
-        print("rescale data", data.shape)
-        scaler = self.min_max_scaler if scaler is None else scaler
-        return scaler.inverse_transform(data) if scaler is not None else data
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
@@ -207,89 +154,15 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         # Visualize
         self.prediction_model.reset_states()
-        # self.predict_and_rescale(x_train, y_train)
+        # self.predict_and_rescale(x_train, y_train, self.prediction_model)
         self.prediction_model.predict(x_train, batch_size=1)
         test_predictions = self.prediction_model.predict(self.x_test, batch_size=1)
 
-        test_predictions_reversed, test_targets_reversted = self.predict_and_reverse_pipeline(
-            self.x_test, self.y_test, self.min_max_scaler, self.training_data_without_diff
-        )
-
-        # last_period_targets = (
-        #     self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size:])
-        #     if self.min_max_scaler
-        #     else x_test[:, -self.output_window_size:]
-        # )
-        y_true_last_period = self.x_test[:, -self.output_window_size :, 0]
-        last_period_targets = self._reverse_pipeline_training(
-            training_data=y_true_last_period,
-            original_data=self.training_data_without_diff[-self.output_window_size :, :],
-        )
-
-        mase_periode, y_true_last_period = (
-            keras_mase_periodic(
-                y_true=self.y_test,
-                y_true_last_period=last_period_targets,
-                y_pred=test_predictions_reversed,
-            )
-            if self.min_max_scaler is not None
-            else (420, None)
-        )
-
-        # Custom evaluate function with rescale before metrics
-        self.prediction_model.reset_states()
-        self.prediction_model.predict(x_train, batch_size=1)
-        custom_metrics, _ = self.custom_evaluate(
-            x_test=x_test,
-            y_test=y_test,
-        )
-        self.metrics.update(custom_metrics)
-        logging.info("CUSTOM METRRICS-----------\n", custom_metrics)
-        # self.metrics.update(custom_metrics)
-        test_metrics[f"test_MASE_{self.output_window_size}_DAYS"] = mase_periode.numpy()
-        self.metrics.update(custom_metrics)
-
-        self._visualize_predictions(
-            (self.y_test.flatten()),
-            (test_predictions_reversed.flatten()),
-            "Test predictions rescaled",
-        )
-        self._visualize_predictions(
-            (self.y_test.flatten()),
-            (test_predictions.flatten()),
-            "Test predictions not scaled",
-        )
-        self._visualize_predictions_and_last_period(
-            (self.y_test.flatten()),
-            (test_predictions_reversed.flatten()),
-            last_period_targets.flatten(),
-            "Test predictions with last period targets",
-        )
-        x_test_values = self._reverse_pipeline_training(
-            training_data=x_test[:, -self.output_window_size :],
-            original_data=self.training_data_without_diff[-self.output_window_size :],
-        )
-        self._visualize_predictions_with_context(
-            context=x_test_values.flatten(),
-            targets=self.y_test.flatten(),
-            predictions=test_predictions_reversed.flatten(),
-        )
-        self.metrics.update(test_metrics)
-        training_data_original_scale = self._reverse_pipeline_training(
-            self.training_data_no_windows, self.training_data_without_diff
+        # Visualize, measure metrics
+        self._lstm_test_scale_predictions(
+            x_train, y_train, x_test, y_test, test_metrics, test_predictions, self.prediction_model
         )
         return self.metrics
-
-    def predict_and_reverse_pipeline(
-        self, input_data: ndarray, targets: ndarray, min_max_scaler: StandardScaler, original_data
-    ) -> ndarray:
-        # reverse training data
-        logging.info("Predicting")
-        predictions = self.prediction_model.predict(input_data, batch_size=1)
-        predictions_reversed_pipeline = self._reverse_pipeline(
-            predictions, min_max_scaler, original_data
-        )
-        return predictions_reversed_pipeline, targets
 
     def method_evaluation(
         self,
@@ -348,9 +221,6 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         return {id: {"best_score": best_score, "best_params": best_params}}
 
-    def get_model(self):
-        return self.model
-
     def save(self, path: str) -> str:
         save_path = f"{path}{self.get_name()}.h5"
         self.model.save_weights(save_path)
@@ -359,80 +229,3 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
     def load(self, path: str) -> None:
         load_path = f"{path}{self.get_name()}.h5"
         self.model.load_weights(load_path)
-
-    def custom_evaluate(self, x_test, y_test, scaler: StandardScaler = None):
-        scaler = self.min_max_scaler if scaler is None else scaler
-        predictions = self.prediction_model.predict(x_test, batch_size=1)
-
-        predictions_re_composed = self._reverse_pipeline(
-            predictions, scaler, self.training_data_without_diff
-        )
-        # TODO Post processing
-        results = {}
-        kerast_metrics_to_calculate = [
-            tf.keras.metrics.MeanSquaredError,
-            tf.keras.metrics.MeanAbsoluteError,
-            tf.keras.metrics.MeanAbsolutePercentageError,
-        ]
-
-        for metric_func in kerast_metrics_to_calculate:
-            metric = metric_func()
-            metric.update_state(y_test, predictions_re_composed)
-            results[metric.name] = metric.result().numpy()
-        results["mase"] = keras_mase(y_true=y_test, y_pred=predictions_re_composed).numpy()
-        results["smape"] = keras_smape(y_true=y_test, y_pred=predictions_re_composed)
-        return results, predictions
-
-    def _reverse_pipeline(self, predictions, min_max_scaler, original_data):
-        predictions_scaled = self._rescale_data(predictions, min_max_scaler)
-        # predictions_reversed_diff = reverse_differencing_forecast(
-        #     noise=predictions_scaled, last_observed=original_data[-1]
-        # )
-        predictions_reversed_diff = predictions_scaled
-        # predictions_added_variance = reverse_decrease_variance(predictions_reversed_diff)
-        predictions_added_variance = predictions_reversed_diff
-
-        return predictions_added_variance
-
-    def _reverse_pipeline_training(self, training_data, original_data, scaler=None):
-        # visualize_data_series(
-        #     title=f"original data",
-        #     data_series=[training_data],
-        #     data_labels=["Targets", ],
-        #     colors=["blue",],
-        #     x_label="Time",
-        #     y_label="Interest",
-        # ).savefig("original_training_data_before_post_prosessing.png")
-
-        rescaled = self._rescale_data(training_data.reshape(1, -1), scaler=scaler)
-        # visualize_data_series(
-        #     title=f"rescaled data",
-        #     data_series=[rescaled],
-        #     data_labels=["Targets", ],
-        #     colors=["blue",],
-        #     x_label="Time",
-        #     y_label="Interest",
-        # ).savefig("rescaled_data.png")
-
-        # reverse_diff = reverse_differencing(rescaled, original_data)
-        reverse_diff = rescaled
-
-        # visualize_data_series(
-        #     title=f"re-reverse_diff",
-        #     data_series=[reverse_diff],
-        #     data_labels=["Targets", ],
-        #     colors=["blue",],
-        #     x_label="Time",
-        #     y_label="Interest",
-        # ).savefig("re-reverse-diff.png")
-        # increase_variance = reverse_decrease_variance(reverse_diff)
-        increase_variance = reverse_diff
-        # visualize_data_series(
-        #     title=f"incverage_variance",
-        #     data_series=[increase_variance],
-        #     data_labels=["Targets", ],
-        #     colors=["blue",],
-        #     x_label="Time",
-        #     y_label="Interest",
-        # ).savefig("increase_variances.png")
-        return increase_variance

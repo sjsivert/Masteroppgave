@@ -19,6 +19,7 @@ from src.utils.keras_error_calculations import (
     generate_error_metrics_dict,
     keras_mase_periodic,
 )
+from src.utils.config_parser import config
 from src.pipelines import local_univariate_lstm_pipeline as lstm_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
@@ -121,15 +122,8 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         if not tuning:
             training_predictions = self.model.predict(self.x_train, batch_size=self.batch_size)
             validation_predictions = self.model.predict(self.x_val, batch_size=self.batch_size)
-            self._visualize_predictions(
-                tf.reshape(self.y_train, (-1,)),
-                tf.reshape(training_predictions, (-1,)),
-                "Training predictions",
-            )
-            self._visualize_predictions(
-                tf.reshape(self.y_val, (-1,)),
-                tf.reshape(validation_predictions, (-1,)),
-                "Validation predictions",
+            self._no_tuning_visualization_predictions(
+                training_predictions, validation_predictions, history
             )
         return {
             "training_error": history["loss"][0],
@@ -143,15 +137,13 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         # Copy LSTM weights for different batch sizes
         self._copy_trained_weights_to_model_with_different_batch_size()
 
-        logging.info("Testing CNN-AE model")
-        # Test AE model
-        ae_test_predictions = self.ae.predict(x_test, batch_size=1)
-        self._visualize_predictions(
-            tf.reshape(x_test, (-1,)),
-            tf.reshape(ae_test_predictions, (-1,)),
-            "AE Test predictions",
-        )
+        # Test Auto encoder
+        self.test_auto_encoder(x_test)
 
+        # Test LSTM model
+        self.test_lstm(x_train, y_train, x_test, y_test)
+
+    def test_lstm(self, x_train, y_train, x_test, y_test):
         # Evaluate model
         self.model.lstm.reset_states()
         results: List[float] = self.model.evaluate(
@@ -170,52 +162,24 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         # Visualize
         # Copy LSTM weights for different batch sizes
         self.model.lstm.reset_states()
-        self.predict_and_rescale(x_train, y_train)
-        test_predictions, test_targets = self.predict_and_rescale(self.x_test, self.y_test)
-        last_period_targets = (
-            self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size :, 0])
-            if self.min_max_scaler
-            else x_test[:, -self.output_window_size :, 0]
-        )
-        mase_periode, y_true_last_period = keras_mase_periodic(
-            y_true=test_targets, y_true_last_period=last_period_targets, y_pred=test_predictions
-        )
-        test_metrics[f"test_MASE_{len(self.x_test)}_DAYS"] = mase_periode.numpy()
+        self.model.predict(x_train, batch_size=1)
+        test_predictions = self.model.predict(self.x_test, batch_size=1)
 
-        self._visualize_predictions(
-            tf.reshape(test_targets, (-1,)),
-            tf.reshape(test_predictions, (-1,)),
-            "Test predictions",
+        # Visualize, measure metrics
+        self._lstm_test_scale_predictions(
+            x_train, y_train, x_test, y_test, test_metrics, test_predictions, self.model
         )
-        self._visualize_predictions_and_last_period(
-            (test_targets.flatten()),
-            (test_predictions.flatten()),
-            last_period_targets.flatten(),
-            "Test predictions with last period targets",
-        )
-        x_test_values = (
-            self.min_max_scaler.inverse_transform(x_test[:, :, 0])
-            if self.min_max_scaler
-            else x_test[:, :, 0]
-        )
-        x_test_values_flattened = x_test_values.flatten()
-        self._visualize_predictions_with_context(
-            context=x_test_values_flattened,
-            targets=test_targets.flatten(),
-            predictions=test_predictions.flatten(),
-        )
-        self.metrics.update(test_metrics)
         return self.metrics
 
-    def _rescale_data(self, data: ndarray) -> ndarray:
-        return self.min_max_scaler.inverse_transform(data)
-
-    def predict_and_rescale(self, input_data: ndarray, targets: ndarray) -> ndarray:
-        logging.info("Predicting")
-        predictions = self.model.predict(input_data, batch_size=1)
-        predictions_rescaled = self._rescale_data(predictions)
-        targets_rescaled = self._rescale_data(targets)
-        return predictions_rescaled, targets_rescaled
+    def test_auto_encoder(self, x_test):
+        logging.info("Testing CNN-AE model")
+        # Test AE model
+        ae_test_predictions = self.ae.predict(x_test, batch_size=1)
+        self._visualize_predictions(
+            tf.reshape(x_test, (-1,)),
+            tf.reshape(ae_test_predictions, (-1,)),
+            "AE Test predictions",
+        )
 
     def _copy_trained_weights_to_model_with_different_batch_size(self) -> None:
         trained_lstm_weights = self.model.lstm.get_weights()
