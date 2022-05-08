@@ -3,9 +3,7 @@ import typing
 from typing import Any, List, Optional, OrderedDict, Tuple
 
 from genpipes.compose import Pipeline
-from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
 from src.data_types.lstm_keras_model import LstmKerasModel
-from src.data_types.lstm_model import LstmModel
 from src.model_strutures.neural_net_model_structure import NeuralNetworkModelStructure
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
 
