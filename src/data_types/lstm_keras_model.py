@@ -402,7 +402,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
 
         return predictions_added_variance
 
-    def _reverse_pipeline_training(self, training_data, original_data):
+    def _reverse_pipeline_training(self, training_data, original_data, scaler=None):
         # visualize_data_series(
         #     title=f"original data",
         #     data_series=[training_data],
@@ -412,7 +412,7 @@ class LstmKerasModel(NeuralNetKerasModel, ABC):
         #     y_label="Interest",
         # ).savefig("original_training_data_before_post_prosessing.png")
 
-        rescaled = self._rescale_data(training_data.reshape(1, -1))
+        rescaled = self._rescale_data(training_data.reshape(1, -1), scaler=scaler)
         # visualize_data_series(
         #     title=f"rescaled data",
         #     data_series=[rescaled],

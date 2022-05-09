@@ -234,32 +234,40 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             test_predictions_reversed, test_targets_reversed = self.predict_and_reverse_pipeline(
                 x_test, y_test, self.scalers[i], self.training_data_without_diff
             )
-            test_predictions, test_targets = self.predict_and_rescale(
-                x_test, y_test, self.scalers[i]
-            )
+            # test_predictions, test_targets = self.predict_and_rescale(
+            #     x_test, y_test, self.scalers[i]
+            # )
 
+            # self._visualize_predictions(
+            #     (test_targets.flatten()),
+            #     (test_predictions.flatten()),
+            #     f"Test predictions not rescaled for {testing_set_name}",
+            # )
             self._visualize_predictions(
-                (test_targets.flatten()),
-                (test_predictions.flatten()),
-                f"Test predictions not rescaled for {testing_set_name}",
-            )
-            self._visualize_predictions(
-                (test_targets.flatten()),
+                (y_test.flatten()),
                 (test_predictions_reversed.flatten()),
                 f"Test predictions rescaled for {testing_set_name}",
             )
-            self._visualize_predictions_with_context(
-                context=x_test.flatten(),
-                targets=test_targets.flatten(),
-                predictions=test_predictions.flatten(),
-            )
-            y_true_last_period = self.x_test[i, -self.output_window_size :, -1]
+            y_true_last_period = x_test[0, -self.output_window_size :, 0]
             last_period_targets = self._reverse_pipeline_training(
                 training_data=y_true_last_period,
                 original_data=self.training_data_without_diff[-self.output_window_size :, :],
+                scaler=self.scalers[i],
+            )
+            self._visualize_predictions_with_context(
+                context=last_period_targets.flatten(),
+                targets=y_test.flatten(),
+                predictions=test_predictions_reversed.flatten(),
+                name={i},
+            )
+            self._visualize_predictions_and_last_period(
+                (y_test.flatten()),
+                (test_predictions_reversed.flatten()),
+                last_period_targets.flatten(),
+                f"Test predictions with last period targets {i}",
             )
             mase_seven_days, y_true_last_period = keras_mase_periodic(
-                y_true=test_targets,
+                y_true=y_test,
                 y_true_last_period=last_period_targets,
                 y_pred=test_predictions_reversed,
             )

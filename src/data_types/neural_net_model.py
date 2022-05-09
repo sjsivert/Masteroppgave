@@ -277,12 +277,12 @@ class NeuralNetModel(IModel, ABC):
             )
         )
 
-    def _visualize_predictions_with_context(self, context, targets, predictions):
+    def _visualize_predictions_with_context(self, context, targets, predictions, name: str = ""):
         context_axis = [x for x in range(len(context))]
         predictions_axis = [x + len(context) for x in range(len(predictions))]
         self.figures.append(
             visualize_data_series_with_specified_x_axis(
-                title=f"{self.get_name()}# Test predictions with context",
+                title=f"{self.get_name()}# Test predictions with context_{name}",
                 data_series=[context, targets, predictions],
                 data_axis=[context_axis, predictions_axis, predictions_axis],
                 data_labels=["Contextual Data", "Targets", "Prediction"],
