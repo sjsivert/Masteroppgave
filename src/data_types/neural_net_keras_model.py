@@ -385,10 +385,13 @@ class NeuralNetKerasModel(IModel, ABC):
         # Custom evaluate function with rescale before metrics
         model.reset_states()
         model.predict(x_train, batch_size=1)
-        custom_metrics, _ = self.custom_evaluate(x_test=x_test, y_test=y_test, model=model)
+        custom_metrics, _ = self.custom_evaluate(
+            x_test=x_test, y_test=y_test, model=model, scaler=self.min_max_scaler
+        )
         self.metrics.update(custom_metrics)
         logging.info("CUSTOM METRRICS-----------\n", custom_metrics)
         # self.metrics.update(custom_metrics)
+        print("Mase", mase_periode)
         test_metrics[f"test_MASE_{self.output_window_size}_DAYS"] = mase_periode.numpy()
         self.metrics.update(custom_metrics)
 
