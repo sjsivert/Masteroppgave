@@ -1,6 +1,6 @@
 import logging
 import typing
-from typing import Any, List, Optional, OrderedDict, Tuple
+from typing import Any, List, Optional, OrderedDict, Tuple, Dict
 
 from src.data_types.cnn_ae_lstm_global_model_keras import CnnAELstmKerasGlobalModel
 from src.data_types.lstm_keras_model import LstmKerasModel
@@ -29,6 +29,9 @@ class GlobalCnnAELstmStructure(NeuralNetworkModelStructure):
                 time_series_ids=self.datasets,
             )
         )
+
+    def get_metrics(self) -> Dict:
+        return self.models[0].get_metrics()
 
     def auto_tuning(self) -> None:
         """

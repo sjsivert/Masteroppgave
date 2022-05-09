@@ -163,6 +163,7 @@ class CnnAELstmKerasGlobalModel(CNNAELSTMModel, ABC):
         logging.info("Testing")
         self._copy_trained_weights_to_model_with_different_batch_size()
 
+        global_metrics = {}
         for i in range(len(self.x_test_seperated)):
             testing_set_name = self.time_series_ids[i]
             self.name = testing_set_name
@@ -180,5 +181,8 @@ class CnnAELstmKerasGlobalModel(CNNAELSTMModel, ABC):
             self.test_auto_encoder(x_test)
 
             # Test LSTM
-            self.test_lstm(x_train, y_train, x_test, y_test)
+            metrics = self.test_lstm(x_train, y_train, x_test, y_test)
+
+            global_metrics[testing_set_name] = metrics.copy()
+        self.metrics = global_metrics
         return self.metrics
