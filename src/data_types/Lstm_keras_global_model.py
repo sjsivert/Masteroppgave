@@ -197,6 +197,7 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
     def test(self, predictive_period: int = 7, single_step: bool = False) -> Dict:
         logging.info("Testing")
+        global_metrics = {}
 
         for i in range(len(self.x_test_seperated)):
             testing_set_name = self.time_series_ids[i]
@@ -275,7 +276,11 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
             )
             test_metrics[f"test_MASE_7_DAYS_{i}"] = mase_seven_days.numpy()
 
+            # Create global metrics, one for each series
             self.metrics.update(test_metrics)
+            global_metrics[testing_set_name] = self.metrics.copy()
+
+        self.metrics = global_metrics
         # Run predictions on all data as well!
         # super().test()
         return self.metrics

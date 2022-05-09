@@ -30,6 +30,9 @@ class GlobalLstmStructure(NeuralNetworkModelStructure):
             )
         )
 
+    def get_metrics(self) -> Dict:
+        return self.models[0].get_metrics()
+
     def auto_tuning(self) -> None:
         """
         Automatic tuning of the model
