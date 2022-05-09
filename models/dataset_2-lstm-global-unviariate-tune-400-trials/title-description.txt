@@ -1,0 +1,2 @@
+dataset_2-lstm-global-unviariate-tune-400-trials
+Final tune for dataset 2 lstm global unviariate. After smape fix
