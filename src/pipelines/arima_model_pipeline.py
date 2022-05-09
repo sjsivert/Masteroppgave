@@ -23,7 +23,7 @@ def arima_model_pipeline(data_set: DataFrame, cat_id: str, forecast_size: int) -
                 {"cat_id": cat_id},),
             ("choose columns 'interest' and 'date'", market_processing.choose_columns, {"columns": ["date", "interest"]}),
             ("fill in dates with zero values", market_processing.fill_in_dates, {}),
-            (f"Scaling data?: False", market_processing.scale_data, {"should_scale": False}),
+            (f"...", market_processing.dont_scale, {}),
             (f"split up into training set and test set of forecast window size{forecast_size})",
              market_processing.split_into_training_and_test_forecast_window_arima,
                 {"forecast_window_size": forecast_size, "input_window_size": 0}),
