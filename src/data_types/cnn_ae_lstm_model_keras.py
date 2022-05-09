@@ -163,7 +163,7 @@ class CNNAELSTMModel(NeuralNetKerasModel):
         # Copy LSTM weights for different batch sizes
         self.model.lstm.reset_states()
         self.model.predict(x_train, batch_size=1)
-        test_predictions = self.model.predict(self.x_test, batch_size=1)
+        test_predictions = self.model.predict(x_test, batch_size=1)
 
         # Visualize, measure metrics
         self._lstm_test_scale_predictions(

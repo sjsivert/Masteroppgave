@@ -13,24 +13,29 @@ from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 from src.data_types.modules.lstm_keras_module import LstmKerasModule
 from src.data_types.neural_net_keras_model import NeuralNetKerasModel
-from src.optuna_tuning.local_univariate_lstm_keras_objecktive import \
-    local_univariate_lstm_keras_objective
-from src.pipelines import \
-    local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.optuna_tuning.local_univariate_lstm_keras_objecktive import (
+    local_univariate_lstm_keras_objective,
+)
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
 from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.local_checkpoint_save_source import \
-    LocalCheckpointSaveSource
+from src.save_experiment_source.local_checkpoint_save_source import LocalCheckpointSaveSource
 from src.utils.config_parser import config, update_config_lstm_params
 from src.utils.keras_error_calculations import (
-    config_metrics_to_keras_metrics, generate_error_metrics_dict, keras_mase,
-    keras_mase_periodic, keras_smape)
+    config_metrics_to_keras_metrics,
+    generate_error_metrics_dict,
+    keras_mase,
+    keras_mase_periodic,
+    keras_smape,
+)
 from src.utils.keras_optimizer import KerasOptimizer
 from src.utils.lr_scheduler import scheduler
 from src.utils.prettify_dict_string import prettify_dict_string
-from src.utils.reverse_pipeline import (reverse_decrease_variance,
-                                        reverse_differencing,
-                                        reverse_differencing_forecast,
-                                        reverse_sliding_window)
+from src.utils.reverse_pipeline import (
+    reverse_decrease_variance,
+    reverse_differencing,
+    reverse_differencing_forecast,
+    reverse_sliding_window,
+)
 from src.utils.visuals import visualize_data_series
 
 

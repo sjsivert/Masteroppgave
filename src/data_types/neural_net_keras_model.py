@@ -361,14 +361,14 @@ class NeuralNetKerasModel(IModel, ABC):
         self, x_train, y_train, x_test, y_test, test_metrics, test_predictions, model
     ):
         test_predictions_reversed, test_targets_reversted = self.predict_and_reverse_pipeline(
-            self.x_test, self.y_test, self.min_max_scaler, self.training_data_without_diff, model
+            x_test, y_test, self.min_max_scaler, self.training_data_without_diff, model
         )
         # last_period_targets = (
         #     self.min_max_scaler.inverse_transform(x_test[:, -self.output_window_size:])
         #     if self.min_max_scaler
         #     else x_test[:, -self.output_window_size:]
         # )
-        y_true_last_period = self.x_test[:, -self.output_window_size :, 0]
+        y_true_last_period = x_test[:, -self.output_window_size :, 0]
         last_period_targets = self._reverse_pipeline_training(
             training_data=y_true_last_period,
             original_data=self.training_data_without_diff[-self.output_window_size :, :],
@@ -376,7 +376,7 @@ class NeuralNetKerasModel(IModel, ABC):
 
         mase_periode, y_true_last_period = (
             keras_mase_periodic(
-                y_true=self.y_test,
+                y_true=y_test,
                 y_true_last_period=last_period_targets,
                 y_pred=test_predictions_reversed,
             )
@@ -399,7 +399,7 @@ class NeuralNetKerasModel(IModel, ABC):
 
         # Visualize
         self._visualize_test_predictions(
-            test_predictions_reversed, test_predictions, last_period_targets, x_test
+            test_predictions_reversed, test_predictions, last_period_targets, x_test, y_test
         )
 
         self.metrics.update(test_metrics)
@@ -408,20 +408,20 @@ class NeuralNetKerasModel(IModel, ABC):
         )
 
     def _visualize_test_predictions(
-        self, test_predictions_reversed, test_predictions, last_period_targets, x_test
+        self, test_predictions_reversed, test_predictions, last_period_targets, x_test, y_test
     ):
         self._visualize_predictions(
-            (self.y_test.flatten()),
+            (y_test.flatten()),
             (test_predictions_reversed.flatten()),
             "Test predictions rescaled",
         )
         self._visualize_predictions(
-            (self.y_test.flatten()),
+            (y_test.flatten()),
             (test_predictions.flatten()),
             "Test predictions not scaled",
         )
         self._visualize_predictions_and_last_period(
-            (self.y_test.flatten()),
+            (y_test.flatten()),
             (test_predictions_reversed.flatten()),
             last_period_targets.flatten(),
             "Test predictions with last period targets",
@@ -432,7 +432,7 @@ class NeuralNetKerasModel(IModel, ABC):
         )
         self._visualize_predictions_with_context(
             context=x_test_values.flatten(),
-            targets=self.y_test.flatten(),
+            targets=y_test.flatten(),
             predictions=test_predictions_reversed.flatten(),
         )
 

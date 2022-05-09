@@ -177,7 +177,7 @@ class CnnAELstmKerasGlobalModel(CNNAELSTMModel, ABC):
             )
 
             # Test AE
-            self.test_auto_encoder(x_train)
+            self.test_auto_encoder(x_test)
 
             # Test LSTM
             self.test_lstm(x_train, y_train, x_test, y_test)
