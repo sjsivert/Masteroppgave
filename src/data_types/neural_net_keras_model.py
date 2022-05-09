@@ -39,8 +39,8 @@ class NeuralNetKerasModel(IModel, ABC):
         time_series_id: str,
         params: Dict,
         optuna_trial: Optional[optuna.trial.Trial] = None,
-        # pipeline: Any = lstm_keras_pipeline.local_univariate_lstm_keras_pipeline
-        pipeline: Any = multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
+        pipeline: Any = lstm_keras_pipeline.local_univariate_lstm_keras_pipeline
+        # pipeline: Any = multivariate_pipeline.local_multivariate_lstm_keras_pipeline,
     ):
         # Init global variables
         self.model = None
@@ -221,7 +221,9 @@ class NeuralNetKerasModel(IModel, ABC):
 
         return predictions_added_variance
 
-    def _reverse_pipeline_training(self, training_data, original_data, scaler: StandardScaler = None):
+    def _reverse_pipeline_training(
+        self, training_data, original_data, scaler: StandardScaler = None
+    ):
         # visualize_data_series(
         #     title=f"original data",
         #     data_series=[training_data],
