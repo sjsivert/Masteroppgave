@@ -209,6 +209,13 @@ def scale_down_outliers(
         yield removed_outliers, test_data
 
 @declare.processor()
+def dont_scale(
+    stream: Iterable[ndarray], should_scale: bool = False
+):
+    for df in stream:
+        yield (df, None)
+
+@declare.processor()
 def scale_data(
     stream: Iterable[ndarray], should_scale: bool = False
 ) -> (Iterable[ndarray], Optional[MinMaxScaler]):  # pragma: no cover
