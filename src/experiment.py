@@ -5,6 +5,7 @@ from genpipes.compose import Pipeline
 from pandas import DataFrame
 
 from src.data_types.model_type_enum import ModelStructureEnum
+from src.model_strutures.global_cnn_ae_lstm_structure import GlobalCnnAELstmStructure
 from src.model_strutures.global_lstm_structure import GlobalLstmStructure
 from src.model_strutures.i_model_structure import IModelStructure
 from src.model_strutures.local_univariate_arima_structure import LocalUnivariateArimaStructure
@@ -184,6 +185,17 @@ class Experiment:
                         "hyperparameter_tuning_range"
                     ],
                     **model_options["model_config"]["global_model"],
+                )
+            elif model_structure == ModelStructureEnum.global_univariate_cnn_ae_lstm:
+                self.model_structure = GlobalCnnAELstmStructure(
+                    self.save_sources,
+                    hyperparameter_tuning_range=model_options["model_config"][
+                        "hyperparameter_tuning_range"
+                    ],
+                    model_structure=model_options["model_config"][
+                        "common_parameters_for_all_models"
+                    ],
+                    datasets=model_options["model_config"]["model_structure"],
                 )
 
             logging.info(f"Choosing model structure: {self.model_structure}")
