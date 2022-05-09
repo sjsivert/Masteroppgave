@@ -1,6 +1,6 @@
 import logging
 import typing
-from typing import Any, List, Optional, OrderedDict, Tuple
+from typing import Any, List, Optional, OrderedDict, Tuple, Dict
 
 from src.data_types.Lstm_keras_global_model import LstmKerasGlobalModel
 from src.data_types.lstm_keras_model import LstmKerasModel

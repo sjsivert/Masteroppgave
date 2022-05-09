@@ -201,8 +201,10 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
         for i in range(len(self.x_test_seperated)):
             testing_set_name = self.time_series_ids[i]
+            self.name = testing_set_name
             x_test = self.x_test_seperated[i]
             y_test = self.y_test_seperated[i]
+            self.min_max_scaler = self.scalers[i]
             x_train = np.concatenate(
                 [self.x_train_seperated_with_val_set[i], self.x_val_seperated[i]], axis=0
             )
@@ -217,68 +219,29 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
                 y_train,
                 batch_size=1,
             )
-            custom_metrics, _ = self.custom_evaluate(
-                x_test, y_test, self.prediction_model, scaler=self.scalers[i]
-            )
-            for key, value in custom_metrics.items():
-                self.metrics[f"{key}_proper_scale_{i}"] = value
-
             results: List[float] = self.prediction_model.evaluate(
                 x_test,
                 y_test,
                 batch_size=1,
             )
-            # Remove first element because it it is a duplication of the second element.
-            test_metrics = generate_error_metrics_dict(results[1:], prefix=testing_set_name)
+            # Remove first element because it is a duplication of the second element.
+            test_metrics = generate_error_metrics_dict(results[1:])
 
             # Visualize
+            # Copy LSTM weights for different batch sizes
             self.prediction_model.reset_states()
-            self.predict_and_rescale(x_train, y_train, self.scalers[i])
-            test_predictions_reversed, test_targets_reversed = self.predict_and_reverse_pipeline(
-                x_test, y_test, self.scalers[i], self.training_data_without_diff
-            )
-            # test_predictions, test_targets = self.predict_and_rescale(
-            #     x_test, y_test, self.scalers[i]
-            # )
+            self.prediction_model.predict(x_train, batch_size=1)
+            test_predictions = self.prediction_model.predict(x_test, batch_size=1)
 
-            # self._visualize_predictions(
-            #     (test_targets.flatten()),
-            #     (test_predictions.flatten()),
-            #     f"Test predictions not rescaled for {testing_set_name}",
-            # )
-            self._visualize_predictions(
-                (y_test.flatten()),
-                (test_predictions_reversed.flatten()),
-                f"Test predictions rescaled for {testing_set_name}",
+            # Visualize, measure metrics
+            self._lstm_test_scale_predictions(
+                x_train, y_train, x_test, y_test, test_metrics, test_predictions, self.prediction_model
             )
-            y_true_last_period = x_test[0, -self.output_window_size :, 0]
-            last_period_targets = self._reverse_pipeline_training(
-                training_data=y_true_last_period,
-                original_data=self.training_data_without_diff[-self.output_window_size :, :],
-                scaler=self.scalers[i],
-            )
-            self._visualize_predictions_with_context(
-                context=last_period_targets.flatten(),
-                targets=y_test.flatten(),
-                predictions=test_predictions_reversed.flatten(),
-                name={i},
-            )
-            self._visualize_predictions_and_last_period(
-                (y_test.flatten()),
-                (test_predictions_reversed.flatten()),
-                last_period_targets.flatten(),
-                f"Test predictions with last period targets {i}",
-            )
-            mase_seven_days, y_true_last_period = keras_mase_periodic(
-                y_true=y_test,
-                y_true_last_period=last_period_targets,
-                y_pred=test_predictions_reversed,
-            )
-            test_metrics[f"test_MASE_7_DAYS_{i}"] = mase_seven_days.numpy()
 
             # Create global metrics, one for each series
             self.metrics.update(test_metrics)
             global_metrics[testing_set_name] = self.metrics.copy()
+            self.metrics = {}
 
         self.metrics = global_metrics
         # Run predictions on all data as well!
