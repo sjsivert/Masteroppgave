@@ -1,0 +1,99 @@
+model:
+  rng_seed: 42
+  model_type: 'local_univariate_arima'
+  model_config:
+    forecast_window_size: 7
+    steps_to_predict: 7
+    multi_step_forecast: true # alternative is recursive single step
+    auto_arima: true
+    seasonal: true
+    # Ranges used for autotuning if --tune parameter is set
+    hyperparameter_tuning_range:
+      p: [1, 7]
+      d: [1, 7]
+      q: [1, 7]
+      P: [0, 5]
+      D: [0, 5]
+      Q: [0, 5]
+      s: [12, 12]
+
+    # metric_to_use_when_tuning: 'MASE'
+    metric_to_use_when_tuning: 'MAE'
+
+    model_structure:
+      -   time_series_id: 12322
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 11428
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 11850
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 11852
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 273
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 11036
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 11213
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+      -   time_series_id: 12532
+          hyperparameters:
+            p: 4 
+            d: 1
+            q: 2
+            D: 0
+            P: 0
+            Q: 0
+            s: 12
+            P: 0
+            Q: 0
+            s: 12
+ 

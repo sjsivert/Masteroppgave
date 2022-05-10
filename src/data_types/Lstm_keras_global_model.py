@@ -235,7 +235,13 @@ class LstmKerasGlobalModel(LstmKerasModel, ABC):
 
             # Visualize, measure metrics
             self._lstm_test_scale_predictions(
-                x_train, y_train, x_test, y_test, test_metrics, test_predictions, self.prediction_model
+                x_train,
+                y_train,
+                x_test,
+                y_test,
+                test_metrics,
+                test_predictions,
+                self.prediction_model,
             )
 
             # Create global metrics, one for each series
