@@ -1,22 +1,27 @@
 \section{Pytorch vs Keras}
 \label{section:method:pytorch-vs-keras}
 \todo[inline]{Should we ad the actual experiment results here, or is that too much?}
-We did some prototype testing when choosing which framework to use for
-building the neural networks.
-Our two candidates was Keras and Pytorch.
-In two different jupyter notebooks
-we implemented a simple LSTM network in both frameworks with the exact same
-hyperparameters. Then we ran some experiments, changing the hyperparameters,
-but always using the same parameters on both models.
+\todo[inline]{Are we sure this was not just data shuffeling or something to that extent?}
+\todo[inline]{We should realy revisit these notebooks if we are going to add this section to the thesis.}
+
+
+When developing the experiment framework, strange results were encountered when creating deep learning methods.
+During model prototyping and testing of the two deep learning frameworks ``pytorch'' and ``keras''
+different results were achieved.
+The same model structures were created in two different jupyter notebooks.
+A simple LSTM model were implemented in both frameworks using the exact same hyperparameters.
+Using our dataset and several different model parameters we found a stagering difference in predictive results.
+
 Our results found that Keras outperformed Pytorch by roughly 20\% each time.
 These perfomance differences was suriprisingly big between the two.
-The only reason we could find that explain this is
+The only reasons we could find that explain this are
 \begin{enumerate}
   \item We did something wrong while implementing Pytorch LSTM.
   \item There are some default parameters which we did not know about, and Keras
         default parameters was better tuned for this problem than Pytorch.
 \end{enumerate}
-Explenation one is plausible, as Pytorch requires a lot more understanding
+
+Of the two, the first explanation is the most plausable as Pytorch requires a lot more understanding
 of the inner workings of a method in order to implement it.
 LSTMs are also a quite advanced method. Our Pytorch model did in fact learn
 from the data. Nothing seemed wrong on the surface, it just did underperform compared to Keras.
@@ -31,5 +36,6 @@ The initial parameters were:
   \item batch size: 39
   \item hidden state: 50
 \end{itemize}
-Because of this we ended up using Keras in our experiments. And we can not
-garantee reproducible results with the Pytorch framework.
+
+Because of this problems we ended up using Keras in our experiments.
+We can therefor not garantee reproducible results using the Pytorch framework.
