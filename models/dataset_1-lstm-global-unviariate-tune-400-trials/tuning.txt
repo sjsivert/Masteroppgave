@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54
+
+Parameters: 2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54,51
+ Error: best_score:0.4569306969642639,best_params:{'batch_size': 32, 'learning_rate': 0.009637741296955573, 'number_of_epochs': 3, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': '2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54', 'layers': [OrderedDict([('hidden_size', 48), ('dropout', 0.17026125315119903), ('recurrent_dropout', 0.24717953653201977)])]}
