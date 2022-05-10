@@ -4,17 +4,18 @@ In order to make it easier to execute multiple experiments, which all saved
 enough metadata for the experiment to be recreatable and repeatable we made
 a framework.
 
+\todo[inline]{Do we need to name the framework?}
 The framework is called \textit{"Experimently"}. It can be deconstructed into
 four main modules. The configuration module, data processing module, experiment module, and the save experiment module.
 
 
 \subsection{Pipeline module}
 \label{section:Method:Pipeline}
-The data processing module's two main goals are, one, to keep all data processing steps,
-in one place, and two to have a self-documenting data module that easily can
-save every single processing step done to the data sets before the
-experiments get conducted.
-An example of a pipeline steps output are shown in \Cref{table:base_data_processing_steps}
+The data processing module have two fucntions.
+The first one is to streamline all data processing steps and structure them in one shared place.
+Secondly, to have a self-documenting data module that can easily save
+every processing step applied to the data before the experiments are executed.
+Examples of a pipeline steps output are shown in \Cref{table:base_data_processing_steps}
 and in \Cref{table:lstm_data_processing_steps}.
 
 \begin{table}[h]
@@ -53,6 +54,7 @@ and in \Cref{table:lstm_data_processing_steps}.
     \bottomrule
   \end{tabular}
 \end{table}
+
 % TODO: Do we need the ARIMA pipline steps as well? I think it might be overkill.
 % commented out for now..
 %\begin{table}[h]
@@ -78,7 +80,39 @@ and in \Cref{table:lstm_data_processing_steps}.
 %With the aim of running several experiments with ease, a experiment pipeline was created in this project.
 %Running a project is done through the use of the shared pipeline, through the use of different data pipelines, model structure and model implementations, and different configureations.
 
+Multiple pipelines were created in order to support all the different experiments.
+While the deep learning methods such as the LSTM and the hybrid model only need two shared pipelines,
+one for univariate and one for multivariate,
+other experiments such as the SARIMA is in need of other pipelines.
+These pipelines are designed with the aim of modularity,
+making the expansion of multiple pipelines with multiple shared steps easy.
+
+
+
+
 \subsection{Config module}
+The configuration module is created with the aim of making model selection and configuration more easily accessable.
+Using separate configuration files for model configurations,
+the ammount of code that need to be changed for the different experiments are reduced.
+Additionaly, by logging the configuration of models for each experiment,
+backtracking the results of different configurations are more accessable.
+
+The configuration is done through the use of two separate ``.yaml'' files.
+The first one is the ``config.yaml'' file.
+This contains information that is shared among all of the different experiments,
+such as the selected data files, random seeds, logged error metrics etc.
+Secondly, a separate configuration file contains the information more relevant to the spesific experiment.
+These configuration files are contained within the ``config'' folder,
+and contain information such as the selected predictive model for the experiment,
+as well as the model hyper parameters and tuning parameters. 
+
+During runtime, the two configuration files are merged, adding the information from the model configuration to the more general experimen configuration.
+The config is parsed through at runtime reading the needed information when it becomes relevant.
+An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}, but is also available with the project source code.
+
+
+% Old text
+\iffalse
 The configuration module is to keep everything which is configurable and relevant
 for the experiment in one place. This helps keeping code changes down to a minumum,
 and it's easy to go back in time and check details of a ran experiment at a glans.
@@ -91,8 +125,12 @@ Ranging from the selected dataset and data files to be used, to the selected mod
 The config is parsed through at runtime reading the needed information when it becomes relevant.
 The file can be found in the source code at ``./config.yaml''.
 An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}.
+\fi
+
+
 
 \subsection{Save Experiment module}
+
 The save source module handled everything related to logging and saving an experiment.
 Each experiment is associated with an unique descriptive ID and a description text to easily
 differentiate between experiments.
@@ -153,3 +191,4 @@ named \textit{neptune.ai}
 python packages used for the experimental setup and their respective versions.
 The full list can be found in the appendix
 \Cref{table:python-packages-all}
+\todo[inline]{Update the python packages list}
