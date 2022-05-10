@@ -160,10 +160,26 @@ If the month is closer to summer (may, june) this feature will be close to -1.
 
 In the and all added features are scaled between [0.1, 1] as described above.
 
-\subsubsection{Moving Window Approach}
+\subsection{Moving Window Approach}
 We are using the same approach  as in \cite{Bandara2019} %Sales Demband FOrecast in E-commerce
-and \cite{Hewamalage2021}% Current state and future predictions
-\todo[inline]{Write this section.}
+and \cite{Hewamalage2021}.% Current state and future predictions
+This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
+In other words we tranform the problem to a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
+
+Given a time series $X_i = \{x_1, ..., x_K\} \in \mathbb{R}^K$ of length $K$ a mowing
+window algorithm will convert the time series $X_i$ into $K-n-m$ number of patches,
+where each patch has the size of $m+n$, and $n$ is the size of the input window,
+and $m$ is the size of the output window.
+In our study the length of the output window $m$ is 7. This is because
+it is safe to assume that E-commerce domain has some weekly patterns.
+7 days is short enough that we should be able accurately forecast something meaninfule,
+but long enough to have some commercial interest.
+
+\cite{Hewamalage2021} suggests setting the input window size $n$ to be slightly
+bigger than the input window with $m * 1.25$. Or putting $m$ slightly bigger than
+the seasonality period $m = 1.25 * seasonality\_period$.
+We decided to make the input window a bit bigger than the output window and the weekly
+period, by setting $m = 10$.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{./figs/illustrations/moving_window_illustration.png}
