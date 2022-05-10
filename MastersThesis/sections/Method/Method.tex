@@ -7,9 +7,22 @@ This chapter introduces the implemented method and methodology used in the pract
 Initially, section \Cref{section:Method:Arima} and \Cref{section:Method:LSTM} presents the use and tuning of baseline methods needed in order to validate our method.
 \dots
 
+\section{Software and Hardware}
+We used Python [TODO source] for the implementation of all the experiments.
+The deep learning models are implemented using Keras [TODO source], because it seemed to perform better than PyTorch
+  [\Cref{section:method:pytorch-vs-keras}].
+We used Pandas [TODO Source], and NumPy [TODO source] for data manipulation.
+We used genpipes [TODO source] to build data processing pipelines.
+We used [TODO Sander, hva brukte vi for Arima?] library for the Arima model.
+
+For hardware we used AMD Ryzen 5 5600X prosessor and 32 GB 32000 MHz memory.
+
 \import{./sections/Method/}{Experiment-framework.tex}
+
+\import{./sections/Method/}{DataProcessing.tex}
+
 \import{./sections/Method/}{LSTM-method.tex}
-\import{./sections/Method/}{issues-with-lstm.tex}
+% \import{./sections/Method/}{issues-with-lstm.tex}
 \import{./sections/Method/}{pytorch-vs-keras.tex}
 
 
