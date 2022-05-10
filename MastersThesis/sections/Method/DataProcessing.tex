@@ -187,3 +187,19 @@ period, by setting $m = 10$.
   \caption{Moving window scheme \citep{Hewamalage2021}}
   \label{fig:dataset:moving_window_scheme}
 \end{figure}
+
+\subsection{Modeling Trend and Seasonality}
+The literature is conflicting when it comes to NNs capability to
+model trends and seasonality. \cite{Sharda1992} work inferred that NNs are
+capable of modeling seasonality accurately.
+However more recent work suggest that deseasonalisation and
+detrending can boost perfomance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
+\cite{Ouyang2021} show that detrending and deseasonalisation using STL decomposition
+will harm machine learning models, but improve statistical models.
+
+These conflicting results in the literature, combined with our varied set of time series
+we conclude that we will avoid applying STL decomposition in our main experiments,
+but might do some experiments to see how it can improve our metrics.
+
+% TODO: Write about differencing and how it removes trend and seasons
+
