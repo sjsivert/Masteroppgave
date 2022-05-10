@@ -1,0 +1,2 @@
+dataset_1-lstm-global-multivariate-tune-400-trials
+Final tune for dataset 1 lstm global multivariate. After smape fix
