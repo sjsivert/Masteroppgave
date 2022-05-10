@@ -18,6 +18,7 @@ We intend to use this data to predict future product and category trends based o
 To measure the viability and accuracy of the proposed goal, we need to look into the already proposed methods in this problem space.
 This is required in order to assess whether or not our goal is rendered mute due to previous solutions.
 
+\todo[inline]{These are from the previous paper. Should they be removed?}
 
 \begin{description}
     \item[RQ1]{\it What are the existing solutions for predicting future product category trends, or sales trends, based on historical time-series data?}
@@ -38,28 +39,35 @@ the methods are applied to create baseline predictions using our dataset.
 Using these baseline methods, we are able to evaluate new methods through comparison with other current state-of-the-art methods.
 
 \begin{description}
-    \item[RQ4]{\it Can a Convolutional Autoencoder and LSTM model achive higher predictive accuracy than current state of the art models?}
+    \item[RQ4]{\it How will a baseline LSTM compare against ARIMA using MASE and sMAPE as metrics?}
+    \item[RQ4.1]{\it How will a different LSTM model structures affect it's results?
+                Eg a global univariate, or a local multivariate model}
+
 \end{description}
 
 \begin{description}
-    \item[RQ5]{\it How long ahead can we give a accurate prediction using the CNN-AE LSTM model?}
+    \item[RQ5]{\it Can a Convolutional Autoencoder and LSTM model achive higher predictive accuracy than current state of the art models?}
 \end{description}
+
+% \begin{description}
+%     \item[RQ5]{\it How long ahead can we give a accurate prediction using the CNN-AE LSTM model?}
+% \end{description}
 
 The proposed model is compared to baselines from the current state-of-the-art methods, used to evaluate the validity of the proposed model.
 
 
 
 \iffalse
-% TODO: ___ The use of anomalies! ___
+    % TODO: ___ The use of anomalies! ___
 
-We have aditional research questions defined in notion regarding comparison between the CNN-AE LSTM and the ARIMA model,
-but this is essentially covered trough RQ4.
+    We have aditional research questions defined in notion regarding comparison between the CNN-AE LSTM and the ARIMA model,
+    but this is essentially covered trough RQ4.
 
-Additionaly, we have a research question focusing on anomaly prediction.
-Anomalies are going to be dificult to predict with a CNN-AE LSTM as the CNN-AE part of the model is used to reduce the noise,
-and thus make it easier to predict the overal interest development for products. (Or so we hope!)
+    Additionaly, we have a research question focusing on anomaly prediction.
+    Anomalies are going to be dificult to predict with a CNN-AE LSTM as the CNN-AE part of the model is used to reduce the noise,
+    and thus make it easier to predict the overal interest development for products. (Or so we hope!)
 
-Regardless of this, the CNN-AE does serve as a powerfull anomaly detector, as the AE is able to predict what a "normal" value should be,
-thus giving us information regarding weither or not the values are withing this margin.
+    Regardless of this, the CNN-AE does serve as a powerfull anomaly detector, as the AE is able to predict what a "normal" value should be,
+    thus giving us information regarding weither or not the values are withing this margin.
 
 \fi
