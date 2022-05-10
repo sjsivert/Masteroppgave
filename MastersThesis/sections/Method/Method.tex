@@ -27,6 +27,35 @@ The first work-station consists of a AMD Ryzen 5 5600X prosessor and 32 GB 32000
 while the secound work-station consists of an Intel i9-9900K processor and 16 GB 2666 MHz memory, Windows 10 and Linux Sub-system for linux.
 Both of these work-stations were used for tuning and execution of experiments in this project.
 
+\section{Loss function and Metrics}
+Here we describe which loss function and metrics we use.
+
+\subsection*{Loss function}
+Since our datasets often contains a lot of outliers we decided not to use the well known
+Mean Squared Error (MSE) [\Cref{section:BT:Loss}].
+We used Mean Absolute Error (MAE) while training the neural networks.
+Some experiments were done using both MASE and sMASE, but MAE did perform better.
+
+\subsection*{Metrics}
+Since we are working with multiple time-series and each time-series might differ in scale.
+When choosing an error metric, we have to accommodate a number of factors.
+Since our time-series are of different scales, we cannot use a scale-dependent metric
+like MSE or MAE.
+
+
+We use MASE with 1 day naive forecast, as well as MASE with a 7 day
+naive forecast. This is because the 1 day naive forecast is a regular metric used
+and can give a good impresion of how the model performs. But a 7 day naive forecast
+will give a better understanding how the models real-world usefullness.
+
+A problem with MASE is that if a time series follows a random walk
+then the best forecast will always be the naive forecast. MASE is therefore dependent of
+how good the naive prediction is.
+Therefore we also include sMASE as a metric. It will give a better impression
+of how well the our predicted forecasts fits the target values, independently of
+the naive forecast. In the chosen datasets zero values occur rarely so we can use sMAPE without
+being afraid of division by zero [\Cref{section:BT:Loss}].
+
 
 \import{./sections/Method/}{Experiment-framework.tex}
 

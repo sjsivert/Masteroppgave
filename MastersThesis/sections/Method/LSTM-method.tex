@@ -79,6 +79,14 @@ and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-c
   \end{tabular}
 \end{table}
 
+\subsubsection{LSTM Tuning}
+The hyperparameters of the LSTM is tuned with the Optuna Python package
+with the Bayesian optimal algorithm [\Cref{section:BT:Hyperparameters}].
+The hyperparameter minimum and maximum values are shown in \Cref{table:LSTM-hyperparameters-tuning-range}.
+These values were carefully chosen after many tuning experiments.
+\Cref{fig:lstm:optuna-parameter-slice-figure} show a report from an optuna tuning,
+and how diffrent parameter combinations improved the model.
+
 \begin{table}[h]
   \centering
   \caption{LSTM Hyperparameter tuning range}
@@ -102,6 +110,13 @@ and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-c
     \hline
   \end{tabular}
 \end{table}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/hyperparameter_plot_ranges_dataset2.png}
+  \hfill
+  \caption{A Optuna generated SLICE plot showing model perfomance with different hyperparameter combinations.}
+  \label{fig:lstm:optuna-parameter-slice-figure}
+\end{figure}
 
 \subsubsection{Stateful LSTM and hidden states}
 \label{section:Method:stateful-lstm-and-hidden-states}
