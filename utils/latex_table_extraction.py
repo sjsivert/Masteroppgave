@@ -61,7 +61,7 @@ def extract_metrics_from_file(path) -> DataFrame:
 # Create table of time series and metrics. This is for one model and dataset
 def extract_dataset_metrics_table(caption, label, experiment, base_path, table_save_path):
     caption = caption.replace("_", "-")
-    label = label.replace("_", "-")
+    label = label.replace("_", "-").replace(" ", "-")
 
     metrics = extract_metrics_from_file(f"{base_path}{experiment}/metrics.txt")
     metrics = DataFrame(metrics).transpose()
@@ -76,7 +76,7 @@ def extract_dataset_metrics_table(caption, label, experiment, base_path, table_s
 # Create table for average, given experimens and metrics
 def extract_average_experiment_metrics(caption, label, experiments, base_path, table_save_path):
     caption = caption.replace("_", "-")
-    label = label.replace("_", "-")
+    label = label.replace("_", "-").replace(" ", "-")
 
     updated_metrics = {}
     for experiment_name in experiments:
@@ -140,5 +140,5 @@ def create_shared_avg_table_all_experiments():
 
 
 
-# create_all_tables_each_experiment()
+create_all_tables_each_experiment()
 create_shared_avg_table_all_experiments()
