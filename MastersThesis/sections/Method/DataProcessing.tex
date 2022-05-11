@@ -118,6 +118,20 @@ Where $\mu$ is the mean and $\sigma$ the standard deviation.
 \end{equation}
 where $h$ is the max feature range and $l$ is the min.
 
+For scaling data, two different approaches were explored.
+Both normalization and standardization were explored.
+As the data distribution is not known prior to the scaling, normalization ensures a known value range for scaling.
+For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
+The unconventional choise of having 0.1 as our lower bound is becuase the matric SMAPE
+is vulnerable to zero values, as described in \Cref{eq:sMape}.
+
+However, during experimentation and testing, it was found that scaling with standardization
+outperformed the predictions made with a normalization scaling.
+Both methods were explored, but at last standardization was selected as the scaling method.
+
+
+
+\iffalse
 Standardization was chosen over normalization because experiments showed better perfomance with
 standardization.
 
@@ -129,7 +143,7 @@ Normization was chosen over standardization because we do not know the distrubti
 of the data, and we did not want to assume it followed a Gaussion distribution.
 All model output and predictions are rescaled to it's original range before
 visualizing and plotting.
-
+\fi
 
 %%% This should not be needed. This should be defined in the ARIMA pipeline / method / experiment.
 %%% This is only what different types of changes were done to the datasets at different points
@@ -184,8 +198,7 @@ In the and all added features are scaled between [0.1, 1] as described above.
 
 
 \subsection{Moving Window Approach}
-We are using the same approach  as in \cite{Bandara2019} %Sales Demband FOrecast in E-commerce
-and \cite{Hewamalage2021}.% Current state and future predictions
+When creating the datasets, we apply the same moving window approach as applied by \cite{Bandara2019} and \cite{Hewamalage2021}.
 This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
 In other words we tranform the problem to a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
 
@@ -193,15 +206,16 @@ Given a time series $X_i = \{x_1, ..., x_K\} \in \mathbb{R}^K$ of length $K$ a m
 window algorithm will convert the time series $X_i$ into $K-n-m$ number of patches,
 where each patch has the size of $m+n$, and $n$ is the size of the input window,
 and $m$ is the size of the output window.
-In our study the length of the output window $m$ is 7. This is because
-it is safe to assume that E-commerce domain has some weekly patterns.
+
+In this thesis we will primarily work with an output windows $m$ for size 7.
+This is because it is safe to assume that the E-commerce domain consists of weekly patterns.
 7 days is short enough that we should be able accurately forecast something meaninfule,
-but long enough to have some commercial interest.
+but long enough to have some commercial value.
 
 \cite{Hewamalage2021} suggests setting the input window size $n$ to be slightly
 bigger than the input window with $m * 1.25$. Or putting $m$ slightly bigger than
 the seasonality period $m = 1.25 * seasonality\_period$.
-We decided to make the input window a bit bigger than the output window and the weekly
+We selected to make the input window a bit bigger than the output window and the weekly
 period, by setting $m = 10$.
 \begin{figure}[h!]
   \centering
@@ -210,6 +224,8 @@ period, by setting $m = 10$.
   \caption{Moving window scheme \citep{Hewamalage2021}}
   \label{fig:dataset:moving_window_scheme}
 \end{figure}
+
+
 
 \subsection{Modeling Trend and Seasonality}
 The literature is conflicting when it comes to NNs capability to
