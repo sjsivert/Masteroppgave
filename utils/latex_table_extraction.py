@@ -3,9 +3,9 @@ import utils
 import numpy as np
 
 # Table values
-table_name = "average_experiments"
-table_description = "experiments"
-metrics_average = False
+table_name = "average-experiments-dataset-1"
+table_description = "average-experiments-dataset-1"
+metrics_average = True
 
 # Select save location for generated table
 table_save_path = "./MastersThesis/tables/results/"
@@ -14,7 +14,10 @@ table_save_path = "./MastersThesis/tables/results/"
 base_path = "./models/"
 projects = {
     "arima": "dataset_1_arima",
-    "cnn-ae-lstm": "dataset_1_scale_test_lstm"
+    "local univariate lstm": "dataset_1-lstm-local-unviariate-tune-400-trials",
+    "local multivariate lstm": "dataset_1-lstm-multivariate-tune-400-trails",
+    "global univariate lstm": "dataset_1-lstm-global-unviariate-tune-400-trials",
+    "global multivariate lstm": "dataset_1-lstm-global-multivariate-tune-400-trials"
 }
 
 # Select metrics to be used
@@ -34,14 +37,10 @@ def calc_average_values(metrics):
     updated_metrics["mean"] = {}
     updated_metrics["avg"] = {}
     for metric_name in average:
-        updated_metrics["std"][metric_name] = round(np.std(average[metric_name]), 5)
-        updated_metrics["mean"][metric_name] = round(np.mean(average[metric_name]), 5)
-        updated_metrics["avg"][metric_name] = round(np.average(average[metric_name]), 5)
+        updated_metrics["std"][metric_name] = round(np.std(average[metric_name]), 3)
+        updated_metrics["mean"][metric_name] = round(np.mean(average[metric_name]), 3)
+        updated_metrics["avg"][metric_name] = round(np.average(average[metric_name]), 3)
     return updated_metrics
-
-
-
-    pass
 
 
 # Read metrics from txt file
@@ -63,12 +62,13 @@ def extract_metrics_from_file(path) -> DataFrame:
             metric_split = metric.split(": ")
             metric_name_split, metric_value = metric_split[0], metric_split[1]
             metric_name = metric_name_split.rsplit("_", 1)[-1].lower()
-            if metric_name not in metric_types:
+            if metric_name not in metric_types or metric_name in metrics:
                 continue
             if "days" in metric_name:
                 metric_name = metric_name_split.split("_", 1)[-1].replace("_", "-").lower()
+                metric_name = metric_name.rsplit("-", 1)[0]
             metric_value = float(metric_value)
-            metrics[metric_name] = round(metric_value, 5)
+            metrics[metric_name] = round(metric_value, 3)
         scores[data_set_name] = metrics
 
     if metrics_average:
@@ -87,6 +87,7 @@ def fetch_metrics():
 
 def export_latex_table():
     metrics_data = fetch_metrics()
+    metrics_data = metrics_data.transpose()
     utils.dataframe_to_latex_tabular(
         metrics_data,
         table_name,
