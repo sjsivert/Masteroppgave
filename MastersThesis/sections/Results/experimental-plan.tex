@@ -1,0 +1,52 @@
+
+\section{Experimental Plan}
+\label{sec:experimentalPlan}
+
+Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.
+
+The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.
+
+
+
+\subsection{Experiment 0 - ArimaBaseline}
+This experiment is conducted to make a baseline which the other methods
+will compare against.
+
+\subsection{Experiment 1 - LSTM Baseline}
+This experiment will give a direct comparison with the Arima model as they both will
+get the same amount of information in order to make predictions.
+It will attempt to answer RQ \cref{G&R:RQ-LSTM-baseline}.
+
+\begin{description}
+  \item[Outline]{\it Tune, train and test a local univariate LSTM on dataset 1,
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast. Compare the results against the Arima baseline}
+\end{description}
+
+\subsection{Experiment 2 - LSTM Model structures}
+This experiment will try to utilize the strenghts of a deep neural network
+in order to outperform the Arima and LSTM baselines. The experiment will
+help answer RQ[TODO] \cref{G&R:RQ-LSTM-baseline}.
+Questions this experiment will try to answer:
+\begin{itemize}
+  \item Will additional information, such as day of the week, month and season help an LSTM to make better predictions?
+  \item {Will giving an LSTM model additional data by training an LSTM accross multiple datasets improve predictions?}
+\end{itemize}
+
+\begin{description}
+  \item[Outline]{\it Tune, train and test a local multivariate LSTM, a global univariate LSTM,
+              and a global multivariate LSTM on dataset 1,
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast. Compare the results against the Arima and LSTM baseline}
+\end{description}
+
+\subsection{Experiment 3 - Convolutional Autoencoder LSTM}
+\todo[inline]{Sander: Se over dette?}
+This experiment will test the new proposed CAE-LSTM model on
+the E-commerce domain. Our hypothosis is that the convolutional autoencoder
+will lower the random noise in the data which will lead to better predictions.
+This experiment will answer RQ[TODO put in reasearch questions].
+
+\begin{description}
+  \item[Outline]{\it Tune, train and test a CAE-LSTM, a global univariate LSTM,
+              and a global multivariate LSTM on dataset 1,
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast. Compare the results against the Arima and LSTM baseline}
+\end{description}

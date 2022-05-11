@@ -2,11 +2,12 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
-import tensorflow as tf
 import optuna
+import src.pipelines.local_multivariate_lstm_keras_pipeline as multivariate_pipeline
+import tensorflow as tf
+import torch
 from matplotlib.figure import Figure
-
-from sklearn.preprocessing import StandardScaler
+from numpy import ndarray
 from optuna import Study
 from optuna.trial import FrozenTrial
 from optuna.visualization import (
@@ -16,6 +17,11 @@ from optuna.visualization import (
     plot_parallel_coordinate,
     plot_slice,
 )
+from sklearn.preprocessing import StandardScaler
+from src.data_types.i_model import IModel
+from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
+from src.save_experiment_source.i_log_training_source import ILogTrainingSource
+from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.keras_error_calculations import (
     config_metrics_to_keras_metrics,
     generate_error_metrics_dict,
@@ -23,13 +29,7 @@ from src.utils.keras_error_calculations import (
     keras_mase_periodic,
     keras_smape,
 )
-from numpy import ndarray
-from src.data_types.i_model import IModel
-from src.pipelines import local_univariate_lstm_keras_pipeline as lstm_keras_pipeline
-from src.save_experiment_source.i_log_training_source import ILogTrainingSource
-from src.save_experiment_source.neptune_save_source import NeptuneSaveSource
 from src.utils.visuals import visualize_data_series, visualize_data_series_with_specified_x_axis
-import torch
 
 
 class NeuralNetKerasModel(IModel, ABC):

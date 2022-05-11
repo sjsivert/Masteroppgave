@@ -32,21 +32,18 @@ model:
         optimizer_name: 'RMSprop'
         stateful_lstm: True
         loss: "mae"
-        learning_rate: 0.00012331911733003793
+        learning_rate: 0.009637741296955573
         number_of_features: 1
-        epochs: 20
+        epochs: 3
         layers:
-          - hidden_size: 84
-            dropout: 0.011609334829524132
-            recurrent_dropout: 0.1456470651964667
-          - hidden_size: 94
-            dropout: 0.20344013294500046
-            recurrent_dropout: 0.3804909232802323
+          - hidden_size: 48
+            dropout: 0.17026125315119903
+            recurrent_dropout: 0.24717953653201977
       ae:
         optimizer_name: 'Adam'
         loss: "mae"
         learning_rate: 0.0001
-        epochs: 80
+        epochs: 70
       encoder:
         - layer: "Conv1d"
           filters: 32
@@ -70,3 +67,22 @@ model:
 
     model_structure:
       - 2
+      - 6
+      - 9
+      - 10
+      - 11
+      - 13
+      - 20
+      - 22
+      - 24
+      - 26
+      - 27
+      - 28
+      - 29
+      - 32
+      - 33
+      - 34
+      - 39
+      - 41
+      - 51
+      - 54

@@ -12,5 +12,13 @@ as well as the reason behind the framework.
 \import{./sections/Conclusion/Discussion}{CurrentPredictions.tex}
 \import{./sections/Conclusion/Discussion}{ProposedFramework.tex}
 \import{./sections/Conclusion/Discussion}{ModelStructure.tex}
-\import{./sections/Conclusion/Discussion}{ErrorMetric.tex}
+% \import{./sections/Conclusion/Discussion}{ErrorMetric.tex}
+
+\section{LSTM trend and seasonality}
+\begin{itemize}
+  \item LSTM and ARIAM seem to have trouble with datasets with yearly seasonalities
+  \item {LSTM will perform significantly better on these datasets if additional
+        a multivariate version is used with additional information about date}
+  \item {If date is not available then detrending the dataset using differencing is a good second alternative}
+\end{itemize}
 

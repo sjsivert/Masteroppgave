@@ -16,9 +16,13 @@ The lstm...
 % each epoch, and each epoch pass feeds all the training data through the network,
 % it makes sense to use the last section of the training data as the validation data.
 
+
+
 \subsection{LSTM Architecture}
 The LSTM consisted of $n$ layers of stacked LSTM cells followed by a
 dense layer with the same output size as our forecast horizon.
+The parameters used for the LSTM cells are listed in \Cref{table:LSTM-cell-parameters}
+and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-cell-parameters}.
 
 \begin{table}[h]
   \centering
@@ -75,6 +79,14 @@ dense layer with the same output size as our forecast horizon.
   \end{tabular}
 \end{table}
 
+\subsubsection{LSTM Tuning}
+The hyperparameters of the LSTM is tuned with the Optuna Python package
+with the Bayesian optimal algorithm [\Cref{section:BT:Hyperparameters}].
+The hyperparameter minimum and maximum values are shown in \Cref{table:LSTM-hyperparameters-tuning-range}.
+These values were carefully chosen after many tuning experiments.
+\Cref{fig:lstm:optuna-parameter-slice-figure} show a report from an optuna tuning,
+and how diffrent parameter combinations improved the model.
+
 \begin{table}[h]
   \centering
   \caption{LSTM Hyperparameter tuning range}
@@ -98,8 +110,133 @@ dense layer with the same output size as our forecast horizon.
     \hline
   \end{tabular}
 \end{table}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/hyperparameter_plot_ranges_dataset2.png}
+  \hfill
+  \caption{A Optuna generated SLICE plot showing model perfomance with different hyperparameter combinations.}
+  \label{fig:lstm:optuna-parameter-slice-figure}
+\end{figure}
 
-\subsection{Handling hidden states}
+\subsubsection{Stateful LSTM and hidden states}
+\label{section:Method:stateful-lstm-and-hidden-states}
+%One can argue that a stateless LSTM which resets its state before each batch
+%can mimic a stateful LSTM with a sufficiently large enough batch size.
+%After some prototype testing we concluded that an stateful LSTM
+%was superior for our problem.
+%TODO[Insert spreadshit data with testing results.]
+
+Intuitively the problem at hand requires a stateful LSTM [\cref{section:BT:stateful-vs-stateless}].
+One problem with stateful LSTMs is that they require all the input to have the same
+batch size.
+This is because the two state vectors $h_t$ and $c_t$ has the shape
+$(batch\_size, input\_length, features)$. In a stateless LSTM these
+vectors are initialized with zero values at the beginning of each forward pass,
+so the $batch\_size$ can be infered from the input.
+In a stateful LSTM these vectors are initialized once togheter with the rest
+of the network, and so the $batch\_size$ needs to be specified with
+the rest of the hyper parameters.
+
+As a consequence the training data, validation data and test data all
+need to use the same $batch\_size$, which is problematic.
+The easies solution is to use online learning, by setting the batch size to 1.
+However this means calculating gradients and doing a backpropegation for each
+timestep in our dataset, which is highly ineficcient.
+
+A batch size bigger than one means that the number of samples in
+the training data and validation data and test data has to all be
+dividable by the batch size. If not the last batch will have too few samples in it,
+and the network will reject it.
+The most common solution is to find the highest common factor
+between the training data and the test data, and use that as a batch size.
+This is not a solution that works on this problem because in our global model
+we train our model on many different time series of different lengths,
+and
+also our test data consists of excactly 1 sample with a size equal the
+forecasting horizon, per time-series.
+We managed to solve the test data problem by creating two models with
+different batch sizes. We trained the first model on the training data,
+then copied the internal weights over to the second model, which had a
+batch size of one, for testing and
+predictions.
+
+The solution of copying weights was not available for the validation data
+because the validation step in keras is incorporated into the training function.
+Due to time consraints we did not want to dive deep into the keras internals
+to see if it was possible to solve this problem by hand.
+
+Our solution ended up being to remove a number of samples in the beginning of
+the datasaet in order to make the total number of samples dividable by the batch size,
+and then make the validation set equal to one batch. Removing data from the beginning,
+seemed obvious as newer data will have more relevance than older data.
+This ment that we also had to remove batch size as a tunable hyper parameter,
+because the model would favor lower batch sizes, because that meant less validation data,
+which equals potentially fewer examples to get wrong.
+
+Instead of automaicly tuning batch sizes we did some manual testing, and
+ended up setting batch size 32 for all experiments.
+
+
+\subsubsection{Reset states}
+Since  the hidden states are never reset automaicly in Keras stateful LSTM
+we had to do it ourselfs.
+
+\textbf{Local models}
+
+For the local models we are reseting the internal state at the beginning
+of each epoch as well as before testing. We do not reset states before validation,
+because the validation step always comes after an epoch run, and the
+validation data are taken from the end of the training data for each time series.
+This means the model will in fact have the correct hidden state when starting the validation step.
+
+During testing we have to be a bit more clever. We ran the whole training set pluss
+the validation set through the networks prediction loop before predicting the test
+set and calculating test metrics.
+This is for the model to "see" the whole picture and have the correct
+internal state before predicting the test set.
+Neptune experiment \textit{MAS-396} and \textit{MAS-397} confirms
+that this tactic pay off. MAS-397 achieved a MAS score of $2.00$ on the test set
+without reseting states and passing through training and validation data before
+the test set. In MAS-396 we used the exact same setup, but with reseting states
+before test set. MAS-396 achieved a MAS score of $1.67$.
+
+\textbf{Global models}
+For global models we followed the concept presented by \cite{Smyl2020},
+with global weights, but local states.
+
+As described in [TODO: WHere we describe the pipeline behind the global models]
+we concatinates multiple time series after one another during training of a global model.
+This means we have to reset the hidden state during training of a global model
+or else we will give our model a false sence of dependencies between
+the independent time series.
+
+%Our fix to this solution is not perfect, and might be an area worth critique.
+As described in \Cref{section:Method:issues-lstm:fixed-batch-size} all
+batches had to be the same size. Our time series was concatonated one after
+each other into one large time series.
+Our fix was to pass inn a lambda callback to Keras which ran after each batch.
+We counted how many batches it would need to fit each time series.
+We counted how many batches it had ran. When number of batches ran equals
+number of batches in a time series we reset the hidden state.
+One flaw however is that since it is possible for one batch to
+contain two time series, it might not reset the hidden state at the exact
+right time, but in the worst case scenario a $batch\_size - 1$ number of
+samples to late. Still this technique did proove to be successfull.
+Neptun experiment \textit{MAS-491} achieved a MASE metric of \textbf{19.61}
+without reseting states during training.
+Neptum experiment \textit{MAS-492} achieved a MASE metric of \textbf{2.36}.
+
+Below is a simplified pseudo code for the algorithm which resets hidden states
+during training.
+\begin{enumerate}
+  \item time\_series\_counter = 0
+  \item time\_series\_number\_of\_batches\_list = [TS.length() // batch size for each TS in time-series ]
+  \item start\_training\_loop()
+  \item after each batch: if current batch number ==
+        time\_seires\_number\_of\_batches\_list[time\_series\_counter]
+        then -\> reset\_hidden\_state()
+  \item time\_series\_counter += 1
+\end{enumerate}
 
 
 
