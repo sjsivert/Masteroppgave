@@ -1,0 +1,250 @@
+model:
+    rng_seed: 42
+    model_type: local_cnn_ae_lstm
+    model_config:
+        hyperparameter_tuning_range:
+            hidden_size: [1, 100]
+            number_of_layers: [1, 2]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            epochs: [1, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 1
+            number_of_trials: 200
+            stateful_lstm: yes
+        common_parameters_for_all_models:
+            should_shuffle_batches: no
+            batch_size: 32
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            lstm-shared:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                batch_size: 32
+                layers: &id001 [{dropout: 0.2962034877794516, hidden_size: 15, recurrent_dropout: 0.29990841080875713}, {dropout: 0.32206164884071176, hidden_size: 9, recurrent_dropout: 0.2988211066303163}]
+                learning_rate: 0.00808859218143842
+                epochs: 2
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            ae:
+                optimizer_name: Adam
+                loss: mae
+                learning_rate: 0.0001
+                epochs: 70
+            encoder: [{layer: Conv1d, filters: 16, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 32, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 32, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1}]
+        model_structure:
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.034768320276063296, hidden_size: 63, recurrent_dropout: 0.02404605418502892}]
+                learning_rate: 0.002825050863961103
+                epochs: 16
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 2
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.27077260125258507, hidden_size: 55, recurrent_dropout: 0.010032945814814813}, {dropout: 0.12506407367406974, hidden_size: 43, recurrent_dropout: 0.09796697282228428}]
+                learning_rate: 0.007173087202977244
+                epochs: 1
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 6
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.3553187564102425, hidden_size: 24, recurrent_dropout: 0.17988351305627964}]
+                learning_rate: 0.001653062318750741
+                epochs: 19
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 9
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.07123792715458785, hidden_size: 74, recurrent_dropout: 0.13598042211064337}, {dropout: 0.23898987021884588, hidden_size: 6, recurrent_dropout: 0.03413506751402164}]
+                learning_rate: 0.007262261651530453
+                epochs: 28
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 10
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.32842230360358493, hidden_size: 18, recurrent_dropout: 0.38186576169003156}]
+                learning_rate: 0.0073132359372842124
+                epochs: 8
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 11
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.3277782858425078, hidden_size: 82, recurrent_dropout: 0.36228114484307955}, {dropout: 0.2539535846072305, hidden_size: 53, recurrent_dropout: 0.17929222252382537}]
+                learning_rate: 0.00435073665725754
+                epochs: 24
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 13
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.34273989356064033, hidden_size: 6, recurrent_dropout: 0.38408206593458905}, {dropout: 0.013549276363355796, hidden_size: 28, recurrent_dropout: 0.3272167382581457}]
+                learning_rate: 3.211131683274731e-06
+                epochs: 26
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 20
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.07517803918222642, hidden_size: 38, recurrent_dropout: 0.021259446217861067}, {dropout: 0.17520005187426954, hidden_size: 81, recurrent_dropout: 0.024670953069091086}]
+                learning_rate: 0.009085510405014001
+                epochs: 17
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 22
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.3335854846106864, hidden_size: 91, recurrent_dropout: 0.20917071573456658}, {dropout: 0.22804951610524812, hidden_size: 66, recurrent_dropout: 0.35392257598651744}]
+                learning_rate: 0.00039308415548395013
+                epochs: 1
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 24
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.11848537863618379, hidden_size: 70, recurrent_dropout: 0.1294299727182363}, {dropout: 0.15054145226688917, hidden_size: 34, recurrent_dropout: 0.3549006087756774}]
+                learning_rate: 0.007478055772284035
+                epochs: 8
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 26
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.3750619738658682, hidden_size: 86, recurrent_dropout: 0.004679032804502339}, {dropout: 0.08136024408822619, hidden_size: 27, recurrent_dropout: 0.10236130472178749}]
+                learning_rate: 0.002650617877240101
+                epochs: 31
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 27
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.2899626297862119, hidden_size: 92, recurrent_dropout: 0.3006300570779327}]
+                learning_rate: 1.28676189814022e-06
+                epochs: 8
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 28
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.14320792231085888, hidden_size: 33, recurrent_dropout: 0.0034243735532906577}, {dropout: 0.12319235929047556, hidden_size: 73, recurrent_dropout: 0.24349560181318586}]
+                learning_rate: 0.009266776220096511
+                epochs: 9
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 29
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.19411279507508292, hidden_size: 11, recurrent_dropout: 0.2070206385779073}]
+                learning_rate: 0.009723711369312934
+                epochs: 3
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 32
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.1477389578445033, hidden_size: 56, recurrent_dropout: 0.03693555591887633}]
+                learning_rate: 0.007907955032505578
+                epochs: 31
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+            time_series_id: 33
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.3769860049718107, hidden_size: 41, recurrent_dropout: 0.29859815842239995}]
+                learning_rate: 0.001970208935395716
+                epochs: 1
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 34
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.356347539596317, hidden_size: 48, recurrent_dropout: 0.1371965608779341}]
+                learning_rate: 0.004692401571719053
+                epochs: 8
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 39
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.06138755553191215, hidden_size: 55, recurrent_dropout: 0.16098349731806966}, {dropout: 0.2624523724811922, hidden_size: 66, recurrent_dropout: 0.3274084975213909}]
+                learning_rate: 0.006258804838419626
+                epochs: 17
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 41
+        -   lstm:
+                batch_size: 32
+                layers: [{dropout: 0.053750057713863014, hidden_size: 97, recurrent_dropout: 0.018109633271225306}, {dropout: 0.03528916602130686, hidden_size: 22, recurrent_dropout: 0.0347101134822521}]
+                learning_rate: 0.009938587970951773
+                epochs: 14
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 51
+        -   lstm:
+                batch_size: 32
+                layers: *id001
+                learning_rate: 0.00808859218143842
+                epochs: 2
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+            time_series_id: 54
+        placeholder: yes
+    config: local_cnn_ae_lstm/dataset-1-tuned
+    validation_model:
+        placeholder: yes
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_04_26_filtered.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - MSE
+    - MAPE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave

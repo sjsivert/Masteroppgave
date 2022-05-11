@@ -9,7 +9,7 @@ model:
       recurrent_dropout: [0.0, 0.4]
       optimizer_name: [ 'RMSprop', 'Adam' ]
       learning_rate: [ 1e-7, 1e-2 ]
-      number_of_epochs: [ 1, 40 ]
+      epochs: [ 1, 40 ]
       batch_size: [ 32, 32 ]
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
@@ -60,7 +60,7 @@ model:
             hidden_size: 63
             recurrent_dropout: 0.02404605418502892
           learning_rate: 0.002825050863961103
-          number_of_epochs: 16
+          epochs: 16
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -75,7 +75,7 @@ model:
             hidden_size: 43
             recurrent_dropout: 0.09796697282228428
           learning_rate: 0.007173087202977244
-          number_of_epochs: 1
+          epochs: 1
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -87,7 +87,7 @@ model:
             hidden_size: 24
             recurrent_dropout: 0.17988351305627964
           learning_rate: 0.001653062318750741
-          number_of_epochs: 19
+          epochs: 19
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -102,7 +102,7 @@ model:
             hidden_size: 6
             recurrent_dropout: 0.03413506751402164
           learning_rate: 0.007262261651530453
-          number_of_epochs: 28
+          epochs: 28
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -114,7 +114,7 @@ model:
             hidden_size: 18
             recurrent_dropout: 0.38186576169003156
           learning_rate: 0.0073132359372842124
-          number_of_epochs: 8
+          epochs: 8
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -129,7 +129,7 @@ model:
             hidden_size: 53
             recurrent_dropout: 0.17929222252382537
           learning_rate: 0.00435073665725754
-          number_of_epochs: 24
+          epochs: 24
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -144,7 +144,7 @@ model:
             hidden_size: 28
             recurrent_dropout: 0.3272167382581457
           learning_rate: 3.211131683274731e-06
-          number_of_epochs: 26
+          epochs: 26
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -159,7 +159,7 @@ model:
             hidden_size: 81
             recurrent_dropout: 0.024670953069091086
           learning_rate: 0.009085510405014001
-          number_of_epochs: 17
+          epochs: 17
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -174,7 +174,7 @@ model:
             hidden_size: 66
             recurrent_dropout: 0.35392257598651744
           learning_rate: 0.00039308415548395013
-          number_of_epochs: 1
+          epochs: 1
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -189,7 +189,7 @@ model:
             hidden_size: 34
             recurrent_dropout: 0.3549006087756774
           learning_rate: 0.007478055772284035
-          number_of_epochs: 8
+          epochs: 8
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -204,7 +204,7 @@ model:
             hidden_size: 27
             recurrent_dropout: 0.10236130472178749
           learning_rate: 0.002650617877240101
-          number_of_epochs: 31
+          epochs: 31
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -216,7 +216,7 @@ model:
             hidden_size: 92
             recurrent_dropout: 0.3006300570779327
           learning_rate: 1.28676189814022e-06
-          number_of_epochs: 8
+          epochs: 8
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -231,7 +231,7 @@ model:
             hidden_size: 73
             recurrent_dropout: 0.24349560181318586
           learning_rate: 0.009266776220096511
-          number_of_epochs: 9
+          epochs: 9
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -243,7 +243,7 @@ model:
             hidden_size: 11
             recurrent_dropout: 0.2070206385779073
           learning_rate: 0.009723711369312934
-          number_of_epochs: 3
+          epochs: 3
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -255,7 +255,7 @@ model:
             hidden_size: 56
             recurrent_dropout: 0.03693555591887633
           learning_rate: 0.007907955032505578
-          number_of_epochs: 31
+          epochs: 31
           number_of_features: 1
           optimizer_name: Adam
           stateful_lstm: true
@@ -267,7 +267,7 @@ model:
             hidden_size: 41
             recurrent_dropout: 0.29859815842239995
           learning_rate: 0.001970208935395716
-          number_of_epochs: 1
+          epochs: 1
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -279,7 +279,7 @@ model:
             hidden_size: 48
             recurrent_dropout: 0.1371965608779341
           learning_rate: 0.004692401571719053
-          number_of_epochs: 8
+          epochs: 8
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -294,7 +294,7 @@ model:
             hidden_size: 66
             recurrent_dropout: 0.3274084975213909
           learning_rate: 0.006258804838419626
-          number_of_epochs: 17
+          epochs: 17
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -309,7 +309,7 @@ model:
             hidden_size: 22
             recurrent_dropout: 0.0347101134822521
           learning_rate: 0.009938587970951773
-          number_of_epochs: 14
+          epochs: 14
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true
@@ -324,7 +324,7 @@ model:
             hidden_size: 9
             recurrent_dropout: 0.2988211066303163
           learning_rate: 0.00808859218143842
-          number_of_epochs: 2
+          epochs: 2
           number_of_features: 1
           optimizer_name: RMSprop
           stateful_lstm: true

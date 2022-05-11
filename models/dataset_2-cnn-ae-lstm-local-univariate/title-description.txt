@@ -1,0 +1,2 @@
+dataset_2-cnn-ae-lstm-local-univariate
+Experiment with CNN AE and LSTM hybrid method. Local, univariate, dataset 2. Tuned with LSTM Local Univariate dataset 2
