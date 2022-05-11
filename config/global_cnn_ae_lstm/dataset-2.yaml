@@ -23,17 +23,17 @@ model:
       batch_size: 32
       input_window_size: 10
       output_window_size: 7
-      multi_variable_nr: 1
+      multi_variable_nr: 4
       lstm-shared:
         input_window_size: 10
         output_window_size: 7
-        multi_variable_nr: 1
+        multi_variable_nr: 4
       lstm:
         optimizer_name: 'Adam'
         stateful_lstm: True
         loss: "mae"
         learning_rate: 0.0016146453106769651
-        number_of_features: 1
+        number_of_features: 4
         epochs: 15
         layers:
           - hidden_size: 62
@@ -60,7 +60,7 @@ model:
           activation: "relu"
         - layer: "Conv1dTranspose"
           kernel_size: 3
-          filters: 1
+          filters: 4
 
     model_structure:
       - 12532
