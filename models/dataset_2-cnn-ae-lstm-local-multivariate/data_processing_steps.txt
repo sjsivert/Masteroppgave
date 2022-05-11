@@ -13,239 +13,319 @@
 2- filter out category 12532)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11694)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11716)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11950)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11195)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11998)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 274)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11407)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 46)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11326)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11335)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 12197)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11693)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11780)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 12502)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11866)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 11400)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 12256)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 10320)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         ---- Start ----
 1- Convert input dataset to generator object
 2- filter out category 10030)
 3- choose columns 'interest' and 'date'
 4- fill in dates with zero values
-5- generate training and test data with test data size 7, and training data = sequence_length - 7
-6- convert to np.array
-7- scale down outliers
-8- ..
-9- Normalize the data 
-10- generate x y pairs with sliding window with input size 10, and output size 7
+5- add feature month
+6- add feature season 
+7- add feature day_of_the_week
+8- print df
+9- generate training and test data with test data size 7, and training data = sequence_length - 7
+10- convert to np.array
+11- scale down outliers
+12- ..
+13- scale data between -1 and 1
+14- generate x y pairs with sliding window with input size 10, and output size 7
 ---- End ----
         
