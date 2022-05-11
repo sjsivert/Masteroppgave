@@ -1,0 +1,2 @@
+dataset_1-cnn-ae-lstm-global-multivariae
+Experiment with CNN AE and LSTM hybrid method. Global, multivariate, dataset 1. Tuned with LSTM Global Multivariate dataset 1
