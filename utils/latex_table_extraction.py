@@ -44,13 +44,11 @@ def calc_average_values(metrics):
     updated_metrics["mean"] = {}
     updated_metrics["avg"] = {}
     for metric_name in average:
-        updated_metrics["std"][metric_name] = round(
-            np.std(average[metric_name]), 3)
-        updated_metrics["mean"][metric_name] = round(
-            np.mean(average[metric_name]), 3)
-        updated_metrics["avg"][metric_name] = round(
-            np.average(average[metric_name]), 3)
+        updated_metrics["std"][metric_name] = round(np.std(average[metric_name]), 3)
+        updated_metrics["mean"][metric_name] = round(np.mean(average[metric_name]), 3)
+        updated_metrics["avg"][metric_name] = round(np.average(average[metric_name]), 3)
     return updated_metrics
+
 
 # Read metrics from txt file
 
@@ -76,8 +74,7 @@ def extract_metrics_from_file(path) -> DataFrame:
             if metric_name not in metric_types or metric_name in metrics:
                 continue
             if "days" in metric_name.lower():
-                metric_name = metric_name_split.split(
-                    "_", 1)[-1].replace("_", "-").lower()
+                metric_name = metric_name_split.split("_", 1)[-1].replace("_", "-").lower()
                 metric_name = metric_name.rsplit("-", 1)[0]
 
             metric_value = float(metric_value)
@@ -97,8 +94,7 @@ def extract_metrics_from_file(path) -> DataFrame:
 
 def fetch_metrics():
     for project_name, project_path in projects.items():
-        metrics = extract_metrics_from_file(
-            f"{base_path}{project_path}/metrics.txt")
+        metrics = extract_metrics_from_file(f"{base_path}{project_path}/metrics.txt")
         # metrics[project_name] = extract_metrics_from_file(
         #     f"{base_path}{project_path}/metrics.txt")
     metrics_data_frame = DataFrame(metrics)

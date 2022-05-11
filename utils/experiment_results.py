@@ -65,4 +65,6 @@ def arima_dataframe() -> DataFrame:
 
 if __name__ == "__main__":
     metrics = arima_dataframe()
-    utils.dataframe_to_latex_tabular(metrics, table_name, table_description, add_index=True, save_local=table_save_location)
+    utils.dataframe_to_latex_tabular(
+        metrics, table_name, table_description, add_index=True, save_local=table_save_location
+    )
