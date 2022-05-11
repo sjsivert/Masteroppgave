@@ -8,7 +8,7 @@ import yaml
 filename = "../models/dataset_2-lstm-multivariate-tune-400-trails/tuning.txt"
 output_filename= "../parsed_tuning.yaml"
 is_for_autoencoder_config = True
-number_of_features = 1
+number_of_features = 4
 stateful_lstm = True
 
 def read_file(filename):
@@ -98,7 +98,7 @@ def extract_config(lines):
 		dict["time_series_id"] = int(dict["time_series_id"])
 		if dict.get("batch_size"):
 			dict["batch_size"] = int(dict["batch_size"])
-		dict["number_of_epochs"] = int(dict["number_of_epochs"])
+		dict["epochs"] = int(dict.pop("number_of_epochs"))
 		
 		# Add lstm key if config is for autoencoder
 		if is_for_autoencoder_config:
