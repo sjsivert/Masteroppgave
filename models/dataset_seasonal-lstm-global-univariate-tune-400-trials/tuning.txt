@@ -1,0 +1,7 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 12322,11428,11850,11852,273,11036,11213,12532
+
+Parameters: 12322,11428,11850,11852,273,11036,11213,12532,270
+ Error: best_score:0.16186882555484772,best_params:{'batch_size': 32, 'learning_rate': 0.00021547135642839798, 'number_of_epochs': 30, 'number_of_layers': 1, 'optimizer_name': 'Adam', 'time_series_id': '12322,11428,11850,11852,273,11036,11213,12532', 'layers': [OrderedDict([('hidden_size', 87), ('dropout', 0.007960311051875231), ('recurrent_dropout', 0.25725318646597145)])]}

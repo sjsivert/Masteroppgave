@@ -1,0 +1,2 @@
+dataset_seasonal-lstm-global-univariate-tune-400-trials
+Final tune for dataset seasonal lstm global univariate. After smape fix

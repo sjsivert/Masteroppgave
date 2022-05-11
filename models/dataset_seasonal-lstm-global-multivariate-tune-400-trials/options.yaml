@@ -1,0 +1,130 @@
+model:
+    model_config:
+        global_model:
+            model_structure: [{batch_size: 32, learning_rate: 0.00282824513903652, number_of_epochs: 37, number_of_layers: 1, optimizer_name: Adam, time_series_id: '12322,11428,11850,11852,273,11036,11213,12532', layers: [{hidden_size: 76, dropout: 0.053458152436112766, recurrent_dropout: 0.3319914208215879}]}]
+            datasets:
+            - 12322
+            - 11428
+            - 11850
+            - 11852
+            - 273
+            - 11036
+            - 11213
+            - 12532
+        hyperparameter_tuning_range:
+            hidden_size: [1, 100]
+            number_of_layers: [1, 2]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            number_of_epochs: [1, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 4
+            number_of_trials: 400
+            stateful_lstm: yes
+        local_model:
+            common_parameters_for_all_models:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                batch_size: 32
+                stateful_lstm: yes
+                should_shuffle_batches: no
+                number_of_features: 4
+            model_structure:
+            -   time_series_id: 12322
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11428
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11850
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11852
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 273
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11036
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 11213
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+            -   time_series_id: 12532
+                number_of_epochs: 15
+                optimizer_name: Adam
+                learning_rate: 0.00028345282219663603
+                hidden_layer_size: 60
+                dropout: 0.24970090559798974
+                number_of_features: 4
+                layers: [{hidden_size: 94, dropout: 0.21199, recurrent_dropout: 0.0}]
+        placeholder: yes
+    rng_seed: 42
+    model_type: global_univariate_lstm
+    config: lstm/seasonal
+    validation_model:
+        placeholder: yes
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_04_26_filtered.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - MSE
+    - MAPE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave
