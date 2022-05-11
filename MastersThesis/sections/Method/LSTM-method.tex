@@ -79,7 +79,7 @@ and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-c
   \end{tabular}
 \end{table}
 
-\subsubsection{LSTM Tuning}
+\subsection{LSTM Tuning}
 The hyperparameters of the LSTM is tuned with the Optuna Python package
 with the Bayesian optimal algorithm [\Cref{section:BT:Hyperparameters}].
 The hyperparameter minimum and maximum values are shown in \Cref{table:LSTM-hyperparameters-tuning-range}.
@@ -118,7 +118,7 @@ and how diffrent parameter combinations improved the model.
   \label{fig:lstm:optuna-parameter-slice-figure}
 \end{figure}
 
-\subsubsection{Stateful LSTM and hidden states}
+\subsection{Stateful LSTM and hidden states}
 \label{section:Method:stateful-lstm-and-hidden-states}
 %One can argue that a stateless LSTM which resets its state before each batch
 %can mimic a stateful LSTM with a sufficiently large enough batch size.

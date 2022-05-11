@@ -48,7 +48,7 @@ and in \Cref{table:lstm_data_processing_steps}.
     \textbf{3} & choose columns 'interest' and 'date'                                         \\
     \textbf{4} & fill in dates with zero values                                               \\
     \textbf{5} & convert to np.array                                                          \\
-    \textbf{6} & scale data between 0.1 and 1                                                 \\
+    \textbf{6} & scale data using standardization                                             \\
     \textbf{7} & generate x y pairs with sliding window with input size 10, and output size 7 \\
     \textbf{8} & generate training and validation data with training size 7                   \\
     \bottomrule
@@ -104,7 +104,7 @@ such as the selected data files, random seeds, logged error metrics etc.
 Secondly, a separate configuration file contains the information more relevant to the spesific experiment.
 These configuration files are contained within the ``config'' folder,
 and contain information such as the selected predictive model for the experiment,
-as well as the model hyper parameters and tuning parameters. 
+as well as the model hyper parameters and tuning parameters.
 
 During runtime, the two configuration files are merged, adding the information from the model configuration to the more general experimen configuration.
 The config is parsed through at runtime reading the needed information when it becomes relevant.
@@ -113,18 +113,18 @@ An example of a config is in the appendix at \Cref{cha:experiment-framework-exam
 
 % Old text
 \iffalse
-The configuration module is to keep everything which is configurable and relevant
-for the experiment in one place. This helps keeping code changes down to a minumum,
-and it's easy to go back in time and check details of a ran experiment at a glans.
+  The configuration module is to keep everything which is configurable and relevant
+  for the experiment in one place. This helps keeping code changes down to a minumum,
+  and it's easy to go back in time and check details of a ran experiment at a glans.
 
-The experiment pipeline contains multiple paramteres that can be adjusted and configured to alter the experiments.
-Configuration is done through the use of the ``config.yaml'' file defined in the project source code.
-This config file is used to configure the different aspects of the projects to be run.
-Ranging from the selected dataset and data files to be used, to the selected model and model structure, with model parameters and random seed.
+  The experiment pipeline contains multiple paramteres that can be adjusted and configured to alter the experiments.
+  Configuration is done through the use of the ``config.yaml'' file defined in the project source code.
+  This config file is used to configure the different aspects of the projects to be run.
+  Ranging from the selected dataset and data files to be used, to the selected model and model structure, with model parameters and random seed.
 
-The config is parsed through at runtime reading the needed information when it becomes relevant.
-The file can be found in the source code at ``./config.yaml''.
-An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}.
+  The config is parsed through at runtime reading the needed information when it becomes relevant.
+  The file can be found in the source code at ``./config.yaml''.
+  An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}.
 \fi
 
 

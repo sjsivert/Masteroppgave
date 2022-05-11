@@ -4,29 +4,31 @@
 The complete dataset supplied by "Prisguiden.no" contains over 1300 unique product categories.
 To achieve product trend predictions of categories the dataset is split into smaller subsets of data to be analyzed.
 These datasets create the basis for the experiments to be conducted.
-Initially, 4 datasets were selected, each with its own properties and connectivity.
+Initially, 4 datasets were selected, each with its properties and connectivity.
 The first two datasets are created based on correlation.
-The first dataset is defined with 20 highly correlating categories, while the second is comprised of 20 categories with the least prediction.
-This is done in order to evaluate the machine learning methods on whether or not predictions can be improved using correlating data.
+The first dataset is defined with 20 highly correlating categories.
+Dataset 2 is comprised of 20 categories with very little correlation among them.
+This is done to evaluate the machine learning methods on whether or not predictions can be improved using correlating data.
 
-Dataset 3 is comprised of seasonal data with high extreme values.
-Lastly, dataset 4 is comprised of a set of completely random categories.
+Dataset 3 contains 8 categories picked by domain experts at Priguiden.no, and it contains highly seasonal data with high extreme values.
+%Lastly, dataset 4 is comprised of a set of completely random categories.
 
 
 \subsection{Dataset 1 - Correlation}
 
 % 1. Why is a correlating dataset selected? What is the aim?
-A dataset with a high correlation between the categories is selected with the aim of using the correlation to improve the model predictions.
+A dataset with a high correlation between the categories is selected to use the correlation to improve the model predictions.
 The hope is that the correlating data gives global models more relevant data to work with.
-This can then be compared to a non-correlating dataset (dataset 2) in order to evaluate the importance of the data correlation in this case.
+This can then be compared to a non-correlating dataset (dataset 2) to evaluate the importance of the data correlation in this case.
 
 % 2. How was the search conducted? Manual search using domain knowledge!
-In order to select correlating time series as part of the correlating dataset, a combination of manual data selection through domain knowledge and auto-correlation was used.
-A method for calculating auto-correlation was used in order to create a heat map of correlation between all the categories.
-Category autocorrelation was calculated using 
+To select correlating time series as part of the correlating dataset, a combination of manual data selection through domain knowledge and auto-correlation was used.
+A method for calculating auto-correlation was used to create a heat map of correlation between all the categories.
+Category autocorrelation was calculated using
 % TODO! Explain the auto-correlation settings 100 points
-Using this heat map, we were able to evaluate what clusters of categories had the highest concentration of autocorrelation.
-In order to make correlating datasets stand out more clearly, we remove values from category pairs with an auto-correlation lower than 0.5 across the categories. 
+Using this heat map [\Cref{fig:dataset:heatmap_correlating}], we were able to evaluate what clusters of categories had the highest concentration of autocorrelation.
+In order to make correlating datasets stand out more clearly, we remove values from category pairs with an auto-correlation lower than 0.5 across the categories
+and a constraint of minimum 100 observations needed.
 % Heatmap image of all categories
 \begin{figure}[h!]
   \centering
@@ -60,27 +62,27 @@ The selected categories are:
   \caption{Selected categories comprising dataset 1 - Correlating categories}
   \label{table:dataset1}
   \begin{tabular}{|c|l|l|}\hline
-    Category ID & Name(Norwegian)    & Name(English)   \\ \hline
-    2    & Bærbar PC              & TODO                 \\ \hline
-    6    & Digitalkamera          & TODO                 \\ \hline
-    9    & Harddisk og SSD        & TODO                 \\ \hline
-    10   & Hovedkort              & TODO                 \\ \hline
-    11   & PC-høytaler            & TODO                 \\ \hline
-    13   & Kabinett               & TODO                 \\ \hline
-    20   & MP3-Spiller            & TODO                 \\ \hline
-    22   & Mus                    & TODO                 \\ \hline
-    24   & Objektir               & TODO                 \\ \hline
-    26   & Prosjektor             & TODO                 \\ \hline
-    27   & Minne (RAM)            & TODO                 \\ \hline
-    28   & Skanner                & TODO                 \\ \hline
-    29   & PC-skjerm              & TODO                 \\ \hline
-    32   & Spill                  & TODO                 \\ \hline
-    33   & Tastatur               & TODO                 \\ \hline
-    34   & Videokamera            & TODO                 \\ \hline
-    39   & Diverse spillutstyr    & TODO                 \\ \hline
-    41   & Programvare            & TODO                 \\ \hline
-    51   & Hodetelefoner          & TODO                 \\ \hline
-    54   & Systemkamera           & TODO                 \\ \hline
+    Category ID & Name(Norwegian)     & Name(English) \\ \hline
+    2           & Bærbar PC           & TODO          \\ \hline
+    6           & Digitalkamera       & TODO          \\ \hline
+    9           & Harddisk og SSD     & TODO          \\ \hline
+    10          & Hovedkort           & TODO          \\ \hline
+    11          & PC-høytaler         & TODO          \\ \hline
+    13          & Kabinett            & TODO          \\ \hline
+    20          & MP3-Spiller         & TODO          \\ \hline
+    22          & Mus                 & TODO          \\ \hline
+    24          & Objektir            & TODO          \\ \hline
+    26          & Prosjektor          & TODO          \\ \hline
+    27          & Minne (RAM)         & TODO          \\ \hline
+    28          & Skanner             & TODO          \\ \hline
+    29          & PC-skjerm           & TODO          \\ \hline
+    32          & Spill               & TODO          \\ \hline
+    33          & Tastatur            & TODO          \\ \hline
+    34          & Videokamera         & TODO          \\ \hline
+    39          & Diverse spillutstyr & TODO          \\ \hline
+    41          & Programvare         & TODO          \\ \hline
+    51          & Hodetelefoner       & TODO          \\ \hline
+    54          & Systemkamera        & TODO          \\ \hline
   \end{tabular}
 \end{table}
 
@@ -120,27 +122,27 @@ The selected categories are:
   \caption{Selected categories comprising dataset 1 - Correlating categories}
   \label{table:dataset2}
   \begin{tabular}{|c|l|l|}\hline
-    Category ID & Name(Norwegian)             & Name(English)   \\ \hline
-    12532   & Hodetelefoner                   & TODO                 \\ \hline
-    11694   & Diverse måleapparater           & TODO                 \\ \hline
-    11716   & Bærplukker                      & TODO                 \\ \hline
-    11950   & Garasjetelt                     & TODO                 \\ \hline
-    11988   & Aircondition                    & TODO                 \\ \hline
-    11998   & Hjertestarter                   & TODO                 \\ \hline
-    274     & Bord- og gulvvifte              & TODO                 \\ \hline
-    11407   & Vinterlek                       & TODO                 \\ \hline
-    46      & Mobilkamera og tilbehør         & TODO                 \\ \hline
-    11326   & Myggjager og myggfelle          & TODO                 \\ \hline
-    11335   & Komfyrvakt                      & TODO                 \\ \hline
-    12197   & Mosefjerner og plenlufter       & TODO                 \\ \hline
-    11693   & Febertermometer                 & TODO                 \\ \hline
-    11780   & Skredutstyr                     & TODO                 \\ \hline
-    12502   & Stikk og bitt                   & TODO                 \\ \hline
-    11866   & Klister                         & TODO                 \\ \hline
-    11400   & Truger                          & TODO                 \\ \hline
-    12256   & Terrassebord                    & TODO                 \\ \hline
-    10320   & Skøyter                         & TODO                 \\ \hline
-    10030   & Digitale bilderammer            & TODO                 \\ \hline
+    Category ID & Name(Norwegian)           & Name(English) \\ \hline
+    12532       & Hodetelefoner             & TODO          \\ \hline
+    11694       & Diverse måleapparater     & TODO          \\ \hline
+    11716       & Bærplukker                & TODO          \\ \hline
+    11950       & Garasjetelt               & TODO          \\ \hline
+    11988       & Aircondition              & TODO          \\ \hline
+    11998       & Hjertestarter             & TODO          \\ \hline
+    274         & Bord- og gulvvifte        & TODO          \\ \hline
+    11407       & Vinterlek                 & TODO          \\ \hline
+    46          & Mobilkamera og tilbehør   & TODO          \\ \hline
+    11326       & Myggjager og myggfelle    & TODO          \\ \hline
+    11335       & Komfyrvakt                & TODO          \\ \hline
+    12197       & Mosefjerner og plenlufter & TODO          \\ \hline
+    11693       & Febertermometer           & TODO          \\ \hline
+    11780       & Skredutstyr               & TODO          \\ \hline
+    12502       & Stikk og bitt             & TODO          \\ \hline
+    11866       & Klister                   & TODO          \\ \hline
+    11400       & Truger                    & TODO          \\ \hline
+    12256       & Terrassebord              & TODO          \\ \hline
+    10320       & Skøyter                   & TODO          \\ \hline
+    10030       & Digitale bilderammer      & TODO          \\ \hline
   \end{tabular}
 \end{table}
 
