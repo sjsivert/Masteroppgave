@@ -10,17 +10,21 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-table_save_path = "./MastersThesis/tables/results/"
+dataset = "dataset_2"
+table_save_path = f"./MastersThesis/tables/results/{dataset}"
 
 # Select projects to be imported
 base_path = "./models/"
 # Multiple projects does not work?
+
 projects = {
-    "arima": "dataset_1_arima",
-    "local_univariate_lstm": "dataset_1-lstm-local-unviariate-tune-400-trials",
-    "local multivariate lstm": "dataset_1-lstm-multivariate-tune-400-trails",
-    "global univariate lstm": "dataset_1-lstm-global-unviariate-tune-400-trials",
-    "global multivariate lstm": "dataset_1-lstm-global-multivariate-tune-400-trials",
+    "sarima": f"{dataset}_arima",
+    "local_univariate_lstm": f"{dataset}-lstm-local-unviariate-tune-400-trials",
+    "local multivariate lstm": f"{dataset}-lstm-multivariate-tune-400-trails",
+    "global univariate lstm": f"{dataset}-lstm-global-unviariate-tune-400-trials",
+    "global multivariate lstm": f"{dataset}-lstm-global-multivariate-tune-400-trials",
+    "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
+    "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariae",
 }
 
 # Select metrics to be used
@@ -117,11 +121,11 @@ def calc_average_metrics(metrics, calc_type="average"):
 
 
 def create_all_tables_each_experiment():
-    dataset = "dataset-1"
+    _dataset = dataset.replace("_", "-")
     for exp in projects:
         extract_dataset_metrics_table(
-            f"Metrics from experiment, {dataset}, {exp}",
-            f"{exp}-{dataset}",
+            f"Metrics from experiment, {_dataset}, {exp}",
+            f"{exp}-{_dataset}",
             projects[exp],
             base_path,
             table_save_path=table_save_path
@@ -129,10 +133,10 @@ def create_all_tables_each_experiment():
 
 
 def create_shared_avg_table_all_experiments():
-    dataset = "dataset 1"
+    _dataset = dataset.replace("_", "-")
     extract_average_experiment_metrics(
-        f"Average values for all experiment for {dataset}",
-        f"Average-metric-{dataset}",
+        f"Average values for all experiment for {_dataset}",
+        f"Average-metric-{_dataset}",
         projects,
         base_path,
         table_save_path
