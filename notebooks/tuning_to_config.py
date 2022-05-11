@@ -5,7 +5,7 @@ import yaml
 
 # %%
 # Read txt file
-filename = "../models/dataset_2-lstm-multivariate-tune-400-trails/tuning.txt"
+filename = "../models/dataset_seasonal-lstm-local-multivariate-tune-400-trials/tuning.txt"
 output_filename= "../parsed_tuning.yaml"
 is_for_autoencoder_config = True
 number_of_features = 4
