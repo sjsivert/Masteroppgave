@@ -1,0 +1,2 @@
+dataset_2-cnn-ae-lstm-global-univariate
+Experiment with CNN AE and LSTM hybrid method. Global, univariate, dataset 2. Tuned with LSTM Global Univariate dataset 2

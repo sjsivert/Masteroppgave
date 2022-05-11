@@ -1,0 +1,99 @@
+model:
+    rng_seed: 42
+    model_type: global_univariate_cnn_ae_lstm
+    model_config:
+        hyperparameter_tuning_range:
+            hidden_size: [1, 100]
+            number_of_layers: [1, 2]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            number_of_epochs: [1, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 1
+            number_of_trials: 200
+            stateful_lstm: yes
+        common_parameters_for_all_models:
+            should_shuffle_batches: no
+            batch_size: 32
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            lstm-shared:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0016146453106769651
+                number_of_features: 1
+                epochs: 15
+                layers: &id001 [{hidden_size: 62, dropout: 3.4171700927954074e-05, recurrent_dropout: 0.3563995834345084}]
+                batch_size: 32
+            lstm:
+                optimizer_name: Adam
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.0016146453106769651
+                number_of_features: 1
+                epochs: 15
+                layers: *id001
+            ae:
+                optimizer_name: Adam
+                loss: mae
+                learning_rate: 0.0001
+                epochs: 70
+            encoder: [{layer: Conv1d, filters: 16, kernel_size: 3, activation: relu}, {layer: Conv1d, filters: 32, kernel_size: 5, activation: relu}]
+            decoder: [{layer: Conv1dTranspose, kernel_size: 5, filters: 32, activation: relu}, {layer: Conv1dTranspose, kernel_size: 3, filters: 1}]
+        model_structure:
+        - 12532
+        - 11694
+        - 11716
+        - 11950
+        - 11195
+        - 11998
+        - 274
+        - 11407
+        - 46
+        - 11326
+        - 11335
+        - 12197
+        - 11693
+        - 11780
+        - 12502
+        - 11866
+        - 11400
+        - 12256
+        - 10320
+        - 10030
+        placeholder: yes
+    config: global_cnn_ae_lstm/dataset-2
+    validation_model:
+        placeholder: yes
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_04_26_filtered.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - MSE
+    - MAPE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave

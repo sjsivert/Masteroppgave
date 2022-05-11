@@ -46,21 +46,18 @@ model:
         epochs: 70
       encoder:
         - layer: "Conv1d"
-          filters: 32
+          filters: 16
           kernel_size: 3
           activation: "relu"
-          dropout: 0.1
         - layer: "Conv1d"
           filters: 32
           kernel_size: 5
           activation: "relu"
-          dropout: 0.1
       decoder:
         - layer: "Conv1dTranspose"
           kernel_size: 5
           filters: 32
           activation: "relu"
-          dropout: 0.1
         - layer: "Conv1dTranspose"
           kernel_size: 3
           filters: 1
