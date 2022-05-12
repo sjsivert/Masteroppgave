@@ -2,30 +2,70 @@
 \section{Experimental Plan}
 \label{sec:experimentalPlan}
 
-Trying and failing is a major part of research. However, to have a chance of success you need a plan driving the experimental research, just as you need a plan for your literature search. Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.
 
-The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer. Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.
+% Template text
+\iffalse
+Trying and failing is a major part of research.
+However, to have a chance of success you need a plan driving the experimental research,
+just as you need a plan for your literature search.
+Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.
+
+The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer.
+Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.
+\fi
 
 
-
+% Experiment 0 - SARIMA Baseline
 \subsection{Experiment 0 - SARIMA Baseline}
-This experiment is conducted to make a baseline which the other methods
-will compare against.
+\label{section:results:experimentPlan:Experiment-0}
+This experiment will serve as a measurement for the predictive accuracy of other predictive methods.
+The SARIMA baseline will be used to compare the other methods applied in later experiments.
+This experiment will therefor help with answering RQ \cref{G&R:RQ-LSTM-baseline}.
 
+\begin{description}
+  \item[Outline]{
+                  Tune, train and test a seasonal SARIMA method on dataset 1, dataset 2,
+                  and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
+                }
+\end{description}
+
+\begin{description}
+  \item[Expectations]{
+                      The SARIMA method is expected to performe better on more seasonaly dependent data,
+                      while not performing excedingly well in comparison to other models. 
+                      }
+\end{description}
+
+These experiments will serve as the baseline metric for comparison with later experiments.
+
+
+
+
+% Experiment 1 - LSTM Baseline
 \subsection{Experiment 1 - LSTM Baseline}
-This experiment will give a direct comparison with the Arima model as they both will
-get the same amount of information in order to make predictions.
-It will attempt to answer RQ \cref{G&R:RQ-LSTM-baseline}.
+\label{section:results:experimentPlan:Experiment-1}
+This experiment will serve as a baseline created using a currently state of the art predictive method
+for e-commerce prediction as pressented in \cref{section:Architecture:Baselines:LSTM}.
+By comparing the results achieved in this experiment with the ones from \cref{section:results:experimentPlan:Experiment-0}.
+This experiment serves to answer RQ \cref{G&R:RQ-LSTM-baseline}.
 
 \begin{description}
-  \item[Outline]{Tune, train and test a local univariate LSTM on dataset 1,
-              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon. Compare the results against the Arima baseline}
+  \item[Outline]{
+                  Tune, train and test a local univariate LSTM on dataset 1,
+                  dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
+                  The results are compared with the results from the SARIMA baseline. \cref{section:results:experimentPlan:Experiment-0}}
 \end{description}
 
 \begin{description}
-  \item[Expectations]{We expect the LSTM to beat SARIMA on every dataset.}
+  \item[Expectations]{
+                      The univariate local LSTM model is expected to outperforme the SARIMA model on every dataset.                    
+                     }
 \end{description}
 
+
+
+
+% Experiment 2 - LSTM Model Structure
 \subsection{Experiment 2 - LSTM Model structures}
 This experiment will try to utilize the strengths of a deep neural network
 in order to outperform the Arima and LSTM baselines. The experiment will
@@ -56,6 +96,11 @@ Questions this experiment will try to answer:
         }
 \end{description}
 
+
+
+
+
+% Experiment 3 - CNN AE and LSTM
 \subsection{Experiment 3 - Convolutional Autoencoder LSTM}
 \todo[inline]{Sander: Se over dette?}
 This experiment will test the new proposed CAE-LSTM model on
