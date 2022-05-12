@@ -1,7 +1,10 @@
 import numpy as np
 from pandas import DataFrame
-
+from typing import Dict
+from scipy import stats
 import utils
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Table values
 latex_caption = "Metrics for Dataset 1 Local Univariate LSTM model"
@@ -10,8 +13,9 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-dataset = "dataset_seasonal"
+dataset = "dataset_2"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
+figure_base_path = f"./MastersThesis/figs/results"
 
 # Select projects to be imported
 base_path = "./models/"
@@ -32,7 +36,7 @@ projects = {
 }
 
 # Select metrics to be used
-metric_types = ["mase", "smape", "days"]
+metric_types = ["smape", "mase", "days"]
 
 
 # Read metrics from txt file
@@ -147,6 +151,56 @@ def create_shared_avg_table_all_experiments():
     )
 
 
+def list_of_metrics(metrics, metric_name):
+    metric_list = []
+    for metric in metrics:
+        metric_list.append(
+            metrics[metric][metric_name]
+        )
+    return metric_list
 
-create_all_tables_each_experiment()
-create_shared_avg_table_all_experiments()
+
+def metrics_experiment_lists(experiments: Dict[str, str], metric_name: str= "mase"):
+    # Create list with lists of error metrics for each experiment
+    updated_metrics_list = []
+    updated_metrics_list_names = []
+    for experiment_name in experiments:
+        path = f"{base_path}{experiments[experiment_name]}/metrics.txt"
+        metrics = extract_metrics_from_file(path)
+        metric_list = list_of_metrics(metrics, metric_name)
+        updated_metrics_list.append(metric_list)
+        updated_metrics_list_names.append(experiment_name)
+    return updated_metrics_list, updated_metrics_list_names
+
+
+def freidman_test(experiments: Dict[str, str], metric_name:str="mase"):
+    updated_metrics_list, _ = metrics_experiment_lists(experiments, metric_name)
+    # Use Freidman test on metrics
+    freidman = stats.friedmanchisquare(
+        *updated_metrics_list[:-3]
+    )
+    print(freidman)
+
+
+def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = "mase"):
+    metrics_list, metrics_list_names = metrics_experiment_lists(experiments, metric_name)
+    metrics_dict = {}
+    for i in range(len(metrics_list)):
+        print(len(metrics_list[i]), metrics_list_names[i])
+        metrics_dict[metrics_list_names[i]] = metrics_list[i]
+    metrics_dataframe = DataFrame(metrics_dict)
+    plt.rcParams.update({'font.size': 12})
+    ax = sns.boxplot(data=metrics_dataframe)
+    plt.xlabel("Experiments")
+    plt.ylabel(metric_name)
+    plt.savefig(
+        f"{figure_base_path}/boxplot/{metric_name}-{dataset}"
+    )
+
+
+
+
+#create_all_tables_each_experiment()
+#create_shared_avg_table_all_experiments()
+#freidman_test(projects, "mase")
+metrics_experiment_box_plot(projects, "mase")
