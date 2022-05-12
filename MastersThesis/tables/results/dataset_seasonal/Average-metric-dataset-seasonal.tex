@@ -1,0 +1,21 @@
+\begin{table}[h]
+\centering
+\caption{Average values for all experiment for dataset-seasonal}
+\label{table:Average-metric-dataset-seasonal}
+\begin{tabular}{lrrr}
+\toprule
+{} &   mase &  mase-7 &  smape \\
+\textbf{Experiment                     } &        &         &        \\
+\midrule
+\textbf{sarima                         } &  1.938 &   0.981 &    NaN \\
+\textbf{local univariate lstm          } &  2.207 &   1.345 &  0.488 \\
+\textbf{local multivariate lstm        } &  1.285 &   0.752 &  0.325 \\
+\textbf{global univariate lstm         } &  2.169 &   1.194 &  0.464 \\
+\textbf{global multivariate lstm       } &  2.156 &   1.126 &  0.447 \\
+\textbf{local univariate cnn ae lstm   } &  2.106 &   1.242 &  0.483 \\
+\textbf{local multivariate cnn ae lstm } &  2.106 &   1.242 &  0.483 \\
+\textbf{global univariate cnn ae lstm  } &  1.940 &   1.004 &  0.417 \\
+\textbf{global multivariate cnn ae lstm} &  2.935 &   1.771 &  0.566 \\
+\bottomrule
+\end{tabular}
+\end{table}
