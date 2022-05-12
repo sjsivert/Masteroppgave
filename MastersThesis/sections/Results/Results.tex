@@ -9,6 +9,10 @@ Lastly, the Convolutional autoencoder and LSTM network is tuned and used on the 
 
 
 \import{./sections/Results/}{experimental-plan.tex}
+
+
+
+\section{Results}
 \Cref{table:Average-metric-dataset-1} shows the mean metrics accross
 all the time series in dataset 1. The poorest perfoming model accross the board
 is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7 day MASE of $1.063$.
@@ -20,13 +24,27 @@ The multivariate models outperformed all the
 % over predictions? TODO: Kjøre eksperiment på nytt for å få figures.
 
 % Globale modeller er dårligere på mase 7 bortsett fra.
-
-
-
-\section{Results}
+% All results tables
 \import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}
 \import{./tables/results/dataset_2}{Average-metric-dataset-2.tex}
+\import{./tables/results/dataset_seasonal}{Average-metric-dataset-seasonal.tex}
 \import{./tables/results/dataset_1}{sarima-dataset-1.tex}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_1.png}
+  \hfill
+  \caption{TODO..}
+  \label{fig:results:boxplot-mase-dataset-1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_2.png}
+  \hfill
+  \caption{TODO..}
+  \label{fig:results:boxplot-mase-dataset-2}
+\end{figure}
 
 
 
