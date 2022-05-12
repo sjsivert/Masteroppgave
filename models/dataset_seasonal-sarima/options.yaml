@@ -109,6 +109,7 @@ experiment:
     - MAE
     - MASE
     - MSE
+    - SMAPE
     - MAPE
     save_source:
         disk:
