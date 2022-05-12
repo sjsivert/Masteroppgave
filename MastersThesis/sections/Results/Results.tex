@@ -1,14 +1,32 @@
 \chapter{Experiments and Results}
 \label{section:Results}
 
+\todo[inline]{TODO: Update outdated text}
 This chapter presents the results accomplished through the execution of the experiments defined in chapter \cref{section:Method}.
 First, the results of the ARIMA baselines are presented, containing the tuning of the ARIMA models, as well as the resulting method predictions with these configs.
 The second baseline is then pressented, with tuning and testing of the LSTM method.
 Lastly, the Convolutional autoencoder and LSTM network is tuned and used on the dataset.
 
 
-\import{./sections/Results/}{SARIMA.tex}
 \import{./sections/Results/}{experimental-plan.tex}
+\Cref{table:Average-metric-dataset-1} shows the mean metrics accross
+all the time series in dataset 1. The poorest perfoming model accross the board
+is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7 day MASE of $1.063$.
+All the different LSTM structures and hybrid methods outperformed SARIMA.
+
+The multivariate models outperformed all the
+%% Globale metoder gjør det bedre enn locale på MASE, men dårligere på sMAPE
+% Kan det være fordi sMAPE straffer under predictions hardere enn 
+% over predictions? TODO: Kjøre eksperiment på nytt for å få figures.
+
+% Globale modeller er dårligere på mase 7 bortsett fra.
+
+
+
+\section{Results}
+\import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}
+\import{./tables/results/dataset_2}{Average-metric-dataset-2.tex}
+\import{./tables/results/dataset_1}{sarima-dataset-1.tex}
 
 
 
