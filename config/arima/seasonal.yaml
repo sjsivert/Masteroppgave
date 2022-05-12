@@ -23,63 +23,63 @@ model:
     model_structure:
       -   time_series_id: 12322
           hyperparameters:
-            p: 4 
+            p: 0
             d: 1
-            q: 2
+            q: 0
             D: 0
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 11428
           hyperparameters:
-            p: 4 
+            p: 1 
             d: 1
-            q: 2
+            q: 1
             D: 0
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 11850
           hyperparameters:
-            p: 4 
+            p: 7 
             d: 1
-            q: 2
+            q: 0
             D: 0
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 11852
           hyperparameters:
-            p: 4 
+            p: 7 
             d: 1
-            q: 2
-            D: 0
+            q: 0
+            D: 2
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 273
           hyperparameters:
-            p: 4 
+            p: 1 
             d: 1
-            q: 2
+            q: 1
             D: 0
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 11036
           hyperparameters:
-            p: 4 
+            p: 0 
             d: 1
-            q: 2
+            q: 0
             D: 0
             P: 0
             Q: 0
             s: 12
       -   time_series_id: 11213
           hyperparameters:
-            p: 4 
+            p: 1 
             d: 1
-            q: 2
+            q: 1
             D: 0
             P: 0
             Q: 0
@@ -90,9 +90,6 @@ model:
             d: 1
             q: 2
             D: 0
-            P: 0
-            Q: 0
-            s: 12
             P: 0
             Q: 0
             s: 12
