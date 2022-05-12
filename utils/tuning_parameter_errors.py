@@ -1,8 +1,9 @@
+from typing import Dict, List, Tuple
+
 import numpy
-from typing import Dict, Tuple, List
-from sort_tuning_metrics import load_dict
 import yaml
 
+from sort_tuning_metrics import load_dict
 
 # Global variables
 experiment_path = "./models/"

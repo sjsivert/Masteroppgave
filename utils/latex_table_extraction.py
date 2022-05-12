@@ -10,7 +10,7 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-dataset = "dataset_2"
+dataset = "dataset_seasonal"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
 
 # Select projects to be imported
@@ -18,13 +18,17 @@ base_path = "./models/"
 # Multiple projects does not work?
 
 projects = {
-    "sarima": f"{dataset}_arima",
-    "local_univariate_lstm": f"{dataset}-lstm-local-unviariate-tune-400-trials",
-    "local multivariate lstm": f"{dataset}-lstm-multivariate-tune-400-trails",
-    "global univariate lstm": f"{dataset}-lstm-global-unviariate-tune-400-trials",
+    "sarima": f"{dataset}-sarima",
+
+    "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
+    "local multivariate lstm": f"{dataset}-lstm-local-multivariate-tune-400-trials",
+    "global univariate lstm": f"{dataset}-lstm-global-univariate-tune-400-trials",
     "global multivariate lstm": f"{dataset}-lstm-global-multivariate-tune-400-trials",
+
+    "local univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-local-univariate",
+    "local multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-local-multivariate",
     "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
-    "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariae",
+    "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariate",
 }
 
 # Select metrics to be used
