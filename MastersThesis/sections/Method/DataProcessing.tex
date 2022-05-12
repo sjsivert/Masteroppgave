@@ -21,7 +21,7 @@ The further away the test predictions are from the training set the worse,
 because the underlying patterns may change during this last part of the sequence.
 Therefore \cite{Hewamalage2021} suguests an alteration to the use of the validation split.
 The validation set is split from the training set only when tuning the model,
-and is thereafter added to the training data when the model is used and tested. 
+and is thereafter added to the training data when the model is used and tested.
 Thus, the models will be trained on all available data, excluding only the selected test set.
 
 We did however make som modifications to the approach presented by \cite{Hewamalage2021}.
@@ -132,17 +132,17 @@ Both methods were explored, but at last standardization was selected as the scal
 
 
 \iffalse
-Standardization was chosen over normalization because experiments showed better perfomance with
-standardization.
+  Standardization was chosen over normalization because experiments showed better perfomance with
+  standardization.
 
-For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
-The unconventional choise of having 0.1 as our lower bound is becuase the matric SMAPE
-is vulnerable to zero values, as described in \Cref{eq:sMape}.
+  For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
+  The unconventional choise of having 0.1 as our lower bound is becuase the matric SMAPE
+  is vulnerable to zero values, as described in \Cref{eq:sMape}.
 
-Normization was chosen over standardization because we do not know the distrubtion
-of the data, and we did not want to assume it followed a Gaussion distribution.
-All model output and predictions are rescaled to it's original range before
-visualizing and plotting.
+  Normization was chosen over standardization because we do not know the distrubtion
+  of the data, and we did not want to assume it followed a Gaussion distribution.
+  All model output and predictions are rescaled to it's original range before
+  visualizing and plotting.
 \fi
 
 %%% This should not be needed. This should be defined in the ARIMA pipeline / method / experiment.
@@ -235,6 +235,13 @@ However more recent work suggest that deseasonalisation and
 detrending can boost perfomance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
 \cite{Ouyang2021} show that detrending and deseasonalisation using STL decomposition
 will harm machine learning models, but improve statistical models.
+
+\cite{Hewamalage2021} conclude that when all the series in a dataset follow
+homogeneous seasonal patterns, with all of them covering the same duration in time
+with sufficient lengths, RNNs are capable of capturing seasonality
+without prior deseasonalisation.
+If this is not the case then RNNs have a hard time modelling
+seasonality on their own, and deseasonalisation step should be employed.
 
 These conflicting results in the literature, combined with our varied set of time series
 we conclude that we will avoid applying STL decomposition in our main experiments,
