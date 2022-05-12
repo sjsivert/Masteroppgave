@@ -14,6 +14,18 @@ as well as the reason behind the framework.
 \import{./sections/Conclusion/Discussion}{ModelStructure.tex}
 % \import{./sections/Conclusion/Discussion}{ErrorMetric.tex}
 
+\section{Global versus Local models}
+TODO:
+% Write about which dataset the global model performs best on.
+The global models seems to be doing be doing...
+
+% Difference between MASE ans sMAPE
+The global models seem to have a better 1 day MASE, but a lower sMAPE.
+This is likely because sMAPE is not a symetric metric, as it punishes
+under forcasts higher than over forecasts. Looking at the predictions made by
+the local and global models, it seems that the global models in general tends to
+under-forcast, and the local models has a tendency to over-forecast.
+
 \section{LSTM trend and seasonality}
 \begin{itemize}
   \item LSTM and ARIAM seem to have trouble with datasets with yearly seasonalities
@@ -24,9 +36,34 @@ as well as the reason behind the framework.
 
 
 \section{Normalization versus Standardisation}
-We got better results with Standardisation. Why?
-Mabye because when one has huge outliers and force everything between
-two values then the majority of the examples will be sqeezed in between a small interval?
+Our initial assumption was to use normalization to scale the data between a
+fixed range between -1 and 1 because we did not know if the data would follow a Guassian
+distribution. After testing both normalization and standardization,
+standardization proved to perform significantly better.
+The problem with scaling all values between a fixed range is that huge
+outliers use up a lot of the range available, which will result in
+most of the data having very small differences in values between them.
+This can affect the NNs ability to differentiate between the observations.
+
+\Cref{fig:time-series-standardization-vs-normalization} show two different time series
+scaled with both techniques
+\begin{figure}[h!]
+  \centering
+  \caption{Effects of different scaling techniques on a dataset with huge outliers.}
+  \label{fig:time-series-standardization-vs-normalization}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/dataset/time-series_scaled_normalization2.png}
+    \hfill
+    \caption{A time series with huge outliers scaled using normalization. Most values are squeezed between -1 and -0.75.}
+    \label{fig:time-series-normalization}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/dataset/time-series_scaled_standardization.png}
+    \hfill
+    \caption{A time series scaled using standardization. Most values are centered between -2 and 2.}
+    \label{fig:time-series-standardization}
+  \end{subfigure}
+\end{figure}
 
 \section{Which datasets did we get poor results on and why?}
 Do a lag scatter plot on datasets and compare them with datasets which got good results.
