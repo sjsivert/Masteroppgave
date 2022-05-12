@@ -23,22 +23,22 @@ model:
       batch_size: 32
       input_window_size: 10
       output_window_size: 7
-      multi_variable_nr: 4
+      multi_variable_nr: 1
       lstm-shared:
         input_window_size: 10
         output_window_size: 7
-        multi_variable_nr: 4
+        multi_variable_nr: 1
       lstm:
         optimizer_name: 'Adam'
         stateful_lstm: True
         loss: "mae"
-        learning_rate: 0.0016146453106769651
-        number_of_features: 4
-        epochs: 15
+        learning_rate: 0.00021547135642839798
+        number_of_features: 1
+        epochs: 30
         layers:
-          - hidden_size: 62
-            dropout: 3.4171700927954074e-05
-            recurrent_dropout: 0.3563995834345084
+          - hidden_size: 87
+            dropout: 0.007960311051875231
+            recurrent_dropout: 0.25725318646597145
       ae:
         optimizer_name: 'Adam'
         loss: "mae"
@@ -60,26 +60,14 @@ model:
           activation: "relu"
         - layer: "Conv1dTranspose"
           kernel_size: 3
-          filters: 4
+          filters: 1
 
     model_structure:
+      - 12322
+      - 11428
+      - 11850
+      - 11852
+      - 273
+      - 11036
+      - 11213
       - 12532
-      - 11694
-      - 11716
-      - 11950
-      - 11195
-      - 11998
-      - 274
-      - 11407
-      - 46
-      - 11326
-      - 11335
-      - 12197
-      - 11693
-      - 11780
-      - 12502
-      - 11866
-      - 11400
-      - 12256
-      - 10320
-      - 10030

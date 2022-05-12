@@ -1,0 +1,2 @@
+dataset_seasonal-cnn-ae-lstm-global-univariate
+Experiment with CNN AE and LSTM hybrid method. Global, univariate, dataset seasonal. Tuned with LSTM Local Global dataset seasonal

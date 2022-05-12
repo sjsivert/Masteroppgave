@@ -23,11 +23,11 @@ model:
       batch_size: 32
       input_window_size: 10
       output_window_size: 7
-      multi_variable_nr: 1
+      multi_variable_nr: 4
       lstm-shared:
         input_window_size: 10
         output_window_size: 7
-        multi_variable_nr: 1
+        multi_variable_nr: 4
       ae:
         optimizer_name: 'Adam'
         loss: "mae"
@@ -49,7 +49,7 @@ model:
           activation: "relu"
         - layer: "Conv1dTranspose"
           kernel_size: 3
-          filters: 1
+          filters: 4
 
 
     model_structure:
@@ -144,7 +144,7 @@ model:
           stateful_lstm: true
         time_series_id: 11213
       - lstm:
-          :{'batch_size: 32.0
+          batch_size: 32.0
           epochs: 9
           layers:
           - dropout: 0.3051754834430947

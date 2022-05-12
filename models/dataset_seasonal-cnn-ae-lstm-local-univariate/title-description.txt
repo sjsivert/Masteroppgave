@@ -1,0 +1,2 @@
+dataset_seasonal-cnn-ae-lstm-local-univariate
+Experiment with CNN AE and LSTM hybrid method. Local, univariate, dataset seasonal. Tuned with LSTM Local Univariate dataset seasonal
