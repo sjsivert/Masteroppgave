@@ -67,32 +67,40 @@ This experiment serves to answer RQ \cref{G&R:RQ-LSTM-baseline}.
 
 % Experiment 2 - LSTM Model Structure
 \subsection{Experiment 2 - LSTM Model structures}
-This experiment will try to utilize the strengths of a deep neural network
-in order to outperform the Arima and LSTM baselines. The experiment will
-help answer RQ[TODO] \cref{G&R:RQ-LSTM-baseline}.
-Questions this experiment will try to answer:
+\label{section:results:experimentPlan:Experiment-2}
+This experiment attempt to improve the predictive ability of the LSTM model,
+using multivariate and global methods.
+The experiments are designed to create models with the aim of outperforming the baseline
+SARIMA and Local univariate LSTM models created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-0}.
+This experiment aims to answer RQ \cref{G&R:RQ-LSTM-baseline},
+inn through the exploration of the questions outlined below.
+
 \begin{itemize}
-  \item Will additional information, such as day of the week, month and season help an LSTM to make better predictions?
+  \item {Will additional information, such as day of the week, month and season help an LSTM to make better predictions?}
   \item {Will giving an LSTM model additional data by training an LSTM across multiple datasets improve predictions?}
 \end{itemize}
 
 \begin{description}
-  \item[Outline]{Tune, train and test a local multivariate LSTM, a global univariate LSTM,
-              and a global multivariate LSTM on dataset 1,
-              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast. Compare the results against the Arima and LSTM baseline}
+  \item[Outline]{
+                  Tune, train and test a local multivariate LSTM, a global univariate LSTM,
+                  and a global multivariate LSTM on dataset 1,
+                  dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast.
+                  Compare the results against the SARIMA and LSTM baseline.
+                }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-
-              We expect the multivariate models to outperform the univariate models and all the datasets.
-              additional information should help the NN to make better predictions, and should certainly not harm perfomance.
+              It is expected that the multivariate models will outperforme the univariate models.
+              The additional dat encoding of seasonality should help the NN make more accurate predictions.
+              It should not imper the model accuracy.
 
               Following the works of \cite{Rabanser2020} described in \Cref{section:RelatedWork:Model-structure:local-vs-global}
-              We expect the global models to outperform the local models on dataset 2 because it consists
-              of truly interdependent time series. The global models should lose their beneficial performance guarantees
-              on dataset 1 because of the heavy dependence between the time series in the dataset.
-
+              the global models are expected to outperform the local models primarily on dataset 2.
+              This is because dataset 2 consists of independent time series.
+              Following the same logic, accuracy on dataset 1 should be impared due to the heavy dependence between the time series in the dataset.
+              % TODO: This does not make sense. Are we sure that this is correct?
+              % TODO: Correlation migh not be the same as dependent
         }
 \end{description}
 
@@ -103,19 +111,32 @@ Questions this experiment will try to answer:
 % Experiment 3 - CNN AE and LSTM
 \subsection{Experiment 3 - Convolutional Autoencoder LSTM}
 \todo[inline]{Sander: Se over dette?}
-This experiment will test the new proposed CAE-LSTM model on
-the E-commerce domain. Our hypothosis is that the convolutional autoencoder
-will lower the random noise in the data which will lead to better predictions.
-This experiment will answer RQ[TODO put in reasearch questions].
+This experiment focus on the propsed hybrid Convolutional Autoencoder and LSTM model.
+As this method has yet to be tested on a commercial dataset,
+the experiment aims to improve accuracy of the correlating LSTM models.
+The hybrid model is explored on each of the experiments ran on the LSTM,
+including all combinations of Local vs Global methods, and univariate vs multivariate.
+
+This experiment aims to answer RQ \cref{G&R:RQ-CNN-AE-LSTM} through applying the Hybid method
+to the experiment datasets.
+
 
 \begin{description}
-  \item[Outline]{Tune, train and test a CAE-LSTM, a global univariate LSTM,
-              and a global multivariate LSTM on dataset 1,
-              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast. Compare the results against the Arima and LSTM baseline}
+  \item[Outline]{
+                  Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
+                  created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-2}.
+                  Creating a local-univariate model, local-multivariate model, global-univariate model, and global-multivariate model.
+                  All these models are applied to each of dataset 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
+                  The results are compared against the SARIMA and LSTM models defined in previous experiments.
+                }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-              We expect the model to perform better... [Sander fylle ut her?]
-        }
+                        The Convolutional Autoencoder and LSTM model is expected to performe better than the correlating LSTM model
+                        due to the high volatility and noise in the available datasets.
+                        The multivariate models are expected to performe better than the univariate models.
+                        However, the global models are expected to performe well on dataset 1 due to the highly correlating data,
+                        while preforming worse on dataset 2 and 3.
+                     }
 \end{description}
