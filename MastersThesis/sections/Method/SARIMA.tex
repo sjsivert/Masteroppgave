@@ -2,6 +2,47 @@
 
 \section{SARIMA baseline}
 \label{section:Method:SARIMA}
+
+The SARIMA model is the first model creating a baseline metrics for comparions with other models.
+The SARIMA model is limited to beeing a local and univariate method,
+thus limiting the ammount of experiment that can be ran.
+
+Due to the inherit seasonal component pressent in the e-commerce data available in this paper,
+the seasonal SARIMA model is selected in favor of the non-seasonal ARIMA model.
+
+\subsubsection{SARIMA Tuning}
+Model tuning of the SARIMA model is done with the auto-arima framework.
+Auto-arima utilize bayesian optimization to find a well suited set of hyperparameters to use,
+within a defined search space for parameters.
+Using the MAE metric as a measure of performance, auto arima search for a set of parameters for each individual time-series
+in the datasets defined in \cref{section:Data:Dataset}.
+The parmeter search space used during the tuning is defined in \cref{table:method:arima-tuning} with the range of parameter value.
+
+\begin{table}[h]
+  \centering
+  \caption{Parameter search space auto-arima, SARIMA tuning}
+  \label{table:method:arima-tuning}
+  \begin{tabular}{|c|l|l|}\hline
+    Parameter & Min & Max \\ \hline
+    p         & 0   & 7   \\ \hline
+    q         & 0   & 7   \\ \hline
+    d         & 0   & 7   \\ \hline
+    P         & 0   & 5   \\ \hline
+    Q         & 0   & 5   \\ \hline
+    D         & 0   & 5   \\ \hline
+    S         & 12   & 12   \\ \hline
+  \end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+\iffalse
 % --------------------------------------------
 % __ Contents __
 % What model is used?
@@ -12,6 +53,8 @@
 % Expectations from experiments
 % Add which resarch questions this answers or helps to answer
 % --------------------------------------------
+
+
 
 % Model
 The first experiments conducted are done in order to create a SARIMA baseline.
@@ -47,13 +90,13 @@ The parmeter search space used during the tuning is defined in \cref{table:metho
   \label{table:method:arima-tuning}
   \begin{tabular}{|c|l|l|}\hline
     Parameter & Min & Max \\ \hline
-    p         & 0   & 5   \\ \hline
-    q         & 0   & 5   \\ \hline
-    d         & 0   & 5   \\ \hline
+    p         & 0   & 7   \\ \hline
+    q         & 0   & 7   \\ \hline
+    d         & 0   & 7   \\ \hline
     P         & 0   & 5   \\ \hline
     Q         & 0   & 5   \\ \hline
     D         & 0   & 5   \\ \hline
-    S         & 2   & 2   \\ \hline
+    S         & 12   & 12   \\ \hline
   \end{tabular}
 \end{table}
 
@@ -67,13 +110,8 @@ This 7 day prediciton is then compared to the 7 day ahead test-set used to measu
 These predictions are then used in order to measure the predictive error using the defined error metrics above.
 
 
-\subsection{Expectations}
 
-Using the SARIMA model for creating a 7 day multi step ahead prediction is not expected to yeald wery good results.
-The SARIMA model has problems with data where there is a high volatility in the data, with a high standard variation.
-The data available, as described in \cref{section:Data:DataAnalysis},
-is highly volatile and thus makes the predictions more dificult for the ARIMA model.
-
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

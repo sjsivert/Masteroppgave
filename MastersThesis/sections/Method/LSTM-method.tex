@@ -170,7 +170,7 @@ the dataset in order to make the total number of samples dividable by the batch 
 and then make the validation set equal to one batch. Removing data from the beginning,
 seemed obvious as newer data will have more relevance than older data.
 This meant that we also had to remove batch size as a tunable hyperparameter,
-because the model would favor lower batch sizes because that meant fewer validation data,
+because the model would favor lower batch sizes because that meant fewer validation data batches,
 which equals potentially fewer examples to get wrong.
 
 Instead of automatically tuning batch sizes, we did some manual testing, and
