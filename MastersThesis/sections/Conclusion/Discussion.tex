@@ -66,4 +66,92 @@ scaled with both techniques
 \end{figure}
 
 \section{Which datasets did we get poor results on and why?}
-Do a lag scatter plot on datasets and compare them with datasets which got good results.
+Low mase seems to correlate with a low autocorr.
+High smape seem to correlate with early seasonality.
+
+It seems much harder to predict december.
+There is a correlation around 0.28 between a categorys MASE metric
+and it's autocorrelation coefficient.
+
+\iffalse
+  On dataset 2 cat
+  Low mase:
+  11780
+  - low stnd
+  - low mase
+  - high smape
+  - sudden shift in behavior last year
+  - some seasonality
+  - autocorr 0.78 (pretty low)
+
+  11694
+  - few big spikes
+  - low mase
+  - low smape
+  - low seasonality
+  - very low autocorr (0.35)
+  - consistent smushed lag plot
+
+  1716:
+  - low mase
+  - high smape
+  - low stnd
+  -  very high seasonality
+  - lots of variation in the dataset
+  - consistent "column" in lag plot
+  - autotorr 0.86
+
+
+  11400
+  - high mase
+  - medium high smape
+  - high seasonality
+  - not much variation
+  - lag plot ok structure like acolumn
+  - 0.85 autocorr (predty high)
+
+  11195
+  - high mase
+  - medium smape
+  - early seasonality
+  - few big spikes
+  - low variation
+  - high autocorr
+
+  10320
+  - high mase
+  - medium smape
+  - high autocorr
+  - early seasonality
+
+  Data set 10
+  - low mase
+  - low smape
+  - low seasonality
+  - low std
+  - 0.78 autocorr (low)
+  - samlet lag plot
+
+  data set 28
+  - high smape
+  - low-ish mase
+  - low autocorr 0.52
+  - low stnd
+  - messy lag plot mye spredning
+  - some seasonality
+  - very noisy
+
+  data set 51
+  - low smape
+  - high mase
+  - samlet lag plot
+  - 0.8 autocorr
+  - some seasonality
+
+  data set 24
+  - high mase
+  - low smape
+  - 0.83 autocorr
+  - small seasonality
+  - structure men spredning i scatter plot.
+\fi
