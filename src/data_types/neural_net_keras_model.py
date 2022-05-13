@@ -29,7 +29,11 @@ from src.utils.keras_error_calculations import (
     keras_mase_periodic,
     keras_smape,
 )
-from src.utils.reverse_pipeline import reverse_differencing, reverse_differencing_forecast
+from src.utils.reverse_pipeline import (
+    reverse_decrease_variance,
+    reverse_differencing,
+    reverse_differencing_forecast,
+)
 from src.utils.visuals import visualize_data_series, visualize_data_series_with_specified_x_axis
 
 

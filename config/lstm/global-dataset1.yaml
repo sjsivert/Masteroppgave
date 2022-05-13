@@ -16,7 +16,7 @@ model:
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 4 # must be equal to number of features in data
+      number_of_features: 1 # must be equal to number of features in data
       number_of_trials: 400 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
@@ -33,7 +33,7 @@ model:
         should_shuffle_batches: no
         optimizer_name: Adam
         learning_rate: 0.0016146453106769651
-        number_of_features: 4
+        number_of_features: 1
         layers:
           [
             {
@@ -77,7 +77,7 @@ model:
         batch_size: 32
         stateful_lstm: yes
         should_shuffle_batches: no
-        number_of_features: 4
+        number_of_features: 1
 
       model_structure:
         - time_series_id: 2
@@ -86,7 +86,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -98,7 +98,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -110,7 +110,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -122,7 +122,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -134,7 +134,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -146,7 +146,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -158,7 +158,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -170,7 +170,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -182,7 +182,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -194,7 +194,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -206,7 +206,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -218,7 +218,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -230,7 +230,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -242,7 +242,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -254,7 +254,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -266,7 +266,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -278,7 +278,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -290,7 +290,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -302,7 +302,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
@@ -314,7 +314,7 @@ model:
           learning_rate: 0.00028345282219663603
           hidden_layer_size: 60
           dropout: 0.24970090559798974
-          number_of_features: 4
+          number_of_features: 1
           layers:
             - hidden_size: 94
               dropout: 0.21199
