@@ -1,10 +1,12 @@
-import numpy as np
-from pandas import DataFrame
 from typing import Dict
-from scipy import stats
-import utils
-import seaborn as sns
+
 import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from pandas import DataFrame
+from scipy import stats
+
+import utils
 
 # Table values
 latex_caption = "Metrics for Dataset 1 Local Univariate LSTM model"
@@ -13,7 +15,7 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-dataset = "dataset_2"
+dataset = "dataset_seasonal"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
 figure_base_path = f"./MastersThesis/figs/results"
 
@@ -193,14 +195,17 @@ def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = 
     ax = sns.boxplot(data=metrics_dataframe)
     plt.xlabel("Experiments")
     plt.ylabel(metric_name)
+    ax.set_xticklabels(metrics_list_names, rotation=90, fontsize=8)
+    plt.tight_layout()
     plt.savefig(
-        f"{figure_base_path}/boxplot/{metric_name}-{dataset}"
+        f"{figure_base_path}/boxplot/{metric_name}-{dataset}",
+
     )
 
 
 
+# create_all_tables_each_experiment()
+# create_shared_avg_table_all_experiments()
+# freidman_test(projects, "mase")
 
-#create_all_tables_each_experiment()
-#create_shared_avg_table_all_experiments()
-#freidman_test(projects, "mase")
-metrics_experiment_box_plot(projects, "mase")
+metrics_experiment_box_plot(projects, "smape")
