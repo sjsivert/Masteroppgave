@@ -1,10 +1,66 @@
 \section{Results}
+% Dataset 1
+\subsection{Dataset 1}
 \Cref{table:Average-metric-dataset-1} shows the mean metrics accross
 all the time series in dataset 1. The poorest perfoming model accross the board
 is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7 day MASE of $1.063$.
 All the different LSTM structures and hybrid methods outperformed SARIMA.
 
-The multivariate models outperformed all the
+The multivariate models outperformed all the their retrospective univariate counterpartners.
+The global univariate LSTM outperforms the local univariate on both MASE and sMAPE,
+but this results is not reproduced for the multivariate models, or the CNN-AE-LSTM models.
+
+All the model structures perfoms slightly better with our proposed CNN-AE-LSTM method, except for
+the global univariate CNN-AE-LSTM.
+
+The most consistent models with the least amount of variance are the multivariate models.
+The local multivariate CNN-AE-LSTM and the local multivariate LSTM were the only two models
+who beat the naive 7-day prediction. The best performing model is the local multivariate CNN-AE-LSTM.
+
+The mean MASE dataset across all models on dataset 1 is$0.971$,
+the mean sMAPE is $0.2034$,
+and the mean MASE 7-day is $0.9976$.
+
+
+\subsection{Dataset 2}
+% Dataset 2
+Compared to dataset 1, dataset 2 proved to be a much more difficult dataset to forecast.
+Compared to the NN models SARIMA performs a lot better, with a mase of $1.472$, a 7-day MASE of $0.707$ and smape of $0.633$.
+Some of the results from dataset 1 are reproduced on dataset 2. For example the global univariate LSTM outperform
+the local univariate LSTM. The multivariate models outperforms the univariate models.
+On dataset 2 however all the CNN-AE-LSTM methods performs poorly compared to the LSTM models.
+The best performing model on dataset 2 is local multivariate LSTM with a mase of $1.55$ a sMAPAE of $0.642$
+and $0.775$.
+
+The mean MASE across dataset 2 is $1.652$,
+the mean sMAPE is $0.697$,
+and the mean MASE 7-day is  $0.7306$.
+
+% Dataset 3
+\subsection{Dataset 3}
+On dataset 3 SARIMA, again, outperforms the pure local univariate LSTM baseline.
+Many of the same patterns repeats on dataset 3 as with dataset 1 and 2, multivariate beats univariate,
+global unviariate beats local univariate.
+On dataset 3 it seems that the CNN-AE-LSTMs outperforms the LSTMs once again, except for the
+best perfoming model, which is the local multivariate LSTM.
+
+The mean MASE for dataset 3 is $2.009$,
+the mean sMAPE data set 3 is $0.4362$,
+and the mean MASE 7-day is $1.131$.
+
+
+
+% TODO Discussion
+% Skrive om forskjellene mellom resultatene mellom datasetene og hva det kan indikere
+% dataset 1 sterk ukentli seaason
+% dataset 2 svak ukentlig season
+% Dataset 2 sterkere årlig season og høyere autocorrelation som gir høyere MASE
+% Dataset 3 veldig høy autocorrelation litt dårligere ukentli season
+% Kan se ut som SARIMA er bedre enn LSTM til å håndtere årlige sesonger
+% Men multivariate LSTM er aller best på årlige sesonger.
+
+
+
 %% Globale metoder gjør det bedre enn locale på MASE, men dårligere på sMAPE
 % Kan det være fordi sMAPE straffer under predictions hardere enn 
 % over predictions? TODO: Kjøre eksperiment på nytt for å få figures.
@@ -20,8 +76,15 @@ The multivariate models outperformed all the
   \centering
   \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_1.png}
   \hfill
-  \caption{Boxplot of predictions made on dataset 1}
-  \label{fig:results:boxplot-mase-dataset-1}
+  \caption{MASE boxplot of predictions made on dataset 1}
+  \label{fig:results:boxplot-mase-dataset-1-mase}
+\end{figure}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_1.png}
+  \hfill
+  \caption{sMAPE boxplot of predictions made on dataset 1}
+  \label{fig:results:boxplot-mase-dataset-1-smape}
 \end{figure}
 
 \begin{figure}[h!]
@@ -29,7 +92,15 @@ The multivariate models outperformed all the
   \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_2.png}
   \hfill
   \caption{Boxplot of predictions made on dataset 2}
-  \label{fig:results:boxplot-mase-dataset-2}
+  \label{fig:results:boxplot-mase-dataset-2-mase}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_2.png}
+  \hfill
+  \caption{sMAPE boxplot of predictions made on dataset 2}
+  \label{fig:results:boxplot-mase-dataset-2-smape}
 \end{figure}
 
 \begin{figure}[h!]

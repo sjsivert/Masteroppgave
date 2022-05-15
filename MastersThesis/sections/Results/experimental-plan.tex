@@ -5,13 +5,13 @@
 
 % Template text
 \iffalse
-Trying and failing is a major part of research.
-However, to have a chance of success you need a plan driving the experimental research,
-just as you need a plan for your literature search.
-Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.
+  Trying and failing is a major part of research.
+  However, to have a chance of success you need a plan driving the experimental research,
+  just as you need a plan for your literature search.
+  Further, plans are made to be revised and this revision ensures that any further decisions made are in line with the work already completed.
 
-The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer.
-Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.
+  The plan should include what experiments or series of experiments are planned and what question the individual or set of experiments aim to answer.
+  Such questions should be connected to your research questions so that in the evaluation of your results you can discuss the results wrt to the research questions.
 \fi
 
 
@@ -24,16 +24,16 @@ This experiment will therefor help with answering RQ \cref{G&R:RQ-LSTM-baseline}
 
 \begin{description}
   \item[Outline]{
-                  Tune, train and test a seasonal SARIMA method on dataset 1, dataset 2,
-                  and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
-                }
+              Tune, train and test a seasonal SARIMA method on dataset 1, dataset 2,
+              and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
+        }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-                      The SARIMA method is expected to performe better on more seasonaly dependent data,
-                      while not performing excedingly well in comparison to other models. 
-                      }
+              The SARIMA method is expected to performe better on more seasonaly dependent data,
+              while not performing excedingly well in comparison to other models.
+        }
 \end{description}
 
 These experiments will serve as the baseline metric for comparison with later experiments.
@@ -51,15 +51,15 @@ This experiment serves to answer RQ \cref{G&R:RQ-LSTM-baseline}.
 
 \begin{description}
   \item[Outline]{
-                  Tune, train and test a local univariate LSTM on dataset 1,
-                  dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
-                  The results are compared with the results from the SARIMA baseline. \cref{section:results:experimentPlan:Experiment-0}}
+              Tune, train and test a local univariate LSTM on dataset 1,
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
+              The results are compared with the results from the SARIMA baseline. \cref{section:results:experimentPlan:Experiment-0}}
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-                      The univariate local LSTM model is expected to outperforme the SARIMA model on every dataset.                    
-                     }
+              The univariate local LSTM model is expected to outperforme the SARIMA model on every dataset.
+        }
 \end{description}
 
 
@@ -82,23 +82,25 @@ inn through the exploration of the questions outlined below.
 
 \begin{description}
   \item[Outline]{
-                  Tune, train and test a local multivariate LSTM, a global univariate LSTM,
-                  and a global multivariate LSTM on dataset 1,
-                  dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast.
-                  Compare the results against the SARIMA and LSTM baseline.
-                }
+              Tune, train and test a local multivariate LSTM, a global univariate LSTM,
+              and a global multivariate LSTM on dataset 1,
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast.
+              Compare the results against the SARIMA and LSTM baseline.
+        }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-              It is expected that the multivariate models will outperforme the univariate models.
-              The additional dat encoding of seasonality should help the NN make more accurate predictions.
-              It should not imper the model accuracy.
+              It is expected that the multivariate models will outperform the univariate models.
+              The additional date-encoding of seasonality should help the NN make more accurate predictions.
+              It should not impair the model accuracy.
 
-              Following the works of \cite{Rabanser2020} described in \Cref{section:RelatedWork:Model-structure:local-vs-global}
-              the global models are expected to outperform the local models primarily on dataset 2.
-              This is because dataset 2 consists of independent time series.
-              Following the same logic, accuracy on dataset 1 should be impared due to the heavy dependence between the time series in the dataset.
+              Following the works of \cite{Montero-Manso2021} described in \Cref{section:RelatedWork:Model-structure:local-vs-global}
+              the global models are expected to outperform at worst, equal to the local models, on all the datasets, and at best outperform the local models.
+
+              %  the local models primarily on dataset 2.
+              % This is because dataset 2 consists of independent time series.
+              % Following the same logic, accuracy on dataset 1 should be impaired due to the heavy dependence between the time series in the dataset.
               % TODO: This does not make sense. Are we sure that this is correct?
               % TODO: Correlation migh not be the same as dependent
         }
@@ -110,7 +112,7 @@ inn through the exploration of the questions outlined below.
 
 % Experiment 3 - CNN AE and LSTM
 \subsection{Experiment 3 - Convolutional Autoencoder LSTM}
-This experiment focus on the propsed hybrid Convolutional Autoencoder and LSTM model.
+This experiment focuses on the proposed hybrid Convolutional Autoencoder and LSTM model.
 As this method has yet to be tested on a commercial dataset,
 the experiment aims to improve accuracy of the correlating LSTM models.
 The hybrid model is explored on each of the experiments ran on the LSTM,
@@ -122,20 +124,20 @@ to the experiment datasets.
 
 \begin{description}
   \item[Outline]{
-                  Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
-                  created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-2}.
-                  Creating a local-univariate model, local-multivariate model, global-univariate model, and global-multivariate model.
-                  All these models are applied to each of dataset 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
-                  The results are compared against the SARIMA and LSTM models defined in previous experiments.
-                }
+              Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
+              created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-2}.
+              Creating a local-univariate model, local-multivariate model, global-univariate model, and global-multivariate model.
+              All these models are applied to each of dataset 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
+              The results are compared against the SARIMA and LSTM models defined in previous experiments.
+        }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-                        The Convolutional Autoencoder and LSTM model is expected to performe better than the correlating LSTM model
-                        due to the high volatility and noise in the available datasets.
-                        The multivariate models are expected to performe better than the univariate models.
-                        However, the global models are expected to performe well on dataset 1 due to the highly correlating data,
-                        while preforming worse on dataset 2 and 3.
-                     }
+              The Convolutional Autoencoder and LSTM model is expected to performe better than the correlating LSTM model
+              due to the high volatility and noise in the available datasets.
+              The multivariate models are expected to performe better than the univariate models.
+              However, the global models are expected to performe well on dataset 1 due to the highly correlating data,
+              while preforming worse on dataset 2 and 3.
+        }
 \end{description}
