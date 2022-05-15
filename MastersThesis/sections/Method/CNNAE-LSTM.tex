@@ -1,5 +1,6 @@
 
 \section{Hybrid method - CNN-AE and LSTM}
+\label{section:Method:CNN-AE-LSTM}
 
 % --------------------------------------------
 % __ Contents __
@@ -23,15 +24,42 @@ the autoencoder and the LSTM model.
 
 \subsection{LSTM}
 
+The secound part of the hybrid model is the LSTM model.
+The LSTM model is attached to the end of the convolutional autoencoder,
+processing the output of the autoencoder as the model input.
+This is intended to alter the input data to some extent, removing unneeded noise and volatility.
+
+As with the LSTM models described in \cref{section:Method:LSTM}, a statefull LSTM model is used in the experiments.
+Therefor, the same limitations and challanges are pressent.
+
+The statefull LSTM model requre the use of the same batch size for each passthrough, thus creating problems for datasets where the number
+of inputs does not match a multiplum of the batch size.
+\cref{section:Method:LSTM} explains how this problem is resolved, and the hybrid method applies the same approach.
+Additionaly,
+the \cref{seciton:Method:LSTM} pressent the approach for working with global and local methods.
+The same approach is applied for the LSTM module in the hybrid model.
 
 
 \subsection{Connected model}
 
+\subsubsection{Tuning}
+Unlike the LSTM models \cref{section:Method:LSTM} the hybrid model is not spesificly tuned for each of the experiments.
+Insted, the LSTM models found during LSTM tuning is applied in the hybrid model.
+This is done primarily in order to create a one-to-one comparison between the LSTM and the hybrid model,
+where the only difference is the addition of the convolutional autoencoder.
+
+\todo[inline]{Is there any more that should here? Can't realy think of any.}
+
+
+% The connection of the model
+% Not a lot to say here
+% Explain that the two models are merged to create a prediction with the LSTM
 
 
 
 
 
+\iffalse
 \subsection{Old}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%%5
@@ -55,25 +83,4 @@ where it shares the same dataset, tuning, and architectures.
 % There are two different LSTM models that are used. The first is the one tuned by the LSTM. The secound is the one tuned by the hybrid model.
 
 
-
-% Dataset (This is the same as the LSTM and the other ones)
-% Should this be its own section? I do belive so since it is used accross all methods. Perhaps do this before the pipeline?
-
-
-% Error metrics
-% The same error metrics are used for all the models, except the AE.
-% Create a unique section for the error metric selection?
-
-
-% Tuning
-% The tuning is the same as with the LSTM.
-
-
-% Expectations
-% It is expected that the results are better, although marginaly.
-% This is due to the high stocastic nature of the dataset
-
-
-
-% What research questions are answered?
-
+\fi
