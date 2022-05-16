@@ -50,21 +50,6 @@ and the mean MASE 7-day is $1.131$.
 
 
 
-% TODO Discussion
-% Skrive om forskjellene mellom resultatene mellom datasetene og hva det kan indikere
-% dataset 1 sterk ukentli seaason
-% dataset 2 svak ukentlig season
-% Dataset 2 sterkere årlig season og høyere autocorrelation som gir høyere MASE
-% Dataset 3 veldig høy autocorrelation litt dårligere ukentli season
-% Kan se ut som SARIMA er bedre enn LSTM til å håndtere årlige sesonger
-% Men multivariate LSTM er aller best på årlige sesonger.
-
-
-
-%% Globale metoder gjør det bedre enn locale på MASE, men dårligere på sMAPE
-% Kan det være fordi sMAPE straffer under predictions hardere enn 
-% over predictions? TODO: Kjøre eksperiment på nytt for å få figures.
-
 % Globale modeller er dårligere på mase 7 bortsett fra.
 % All results tables
 \import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}

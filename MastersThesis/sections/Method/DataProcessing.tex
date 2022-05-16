@@ -228,6 +228,9 @@ period, by setting $m = 10$.
 
 
 \subsection{Modeling Trend and Seasonality}
+
+\todo[inline]{This reads a lot like a section from Related Work. Should it be moved?}
+
 The literature is conflicting when it comes to NNs capability to
 model trends and seasonality. \cite{Sharda1992} work inferred that NNs are
 capable of modeling seasonality accurately.
@@ -242,6 +245,15 @@ with sufficient lengths, RNNs are capable of capturing seasonality
 without prior deseasonalisation.
 If this is not the case then RNNs have a hard time modelling
 seasonality on their own, and deseasonalisation step should be employed.
+
+\cite{Montero-Manso2021} advocates for not removing seasonality on global models based on their empirical results.
+They conclude that global NNs do not suffer from an inability to pick seasonal patterns,
+as long as the models are sufficienyly complex and have enough memory. They argue that removing
+seasonal patterns from the data can erase some relevant information which might be exploited by global models.
+
+\cite{Hewamalage2021} experiments on NNs ability to model seasonality show that NNs are capable of
+modeling seasonality on their own, when all the series in the dataset have similar seasonal patterns.
+When this is not the case deseasonalisation and detrending should be removed.
 
 These conflicting results in the literature, combined with our varied set of time series
 we conclude that we will avoid applying STL decomposition in our main experiments,
