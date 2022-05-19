@@ -15,7 +15,7 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-dataset = "dataset_seasonal"
+dataset = "dataset_seasonal_diff"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
 figure_base_path = f"./MastersThesis/figs/results"
 
@@ -35,6 +35,16 @@ projects = {
     "local multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-local-multivariate",
     "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
     "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariate",
+}
+
+variance_experiments = {
+    "seasonal-local-univariate-lstm-differencing": "dataset_seasonal-lstm-local-univariate-differencing-tune-400-trials",
+    #"ok-variance-local-univariate-cnn-ae-lstm": "dataset-ok-variance-cnn-ae-lstm-local-univariate",
+    #"ok-variance-lstm-local-univariate": "dataset-ok-variance-lstm-local-univariate",
+    #"low-variance-cnn-ae-lstm-local-univariate": "dataset-low-variance-cnn-ae-lstm-local-univariate",
+    #"low-variance-lstm-local-univariate": "dataset-low-variance-lstm-local-univariate",
+    #"dataset-high-variance-cnn-ae-lstm-local-univariate": "dataset-high-variance-cnn-ae-lstm-local-univariate",
+    #"dataset-high-variance-lstm-local-univariate": "dataset-high-variance-lstm-local-univariate"
 }
 
 # Select metrics to be used
@@ -130,7 +140,7 @@ def calc_average_metrics(metrics, calc_type="average"):
 #extract_metrics_from_file(f"{base_path}{projects['local univariate lstm']}/metrics.txt")
 
 
-def create_all_tables_each_experiment():
+def create_all_tables_each_experiment(projects):
     _dataset = dataset.replace("_", "-")
     for exp in projects:
         extract_dataset_metrics_table(
@@ -142,7 +152,7 @@ def create_all_tables_each_experiment():
         )
 
 
-def create_shared_avg_table_all_experiments():
+def create_shared_avg_table_all_experiments(projects):
     _dataset = dataset.replace("_", "-")
     extract_average_experiment_metrics(
         f"Average values for all experiment for {_dataset}",
@@ -204,8 +214,11 @@ def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = 
 
 
 
-# create_all_tables_each_experiment()
-# create_shared_avg_table_all_experiments()
-# freidman_test(projects, "mase")
+table_save_path = f"./MastersThesis/tables/results/{dataset}"
+figure_base_path = f"./MastersThesis/figs/results"
 
-metrics_experiment_box_plot(projects, "smape")
+create_all_tables_each_experiment(variance_experiments)
+#create_shared_avg_table_all_experiments(variance_experiments)
+# freidman_test(projects, "mase")
+metrics_experiment_box_plot(variance_experiments, "mase")
+metrics_experiment_box_plot(variance_experiments, "smape")
