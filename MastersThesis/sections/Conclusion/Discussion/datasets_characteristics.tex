@@ -1,0 +1,44 @@
+
+\subsection{Datasets Characteristics}
+The results we get reveals a lot of information about the Characteristics of the different datasets.
+The sMAPE is our best indicator for how well the prediction graph fits the target graph.
+The 1-day MASE gives us an indicator for how well our predictions are compared to the naive
+prediction. It is worth noting that how good the naive prediction is differs from time series
+to time series. In a random-walk the naive prediction will be the best possible prediction.
+This is also true for time series with a high autocorrelation coefficient.
+The same is true for the 7-day MASE. A time series with a strong weekly seasonality will
+give a higher MASE compared to a time series with a low weekly seasonality.
+Therefore comparing MASEs from different datasets can be misleading without knowledge of
+the underlying characteristics of these series.
+
+Looking at the results we can make some educated guesses of these time series characteristics.
+We get the best forecasts fits from dataset 1, which has a mean sMAPE of $0.2034$.
+Second comes dataset 3 with a sMAPE of $0.4362$. The hardest dataset to forecast was dataset 2 with a
+sMAPE of $0.697$. Looking at the 1-day MASE we can expect the mean autocorrelation coefficient for
+dataset 3 to be the highest among the three, with a MASE of $2.009$.
+Calculating the autocorrelation for all the time series in the datasets and
+taking the average of the results confirms our hypothesis. The results are shown in \Cref{tab:datasets-autocorrelation}.
+Dataset 3 has the highest autocorrelation of all the datasets with a mean
+of $0.93$. There is also a relatively strong correlation between the 1-day MASE results
+from local univariate LSTM method and the time series autocorrelation.
+
+\begin{table}[htbp]
+  \begin{center}
+    \begin{tabular}{|c|c|c|}\hline\hline
+      Dataset & Mean Autocorrelation & Autocorrelation correlation with MASE \\\hline
+      1       & 0.753                & 0.229                                 \\\hline
+      2       & 0.775                & 0.295                                 \\\hline
+      3       & 0.930                & 0.304                                 \\\hline
+    \end{tabular}
+    \caption{Mean autocorrelation and the correlation of the MASE results from Local Univariate LSTM and the autocorrelation.}
+  \end{center}
+  \label{tab:datasets-autocorrelation}
+\end{table}%
+
+\todo[inline]{Fetch autocorrelation for the different datasets and check our guesses.}
+
+In general, using sMAPE as metric, dataset 2 seems to be the most difficult dataset to forecast.
+This makes sense when because the dataset consists of many waslty different time series,
+with few obvious pattarns.
+\todo[inline]{Write more detail about what kind of time series are in the different datasets in Data
+  Section and reference it here}.

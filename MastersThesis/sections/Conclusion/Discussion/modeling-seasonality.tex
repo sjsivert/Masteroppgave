@@ -1,0 +1,16 @@
+
+\subsection{Modeling seasonality}
+Our empirical results indicates that LSTMs have trouble modeling early seasonality.
+The dataset with the least yearly seasonality is dataset 1. This is the only dataset where
+the univariate LSTM outperformed SARIMA. However when feeding the LSTM with additional
+data such as day of the week, month, and season, it became significantly better on datasets
+on time series with high yearly seasonality.
+\todo[inline]{Finnish experiments with deseasonalisation and write about the result}
+
+These findings contradict \cite[]{Hewamalage2021}.... [TODO: Finnish]
+
+
+
+%% Globale metoder gjør det bedre enn locale på MASE, men dårligere på sMAPE
+% Kan det være fordi sMAPE straffer under predictions hardere enn 
+% over predictions? TODO: Kjøre eksperiment på nytt for å få figures.
