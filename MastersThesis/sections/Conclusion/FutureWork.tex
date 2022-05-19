@@ -2,7 +2,62 @@
 \section{Future Work}
 \label{sections:Discussion:FutureWork}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New Future work
+% - Implement in real world application
+% - Prisuiden can apply the resarch to data analysis
+% - Further attempts done on splitting / decomposing data
+% - Decomposing multivariate ...
+% - Apply to a higher forecasting window (Predicting months insted of weeks)
+% - There migh be changes in optimal approach hear.
+% - We only breefly tried a 30 day forecast window
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Implement real world
+The work done in this paper investigates the use of the LSTM and convolutional autoencoder and LSTM
+on the e-commerce domain of ``Prisguiden.no''.
+However, the research done in this paper is not entirely practicaly applicable.
+This comes from the fact that only a smal sub-set of the entirety of the available data has been applied
+in the research done.
+This was a limitation applied due to the scope of the paper,
+as well as time limitaitons that addhear to the research done in a masters thesis.
+Therefor, applying the models explored in this paper to a real world application still remains a valid future task.
+
+% There exists other frameworks and models. Test others?
+Additionaly, while the priority of this paper was to validate and explore the use of a convolutional autoencoder and lstm
+in a time-series prediction setting, other models might also fit well with the task of making such predictions.
+The Facebook model Prometheus, [TODO: Add more frameworks that can be applied \dots ],
+are all valid models that can also be tested on the dataset to evaluate their usbility.
+\todo[inline]{Add frameworks that can be used in addition to out methods. Facebook Prometheus is one. What are others?}
+
+
+% Decomposition
+As is described in \cref{section:Discussion}, different forms of data preprocessing were applied and tested in this paper.
+While some types of decompositon was applied and tested, others were not tested due to limitations of time.
+\textbf{STR decomposition} was only attempted on univariate models, while there multivariate models were not tested.
+As the decomposition of univariate models improved the accuracy of the univariate preditions,
+so might the use of decomposition with multivariate models, or other combinations and applications of decomposing the data.
+\todo[inline]{Chech with what Sindre has written regarding decomposition \dots}
+
+
+% Increase forecasting window
+The research conducted in this paper focus primarily on the forecasting of a periode of 7 days.
+While a 7 day prediciton does have value,
+there might be some merits to increasing the forecasting window.
+By increasing the forecasting window from 1 week to 30 days (a month), or 60 days (2 months),
+the usecase for these predicitons would empower ``Prisguiden.no'' as discussed \cref{section:Discussion}.
+While a 30 day prediction periode were breefly tested,
+the 7 day prediction have been prioritized in this research.
+Increasing the forecasting window is therefor a possible point of entry for furte resarch conducted on the
+dataset from ``Prisguiden.no''.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iffalse
 This paper aimed to investigate the current landscape and solutions for time-series predictions as a whole,
 as well as in an e-commerce setting.
 Initially, the current predictive ability of solutions in an e-commerce setting was investigated.
@@ -17,6 +72,4 @@ This includes, but is not limited to, creating a predictive baseline using stati
 as well as implementing the framework proposed in \Cref{section:Architecture}.
 In addition, practical experiments on the use of a local or global method with the available data,
 as well as the use of a univariate or multivariate method.
-
-
-
+\fi
