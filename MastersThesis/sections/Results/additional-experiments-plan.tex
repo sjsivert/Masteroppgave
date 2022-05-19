@@ -1,0 +1,66 @@
+
+\section{Additional Experiments plan}
+After analyzing the initial results from our defined experiments
+we formed some hypotheses which led to some additional experiments.
+These experiments are described in this section.
+
+\subsection{Experiment 4: Noisy datasets}
+The CNN-AE-LSTM performed best on dataset 1, which we know
+has the most noise. To confirm our hypothesis
+that the CNN-AE-LSTM performs better than an LSTM
+on noisy dataset we add three new datasets,
+one set consists of noisy time series,
+the other consists of time series with low noise.
+In fear that the most noisy dataset would be too noisy to give any meaningfule
+predictions we added the third dataset, which is has above average noise, but not
+as much as the noisiest data set.
+
+% Here we briefly describe the methodology behind the experiment.
+
+\subsubsection{Choosing the datasets}
+To make the two datasets we looked at the standard deviation.
+Firstly we scaled down outliers which could skew the standard deviation of
+a series to be higher. For this we used the same technique
+as described in \Cref{section:Data:Preprocessing:scale-down-outliers}.
+
+Then, for each time series in the whole dataset we did these steps
+\begin{enumerate}
+  \item Scale down the values to have a mean of 0 using standardization.
+  \item Take the difference of $t_n - t_{n-1}$
+  \item if the standard deviation of the remaining series is above $max\_threshold$ \-\> Add to max list
+  \item if the standard deviation of the remaining series is below the $min\_threshold$ \-\> Add to min list
+\end{enumerate}
+
+The noisiest dataset had standard deviation above $max\_threshold = 1.3$.
+The dataset with the least noise had a standard deviation below $min\_threshold = 0.4$.
+The above average noisy dataset had a standard deviation above $ok\_threshold = 0.8$
+but below the maximum threshold of 1.3.
+From the remaining list we randomly picked 7 time series.
+
+\subsubsection{Running the experiments}
+The only two model structures we used were local univariate LSTM
+and local univariate CNN-AE-LSTM.
+We would follow the same procedure as previously described in \Cref{section:Method},
+except we did not tune the hyperparameters. Instead, we
+used a hyperparameter-set from a previously tuned experiment and used those for all the models.
+This was done because of time constraints.
+
+\subsubsection{Experiment Plan}
+\begin{description}
+  \item[Outline]{
+              Train and test a local univariate LSTM,
+              and a local univariate CNN-AE-LSTM on a noisy dataset, a low noise dataset, and a medium noisy dataset,
+              using MASE and sMAPE as metrics on a 7-day forecast.
+              Compare the results against each other.
+        }
+\end{description}
+
+\begin{description}
+  \item[Expectations]{
+              We expect the CNN-AE-LSTM to outperform the LSTM on the noisy datasets.
+              We also expect the LSTM to have the best performance on the low noise datasets.
+        }
+\end{description}
+
+\subsection{Experiment 5: Differencing on seasonal dataset}
+\todo[inline]{TODO...}
