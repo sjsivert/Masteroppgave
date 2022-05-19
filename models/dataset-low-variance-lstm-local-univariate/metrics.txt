@@ -1,0 +1,100 @@
+
+_____Results dataset-10053_____
+training_error: 0.20587
+validation_error: 0.15793
+mean_squared_error: 294345.96875
+mean_absolute_error: 528.5857543945312
+mean_absolute_percentage_error: 27.36659049987793
+mase: 3.0378499031066895
+smape: 0.318
+test_None_MAE: 1907.15747
+test_None_MASE: 10.96068
+test_None_MSE: 3673881.75
+test_None_MAPE: 99.97855
+test_MASE_7_DAYS: 0.6788600087165833
+
+_____Results dataset-11037_____
+mean_squared_error: 1977197.375
+mean_absolute_error: 1356.1802978515625
+mean_absolute_percentage_error: 29.398149490356445
+mase: 3.7970499992370605
+smape: 0.34814
+test_None_MAE: 4565.78906
+test_None_MASE: 12.78336
+test_None_MSE: 20943660.0
+test_None_MAPE: 99.97967
+test_MASE_7_DAYS: 0.7387599945068359
+
+_____Results dataset-11041_____
+mean_squared_error: 200650.109375
+mean_absolute_error: 429.9006042480469
+mean_absolute_percentage_error: 46.20825958251953
+mase: 6.823820114135742
+smape: 0.60614
+test_None_MAE: 911.82703
+test_None_MASE: 14.47344
+test_None_MSE: 848177.0
+test_None_MAPE: 100.02859
+test_MASE_7_DAYS: 0.7972099781036377
+
+_____Results dataset-11048_____
+mean_squared_error: 2074.300537109375
+mean_absolute_error: 34.09373092651367
+mean_absolute_percentage_error: 12.130049705505371
+mase: 0.7127599716186523
+smape: 0.13171
+test_None_MAE: 254.66309
+test_None_MASE: 5.32397
+test_None_MSE: 66537.75
+test_None_MAPE: 99.92271
+test_MASE_7_DAYS: 0.4500499963760376
+
+_____Results dataset-11456_____
+mean_squared_error: 321981.09375
+mean_absolute_error: 536.0944213867188
+mean_absolute_percentage_error: 29.904029846191406
+mase: 3.7100000381469727
+smape: 0.35643
+test_None_MAE: 1745.58984
+test_None_MASE: 12.08021
+test_None_MSE: 3088047.25
+test_None_MAPE: 99.99285
+test_MASE_7_DAYS: 0.6929100155830383
+
+_____Results dataset-11817_____
+mean_squared_error: 7823.03955078125
+mean_absolute_error: 69.7994384765625
+mean_absolute_percentage_error: 27.49744987487793
+mase: 1.3597300052642822
+smape: 0.34314
+test_None_MAE: 220.13089
+test_None_MASE: 4.28826
+test_None_MSE: 51443.13281
+test_None_MAPE: 100.20176
+test_MASE_7_DAYS: 0.6119599938392639
+
+_____Results dataset-13323_____
+mean_squared_error: 290.3759460449219
+mean_absolute_error: 16.85124969482422
+mean_absolute_percentage_error: 156.54913330078125
+mase: 6.740499973297119
+smape: 0.84414
+test_None_MAE: 12.28348
+test_None_MASE: 4.91339
+test_None_MSE: 158.14348
+test_None_MAPE: 103.82068
+test_MASE_7_DAYS: 2.3167800903320312
+
+_____Average_____
+training_error: 0.02941
+validation_error: 0.02256142857142857
+mean_squared_error: 400623.18041556224
+mean_absolute_error: 424.50078528267994
+mean_absolute_percentage_error: 47.007666042872835
+mase: 3.740244286400931
+smape: 0.4211
+test_None_MAE: 1373.920122857143
+test_None_MASE: 9.260472857142856
+test_None_MSE: 4095986.432327143
+test_None_MAPE: 100.56068714285716
+test_MASE_7_DAYS: 0.8980757253510612

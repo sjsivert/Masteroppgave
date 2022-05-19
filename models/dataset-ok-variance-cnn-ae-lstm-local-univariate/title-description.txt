@@ -1,0 +1,2 @@
+dataset-ok-variance-cnn-ae-lstm-local-univariate
+PRedict ok-variance dataset with lstm

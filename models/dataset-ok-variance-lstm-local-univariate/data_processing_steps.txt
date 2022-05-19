@@ -1,0 +1,107 @@
+---- Start ----
+1- load market insight data and categories and merge them
+2- convert date columns to date_time format
+3- sum up clicks to category level [groupBy(date, cat_id)]
+4- rename column 'title' to 'cat_name'
+5- combine feature 'hits' and 'clicks' to new feature 'interest'
+6- drop columns 'hits' and 'clicks'
+7- filter out data from early 2018-12-01
+8- drop uninteresting colums: ['id_x', 'manufacturer_id', '_version_', 'id_y', 'internal_doc_id_x', 'internal_doc_id_y']
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 16)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 17)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 28)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 34)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 40)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 44)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 45)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        ---- Start ----
+1- Convert input dataset to generator object
+2- filter out category 48)
+3- choose columns 'interest' and 'date'
+4- fill in dates with zero values
+5- generate training and test data with test data size 7, and training data = sequence_length - 7
+6- convert to np.array
+7- scale down outliers
+8- ..
+9- Normalize the data 
+10- generate x y pairs with sliding window with input size 10, and output size 7
+---- End ----
+        

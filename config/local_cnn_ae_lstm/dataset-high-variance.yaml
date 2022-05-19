@@ -1,0 +1,147 @@
+model:
+  rng_seed: 42
+  model_type: 'local_cnn_ae_lstm'
+  model_config:
+    hyperparameter_tuning_range:
+      hidden_size: [ 1, 100 ]
+      number_of_layers: [ 1, 2 ]
+      dropout: [ 0.0, 0.4 ]
+      recurrent_dropout: [0.0, 0.4]
+      optimizer_name: [ 'RMSprop', 'Adam' ]
+      learning_rate: [ 1e-7, 1e-2 ]
+      epochs: [ 1, 40 ]
+      batch_size: [ 32, 32 ]
+      input_window_size: 10
+      output_window_size: 7 # must be equal output_window_size
+      multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
+      number_of_features: 1 # must be equal to number of features in data
+      number_of_trials: 200 # Number of tuning trials to run. The more the better.
+      #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
+      stateful_lstm: true
+    common_parameters_for_all_models:
+      should_shuffle_batches: False
+      batch_size: 32
+      input_window_size: 10
+      output_window_size: 7
+      multi_variable_nr: 1
+      lstm-shared:
+        input_window_size: 10
+        output_window_size: 7
+        multi_variable_nr: 1
+      ae:
+        optimizer_name: 'Adam'
+        loss: "mae"
+        learning_rate: 0.0001
+        epochs: 70
+      encoder:
+        - layer: "Conv1d"
+          filters: 16
+          kernel_size: 3
+          activation: "relu"
+        - layer: "Conv1d"
+          filters: 32
+          kernel_size: 5
+          activation: "relu"
+      decoder:
+        - layer: "Conv1dTranspose"
+          kernel_size: 5
+          filters: 32
+          activation: "relu"
+        - layer: "Conv1dTranspose"
+          kernel_size: 3
+          filters: 1
+
+
+    model_structure:
+
+        - time_series_id: 77
+          lstm:
+            epochs: 15
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            hidden_layer_size: 60
+            stateful_lstm: true
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 79
+          lstm:
+            epochs: 15
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            stateful_lstm: true
+            hidden_layer_size: 60
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 11217
+          lstm:
+            epochs: 15
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            hidden_layer_size: 60
+            stateful_lstm: true
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 11334
+          lstm:
+            epochs: 15
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            stateful_lstm: true
+            hidden_layer_size: 60
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 11992
+          lstm:
+            epochs: 15
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            hidden_layer_size: 60
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            stateful_lstm: true
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 12265
+          lstm:
+            epochs: 15
+            stateful_lstm: true
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            hidden_layer_size: 60
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
+        - time_series_id: 12511
+          lstm:
+            epochs: 15
+            stateful_lstm: true
+            optimizer_name: Adam
+            learning_rate: 0.00028345282219663603
+            hidden_layer_size: 60
+            dropout: 0.24970090559798974
+            number_of_features: 1
+            layers:
+              - hidden_size: 94
+                dropout: 0.21199
+                recurrent_dropout: 0.0
