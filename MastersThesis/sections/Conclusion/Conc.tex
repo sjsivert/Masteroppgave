@@ -1,11 +1,58 @@
 \section{Conclusion}
 \label{section:Discussion:Clonclusion}
 
+%%% Conclusion
+% - What have we done?
+% --> Tested a new dataset for Prisguiden.no
+% --> Tested out new variations of the CNN-AE and LSTM model
+% --> These models not tested as far as we find. Thus expand on the domain knowledge
+% - Results
+% --> The CNN-AE and LSTM is better than LSTM on dataset 1, not on dataset 2 and 3.
+% --> Better than naive prediction? Better than SARIMA?
+% - Goal and Research Questions
+% --> Have the research qiestions been answered?
+% --> Have we reached the goal?
+
+
+The goal of this paper is to forecast future trends using a convolutional autoencoder and lstm model
+on a dataset supplied by ``Prisguiden.no''.
+% Data recieved from ``Prisguiden.no'' have not been used for time series forecasting before,
+As the dataset recived from ``Prisguiden.no'' have not been used for time series forecasting before,
+there does not exists any previous baselines for the dataset.
+Therefor, the first model to be used on the dataset was the well known SARIMA model,
+in order to crete a baseline prediction.
+We then expanded the baseline with the LSTM model, answering research question \cref{G&R:RQ-LSTM-baseline}
+applying the LSTM to the dataset, and comparing the baseline models.
+Thereafter, the LSTM model were expanded and improved using variations of global and local, and univariate and multivariate models
+to create comparable results for the LSTM. This was done to answer the research question \cref{G&R:RQ-LSTM-baseline}.
+\cref{section:Discussion} explores the resulting models and their predictions, discussing the accuracy of the different LSMT models.
+It is clear that the LSTM can be imprived using multivariate models and global models over the standard LSTM model.
+These models were also meant to serve as a point of comparison with the convolutional autoencoder and lstm,
+in order to evaluate if this model served a purpos and achieved better results.
+
+Answering research question \cref{G&R:RQ-CNN-AE-LSTM} is attempted through the creation of convolutional autoencoder and lstm hybrid models.
+These models are compared directly with the LSTM models in order to evaluate if the autoencoder improve the models.
+The results were warying, as the hybrid model outperformes the LSTM models for every combination in dataset 1.
+However, the LSTM models, spessificaly the local multivariate models performe better than the hybird model on dataset 2 and 3.
+The meaning of therse results are explored more in depth in \cref{section:Discussion}.
+
+However, answering research question \cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does \dots
+\todo[inline]{Conclude with something regarding the research question.}
+
+\todo[inline]{Conclude with a result regarding the goal! What can we say?}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conclusion points:
 % - What has been done (Literature review, Model design)
 % - Answer the research questions
 % - This is a literature study
 
+\iffalse
 The goal of this paper is to propose a method for achieving accurate time-series predictions in an e-commerce
 problem space using a hybrid CNN-AE and LSTM method.
 In order to achieve this goal, relevant research questions were presented.
@@ -20,5 +67,4 @@ This Convolutional autoencoder and LSTM hybrid model is proposed as a method for
 The design is influenced by the state-of-the-art methods explored to answer the research questions.
 With methods and approaches exploring what is missing from current e-commerce prediction methods,
 such as the utilization of correlated time-series, the method aims to address the goal by using the research questions.
-
-
+\fi
