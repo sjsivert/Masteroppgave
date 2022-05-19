@@ -1,0 +1,49 @@
+Parameter Tuning results
+
+
+Model tuning: Dataset 12322
+
+Parameters: 12322,393
+ Error: best_score:0.44294703006744385,best_params:{'batch_size': 32, 'learning_rate': 0.009923292112193255, 'number_of_epochs': 33, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': 12322, 'layers': [OrderedDict([('hidden_size', 32), ('dropout', 0.017734090260873452), ('recurrent_dropout', 0.007228202414278642)])]}
+
+
+Model tuning: Dataset 11428
+
+Parameters: 11428,203
+ Error: best_score:0.2558635473251343,best_params:{'batch_size': 32, 'learning_rate': 0.00539843203330661, 'number_of_epochs': 23, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': 11428, 'layers': [OrderedDict([('hidden_size', 89), ('dropout', 0.037420328700818364), ('recurrent_dropout', 0.3476082785544784)])]}
+
+
+Model tuning: Dataset 11850
+
+Parameters: 11850,63
+ Error: best_score:0.4776622951030731,best_params:{'batch_size': 32, 'learning_rate': 0.003858667413380149, 'number_of_epochs': 13, 'number_of_layers': 1, 'optimizer_name': 'Adam', 'time_series_id': 11850, 'layers': [OrderedDict([('hidden_size', 89), ('dropout', 0.07009955437335683), ('recurrent_dropout', 0.20794551398783773)])]}
+
+
+Model tuning: Dataset 11852
+
+Parameters: 11852,10
+ Error: best_score:0.4490179419517517,best_params:{'batch_size': 32, 'learning_rate': 0.008464838478859898, 'number_of_epochs': 18, 'number_of_layers': 1, 'optimizer_name': 'Adam', 'time_series_id': 11852, 'layers': [OrderedDict([('hidden_size', 39), ('dropout', 0.003400857378668104), ('recurrent_dropout', 0.3863169921179673)])]}
+
+
+Model tuning: Dataset 273
+
+Parameters: 273,1
+ Error: best_score:0.24276769161224365,best_params:{'batch_size': 32, 'learning_rate': 0.007177619593484866, 'number_of_epochs': 35, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': 273, 'layers': [OrderedDict([('hidden_size', 88), ('dropout', 0.14937450830363197), ('recurrent_dropout', 0.09621705598957907)])]}
+
+
+Model tuning: Dataset 11036
+
+Parameters: 11036,158
+ Error: best_score:0.11284288763999939,best_params:{'batch_size': 32, 'learning_rate': 0.0008781583333607742, 'number_of_epochs': 35, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': 11036, 'layers': [OrderedDict([('hidden_size', 66), ('dropout', 0.1643754356422851), ('recurrent_dropout', 0.3520216815262491)])]}
+
+
+Model tuning: Dataset 11213
+
+Parameters: 11213,35
+ Error: best_score:0.27425456047058105,best_params:{'batch_size': 32, 'learning_rate': 0.0054349132834987275, 'number_of_epochs': 25, 'number_of_layers': 1, 'optimizer_name': 'RMSprop', 'time_series_id': 11213, 'layers': [OrderedDict([('hidden_size', 85), ('dropout', 0.10962382584716032), ('recurrent_dropout', 0.09358565176954797)])]}
+
+
+Model tuning: Dataset 12532
+
+Parameters: 12532,362
+ Error: best_score:0.13262894749641418,best_params:{'batch_size': 32, 'learning_rate': 0.0067180754489334134, 'number_of_epochs': 3, 'number_of_layers': 2, 'optimizer_name': 'Adam', 'time_series_id': 12532, 'layers': [OrderedDict([('hidden_size', 41), ('dropout', 0.013627808142275898), ('recurrent_dropout', 0.08926009214573354)]), OrderedDict([('hidden_size', 63), ('dropout', 0.22477849288412655), ('recurrent_dropout', 0.3619706042370936)])]}

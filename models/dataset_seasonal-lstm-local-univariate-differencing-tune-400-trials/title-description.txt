@@ -1,0 +1,2 @@
+dataset_seasonal-lstm-local-univariate-differencing-tune-400-trials
+Final tune for dataset seasonal lstm local univariate, with differencing. After smape fix
