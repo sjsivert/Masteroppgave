@@ -228,6 +228,7 @@ period, by setting $m = 10$.
 
 
 \subsection{Modeling Trend and Seasonality}
+\label{section:Data:Preprocessing:trend-and-seasonality}
 
 \todo[inline]{This reads a lot like a section from Related Work. Should it be moved?}
 
@@ -258,9 +259,7 @@ When this is not the case deseasonalisation and detrending should be removed.
 These conflicting results in the literature, combined with our varied set of time series
 we conclude that we will avoid applying STL decomposition in our main experiments,
 but might do some experiments to see how it can improve our metrics.
-
 % TODO: Write about differencing and how it removes trend and seasons
-
 
 \subsection{Scaling down outliers}
 \label{section:Data:Preprocessing:scale-down-outliers}
@@ -270,7 +269,7 @@ a wrong price to Prisguiden. If this price is much lower than the original price
 it might spike a huge user interest for this item, until Prisguiden finds and corrects the error.
 These outliers do not give any meaningful information, so steps were taken to reduce these extreme values.
 
-We use the standard deviation as base too scale down the outliers.
+We use the standard deviation as a base to scale down the outliers with the formula below.
 
 $y(t_n)=
   \begin{cases}
@@ -278,8 +277,7 @@ $y(t_n)=
     x,      & \text{otherwise}
   \end{cases}$
 
-
-
+An example of how this affects a time series is shown in \Cref{fig:illustration:scaled-down-outliers}.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{./figs/code_generated/data_exploration/scaled_down_outliers.png}
@@ -287,3 +285,7 @@ $y(t_n)=
   \caption{Illustration of how the scaling effects a time seires. The blue is the original series. The orange is the processed series.}
   \label{fig:illustration:scaled-down-outliers}
 \end{figure}
+
+\subsection{Data Processing Summary}
+TODO: We have not clearly defined which step we take in what order.
+Write a short list for preprocessing and post-processing.

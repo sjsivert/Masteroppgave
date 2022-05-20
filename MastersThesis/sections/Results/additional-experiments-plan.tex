@@ -1,10 +1,9 @@
-
-\section{Additional Experiments plan}
+\section{Additional Experiments Plan}
 After analyzing the initial results from our defined experiments
 we formed some hypotheses which led to some additional experiments.
 These experiments are described in this section.
 
-\subsection{Experiment 4: Noisy datasets}
+\subsection{Experiment 4: CNN-AE-LSTM on Noisy datasets}
 The CNN-AE-LSTM performed best on dataset 1, which we know
 has the most noise. To confirm our hypothesis
 that the CNN-AE-LSTM performs better than an LSTM
@@ -45,13 +44,18 @@ From the remaining list we randomly picked 7 time series.
   \label{fig:time-series-variance-examples}
 \end{figure}
 
+% Datasets
+\import{./tables/code_generated/data_exploration}{dataset-high_variance_categories.tex}
+\import{./tables/code_generated/data_exploration}{dataset-low_variance_categories.tex}
+\import{./tables/code_generated/data_exploration}{dataset-ok_variance_categories.tex}
+
 \subsubsection{Running the experiments}
-The only two model structures we used were local univariate LSTM
+The only two model structures we use are local univariate LSTM
 and local univariate CNN-AE-LSTM.
-We would follow the same procedure as previously described in \Cref{section:Method},
-except we did not tune the hyperparameters. Instead, we
-used a hyperparameter-set from a previously tuned experiment and used those for all the models.
-This was done because of time constraints.
+We follow the same procedure as previously described in \Cref{section:Method},
+except we do not tune the hyperparameters. Instead, we
+use a hyperparameter-set from a previously tuned experiment and use those for all the models.
+This is done because of time constraints.
 
 \subsubsection{Experiment Plan}
 \begin{description}
@@ -72,3 +76,53 @@ This was done because of time constraints.
 
 \subsection{Experiment 5: Differencing on seasonal dataset}
 \todo[inline]{TODO...}
+The literature on RNN's ability to model seasonality was conflicting [\Cref{section:Data:Preprocessing:trend-and-seasonality}].
+Our initial results showed that the LSTM suffered on datasets with strong yearly seasonality.
+We want to test if removing trends and seasonality can improve forecasts.
+
+\subsubsection{Choosing Datasets}
+We chose dataset 3 as the main dataset and dataset 1 as a control dataset.
+Dataset 3 consists of series with strong seasonality, while dataset 1 has a relatively low seasonality.
+
+\subsubsection{Removing Trend and Seasonality}
+To remove the trend and seasonality from the time series
+we use differencing transformation, which is a method of transforming a time series,
+which removes its temporal dependence \cite[p. 215]{RobJHyndman2014}.
+STL decomposition was tested as well, but it proved to be give worse results than with differencing.
+Differencing is performed by subtracting the previous observation from the current
+observation as shown in \Cref{eq:differencing} where $z$ is the
+transformed differenced series, and $y$ is the real observations.
+\begin{equation}
+  \text{z}(t) = y(t_n) - \text{y}(t_{ n-1 })
+  \label{eq:differencing}
+\end{equation}
+
+The transformation can be removed with \Cref{eq:differencing-inverted}.
+\begin{equation}
+  \hat{y}(t) = z(t_n) + y(t_{ n-1 })
+  \label{eq:differencing-inverted}
+\end{equation}
+
+\subsubsection{Running the experiments}
+We would follow the same experimental procedure as previously described in \Cref{section:Method},
+except for section \Cref{section:Data:Preprocessing:trend-and-seasonality} which we replace with differencing described above.
+
+
+\subsubsection{Experiment Plan}
+\begin{description}
+  \item[Outline]{
+              Tune, train and test a local univariate LSTM with differencing
+              on dataset 1 and 3,
+              using MASE and sMAPE as metrics on a 7-day forecast.
+              Compare the results against previously ran experiment without differencing.
+        }
+\end{description}
+
+\begin{description}
+  \item[Expectations]{
+              We expect the LSTM with differencing to perform better on dataset 3.
+              We do not know how differencing will affect the results on dataset 1.
+        }
+\end{description}
+
+
