@@ -264,4 +264,26 @@ but might do some experiments to see how it can improve our metrics.
 
 \subsection{Scaling down outliers}
 \label{section:Data:Preprocessing:scale-down-outliers}
-\todo[inline]{TODO: Explain this step}
+Some of our time series consist of a few extreme outliers. An example of
+how one of these outliers might occur is if a supplier makes an error and sends
+a wrong price to Prisguiden. If this price is much lower than the original price then
+it might spike a huge user interest for this item, until Prisguiden finds and corrects the error.
+These outliers do not give any meaningful information, so steps were taken to reduce these extreme values.
+
+We use the standard deviation as base too scale down the outliers.
+
+$y(t_n)=
+  \begin{cases}
+    x * 0.3 & \text{if } x\geq standard\_devation * 5 \\
+    x,      & \text{otherwise}
+  \end{cases}$
+
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./figs/code_generated/data_exploration/scaled_down_outliers.png}
+  \hfill
+  \caption{Illustration of how the scaling effects a time seires. The blue is the original series. The orange is the processed series.}
+  \label{fig:illustration:scaled-down-outliers}
+\end{figure}
