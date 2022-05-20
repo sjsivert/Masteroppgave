@@ -1,5 +1,116 @@
 
 \subsection{Convolutional Autoencoder with LSTM}
+\label{section:Discussion:Discussion:CNN-AE-LSTM}
+
+% TODO
+% - Why was the model selected?
+% - Regarding the different datasets -> Does it make sense to use this model? (Is there high noise)
+% - What are the results for the different data-sets (dataset 1, 2 and 3)
+% - What model should performe better than others, and why?
+% --> Do we have background theory to back this up?
+% --> Does it make sense?
+% --> 
+
+
+% What was the aim of the experiments?
+% --> Apply the CNN-AE and LSTM model to a new dataset with real world applicaitons
+% --> Verrify the ability of ther hybrid model against the baseline LSTM
+% --> Thus verrifying the claims done by "Zhao2019"
+Inspired by the work done by \cite{Zhao2019}, the hybrid model CNN-AE and LSTM was selected.
+The paper we base this work on explore the ability of the hybrid model to make time series predictions
+on data with a high noise.
+This is due to the first part of the model, the convolutional autoencoder.
+The autoencoder is added in an attempt to reduce the noise contained in the data before the data is passed through to the LSTM model.
+With the results from the paper by \cite{Zhao2019} claim the hybrid model vastly improves the predictions made, reducing the loss value with
+several percentage points over a standard LSTM model, the hope was that this could be werrified on the real world practical application of
+predicting trend at ``Prisguiden.no''.
+The experiments done with the autoencoder is therefor compared to the baseline LSTM model in order to explore and verrify the claims done by
+\cite{Zhao2019}.
+
+% Link this to RQ-5 (CNN-AE and LSTM against the baseline LSTM)
+% The paper is based on "Local univariate" models. We therefor first mention this
+% All withing the margin of error
+% We are not able to recreate the values by Zhao2019
+
+% ....
+% Dataset   -   LSTM   -  CNN
+% Dataset 1 -  0.239   -  0.208 ->  13%
+% Dataset 2 -  0.633   -  0.716 ->  -11.6%
+% Dataset 3 -  0.488   -  0.483 ->  1.03%
+After doing experiments with the LSTM and the CNN-AE and LSTM model on the three datasets used in this paper,
+the results from the predictions is pressented in \cref{section:Results}.
+As we can se from the experiment results, we are not able to recreate the results from \cite{Zhao2019}
+for the local univariate hybird model.
+Although the results warry to some degree between datasets 1 through 3, the results are more or less equal between the baseline LSTM
+and the hybrid model.
+With dataset 1, the two models perform equal, while the hybrid model performe a little worse on dataset 2 and a little better on dataset 3.
+All of these values fall within a margin of error with theirs predictions, and we can say with certanty that the hybird model does not performe
+better than the LSTM on our datasets.  
+
+% Why is this?
+% --> Do we have a clear idea of why the performance is not better?
+% --> Can the dataset have something to do with this?
+% --> What is with the dataset from the Zhao2019 paper? Is this a lot easier? Is there more unneeded noise data?
+
+\todo[inline]{Why is the performance so bad?}
+
+
+
+
+% We have now seen how it works on univariate local models
+% We use new models, exploring multivariate and global
+% It is not always better in these cases
+% How do we explain this?
+% Can we compare directly with the work done in Zhao2019? What error metrics were used in these models?
+While the paper \cite{Zhao2019} only focus on applying local univariate models,
+we wished to explore the expansion of the use of the hybird model with other configurations.
+These inclde the use of multivariate models and global models for each dataset.
+Exploring the use of such variations to the Convolutional autoencoder and LSTM,
+we hoped to uncover cases where the model performance is increased over the standard local uniariate model.
+
+% First -> Use of global models
+% -> How does the global models performe in comparison to the LSTM version
+% -> How does the global models performe in comparison to the local univariate standard model?
+The first model variation that was tested were the use of a gloal univariate model.
+Both the LSTM model and the hybird convolutional autoencoder and LSTM model were tested on the same datasets,
+and with the same global univariate configuration.
+This is done in order to be able to compare the global hybrid model both to the local univariate model,
+but also with the correlating LSTM model.
+% ....
+% Dataset   -   LSTM   -  CNN
+% Dataset 1 -  0.203   -  0.210   ->  -3.4 %
+% Dataset 2 -  0.662   -  0.675   ->  -1.93 %
+% Dataset 3 -  0.464   -  0.417   ->  10.2 %
+
+
+
+
+% Second -> Use of local multivariate
+% ....
+% Dataset   -   LSTM   -  CNN
+% Dataset 1 -  0.183   -  0.181  ->  -1.1%
+% Dataset 2 -  0.603   -  0.743  ->  -19%
+% Dataset 3 -  0.325   -  0.354  ->  -8.2%
+
+
+
+
+
+% Third -> Use of global multivariate
+% ....
+% Dataset   -   LSTM   -  CNN
+% Dataset 1 -  0.202   -  0.198  ->  2%
+% Dataset 2 -  0.642   -  0.703  ->  -8.7%
+% Dataset 3 -  0.447   -  0.566  ->  -21%
+
+
+
+
+
+
+
+% Old
+\iffalse
 The CNN-AE-LSTM model is only the best performing model for one dataset, dataset 1.
 Here the CNN-AE-LSTM local multivariate model structure beat the plain local multivariate LSTM with $1.09\%$.
 The CNN-AE-LSTM performs competitively on all the experiments on dataset 1 except for the global univariate model structure.
@@ -23,3 +134,4 @@ Our experiments show that adding a Convolutional Autoencoder to an LSTM can be b
   \caption{TODO}
   \label{fig:results-smape-dataset-high-variance}
 \end{figure}
+\fi
