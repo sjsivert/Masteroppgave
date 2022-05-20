@@ -34,26 +34,34 @@ The experiments done with the autoencoder is therefor compared to the baseline L
 
 % ....
 % Dataset   -   LSTM   -  CNN
-% Dataset 1 -  0.239   -  0.208 ->  13%
-% Dataset 2 -  0.633   -  0.716 ->  -11.6%
-% Dataset 3 -  0.488   -  0.483 ->  1.03%
+% Dataset 1 -  0.239   -  0.208 ->  13.9%
+% Dataset 2 -  0.633   -  0.716 ->  -12.3%
+% Dataset 3 -  0.488   -  0.483 ->  1%
 After doing experiments with the LSTM and the CNN-AE and LSTM model on the three datasets used in this paper,
 the results from the predictions is pressented in \cref{section:Results}.
-As we can se from the experiment results, we are not able to recreate the results from \cite{Zhao2019}
-for the local univariate hybird model.
-Although the results warry to some degree between datasets 1 through 3, the results are more or less equal between the baseline LSTM
-and the hybrid model.
-With dataset 1, the two models perform equal, while the hybrid model performe a little worse on dataset 2 and a little better on dataset 3.
-All of these values fall within a margin of error with theirs predictions, and we can say with certanty that the hybird model does not performe
-better than the LSTM on our datasets.  
+Using the hybrid model, it is clear that we are not able to recreate the values pressemted in \cite{Zhao2019}
+with all the different datasets.
+The results from the experiments conducted on the different datasets wary vastly between the hybrid model and the LSTM model.
+While the convolutional autoencoder and LSTM proves to have a bit more dificulties on dataset 2, and negligible improvements on dataset 3,
+it does on average result in vast improvements on predictions done on dataset 1.
+Using the hybrid model on dataset 1, the loss metrics for predictions are on average reduced with 13.9\% using the sMAPE metric.
+In contrast, predictions made on dataset 2 result in predictions that on average are 12.3\% worse than the standard LSTM.
+Lastly, predictions made on dataset 3 only improves with 1\%.
 
 % Why is this?
-% --> Do we have a clear idea of why the performance is not better?
+% --> Why is it only better on dataset 1, and much worse on dataset 2
 % --> Can the dataset have something to do with this?
 % --> What is with the dataset from the Zhao2019 paper? Is this a lot easier? Is there more unneeded noise data?
+The reasons behind behind the varying predictive ability of the convolutional autoencoder and LSTM lies partially
+in the properties of the different datasets.
+Although datasets 1 and 2 were selcted due to the autocorrelation between the time-series within the datasets,
+they also have other abilities that differ the two.
+\todo[inline]{Why is the model so much beter on dataset 1, and so much worse on dataset 2?}
 
-\todo[inline]{Why is the performance so bad?}
 
+
+
+  
 
 
 
@@ -68,44 +76,77 @@ These inclde the use of multivariate models and global models for each dataset.
 Exploring the use of such variations to the Convolutional autoencoder and LSTM,
 we hoped to uncover cases where the model performance is increased over the standard local uniariate model.
 
+
+
+\subsubsections{Global univariate models}
 % First -> Use of global models
 % -> How does the global models performe in comparison to the LSTM version
 % -> How does the global models performe in comparison to the local univariate standard model?
 The first model variation that was tested were the use of a gloal univariate model.
 Both the LSTM model and the hybird convolutional autoencoder and LSTM model were tested on the same datasets,
 and with the same global univariate configuration.
-This is done in order to be able to compare the global hybrid model both to the local univariate model,
-but also with the correlating LSTM model.
+This is done in order to be able to compare the global univariate hybrid model both to the local univariate model,
+but also with the correlating global univariate LSTM model.
+
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.203   -  0.210   ->  -3.4 %
-% Dataset 2 -  0.662   -  0.675   ->  -1.93 %
-% Dataset 3 -  0.464   -  0.417   ->  10.2 %
+% Dataset 2 -  0.662   -  0.675   ->  -1.9%
+% Dataset 3 -  0.464   -  0.417   ->  10.7 %
+Unlike the local univariate models described above, the hybrid model performe quite similar, although somewhat worse than the LSTM model
+on both dataset 1 and 2.
+However, dataset 3 offers an improvement of a little over 10\% of the sMAPE error metric by the hybrid model compared to the LSTM.
+
+\todo[inline]{Why? Does it make sense that we get these results here?}
+
+\todo[inline]{How does the model compare with the basic local univariate hybird model?}
 
 
 
 
+
+\subsubsections{Local multivariate models}
+\dots
 % Second -> Use of local multivariate
 % ....
 % Dataset   -   LSTM   -  CNN
-% Dataset 1 -  0.183   -  0.181  ->  -1.1%
-% Dataset 2 -  0.603   -  0.743  ->  -19%
-% Dataset 3 -  0.325   -  0.354  ->  -8.2%
+% Dataset 1 -  0.183   -  0.181  ->  1.1%
+% Dataset 2 -  0.603   -  0.743  ->  -20.8%
+% Dataset 3 -  0.325   -  0.354  ->  -8.5%
+
+
+\todo[inline]{Why? Does it make sense that we get these results here?}
+
+\todo[inline]{How does the model compare with the basic local univariate hybird model?}
 
 
 
 
 
+
+
+\subsubsections{Global Multivariate models}
+\dots
 % Third -> Use of global multivariate
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.202   -  0.198  ->  2%
-% Dataset 2 -  0.642   -  0.703  ->  -8.7%
-% Dataset 3 -  0.447   -  0.566  ->  -21%
+% Dataset 2 -  0.642   -  0.703  ->  -9.1%
+% Dataset 3 -  0.447   -  0.566  ->  -23.5%
+
+
+
+\todo[inline]{Why? Does it make sense that we get these results here?}
+
+\todo[inline]{How does the model compare with the basic local univariate hybird model?}
 
 
 
 
+
+
+
+% Additional  ->  High variance vs low-variance datasets
 
 
 
