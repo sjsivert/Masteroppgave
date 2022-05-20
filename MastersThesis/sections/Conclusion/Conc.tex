@@ -36,8 +36,23 @@ The results were warying, as the hybrid model outperformes the LSTM models for e
 However, the LSTM models, spessificaly the local multivariate models performe better than the hybird model on dataset 2 and 3.
 The meaning of therse results are explored more in depth in \cref{section:Discussion}.
 
-However, answering research question \cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does \dots
-\todo[inline]{Conclude with something regarding the research question.}
+However, answering research question \cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does
+decreese the predictive error metric for predictions done on data with high noise.
+However, it does not improve predictions on data with low noise, here the LSTM model is better suited.
+Therefor, the available dataset vastly influence the cases where the hybrid convolutional autoencoder and LSTM is viable for use.
+
+% TODO: This is a placeholder conclusion.
+% Not sure if this is going to stay here, or if it should be updated.
+When it comes to the other variations of the hybrid model, global univariate models,
+local multivariate models and global univariate models were tested with the time series.
+The local multivate model is shown to performe better than the local univariate model, as discussed in \cref{section:Discussion:Discussion:CNN-AE-LSTM}.
+However, while the different configurations of convolutional autoencoders and LSTM often outperformes the initial local univariate model,
+they generaly performe wors than their LSTM counterpart with the same configuration.
+Therefor, we are not able to conclude that these new configurations of the hybrid model performes any better than the LSTM.
+However, as we have discussed throughout the paper, the results accomplished are highly dependent on the dataset made availbale by ``Prisguiden.no'',
+and therefor we sugguest that further experimentations should be conducted on these variations to the convolutional autoencoder and LSTM
+before they are discarded as viable options in some future applications.
+
 
 \todo[inline]{Conclude with a result regarding the goal! What can we say?}
 
