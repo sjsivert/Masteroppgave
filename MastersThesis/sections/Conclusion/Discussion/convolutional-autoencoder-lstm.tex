@@ -57,9 +57,7 @@ in the properties of the different datasets.
 Although datasets 1 and 2 were selcted due to the autocorrelation between the time-series within the datasets,
 they also have other abilities that differ the two.
 \todo[inline]{Why is the model so much beter on dataset 1, and so much worse on dataset 2?}
-
-
-
+\todo[inline]{Why do we get the results we do? Is there any reason behind it?}
 
   
 
@@ -97,8 +95,17 @@ Unlike the local univariate models described above, the hybrid model performe qu
 on both dataset 1 and 2.
 However, dataset 3 offers an improvement of a little over 10\% of the sMAPE error metric by the hybrid model compared to the LSTM.
 
-\todo[inline]{Why? Does it make sense that we get these results here?}
+The results from the global univarite model are somewhat unexpected.
+Dataset 1 and 2 were selected due to their contrast in corrolation between the time series in the dataset.
+Dataset 1 has time-series wich correlate the most with each other, while dataset 2 has time-series with the least ammount of correlating between them.
+Using an convolutional autoencoder and LSTM, it was expected that the additional data made available through the use of a global configuration
+whould be utilized in order to improve the abilities of the autoencoder.
+The autoencoder would have more data to work with in order to improve its encoding and reconstructing of data,
+and considering the data corrolated to some extend, dataset 1 should be easier to work with as much of the data corrolate.
 
+However, as the experiments have shown, both dataset 1 and 2 performes poorly, by beeing a little wors than a LSTM model with the same
+global univariate configuration.
+\todo[inline]{Why? Does it make sense that we get these results here?}
 \todo[inline]{How does the model compare with the basic local univariate hybird model?}
 
 
@@ -106,27 +113,62 @@ However, dataset 3 offers an improvement of a little over 10\% of the sMAPE erro
 
 
 \subsubsection{Local multivariate models}
-\dots
+
+Afther the use of global models, a configuration of multivariate models were attempted.
+Unlike the glboal models,
+the number of data points are increased not through the addition of other time-series,
+but by decomposing the information within each time-series to include seasonal values such as season or day of the week.
+
+Using the convolutional autoencoder and LSTM model on this problem should result in both imporvements and degregation to performance.
+Initially, the performance of the model should suffer due to the fact that the model is required to encode and reconstruct the
+input data.
+The model might encounter problems with recreating the data using the same model as for univariate models,
+whilest attempting to recreate additonal datapoints.
+However, the same reasoning might also help to improve the performance of the hybrid model in some cases.
+While more data need to be encoded and reconstructed, the autoencoder will retain more information
+regarding the development of trends and spikes through different seasons.
+% Den er ikke like grov i kantene
+While a pattern migh repeat over several seasons, there migh be additional hidden information in the seasonal information.
+If a pattern is known to never spike during summer but often spikes through the winter,
+the autoencoder should be able to differentiate between the different seasons.
+It would be more likely to accept the spikes during the winter as relevant information, while a random spike during the summer might be reduced.
+This would mean that it would be more well adjusted to reduce noise in a pattern also dependent on the seasonal factors,
+thus beeing more finly tuned for individual patterns.
+
 % Second -> Use of local multivariate
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.183   -  0.181  ->  1.1%
 % Dataset 2 -  0.603   -  0.743  ->  -20.8%
 % Dataset 3 -  0.325   -  0.354  ->  -8.5%
+However, while this reasoning is based on the autoencoders ability to encode and differentiate between values based on season,
+it model would be severly limited in cases where there is not enough data for the autoencoder to learn of such connections.
+As discussed in \cref{section:Data:DataExploration}, the data attained from ``Prisguiden.no'' only include datapoints
+for a little over 3 years.
+Considering the limmited information per datapints, this ammount of data could heavily limit the convolutional autoencoder and lstm model.
+This is also reflected in the results aquired through testing.
+While dataset 1 have a small improvement by the hybrid model with around 1\%,
+the basic LSTM model heavily outperform the convolutional autoencoder and LSTM model by over 20\% for dataset 2, and over 8\% for dataset 3.
 
-
-\todo[inline]{Why? Does it make sense that we get these results here?}
-
-\todo[inline]{How does the model compare with the basic local univariate hybird model?}
-
-
+Although the local multivatiate model is the overall best performing of the convolutional autoencoder and LSTM models,
+it is outperformed by the LSTM, indicating that the reason for the improvements by the model
+is entirely contributed by the improvements to the LSTM model.
 
 
 
 
 
 \subsubsection{Global Multivariate models}
-\dots
+
+Expanding on the use of global models and multivariate models,
+a global multivariate hybird model is defined and tested.
+
+
+% Has problems with multivariate values, just like the local multivariate
+% Sum it up to be the same.
+% Has the same advantages as the global univariate, but what were thos?
+
+
 % Third -> Use of global multivariate
 % ....
 % Dataset   -   LSTM   -  CNN
