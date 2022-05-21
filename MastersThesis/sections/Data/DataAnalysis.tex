@@ -7,22 +7,27 @@ In order to analyse the predictebilty of the data we checked for white noise, an
 
 \subsection*{Theory}
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/white_noise_lineplot.png}
-  \hfill
-  \caption{A Random walk lineplot}
-  \label{fig:dataset:white_noise}
-\end{figure}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/random_walk_lineplot.png}
-  \hfill
-  \caption{A Random walk lineplot}
-  \label{fig:dataset:random_walk}
+  \caption{Syntetic data, noise and random values.}
+  \label{fig:dataset:white_noise_random_wald}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/white_noise_lineplot.png}
+    \hfill
+    \caption{White noise lineplot}
+    \label{fig:dataset:white_noise}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/random_walk_lineplot.png}
+    \hfill
+    \caption{A Random walk lineplot}
+    \label{fig:dataset:random_walk}
+  \end{subfigure}
 \end{figure}
 
-TODO [Move to B and T?]
+
+
+% TODO: [Move to B and T?]
 White noise is just a random sample of numbers not following any pattern what so ever, as seen in
 \Cref{fig:dataset:random_walk}.
 
@@ -35,9 +40,9 @@ where $r$ is some random number.
 An example of a random walk graph is shown in \Cref{fig:dataset:random_walk}.
 
 \Cref{fig:dataset:random_walk}.
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/illustrations/random_walk_autocorrelation.png}
+  \includegraphics[width=0.5\textwidth]{./figs/illustrations/random_walk_autocorrelation.png}
   \hfill
   \caption{A Random walk autocorrelation}
   \label{fig:dataset:random_walk_autocorrelation}
@@ -55,16 +60,16 @@ If the series follows a random walk it will look a lot like the white noise show
 Plotting the autocorrelation of the remainding noise $r$ in \Cref{fig:dataset:random_walk_noise_autocorrelation}
 we can see the correlations are small, close to zero and below the 95\% (vertical dotted line) and the 99\% (vertical full line)
 confidence levels.
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/illustrations/random_walk_noise_autocorrelation.png}
+  \includegraphics[width=0.5\textwidth]{./figs/illustrations/random_walk_noise_autocorrelation.png}
   \hfill
   \caption{A Random walk noise autocorrelatoin}
   \label{fig:dataset:random_walk_noise_autocorrelation}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/random_walk_decomposed_additive.png}
+  \includegraphics[width=0.5\textwidth]{./figs/code_generated/data_exploration/random_walk_decomposed_additive.png}
   \hfill
   \caption{A Random walk decomposed in Trend, Season, and rest}
   \label{fig:dataset:random_walk_decomposed}
@@ -93,7 +98,7 @@ Categories chosen was
 
 By analysing a lag plot we can look for patterns in the data. A lag plot
 show how much future values depend on past values.
-TODO[Add lag plots].
+% TODO: [Add lag plots].
 The lag plot of.
 % Write about dicky fuller test on dataset and decomposed resid.
 % Write about how a lag plot of how a random walk looks like
@@ -102,9 +107,9 @@ The lag plot of.
 % Check autocorrelation on random walk diff: https://machinelearningmastery.com/gentle-introduction-random-walk-times-series-forecasting-python/
 \import{./tables/code_generated/data_exploration/}{dicky_fuller_test_residuals.tex}
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/time-serie-MP3-spiller_decomposed.png}
+  \includegraphics[width=0.9\textwidth]{./figs/code_generated/time-serie-MP3-spiller_decomposed.png}
   \hfill
   \caption{"MP3-spiller" decomposed}
   \label{fig:dataset:mp3-spiller-decomposed}

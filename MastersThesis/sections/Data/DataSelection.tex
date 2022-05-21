@@ -30,7 +30,7 @@ Using this heat map [\Cref{fig:dataset:heatmap_correlating}], we were able to ev
 In order to make correlating datasets stand out more clearly, we remove values from category pairs with an auto-correlation lower than 0.5 across the categories
 and a constraint of minimum 100 observations needed.
 % Heatmap image of all categories
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{./figs/dataset/category_correlation_matrix.png}
   \hfill
@@ -43,7 +43,7 @@ Additionally, the categories with the highest correlation are all categories con
 Using domain knowledge we are able to assert that these categories should have a higher correlation between them than other categories probably have.
 With these two assumptions comprising the basis for the selection, we were able to filter out categories with less correlation, resulting in a set of 20 categories comprising the correlating dataset.
 % Heatmap image of the selected 20 categories in the Correlation dataset
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{./figs/dataset/category_correlation_matrix_20_categories.png}
   \hfill
@@ -57,32 +57,32 @@ The filtered dataset contains 20 categories from the electronics domain, some of
 The selected categories are:
 
 % Insert list of categorie
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Selected categories comprising dataset 1 - Correlating categories}
   \label{table:dataset1}
-  \begin{tabular}{|c|l|l|}\hline
-    Category ID & Name(Norwegian)     & Name(English) \\ \hline
-    2           & Bærbar PC           & TODO          \\ \hline
-    6           & Digitalkamera       & TODO          \\ \hline
-    9           & Harddisk og SSD     & TODO          \\ \hline
-    10          & Hovedkort           & TODO          \\ \hline
-    11          & PC-høytaler         & TODO          \\ \hline
-    13          & Kabinett            & TODO          \\ \hline
-    20          & MP3-Spiller         & TODO          \\ \hline
-    22          & Mus                 & TODO          \\ \hline
-    24          & Objektir            & TODO          \\ \hline
-    26          & Prosjektor          & TODO          \\ \hline
-    27          & Minne (RAM)         & TODO          \\ \hline
-    28          & Skanner             & TODO          \\ \hline
-    29          & PC-skjerm           & TODO          \\ \hline
-    32          & Spill               & TODO          \\ \hline
-    33          & Tastatur            & TODO          \\ \hline
-    34          & Videokamera         & TODO          \\ \hline
-    39          & Diverse spillutstyr & TODO          \\ \hline
-    41          & Programvare         & TODO          \\ \hline
-    51          & Hodetelefoner       & TODO          \\ \hline
-    54          & Systemkamera        & TODO          \\ \hline
+  \begin{tabular}{|c|l|}\hline
+    Category ID & Name(Norwegian) \\ \hline
+    2           & Bærbar PC    \\ \hline
+    6           & Digitalkamera     \\ \hline
+    9           & Harddisk og SSD      \\ \hline
+    10          & Hovedkort     \\ \hline
+    11          & PC-høytaler     \\ \hline
+    13          & Kabinett     \\ \hline
+    20          & MP3-Spiller      \\ \hline
+    22          & Mus      \\ \hline
+    24          & Objektir     \\ \hline
+    26          & Prosjektor      \\ \hline
+    27          & Minne (RAM)      \\ \hline
+    28          & Skanner   \\ \hline
+    29          & PC-skjerm    \\ \hline
+    32          & Spill      \\ \hline
+    33          & Tastatur     \\ \hline
+    34          & Videokamera     \\ \hline
+    39          & Diverse spillutstyr     \\ \hline
+    41          & Programvare     \\ \hline
+    51          & Hodetelefoner    \\ \hline
+    54          & Systemkamera     \\ \hline
   \end{tabular}
 \end{table}
 
@@ -103,7 +103,7 @@ Of these 50, seasonal categories such as product categories related to Christmas
 After this, a manual selection was conducted on the remaining categories in order to remove those with a high correlation between the remaining categories.
 This was repeated until only 20 categories remain.
 % Insert image of the 20 non correlating categories
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{./figs/dataset/category_no_correlation_matrix_20_categories.png}
   \hfill
@@ -117,32 +117,32 @@ This was repeated until only 20 categories remain.
 The filtered dataset contains 20 categories with the least inward correlation we could find.
 The selected categories are:
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Selected categories comprising dataset 2 - Non- correlating categories}
   \label{table:dataset2}
-  \begin{tabular}{|c|l|l|}\hline
-    Category ID & Name(Norwegian)           & Name(English) \\ \hline
-    12532       & Hodetelefoner             & TODO          \\ \hline
-    11694       & Diverse måleapparater     & TODO          \\ \hline
-    11716       & Bærplukker                & TODO          \\ \hline
-    11950       & Garasjetelt               & TODO          \\ \hline
-    11988       & Aircondition              & TODO          \\ \hline
-    11998       & Hjertestarter             & TODO          \\ \hline
-    274         & Bord- og gulvvifte        & TODO          \\ \hline
-    11407       & Vinterlek                 & TODO          \\ \hline
-    46          & Mobilkamera og tilbehør   & TODO          \\ \hline
-    11326       & Myggjager og myggfelle    & TODO          \\ \hline
-    11335       & Komfyrvakt                & TODO          \\ \hline
-    12197       & Mosefjerner og plenlufter & TODO          \\ \hline
-    11693       & Febertermometer           & TODO          \\ \hline
-    11780       & Skredutstyr               & TODO          \\ \hline
-    12502       & Stikk og bitt             & TODO          \\ \hline
-    11866       & Klister                   & TODO          \\ \hline
-    11400       & Truger                    & TODO          \\ \hline
-    12256       & Terrassebord              & TODO          \\ \hline
-    10320       & Skøyter                   & TODO          \\ \hline
-    10030       & Digitale bilderammer      & TODO          \\ \hline
+  \begin{tabular}{|c|l|}\hline
+    Category ID & Name(Norwegian)  \\ \hline
+    12532       & Hodetelefoner    \\ \hline
+    11694       & Diverse måleapparater    \\ \hline
+    11716       & Bærplukker     \\ \hline
+    11950       & Garasjetelt    \\ \hline
+    11988       & Aircondition   \\ \hline
+    11998       & Hjertestarter   \\ \hline
+    274         & Bord- og gulvvifte    \\ \hline
+    11407       & Vinterlek     \\ \hline
+    46          & Mobilkamera og tilbehør     \\ \hline
+    11326       & Myggjager og myggfelle   \\ \hline
+    11335       & Komfyrvakt   \\ \hline
+    12197       & Mosefjerner og plenlufter       \\ \hline
+    11693       & Febertermometer      \\ \hline
+    11780       & Skredutstyr      \\ \hline
+    12502       & Stikk og bitt     \\ \hline
+    11866       & Klister     \\ \hline
+    11400       & Truger    \\ \hline
+    12256       & Terrassebord     \\ \hline
+    10320       & Skøyter     \\ \hline
+    10030       & Digitale bilderammer     \\ \hline
   \end{tabular}
 \end{table}
 
@@ -162,20 +162,20 @@ This list of products contain categories hevily dependent on seasons such as chr
 A list of the time-series contained in dataset 3 can be found in \cref{table:dataset3}
 
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Selected categories comprising dataset 3}
   \label{table:dataset3}
-  \begin{tabular}{|c|l|l|}\hline
-    Category ID & Name(Norwegian)    & Name(English) \\ \hline
-    \textbf{12322  } & Vinterjakke   & TODO          \\ \hline
-    \textbf{11428  } & Vintersko     & TODO          \\ \hline
-    \textbf{11850  } & Langrennski   & TODO          \\ \hline
-    \textbf{11852  } & Skisko        & TODO          \\ \hline
-    \textbf{273    } & Varmeovn      & TODO          \\ \hline
-    \textbf{11036  } & Snøfreser     & TODO          \\ \hline
-    \textbf{11213  } & Snøskuffe     & TODO          \\ \hline
-    \textbf{12532  } & Varmepumpe    & TODO          \\ \hline
+  \begin{tabular}{|c|l|}\hline
+    Category ID & Name(Norwegian)  \\ \hline
+    \textbf{12322  } & Vinterjakke      \\ \hline
+    \textbf{11428  } & Vintersko      \\ \hline
+    \textbf{11850  } & Langrennski      \\ \hline
+    \textbf{11852  } & Skisko     \\ \hline
+    \textbf{273    } & Varmeovn     \\ \hline
+    \textbf{11036  } & Snøfreser     \\ \hline
+    \textbf{11213  } & Snøskuffe     \\ \hline
+    \textbf{12532  } & Varmepumpe     \\ \hline
   \end{tabular}
 \end{table}
 

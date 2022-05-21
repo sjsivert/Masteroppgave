@@ -11,7 +11,7 @@ As of \textit{23-11-2021} the dataset consists of 35966868 entries.
 The oldest recorded data are from the beginning of 2019.
 It consists of 9 features.
 as shown in \Cref{table:features_market_insight_dataset}.
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Features of the Market insight dataset}
   \label{table:features_market_insight_dataset}
@@ -52,7 +52,8 @@ gives us a table on the format shown in \Cref{table:market_insights_overview_11-
 \import{./tables/code_generated/data_exploration/}{market_insights_overview_11-12-21.tex}
 
 \subsection{Category plot analysis}
-\Cref{fig:lineplot1} and \Cref{fig:lineplot2} show hits and clicks
+\Cref{fig:lineplot1} % and \Cref{fig:lineplot2}
+show hits and clicks
 from a random sample of categories from 2019 to 2021.
 Most of the plots show a clear yearly periodic pattern, as shown in
 \Cref{fig:lineplot-Hodetelefoner},
@@ -88,17 +89,19 @@ However, most categories have at least one click and one hit each day.
 Categories with id above 10000 start to see a lot more zero values.
 The most likely explanation for this is that these categories are created at a later point in time.
 The steadily growing line at the end of \Cref{fig:category_NaN_values} near id 12000 supports this theory.
-\begin{figure}[h!]
+
+
+\begin{figure}[H]
   \centering
   \caption{Counting how many categories have days with 0 hits or NaN values}
   \label{fig:category_0_and_NaN_values}
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.47\textwidth}
     \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_0_values.png}
     \hfill
     \caption{0-values}
     \label{fig:category_0_values}
   \end{subfigure}
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.47\textwidth}
     \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_NaN_values.png}
     \hfill
     \caption{NaN-values}
@@ -108,6 +111,8 @@ The steadily growing line at the end of \Cref{fig:category_NaN_values} near id 1
 
 
 
+% Time series visualization
+% I think we only need one of these
 \begin{figure}[h!]
   \centering
   \caption{Category plots of hits and click rate from 2019-2021}
@@ -134,7 +139,9 @@ The steadily growing line at the end of \Cref{fig:category_NaN_values} near id 1
   \end{subfigure}
 \end{figure}
 
-\begin{figure}[h!]
+
+\iffalse
+\begin{figure}[H]
   \centering
   \caption{Category plots of hits and click rate from 2019-2021}
   \label{fig:lineplot2}
@@ -159,6 +166,8 @@ The steadily growing line at the end of \Cref{fig:category_NaN_values} near id 1
     \label{fig:lineplot-Varmepumpe}
   \end{subfigure}
 \end{figure}
+\fi
+
 
 \subsection{Correlation among categories}
 We did a correlation analysis to get an idea of how the categories correlate.
@@ -187,19 +196,20 @@ Also worth noticing from the big correlation matrix is an indication of more pur
 Tech-related categories dominated Prisguiden's product category in its early years. In recent years they have expanded their reach to include more common household
 products. It makes sense that these new products do not correlate much with technology products.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_correlation_matrix_10_categories.png}
+  \includegraphics[width=0.8\textwidth]{./figs/code_generated/data_exploration/category_correlation_matrix_10_categories.png}
   \hfill
   \caption{Correlation matrix of 10 random categories}
   \label{fig:category_corelation_matrix_10}
 \end{figure}
 
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/category_correlation_matrix_all_categories.png}
+  \includegraphics[width=0.8\textwidth]{./figs/code_generated/data_exploration/category_correlation_matrix_all_categories.png}
   \hfill
   \caption{Full category correlation matrix}
   \label{fig:category_corelation_matrix_full}
 \end{figure}
+
