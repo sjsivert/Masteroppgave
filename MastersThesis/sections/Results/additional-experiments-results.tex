@@ -1,8 +1,28 @@
 \section{Additional Experiments Results}
 The results of our two additional experiments are shown in \Cref{table:Average-metric-dataset-variance}.
-The table show the average metrics for all the time series in the dataset described in the name.
-For example: \textit{dataset-high-variance-lstm}
-TODO: FInnish this
+The table shows the average metrics for all the time series in the dataset described in the name.
+For example: \textit{dataset-high-variance-lstm-local-univariate} row show the average
+results for the local univariate LSTM on the high variance dataset.
+It got MASE of $0.645$ and a smape of $0.864$. The CNN-AE-LSTM (\textit{dataset-high-variance-cnn-ae-lstm-local-unviariate}) outperforms the LSTM on
+the same dataset with a sMAPE of $0.832$ and a mase of $0.634$, which is a sMAPE reduction of $3.7\%$
+
+The CNN-AE-LSTM performs much worse than the LSTM on the low variance dataset,
+whit a sMAPE of $0.641$ versus $0.421$, and a MASE of $5.072$ versus $3.740$.
+This is a $33.3\%$ decreased sMAPE perfomance and a $26.3\%$ MASE reduction.
+
+On the medium variance dataset the CNN-AE-LSTM performs marginally better than the LSTM
+with a sMAPE of $0.501$ versus $0.502$. Both models score the same MASE of $0.788$, but the
+CNN-AE-LSTM achieves a $1.32\%$ better 7-day MASE.
+
+Comparing the local univariate LSTM with differencing done as a pre-processing step
+on the seasonal dataset in \Cref{table:Average-metric-dataset-variance},
+with the same model type, without differencing in \Cref{table:Average-metric-dataset-seasonal}
+from \Cref{section:discussion&results:experiment-results}:
+the original local univariate LSTM model without differencing scored a MASE of
+$2.207$, a sMAPE of $0.488$, and a 7-day MASE of $1.345$.
+The model with differencing scored a MASE of $1.866$, a sMAPE of $0.367$ and a 7-day MASE of
+$0.916$. That is an improvement of $15.45\%$, $24.80\%$, and $31.90\%$ respectively.
+
 % \import{./tables/results/dataset_high_variance}{Average-metric-dataset-high-variance.tex}
 \import{./tables/results/dataset_high_variance}{Average-metric-dataset-variance.tex}
 
