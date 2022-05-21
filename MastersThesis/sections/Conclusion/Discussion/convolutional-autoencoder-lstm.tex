@@ -55,7 +55,7 @@ Lastly, predictions made on dataset 3 only improves with 1\%.
 The reasons behind behind the varying predictive ability of the convolutional autoencoder and LSTM lies partially
 in the properties of the different datasets.
 Although datasets 1 and 2 were selcted due to the autocorrelation between the time-series within the datasets,
-they also have other abilities that differ the two.
+they also have other abilities that differentiate the two.
 \todo[inline]{Why is the model so much beter on dataset 1, and so much worse on dataset 2?}
 \todo[inline]{Why do we get the results we do? Is there any reason behind it?}
 
@@ -153,6 +153,7 @@ the basic LSTM model heavily outperform the convolutional autoencoder and LSTM m
 Although the local multivatiate model is the overall best performing of the convolutional autoencoder and LSTM models,
 it is outperformed by the LSTM, indicating that the reason for the improvements by the model
 is entirely contributed by the improvements to the LSTM model.
+The results for these experiments are well withing the expected performance of the local multivariate model.
 
 
 
@@ -162,6 +163,29 @@ is entirely contributed by the improvements to the LSTM model.
 
 Expanding on the use of global models and multivariate models,
 a global multivariate hybird model is defined and tested.
+
+Even tough the model is a global method, it does not escape the problems retained with the use of a multivariate model.
+Although the number of datasets have increased, this does not nessesarily improve the performance of the models.
+The reason behind this is the lack of correlation between the time-series in the datasets.
+Although dataset 1 contains datasets with higher correlation than dataset 2 and 3, it appears this is not enough to make any significant difference.
+While it does performe 2\% better than the global mulitivariate LSTM, this is not enough to say that the autoencoder adds
+in any meaningfull way.
+When it comes to dataset 2 and 3 where the correlation between datasets is excedingly low, the autoencoder ends up with decreasing the performance of the predictions.
+There might be several different factors that play a part in this.
+
+Dataset 1 contains data with high correlation, and thus the autoencoder is more likely to use the additonal data to performe well with encoding and reconstruction.
+However, it appears that the autoencoder is not able to improve predictions.
+\todo[inline]{Why these reuslts? Are they expected?}
+
+
+The results are different on datasets 2 and 3 however.
+While dataset 1 showed little difference, dataset 2 and 3 performe much worse than the LSTM for a global multivariate model.
+This could be explained by the low correlation between the data, which again could result in the autoencoder having to encode a lot more data,
+without the performance advantage of analysing data that is shared accorss the time-series.
+The autoencoder would therefor have more dificulties in encoding and reconstructing the data,
+thus making error prone reconstructions and therefor hurting the performance of the model.
+For dataset 2 and 3, these results are as expected for the global multivariate model.
+
 
 
 % Has problems with multivariate values, just like the local multivariate
