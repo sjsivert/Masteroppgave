@@ -23,14 +23,20 @@ Experiment 5 [\Cref{section:results:additional-experimental-plan:Experiment-5}] 
 the seasonality from dataset 4 confirms this hypothesis as well. When removing the seasonal
 the seasonal component the LSTM outperforms SARIMA, as we should expect.
 
-Regarding RQ4 [\cref{RQ4}], we can conclude that on our dataset, when
+Regarding RQ4 [\ref{RQ4}], we can conclude that on our dataset, when
 both SARIMA and LSTM are given the exact same information, SARIMA will outperform
 LSTM on time series with a strong 365-day seasonality because of the spatial memory limitations
 of LSTMs.
-SARIMA is a statistical method which does not rely on memory.
+SARIMA is a statistical method that does not rely on memory.
 It requires the seasonal component for each time series to be known.
 When a time series does not have a strong seasonal dependence or this
 dependence is removed beforehand, the LSTM performs best.
+
+Regarding RQ4.1 [\ref{RQ4}] our empirical results show that adding date stamp features to
+a univariate series can significantly improve forecasting accuracy, especially
+on time series with a strong seasonal dependence, and where this seasonal component
+has a long wavelength.
+
 
 %% Globale metoder gjør det bedre enn locale på MASE, men dårligere på sMAPE
 % Kan det være fordi sMAPE straffer under predictions hardere enn 
