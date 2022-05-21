@@ -52,6 +52,22 @@ Increasing the forecasting window is therefor a possible point of entry for furt
 dataset from ``Prisguiden.no''.
 
 
+% Unclear what datasets are ideal for the autoencoder
+% Explore other factors than noise that define the dataset
+% We have only explored the use of noise.
+% Selection of datasets correlating and non-correlating were defined more for the use of gloal models, not to explore the use of the autoencoder
+% What datasets gave poor results, and which caracteristics gave good results?
+Although the experiments done in this thesis are done on several uniqe datasets,
+more work can be done with the experimentation of hybrid model use on datasets with different caracteristics.
+While dataset 1 and 2 focus on corrolation between time series, this was selected primarily for the experimentation with local vs global models.
+The additional testing defined in \cref{section:Results:AdditionalExperimentalPlan} explore the use of the convolutional autoencoder and LSTM
+on datasets with higher levels of noise, and lower levels of noise.
+The same consept can be applied to create datasets with other caracteristics.
+By doing this, the hybird model performance can be explored more in depth using different caracteristics of data.
+It is expected that the type of data selected for experimentation is highly influencial on the performance of the model,
+and further experimentation with the model could therefor be warrented.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%
