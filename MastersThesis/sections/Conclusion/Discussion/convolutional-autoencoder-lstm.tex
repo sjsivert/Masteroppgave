@@ -84,33 +84,66 @@ we hoped to uncover cases where the model performance is increased over the stan
 % -> How does the global models performe in comparison to the local univariate standard model?
 
 % Unødvendig gjentagelse?
-The first model variation that was tested were the use of a gloal univariate model.
-Both the LSTM model and the hybird convolutional autoencoder and LSTM model were tested on the same datasets,
-and with the same global univariate configuration.
-This is done in order to be able to compare the global univariate hybrid model both to the local univariate model,
-but also with the correlating global univariate LSTM model.
+%The first model variation that was tested were the use of a gloal univariate model.
+%Both the LSTM model and the hybird convolutional autoencoder and LSTM model were tested on the same datasets,
+%and with the same global univariate configuration.
+%This is done in order to be able to compare the global univariate hybrid model both to the local univariate model,
+%but also with the correlating global univariate LSTM model.
 
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.203   -  0.210   ->  -3.4 %
 % Dataset 2 -  0.662   -  0.675   ->  -1.9%
 % Dataset 3 -  0.464   -  0.417   ->  10.7 %
-Unlike the local univariate models described above, the hybrid model performe quite similar, although somewhat worse than the LSTM model
-on both dataset 1 and 2.
-However, dataset 3 offers an improvement of a little over 10\% of the sMAPE error metric by the hybrid model compared to the LSTM.
 
-The results from the global univarite model are somewhat unexpected.
-Dataset 1 and 2 were selected due to their contrast in corrolation between the time series in the dataset.
-Dataset 1 has time-series wich correlate the most with each other, while dataset 2 has time-series with the least ammount of correlating between them.
-Using an convolutional autoencoder and LSTM, it was expected that the additional data made available through the use of a global configuration
-whould be utilized in order to improve the abilities of the autoencoder.
-The autoencoder would have more data to work with in order to improve its encoding and reconstructing of data,
-and considering the data corrolated to some extend, dataset 1 should be easier to work with as much of the data corrolate.
+\todo[inline]{Update after T tests results arrive}
+The results on dataset 1 for the local univariate and the local multivariate models
+confirms our hypothesis presented in RQ5 [\ref{G&R:RQ-CNN-AE-LSTM}], that the
+CNN-AE-LSTM does achieve higher accuracy over a plain LSTM by a few percentage points.
 
-However, as the experiments have shown, both dataset 1 and 2 performes poorly, by beeing a little wors than a LSTM model with the same
-global univariate configuration.
-\todo[inline]{Why? Does it make sense that we get these results here?}
-\todo[inline]{How does the model compare with the basic local univariate hybird model?}
+The only exception is for the global models, where the CNN-AE-LSTM in general performs worse.
+It seems the benefits of a global model for RNNs are not transferable to other types
+of NNs. LSTMs ability to learn across multiple time series can be attributed to the fundamentals
+of how the LSTM works. \cite{Zhao2019} discusses previous work that concludes that
+the LSTMs memory cell is mainly responsible for the performance of the LSTM.
+When training the LSTM on multiple time series, this memory cell is local to each
+time series and resets before each new time series is fed through the network.
+The LSTM weights on the other hand are global across all the series.
+These local and global characteristics are unique to RNNs, and can explain
+why the Convolutional Autoencoder does not see the same benefits when trained on multiple
+time series.
+
+The results of Experiment 4 [\Cref{section:results:additional-experimental-plan:Experiment-4}],
+and Experiment 1 shows a small increase in performance for the hybrid model on high variance datasets.
+Even though these results are not statistically significant, the sample sizes were relatively small
+(20 samples, and 7 samples), which might be too small to conclude when the
+performance increase is low.
+
+However, from the results of Experiment 4, we can empirically conclude that the CNN-AE-LSTM will
+hurt the performance if the datasets contain small amounts of noise. This downside is much
+worse than the potential performance gains on noisy datasets.
+This can explain the poor results on dataset 2. Since dataset 2 contains a wide variety
+of time series.
+
+
+
+
+%Unlike the local univariate models described above, the hybrid model performe quite similar, although somewhat worse than the LSTM model
+%on both dataset 1 and 2.
+%However, dataset 3 offers an improvement of a little over 10\% of the sMAPE error metric by the hybrid model compared to the LSTM.
+%
+%The results from the global univarite model are somewhat unexpected.
+%Dataset 1 and 2 were selected due to their contrast in corrolation between the time series in the dataset.
+%Dataset 1 has time-series wich correlate the most with each other, while dataset 2 has time-series with the least ammount of correlating between them.
+%Using an convolutional autoencoder and LSTM, it was expected that the additional data made available through the use of a global configuration
+%whould be utilized in order to improve the abilities of the autoencoder.
+%The autoencoder would have more data to work with in order to improve its encoding and reconstructing of data,
+%and considering the data corrolated to some extend, dataset 1 should be easier to work with as much of the data corrolate.
+%
+%However, as the experiments have shown, both dataset 1 and 2 performes poorly, by beeing a little wors than a LSTM model with the same
+%global univariate configuration.
+%\todo[inline]{Why? Does it make sense that we get these results here?}
+%\todo[inline]{How does the model compare with the basic local univariate hybird model?}
 
 
 
