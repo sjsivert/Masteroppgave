@@ -15,7 +15,7 @@ model:
       P: [0, 5]
       D: [0, 5]
       Q: [0, 5]
-      s: [12, 12]
+      s: [300, 300]
 
     # metric_to_use_when_tuning: 'MASE'
     metric_to_use_when_tuning: 'MAE'
