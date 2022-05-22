@@ -57,7 +57,28 @@ before they are discarded as viable options in some future applications.
 
 \todo[inline]{Conclude with a result regarding the goal! What can we say?}
 
+% Sindre skrive litt konklusjon uten å tenke på hva som er skrevet før.
+% Må merges sammen.
+Answering RQ 4[\ref{RQ4}], we can conclude that a univariate LSTM outperforms SARIMA,
+unless a strong yearly seasonality is present. However, the LSTM short memory can be
+compensated with data pre-processing techniques, such as differencing or by adding
+additional features to the LSTM.
 
+Further, regarding RQ 4.1, we can conclude that both a multivariate LSTM,
+and a global LSTM improves forecasting accuracy in every scenario, but if the combination
+of the two model structures is not prefered if accuracy is the prime objective,
+the local multivariate LSTM with features that describes date is the preferred method.
+However, a global multivariate model can be a good alternative if scalability is essential.
+
+Finally, regarding RQ5 [\ref{G&R:RQ-CNN-AE-LSTM}] our results,
+although not statistically significant, with a p-value of $0.147$,
+show that a hybrid Convolutional Autoencoder can improve an LSTM on time series
+with a lot of noise by a few percentage points.
+% Vet ikke helt om jeg kan si dette så hart? 
+However, we can confirm that the hybrid model can
+hurt accuracy by up to $30\%$ if the datasets are not noisy enough.
+Thus, the performance increases are not enough to justify using
+a hybrid CNN-AE-LSTM over an LSTM on our dataset.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

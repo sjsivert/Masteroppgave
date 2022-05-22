@@ -29,6 +29,12 @@ when the weather starts becoming cold. While \textit{"Langrennski"} and \textit{
 peaks around january, when the snow starts falling.
 This will seem like conflicting information for an NN that can not differentiate between
 which category it is looking at, hurting the NNs modeling capability.
+However, the value of additional information is not to be overlooked,
+because our results show that a multivariate global LSTM will outperform
+a univariate global LSTM in all scenarios.
+And the global model is a lot more scalable, which can make
+it an attractive model structure choice, even if it is not the most
+accurate model structure.
 
 TODO:
 % Write about which dataset the global model performs best on.
