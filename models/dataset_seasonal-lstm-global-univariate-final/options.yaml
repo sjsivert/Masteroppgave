@@ -1,0 +1,142 @@
+model:
+    rng_seed: 42
+    model_type: global_univariate_lstm
+    model_config:
+        hyperparameter_tuning_range:
+            hidden_size: [1, 100]
+            number_of_layers: [1, 2]
+            dropout: [0.0, 0.4]
+            recurrent_dropout: [0.0, 0.4]
+            optimizer_name: [RMSprop, Adam]
+            learning_rate: [1e-7, 1e-2]
+            number_of_epochs: [1, 40]
+            batch_size: [32, 32]
+            input_window_size: 10
+            output_window_size: 7
+            multi_variable_nr: 1
+            number_of_features: 1
+            number_of_trials: 200
+            stateful_lstm: yes
+        global_model:
+            model_structure:
+                optimizer_name: Adam
+                stateful_lstm: yes
+                loss: mae
+                learning_rate: 0.00021547135642839798
+                number_of_features: 1
+                number_of_epochs: 30
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                should_shuffle_batches: no
+                batch_size: 32
+                layers: [{hidden_size: 87, dropout: 0.007960311051875231, recurrent_dropout: 0.25725318646597145}]
+            datasets:
+            - 12322
+            - 11428
+            - 11850
+            - 11852
+            - 273
+            - 11036
+            - 11213
+            - 12532
+        local_model:
+            common_parameters_for_all_models:
+                input_window_size: 10
+                output_window_size: 7
+                multi_variable_nr: 1
+                batch_size: 32
+                stateful_lstm: yes
+                should_shuffle_batches: no
+                number_of_features: 1
+            model_structure:
+            -   batch_size: 32
+                number_of_epochs: 14
+                layers: [{dropout: 0.15100020954547821, hidden_size: 91, recurrent_dropout: 0.22863347633617925}]
+                learning_rate: 0.0016105715885643915
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 12322
+            -   batch_size: 32
+                number_of_epochs: 11
+                layers: [{dropout: 0.39336919296578254, hidden_size: 64, recurrent_dropout: 0.08636761131328473}]
+                learning_rate: 0.0011792422872227873
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                time_series_id: 11428
+            -   batch_size: 32
+                number_of_epochs: 1
+                layers: [{dropout: 0.21560019556086574, hidden_size: 100, recurrent_dropout: 0.36609937865144704}]
+                learning_rate: 0.00014313781377529085
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 11850
+            -   batch_size: 32
+                number_of_epochs: 5
+                layers: [{dropout: 0.07734056811928544, hidden_size: 95, recurrent_dropout: 0.17669206672675236}]
+                learning_rate: 0.0005054774818177908
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 11852
+            -   batch_size: 32
+                number_of_epochs: 32
+                layers: [{dropout: 0.3993479833051537, hidden_size: 18, recurrent_dropout: 0.18669880207694867}]
+                learning_rate: 0.0014733395482158461
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 273
+            -   batch_size: 32
+                number_of_epochs: 17
+                layers: [{dropout: 0.347011442668677, hidden_size: 19, recurrent_dropout: 0.24225463086014892}]
+                learning_rate: 0.008437731251170208
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 11036
+            -   batch_size: 32
+                number_of_epochs: 22
+                layers: [{dropout: 0.21584111272429723, hidden_size: 95, recurrent_dropout: 0.2492641599857594}]
+                learning_rate: 0.005031288075914328
+                number_of_features: 1
+                optimizer_name: Adam
+                stateful_lstm: yes
+                time_series_id: 11213
+            -   batch_size: 32
+                number_of_epochs: 1
+                layers: [{dropout: 0.010346524530866503, hidden_size: 100, recurrent_dropout: 0.3456684451624259}]
+                learning_rate: 0.0004914914886714536
+                number_of_features: 1
+                optimizer_name: RMSprop
+                stateful_lstm: yes
+                time_series_id: 12532
+        placeholder: yes
+    config: lstm/dataset-seasonal
+    validation_model:
+        placeholder: yes
+data:
+    data_path: ./datasets/raw/market_insights_overview_all_2022_04_26_filtered.csv
+    categories_path: ./datasets/raw/solr_categories_all_2022_02_14.csv
+logger:
+    log_level: INFO
+    log_file: ./log-file.log
+use_gpu_if_available: no
+experiment:
+    tags: [market_insights]
+    save_sources_to_use: [disk, neptune]
+    checkpoint_save_location: ./models/0_current_model_checkpoints/
+    log_model_every_n_epoch: 10
+    error_metrics:
+    - MAE
+    - MASE
+    - MSE
+    - MAPE
+    save_source:
+        disk:
+            model_save_location: ./models/
+        neptune:
+            project_id: sjsivertandsanderkk/Masteroppgave

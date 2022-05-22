@@ -1,0 +1,2 @@
+dataset_seasonal-lstm-local-univariate-run-with-same-parameters-as-cnn-ae-lstm
+Test wheather cnnaelstm and lstm used same parametesr for the experiment
