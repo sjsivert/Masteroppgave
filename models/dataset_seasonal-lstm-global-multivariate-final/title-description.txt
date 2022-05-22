@@ -1,0 +1,2 @@
+dataset_seasonal-lstm-global-multivariate-final
+Test wheather cnnaelstm and lstm used same parametesr for the experiment

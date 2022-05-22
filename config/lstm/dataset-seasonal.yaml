@@ -1,6 +1,6 @@
 model:
   rng_seed: 42
-  model_type: 'global_univariate_lstm'
+  model_type: 'local_univariate_lstm'
   model_config:
     hyperparameter_tuning_range:
       hidden_size: [1, 100]
@@ -16,7 +16,7 @@ model:
       input_window_size: 10
       output_window_size: 7 # must be equal output_window_size
       multi_variable_nr: 1 # must be equal to number of variables used in multi variable (1 if uni variate)
-      number_of_features: 1 # must be equal to number of features in data
+      number_of_features: 4 # must be equal to number of features in data
       number_of_trials: 200 # Number of tuning trials to run. The more the better.
       #time_to_tune_in_minutes: 6000  # Time to tune in minutes, If both number of trials or time to tune is set, first one to finnish.
       stateful_lstm: true
@@ -27,11 +27,11 @@ model:
         stateful_lstm: True
         loss: "mae"
         learning_rate: 0.00021547135642839798
-        number_of_features: 1
+        number_of_features: 4
         number_of_epochs: 30
         input_window_size: 10
         output_window_size: 7
-        multi_variable_nr: 1
+        multi_variable_nr: 4
         should_shuffle_batches: no
         batch_size: 32
         layers:
@@ -61,7 +61,7 @@ model:
         batch_size: 32
         stateful_lstm: yes
         should_shuffle_batches: no
-        number_of_features: 1
+        number_of_features: 4
 
       model_structure:
         - batch_size: 32
@@ -71,7 +71,7 @@ model:
             hidden_size: 91
             recurrent_dropout: 0.22863347633617925
           learning_rate: 0.0016105715885643915
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 12322
@@ -83,7 +83,7 @@ model:
             hidden_size: 64
             recurrent_dropout: 0.08636761131328473
           learning_rate: 0.0011792422872227873
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: RMSprop
           stateful_lstm: true
           time_series_id: 11428
@@ -95,7 +95,7 @@ model:
             hidden_size: 100
             recurrent_dropout: 0.36609937865144704
           learning_rate: 0.00014313781377529085
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 11850
@@ -107,7 +107,7 @@ model:
             hidden_size: 95
             recurrent_dropout: 0.17669206672675236
           learning_rate: 0.0005054774818177908
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 11852
@@ -119,7 +119,7 @@ model:
             hidden_size: 18
             recurrent_dropout: 0.18669880207694867
           learning_rate: 0.0014733395482158461
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 273
@@ -131,7 +131,7 @@ model:
             hidden_size: 19
             recurrent_dropout: 0.24225463086014892
           learning_rate: 0.008437731251170208
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 11036
@@ -143,7 +143,7 @@ model:
             hidden_size: 95
             recurrent_dropout: 0.2492641599857594
           learning_rate: 0.005031288075914328
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: Adam
           stateful_lstm: true
           time_series_id: 11213
@@ -155,7 +155,7 @@ model:
             hidden_size: 100
             recurrent_dropout: 0.3456684451624259
           learning_rate: 0.0004914914886714536
-          number_of_features: 1
+          number_of_features: 4
           optimizer_name: RMSprop
           stateful_lstm: true
           time_series_id: 12532
