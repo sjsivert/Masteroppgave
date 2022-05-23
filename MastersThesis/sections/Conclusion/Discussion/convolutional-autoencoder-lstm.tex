@@ -72,32 +72,6 @@ we hoped to uncover cases where the model performance is increased over the stan
 
 
 
-\subsubsection{Global univariate models}
-\todo[inline]{This section is not up to data. TODO}
-% ....
-% Dataset   -   LSTM   -  CNN
-% Dataset 1 -  0.203   -  0.210   ->  -3.4 %
-% Dataset 2 -  0.662   -  0.675   ->  -1.9%
-% Dataset 3 -  0.425   -  0.417   ->  1.9 %
-
-
-The results on dataset 1 for the local univariate and the local multivariate models
-confirms our hypothesis presented in RQ5 [\ref{G&R:RQ-CNN-AE-LSTM}], that the
-CNN-AE-LSTM does achieve higher accuracy over a plain LSTM by a few percentage points.
-
-The only exception is for the global models, where the CNN-AE-LSTM, in general, performs worse.
-It seems the benefits of a global model for RNNs are not transferable to other types
-of NNs. LSTMs ability to learn across multiple time series can be attributed to the fundamentals
-of how the LSTM works. \cite{Zhao2019} discusses previous work that concludes that
-the LSTMs memory cell is mainly responsible for the performance of the LSTM.
-When training the LSTM on multiple time series, this memory cell is local to each
-time-series and resets before each new time series is fed through the network.
-The LSTM weights on the other hand are global across all the series.
-These local and global characteristics are unique to RNNs, and can explain
-why the Convolutional Autoencoder does not see the same benefits when trained on multiple
-time series.
-\todo[inline]{Anders: Syntes du denne forklaringen er svak?}
-
 
 
 
@@ -192,6 +166,33 @@ Although the local multivatiate model is the overall best performing of the conv
 it is outperformed by the LSTM, indicating that the reason for the improvements by the model
 is entirely contributed by the improved LSTM model.
 
+
+\subsubsection{Global univariate models}
+% ....
+% Dataset   -   LSTM   -  CNN
+% Dataset 1 -  0.203   -  0.210   ->  -3.4 %
+% Dataset 2 -  0.662   -  0.675   ->  -1.9%
+% Dataset 3 -  0.425   -  0.417   ->  1.9 %
+
+
+\todo[inline]{This intro is not up to date.}
+The results on dataset 1 for the local univariate and the local multivariate models
+confirms our hypothesis presented in RQ5 [\ref{G&R:RQ-CNN-AE-LSTM}], that the
+CNN-AE-LSTM does achieve higher accuracy over a plain LSTM by a few percentage points.
+
+\todo[inline]{This argument still applies}
+\todo[inline]{Anders: Syntes du denne forklaringen er svak?}
+The only exception is for the global models, where the CNN-AE-LSTM, in general, performs worse.
+It seems the benefits of a global model for RNNs are not transferable to other types
+of NNs. LSTMs ability to learn across multiple time series can be attributed to the fundamentals
+of how the LSTM works. \cite{Zhao2019} discusses previous work that concludes that
+the LSTMs memory cell is mainly responsible for the performance of the LSTM.
+When training the LSTM on multiple time series, this memory cell is local to each
+time-series and resets before each new time series is fed through the network.
+The LSTM weights on the other hand are global across all the series.
+These local and global characteristics are unique to RNNs, and can explain
+why the Convolutional Autoencoder does not see the same benefits when trained on multiple
+time series.
 
 
 
