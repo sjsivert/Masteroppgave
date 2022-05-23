@@ -2,9 +2,9 @@
 
 \subsection{Global versus Local models}
 Comparing the local univariate against the global univariate model across all datasets,
-the global model has a sMAPE performance increase of $2.4\%$ on dataset 1, $3.2\%$ on dataset 2 and
+the global model has an sMAPE performance increase of $2.4\%$ on dataset 1, $3.2\%$ on dataset 2 and
 $4.9\%$ on dataset 3. Since the sample size of each series is relatively low, and the variance
-the results for each dataset is not statistically significant, however when we
+the results for each dataset are not statistically significant, however when we
 increase the sample size by comparing the two models b This is surprising as the performance increase does not seem to correlate
 with the how homogeneous the time series in the dataset are to each other.
 Dataset 1, the most homogeneous set of them, has the least performance increase.
@@ -21,21 +21,21 @@ The local multivariate models are good at capturing the trend and seasonality of
 a given product category. This does not seem to translate well to a global model.
 One might expect that global models should be able to learn seasonality across
 time series if the series contains the same seasonality.
-The dataset that suffer the most from making a multivariate local model global is dataset 3
+The dataset that suffers the most from making a multivariate local model global is dataset 3
 with a sMAPE perfomance loss of $-37\%$. Dataset 1 and dataset 2 got $-10.38\%$ and $-6.47\%$ loss
 respectively.
 One explanation for this might be that even though all categories in dataset 3 are popular during the
 winter, and peaks around the same months, their seasonality is not enough in sync.
 For example, \textit{"Vintersko"} and \textit{"Vinterjakke"} has their most giant peaks around October
 when the weather starts becoming cold. While \textit{"Langrennski"} and \textit{"Skisko"}
-peaks around january, when the snow starts falling.
+peaks around January, when the snow starts falling.
 This will seem like conflicting information for an NN that can not differentiate between
 which category it is looking at, hurting the NNs modeling capability.
 However, the value of additional information is not to be overlooked,
 because our results show that a multivariate global LSTM will outperform
 a univariate global LSTM in all scenarios.
 And the global model is a lot more scalable, which can make
-it an attractive model structure choice, even if it is not the most
+it is an attractive model structure choice, even if it is not the most
 accurate model structure.
 
 %TODO:

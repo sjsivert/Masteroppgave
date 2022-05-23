@@ -14,44 +14,44 @@
 % --> Have we reached the goal?
 
 
-The goal of this paper is to forecast future trends using a convolutional autoencoder and lstm model
+The goal of this paper is to forecast future trends using a convolutional autoencoder and LSTM model
 on a dataset supplied by ``Prisguiden.no''.
 % Data recieved from ``Prisguiden.no'' have not been used for time series forecasting before,
-As the dataset recived from ``Prisguiden.no'' have not been used for time series forecasting before,
-there does not exists any previous baselines for the dataset.
-Therefor, the first model to be used on the dataset was the well known SARIMA model,
-in order to crete a baseline prediction.
-We then expanded the baseline with the LSTM model, answering research question \cref{G&R:RQ-LSTM-baseline}
+As the dataset received from ``Prisguiden.no'' have not been used for time series forecasting before,
+there do not exist any previous baselines for the dataset.
+Therefore, the first model to be used on the dataset was the well known SARIMA model,
+in order to create a baseline prediction.
+We then expanded the baseline with the LSTM model, answering the research question \cref{G&R:RQ-LSTM-baseline}
 applying the LSTM to the dataset, and comparing the baseline models.
-Thereafter, the LSTM model were expanded and improved using variations of global and local, and univariate and multivariate models
+Thereafter, the LSTM model was expanded and improved using variations of global and local, and univariate and multivariate models
 to create comparable results for the LSTM.
 This was done to answer the research question RQ2 [\ref{G&R:RQ-LSTM-baseline}].
 \Cref{section:Discussion} explores the resulting models and their predictions, discussing the accuracy of the different LSMT models.
-It is clear that the LSTM can be imprived using multivariate models and global models over the standard LSTM model.
-These models were also meant to serve as a point of comparison with the convolutional autoencoder and lstm,
-in order to evaluate if this model served a purpos and achieved better results.
+It is clear that the LSTM can be improved using multivariate models and global models over the standard LSTM model.
+These models were also meant to serve as a point of comparison with the convolutional autoencoder and LSTM,
+in order to evaluate if this model served a purpose and achieved better results.
 
 Answering research question \cref{G&R:RQ-CNN-AE-LSTM} is attempted through the creation of convolutional autoencoder and lstm hybrid models.
-These models are compared directly with the LSTM models in order to evaluate if the autoencoder improve the models.
-The results were warying, as the hybrid model outperformes the LSTM models for every combination in dataset 1.
-However, the LSTM models, spessificaly the local multivariate models performe better than the hybird model on dataset 2 and 3.
-The meaning of therse results are explored more in depth in \cref{section:Discussion}.
+These models are compared directly with the LSTM models in order to evaluate if the autoencoder improves the models.
+The results were varying, as the hybrid model outperforms the LSTM models for every combination in dataset 1.
+However, the LSTM models, specifically the local multivariate models performed better than the hybrid model on datasets 2 and 3.
+The meaning of these results is explored more in depth in \cref{section:Discussion}.
 
 However, answering research question \cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does
-decreese the predictive error metric for predictions done on data with high noise.
-However, it does not improve predictions on data with low noise, here the LSTM model is better suited.
-Therefor, the available dataset vastly influence the cases where the hybrid convolutional autoencoder and LSTM is viable for use.
+decrease the predictive error metric for predictions done on data with high noise.
+However, it does not improve predictions on data with low noise; here, the LSTM model is better suited.
+Therefore, the available dataset vastly influences the cases where the hybrid convolutional autoencoder and LSTM is viable for use.
 
 % TODO: This is a placeholder conclusion.
 % Not sure if this is going to stay here, or if it should be updated.
 When it comes to the other variations of the hybrid model, global univariate models,
 local multivariate models and global univariate models were tested with the time series.
-The local multivate model is shown to performe better than the local univariate model, as discussed in \cref{section:Discussion:Discussion:CNN-AE-LSTM}.
-However, while the different configurations of convolutional autoencoders and LSTM often outperformes the initial local univariate model,
-they generaly performe wors than their LSTM counterpart with the same configuration.
-Therefor, we are not able to conclude that these new configurations of the hybrid model performes any better than the LSTM.
-However, as we have discussed throughout the paper, the results accomplished are highly dependent on the dataset made availbale by ``Prisguiden.no'',
-and therefor we sugguest that further experimentations should be conducted on these variations to the convolutional autoencoder and LSTM
+The local multivariate model is shown to perform better than the local univariate model, as discussed in \cref{section:Discussion:Discussion:CNN-AE-LSTM}.
+However, while the different configurations of convolutional autoencoders and LSTM often outperform the initial local univariate model,
+they generally perform worse than their LSTM counterpart with the same configuration.
+Therefore, we are not able to conclude that these new configurations of the hybrid model perform any better than the LSTM.
+However, as we have discussed throughout the paper, the results accomplished are highly dependent on the dataset made available by ``Prisguiden.no'',
+and therefore, we suggest that further experimentations should be conducted on these variations to the convolutional autoencoder and LSTM
 before they are discarded as viable options in some future applications.
 
 
@@ -66,8 +66,8 @@ additional features to the LSTM.
 
 Further, regarding RQ 4.1, we can conclude that both a multivariate LSTM,
 and a global LSTM improves forecasting accuracy in every scenario, but if the combination
-of the two model structures is not prefered if accuracy is the prime objective,
-the local multivariate LSTM with features that describes date is the preferred method.
+of the two model structures is not preferred if accuracy is the prime objective,
+the local multivariate LSTM with features that describe the date is the preferred method.
 However, a global multivariate model can be a good alternative if scalability is essential.
 
 Finally, regarding RQ5 [\ref{G&R:RQ-CNN-AE-LSTM}] our results,
