@@ -151,7 +151,7 @@ test_significanse_each_experiment_appended(
     [projects_1, projects_2, projects_3],
     "sMAPE",
     name="lstm-experiments-sMAPE-all-dataset",
-    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models all dataset, statistic value. sMape error",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models all dataset, statistic value. sMape error.  l-u = local univariate, l-m= local multivariate, g-u = global univariate etc.",
     table_save_path=table_save_path
 )
 test_significanse_each_experiment_appended(
