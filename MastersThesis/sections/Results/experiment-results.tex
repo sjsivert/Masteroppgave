@@ -8,6 +8,8 @@ TODO: Write introduction
 % T-test smapev
 % T-test smapev
 \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE.tex}
+\todo[inline]{Update table description \Cref{table:ttest-p-values-main-experiments-sMAPE}: Compares the CNN-AE-LSTM against its LSTM model structure counter partner}
+\import{./tables/results/ttest}{ttest-p-values-main-experiments-sMAPE.tex}
 % \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-MASE.tex}
 
 \begin{figure}[h!]
@@ -36,14 +38,14 @@ TODO: Write introduction
 
 \Cref{table:Average-metric-dataset-1} shows the mean metrics accross
 all the time series in dataset 1. The poorest perfoming model accross the board
-is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7 day MASE of $1.063$.
+is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7-day MASE of $1.063$.
 All the different LSTM structures and hybrid methods outperformed SARIMA.
 
-The multivariate models outperformed all the their retrospective univariate counterpartners.
-The global univariate LSTM outperforms the local univariate on both MASE and sMAPE,
+The multivariate models outperformed all their retrospective univariate counter partners.
+The global univariate LSTM outperforms the local univariate on both MASE and sMAPE, though not statistically significant,
 but this results is not reproduced for the multivariate models, or the CNN-AE-LSTM models.
 
-All the model structures perfoms slightly better with our proposed CNN-AE-LSTM method, except for
+All the model structures perfoms slightly better with our proposed CNN-AE-LSTM method on dataset 1, except for
 the global univariate CNN-AE-LSTM.
 
 The most consistent models with the least amount of variance are the multivariate models.
@@ -131,23 +133,66 @@ and the mean MASE 7-day is $1.131$.
 \todo[inline]{Update metric names to be MASE, sMAPE, MASE-7}
 
 
-\subsection{Comparisons Across Datasets}
-The ...
+\subsection{Model Comparisons Across Datasets}
+Our results suffer from low sample size and high variance, so it isn't easy
+to prove anything statistically. Aggregating the results across the datasets
+increases our sample size, improving the statistical tests.
+
+\todo[inline]{Add tabl description \cref{table:ttest-p-values-lstm-experiments-sMAPE-all-dataset}: l-u = local univariate, l-m= local multivariate, g-u = global univariate etc..}
+\import{./tables/results/}{Average-metric-all-datasets.tex}
+\import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE-all-dataset.tex}
+\begin{figure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/barplot/MASE-all-dataset.png}
+    \hfill
+    \caption{Boxplot of predictions made on seasonal dataset}
+    % \label{fig:results:boxplot-mase-dataset-3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/barplot/sMAPE-all-dataset.png}
+    \hfill
+    \caption{Boxplot of predictions made on seasonal dataset}
+    % \label{fig:results:boxplot-mase-dataset-3}
+
+  \end{subfigure}
+\end{figure}
+
+% \subsubsection{Local Versus Global}
+From dataset 1, the global univariate LSTM improves the local univariate
+LSTM by $2.4\%$, however, can be random with a p-value of $0.712$.
+When we compare both model structures across all the datasets,
+our global model improves by $4.43\%$ relative to the local model,
+and our p-value falls to $0.362$. Even though this is not low enough
+to be below our threshold value of $0.05$, it does show a promising trend.
+
+
+% \subsubsection{Univariate Versus Multivariate}
+The local multivariate LSTM shows a big improvement over the local univariate LSTM,
+with a perfomance increase of $13.74\%$ across all datasets and with a
+low p-value of $0.039$.
+
+% \subsubsection{Global Multivariate Versus Global Univariate}
+The global LSTM improves by $3.07\%$, with a p-value of $0.193$, by making the global univariate model to a global multivariate model.
+But the global multivariate model performs worse than the local multivariate model with $-7.33\%$ with a p-value of $0.238$.
+
+\todo[inline]{Should comment on the CNN-AE-LSTM vs the LSTM as well.}
+
 % Comparing local vs global
-mean smape local: 0.451
-
-mean smape global: 0.431
-
-improvement: 4.43\%
-
-p-value: 0.362
-
-% Comparing uni vs multi
-mean smape local: 0.451
-
-mean smape multi: 0.389
-
-improvement: 13.74\%
-
-p-value: 0.039
-
+%mean smape local: 0.451
+%
+%mean smape global: 0.431
+%
+%improvement: 4.43\%
+%
+%p-value: 0.362
+%
+%% Comparing uni vs multi
+%mean smape local: 0.451
+%
+%mean smape multi: 0.389
+%
+%improvement: 13.74\%
+%
+%p-value: 0.039
+%
+%
