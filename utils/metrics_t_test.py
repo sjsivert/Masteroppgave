@@ -61,7 +61,7 @@ test_significanse_multiple_datasets(
     ["dataset 1", "dataset 2", "dataset 3"],
     "sMAPE",
     name="main-experiments-sMAPE",
-    tabel_text="Student t-test, measuring confidence of significant difference between predictions, statistic value. sMape error",
+    tabel_text="Student t-test, measuring confidence of significant difference between predictions on the CNN-AE-LSTM and the LSTM for different model structures. sMape error",
     table_save_path=table_save_path
 )
 test_significanse_multiple_datasets(
@@ -69,7 +69,7 @@ test_significanse_multiple_datasets(
     ["dataset 1", "dataset 2", "dataset 3"],
     "MASE",
     name="main-experiments-MASE",
-    tabel_text="Student t-test, measuring confidence of significant difference between predictions, statistic value. MASE error",
+    tabel_text="Student t-test, measuring confidence of significant difference between predictions on the CNN-AE-LSTM and the LSTM for different model structures. MASE error",
     table_save_path=table_save_path
 )
 
@@ -92,14 +92,14 @@ test_significanse_each_experiment(
     projects_1,
     "sMAPE",
     name="lstm-experiments-sMAPE-dataset-1",
-    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 1, statistic value. sMape error",
+    tabel_text="Student t-test, measuring confidence of significant difference between the local Univariate LSTM and other LSTM models on dataset 1. sMape error",
     table_save_path=table_save_path
 )
 test_significanse_each_experiment(
     projects_1,
     "MASE",
     name="lstm-experiments-MASE-dataset-1",
-    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 1, statistic value. MASE error",
+    tabel_text="Student t-test, measuring confidence of significant difference between the local Univariate LSTM and other LSTM models on dataset 1. MASE error",
     table_save_path=table_save_path
 )
 

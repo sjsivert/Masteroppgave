@@ -1,15 +1,15 @@
 \begin{table}[h]
 \centering
-\caption{Student t-test, measuring confidence of significant difference between LSTM models dataset 1, statistic value. sMape error - stats}
+\caption{Student t-test, measuring confidence of significant difference between the local Univariate LSTM and other LSTM models on dataset 1. sMape error - stats}
 \label{table:ttest-stats-lstm-experiments-sMAPE-dataset-1}
 \begin{tabular}{lrrrr}
 \toprule
-{} &       l-u &       l-m &       g-u &       g-m \\
+{} &  local univariate lstm &  local multivariate lstm &  global univariate lstm &  global multivariate lstm \\
 \midrule
-\textbf{l-u} &       NaN & -2.214562 & -0.373637 & -0.471230 \\
-\textbf{l-m} &  2.214562 &       NaN &  2.089430 &  1.898383 \\
-\textbf{g-u} &  0.373637 & -2.089430 &       NaN & -0.186037 \\
-\textbf{g-m} &  0.471230 & -1.898383 &  0.186037 &       NaN \\
+\textbf{local univariate lstm   } &                    NaN &                -2.214562 &               -0.373637 &                 -0.471230 \\
+\textbf{local multivariate lstm } &               2.214562 &                      NaN &                2.089430 &                  1.898383 \\
+\textbf{global univariate lstm  } &               0.373637 &                -2.089430 &                     NaN &                 -0.186037 \\
+\textbf{global multivariate lstm} &               0.471230 &                -1.898383 &                0.186037 &                       NaN \\
 \bottomrule
 \end{tabular}
 \end{table}
