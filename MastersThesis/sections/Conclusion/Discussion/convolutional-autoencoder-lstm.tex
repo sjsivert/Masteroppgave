@@ -2,31 +2,12 @@
 \subsection{Convolutional Autoencoder with LSTM}
 \label{section:Discussion:Discussion:CNN-AE-LSTM}
 
-% TODO
-% - Why was the model selected?
-% - Regarding the different datasets -> Does it make sense to use this model? (Is there high noise)
-% - What are the results for the different data-sets (dataset 1, 2 and 3)
-% - What model should performe better than others, and why?
-% --> Do we have background theory to back this up?
-% --> Does it make sense?
-% --> 
-
-
 % What was the aim of the experiments?
 % --> Apply the CNN-AE and LSTM model to a new dataset with real world applicaitons
 % --> Verrify the ability of ther hybrid model against the baseline LSTM
 % --> Thus verrifying the claims done by "Zhao2019"
-\todo[inline]{Trenger vi å oppsumere i så mye detalj her? Jeg har ikke gjort det tidligere.}
-Inspired by the work done by \cite{Zhao2019}, the hybrid model CNN-AE and LSTM was selected.
-The paper we base this work on explores the hybrid model's ability to make time series predictions
-on data with a high noise.
-This is due to the first part of the model, the convolutional autoencoder.
-The autoencoder is added in an attempt to reduce the noise contained in the data before the data is passed through to the LSTM model.
-With the results from the paper by \cite{Zhao2019} claim the hybrid model vastly improves the predictions made, reducing the loss value with
-several percentage points over a standard LSTM model, the hope was that this could be verified on the real-world practical application of
-predicting trend at ``Prisguiden.no''.
-The experiments done with the autoencoder is therefore compared to the baseline LSTM model to explore and verify the claims done by
-\cite{Zhao2019}.
+
+
 
 % Link this to RQ-5 (CNN-AE and LSTM against the baseline LSTM)
 % The paper is based on "Local univariate" models. We therefor first mention this
@@ -35,33 +16,48 @@ The experiments done with the autoencoder is therefore compared to the baseline 
 
 % ....
 % Dataset   -   LSTM   -  CNN
-% Dataset 1 -  0.239   -  0.208 ->  13.9%
-% Dataset 2 -  0.633   -  0.716 ->  -12.3%
-% Dataset 3 -  0.488   -  0.483 ->  1%
+% Dataset 1 -  0.208   -  0.208 ->  0.0%
+% Dataset 2 -  0.684   -  0.716 ->  -4.57%
+% Dataset 3 -  0.477   -  0.483 ->  -1.25%
+
 After doing experiments with the LSTM and the CNN-AE and LSTM model on the three datasets used in this paper,
-the results from the predictions is pressented in \cref{section:Results}.
-Using the hybrid model, it is clear that we are not able to recreate the values presented in \cite{Zhao2019}
-with all the different datasets.
-The experiments conducted on the different datasets vary vastly between the hybrid and LSTM models.
-While the CNN-AE-LSTM proves to have a bit more difficulties on dataset 2, and minor improvements on dataset 3,
-it does, on average result in vast improvements on predictions done on dataset 1.
-Using the hybrid model on dataset 1, the loss metrics for predictions are on average reduced with 13.9\% using the sMAPE metric.
-In contrast, predictions made on dataset 2 result in forecasts that, on average, are 12.3\% worse than the standard LSTM.
-Lastly, predictions made on dataset 3 only improves with 1\%.
+the results from the predictions are pressented in \cref{section:Results}.
+Using the hybrid model it is clear that we are not able to recreate the values presented in \cite{Zhao2019}
+for each of the different datasets.
 
-% Why is this?
-% --> Why is it only better on dataset 1, and much worse on dataset 2
-% --> Can the dataset have something to do with this?
-% --> What is with the dataset from the Zhao2019 paper? Is this a lot easier? Is there more unneeded noise data?
-The reasons behind the varying predictive ability of the convolutional autoencoder and LSTM lies partially
-in the properties of the different datasets.
-Although datasets 1 and 2 were selcted due to the autocorrelation between the time series within the datasets,
-they also have other abilities that differentiate the two.
-\todo[inline]{What differentiate dataset 1 and 2? Summary and reference data section}
-\todo[inline]{Why is the model so much beter on dataset 1, and so much worse on dataset 2?}
-\todo[inline]{Why do we get the results we do? Is there any reason behind it?}
+Experiments conducted on the different datasets result in predictions that can vary vastly,
+and some that are quite similar between the models.
+
+The local univariate LSTM and the local univariate convolutional autoencoder and LSTM are one of the model-configurations
+that offer rather similar results across datasets.
+While the hybrid model CNN-AE-LSTM performance is more or less equal, predictions made on dataset 2 and 3 vary a bit more
+with the basic LSTM model performing, on average, 4.6\% and 1.25\% better on average.
+However, in addition to these similarities in average performance, the T-test conducted on the experiments reveals the same outcome.
+The t-test Resultsults shown in [TODO: Link to t-test table] infer that the predictions made by the two local univariate models
+are from the same group, and there is no significant difference in their distribution.
+
+The t-test and average metrics attained through the experimentation therefore infer that the hybrid model CNN-AE-LSTM
+is not able to improve performance over the LSTM model on a local univariate model.
 
 
+One reason behind this lack of difference in predictions might originate in the selected data.
+The task of the convolutional autoencoder is to encode and reconstruct the input data of the model, 
+removing noise and other unneeded information in the process.
+Lack of data could serve as an issue in this case.
+As each of the time series used in the local univariate model only consists of around 3 years of data, or 1300 data points.
+There is a possibility that there is not enough similar data for the autoencoder to recognize similarities in data
+so that it can then remove the extra noise.
+Additionally, the amount of noise contained in the data is not known.
+If the datasets contain little noise, the autoencoder is more likely to remove relevant data, thus impairing the performance of the LSTM model.
+Due to the implications that the lack of noise in the data potentially could infer from the predictions,
+additional experiments are done on data with high noise and low noise.
+We will come back to these experiments later in this discussion.
+
+However, as is seen from the predictions made by the two models, it is clear that the convolutional autoencoder and lstm
+does not have improved predictions compared to the LSTM model.
+We are therefore not able to reproduce the results presented by \cite{Zhao2019}
+which showed a significant improvement using the convolutional autoencoder and LSTM over the baseline LSTM model.
+% Whether this is due to the used dataset or not is however not entirely certain.
 
 
 
@@ -79,22 +75,12 @@ we hoped to uncover cases where the model performance is increased over the stan
 
 
 \subsubsection{Global univariate models}
-% First -> Use of global models
-% -> How does the global models performe in comparison to the LSTM version
-% -> How does the global models performe in comparison to the local univariate standard model?
-
-% Unødvendig gjentagelse?
-%The first model variation that was tested were the use of a gloal univariate model.
-%Both the LSTM model and the hybird convolutional autoencoder and LSTM model were tested on the same datasets,
-%and with the same global univariate configuration.
-%This is done in order to be able to compare the global univariate hybrid model both to the local univariate model,
-%but also with the correlating global univariate LSTM model.
-
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.203   -  0.210   ->  -3.4 %
 % Dataset 2 -  0.662   -  0.675   ->  -1.9%
-% Dataset 3 -  0.464   -  0.417   ->  10.7 %
+% Dataset 3 -  0.425   -  0.417   ->  1.9 %
+
 
 \todo[inline]{Update after T tests results arrive}
 The results on dataset 1 for the local univariate and the local multivariate models
@@ -151,49 +137,72 @@ of time series.
 
 \subsubsection{Local multivariate models}
 
-Afther the use of global models, a configuration of multivariate models were attempted.
-Unlike the glboal models,
-the number of data points are increased not through the addition of other time-series,
-but by decomposing the information within each time-series to include seasonal values such as season or day of the week.
+Afther the use of global models, a configuration of multivariate models was attempted.
+Unlike the global models, the ammount of data is increased not through the addition of other time-series to the model,
+but by decomposing the information within each time-series.
+By decomposing information such as day of the week, or season, the amount of data supplied to the models is increased.
 
-Using the convolutional autoencoder and LSTM model on this problem should result in both imporvements and degregation to performance.
-Initially, the performance of the model should suffer due to the fact that the model is required to encode and reconstruct the
-input data.
-The model might encounter problems with recreating the data using the same model as for univariate models,
-while attempting to recreate additional datapoints.
-However, the same reasoning might also help improve the hybrid model's performance in some cases.
-While more data need to be encoded and reconstructed, the autoencoder will retain more information
+
+Using the hybrid convolutional autoencoder and LSTM model should result in both improvements and degradation in performance.
+
+Initially, the performance of the model is likely to suffer due to the fact that
+the model is required to encode and reconstruct additional input data using the same model structure.
+The model might encounter problems recreating the data using the same model as for the univariate model
+while attempting to recreate additional data per data point.
+If the autoencoder then is limited by the number of data entries on top of this, the model performance could suffer.
+
+However, the same reasoning might also help improve the hybrid model's performance in some situations.
+While more data would need to be encoded and reconstructed, the autoencoder will retain more information
 regarding the development of trends and spikes through different seasons.
 % Den er ikke like grov i kantene
 While a pattern migh repeat over several seasons, there migh be additional hidden information in the seasonal information.
 If a pattern is known to never spike during summer but often spikes through the winter,
 the autoencoder should be able to differentiate between the different seasons.
-It would be more likely to accept the spikes during the winter as relevant information, while a random spike during the summer might be reduced.
-This would mean that it would be more well adjusted to reduce noise in a pattern also dependent on the seasonal factors,
-thus beeing more finly tuned for individual patterns.
+Thus, the task of the autoencoder would be to retain information about changes in trends also dependent on seasonal data.
+
 
 % Second -> Use of local multivariate
 % ....
 % Dataset   -   LSTM   -  CNN
 % Dataset 1 -  0.183   -  0.181  ->  1.1%
-% Dataset 2 -  0.603   -  0.743  ->  -20.8%
-% Dataset 3 -  0.325   -  0.354  ->  -8.5%
+% Dataset 2 -  0.603   -  0.743  ->  -23.2%
+% Dataset 3 -  0.359   -  0.354  ->  1.4%
 However, while this reasoning is based on the autoencoders ability to encode and differentiate between values based on season,
-it model would be severly limited in cases where there is not enough data for the autoencoder to learn of such connections.
+the model would be severely limited by the ammount of data.
+If there is not enough data available the autoencoder would not be able to learn of such connections.
 As discussed in \cref{section:Data:DataExploration}, the data attained from ``Prisguiden.no'' only include datapoints
 for a little over 3 years.
-Considering the limited information per datapoints, this amount of data could heavily limit the convolutional autoencoder and lstm model.
-This is also reflected in the results aquired through testing.
-While dataset 1 have a small improvement by the hybrid model with around 1\%,
-the basic LSTM model heavily outperform the convolutional autoencoder and LSTM model by over 20\% for dataset 2, and over 8\% for dataset 3.
+As with the problems discussed with the local univariate model, the multivariate model would also likely be limited by the amount of data.
+
+This is reflected in the results acquired through testing.
+While dataset 1 and 3 supply slight improvements to predictions, there are no clear improvements.
+Additionally, the t-test applied to the predictions supports this assumption.
+The t-test implies that there are no significant differences between the predictions made with the local multivariate model.
+
+
+However, the results are quite different for dataset 2.
+Considering the sMAPE error metric there is about a 23\% performance decrease using the convolutional autoencoder and LSTM.
+This is also supported by the t-test conducted. The results from the t-test imply that the difference between the hybrid model and the LSTM model
+is significant within the 95\% window of certainty, supplied by a p-value of under 0.05.
+Although this is only the case for dataset 2, the convolutional autoencoder and LSTM is significantly worse performing than the LSTM model.
+% Why is this?
+The significant decrease in performance could be due to the lack of data as discussed earlier.
+With the local univariate model, there is a 4\% performance decrease with the hybrid model.
+Although this is not significant, this could point to the reason behind the poor performance.
+While the local univariate model and the local multivariate models both suffer from a lack of data with each dataset.
+Both models perform worse on dataset 2, while the performance on dataset 1 is somewhat better both using univariate and multivariate.
+This could imply that the selected dataset is less suited for using the autoencoder.
+This could then again imply that the convolutional autoencoder is heavily influenced by the nature of the data that is used.
+The implications of the dataset's characteristics are explored further later when the use of noisy data is discussed.
+However, if this is the case, the lack of data could explain the poor performance of dataset 2.
+The multivariate model would have the same number of time-steps in each time-series but would be required to encode four times the data per time-step.
+Therefore, the autoencoder is more likely to perform worse in reconstructing the input data,
+thus contributing to a worse performance by the LSTM component.
+
 
 Although the local multivatiate model is the overall best performing of the convolutional autoencoder and LSTM models,
 it is outperformed by the LSTM, indicating that the reason for the improvements by the model
-is entirely contributed by the improvements to the LSTM model.
-The results for these experiments are well withing the expected performance of the local multivariate model.
-\todo[inline]{Jeg skjønner ikke helt argumentet her. CNN-AE-LSTM gjør det gjevnt over best på dataset 1, med untak av global univariate.
-  At den gjør det dårligere på datset 2 kan forklares med at nedsiden til autoencoder er større en oppsiden, så noen få kan trekke ned snittet.
-}
+is entirely contributed by the improved LSTM model.
 
 
 
@@ -254,31 +263,3 @@ For dataset 2 and 3, these results are as expected for the global multivariate m
 
 % Additional  ->  High variance vs low-variance datasets
 
-
-
-% Old
-\iffalse
-  The CNN-AE-LSTM model is only the best performing model for one dataset, dataset 1.
-  Here the CNN-AE-LSTM local multivariate model structure beat the plain local multivariate LSTM with $1.09\%$.
-  The CNN-AE-LSTM performs competitively on all the experiments on dataset 1 except for the global univariate model structure.
-  Our experiments show that adding a Convolutional Autoencoder to an LSTM can be beneficial in some scenarios.
-
-
-  \begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{./figs/code_generated/data_exploration/cat-id-10320-plot.png}
-    \hfill
-    \caption{TODO}
-    \label{fig:cat-id-10320-cnn-ae-beat-lstm}
-  \end{figure}
-
-  \import{./tables/results/dataset_high_variance}{Average-metric-dataset-high-variance.tex}
-
-  \begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_high_variance.png}
-    \hfill
-    \caption{TODO}
-    \label{fig:results-smape-dataset-high-variance}
-  \end{figure}
-\fi
