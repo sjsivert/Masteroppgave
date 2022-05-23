@@ -16,39 +16,38 @@
 % Implement real world
 The work done in this paper investigates the use of the LSTM and convolutional autoencoder and LSTM
 on the e-commerce domain of ``Prisguiden.no''.
-However, the research done in this paper is not entirely practicaly applicable.
-This comes from the fact that only a smal sub-set of the entirety of the available data has been applied
+However, the research done in this paper is not entirely practically applicable.
+This comes from the fact that only a small sub-set of the entirety of the available data has been applied
 in the research done.
-This was a limitation applied due to the scope of the paper,
-as well as time limitaitons that addhear to the research done in a masters thesis.
-Therefor, applying the models explored in this paper to a real world application still remains a valid future task.
+This was a limitation applied due to the scope of the paper and time limitations that adhere to the research done in a master's thesis.
+Therefore, applying the models explored in this paper to a real-world application still remains a valid future task.
 
 % There exists other frameworks and models. Test others?
-Additionaly, while the priority of this paper was to validate and explore the use of a convolutional autoencoder and lstm
+Additionally, while the priority of this paper was to validate and explore the use of a convolutional autoencoder and LSTM
 in a time-series prediction setting, other models might also fit well with the task of making such predictions.
 The Facebook model Prometheus, [TODO: Add more frameworks that can be applied \dots ],
-are all valid models that can also be tested on the dataset to evaluate their usbility.
-\todo[inline]{Add frameworks that can be used in addition to out methods. Facebook Prometheus is one. What are others?}
+are all valid models that can also be tested on the dataset to evaluate their usability.
+\todo[inline]{Add frameworks that can be used in addition to our methods. Facebook Prometheus is one. What are others?}
 
 
 % Decomposition
 As is described in \cref{section:Discussion}, different forms of data preprocessing were applied and tested in this paper.
-While some types of decompositon was applied and tested, others were not tested due to limitations of time.
-\textbf{STR decomposition} was only attempted on univariate models, while there multivariate models were not tested.
-As the decomposition of univariate models improved the accuracy of the univariate preditions,
-so might the use of decomposition with multivariate models, or other combinations and applications of decomposing the data.
+While some types of decomposition were applied and tested, others were not tested due to limitations of time.
+\textbf{STR decomposition} was only attempted on univariate models, while their multivariate models were not tested.
+As the decomposition of univariate models improved the accuracy of the univariate predictions,
+so might the use of decomposition with multivariate models or other combinations and applications of decomposing the data.
 \todo[inline]{Chech with what Sindre has written regarding decomposition \dots}
 
 
 % Increase forecasting window
-The research conducted in this paper focus primarily on the forecasting of a periode of 7 days.
-While a 7 day prediciton does have value,
+The research conducted in this paper focuses primarily on forecasting a period of 7 days.
+While a 7-day prediction does have value,
 there might be some merits to increasing the forecasting window.
 By increasing the forecasting window from 1 week to 30 days (a month), or 60 days (2 months),
-the usecase for these predicitons would empower ``Prisguiden.no'' as discussed \cref{section:Discussion}.
-While a 30 day prediction periode were breefly tested,
-the 7 day prediction have been prioritized in this research.
-Increasing the forecasting window is therefor a possible point of entry for furte resarch conducted on the
+the use case for these predictions would empower ``Prisguiden.no'' as discussed \cref{section:Discussion}.
+While a 30 day prediction period was briefly tested,
+the 7-day prediction has been prioritized in this research.
+Increasing the forecasting window is, therefore, a possible point of entry for further research conducted on the
 dataset from ``Prisguiden.no''.
 
 
@@ -57,15 +56,15 @@ dataset from ``Prisguiden.no''.
 % We have only explored the use of noise.
 % Selection of datasets correlating and non-correlating were defined more for the use of gloal models, not to explore the use of the autoencoder
 % What datasets gave poor results, and which caracteristics gave good results?
-Although the experiments done in this thesis are done on several uniqe datasets,
-more work can be done with the experimentation of hybrid model use on datasets with different caracteristics.
+Although the experiments done in this thesis are done on several unique datasets,
+more work can be done with the experimentation of hybrid model used on datasets with different characteristics.
 While dataset 1 and 2 focus on corrolation between time series, this was selected primarily for the experimentation with local vs global models.
-The additional testing defined in \cref{section:Results:AdditionalExperimentalPlan} explore the use of the convolutional autoencoder and LSTM
-on datasets with higher levels of noise, and lower levels of noise.
-The same consept can be applied to create datasets with other caracteristics.
-By doing this, the hybird model performance can be explored more in depth using different caracteristics of data.
-It is expected that the type of data selected for experimentation is highly influencial on the performance of the model,
-and further experimentation with the model could therefor be warrented.
+The additional testing defined in \cref{section:Results:AdditionalExperimentalPlan} explores the use of the convolutional autoencoder and LSTM
+on datasets with higher levels of noise and lower levels of noise.
+The same concept can be applied to create datasets with other characteristics.
+By doing this, the hybrid model performance can be explored more in-depth using different characteristics of data.
+It is expected that the type of data selected for experimentation is highly influential on the performance of the model,
+and further experimentation with the model could therefore be warranted.
 
 
 
