@@ -26,9 +26,51 @@ $0.916$. That is an improvement of $15.45\%$, $24.80\%$, and $31.90\%$ respectiv
 
 % \import{./tables/results/dataset_high_variance}{Average-metric-dataset-high-variance.tex}
 \import{./tables/results/dataset_high_variance}{Average-metric-dataset-variance.tex}
+\import{./tables/results/}{ttest-p_values-variance.tex}
+
+\begin{figure}[h!]
+  \centering
+  \caption{Boxplot of predictions made on the high variance, and the low variance dataset, comparing CNN-AE-LSTM against LSTM}
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_high_variance.png}
+    \hfill
+    \caption{MASE metrics from the high variance dataset.
+      The CNN-AE-LSTM show improvements.
+    }
+    \label{fig:results:boxplot-mase-dataset-high-variance}
+
+  \end{subfigure}
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_high_variance.png}
+    \hfill
+    \caption{sMAPE metrics from the high variance dataset.
+      The CNN-AE-LSTM show
+    }
+    \label{fig:results:boxplot-smape-dataset-high-variance}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_low_variance.png}
+    \hfill
+    \caption{MASE metrics from the low variance dataset}
+
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_low_variance.png}
+    \hfill
+    \caption{sMAPE metrics from low variance dataset}
+
+  \end{subfigure}
+\end{figure}
+
+
 
 
 % \import{./tables/results/dataset_low_variance}{Average-metric-dataset-low-variance.tex}
 
 \todo[inline]{Update table to compare seasonal diff with seasonal no diff}
 % \import{./tables/results/dataset_seasonal_diff}{seasonal-local-univariate-lstm-differencing-dataset-seasonal-diff.tex}
+
+\import{./tables/results/dataset_diff}{Average-metric-dataset-diff.tex}
+% \import{./tables/results/dataset_diff}{seasonal-local-univariate-lstm-differencing-dataset-diff.tex}
+% \import{./tables/results/dataset_diff}{local-univariate-lstm-dataset-1-dataset-diff.tex}
+% \import{./tables/results/dataset_diff}{local-univariate-lstm-dataset-1-diff-dataset-diff.tex}
