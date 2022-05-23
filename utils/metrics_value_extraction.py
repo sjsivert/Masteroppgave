@@ -1,4 +1,5 @@
-from typing import Dict
+from ipaddress import collapse_addresses
+from typing import Dict, List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,7 +16,7 @@ latex_label = "results:" + latex_caption.replace(" ", "_")
 metrics_average = False
 
 # Select save location for generated table
-dataset = "dataset_seasonal_diff"
+dataset = "dataset_2"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
 figure_base_path = f"./MastersThesis/figs/results"
 
@@ -23,29 +24,6 @@ figure_base_path = f"./MastersThesis/figs/results"
 base_path = "./models/"
 # Multiple projects does not work?
 
-projects = {
-    "sarima": f"{dataset}-sarima",
-
-    "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
-    "local multivariate lstm": f"{dataset}-lstm-local-multivariate-tune-400-trials",
-    "global univariate lstm": f"{dataset}-lstm-global-univariate-tune-400-trials",
-    "global multivariate lstm": f"{dataset}-lstm-global-multivariate-tune-400-trials",
-
-    "local univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-local-univariate",
-    "local multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-local-multivariate",
-    "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
-    "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariate",
-}
-
-variance_experiments = {
-    "seasonal-local-univariate-lstm-differencing": "dataset_seasonal-lstm-local-univariate-differencing-tune-400-trials",
-    #"ok-variance-local-univariate-cnn-ae-lstm": "dataset-ok-variance-cnn-ae-lstm-local-univariate",
-    #"ok-variance-lstm-local-univariate": "dataset-ok-variance-lstm-local-univariate",
-    #"low-variance-cnn-ae-lstm-local-univariate": "dataset-low-variance-cnn-ae-lstm-local-univariate",
-    #"low-variance-lstm-local-univariate": "dataset-low-variance-lstm-local-univariate",
-    #"dataset-high-variance-cnn-ae-lstm-local-univariate": "dataset-high-variance-cnn-ae-lstm-local-univariate",
-    #"dataset-high-variance-lstm-local-univariate": "dataset-high-variance-lstm-local-univariate"
-}
 
 # Select metrics to be used
 metric_types = ["smape", "mase", "days"]
@@ -70,17 +48,22 @@ def extract_metrics_from_file(path) -> DataFrame:
             metric_split = metric.split(": ")
             metric_name_split, metric_value = metric_split[0], metric_split[1]
             metric_name = metric_name_split.rsplit("_", 1)[-1].lower()
-            if metric_name not in metric_types or metric_name in metrics:
+            if metric_name not in metric_types or metric_name.lower() in [x.lower() for x in metrics.keys()]:
                 continue
             if "days" in metric_name.lower():
                 metric_name = metric_name_split.split("_", 1)[-1].replace("_", "-").lower()
                 metric_name = metric_name.rsplit("-", 1)[0]
 
             metric_value = float(metric_value)
+            metric_name = metric_renaming(metric_name) 
             metrics[metric_name] = round(metric_value, 3)
         scores[data_set_name] = metrics
     return scores
 
+def metric_renaming(metric_name):
+    metric_correct_naming = ["sMAPE", "MASE", "MASE-7"]
+    i = [x.lower() for x in metric_correct_naming].index(metric_name)
+    return metric_correct_naming[i]
 
 # Create table of time series and metrics. This is for one model and dataset
 def extract_dataset_metrics_table(caption, label, experiment, base_path, table_save_path):
@@ -89,8 +72,8 @@ def extract_dataset_metrics_table(caption, label, experiment, base_path, table_s
 
     metrics = extract_metrics_from_file(f"{base_path}{experiment}/metrics.txt")
     metrics = DataFrame(metrics).transpose()
-    metrics["dataset"] = metrics.index
-    metrics.set_index("dataset", inplace=True)
+    metrics["Category ID"] = metrics.index
+    metrics.set_index("Category ID", inplace=True)
 
     utils.dataframe_to_latex_tabular(
         metrics, caption, label, add_index=True, save_local=table_save_path
@@ -137,10 +120,9 @@ def calc_average_metrics(metrics, calc_type="average"):
     return calc
 
 
-#extract_metrics_from_file(f"{base_path}{projects['local univariate lstm']}/metrics.txt")
 
 
-def create_all_tables_each_experiment(projects):
+def create_all_tables_each_experiment(projects, save_path=table_save_path, dataset=dataset):
     _dataset = dataset.replace("_", "-")
     for exp in projects:
         extract_dataset_metrics_table(
@@ -148,18 +130,18 @@ def create_all_tables_each_experiment(projects):
             f"{exp}-{_dataset}",
             projects[exp],
             base_path,
-            table_save_path=table_save_path
+            table_save_path=save_path
         )
 
 
-def create_shared_avg_table_all_experiments(projects):
+def create_shared_avg_table_all_experiments(projects, save_path=table_save_path, dataset=dataset):
     _dataset = dataset.replace("_", "-")
     extract_average_experiment_metrics(
         f"Average values for all experiment for {_dataset}",
         f"Average-metric-{_dataset}",
         projects,
         base_path,
-        table_save_path
+        save_path
     )
 
 
@@ -172,7 +154,7 @@ def list_of_metrics(metrics, metric_name):
     return metric_list
 
 
-def metrics_experiment_lists(experiments: Dict[str, str], metric_name: str= "mase"):
+def metrics_experiment_lists(experiments: Dict[str, str], metric_name: str= "MASE"):
     # Create list with lists of error metrics for each experiment
     updated_metrics_list = []
     updated_metrics_list_names = []
@@ -185,7 +167,7 @@ def metrics_experiment_lists(experiments: Dict[str, str], metric_name: str= "mas
     return updated_metrics_list, updated_metrics_list_names
 
 
-def freidman_test(experiments: Dict[str, str], metric_name:str="mase"):
+def freidman_test(experiments: Dict[str, str], metric_name:str="MASE"):
     updated_metrics_list, _ = metrics_experiment_lists(experiments, metric_name)
     # Use Freidman test on metrics
     freidman = stats.friedmanchisquare(
@@ -194,13 +176,14 @@ def freidman_test(experiments: Dict[str, str], metric_name:str="mase"):
     print(freidman)
 
 
-def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = "mase"):
+def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = "MASE", save_path=figure_base_path, dataset=dataset):
     metrics_list, metrics_list_names = metrics_experiment_lists(experiments, metric_name)
     metrics_dict = {}
     for i in range(len(metrics_list)):
-        print(len(metrics_list[i]), metrics_list_names[i])
         metrics_dict[metrics_list_names[i]] = metrics_list[i]
     metrics_dataframe = DataFrame(metrics_dict)
+    plt.clf()
+    plt.cla()
     plt.rcParams.update({'font.size': 12})
     ax = sns.boxplot(data=metrics_dataframe)
     plt.xlabel("Experiments")
@@ -209,16 +192,65 @@ def metrics_experiment_box_plot(experiments: Dict[str, str], metric_name: str = 
     plt.tight_layout()
     plt.savefig(
         f"{figure_base_path}/boxplot/{metric_name}-{dataset}",
+    )
+    plt.close()
 
+
+def test_significanse_student_t_test(series_1, series_2):
+    res = stats.ttest_rel(series_1, series_2)
+    return res[0], res[1]
+
+
+def test_significanse(experiments: Dict[str, str], metric_name: str = "sMAPE"):
+    metrics_list, metrics_list_names = metrics_experiment_lists(experiments, metric_name)
+    # The first half is maped to the last half
+    half_val = int(len(metrics_list_names)/2)
+    print("Metric length", len(metrics_list_names))
+    print("Half val", half_val)
+    stat_values = []
+    p_values = []
+    exp_name = []
+    for i in range(half_val):
+        stat, p_value = test_significanse_student_t_test(
+            metrics_list[i],
+            metrics_list[(i+ half_val)]
+        )
+        stat_values.append(stat)
+        p_values.append(p_value)
+        name = "_".join(metrics_list_names[i].split(" ", 2)[:2])
+        exp_name.append(
+            name
+        )
+    return stat_values, p_values, exp_name
+
+def test_significanse_multiple_datasets(experiments: List[Dict[str, str]], datasets: List[str], metric_name: str = "sMAPE", name="data", tabel_text="", table_save_path=table_save_path):
+    dataset_stat_values = []
+    dataset_p_values = []
+    for exp in experiments:
+        stat, p_value, exp_names = test_significanse(exp, metric_name)
+        dataset_stat_values.append(
+            stat
+        )
+        dataset_p_values.append(
+            p_value
+        )
+    dataset_stat_values = DataFrame(dataset_stat_values, columns=exp_names)
+    dataset_stat_values.index = datasets
+    dataset_p_values = DataFrame(dataset_p_values, columns=exp_names)
+    dataset_p_values.index = datasets
+
+    utils.dataframe_to_latex_tabular(
+        dataset_stat_values,
+        f"{tabel_text} - stats",
+        f"ttest-stats-{name}",
+        add_index=True,
+        save_local=table_save_path
+    )
+    utils.dataframe_to_latex_tabular(
+        dataset_p_values,
+        f"{tabel_text} - p-value",
+        f"ttest-p-values-{name}",
+        add_index=True,
+        save_local=table_save_path
     )
 
-
-
-table_save_path = f"./MastersThesis/tables/results/{dataset}"
-figure_base_path = f"./MastersThesis/figs/results"
-
-create_all_tables_each_experiment(variance_experiments)
-#create_shared_avg_table_all_experiments(variance_experiments)
-# freidman_test(projects, "mase")
-metrics_experiment_box_plot(variance_experiments, "mase")
-metrics_experiment_box_plot(variance_experiments, "smape")
