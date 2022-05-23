@@ -7,14 +7,14 @@
 This section presents the overarching methods and method architectures used in this paper.
 In an effort to analyse data and make predictions on the problem space, predictive models are applied.
 Using well established methods, we intend on creating baseline predictions in order to evaluate a new model.
-These baseline methods are pressented here.
+These baseline methods are presented here.
 \fi
 
 
-As a means to measure the predictive ability of new models, a comparison with current well established methods can be usefull.
+As a means to measure the predictive ability of new models, a comparison with current well-established methods can be useful.
 Two such predictive methods are the ARIMA and SARIMA models.
-While the ARIMA model designed as an extension to the ARMA model, extended with the ability to make predictions on non stationary data.
-Additionaly, the SARIMA model extends the ARIMA model, adding a seasonal component.
+While the ARIMA model was designed as an extension to the ARMA model, extended with the ability to make predictions on non stationary data.
+Additionally, the SARIMA model extends the ARIMA model, adding a seasonal component.
 
 As described in \Cref{section:Data} the available data is both non-stationary, in addition to having a varrying degree of seasonality.
 Due to this seasonal component, a SARIMA model would be the best fitting one of the two.
@@ -22,25 +22,25 @@ Due to this seasonal component, a SARIMA model would be the best fitting one of 
 
 
 \subsection{Model selection}
-In order to select usefull SARIMA models, tuning methods were introduced.
+In order to select useful SARIMA models, tuning methods were introduced.
 With the aim of finding a set of optimal model parameters, two different methods of model tuning were used.
 Both Grid Search and Auto-ARIMA is implemented as a means of tuning the models.% TODO: Add Auto-arima reference
 
-As the models are aiming at making a 7 day prediciton, Grid search is conducted using a 7 day validation set as a measurement for accuracy.
+As the models are aiming at making a 7 day prediction, Grid search is conducted using a 7 day validation set as a measurement for accuracy.
 Each parameter set is used to make a 7 day prediction, where this prediction is compared to the true values in the validation set.
 An error metrics such as the MAE, MSE, MASE or others can be used to find the best model.
-When a set of parameters are selected, the validation data is added to the training set, and the model is retrained, before it attempts to make a new prediction on a test set.
+When a set of parameters are selected, the validation data is added to the training set, and the model is retrained before it attempts to make a new prediction on a test set.
 This is then used as a measure for the model.
 
-Additionaly, Auto-Arima is used as a second method for tuning the ARIMA and SARIMA models.
-This approach uses Bayesian optimization for parameter tuning, attempting to find the best hyper parameters for the models.
+Additionally, Auto-Arima is used as a second method for tuning the ARIMA and SARIMA models.
+This approach uses Bayesian optimization for parameter tuning, attempting to find the best hyper-parameters for the models.
 Using an error metric such as the MSE, the auto-arima model is tuned to find the best parameters for each time series.
 
-However, although the initial intention was to use both auto arima and Grid search, a descision was made to reduce the number of experiments.
+However, although the initial intention was to use both auto arima and Grid search, a decision was made to reduce the number of experiments.
 The auto arima framework was discovered to make a tuning selection that was on-par or better than the grid search models.
-This is likely due to the fact that the grid search models became so specialized that they overfitt the training data to such an extent that the auto-arima performe much better.
-Thus, as the ARIMA and SARIMA models only serve as a benchmark, only the auto arima framework will be used during tuning.
+This is likely due to the fact that the grid search models became so specialized that they overfit the training data to such an extent that the auto-arima perform much better.
+Thus, as the ARIMA and SARIMA models only serve as a benchmark, only the auto-arima framework will be used during tuning.
 % TODO: Can add a line about saving time as well
 
 Lastly, due to the highly seasonal component in the datasets used in this project,
-the SARIMA model is prefered due to its ability for seasonal prediction.
+the SARIMA model is preferred due to its ability for seasonal prediction.
