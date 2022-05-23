@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering
+\caption{Student t-test, measuring confidence of significant difference between LSTM models all dataset, statistic value. MASE error - p-value}
+\label{table:ttest-p-values-lstm-experiments-MASE-all-datasets}
+\begin{tabular}{lrrrr}
+\toprule
+{} &  local univariate lstm &  local multivariate lstm &  global univariate lstm &  global multivariate lstm \\
+\midrule
+\textbf{local univariate lstm   } &                    NaN &                 0.003211 &                0.634198 &                  0.129631 \\
+\textbf{local multivariate lstm } &               0.003211 &                      NaN &                0.044533 &                  0.186053 \\
+\textbf{global univariate lstm  } &               0.634198 &                 0.044533 &                     NaN &                  0.008580 \\
+\textbf{global multivariate lstm} &               0.129631 &                 0.186053 &                0.008580 &                       NaN \\
+\bottomrule
+\end{tabular}
+\end{table}
