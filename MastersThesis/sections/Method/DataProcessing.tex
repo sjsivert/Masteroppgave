@@ -6,52 +6,52 @@ This section briefly describes all the data processing done.
 % The training and validation datasets were seperated in a manner similar
 % to that described by \cite{Bandara2019} and \cite[]{Hewamalage2021}.
 
-The inspiration of the trainining, validation and test splitting is taken from
+The inspiration of the training, validation and test splitting is taken from
 \cite{Bandara2019}, \cite{Hewamalage2021}.
-Both reserves the last $m$ sized part of the training set as a validation set,
+Both reserve the last $m$ sized part of the training set as a validation set,
 where $m$ is the forecasting window size.
 % This means L - 2*(n+ m)
 %\cite{Hewamalage2021} reserves the last $m$ sized part for validation,
 %where $m$ is the forecasting window size.
 However, \cite{Hewamalage2021} note that this is problematic.
-This is because the last part of the training set is removed,
-and therefor not considered when training the model, as it is used only for validation during model selection and tuning.
+This is because the last part of the training set is removed
+and therefore not considered when training the model, as it is used only for validation during model selection and tuning.
 
 The further away the test predictions are from the training set the worse,
 because the underlying patterns may change during this last part of the sequence.
-Therefore \cite{Hewamalage2021} suguests an alteration to the use of the validation split.
+Therefore \cite{Hewamalage2021} suggests an alteration to the use of the validation split.
 The validation set is split from the training set only when tuning the model,
 and is thereafter added to the training data when the model is used and tested.
 Thus, the models will be trained on all available data, excluding only the selected test set.
 
-We did however make som modifications to the approach presented by \cite{Hewamalage2021}.
+We did however make some modifications to the approach presented by \cite{Hewamalage2021}.
 Initially, the complete dataset is available.
-A test set, consisting of the last $m$ points of the sequense, is then manually split from the complete dataset.
+A test set, consisting of the last $m$ points of the sequence, is then manually split from the complete dataset.
 After this, the training set is used to define both the used training set and the validation set.
 For the SARIMA method, a validation split is not needed.
-However, the use of a LSTM, spesificaly a statefull LSTM, causes restrictions to the creation of the validation set.
-Due to the use of statefull LSTM modules, the validation set have to be the same batch size as the training set.
-This in turn means that using a validation set equal to the forecasting window $m$ would limit the available batch size for the model
+However, the use of an LSTM, specifically a stateful LSTM, causes restrictions to the creation of the validation set.
+Due to the use of stateful LSTM modules, the validation set has to be the same batch size as the training set.
+This, in turn, means that using a validation set equal to the forecasting window $m$ would limit the available batch size for the model
 used on the training set.
 \cite{Bandara2019} would always train their models on multiple time series,
 which meant that their validation set would be $validation\_size = m * number\_of\_series$.
 In contrast we would also train models on a single time series at a time.
 In this case the validation set size would be equal to one forecasting window.
-During development and testing it was found that a validation set size of only one forecasting window is exedingly small.
+During development and testing it was found that a validation set size of only one forecasting window is exceedingly small.
 Tuning on validation error would be severely limited and would produce models with less optimal hyper parameters.
 
 As a result of these findings we selected a batch size for the training set beforehand, then
 used the chosen batch size as a validation set size.
 
-This however, means that we are not able to conduct a hyperparameter search for an optimal batch size
+This, however, means that we are not able to conduct a hyperparameter search for an optimal batch size
 because that would change the validation set as well.
-When we tried this, the model would almost always prefere the smallest possible batch size because that meant
-it would get a small validation set, which also reduced the ammount of possible errors it could make.
+When we tried this, the model would almost always prefer the smallest possible batch size because that meant
+it would get a small validation set, which also reduced the number of possible errors it could make.
 
-When tunin the models, the validation set is activly used as a measurement of the predictive ability of the model.
-However, when conducting final experiments with well defined models and parameters,
+When tuning the models, the validation set is actively used as a measurement of the predictive ability of the model.
+However, when conducting final experiments with well-defined models and parameters,
 the validation set is once again added to the training set so that the model has more data to train on.
-This is the same apporach as used in \cite{Hewamalage2021}.
+This is the same approach as used in \cite{Hewamalage2021}.
 
 
 %part L - (IW + OW) as test set,
@@ -90,9 +90,9 @@ making the training set $T = L - T$.
 
 \subsection{Feature Engeneering}
 Both the feature \textit{"hits"} and \textit{"clicks"} can be argued to measure
-user interest. A products hits score measure how many times someone has clicked
-on to that product information page at prisuigen.no. A products click score measure
-how many times prisguiden.no has redirected an user to an external retailer for the given product.
+user interest. A product's hits score measures how many times someone has clicked
+on that product information page at prisuigen.no. A product's click score to measure
+how many times prisguiden.no has redirected a user to an external retailer for the given product.
 We ended up combining these two variables into one feature which we called \textbf{"interest"}
 with the equation defined in \Cref{eq:interest}.
 \begin{equation}
@@ -122,7 +122,7 @@ For scaling data, two different approaches were explored.
 Both normalization and standardization were explored.
 As the data distribution is not known prior to the scaling, normalization ensures a known value range for scaling.
 For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
-The unconventional choise of having 0.1 as our lower bound is becuase the matric SMAPE
+The unconventional choice of having 0.1 as our lower bound is because the matric SMAPE
 is vulnerable to zero values, as described in \Cref{eq:sMape}.
 
 However, during experimentation and testing, it was found that scaling with standardization
@@ -200,16 +200,16 @@ In the and all added features are scaled between [0.1, 1] as described above.
 \subsection{Moving Window Approach}
 When creating the datasets, we apply the same moving window approach as applied by \cite{Bandara2019} and \cite{Hewamalage2021}.
 This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
-In other words we tranform the problem to a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
+In other words we transform the problem into a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
 
 Given a time series $X_i = \{x_1, ..., x_K\} \in \mathbb{R}^K$ of length $K$ a mowing
 window algorithm will convert the time series $X_i$ into $K-n-m$ number of patches,
 where each patch has the size of $m+n$, and $n$ is the size of the input window,
 and $m$ is the size of the output window.
 
-In this thesis we will primarily work with an output windows $m$ for size 7.
+This thesis will primarily work with an output windows $m$ for size 7.
 This is because it is safe to assume that the E-commerce domain consists of weekly patterns.
-7 days is short enough that we should be able accurately forecast something meaninfule,
+7 days is short enough that we should be able accurately to forecast something meaningful,
 but long enough to have some commercial value.
 
 \cite{Hewamalage2021} suggests setting the input window size $n$ to be slightly
@@ -235,8 +235,8 @@ period, by setting $m = 10$.
 The literature is conflicting when it comes to NNs capability to
 model trends and seasonality. \cite{Sharda1992} work inferred that NNs are
 capable of modeling seasonality accurately.
-However more recent work suggest that deseasonalisation and
-detrending can boost perfomance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
+However, more recent work suggests that deseasonalisation and
+detrending can boost performance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
 \cite{Ouyang2021} show that detrending and deseasonalisation using STL decomposition
 will harm machine learning models, but improve statistical models.
 
@@ -244,13 +244,13 @@ will harm machine learning models, but improve statistical models.
 homogeneous seasonal patterns, with all of them covering the same duration in time
 with sufficient lengths, RNNs are capable of capturing seasonality
 without prior deseasonalisation.
-If this is not the case then RNNs have a hard time modelling
+If this is not the case then RNNs have a hard time modeling
 seasonality on their own, and deseasonalisation step should be employed.
 
 \cite{Montero-Manso2021} advocates for not removing seasonality on global models based on their empirical results.
 They conclude that global NNs do not suffer from an inability to pick seasonal patterns,
-as long as the models are sufficienyly complex and have enough memory. They argue that removing
-seasonal patterns from the data can erase some relevant information which might be exploited by global models.
+as long as the models are sufficiently complex and have enough memory. They argue that removing
+seasonal patterns from the data can erase some relevant information that might be exploited by global models.
 
 \cite{Hewamalage2021} experiments on NNs ability to model seasonality show that NNs are capable of
 modeling seasonality on their own, when all the series in the dataset have similar seasonal patterns.
@@ -263,7 +263,7 @@ but might do some experiments to see how it can improve our metrics.
 
 \subsection{Scaling down outliers}
 \label{section:Data:Preprocessing:scale-down-outliers}
-Some of our time series consist of a few extreme outliers. An example of
+Some of our time series consists of a few extreme outliers. An example of
 how one of these outliers might occur is if a supplier makes an error and sends
 a wrong price to Prisguiden. If this price is much lower than the original price then
 it might spike a huge user interest for this item, until Prisguiden finds and corrects the error.
@@ -287,5 +287,5 @@ An example of how this affects a time series is shown in \Cref{fig:illustration:
 \end{figure}
 
 \subsection{Data Processing Summary}
-TODO: We have not clearly defined which step we take in what order.
+\todo[inline]{We have not clearly defined which step we take in what order.}
 Write a short list for preprocessing and post-processing.

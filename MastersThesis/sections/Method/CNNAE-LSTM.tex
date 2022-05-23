@@ -24,26 +24,26 @@ the autoencoder and the LSTM model.
 
 \subsection{LSTM}
 
-The secound part of the hybrid model is the LSTM model.
+The second part of the hybrid model is the LSTM model.
 The LSTM model is attached to the end of the convolutional autoencoder,
 processing the output of the autoencoder as the model input.
 This is intended to alter the input data to some extent, removing unneeded noise and volatility.
 
-As with the LSTM models described in \cref{section:Method:LSTM}, a statefull LSTM model is used in the experiments.
-Therefor, the same limitations and challanges are pressent.
+As with the LSTM models described in \cref{section:Method:LSTM}, a stateful LSTM model is used in the experiments.
+Therefore, the same limitations and challenges are present.
 
-The statefull LSTM model requre the use of the same batch size for each passthrough, thus creating problems for datasets where the number
-of inputs does not match a multiplum of the batch size.
+The stateful LSTM model requires the use of the same batch size for each pass-through, thus creating problems for datasets where the number
+of inputs does not match a multiple of the batch size.
 \cref{section:Method:LSTM} explains how this problem is resolved, and the hybrid method applies the same approach.
-Additionaly,
-the \cref{seciton:Method:LSTM} pressent the approach for working with global and local methods.
-The same approach is applied for the LSTM module in the hybrid model.
+Additionally,
+the \cref{seciton:Method:LSTM} present the approach for working with global and local methods.
+The same process is applied to the LSTM module in the hybrid model.
 
 
 \subsection{Connected model}
 
-Unlike the LSTM models \cref{section:Method:LSTM} the hybrid model is not spesificly tuned for each of the experiments.
-Insted, the LSTM models found during LSTM tuning is applied in the hybrid model.
+Unlike the LSTM models \cref{section:Method:LSTM} the hybrid model is not specifically tuned for each of the experiments.
+Instead, the LSTM models found during LSTM tuning are applied in the hybrid model.
 This is done primarily in order to create a one-to-one comparison between the LSTM and the hybrid model,
 where the only difference is the addition of the convolutional autoencoder.
 
@@ -55,30 +55,3 @@ where the only difference is the addition of the convolutional autoencoder.
 
 
 
-
-
-\iffalse
-\subsection{Old}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%%5
-%%%%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%%5
-%%%%%%%%%%%%%%%%%%%%%%%%%% OLD %%%%%%%%%%%%%%%%%%%%%%%%%5
-
-% Model
-As described in \cref{section:Architecture:Model}, the Convolutional autoencoder and LSTM model
-is based on two individual models.
-Initially, the Autoencoder is used to manipulate the models input data,
-while the LSTM model thereafter uses the altered input data.
-
-The autoencoder used in this hybrid method is a shared model accross the different time-series
-available in the dataset. The same model architecture is used for all models.
-\cref{section:Method:AE} describes the development of the autoencoder, alongside with the model architecture selection and tuning.
-This autoencoder is then used in the conjoined hybrid model.
-
-Secondly, the LSTM model is added to the hybrid model.
-The LSTM model is similar to the model described in \cref{section:Method:LSTM},
-where it shares the same dataset, tuning, and architectures.
-% There are two different LSTM models that are used. The first is the one tuned by the LSTM. The secound is the one tuned by the hybrid model.
-
-
-\fi

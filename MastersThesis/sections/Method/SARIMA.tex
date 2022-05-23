@@ -3,20 +3,20 @@
 \section{SARIMA baseline}
 \label{section:Method:SARIMA}
 
-The SARIMA model is the first model creating a baseline metrics for comparions with other models.
-The SARIMA model is limited to beeing a local and univariate method,
-thus limiting the ammount of experiment that can be ran.
+The SARIMA model is the first model to create baseline metrics for comparisons with other models.
+The SARIMA model is limited to being a local and univariate method,
+thus limiting the number of experiments that can be run.
 
-Due to the inherit seasonal component pressent in the e-commerce data available in this paper,
+Due to the inherent seasonal component present in the e-commerce data available in this paper,
 the seasonal SARIMA model is selected in favor of the non-seasonal ARIMA model.
 
 \subsubsection{SARIMA Tuning}
 Model tuning of the SARIMA model is done with the auto-arima framework.
-Auto-arima utilize bayesian optimization to find a well suited set of hyperparameters to use,
+Auto-arima utilizes Bayesian optimization to find a well-suited set of hyperparameters to use,
 within a defined search space for parameters.
-Using the MAE metric as a measure of performance, auto arima search for a set of parameters for each individual time-series
+Using the MAE metric as a measure of performance, auto-arima search for a set of parameters for each individual time-series
 in the datasets defined in \cref{section:Data:Dataset}.
-The parmeter search space used during the tuning is defined in \cref{table:method:arima-tuning} with the range of parameter value.
+The parameter search space used during the tuning is defined in \cref{table:method:arima-tuning} with the range of parameter values.
 
 \begin{table}[h]
   \centering
