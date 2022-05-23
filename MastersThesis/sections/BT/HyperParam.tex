@@ -23,7 +23,7 @@ However, when the range of parameter combinations is large, resulting in high ti
 other methods are often more relevant to utilize.
 One such method is \textit{Randomized search} or \textit{Random search}.
 Randomized search reduces the parameter search space by selecting only a limited number of parameter combinations at random.
-In contrast to Grid search where the range of values for each parameter is limited as to not create a too large parameter search space,
+In contrast to Grid-search where the range of values for each parameter is limited as to not create a too large parameter search space,
 random search does not share this problem.
 The random search method runs only a selected number of iterations before completing, disregarding the range of the search space.
 Thus the computational budget of the parameter search is determined by the number of iterations, not by the size of the parameter search space.
@@ -42,5 +42,5 @@ When a sets of parameters are selected, these are compared and the results are o
 The observed results are used as a measure of generalization of the model performance with the selected hyperparameters.
 The method then attempts to optimize the selection of parameters in order to improve the model.
 
-The Bayesian optimization method thusly reduce the search space of hyperparameters using information available from previous evaluations of the model. 
+The Bayesian optimization method thusly reduces the search space of hyperparameters using information available from previous evaluations of the model. 
 
