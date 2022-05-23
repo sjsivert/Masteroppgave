@@ -20,8 +20,14 @@ But they do not give a definite answer for how long an LSTM remembers.
 This explaines why SARIMA outperforms the local unviariate LSTM on dataset 2 and 3, as both includes
 of time series with a strong seasonal dependence.
 Experiment 5 [\Cref{section:results:additional-experimental-plan:Experiment-5}] where we removed
-the seasonality from dataset 4 confirms this hypothesis as well. When removing the seasonal
-the seasonal component the LSTM outperforms SARIMA, as we should expect.
+the seasonality from dataset 3 confirms this as well, but the experiment had too few samples
+to prove anything statistically. When we remove trend and seasonality by differencing the training data,
+we have to reincorporate this difference on our forecasted values before we can compare them with our
+test targets. This is done iteratively by \Cref{eq:differencing-inverted} where the first
+$z(t_1)$ is our first predicted value and our first observed $y(t_{n-1})$ value is the last value
+we have before the forecast horizon. This process is based on only one real observation, which means
+that we accumulate an error for each iteration, which can hurt the forecast accuracy.
+This probably explains the poor results on dataset 1 when differencing is performed in Experiment 5 when
 
 Regarding RQ4 [\ref{RQ4}], we can conclude that on our dataset, when
 both SARIMA and LSTM are given the exact same information, SARIMA will outperform
