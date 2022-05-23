@@ -3,7 +3,13 @@
 TODO: Write introduction
 % Dataset 1
 \subsection{Dataset 1}
+% Results
 \import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}
+% T-test smapev
+% T-test smapev
+\import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE.tex}
+% \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-MASE.tex}
+
 \begin{figure}[h!]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
@@ -124,4 +130,24 @@ and the mean MASE 7-day is $1.131$.
 \todo[inline]{Change name of dataset seasonal to dataset 3}
 \todo[inline]{Update metric names to be MASE, sMAPE, MASE-7}
 
+
+\subsection{Comparisons Across Datasets}
+The ...
+% Comparing local vs global
+mean smape local: 0.451
+
+mean smape global: 0.431
+
+improvement: 4.43\%
+
+p-value: 0.362
+
+% Comparing uni vs multi
+mean smape local: 0.451
+
+mean smape multi: 0.389
+
+improvement: 13.74\%
+
+p-value: 0.039
 
