@@ -1,3 +1,4 @@
+from ftplib import all_errors
 from ipaddress import collapse_addresses
 from typing import Dict, List
 
@@ -99,6 +100,64 @@ def extract_average_experiment_metrics(caption, label, experiments, base_path, t
     )
 
 
+# Create table for average, given experimens and metrics accross multiple datasets
+def extract_average_experiment_metrics_accross_datasets(caption, label, experiments, base_path, table_save_path):
+    caption = caption.replace("_", "-")
+    label = label.replace("_", "-").replace(" ", "-")
+
+    updated_metrics = {}
+    for experiment_name in experiments[0]:
+        all_metrics = {}
+        for exp in experiments:
+            path = f"{base_path}{exp[experiment_name]}/metrics.txt"
+            metrics = extract_metrics_from_file(path)
+            all_metrics.update(metrics)
+        average_metrics = calc_average_metrics(all_metrics)
+        updated_metrics[experiment_name] = average_metrics
+    updated_metrics = DataFrame(updated_metrics).transpose()
+    updated_metrics["Experiment"] = updated_metrics.index
+    updated_metrics.set_index("Experiment", inplace=True)
+
+    utils.dataframe_to_latex_tabular(
+        updated_metrics, caption, label, add_index=True, save_local=table_save_path
+    )
+
+    plot_bar_from_dataframe(
+        updated_metrics["sMAPE"],
+        "all-dataset",
+        "sMAPE",
+        figure_base_path
+    )
+    plot_bar_from_dataframe(
+        updated_metrics["MASE"],
+        "all-dataset",
+        "MASE",
+        figure_base_path
+    )
+    plot_bar_from_dataframe(
+        updated_metrics["MASE-7"],
+        "all-dataset",
+        "MASE-7",
+        figure_base_path
+    )
+
+
+def plot_bar_from_dataframe(dataframe, dataset, metric_name, figure_base_path):
+    plt.clf()
+    plt.cla()
+    plt.rcParams.update({'font.size': 12})
+    dataframe.plot.bar()
+    plt.xlabel("Experiments")
+    plt.ylabel(metric_name)
+    # ax.set_xticklabels(metrics_list_names, rotation=90, fontsize=8)
+    plt.tight_layout()
+    plt.savefig(
+        f"{figure_base_path}/barplot/{metric_name}-{dataset}",
+    )
+    plt.close()
+
+
+
 def calc_average_metrics(metrics, calc_type="average"):
     calc = {}
     for dataset, metrics_dict in metrics.items():
@@ -137,6 +196,17 @@ def create_all_tables_each_experiment(projects, save_path=table_save_path, datas
 def create_shared_avg_table_all_experiments(projects, save_path=table_save_path, dataset=dataset):
     _dataset = dataset.replace("_", "-")
     extract_average_experiment_metrics(
+        f"Average values for all experiment for {_dataset}",
+        f"Average-metric-{_dataset}",
+        projects,
+        base_path,
+        save_path
+    )
+
+
+def create_shared_avg_table_all_experiments_accross_datasets(projects: List[Dict[str, str]], save_path=table_save_path, dataset=dataset):
+    _dataset = dataset.replace("_", "-")
+    extract_average_experiment_metrics_accross_datasets(
         f"Average values for all experiment for {_dataset}",
         f"Average-metric-{_dataset}",
         projects,
@@ -289,3 +359,50 @@ def test_significanse_each_experiment(experiments: Dict[str, str], metric_name: 
         add_index=True,
         save_local=table_save_path
     )
+
+def test_significanse_each_experiment_appended(experiments: List[Dict[str, str]], metric_name: str = "sMAPE", name="data", tabel_text="", table_save_path=table_save_path):
+    metrics_list, metrics_list_names = None, None
+    for exp in experiments:
+        metrics_list_exp, metrics_list_names_exp = metrics_experiment_lists(exp, metric_name)
+        if metrics_list is None:
+            metrics_list = metrics_list_exp
+            metrics_list_names = metrics_list_names_exp
+        else:
+            for i in range(len(metrics_list)):
+                metrics_list[i].extend(
+                    metrics_list_exp[i]
+                )
+
+    stat_values = {}
+    p_values = {}
+    for i, name_1 in enumerate(metrics_list_names):
+        exp_stat = {}
+        exp_p = {}
+        for j, name_2 in enumerate(metrics_list_names):
+            stat, p_value = test_significanse_student_t_test(
+                metrics_list[i],
+                metrics_list[j]
+            )
+            exp_stat[name_2] = stat
+            exp_p[name_2] = p_value
+        stat_values[name_1] = exp_stat
+        p_values[name_1] = exp_p
+
+    dataset_stat_values = DataFrame(stat_values)
+    dataset_p_values = DataFrame(p_values)
+
+    utils.dataframe_to_latex_tabular(
+        dataset_stat_values,
+        f"{tabel_text} - stats",
+        f"ttest-stats-{name}",
+        add_index=True,
+        save_local=table_save_path
+    )
+    utils.dataframe_to_latex_tabular(
+        dataset_p_values,
+        f"{tabel_text} - p-value",
+        f"ttest-p-values-{name}",
+        add_index=True,
+        save_local=table_save_path
+    )
+

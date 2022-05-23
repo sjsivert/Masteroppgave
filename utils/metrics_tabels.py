@@ -16,7 +16,7 @@ table_save_path = f"./MastersThesis/tables/results/{dataset}"
 if not os.path.isdir(table_save_path):
     os.mkdir(table_save_path)
 
-projects = {
+projects_1 = {
     "sarima": f"{dataset}-sarima",
     "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
     "local multivariate lstm": f"{dataset}-lstm-local-multivariate-tune-400-trials",
@@ -28,10 +28,10 @@ projects = {
     "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
     "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariate",
 }
-create_all_tables_each_experiment(projects, save_path=table_save_path, dataset=dataset)
-create_shared_avg_table_all_experiments(projects, save_path=table_save_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "MASE", save_path=figure_base_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "sMAPE", save_path=figure_base_path, dataset=dataset)
+create_all_tables_each_experiment(projects_1, save_path=table_save_path, dataset=dataset)
+create_shared_avg_table_all_experiments(projects_1, save_path=table_save_path, dataset=dataset)
+metrics_experiment_box_plot(projects_1, "MASE", save_path=figure_base_path, dataset=dataset)
+metrics_experiment_box_plot(projects_1, "sMAPE", save_path=figure_base_path, dataset=dataset)
 
 
 
@@ -40,7 +40,7 @@ dataset = "dataset_2"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
 if not os.path.isdir(table_save_path):
     os.mkdir(table_save_path)
-projects = {
+projects_2 = {
     "sarima": f"{dataset}-sarima",
 
     "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
@@ -53,10 +53,10 @@ projects = {
     "global univariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-univariate",
     "global multivariate cnn ae lstm": f"{dataset}-cnn-ae-lstm-global-multivariate",
 }
-create_all_tables_each_experiment(projects, save_path=table_save_path, dataset=dataset)
-create_shared_avg_table_all_experiments(projects, save_path=table_save_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "MASE", save_path=figure_base_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "sMAPE", save_path=figure_base_path, dataset=dataset)
+create_all_tables_each_experiment(projects_2, save_path=table_save_path, dataset=dataset)
+create_shared_avg_table_all_experiments(projects_2, save_path=table_save_path, dataset=dataset)
+metrics_experiment_box_plot(projects_2, "MASE", save_path=figure_base_path, dataset=dataset)
+metrics_experiment_box_plot(projects_2, "sMAPE", save_path=figure_base_path, dataset=dataset)
 
 
 
@@ -65,7 +65,7 @@ metrics_experiment_box_plot(projects, "sMAPE", save_path=figure_base_path, datas
 # Dataset 3 (seasonal)
 dataset = "dataset_seasonal"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
-projects = {
+projects_3 = {
     "sarima": f"{dataset}-sarima",
 
     "local univariate lstm": "dataset_seasonal-lstm-local-univariate-final",
@@ -81,10 +81,24 @@ projects = {
 dataset = "dataset_3"
 if not os.path.isdir(table_save_path):
     os.mkdir(table_save_path)
-create_all_tables_each_experiment(projects, save_path=table_save_path, dataset=dataset)
-create_shared_avg_table_all_experiments(projects, save_path=table_save_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "MASE", save_path=figure_base_path, dataset=dataset)
-metrics_experiment_box_plot(projects, "sMAPE", save_path=figure_base_path, dataset=dataset)
+create_all_tables_each_experiment(projects_3, save_path=table_save_path, dataset=dataset)
+create_shared_avg_table_all_experiments(projects_3, save_path=table_save_path, dataset=dataset)
+metrics_experiment_box_plot(projects_3, "MASE", save_path=figure_base_path, dataset=dataset)
+metrics_experiment_box_plot(projects_3, "sMAPE", save_path=figure_base_path, dataset=dataset)
+
+
+
+
+# Average across all datasets (1 - 3)
+# - Average tabel
+# - Average value bar chart
+table_save_path = f"./MastersThesis/tables/results/"
+create_shared_avg_table_all_experiments_accross_datasets(
+    [projects_1, projects_2, projects_3], save_path=table_save_path, dataset="all-datasets"
+)
+
+
+
 
 
 
