@@ -8,7 +8,6 @@
 % --> Thus verrifying the claims done by "Zhao2019"
 
 
-
 % Link this to RQ-5 (CNN-AE and LSTM against the baseline LSTM)
 % The paper is based on "Local univariate" models. We therefor first mention this
 % All withing the margin of error
@@ -33,7 +32,7 @@ that offer rather similar results across datasets.
 While the hybrid model CNN-AE-LSTM performance is more or less equal, predictions made on dataset 2 and 3 vary a bit more
 with the basic LSTM model performing, on average, 4.6\% and 1.25\% better on average.
 However, in addition to these similarities in average performance, the T-test conducted on the experiments reveals the same outcome.
-The t-test Resultsults shown in [TODO: Link to t-test table] infer that the predictions made by the two local univariate models
+The t-test Resultsults shown in \Cref{table:ttest-p-values-main-experiments-sMAPE} infer that the predictions made by the two local univariate models
 are from the same group, and there is no significant difference in their distribution.
 
 The t-test and average metrics attained through the experimentation, therefore, infer that the hybrid model CNN-AE-LSTM
@@ -41,7 +40,7 @@ is not able to improve performance over the LSTM model on a local univariate mod
 
 
 One reason behind this lack of difference in predictions might originate in the selected data.
-The task of the convolutional autoencoder is to encode and reconstruct the input data of the model, 
+The task of the convolutional autoencoder is to encode and reconstruct the input data of the model,
 removing noise and other unneeded information in the process.
 Lack of data could serve as an issue in this case.
 As each of the time series used in the local univariate model only consists of around three years of data, or 1300 data points.
@@ -60,7 +59,6 @@ which showed a significant improvement using the convolutional autoencoder and L
 % Whether this is due to the used dataset or not is however not entirely certain.
 
 
-
 % We have now seen how it works on univariate local models
 % We use new models, exploring multivariate and global
 % It is not always better in these cases
@@ -70,7 +68,7 @@ While the paper \cite{Zhao2019} only focuses on applying local univariate models
 we wished to explore the expansion of the use of the hybrid model with other configurations.
 These include the use of multivariate models and global models for each dataset.
 Exploring the use of such variations to the Convolutional autoencoder and LSTM,
-we hoped to uncover cases where the model performance is increased over the standard local uniariate model.
+we hoped to uncover cases where the model performance is increased over the standard local univariate model.
 
 
 
@@ -98,18 +96,8 @@ The LSTM weights on the other hand are global across all the series.
 These local and global characteristics are unique to RNNs, and can explain
 why the Convolutional Autoencoder does not see the same benefits when trained on multiple
 time series.
+\todo[inline]{Anders: Syntes du denne forklaringen er svak?}
 
-The results of Experiment 4 [\Cref{section:results:additional-experimental-plan:Experiment-4}],
-and Experiment 1 shows a small increase in performance for the hybrid model on high variance datasets.
-Even though these results are not statistically significant, the sample sizes were relatively small
-(20 samples, and 7 samples), which might be too small to conclude when the
-performance increase is low.
-
-However, from the results of Experiment 4, we can empirically conclude that the CNN-AE-LSTM will
-hurt the performance if the datasets contain small amounts of noise. This downside is much
-worse than the potential performance gains on noisy datasets.
-This can explain the poor results on dataset 2. Since dataset 2 contains a wide variety
-of time series.
 
 
 
@@ -223,7 +211,7 @@ in any meaningful way.
 When it comes to dataset 2 and 3 where the correlation between datasets is exceedingly low, the autoencoder ends up with decreasing the performance of the predictions.
 There might be several different factors that play a part in this.
 
-Dataset 1 contains data with high correlation, and thus the autoencoder is more likely to use the additional data to performe well with encoding and reconstruction.
+Dataset 1 contains data with high correlation, and thus the autoencoder is more likely to use the additional data to perform well with encoding and reconstruction.
 However, it appears that the autoencoder is not able to improve predictions.
 \todo[inline]{Why these reuslts? Are they expected?}
 
@@ -254,7 +242,18 @@ For datasets 2 and 3, these results are as expected for the global multivariate 
 
 
 
+\subsubsection{CNN-AE-LSTM on high noise datasets}
+The results of Experiment 4 [\Cref{section:results:additional-experimental-plan:Experiment-4}],
+and Experiment 1 shows a small increase in performance for the hybrid model on high variance datasets.
+Even though these results are not below the threshold, they do show a trend given that the sample sizes were relatively small
+(20 samples, and 7 samples), which might be too small to conclude when the
+the performance increase is low.
 
+However, from the results of Experiment 4, we can empirically conclude that the CNN-AE-LSTM will
+hurt the performance if the datasets contain small amounts of noise. This downside is much
+worse than the potential performance gains on noisy datasets.
+This can explain the poor results on dataset 2. Since dataset 2 contains a wide variety
+of time series.
 
 
 
