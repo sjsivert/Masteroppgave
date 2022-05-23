@@ -1,7 +1,33 @@
 \section{Results}
 \label{section:discussion&results:experiment-results}
+TODO: Write introduction
 % Dataset 1
 \subsection{Dataset 1}
+\import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_1.png}
+    \hfill
+    \caption{MASE boxplot of predictions made on dataset 1}
+    \label{fig:results:boxplot-mase-dataset-1-mase}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_1.png}
+    \hfill
+    \caption{sMAPE boxplot of predictions made on dataset 1}
+    \label{fig:results:boxplot-mase-dataset-1-smape}
+
+  \end{subfigure}
+\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_1.png}
+%   \hfill
+%   \caption{sMAPE boxplot of predictions made on dataset 1}
+%   \label{fig:results:boxplot-mase-dataset-1-smape}
+% \end{figure}
+
 \Cref{table:Average-metric-dataset-1} shows the mean metrics accross
 all the time series in dataset 1. The poorest perfoming model accross the board
 is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7 day MASE of $1.063$.
@@ -25,6 +51,8 @@ and the mean MASE 7-day is $0.9976$.
 
 \subsection{Dataset 2}
 % Dataset 2
+
+
 Compared to dataset 1, dataset 2 proved to be a much more difficult dataset to forecast.
 Compared to the NN models SARIMA performs a lot better, with a mase of $1.472$, a 7-day MASE of $0.707$ and smape of $0.633$.
 Some of the results from dataset 1 are reproduced on dataset 2. For example the global univariate LSTM outperform
@@ -32,6 +60,22 @@ the local univariate LSTM. The multivariate models outperforms the univariate mo
 On dataset 2 however all the CNN-AE-LSTM methods performs poorly compared to the LSTM models.
 The best performing model on dataset 2 is local multivariate LSTM with a mase of $1.377$ a sMAPAE of $0.603$
 and $0.697$.
+\import{./tables/results/dataset_2}{Average-metric-dataset-2.tex}
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_2.png}
+    \hfill
+    \caption{Boxplot of predictions made on dataset 2}
+    \label{fig:results:boxplot-mase-dataset-2-mase}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_2.png}
+    \hfill
+    \caption{sMAPE boxplot of predictions made on dataset 2}
+    \label{fig:results:boxplot-mase-dataset-2-smape}
+  \end{subfigure}
+\end{figure}
 
 The mean MASE across dataset 2 is $1.652$,
 the mean sMAPE is $0.697$,
@@ -44,6 +88,24 @@ Many of the same patterns repeats on dataset 3 as with dataset 1 and 2, multivar
 global unviariate beats local univariate.
 On dataset 3 it seems that the CNN-AE-LSTMs outperforms the LSTMs once again, except for the
 best perfoming model, which is the local multivariate LSTM.
+\import{./tables/results/dataset_seasonal}{Average-metric-dataset-seasonal.tex}
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_seasonal.png}
+    \hfill
+    \caption{Boxplot of predictions made on seasonal dataset}
+    \label{fig:results:boxplot-mase-dataset-3}
+
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_seasonal.png}
+    \hfill
+    \caption{Boxplot of predictions made on seasonal dataset}
+    \label{fig:results:boxplot-smape-dataset-3}
+  \end{subfigure}
+\end{figure}
+
 
 The mean MASE for dataset 3 is $2.009$,
 the mean sMAPE data set 3 is $0.4362$,
@@ -53,53 +115,10 @@ and the mean MASE 7-day is $1.131$.
 
 % Globale modeller er dårligere på mase 7 bortsett fra.
 % All results tables
-\import{./tables/results/dataset_1}{Average-metric-dataset-1.tex}
-\import{./tables/results/dataset_2}{Average-metric-dataset-2.tex}
 
 \todo[inline]{Change name of dataset seasonal to dataset 3}
 \todo[inline]{Update metric names to be MASE, sMAPE, MASE-7}
-\import{./tables/results/dataset_seasonal}{Average-metric-dataset-seasonal.tex}
 
 \import{./tables/results/}{ttest-p_values.tex}
 \import{./tables/results/}{ttest-p_values-variance.tex}
-
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_1.png}
-  \hfill
-  \caption{MASE boxplot of predictions made on dataset 1}
-  \label{fig:results:boxplot-mase-dataset-1-mase}
-\end{figure}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_1.png}
-  \hfill
-  \caption{sMAPE boxplot of predictions made on dataset 1}
-  \label{fig:results:boxplot-mase-dataset-1-smape}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_2.png}
-  \hfill
-  \caption{Boxplot of predictions made on dataset 2}
-  \label{fig:results:boxplot-mase-dataset-2-mase}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_2.png}
-  \hfill
-  \caption{sMAPE boxplot of predictions made on dataset 2}
-  \label{fig:results:boxplot-mase-dataset-2-smape}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_seasonal.png}
-  \hfill
-  \caption{Boxplot of predictions made on seasonal dataset}
-  \label{fig:results:boxplot-mase-dataset-2}
-\end{figure}
 
