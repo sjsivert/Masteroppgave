@@ -83,50 +83,66 @@ test_significanse_multiple_datasets(
 print("LSTM")
 dataset = "dataset_1"
 projects_1 = {
+    "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
     "local multivariate lstm": f"{dataset}-lstm-local-multivariate-tune-400-trials",
     "global univariate lstm": f"{dataset}-lstm-global-univariate-tune-400-trials",
     "global multivariate lstm": f"{dataset}-lstm-global-multivariate-tune-400-trials",
-
-    "local univariate lstm_1": f"{dataset}-lstm-local-univariate-tune-400-trials",
-    "local univariate lstm_2": f"{dataset}-lstm-local-univariate-tune-400-trials",
-    "local univariate lstm_3": f"{dataset}-lstm-local-univariate-tune-400-trials",
 }
+test_significanse_each_experiment(
+    projects_1,
+    "sMAPE",
+    name="lstm-experiments-sMAPE-dataset-1",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 1, statistic value. sMape error",
+    table_save_path=table_save_path
+)
+test_significanse_each_experiment(
+    projects_1,
+    "MASE",
+    name="lstm-experiments-MASE-dataset-1",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 1, statistic value. MASE error",
+    table_save_path=table_save_path
+)
 
 dataset = "dataset_2"
 projects_2 = {
+    "local univariate lstm": f"{dataset}-lstm-local-univariate-tune-400-trials",
     "local multivariate lstm": f"{dataset}-lstm-local-multivariate-tune-400-trials",
     "global univariate lstm": f"{dataset}-lstm-global-univariate-tune-400-trials-exp",
     "global multivariate lstm": f"{dataset}-lstm-global-multivariate-tune-400-trials",
-
-    "local univariate lstm_1": f"{dataset}-lstm-local-univariate-tune-400-trials",
-    "local univariate lstm_2": f"{dataset}-lstm-local-univariate-tune-400-trials",
-    "local univariate lstm_3": f"{dataset}-lstm-local-univariate-tune-400-trials",
 }
+test_significanse_each_experiment(
+    projects_2,
+    "sMAPE",
+    name="lstm-experiments-sMAPE-dataset-2",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 2, statistic value. sMape error",
+    table_save_path=table_save_path
+)
+test_significanse_each_experiment(
+    projects_2,
+    "MASE",
+    name="lstm-experiments-MASE-dataset-2",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 2, statistic value. MASE error",
+    table_save_path=table_save_path
+)
 
 projects_3 = {
+    "local univariate lstm": "dataset_seasonal-lstm-local-univariate-final",
     "local multivariate lstm": "dataset_seasonal-lstm-local-multivariate-final",
     "global univariate lstm": "dataset_seasonal-lstm-global-univariate-final",
     "global multivariate lstm": "dataset_seasonal-lstm-global-multivariate-final",
-
-    "local univariate lstm_1": "dataset_seasonal-lstm-local-univariate-final",
-    "local univariate lstm_2": "dataset_seasonal-lstm-local-univariate-final",
-    "local univariate lstm_3": "dataset_seasonal-lstm-local-univariate-final",
 }
-
-test_significanse_multiple_datasets(
-    [projects_1, projects_2, projects_3],
-    ["dataset 1", "dataset 2", "dataset 3"],
+test_significanse_each_experiment(
+    projects_3,
     "sMAPE",
-    name="lstm-experiments-sMAPE",
-    tabel_text="Student t-test, measuring confidence of significant difference between predictions, statistic value. sMape error",
+    name="lstm-experiments-sMAPE-dataset-3",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 3, statistic value. sMape error",
     table_save_path=table_save_path
 )
-test_significanse_multiple_datasets(
-    [projects_1, projects_2, projects_3],
-    ["dataset 1", "dataset 2", "dataset 3"],
+test_significanse_each_experiment(
+    projects_3,
     "MASE",
-    name="lstm-experiments-MASE",
-    tabel_text="Student t-test, measuring confidence of significant difference between predictions, statistic value. MASE error",
+    name="lstm-experiments-MASE-dataset-3",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models dataset 3, statistic value. MASE error",
     table_save_path=table_save_path
 )
 

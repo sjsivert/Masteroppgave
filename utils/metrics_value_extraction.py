@@ -205,8 +205,6 @@ def test_significanse(experiments: Dict[str, str], metric_name: str = "sMAPE"):
     metrics_list, metrics_list_names = metrics_experiment_lists(experiments, metric_name)
     # The first half is maped to the last half
     half_val = int(len(metrics_list_names)/2)
-    print("Metric length", len(metrics_list_names))
-    print("Half val", half_val)
     stat_values = []
     p_values = []
     exp_name = []
@@ -222,6 +220,7 @@ def test_significanse(experiments: Dict[str, str], metric_name: str = "sMAPE"):
             name
         )
     return stat_values, p_values, exp_name
+
 
 def test_significanse_multiple_datasets(experiments: List[Dict[str, str]], datasets: List[str], metric_name: str = "sMAPE", name="data", tabel_text="", table_save_path=table_save_path):
     dataset_stat_values = []
@@ -254,3 +253,39 @@ def test_significanse_multiple_datasets(experiments: List[Dict[str, str]], datas
         save_local=table_save_path
     )
 
+
+def test_significanse_each_experiment(experiments: Dict[str, str], metric_name: str = "sMAPE", name="data", tabel_text="", table_save_path=table_save_path):
+    metrics_list, metrics_list_names = metrics_experiment_lists(experiments, metric_name)
+    
+    stat_values = {}
+    p_values = {}
+    for i, name_1 in enumerate(metrics_list_names):
+        exp_stat = {}
+        exp_p = {}
+        for j, name_2 in enumerate(metrics_list_names):
+            stat, p_value = test_significanse_student_t_test(
+                metrics_list[i],
+                metrics_list[j]
+            )
+            exp_stat[name_2] = stat
+            exp_p[name_2] = p_value
+        stat_values[name_1] = exp_stat
+        p_values[name_1] = exp_p
+
+    dataset_stat_values = DataFrame(stat_values)
+    dataset_p_values = DataFrame(p_values)
+
+    utils.dataframe_to_latex_tabular(
+        dataset_stat_values,
+        f"{tabel_text} - stats",
+        f"ttest-stats-{name}",
+        add_index=True,
+        save_local=table_save_path
+    )
+    utils.dataframe_to_latex_tabular(
+        dataset_p_values,
+        f"{tabel_text} - p-value",
+        f"ttest-p-values-{name}",
+        add_index=True,
+        save_local=table_save_path
+    )
