@@ -104,6 +104,7 @@ with the equation defined in \Cref{eq:interest}.
 
 
 \subsection{Value Scaling}
+\label{section:Data:Preprocessing:value-scaling}
 Deep learning models require appropriate scaling to converge properly.
 For the neural networks we scaled the data using standardization.
 
@@ -193,11 +194,8 @@ If the month is closer to summer (may, june) this feature will be close to -1.
 In the and all added features are scaled between [0.1, 1] as described above.
 
 
-
-
-
-
 \subsection{Moving Window Approach}
+\label{section:Data:Preprocessing:moving-window-approach}
 When creating the datasets, we apply the same moving window approach as applied by \cite{Bandara2019} and \cite{Hewamalage2021}.
 This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
 In other words we transform the problem into a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
@@ -287,5 +285,22 @@ An example of how this affects a time series is shown in \Cref{fig:illustration:
 \end{figure}
 
 \subsection{Data Processing Summary}
-\todo[inline]{We have not clearly defined which step we take in what order.}
-Write a short list for preprocessing and post-processing.
+So far, we have described each processing step and how it is conducted, but not the overall
+order.
+
+The main preprocessing steps was carried out as follows:
+\begin{enumerate}
+  \item Combine \textit{hits} and \textit{clicks} to feature \textit{interest}.
+  \item Split up into test and training data.
+  \item If a multivariate model $->$ Generate date features.
+  \item Scale down outliers %[\Cref{section:Data:Preprocessing:scale-down-outliers}].
+  \item Normalize the data %[\Cref{section:Data:Preprocessing:value-scaling}].
+  \item Generate sliding window patches %[\Cref{section:Data:Preprocessing:moving-window-approach}].
+  \item Split the training set into training and validation set.
+\end{enumerate}
+
+If the model is a global model. Then the same steps described above are executed once
+for each time series, and then the training sets, validation sets, and test sets are concatenated.
+
+The post-processing on the predicted forecasts is just a matter of reversing the local
+normalization to the forecast.

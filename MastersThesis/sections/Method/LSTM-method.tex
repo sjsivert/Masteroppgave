@@ -110,9 +110,17 @@ and how diffrent parameter combinations improved the model.
 \end{table}
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{./figs/hyperparameter_plot_ranges_dataset2.png}
-  \hfill
   \caption{A Optuna generated SLICE plot showing model perfomance with different hyperparameter combinations.}
+  \begin{subfigure}[0]{\textwidth}
+    \includegraphics[width=\textwidth]{./figs/hyperparameter_plot_ranges_dataset2(0).png}
+    \hfill
+    \caption{First 6 hyperparameters}
+  \end{subfigure}
+  \begin{subfigure}[0]{\textwidth}
+    \includegraphics[width=\textwidth]{./figs/hyperparameter_plot_ranges_dataset2(1).png}
+    \hfill
+    \caption{Last 5 hyperparameters}
+  \end{subfigure}
   \label{fig:lstm:optuna-parameter-slice-figure}
 \end{figure}
 
