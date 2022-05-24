@@ -2,7 +2,7 @@
 \section{LSTM Baseline}
 \label{section:Architecture:Baselines:LSTM}
 
-The LSTM model is described in \cref{section:BT:LSTM}, and is the current state of the art method for making time series predictions.
+The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state of the art method for making time series predictions.
 Comparing new models against the current state-of-the-art models serves as a good measure for weither or not the new models is usefull.
 
 \subsection{Global and local methods}
@@ -28,7 +28,7 @@ For seasonal data, one could then extract information from the dataset, adding m
 In order to find a fitting LSTM model, hyper parameters are tuned.
 With the use of the \textit{optuna framework} % TODO: Add reference to optuna framework
 we are able to tune the hyper parameters of our models.
-The \textit{optuna} framework applies Bayesian optimization as described in \cref{section:BT:Hyperparameters}.
+The \textit{optuna} framework applies Bayesian optimization as described in \Cref{section:BT:Hyperparameters}.
 
 This approach of hyper parameter tuning is used with each of the LSTM version.
 The tuning of the univariate and multivariate, and local and global are all done through the use of Bayesian optimization using optuna.

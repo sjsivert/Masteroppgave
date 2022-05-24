@@ -19,7 +19,7 @@ ARIMA parameters are found through the search of parameters for an interval for 
   \end{tabular}
 \end{table}
 
-Tuning is conducted on all of the datasets defined in \cref{section:Architecture:Dataset}.
+Tuning is conducted on all of the datasets defined in \Cref{section:Architecture:Dataset}.
 The tuning is done by calculating the error metric of the one-step ahed predictions done by the ARIMA model on the test set.
 Multiple error metrics are used, calculating the MASE, SMAPE, MAE, and MSE of the predictions.
 Tabel ... shows a small excerpt of the tuning metrics from dataset 1.
@@ -39,13 +39,13 @@ A more detailed descussion on the problem can be found here: https://github.com/
 
 \subsubsection{Experiments}
 
-After completion of tuning as described in \cref{section:Results:ARIMA:Tuning},
+After completion of tuning as described in \Cref{section:Results:ARIMA:Tuning},
 the parameters yielding the best results are extracted and applied to experiments.
 
 The ARIMA tuning is conducted using several error metrics such as MASE, SMAPE, MSE and MAE.
 Of the implemented error metrics, the MASE error metric is used as a refference.
 The parameters which for the ARIMA yeald the best MASE metrics are used as the selected experiment parameters.
-Experiments are conducted on both dataset 1 and dataset 2, defined in \cref{section:Architecture:DataSelection}.
+Experiments are conducted on both dataset 1 and dataset 2, defined in \Cref{section:Architecture:DataSelection}.
 
 
 \import{./tables/results/}{experiment_arima_dataset1.tex}

@@ -15,8 +15,8 @@ Model tuning of the SARIMA model is done with the auto-arima framework.
 Auto-arima utilizes Bayesian optimization to find a well-suited set of hyperparameters to use,
 within a defined search space for parameters.
 Using the MAE metric as a measure of performance, auto-arima search for a set of parameters for each individual time-series
-in the datasets defined in \cref{section:Data:Dataset}.
-The parameter search space used during the tuning is defined in \cref{table:method:arima-tuning} with the range of parameter values.
+in the datasets defined in \Cref{section:Data:Dataset}.
+The parameter search space used during the tuning is defined in \Cref{table:method:arima-tuning} with the range of parameter values.
 
 \begin{table}[h]
   \centering
@@ -61,16 +61,16 @@ The first experiments conducted are done in order to create a SARIMA baseline.
 The SARIMA model is used to make multi step predictions that is going to be used as reference for other models.
 
 % Dataset
-Using the datasets defined in \cref{section:Data:Dataset} SARIMA models are created.
+Using the datasets defined in \Cref{section:Data:Dataset} SARIMA models are created.
 A model with a connected set of hyperparameters are selected for each of the time-series in the 3 datasets used in this paper.
-Due to the inheret seasonality in the e-commerce data, as explored in \cref{section:Data:DataAnalysis},
+Due to the inheret seasonality in the e-commerce data, as explored in \Cref{section:Data:DataAnalysis},
 the SARIMA model is selected due to the seasonal component.
 It is the addition of this seasonal component that warrents the use of the SARIMA model over the simpler ARIMA model.
 
 % Error metrics
 In order to measure the accuracy of the models predictions multiple error metrics are utilized.
 Primarily, the measure of MASE is used in order to measure accuracy.
-As pressented in \cref{section:BT:Loss}, the MASE metric is used to measure the predictive accuracy
+As pressented in \Cref{section:BT:Loss}, the MASE metric is used to measure the predictive accuracy
 compared to a naive forecast.
 However, during tuning of the models the MAE error metric is used, as this is the basis for the MAPE metrics we wish to use as a measure.
 Additionaly, error metrics such as MSE, SMAPE, and MAPE is used to measure accuracy of the completed models.
@@ -81,8 +81,8 @@ Model tuning of the SARIMA model is done with the auto-arima framework.
 Auto-arima utilize bayesian optimization to find a well suited set of hyperparameters to use,
 within a defined search space for parameters.
 Using the MAE metric as a measure of performance, auto arima search for a set of parameters for each individual time-series
-in the datasets defined in \cref{section:Data:Dataset}.
-The parmeter search space used during the tuning is defined in \cref{table:method:arima-tuning} with the range of parameter value.
+in the datasets defined in \Cref{section:Data:Dataset}.
+The parmeter search space used during the tuning is defined in \Cref{table:method:arima-tuning} with the range of parameter value.
 
 \begin{table}[h]
   \centering
@@ -121,11 +121,11 @@ These predictions are then used in order to measure the predictive error using t
 
 \iffalse
   The SARIMA model is a univariate method only supporting predictions made on individual time-series.
-  A model is created for each of the time-series in the datasets defined in \cref{section:Data:Dataset}.
+  A model is created for each of the time-series in the datasets defined in \Cref{section:Data:Dataset}.
   The model is created with the intension of creating 7 day predictions.
   Predictive accuracy is therefor measured based on the models 7 day predictions.
 
-  Experiments with the ARIMA model is done on each time-series in the datasets introduced in \cref{section:Data:Dataset}.
+  Experiments with the ARIMA model is done on each time-series in the datasets introduced in \Cref{section:Data:Dataset}.
   A number of experiments are therefor ran on each time-series in both \textit{dataset 1} and \textit{dataset 2}.
 
 
@@ -177,7 +177,7 @@ These predictions are then used in order to measure the predictive error using t
 
   Using the ARIMA model for creating a 7 day multi step ahead prediction is not expected to yeald wery good results.
   The ARIMA model has problems with data where there is a high volatility in the data, with a high standard variation.
-  The data available, as described in \cref{section:Data:DataAnalysis},
+  The data available, as described in \Cref{section:Data:DataAnalysis},
   is highly volatile and thus makes the predictions more dificult for the ARIMA model.
 
   We expect the model to show the underlying trends in the dataset, but to
@@ -190,10 +190,10 @@ These predictions are then used in order to measure the predictive error using t
   \label{section:Method:Experiment2}
 
   The secound experiment conducted is done with the SARIMA model.
-  Just like the ARIMA model from experiment 1, the SARIMA model is used on the datasets defined in \cref{section:Data:Dataset}.
+  Just like the ARIMA model from experiment 1, the SARIMA model is used on the datasets defined in \Cref{section:Data:Dataset}.
   Experiment 2 shares the same method for tuning of the model as in experiment 1,
   as well as using the same method for evaluating the tuned models.
-  Se experiment 1 for reference \cref{section:Method:Experiment1}.
+  Se experiment 1 for reference \Cref{section:Method:Experiment1}.
 
   \subsection{Expected results}
   As with the ARIMA model, the SARIMA is not expected to yeald great results either as it suffers from the same problems as the ARIMA model.

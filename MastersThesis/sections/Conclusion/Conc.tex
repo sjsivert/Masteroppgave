@@ -20,7 +20,7 @@ As the dataset received from ``Prisguiden.no'' have not been used for time serie
 there do not exist any previous baselines for the dataset.
 Therefore, the first model to be used on the dataset was the well known SARIMA model,
 in order to create a baseline prediction.
-We then expanded the baseline with the LSTM model, answering the research question \cref{G&R:RQ-LSTM-baseline}
+We then expanded the baseline with the LSTM model, answering the research question \Cref{G&R:RQ-LSTM-baseline}
 applying the LSTM to the dataset, and comparing the baseline models.
 Thereafter, the LSTM model was expanded and improved using variations of global and local, and univariate and multivariate models
 to create comparable results for the LSTM.
@@ -30,13 +30,13 @@ It is clear that the LSTM can be improved using multivariate models and global m
 These models were also meant to serve as a point of comparison with the convolutional autoencoder and LSTM,
 in order to evaluate if this model served a purpose and achieved better results.
 
-Answering research question \cref{G&R:RQ-CNN-AE-LSTM} is attempted through the creation of convolutional autoencoder and lstm hybrid models.
+Answering research question \Cref{G&R:RQ-CNN-AE-LSTM} is attempted through the creation of convolutional autoencoder and lstm hybrid models.
 These models are compared directly with the LSTM models in order to evaluate if the autoencoder improves the models.
 The results were varying, as the hybrid model outperforms the LSTM models for every combination in dataset 1.
 However, the LSTM models, specifically the local multivariate models performed better than the hybrid model on datasets 2 and 3.
-The meaning of these results is explored more in depth in \cref{section:Discussion}.
+The meaning of these results is explored more in depth in \Cref{section:Discussion}.
 
-However, answering research question \cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does
+However, answering research question \Cref{G&R:RQ-CNN-AE-LSTM}, we are able to conclude that the hybrid model does
 decrease the predictive error metric for predictions done on data with high noise.
 However, it does not improve predictions on data with low noise; here, the LSTM model is better suited.
 Therefore, the available dataset vastly influences the cases where the hybrid convolutional autoencoder and LSTM is viable for use.
@@ -45,7 +45,7 @@ Therefore, the available dataset vastly influences the cases where the hybrid co
 % Not sure if this is going to stay here, or if it should be updated.
 When it comes to the other variations of the hybrid model, global univariate models,
 local multivariate models and global univariate models were tested with the time series.
-The local multivariate model is shown to perform better than the local univariate model, as discussed in \cref{section:Discussion:Discussion:CNN-AE-LSTM}.
+The local multivariate model is shown to perform better than the local univariate model, as discussed in \Cref{section:Discussion:Discussion:CNN-AE-LSTM}.
 However, while the different configurations of convolutional autoencoders and LSTM often outperform the initial local univariate model,
 they generally perform worse than their LSTM counterpart with the same configuration.
 Therefore, we are not able to conclude that these new configurations of the hybrid model perform any better than the LSTM.

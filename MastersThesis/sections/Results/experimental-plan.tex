@@ -20,7 +20,7 @@ TODO: Write introduction
 \label{section:results:experimentPlan:Experiment-0}
 This experiment will serve as a measurement for the predictive accuracy of other predictive methods.
 The SARIMA baseline will be used to compare the other methods applied in later experiments.
-This experiment will therefor help with answering RQ \cref{G&R:RQ-LSTM-baseline}.
+This experiment will therefor help with answering RQ \Cref{G&R:RQ-LSTM-baseline}.
 
 \begin{description}
   \item[Outline]{
@@ -45,15 +45,15 @@ These experiments will serve as the baseline metric for comparison with later ex
 \subsection{Experiment 1 - LSTM Baseline}
 \label{section:results:experimentPlan:Experiment-1}
 This experiment will serve as a baseline created using a currently state of the art predictive method
-for e-commerce prediction as pressented in \cref{section:Architecture:Baselines:LSTM}.
-By comparing the results achieved in this experiment with the ones from \cref{section:results:experimentPlan:Experiment-0}.
-This experiment serves to answer RQ4 \cref{G&R:RQ-LSTM-baseline}.
+for e-commerce prediction as pressented in \Cref{section:Architecture:Baselines:LSTM}.
+By comparing the results achieved in this experiment with the ones from \Cref{section:results:experimentPlan:Experiment-0}.
+This experiment serves to answer RQ4 \Cref{G&R:RQ-LSTM-baseline}.
 
 \begin{description}
   \item[Outline]{
               Tune, train and test a local univariate LSTM on dataset 1,
               dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
-              The results are compared with the results from the SARIMA baseline. \cref{section:results:experimentPlan:Experiment-0}}
+              The results are compared with the results from the SARIMA baseline. \Cref{section:results:experimentPlan:Experiment-0}}
 \end{description}
 
 \begin{description}
@@ -71,8 +71,8 @@ This experiment serves to answer RQ4 \cref{G&R:RQ-LSTM-baseline}.
 This experiment attempt to improve the predictive ability of the LSTM model,
 using multivariate and global methods.
 The experiments are designed to create models with the aim of outperforming the baseline
-SARIMA and Local univariate LSTM models created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-0}.
-This experiment aims to answer RQ4.1 [\cref{G&R:RQ-LSTM-baseline}],
+SARIMA and Local univariate LSTM models created in \Cref{section:results:experimentPlan:Experiment-1} and \Cref{section:results:experimentPlan:Experiment-0}.
+This experiment aims to answer RQ4.1 [\Cref{G&R:RQ-LSTM-baseline}],
 inn through the exploration of the questions outlined below.
 
 \begin{itemize}
@@ -114,14 +114,14 @@ the experiment aims to improve accuracy of the correlating LSTM models.
 The hybrid model is explored on each of the experiments ran on the LSTM,
 including all combinations of Local vs Global methods, and univariate vs multivariate.
 
-This experiment aims to answer RQ5 [\cref{G&R:RQ-CNN-AE-LSTM}] through applying the Hybrid method
+This experiment aims to answer RQ5 [\Cref{G&R:RQ-CNN-AE-LSTM}] through applying the Hybrid method
 to the experiment datasets.
 
 
 \begin{description}
   \item[Outline]{
               Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
-              created in \cref{section:results:experimentPlan:Experiment-1} and \cref{section:results:experimentPlan:Experiment-2}.
+              created in \Cref{section:results:experimentPlan:Experiment-1} and \Cref{section:results:experimentPlan:Experiment-2}.
               Creating a local-univariate model, local-multivariate model, global-univariate model, and global-multivariate model.
               All these models are applied to each of dataset 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
               The results are compared against the SARIMA and LSTM models defined in previous experiments.
