@@ -1,11 +1,53 @@
 \subsection{Threats Against Validty}
-TODO: Write
+All processes are subject to compromises. Some of these comprimises might compromise the validity of
+the results. This section summarizes all threats we could find that might affect the results or make
+the results difficult to reproduce.
 
+\subsubsection{Small sample sizes}
+We had to limit ourselves to a relatively small sample size. For most experiemnts we have
+three datasets, each dataset contains 20 samples, 20, samples, and 8 samples.
+Summed up that's 48 samples in total. The high variance in the results, combined with a small sample size
+makes it difficult to prove our results with a sufficiently high statistical confidense.
+We can however show promising trends, and the fact that the same trends in our result hold, while
+the p-value decreases, when
+we increase the sample size by comparing across datasets is promising.
+
+
+\todo[inline]{Skal vi forsvare valgene våre?}
+Reasons for this small sample size are:
 \begin{itemize}
-  \item Batch size
-  \item snap shot of data up until this point
-  \item Pytorch vs keras
-  \item Resets of state
-  \item Small samples sizes
+  \item Difficult to find categories that sufficiently correlate with each other.
+  \item Amount of experiments we had to run.
+  \item
 \end{itemize}
+LSTM models are computunally expensive to train.
+The combination of experiments we had to run...
 
+
+\subsubsection{Generelizability the results}
+All of the time series past are relevant for the future. ``Prisguiden.no'' logs new data each day,
+so when we executed the final experiments on 26.04.2020 we used all the available data up to that point.
+Since the domain of E-commerce is volatile and is constantly changing, we cannot prove that our
+results hold for any other points in time. For example, can the buying patterns for our chosen categories
+change a lot a couple of years from now.
+Therefore we try in this report to focus on the underlying characteristics of the time series, rather than
+the specific product categories.
+
+\todo[inline]{Jeg har jo gjort noen tester på dette. Er det relevant hvis det ikke er gjort skikkelig?}
+
+
+\subsubsection{Fixed Batch size}
+As described in \Cref{section:Method:stateful-lstm-and-hidden-states} we had to set our batch size to
+a fixed number. This is not something the papers we base our method on are doing. However,
+none explains in detail if they are using a stateful LSTM or how they are implementing it.
+If we had solved the problem of batch sizes and stateful LSTM, we might have found that we did not
+use the optimal batch size for our problem.
+
+\subsubsection{Reseting LSTM States}
+In section \Cref{section:Method:lstm-reset-hidden-states} we describe how we resets our LSTM states
+when training a global model. We describe how we can
+in some cases reset the states too late. This is because a batch might contain two different time series.
+This can hurt our results.
+
+\subsubsection{Problems with Pytorch}
+TODO..?
