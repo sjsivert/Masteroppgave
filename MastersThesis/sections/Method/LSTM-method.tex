@@ -218,7 +218,7 @@ or else we will give our model a false sense of dependencies between
 the independent time series.
 
 %Our fix to this solution is not perfect, and might be an area worth critique.
-As described in \Cref{section:Method:issues-lstm:fixed-batch-size} all
+As described in \Cref{section:Method:stateful-lstm-and-hidden-states} all
 batches had to be the same size. Our time series was concatenated one after
 each other into one large time series.
 Our fix was to pass in a lambda callback to Keras which ran after each batch.

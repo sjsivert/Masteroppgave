@@ -29,20 +29,20 @@ The LSTM model is attached to the end of the convolutional autoencoder,
 processing the output of the autoencoder as the model input.
 This is intended to alter the input data to some extent, removing unneeded noise and volatility.
 
-As with the LSTM models described in \cref{section:Method:LSTM}, a stateful LSTM model is used in the experiments.
+As with the LSTM models described in \Cref{section:Method:LSTM}, a stateful LSTM model is used in the experiments.
 Therefore, the same limitations and challenges are present.
 
 The stateful LSTM model requires the use of the same batch size for each pass-through, thus creating problems for datasets where the number
 of inputs does not match a multiple of the batch size.
-\cref{section:Method:LSTM} explains how this problem is resolved, and the hybrid method applies the same approach.
+\Cref{section:Method:LSTM} explains how this problem is resolved, and the hybrid method applies the same approach.
 Additionally,
-the \cref{seciton:Method:LSTM} present the approach for working with global and local methods.
+the \Cref{section:Method:LSTM} present the approach for working with global and local methods.
 The same process is applied to the LSTM module in the hybrid model.
 
 
 \subsection{Connected model}
 
-Unlike the LSTM models \cref{section:Method:LSTM} the hybrid model is not specifically tuned for each of the experiments.
+Unlike the LSTM models \Cref{section:Method:LSTM} the hybrid model is not specifically tuned for each of the experiments.
 Instead, the LSTM models found during LSTM tuning are applied in the hybrid model.
 This is done primarily in order to create a one-to-one comparison between the LSTM and the hybrid model,
 where the only difference is the addition of the convolutional autoencoder.
