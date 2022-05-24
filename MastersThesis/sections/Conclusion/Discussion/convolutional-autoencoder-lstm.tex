@@ -325,6 +325,40 @@ For datasets 2 and 3, these results are as expected for the global multivariate 
 
 % High noise and low noise and low noise data
 \subsubsection{CNN-AE-LSTM on high noise datasets}
+
+As we discussed when takling about the performance of the convolutional autoencoder and LSTM on datasets 1, 2 and 3,
+we made the assumption that the characteristics of the used dataset could have severe implications in the predictive accuracy of the hybird model.
+
+In order to test this, additional experiments were defined and ran as described in \Cref*{section:Results:AdditionalExperimentalPlan}.
+By applying these experiments using the hybird model to 3 new dataset with varying degree of data noise,
+the assumption was that the degree of noise in the dataset would heavily influence the predictive abilities of the hybrid model.
+
+Due to the design of the hybrid model, applying a convolutional autoencoder to the input data of the model,
+the data would be altered in accordance to the autoencoder.
+The assumption is that when applying the autoencoder to a dataset with a low ammount of noise,
+the autoencoder would be more likely to remove important information on which the LSTM part of the model is dependent on.
+On the other hand, with a higher level of noise in the dataset,
+the model is more likely to reduce the noisy values, contributing to input data which is easier for the LSTM model to interpret.
+
+% What were the results from the predictions?
+
+% What does this have to say for the usability of the model on different data
+
+% Does this explain the results from any of the experiments above?
+
+% Are there other implications from these results?
+
+
+
+
+
+
+
+
+
+
+%%% --- OLD ---
+\iffalse
 The results of Experiment 4 [\Cref{section:results:additional-experimental-plan:Experiment-4}],
 and Experiment 1 shows a small increase in performance for the hybrid model on high variance datasets.
 Even though these results are not below the threshold, they do show a trend given that the sample sizes were relatively small
@@ -336,8 +370,5 @@ hurt the performance if the datasets contain small amounts of noise. This downsi
 worse than the potential performance gains on noisy datasets.
 This can explain the poor results on dataset 2. Since dataset 2 contains a wide variety
 of time series.
-
-
-
-% Additional  ->  High variance vs low-variance datasets
+\fi
 
