@@ -31,3 +31,5 @@ log-file.log
 **/*.pkl
 todo.md
 datasets/processed
+.vscode/*
+settings.json
