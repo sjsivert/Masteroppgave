@@ -41,18 +41,18 @@ If additional temporal information is unavailable then removing seasonalities wi
 might improve accuracy on highly seasonal datasets, but will hurt accuracy on non-seasonal datasets.
 
 Further, regarding RQ 4.1, we can conclude that both a multivariate LSTM,
-and a global LSTM improves forecasting accuracy in every scenario, but if the combination
-of the two model structures is not preferred if accuracy is the prime objective,
-the local multivariate LSTM with features that describe the date is the preferred method.
+and a global LSTM improves forecasting accuracy in every scenario.
+However, the combination of the two model structures is not preferred if accuracy is the prime objective.
+The local multivariate LSTM, with features that describe the date, is the preferred method for attaining the lowest predictive error.
 However, a global multivariate model can be a good alternative if scalability is essential.
 
 Finally, regarding RQ5  our results,
 although not statistically significant, with a p-value of $0.147$,
 show that a hybrid Convolutional Autoencoder can improve an LSTM on time series
-with a lot of noise by a few percentage points.
-% Vet ikke helt om jeg kan si dette så hart? 
-However, we can confirm that the hybrid model can
-hurt accuracy by up to $52\%$ if the datasets are not noisy enough.
+with a lot of noise.
+% Vet ikke helt om jeg kan si dette så hardt? 
+However, we can confirm that the hybrid model can severely
+hurt accuracy if the datasets are not noisy enough.
 Thus, the performance increases are not enough to justify using
 a hybrid CNN-AE-LSTM over an LSTM on our dataset.
 
