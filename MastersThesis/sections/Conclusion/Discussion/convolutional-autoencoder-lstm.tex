@@ -351,11 +351,11 @@ the model is more likely to reduce the noisy values, contributing to input data 
 % High noise - 0.864 - 0.832 - 3.7%  -> 0.147 > 0.05
 
 The results from the experiment substantiates the hypotesis above.
-Using the first noise dataset (low noise) it is appearent that the convolutional autoencoer and lstm greatly decrase the performance of the predictions.
-With a 52\% decrease in performance it is clear that the model is now well suited to make predictions on such low noise data.
+Using the first noise dataset (low noise) it is appearent that the CNN-AE-LSTM greatly decreases the performance of the predictions.
+With a 52\% decrease in performance it is clear that the model is not well suited to make predictions on such low noise data.
 This notion is further supported by the t-test value signaling that the difference in predictions is significantly different.
 
-However, applying the hybird model to the ok-noise dataset is more successfull.
+However, applying the hybrid model to the ok-noise dataset is more successfull.
 Although it does not improve the accuracy and reduce the error metric of the predictions,
 it performes about as well as the LSTM model. There is only a 0.2\% difference in predictive error,
 and the t-test support the claim that it does not imper perfromance of the LSTM model.
@@ -368,11 +368,11 @@ In order to explore if this is the case we have also explored a dataset with a h
 Unlike with the datasets with low or ok noise, the high noise dataset proved to have more success with the convoltuional autoencoder and LSTM.
 The hybrid model on average perform a little under 4 percent better than the LSTM model using the sMAPE error metric.
 Although the t-test is not able to verrify the confidence interval that the predictions are significantly different between the LSTM and the hybrid model,
-we are able to manulay evaluate the predictions made by the two models on the dataset.
+we are able to manually evaluate the predictions made by the two models on the dataset.
 Although there are some variations in the predictions, we are able to see a general trend of the hybrid model increasing the performance over the LSTM model on the high variance.
 
 Analysing the results from the model predictions on the three dataset with high, low and ok variance,
-it is made clear that the dataset used in connection with the hybrid convolutional autoencoder and LSTM
+it is made clear that the dataset used in connection with the CNN-AE-LSTM and LSTM
 has a high influence on the predictive ability of the model.
 Higher variance is easier for the model to predict and recreate meaningfuly,
 while data with lower noise serve as more of a problem with the autoencoder.
@@ -382,25 +382,15 @@ is clear that other factors could also have a significant implication on the use
 The dataset used by \cite{Zhao2019} could contain other characteristics that make the hybrid model well suited for predictions,
 something that might not be avaiable in the dataset from ``Prisguiden.no''.
 
-On theory is the more clearly seasonal data used in the paper by \cite{Zhao2019}.
-The trafic flow dataset illustrated in the paper as one of the datasets used had a clear and repetative seasonal
-pattern that occur much more fequent than in our available dataset.
-This could be an advantage for the autoencoder as it would have more similar data to work with and therefor more easily
+One theory is the more clearly seasonal data used in the paper by \cite{Zhao2019}.
+The traffic flow dataset illustrated in the paper as one of the datasets used had a clear and repetative seasonal
+pattern that occurs much more frequently than in our available dataset.
+This could be an advantage for the autoencoder as it would have more similar data to work with and therefore more easily
 reconstruct data without data noise that is generaly not contained in the rest of the dataset.
 
 While these assumptions are dificult to test and prove in the given state of afears,
 this is an important point for further investigation and work with the hybrid model in order
-to test and verrify its viablity of use in other context or problems.
-
-
-
-
-
-
-
-
-
-
+to test and verify its viability of use in other contexts or problems.
 
 
 %%% --- OLD ---
