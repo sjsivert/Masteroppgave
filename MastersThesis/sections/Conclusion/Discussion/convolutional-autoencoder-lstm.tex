@@ -195,19 +195,6 @@ there is a prerequisite that the data is connected and that information from one
 If this is not the case, the use of global models increasing the amount of independent data would only serve to decrease the performance of the autoencoder.
 
 
-% Hva forventer vi egentlig av resultater?
-% ------------------------------
-%The results from this experiment is not entirely as expected.
-%While there was an expectation for dataset 2 and 3 to not attain better performance,
-%dataset 1 was expected to have an increase in performance using the global univariate model.
-%This is due to the selection of the dataset, containing correlating data that are to some degree linearly related.
-%However, while this helps with improving the LSTM model, the autoencoder is not.
-%This is likely due to the fact that the corrolation between the dataset, although higher than in dataset 2 and 3,
-%is not partiqularly high.
-%Additionaly, auto-correlation used to select dataset 1 only referese to a linear correlation,
-%not necessarily similary enough data for the autoenocer to be able to encode the trends.
-%Therefor, 
-
 
 
 
@@ -294,31 +281,31 @@ the model is more likely to reduce the noisy values, contributing to input data 
 % OK noise   - 0.502 - 0.501 - 0.19%  -> 0.7327 > 0.05
 % High noise - 0.864 - 0.832 - 3.7%  -> 0.147 > 0.05
 
-The results from the experiment substantiates the hypotesis above.
-Using the first noise dataset (low noise) it is appearent that the CNN-AE-LSTM greatly decreases the performance of the predictions.
-With a 52\% decrease in performance it is clear that the model is not well suited to make predictions on such low noise data.
+The results from the experiment substantiate the hypothesis above.
+Using the first noise dataset (low noise), it is apparent that the CNN-AE-LSTM greatly decreases the performance of the predictions.
+With a 52\% decrease in performance, it is clear that the model is not well suited to make predictions on such low noise data.
 This notion is further supported by the t-test value signaling that the difference in predictions is significantly different.
 
-However, applying the hybrid model to the ok-noise dataset is more successfull.
+However, applying the hybrid model to the ok-noise dataset is more successful.
 Although it does not improve the accuracy and reduce the error metric of the predictions,
 it performs about as well as the LSTM model. There is only a 0.2\% difference in predictive error,
 and the t-test supports the claim that it does not impair the performance of the LSTM model.
 
-By running experiments on a dataset with low noise and ok noise, it is clear that the dataset used with the hybrid model has a high influence on performance.
-Low noise is shown to reduce the performance of the hybrid model, while the problem does not occur in data with medium / ok noise.
-Despite this, it is not clear if the ammount of noise in the data only can impear the performance,
-or if a more suiting amount of noise could possible improve the performance.
+By running experiments on a dataset with low noise and ok noise, it is clear that the dataset used with the hybrid model has a strong influence on performance.
+Low noise is shown to reduce the performance of the hybrid model, while the problem does not occur in data with medium/ok noise.
+Despite this, it is not clear if the amount of noise in the data only can impair the performance,
+or if a more suitable amount of noise could possibly improve the performance.
 In order to explore if this is the case we have also explored a dataset with a high level of noise as defined in \Cref*{section:Results:AdditionalExperimentalPlan}.
-Unlike with the datasets with low or ok noise, the high noise dataset proved to have more success with the convoltuional autoencoder and LSTM.
-The hybrid model on average perform a little under 4 percent better than the LSTM model using the sMAPE error metric.
-Although the t-test is not able to verrify the confidence interval that the predictions are significantly different between the LSTM and the hybrid model,
+Unlike the datasets with low or ok noise, the high noise dataset proved to have more success with the CNN-AE-LSTM.
+On average, the hybrid model performs a little under 4 percent better than the LSTM model using the sMAPE error metric.
+Although the t-test is not able to verify the confidence interval that the predictions are significantly different between the LSTM and the hybrid model,
 we are able to manually evaluate the predictions made by the two models on the dataset.
 Although there are some variations in the predictions, we are able to see a general trend of the hybrid model increasing the performance over the LSTM model on the high variance.
 
-Analysing the results from the model predictions on the three dataset with high, low and ok variance,
+Analyzing the results from the model predictions on the three datasets with high, low, and ok variance,
 it is made clear that the dataset used in connection with the CNN-AE-LSTM and LSTM
-has a high influence on the predictive ability of the model.
-Higher variance is easier for the model to predict and recreate meaningfuly,
+has a strong influence on the predictive ability of the model.
+Higher variance is easier for the model to predict and recreate meaningfully,
 while data with lower noise serve as more of a problem with the autoencoder.
 
 Considering the level of variance/noise in the dataset has such an impact on the hybrid model, it
@@ -326,11 +313,11 @@ is clear that other factors could also have a significant implication on the use
 The dataset used by \cite{Zhao2019} could contain other characteristics that make the hybrid model well suited for predictions,
 something that might not be available in the dataset from ``Prisguiden.no''.
 
-One theory is the more clearly seasonal data used in the paper by \cite{Zhao2019}.
-The traffic flow dataset illustrated in the paper as one of the datasets used had a clear and repetative seasonal
+One theory is that the more clearly seasonal data used in the paper by \cite{Zhao2019} strongly influence the results.
+The traffic flow dataset illustrated in the paper as one of the datasets used had a clear and repetitive seasonal
 pattern that occurs much more frequently than in our available dataset.
-This could be an advantage for the autoencoder as it would have more similar data to work with and therefore more easily
-reconstruct data without data noise that is generaly not contained in the rest of the dataset.
+This could be an advantage for the autoencoder as it would have more similar data to work with and, therefore more easily
+reconstruct data without data noise that is generally not contained in the rest of the dataset.
 
 While these assumptions are difficult to test and prove in the given state of afears,
 this is an important point for further investigation and work with the hybrid model in order
