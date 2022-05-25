@@ -2,16 +2,13 @@
 \label{section:method:experiment-framework}
 In order to make it easier to execute multiple experiments, which all saved
 enough metadata for the experiment to be recreatable and repeatable we made
-a framework.
-
-\todo[inline]{Do we need to name the framework?}
-The framework is called \textit{"Experimently"}. It can be deconstructed into
-four main modules. The configuration module, data processing module, experiment module, and the save experiment module.
+a framework. It can be deconstructed into
+four main modules. The configuration module, a data processing module, an experiment module, and the save experiment module.
 
 
 \subsection{Pipeline module}
 \label{section:Method:Pipeline}
-The data processing module have two functions.
+The data processing module has two functions.
 The first one is to streamline all data processing steps and structure them in one shared place.
 Secondly, to have a self-documenting data module that can easily save
 every processing step applied to the data before the experiments are executed.
@@ -44,7 +41,7 @@ and in \Cref{table:lstm_data_processing_steps}.
     \toprule
     Step       & Description                                                                  \\
     \textbf{1} & Convert input dataset to generator object                                    \\
-    \textbf{2} & filter out category 12322                                                    \\
+    \textbf{2} & filter out category                                                          \\
     \textbf{3} & choose columns 'interest' and 'date'                                         \\
     \textbf{4} & fill in dates with zero values                                               \\
     \textbf{5} & convert to np.array                                                          \\
