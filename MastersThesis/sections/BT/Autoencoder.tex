@@ -1,6 +1,39 @@
 
 \subsection{Autoencoder}
+\label{section:B&T:Autoencoder}
+% New
+Autoencoders are neural network models used to learn efficient representations and encodings of data.
+Through an unsupervised learning process, autoencoders aim to reduce the dimensional complexity of data.
+The models store information in order to encode and decode input data,
+efficiently storing representations of the data used to encode and decode data.
+Due to the autoencoder's ability to encode and then reconstruct data, it is well suited for the dimensional reduction of data.
+Autoencoders consist of two parts; the encoder and the decoder.
+The encoder is tasked with reducing the data in order to create a coding representation from the data.
+This coding is then used by the decoder in order to attempt to reconstruct the input data.
 
+Through feature mapping, the encoder becomes an efficient feature detector and extractor.
+Due to the reduced dimensionality of the coding, the encoder becomes sufficient at reducing the noise within the data, extracting the most important features.
+As a future extractor, autoencoders are well suited for pre-training neural networks, extracting essential features.
+At the same time, autoencoders can become successful generative models.
+The decoder is proficient at reconstructing input data from the coding layer representation, meaning it can also generate new data.
+The reconstructive abilities of the decoder enable the generative model to create new data, similar to the training data used when creating the model
+\cite[p.~506-508]{Geron2017}.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./sections/BT/figures/Autoencoder.png}
+    \hfill
+    \caption{Figure of a Stacked Autoencoder architecture with one hidden encoder layer, and one hidden decoder layer.}
+    \label{fig:stacked_autoencoder_arch}
+\end{figure}
+
+
+
+
+% Old
+% The new text is meant to shorten the text, reducing the repetition in the text.
+\iffalse
 \todo[inline]{repetative: Fix}
 Autoencoders are neural networks used to learn efficient representations of data.
 Through unsupervised learning, autoencoders do not need labeled data to function.
@@ -34,3 +67,5 @@ At the same time, autoencoders can become successful generative models.
 The decoder is proficient at reconstructing input data from the coding layer representation, meaning it can also generate new data.
 The reconstructive abilities of the decoder enable the generative model to create new data, similar to the training data used when creating the model
 \cite[p.~506-508]{Geron2017}.
+
+\fi
