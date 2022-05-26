@@ -2,14 +2,14 @@
 \centering
 \caption{Student t-test, measuring confidence of significant difference between the local Univariate LSTM and other LSTM models on dataset 1. sMape error - p-value}
 \label{table:ttest-p-values-lstm-experiments-sMAPE-dataset-1}
-\begin{tabular}{lrrrr}
+\begin{tabular}{lllll}
 \toprule
-{} &       l-u &       l-m &       g-u &       g-m \\
+{} &               l-u &               l-m &      g-u &      g-m \\
 \midrule
-\textbf{l-u} &       NaN &  0.039211 &  0.712811 &  0.642842 \\
-\textbf{l-m} &  0.039211 &       NaN &  0.050357 &  0.072942 \\
-\textbf{g-u} &  0.712811 &  0.050357 &       NaN &  0.854387 \\
-\textbf{g-m} &  0.642842 &  0.072942 &  0.854387 &       NaN \\
+\textbf{l-u} &               nan &  \textbf{0.03921} &  0.71281 &  0.64284 \\
+\textbf{l-m} &  \textbf{0.03921} &               nan &  0.05036 &  0.07294 \\
+\textbf{g-u} &           0.71281 &           0.05036 &      nan &  0.85439 \\
+\textbf{g-m} &           0.64284 &           0.07294 &  0.85439 &      nan \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -2,14 +2,14 @@
 \centering
 \caption{Student t-test, measuring confidence of significant difference between the local Univariate LSTM and other LSTM models on dataset 1. MASE error - p-value}
 \label{table:ttest-p-values-lstm-experiments-MASE-dataset-1}
-\begin{tabular}{lrrrr}
+\begin{tabular}{lllll}
 \toprule
-{} &       l-u &       l-m &       g-u &       g-m \\
+{} &               l-u &               l-m &      g-u &      g-m \\
 \midrule
-\textbf{l-u} &       NaN &  0.043850 &  0.832161 &  0.731403 \\
-\textbf{l-m} &  0.043850 &       NaN &  0.077914 &  0.142758 \\
-\textbf{g-u} &  0.832161 &  0.077914 &       NaN &  0.665538 \\
-\textbf{g-m} &  0.731403 &  0.142758 &  0.665538 &       NaN \\
+\textbf{l-u} &               nan &  \textbf{0.04385} &  0.83216 &   0.7314 \\
+\textbf{l-m} &  \textbf{0.04385} &               nan &  0.07791 &  0.14276 \\
+\textbf{g-u} &           0.83216 &           0.07791 &      nan &  0.66554 \\
+\textbf{g-m} &            0.7314 &           0.14276 &  0.66554 &      nan \\
 \bottomrule
 \end{tabular}
 \end{table}
