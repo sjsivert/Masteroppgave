@@ -66,3 +66,39 @@
 \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-MASE.tex}
 \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE-all-dataset.tex}
 \import{./tables/results/ttest}{ttest-p-values-main-experiments-MASE.tex}
+
+% Figures
+
+\begin{figure}
+  \centering
+  \caption{Test predictions for local univariate LSTM on category 11850 with last week values ploted as a reference.}
+  \includegraphics[width=0.7\textwidth]{./figs/results/predictions/11850_Test_predictions_with_last_period_targets.png}
+  \hfill
+  \label{fig:results:predictions:11850-Test_predictions_with_last_period_targets.png}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \caption{Test predictions for local univariate LSTM on category 12322 with last week values ploted as a context.}
+  \includegraphics[width=0.7\textwidth]{./figs/results/predictions/12322_Test_predictions_with_context.png}
+  \hfill
+  \label{fig:results:predictions:12322-Test_predictions_with_last_period_context.png}
+\end{figure}
+
+% TODO: Få til å legge inn de siste!
+% \begin{figure}
+%   \centering
+%   \caption{Convolutional Autoencoders output to the LSTM on the test set from category 22}
+%   \includegraphics[width=0.7\textwidth]{./figs/results/predictions/22_AE_Test_predictions.png}
+%   \hfill
+%   \label{fig:results:predictions:22_AE_Test_predictions}
+% \end{figure}
+
+
+% \begin{figure}
+%   \centering
+%   \caption{Global univariate LSTM training predictions on the concatonated training set}
+%   \includegraphics[width=0.7\textwidth]{./figs/results/predictions/2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54_Training_predictions.png}
+%   \hfill
+%   \label{fig:results:predictions:2,6,9,10,11,13,20,22,24,26,27,28,29,32,33,34,39,41,51,54_Training_predictions}
+% \end{figure}
