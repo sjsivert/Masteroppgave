@@ -59,7 +59,7 @@ def dataframe_to_latex_tabular(
         multirow=True,
         multicolumn_format="c",
         # Dont know if this works yet
-        position="h",
+        position="H",
         escape=escape
     )
     table_split = table_string.split("\n")

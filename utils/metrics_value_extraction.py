@@ -20,7 +20,7 @@ metrics_average = False
 # Select save location for generated table
 dataset = "dataset_2"
 table_save_path = f"./MastersThesis/tables/results/{dataset}"
-figure_base_path = f"./MastersThesis/figs/results"
+figure_base_path = "./MastersThesis/figs/results"
 
 # Select projects to be imported
 base_path = "./models/"
@@ -119,7 +119,7 @@ def extract_dataset_metrics_table(caption, label, experiment, base_path, table_s
     metrics.set_index("Category ID", inplace=True)
 
     utils.dataframe_to_latex_tabular(
-        metrics, caption, label, add_index=True, save_local=table_save_path
+        metrics, caption, label, add_index=True, save_local=table_save_path, escape=False
     )
 
 
@@ -204,7 +204,6 @@ def plot_bar_from_dataframe(dataframe, dataset, metric_name, figure_base_path):
         f"{figure_base_path}/barplot/{metric_name}-{dataset}",
     )
     plt.close()
-
 
 
 def calc_average_metrics(metrics, calc_type="average"):
