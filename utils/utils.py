@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-import pandas as pd
 import os
 import shutil
 from typing import List
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # TODO: Replace with config value
 figure_save_location = "../MScTemplate/figs/code_generated/data_exploration/"
@@ -34,7 +35,7 @@ table_save_location = "../MScTemplate/tables/code_generated/data_exploration/"
 
 
 def dataframe_to_latex_tabular(
-    df: pd.DataFrame, caption: str, label: bool, add_index=False, save_local=table_save_location
+    df: pd.DataFrame, caption: str, label: bool, add_index=False, save_local=table_save_location, escape=None
 ) -> pd.DataFrame:
     """
     Save dataframe to latex tabular tex file for raport
@@ -59,6 +60,7 @@ def dataframe_to_latex_tabular(
         multicolumn_format="c",
         # Dont know if this works yet
         position="h",
+        escape=escape
     )
     table_split = table_string.split("\n")
     table_join = "\n".join(table_split)

@@ -1,4 +1,5 @@
 from ftplib import all_errors
+from glob import escape
 from ipaddress import collapse_addresses
 from typing import Dict, List
 
@@ -61,10 +62,50 @@ def extract_metrics_from_file(path) -> DataFrame:
         scores[data_set_name] = metrics
     return scores
 
+
 def metric_renaming(metric_name):
     metric_correct_naming = ["sMAPE", "MASE", "MASE-7"]
     i = [x.lower() for x in metric_correct_naming].index(metric_name)
     return metric_correct_naming[i]
+
+
+def latex_mark_best_value_column(metrics: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, str]]:
+    lowest_value = {}
+    for col_name, row in metrics.items():
+        for row_name, row_value in row.items():
+            if row_name not in lowest_value:
+                lowest_value[row_name] = [np.inf, None]
+
+            if row_value < lowest_value[row_name][0]:
+                lowest_value[row_name] = [row_value, col_name]
+
+    for row_name in lowest_value:
+        metrics[lowest_value[row_name][1]][row_name] = "\\textbf{" + str(lowest_value[row_name][0]) + "}"
+
+    return metrics
+
+
+def latex_mark_best_value_row(metrics: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, str]]:
+    for col_name, row in metrics.items():
+        lowest_value = np.inf
+        lowest_name = None
+        for row_name, row_value in row.items():
+            if row_value < lowest_value:
+                lowest_value = row_value
+                lowest_name = row_name
+        metrics[col_name][lowest_name] = "\\textbf{" + str(lowest_value) + "}"
+    return metrics
+
+
+def latex_mark_best_value_t_test(metrics: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, str]]:
+    for col_name, row in metrics.items():
+        for row_name, row_value in row.items():
+            if row_value < 0.05:
+                metrics[col_name][row_name] = "\\textbf{" + str(round(row_value, 5)) + "}"
+            else:
+                metrics[col_name][row_name] = str(round(row_value, 5))
+    return metrics
+
 
 # Create table of time series and metrics. This is for one model and dataset
 def extract_dataset_metrics_table(caption, label, experiment, base_path, table_save_path):
@@ -72,6 +113,7 @@ def extract_dataset_metrics_table(caption, label, experiment, base_path, table_s
     label = label.replace("_", "-").replace(" ", "-")
 
     metrics = extract_metrics_from_file(f"{base_path}{experiment}/metrics.txt")
+    metrics = latex_mark_best_value_column(metrics)
     metrics = DataFrame(metrics).transpose()
     metrics["Category ID"] = metrics.index
     metrics.set_index("Category ID", inplace=True)
@@ -92,11 +134,12 @@ def extract_average_experiment_metrics(caption, label, experiments, base_path, t
         metrics = extract_metrics_from_file(path)
         average_metrics = calc_average_metrics(metrics)
         updated_metrics[experiment_name] = average_metrics
+    updated_metrics = latex_mark_best_value_column(updated_metrics)
     updated_metrics = DataFrame(updated_metrics).transpose()
     updated_metrics["Experiment"] = updated_metrics.index
     updated_metrics.set_index("Experiment", inplace=True)
     utils.dataframe_to_latex_tabular(
-        updated_metrics, caption, label, add_index=True, save_local=table_save_path
+        updated_metrics, caption, label, add_index=True, save_local=table_save_path, escape=False
     )
 
 
@@ -114,28 +157,34 @@ def extract_average_experiment_metrics_accross_datasets(caption, label, experime
             all_metrics.update(metrics)
         average_metrics = calc_average_metrics(all_metrics)
         updated_metrics[experiment_name] = average_metrics
+    
+    updated_metrics_floats_plot = DataFrame(updated_metrics).transpose()
+    updated_metrics_floats_plot["Experiment"] = updated_metrics_floats_plot.index
+    updated_metrics_floats_plot.set_index("Experiment", inplace=True)
+
+    updated_metrics = latex_mark_best_value_column(updated_metrics)
     updated_metrics = DataFrame(updated_metrics).transpose()
     updated_metrics["Experiment"] = updated_metrics.index
     updated_metrics.set_index("Experiment", inplace=True)
 
     utils.dataframe_to_latex_tabular(
-        updated_metrics, caption, label, add_index=True, save_local=table_save_path
+        updated_metrics, caption, label, add_index=True, save_local=table_save_path, escape=False
     )
 
     plot_bar_from_dataframe(
-        updated_metrics["sMAPE"],
+        updated_metrics_floats_plot["sMAPE"],
         "all-dataset",
         "sMAPE",
         figure_base_path
     )
     plot_bar_from_dataframe(
-        updated_metrics["MASE"],
+        updated_metrics_floats_plot["MASE"],
         "all-dataset",
         "MASE",
         figure_base_path
     )
     plot_bar_from_dataframe(
-        updated_metrics["MASE-7"],
+        updated_metrics_floats_plot["MASE-7"],
         "all-dataset",
         "MASE-7",
         figure_base_path
@@ -177,8 +226,6 @@ def calc_average_metrics(metrics, calc_type="average"):
             val = {"Placeholder": 0}
         calc[metric_name] = round(val, 3)
     return calc
-
-
 
 
 def create_all_tables_each_experiment(projects, save_path=table_save_path, dataset=dataset):
@@ -283,9 +330,17 @@ def test_significanse(experiments: Dict[str, str], metric_name: str = "sMAPE"):
             metrics_list[i],
             metrics_list[(i+ half_val)]
         )
+        stat = round(stat, 5)
+        p_value = round(p_value, 5)
+        if p_value < 0.05:
+            p_value = "\\textbf{" + str(p_value) + "}"
+
+        stat = str(stat)
+        p_value = str(p_value)
+
         stat_values.append(stat)
         p_values.append(p_value)
-        name = "_".join(metrics_list_names[i].split(" ", 2)[:2])
+        name = "-".join(metrics_list_names[i].split(" ", 2)[:2])
         exp_name.append(
             name
         )
@@ -303,6 +358,8 @@ def test_significanse_multiple_datasets(experiments: List[Dict[str, str]], datas
         dataset_p_values.append(
             p_value
         )
+
+    # Mark lowest values, everything below 0.05
     dataset_stat_values = DataFrame(dataset_stat_values, columns=exp_names)
     dataset_stat_values.index = datasets
     dataset_p_values = DataFrame(dataset_p_values, columns=exp_names)
@@ -313,14 +370,15 @@ def test_significanse_multiple_datasets(experiments: List[Dict[str, str]], datas
         f"{tabel_text} - stats",
         f"ttest-stats-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
     )
     utils.dataframe_to_latex_tabular(
         dataset_p_values,
         f"{tabel_text} - p-value",
         f"ttest-p-values-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
+        escape=False
     )
 
 
@@ -342,6 +400,9 @@ def test_significanse_each_experiment(experiments: Dict[str, str], metric_name: 
         stat_values[name_1] = exp_stat
         p_values[name_1] = exp_p
 
+    # Mark lowest values, everything below 0.05
+    p_values = latex_mark_best_value_t_test(p_values)
+
     dataset_stat_values = DataFrame(stat_values)
     dataset_p_values = DataFrame(p_values)
 
@@ -350,15 +411,17 @@ def test_significanse_each_experiment(experiments: Dict[str, str], metric_name: 
         f"{tabel_text} - stats",
         f"ttest-stats-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
     )
     utils.dataframe_to_latex_tabular(
         dataset_p_values,
         f"{tabel_text} - p-value",
         f"ttest-p-values-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
+        escape=False
     )
+
 
 def test_significanse_each_experiment_appended(experiments: List[Dict[str, str]], metric_name: str = "sMAPE", name="data", tabel_text="", table_save_path=table_save_path):
     metrics_list, metrics_list_names = None, None
@@ -388,6 +451,9 @@ def test_significanse_each_experiment_appended(experiments: List[Dict[str, str]]
         stat_values[name_1] = exp_stat
         p_values[name_1] = exp_p
 
+    # Mark lowest values, everything below 0.05
+    p_values = latex_mark_best_value_t_test(p_values)
+
     dataset_stat_values = DataFrame(stat_values)
     dataset_p_values = DataFrame(p_values)
 
@@ -396,13 +462,14 @@ def test_significanse_each_experiment_appended(experiments: List[Dict[str, str]]
         f"{tabel_text} - stats",
         f"ttest-stats-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
     )
     utils.dataframe_to_latex_tabular(
         dataset_p_values,
         f"{tabel_text} - p-value",
         f"ttest-p-values-{name}",
         add_index=True,
-        save_local=table_save_path
+        save_local=table_save_path,
+        escape=False
     )
 
