@@ -1,11 +1,11 @@
 \section{Results}
 \label{section:discussion&results:experiment-results}
 
-This section presents the results acquired from executing the experiments defined in \Cref*{section:Results:ExperimentalPlan}.
+This section presents the results acquired from executing the experiments defined in \Cref{section:Results:ExperimentalPlan}.
 Results are presented with average values of error metrics per dataset, as well as box-plots of error metrics,
 and t-test results between the explored models.
 
-All results for each of the experiments can be found in \Cref*{appendix:all-results}.
+All results for each of the experiments can be found in \Cref{appendix:all-results}.
 
 % Dataset 1
 \subsection{Dataset 1}
@@ -42,7 +42,10 @@ All results for each of the experiments can be found in \Cref*{appendix:all-resu
 % \end{figure}
 
 \Cref{table:Average-metric-dataset-1} shows the mean metrics across
-all the time series in dataset 1. The poorest perfoming model across the board
+all the time series in dataset 1.
+\Cref{table:ttest-p-values-lstm-experiments-sMAPE} show the p-values
+for every LSTM structure compared with the local univariate LSTM.
+The poorest performing model across the board
 is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7-day MASE of $1.063$.
 All the different LSTM structures and hybrid methods outperformed SARIMA.
 
@@ -124,10 +127,9 @@ On dataset 3 it seems that the CNN-AE-LSTMs outperforms the LSTMs once again, ex
 best perfoming model, which is the local multivariate LSTM.
 
 
-\todo[inline]{Update mean values! They are old}
-The mean MASE for dataset 3 is $2.009$,
-the mean sMAPE data set 3 is $0.4362$,
-and the mean MASE 7-day is $1.131$.
+The mean MASE for dataset 3 is $1.957$,
+the mean sMAPE data set 3 is $0.431$,
+and the mean MASE 7-day is $1.111$.
 
 
 
