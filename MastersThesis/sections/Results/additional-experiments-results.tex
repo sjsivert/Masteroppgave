@@ -5,6 +5,9 @@
 \import{./tables/results/ttest}{ttest-p-values-variance-experiments-sMAPE.tex}
 \import{./tables/results/ttest}{ttest-p-values-variance-experiments-MASE.tex}
 The results of our two additional experiments are shown in \Cref{table:Average-metric-dataset-variance}.
+And the p-values are presented in \Cref{table:ttest-p-values-variance-experiments-MASE},
+and \Cref{table:ttest-p-values-variance-experiments-sMAPE}.
+The results are also visualized in \Cref{fig:results:boxplot-dataset-variance}.
 The table shows the average metrics for all the time series in the dataset described in the name.
 For example: \textit{dataset-high-variance-lstm-local-univariate} row show the average
 results for the local univariate LSTM on the high variance dataset.
@@ -37,7 +40,6 @@ p-value of $0.732$ is too high to say anything of value.
     \caption{MASE metrics from the high variance dataset.
       The CNN-AE-LSTM show improvements.
     }
-    \label{fig:results:boxplot-mase-dataset-high-variance}
 
   \end{subfigure}
   \begin{subfigure}[t]{0.49\textwidth}
@@ -60,6 +62,7 @@ p-value of $0.732$ is too high to say anything of value.
     \caption{sMAPE metrics from low variance dataset}
 
   \end{subfigure}
+  \label{fig:results:boxplot-dataset-variance}
 \end{figure}
 
 \subsection{Differencing}
@@ -82,7 +85,9 @@ with the same model type, without differencing,
 the original local univariate LSTM model without differencing scored a MASE of
 $2.207$, a sMAPE of $0.488$, and a 7-day MASE of $1.345$.
 The model with differencing scored a MASE of $1.866$, a sMAPE of $0.367$ and a 7-day MASE of
-$0.916$. That is an improvement of $15.45\%$, $24.80\%$, and $31.90\%$ respectively; however, none of these improvements are not of statistical significans as the sMAPE p-value is as high as $0.503$.
+$0.916$. That is an improvement of $15.45\%$, $24.80\%$, and $31.90\%$ respectively; however,
+none of these improvements are not of statistical significance as the sMAPE p-value is as high as $0.503$,
+as shown in \Cref{table:ttest-p-values-differencing-experiments-MASE}.
 
 We can, however, with greater confidence confirm that differencing on dataset 1 will decrease
 the results by $15.38\%$, with a p-value of $0.183$.

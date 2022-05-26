@@ -19,6 +19,8 @@ All results for each of the experiments can be found in \Cref{appendix:all-resul
 
 \begin{figure}[h!]
   \centering
+  \label{fig:results:boxplot-dataset-1}
+  \caption{Boxplot of predictions made on dataset 1}
   \begin{subfigure}[b]{0.49\textwidth}
     \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_1.png}
     \hfill
@@ -45,9 +47,13 @@ All results for each of the experiments can be found in \Cref{appendix:all-resul
 all the time series in dataset 1.
 \Cref{table:ttest-p-values-lstm-experiments-sMAPE} show the p-values
 for every LSTM structure compared with the local univariate LSTM.
+\Cref{table:ttest-p-values-main-experiments-sMAPE} show the p-values
+comparing the sMAPE results between the LSTM and the CNN-AE-LSTM for each
+model structure.
 The poorest performing model across the board
 is SARIMA, with a MASE of $1.294$, sMAPE of $0.239$ and 7-day MASE of $1.063$.
-All the different LSTM structures and hybrid methods outperformed SARIMA.
+All the different LSTM structures and hybrid methods outperformed SARIMA,
+as seen in \Cref{fig:results:boxplot-mase-dataset-1-smape}.
 
 The multivariate models outperformed all their retrospective univariate counter partners.
 The global univariate LSTM outperforms the local univariate on both MASE and sMAPE, though not statistically significant,
@@ -71,21 +77,28 @@ and the mean MASE 7-day is $0.9976$.
 \begin{samepage}
   \import{./tables/results/dataset_2}{Average-metric-dataset-2.tex}
   \begin{figure}[ht!]
+    \caption{Boxplot of predictions made on dataset 2}
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
       \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_2.png}
       \hfill
-      \caption{Boxplot of predictions made on dataset 2}
+      \caption{Boxplot of the MASE metrics}
       \label{fig:results:boxplot-mase-dataset-2-mase}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
       \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_2.png}
       \hfill
-      \caption{sMAPE boxplot of predictions made on dataset 2}
+      \caption{Boxplot of the sMAPE metrics}
       \label{fig:results:boxplot-mase-dataset-2-smape}
     \end{subfigure}
+    \label{fig:results:boxplot-dataset-2}
   \end{figure}
 \end{samepage}
+
+The results from dataset 2 are shown in \Cref{table:Average-metric-dataset-2},
+and visualized in Figure \ref{fig:results:boxplot-dataset-2}. The p-values
+are in \Cref{table:ttest-p-values-lstm-experiments-sMAPE} and
+\Cref{table:ttest-p-values-main-experiments-sMAPE}.
 
 Compared to dataset 1, dataset 2 proved to be a much more difficult dataset to forecast.
 Compared to the NN models SARIMA performs a lot better, with a mase of $1.472$, a 7-day MASE of $0.707$ and smape of $0.633$.
@@ -105,21 +118,30 @@ and the mean MASE 7-day is  $0.7306$.
   \import{./tables/results/dataset_seasonal}{Average-metric-dataset-3.tex}
   \begin{figure}[h!]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \caption{Boxplot of predictions made on the seasonal dataset 3}
+    \begin{subfigure}[t]{0.49\textwidth}
       \includegraphics[width=\textwidth]{./figs/results/boxplot/mase-dataset_3.png}
       \hfill
-      \caption{Boxplot of predictions made on seasonal dataset}
+      \caption{MASE boxplot. The local multivariate CNN-AE-LSTM performs best,
+        while the global multivariate CNN-AE-LSTM performs worst.}
       \label{fig:results:boxplot-mase-dataset-3}
 
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[t]{0.49\textwidth}
       \includegraphics[width=\textwidth]{./figs/results/boxplot/smape-dataset_3.png}
       \hfill
-      \caption{Boxplot of predictions made on seasonal dataset}
+      \caption{sMAPE boxplot. The local multivariate CNN-AE-LSTM performs best,
+        but with a higher variance than on MASE.
+        The global multivariate CNN-AE-LSTM performs worst.}
       \label{fig:results:boxplot-smape-dataset-3}
     \end{subfigure}
+    \label{fig:results:boxplot-dataset-3}
   \end{figure}
 \end{samepage}
+The results from dataset 3 is in \Cref{table:Average-metric-dataset-3},
+and visualized in \Cref{fig:results:boxplot-dataset-3}.
+The p-values are in \Cref{table:ttest-p-values-lstm-experiments-sMAPE} and
+\Cref{table:ttest-p-values-main-experiments-sMAPE}.
 On dataset 3 SARIMA, again, outperforms the purely local univariate LSTM baseline.
 Many of the same patterns repeats on dataset 3 as with dataset 1 and 2, multivariate beats univariate,
 global unviariate beats local univariate.
@@ -141,7 +163,6 @@ Our results suffer from low sample size and high variance, so it isn't easy
 to prove anything statistically. Aggregating the results across the datasets
 increases our sample size, improving the statistical tests.
 
-\todo[inline]{Add tabl description \Cref{table:ttest-p-values-lstm-experiments-sMAPE-all-dataset}: l-u = local univariate, l-m= local multivariate, g-u = global univariate etc..}
 \import{./tables/results/}{Average-metric-all-datasets.tex}
 \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE-all-dataset.tex}
 \begin{figure}
@@ -164,9 +185,11 @@ increases our sample size, improving the statistical tests.
 From dataset 1, the global univariate LSTM improves the local univariate
 LSTM by $2.4\%$, however, can be random with a p-value of $0.712$.
 When we compare both model structures across all the datasets,
+as shown in \Cref{table:Average-metric-all-datasets},
 our global model improves by $4.43\%$ relative to the local model,
-and our p-value falls to $0.362$. Even though this is not low enough
-to be below our threshold value of $0.05$, it does show a promising trend.
+and our p-value falls to $0.362$, as shown in \Cref{table:ttest-p-values-lstm-experiments-sMAPE-all-dataset}.
+Even though this is not low enough
+to be below our threshold value of $0.05$, does show a promising trend.
 
 
 % \subsubsection{Univariate Versus Multivariate}

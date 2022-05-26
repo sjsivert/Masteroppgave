@@ -38,6 +38,11 @@ The dataset with the least noise had a standard deviation below $min\_threshold 
 The above average noisy dataset had a standard deviation above $ok\_threshold = 0.8$
 but below the maximum threshold of 1.3.
 From the remaining list we randomly picked 7 time series.
+Examples from each dataset is shown in \Cref{fig:time-series-variance-examples},
+and the full list of categories are presented in
+\Cref{table:dataset-high_variance_categories},
+\Cref{table:dataset-low_variance_categories},
+and \Cref{table:dataset-ok_variance_categories}.
 
 \begin{figure}[h!]
   \centering
@@ -79,7 +84,6 @@ This is done because of time constraints.
 
 \subsection{Experiment 5: Differencing on seasonal dataset}
 \label{section:results:additional-experimental-plan:Experiment-5}
-\todo[inline]{TODO...}
 The literature on RNN's ability to model seasonality was conflicting [\Cref{section:Data:Preprocessing:trend-and-seasonality}].
 Our initial results showed that the LSTM suffered on datasets with strong yearly seasonality.
 We want to test if removing trends and seasonality can improve forecasts.
