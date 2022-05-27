@@ -12,6 +12,8 @@ jobs:
 
   build-and-test:
     runs-on: ubuntu-latest
+    # Do not run pipeline if commit contains report changes
+    if: "!contains(github.event.head_commit.message, 'paper')"
     strategy:
       matrix:
         python-version: [3.8, 3.9]
