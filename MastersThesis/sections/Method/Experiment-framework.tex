@@ -88,24 +88,24 @@ making the expansion of multiple pipelines with multiple shared steps easy.
 
 
 \subsection{Config module}
-The configuration module is created with the aim of making model selection and configuration more easily accessable.
+The configuration module is created with the aim of making model selection and configuration more easily accessible.
 Using separate configuration files for model configurations,
-the ammount of code that need to be changed for the different experiments are reduced.
-Additionaly, by logging the configuration of models for each experiment,
-backtracking the results of different configurations are more accessable.
+the amount of code that needs to be changed for the different experiments is reduced.
+Additionally, by logging the configuration of models for each experiment,
+backtracking the results of different configurations are more accessible.
 
 The configuration is done through the use of two separate ``.yaml'' files.
 The first one is the ``config.yaml'' file.
 This contains information that is shared among all of the different experiments,
 such as the selected data files, random seeds, logged error metrics etc.
-Secondly, a separate configuration file contains the information more relevant to the spesific experiment.
-These configuration files are contained within the ``config'' folder,
+Secondly, a separate configuration file contains the information more relevant to the specific experiment.
+These configuration files are contained within the ``config'' folder
 and contain information such as the selected predictive model for the experiment,
-as well as the model hyper parameters and tuning parameters.
+as well as the model hyperparameters and tuning parameters.
 
-During runtime, the two configuration files are merged, adding the information from the model configuration to the more general experimen configuration.
+During runtime, the two configuration files are merged, adding the information from the model configuration to the more general experiment configuration.
 The config is parsed through at runtime reading the needed information when it becomes relevant.
-An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}, but is also available with the project source code.
+An example of config is in the appendix at \Cref{cha:experiment-framework-example-config}, but is also available with the project source code.
 
 
 % Old text
@@ -129,9 +129,9 @@ An example of a config is in the appendix at \Cref{cha:experiment-framework-exam
 \subsection{Save Experiment module}
 
 The save source module handled everything related to logging and saving an experiment.
-Each experiment is associated with an unique descriptive ID and a description text to easily
+Each experiment is associated with a unique descriptive ID and a description text to easily
 differentiate between experiments.
-Each experiment saves trained models, configs, dataset used, stdout logs, training metrics, validation metrics,
+Each experiment saves trained models, configs, the dataset used, stdout logs, training metrics, validation metrics,
 testing metrics and figures.
 
 Everything is save to the local ``./models/`` folder, and to an exernal ML experiment tracking tool
