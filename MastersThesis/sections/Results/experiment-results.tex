@@ -249,31 +249,91 @@ and $3.1\%$ over the global univariate model.
 In addition to outperforming the local univariate baseline, the global multivariate model also outperformed the global univariate model.
 However, the t-tests for the model are all above the threshold of $0.05$ compared to both models.
 The global multivariate model is not able to outperform the local multivariate model,
-with a predictive error $7.33\%$ worse than the local multivariate model.
+with a predictive error of $7.33\%$ worse than the local multivariate model.
 
 
 
 
 
 
+\subsection{Hybrid model compare results}
+\label{section:discussion&results:experiment-results:CNN-AE-LSTM}
+The hybrid methods can be compared with the LSTM baseline methods.
+The experiment results used in this section comes from results tables
+\Cref*{table:Average-metric-dataset-1}, \Cref*{table:Average-metric-dataset-2}, \Cref*{table:Average-metric-dataset-3},
+as well as the tables for t-test values, \Cref*{table:ttest-p-values-main-experiments-sMAPE}.
 
 
-% Comparing local vs global
-%mean smape local: 0.451
-%
-%mean smape global: 0.431
-%
-%improvement: 4.43\%
-%
-%p-value: 0.362
-%
-%% Comparing uni vs multi
-%mean smape local: 0.451
-%
-%mean smape multi: 0.389
-%
-%improvement: 13.74\%
-%
-%p-value: 0.039
-%
-%
+\subsubsection{Local univariate}
+% Local univariate CNN-AE-LSTM
+\label{section:discussion&results:experiment-results:CNN-AE-LSTM:Local-Univariate}
+The local univariate LSTM and the local univariate convolutional autoencoder and LSTM are one of the model-configurations
+that offer rather similar results across datasets.
+While the hybrid model performance is more or less equal, predictions made on datasets 2 and 3 vary a bit more
+with the basic LSTM model performs 4.6\% and 1.25\% better on average.
+However, in addition to these similarities in average performance, the T-test conducted on the experiments reveals the same outcome.
+The t-test Resultsults shown in \Cref{table:ttest-p-values-main-experiments-sMAPE} infer that the predictions made by the two local univariate models
+are from the same group, and there is no significant difference in their distribution.
+
+
+
+% TODO: Improve language
+\subsubsection{Global univariate}
+\label{section:discussion&results:experiment-results:CNN-AE-LSTM:Global-Univariate}
+% Global univariate
+The global univariate CNN-AE-LSTM model is, on average, an improvement over the local univariate CNN-AE-LSTM model.
+The model outperforms the local univariate model on datasets 2 and 3, but not on dataset 1.
+However, the global model performs better than the local model for all datasets with
+a $5.5\%$ lower sMAPE error metric.
+The global univaraite CNN-AE-LSTM model is not able to outperforme the global univariate LSTM model.
+The global univariate LSTM model generally performed better than the hybrid model.
+Evaluating the difference with the t-test, it is also clear that the difference is significant.
+
+% Dataset 1 is significantly worse (Can se this fom the individual dataset performances, where it is more or less always worse, and t-test says significanse)
+% Dataset 2 is significantly different / worse (LSTM is generaly better, although there are more differences. Sometimes hybrid is better, but mostly, LSTM is best)
+% Dataset 3 offers no significant difference. This could be contributed to the low sample size (only 8 time-series)
+Although the average metrics performance between the hybrid model and the LSTM model on dataset 1 is only a little under 4\%,
+there is still quite a difference.
+By evaluating the metrics of each prediction in the dataset, as well as using the significance test results from the t-test,
+it is clear that the global univariate LSTM model is significantly better than the global univariate convolutional autoencoder and LSTM for dataset 1.
+For dataset 2 the difference is not as prominent as with dataset 1, but also here, there is a significant difference in predictions.
+Only with dataset 3, where the hybrid model performs better than the LSTM model on average as a global univariate model,
+the t-test signals that there are no significant differences between the two predictions.
+However, it is unclear if this is due to the dataset or if this has to do with the low sample size compared to dataset 1 and dataset 2.
+
+
+
+
+\subsubsection{Local multivariate}
+\label{section:discussion&results:experiment-results:CNN-AE-LSTM:Local-Multivariate}
+% Local multivariate
+The local multivariate CNN-AE-LSTM model serves a slight improvement to predictions for datasets 1 and 3,
+although there are no clear improvements to predictions.
+On average, dataset 1 is improved with $1.1\%$ and dataset 3 is improved with $1.4\%$ for the sMAPE error metric.
+The t-test applied to the predictions supports this assumption as there are no significant
+differences between the predictions made with the local multivariate model.
+
+However, the results are quite different for dataset 2.
+The CNN-AE-LSTM model increases the sMAPE error metric with $23\%$ over the local multivariate LSTM model, thus decreasing performance significantly.
+This is also supported by the t-test conducted, implying a significant difference in prediction sMAPE errors.
+
+
+
+
+\subsubsection{Global multivariate}
+\label{section:discussion&results:experiment-results:CNN-AE-LSTM:Global-Multivariate}
+% Global Multivariate
+On dataset 1 the global multivariate hybrid model performs on average 2\% better than the global multivariate LSTM model. However, there is not a significant difference.
+This is supported by the results from the t-test, which implies there is no significance in the difference in predictions.
+While there was a significant difference between the models using a global univariate model, the difference in performance was not high.
+
+
+Unfortunately, the same does not apply to dataset 2 and dataset 3.
+While the hybrid model, on average, perform about 9.5\% worse on dataset 2, it also performs about 41.9\% worse on dataset 3.
+Applying the student t-test to the predictions also supports the notion of the global multivariate model decreasing performance for the
+convolutional autoencoder and LSTM.
+Both predictions for dataset 2 and dataset 3 are well within the confidence interval of the t-test,
+thus implying a significant difference between the predictions for datasets 2 and 3.
+
+
+
