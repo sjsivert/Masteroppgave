@@ -20,7 +20,7 @@
 The LSTM consists of stacked layers of LSTM cells followed by a
 dense layer with the same output size as our forecast horizon.
 The parameters used for the LSTM cells are listed in \Cref{table:LSTM-cell-parameters}
-and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-cell-parameters}.
+and the parameters used in the dense layer are listed in \Cref{table:LSTM-dense-cell-parameters}.
 
 \begin{table}[h]
   \centering
@@ -78,12 +78,12 @@ and the parameters used in the dense layer is listen in \Cref{table:LSTM-dense-c
 \end{table}
 
 \subsubsection{LSTM Tuning}
-The hyperparameters of the LSTM is tuned with the Optuna Python package
+The hyperparameters of the LSTM are tuned with the Optuna Python package
 with the Bayesian optimal algorithm [\Cref{section:BT:Hyperparameters}].
 The hyperparameter minimum and maximum values are shown in \Cref{table:LSTM-hyperparameters-tuning-range}.
 These values were carefully chosen after many tuning experiments.
 \Cref{fig:lstm:optuna-parameter-slice-figure} show a report from an optuna tuning,
-and how diffrent parameter combinations improved the model.
+and how different parameter combinations improved the model.
 
 \begin{table}[h]
   \centering
@@ -220,18 +220,18 @@ the independent time series.
 
 %Our fix to this solution is not perfect, and might be an area worth critique.
 As described in \Cref{section:Method:stateful-lstm-and-hidden-states} all
-batches had to be the same size. Our time series was concatenated one after
+batches had to be the same size. Our time series were concatenated one after
 each other into one large time series.
 Our fix was to pass in a lambda callback to Keras which ran after each batch.
 We counted how many batches it would need to fit each time series.
-We counted how many batches it had ran. When the number of batches ran equals
+We counted how many batches it had run. When the number of batches ran equals
 the number of batches in a time series we reset the hidden state.
 One flaw, however, is that since it is possible for one batch to
 contain two time series, it might not reset the hidden state at the exact
-right time, but in the worst-case scenario a $batch\_size - 1$ number of
-samples too late. Still, this technique did prove to be successful.
+right time, but in the worst-case scenario, a $batch\_size - 1$ number of
+samples is too late. Still, this technique did prove to be successful.
 Neptun experiment \textit{MAS-491} achieved a MASE metric of \textbf{19.61}
-without reseting states during training.
+without resetting states during training.
 Neptum experiment \textit{MAS-492} achieved a MASE metric of \textbf{2.36}.
 
 Below is a simplified pseudo code for the algorithm which resets hidden states
