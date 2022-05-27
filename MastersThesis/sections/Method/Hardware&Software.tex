@@ -2,21 +2,22 @@
 \section{Software and Hardware}
 \label{section:Method:Hardware&Software}
 
-\todo[inline]{Add source for python, Keras, Pandas and genpipes, pmdarima}
-
 % Software
-The framework and experiments are implemented using python 3.8 [TODO: Add source].
-The SARIMA method is created using the pmdarima library and statsmodels library,
-supporting both running the experiments and tuning with auto-aria [TODO: Add source for both].
-On the other hand, the machine learning library Keras and Tensorflow is used in order to implement the deep learning methods used such as the LSTM method [TODO: Add Keras and TF source].
+The framework and experiments are implemented using python 3.8 [https://www.python.org/].
+The SARIMA method is created using the pmdarima [https://pypi.org/project/pmdarima/] library and
+statsmodels library [https://www.statsmodels.org/stable/index.html],
+supporting both running the experiments and tuning with auto-arima from the pmdarima package.
+On the other hand, the machine learning library Keras is used to implement the deep learning methods used such as the LSTM method
+  [https://keras.io/].
 
-When loading data into the experiments, data pipelines were created using the genpipes library.
-After this, data manipulation was conducted using the Pandas library, as well as the numpy library.
-
+When loading data into the experiments, data pipelines were created using the genpipes library [https://pypi.org/project/genpipes/].
+After this, data manipulation was conducted using the Pandas library, as well as the numpy library [https://numpy.org/].
 
 % Hardware
 The hardware available for running experiments consists of two work-stations.
 The first work-station consists of a AMD Ryzen 5 5600X processor and 32 GB 32000 MHz memory with Windows 11 and Linux Sub-system for Linux,
 while the second work-station consists of an Intel i9-9900K processor and 16 GB 2666 MHz memory, Windows 10 and Linux Sub-system for Linux.
 Both of these work-stations were used for tuning and execution of experiments in this project.
+
+All of the code are open and available at [Github \cite{githubSource}].
 
