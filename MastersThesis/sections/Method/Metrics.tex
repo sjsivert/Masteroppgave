@@ -7,21 +7,21 @@ Here we describe which loss function and metrics we use.
 \subsection*{Loss function}
 Since our datasets often contain a lot of outliers we decided not to use the well known
 Mean Squared Error (MSE) [\Cref{section:BT:Loss}].
-We used Mean Absolute Error (MAE) while training the neural networks.
+We used Mean Absolute Error (MAE) while training the neural networks. We can use the MAE during training because our data-preprocessing,
+normalizes all the time series to be on the same scale.
 Some experiments were done using both MASE and sMASE, but MAE did perform better.
 
 \subsection*{Metrics}
-Since we are working with multiple time-series and each time-series might differ in scale.
+%Since we are working with multiple time-series and each time-series might differ in scale.
 When choosing an error metric, we have to accommodate a number of factors.
 Since our time-series are of different scales, we cannot use a scale-dependent metric
-like MSE or MAE.
+like MSE or MAE on our test data, as the test data is never touched, each time series might be on different scales.
 
-
-We use MASE with 1 day naive forecast, as well as MASE with a 7 day
-naive forecast. This is because the 1 day naive forecast is a regular metric used
+We use MASE with 1-day naive forecast, as well as MASE with a 7-day
+naive forecast. This is because the 1-day naive forecast is a regular metric used
 and can give a good impression of how the model performs.
-However, a 7 day naive forecast will more closely represent a real-world application measure,
-as in reality, we do not have the information available to make a MASE measurement for a 7 day prediction.
+However, a 7-day naive forecast will more closely represent a real-world application measure,
+in reality, we do not have the information available to make a MASE measurement for a 7-day prediction.
 
 A problem with MASE is that if a time series follows a random walk
 then the best forecast will always be the naive forecast. MASE is therefore dependent on
