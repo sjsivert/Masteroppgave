@@ -1,0 +1,34 @@
+\subsection{Student's t-test}
+\label{BT:t-statistic-test}
+The \textit{student's t-test} is a statistical significance test.
+It is a method of testing hypotheses about the mean of a small sample drawn from
+a normally distributed population when the population standard deviation is unknown.
+In other words, it is a method to check if the difference in mean between two groups,
+is because of chance.
+
+The method formulates a null hypothesis, which states that there is no effective difference
+between the observed sample mean and the hypothesized population mean. In other words, it assumes that
+both groups are equal.
+
+It uses \Cref*{eq:t-formula-simplified} to calculate the t-value.
+% \begin{equation}
+%   \label{eq:t-formula}
+%   t = \frac{\bar{x} - \mu}{s / \sqrt{n}}
+% \end{equation}
+% where $\bar{x}$ is the mean for one of the groups, $s$ is the standard deviation, $\mu$ is the mean from the other group with an
+% unknown standard deviation,
+% and $n$ is the sample size.
+
+% A simplified version of the formula is presented in \Cref{eq:t-formula-simplified}.
+
+\begin{equation}
+  \label{eq:t-formula-simplified}
+  t = \frac{\sum{D} / N} {\sqrt{\frac{\sum{D^2} - \frac{\sum{D}^2}{N}}{(N-1)(N)} } }
+\end{equation}
+where $D$ is the difference between each sample in the two groups , aka $x_i - y_i$.
+So $\sum{D} = \sum{x_i - y_i}$
+
+We can find the p-value by looking it up in the t-table by using our degrees of freedom, which are $N-1$.
+If the p-value is below our $\alpha$ of 0.05 then we can reject the null hypothesis that the groups are equal.
+
+
