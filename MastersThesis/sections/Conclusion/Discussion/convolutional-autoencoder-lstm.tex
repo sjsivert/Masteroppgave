@@ -275,15 +275,20 @@ something that might not be available in the dataset from ``Prisguiden.no''.
 One theory is that the more clearly seasonal data used in the paper by \cite{Zhao2019} strongly influence the results.
 The traffic flow dataset illustrated in the paper as one of the datasets used had a clear and repetitive seasonal
 pattern that occurs much more frequently than in our available dataset.
-This could be an advantage for the autoencoder as it would have more similar data to work with and, therefore more easily
-reconstruct data without data noise that is generally not contained in the rest of the dataset.
+This could be an advantage for the autoencoder as it would have more similar data to work with and, therefore,
+more easily reconstruct data without data noise that is generally not contained in the rest of the dataset.
+
+Additionally, pressense of noise in the dataset is unclear.
+While the dataset from prisguiden is comprised of multiple datasets with varrying degree of noise,
+the datasets available to \cite{Zhao2019} could be more suited for use of the autoencoder
+due to the pressense of noise in the dataset.
 
 While these assumptions are difficult to test and prove in the given state of afears,
 this is an important point for further investigation and work with the hybrid model in order
 to test and verify its viability of use in other contexts or problems.
-
-
-
-
-
+While we are not able to achieve the same results as \cite{Zhao2019}, there are many possible reasons for this.
+Additionally, while we are not able to prove a statistically significant improvement to forecasting throug the use of
+the hybrid model, we are able to see a shared trend of improved results using the method.
+We might not be able to recreate the same results as \cite{Zhao2019} with such large
+improvements to the error metric values, this is in large parts dependent on different factors such as the available dataset.
 
