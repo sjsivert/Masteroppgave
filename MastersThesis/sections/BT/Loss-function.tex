@@ -1,4 +1,4 @@
-\subsection{Loss functions}
+\subsection{Loss functions*}
 \label{section:BT:Loss}
 \citeauthor{Russel2012}  defines loss functions as such:
 A \textit{loss function} $L(x, y, \hat{y})$ is defined as the amount of utility lost by predicting
@@ -11,7 +11,7 @@ models prediction, and the actual target value.
 This chapter will briefly explain standard loss functions.
 
 
-\subsubsection{MSE}
+\subsubsection{MSE*}
 % Common loss functions
 The most commonly used loss function for regression problems is the
 \textbf{Mean Squared Error (MSE)} function in \Cref{eq:mean-squared-error}.
@@ -24,7 +24,7 @@ Here $e = y - \hat{y}$, where $y$ is the actual value and $\hat{y}$ is the predi
   MSE = \frac{1}{n} \sum_{t=1}^n e_t^2
 \end{equation}
 
-\subsubsection{MAE}
+\subsubsection{MAE*}
 If the target distribution consists of outliers, then the
 \textbf{Mean Absolute Error (MAE)} in \Cref{eq:mean-absolute-error} is more appropriate
 as it does not punish the outliers too much.
@@ -34,7 +34,7 @@ as it does not punish the outliers too much.
   MSE = \frac{1}{n} \sum_{t=1}^n |e_t|
 \end{equation}
 
-\subsubsection{MAPE}
+\subsubsection{MAPE*}
 The Mean Absolute Percentage Error \Cref{eq:Mape} (MAPE) is a popular metric for evaluating forecasting performance.
 $y$ is the actual target value of the target we are trying to forecast, and $\hat{y}$ is the predicted value.
 $t$ is the time index.
@@ -57,7 +57,7 @@ the highest bound for a low forecast is 100\%. But there is no upper limit
 for forecasts that are too high. As a result, the error function will
 favor models that under-predict rather than over-predict a forecast.
 
-\subsubsection{SMAPE}
+\subsubsection{SMAPE*}
 Symmetric Mean Absolute Percentage Error (SMAPE) shown in \Cref{eq:sMape}
 is an error function made to overcome some of the shortcomings of the MAPE function.
 By incorporating $\hat{y}$ to the denominator, SMAPE is symmetrical,
@@ -84,7 +84,7 @@ constant for the denominator when the forecasting values are too small.
   SMAPE_{ALT} = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{max(|y| + |\hat{y}| + \epsilon, 0.5 + \epsilon)}
 \end{equation}
 
-\subsubsection{MASE}
+\subsubsection{MASE*}
 The Mean Absolute Scaled Error \textbf{MASE}
 proposed by \cite{Hyndman2006}, is scale-free
 error metric that compares the predictions with
