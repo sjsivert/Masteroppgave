@@ -6,7 +6,7 @@ This section briefly describes all the data processing done.
 % The training and validation datasets were seperated in a manner similar
 % to that described by \cite{Bandara2019} and \cite[]{Hewamalage2021}.
 
-The inspiration of the training, validation and test splitting is taken from
+The inspiration for the training, validation and test splitting is taken from
 \cite{Bandara2019}, \cite{Hewamalage2021}.
 Both reserve the last $m$ sized part of the training set as a validation set,
 where $m$ is the forecasting window size.
@@ -20,7 +20,7 @@ and therefore not considered when training the model, as it is used only for val
 The further away the test predictions are from the training set the worse,
 because the underlying patterns may change during this last part of the sequence.
 Therefore \cite{Hewamalage2021} suggests an alteration to the use of the validation split.
-The validation set is split from the training set only when tuning the model,
+The validation set is split from the training set only when tuning the model
 and is thereafter added to the training data when the model is used and tested.
 Thus, the models will be trained on all available data, excluding only the selected test set.
 
@@ -35,12 +35,12 @@ This, in turn, means that using a validation set equal to the forecasting window
 used on the training set.
 \cite{Bandara2019} would always train their models on multiple time series,
 which meant that their validation set would be $validation\_size = m * number\_of\_series$.
-In contrast we would also train models on a single time series at a time.
-In this case the validation set size would be equal to one forecasting window.
-During development and testing it was found that a validation set size of only one forecasting window is exceedingly small.
-Tuning on validation error would be severely limited and would produce models with less optimal hyper parameters.
+In contrast, we would also train models on a single time series at a time.
+In this case, the validation set size would be equal to one forecasting window.
+During development and testing, it was found that a validation set size of only one forecasting window is exceedingly small.
+Tuning on validation error would be severely limited and would produce models with less optimal hyperparameters.
 
-As a result of these findings we selected a batch size for the training set beforehand, then
+As a result of these findings, we selected a batch size for the training set beforehand, then
 used the chosen batch size as a validation set size.
 
 This, however, means that we are not able to conduct a hyperparameter search for an optimal batch size
@@ -72,9 +72,9 @@ This is the same approach as used in \cite{Hewamalage2021}.
 
 \Cref{fig:train-val-test-split} shows an illustration of how one dataset is split up during
 hyperparameter tuning.
-The whole time series has a size of length $L$. The test set $T$ is taken from the end of the series,
+The whole time series has a size of length $L$. The test set $T$ is taken from the end of the series
 and has the size of the forecast window $L = m$. The validation set $V$ has the size of
-one batch size $V=batch\_size$. So during tuning the size of the training data is
+one batch size $V=batch\_size$. So during tuning, the size of the training data is
 $T = L - (V + T)$. During testing the validation set $V$ is re-added to the training set,
 making the training set $T = L - T$.
 
@@ -106,12 +106,12 @@ with the equation defined in \Cref{eq:interest}.
 \subsection{Value Scaling}
 \label{section:Data:Preprocessing:value-scaling}
 Deep learning models require appropriate scaling to converge properly.
-For the neural networks we scaled the data using standardization.
+For the neural networks, we scaled the data using standardization.
 
 \begin{equation}
   z = \frac{x - \mu}{\sigma}
 \end{equation}
-Where $\mu$ is the mean and $\sigma$ the standard deviation.
+Where $\mu$ is the mean and $\sigma$ is the standard deviation.
 
 \begin{equation}
   x\_std = \frac{x - x.min()}{x.max() - x.min()}
@@ -121,22 +121,22 @@ where $h$ is the max feature range and $l$ is the min.
 
 For scaling data, two different approaches were explored.
 Both normalization and standardization were explored.
-As the data distribution is not known prior to the scaling, normalization ensures a known value range for scaling.
-For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
+As the data distribution is not known before the scaling, normalization ensures a known value range for scaling.
+For the neural net models, we scale using normalization for the ranges to be in the range [0.1, 1].
 The unconventional choice of having 0.1 as our lower bound is because the matric SMAPE
 is vulnerable to zero values, as described in \Cref{eq:sMape}.
 
 However, during experimentation and testing, it was found that scaling with standardization
 outperformed the predictions made with a normalization scaling.
-Both methods were explored, but at last standardization was selected as the scaling method.
+Both methods were explored, but at last, standardization was selected as the scaling method.
 
 
 
 \iffalse
-  Standardization was chosen over normalization because experiments showed better perfomance with
+  Standardization was chosen over normalization because experiments showed better performance with
   standardization.
 
-  For the neural net models we scale using normalization for the ranges to be in the range [0.1, 1].
+  For the neural net models, we scale using normalization for the ranges to be in the range [0.1, 1].
   The unconventional choise of having 0.1 as our lower bound is becuase the matric SMAPE
   is vulnerable to zero values, as described in \Cref{eq:sMape}.
 
@@ -188,8 +188,8 @@ We add the feature \textit{season} which is a number between [-1, 1] using \Cref
 \end{figure}
 
 \Cref{fig:season-feature} shows the output of the season feature.
-If the month is close to Christmas (december, januar) this feature will be close to 1.
-If the month is closer to summer (may, june) this feature will be close to -1.
+If the month is close to Christmas (December, January) this feature will be close to 1.
+If the month is closer to summer (May, June) this feature will be close to -1.
 
 In the and all added features are scaled between [0.1, 1] as described above.
 
@@ -198,16 +198,16 @@ In the and all added features are scaled between [0.1, 1] as described above.
 \label{section:Data:Preprocessing:moving-window-approach}
 When creating the datasets, we apply the same moving window approach as applied by \cite{Bandara2019} and \cite{Hewamalage2021}.
 This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
-In other words we transform the problem into a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
+In other words, we transform the problem into a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
 
 Given a time series $X_i = \{x_1, ..., x_K\} \in \mathbb{R}^K$ of length $K$ a mowing
 window algorithm will convert the time series $X_i$ into $K-n-m$ number of patches,
 where each patch has the size of $m+n$, and $n$ is the size of the input window,
 and $m$ is the size of the output window.
 
-This thesis will primarily work with an output windows $m$ for size 7.
+This thesis will primarily work with output window $m$ for size 7.
 This is because it is safe to assume that the E-commerce domain consists of weekly patterns.
-7 days is short enough that we should be able accurately to forecast something meaningful,
+7 days is short enough that we should be able accurately to forecast something meaningful
 but long enough to have some commercial value.
 
 \cite{Hewamalage2021} suggests setting the input window size $n$ to be slightly
@@ -228,13 +228,11 @@ period, by setting $m = 10$.
 \subsection{Modeling Trend and Seasonality}
 \label{section:Data:Preprocessing:trend-and-seasonality}
 
-\todo[inline]{This reads a lot like a section from Related Work. Should it be moved?}
-
-The literature is conflicting when it comes to NNs capability to
+The literature is conflicting when it comes to NN's capability to
 model trends and seasonality. \cite{Sharda1992} work inferred that NNs are
 capable of modeling seasonality accurately.
 However, more recent work suggests that deseasonalisation and
-detrending can boost performance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
+detrending can boost the performance of neural networks [\cite{Zhang2005} \cite{Smyl2020}].
 \cite{Ouyang2021} show that detrending and deseasonalisation using STL decomposition
 will harm machine learning models, but improve statistical models.
 
@@ -302,5 +300,5 @@ The main preprocessing steps was carried out as follows:
 If the model is a global model. Then the same steps described above are executed once
 for each time series, and then the training sets, validation sets, and test sets are concatenated.
 
-The post-processing on the predicted forecasts is just a matter of reversing the local
+The post-processing of the predicted forecasts is just a matter of reversing the local
 normalization to the forecast.
