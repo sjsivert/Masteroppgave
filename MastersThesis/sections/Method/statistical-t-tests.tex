@@ -1,4 +1,22 @@
 
 \section{Statistical T-test}
 \label{section:Method:Statistical-t-test}
-\todo[inline]{Write use of t-test}
+
+% Hva er det vi gjør?
+% Hvordan gjør vi det?
+% Hvorfor gjør vi det?
+
+The t-test is used as a statistical measure of significance in predictions between different predictive models.
+By using the error metric values produced by the predictive models,
+the student t-test is used in order to verify using a null hypothesis
+whether or not the predictions made by two different models are significantly different.
+
+The error value of each time series per dataset is extracted after the experiments are executed.
+These results are then aggregated in lists of error values.
+A list is created per predictive model.
+The lists can then be compared using the t-test \Cref*{section:BT:t-statistic-test},
+testing for a significant difference between two and two lists of error metrics from different models.
+
+The results from the t-test can then be used as a measure to evaluate if two model predictions were made on the same dataset
+is of significant difference.
+
