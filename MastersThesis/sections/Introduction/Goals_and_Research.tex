@@ -12,7 +12,7 @@ The data supplied by "Prisguiden" contains historical data about user activity, 
 We intend to use this data to predict future product and category trends based on the historical data.
 
 \begin{description}
-    \item[Goal]{\it To accuratly predict future product category trends based on historical visitation and click data using a Convolutional Autoencoder with LSTM.}
+  \item[Goal]{\it To accuratly predict future product category trends based on historical visitation and click data using a Convolutional Autoencoder with LSTM.}
 \end{description}
 
 To measure the viability and accuracy of the proposed goal, we need to look into the already proposed methods in this problem space.
@@ -21,18 +21,18 @@ This is required in order to assess whether or not our goal is rendered mute due
 \todo[inline]{These are from the previous thesis. Should they be removed?}
 
 \begin{description}
-    \item[RQ1]{\it What are the existing solutions for predicting future product category trends, or sales trends, based on historical time-series data?}
+  \item[RQ1]{\it What are the existing solutions for predicting future product category trends, or sales trends, based on historical time-series data?}
 \end{description}
 
 \begin{description}
-    \item[RQ2]{\it How does the different solutions found by addressing RQ1 compare to each other?}
+  \item[RQ2]{\it How does the different solutions found by addressing RQ1 compare to each other?}
 \end{description}
 
 \begin{description}
-    \item[RQ3]{\it What is lacking in the current solutions found by addressing RQ1, and how could these be improved upon?}
+  \item[RQ3]{\it What is lacking in the current solutions found by addressing RQ1, and how could these be improved upon?}
 \end{description}
 
-The results of the SLR is required for the reader to understand the context. The literature addressing RQ1, RQ2, and RQ3 has earlier
+The results of the Structured literature review are required for the reader to understand the context. The literature addressing RQ1, RQ2, and RQ3 has earlier
 been submitted and graded as part of the fall project. It is included here for completeness.
 
 % Research questions 1 through 3 are intended to be answered through a literature review of related works.
@@ -42,18 +42,18 @@ been submitted and graded as part of the fall project. It is included here for c
 % Using these baseline methods, we are able to evaluate new methods through comparison with other current state-of-the-art methods.
 
 \begin{description}
-    \label{RQ4}
-    \label{G&R:RQ-LSTM-baseline}
-    \item[RQ4]{\it How will a baseline LSTM compare against SARIMA using MASE and sMAPE as metrics?}
-    \item[RQ4.1]{\it How will a different LSTM model structures affect it's results?
-                Eg a global univariate or a local multivariate model}
+  \label{RQ4}
+  \label{G&R:RQ-LSTM-baseline}
+  \item[RQ4]{\it How will a baseline LSTM compare against SARIMA using MASE and sMAPE as metrics?}
+  \item[RQ4.1]{\it How will a different LSTM model structures affect it's results?
+              Eg a global univariate or a local multivariate model}
 
 \end{description}
 
 \begin{description}
-    \label{G&R:RQ-CNN-AE-LSTM}
-    \item[RQ5]{\it Can a Convolutional Autoencoder and LSTM model achive higher predictive accuracy than current state of the art models?}
-    \label{RQ5}
+  \label{G&R:RQ-CNN-AE-LSTM}
+  \item[RQ5]{\it Can a Convolutional Autoencoder and LSTM model achive higher predictive accuracy than current state of the art models?}
+  \label{RQ5}
 \end{description}
 
 % \begin{description}
@@ -65,16 +65,16 @@ The proposed model is compared to baselines from the current state-of-the-art me
 
 
 \iffalse
-    % TODO: ___ The use of anomalies! ___
+  % TODO: ___ The use of anomalies! ___
 
-    We have aditional research questions defined in notion regarding the comparison between the CNN-AE LSTM and the SARIMA model,
-    but this is essentially covered trough RQ4.
+  We have aditional research questions defined in notion regarding the comparison between the CNN-AE LSTM and the SARIMA model,
+  but this is essentially covered trough RQ4.
 
-    Additionaly, we have a research question focusing on anomaly prediction.
-    Anomalies are going to be dificult to predict with a CNN-AE LSTM as the CNN-AE part of the model is used to reduce the noise,
-    and thus make it easier to predict the overal interest development for products. (Or so we hope!)
+  Additionaly, we have a research question focusing on anomaly prediction.
+  Anomalies are going to be dificult to predict with a CNN-AE LSTM as the CNN-AE part of the model is used to reduce the noise,
+  and thus make it easier to predict the overal interest development for products. (Or so we hope!)
 
-    Regardless of this, the CNN-AE does serve as a powerfull anomaly detector, as the AE is able to predict what a "normal" value should be,
-    thus giving us information regarding weither or not the values are withing this margin.
+  Regardless of this, the CNN-AE does serve as a powerfull anomaly detector, as the AE is able to predict what a "normal" value should be,
+  thus giving us information regarding weither or not the values are withing this margin.
 
 \fi
