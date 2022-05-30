@@ -1,0 +1,34 @@
+
+\section{Criticue}
+The book \cite{Bharadi2021} describes the decoupling of resetting hidden
+states during training of LSTM, and describes the issue of
+needing a fixed batch size. We found countless of internet forum posts
+and some articles that touched on this issue, few good solutions
+to the problem were found.
+
+The litarature seems to give few answers for how they handle hidden state
+resets, if their models are stateful or stateless. And if stateful,
+and how they handle the fixed batch size problem.
+%When working with RNNs and long sequences of time series it is important
+%to be transparent with how resetting of hidden states are done.
+
+\cite{Bandara2017} has the following sentences
+\begin{quotation}
+  "All training patches relevant to a particular time series are read as one
+  sequence. Therefore, the LSTM state needs to be initialized for each
+  series".
+
+\end{quotation}
+This indicates that they are using a stateful LSTM [\Cref{section:BT:stateful-vs-stateless}].
+They are training global models accross multiple time series, but they do not
+describe how or when they are resetting the hidden states.
+If they pass through historic relevant data before predicting
+the test set, or how they handle the equal batch size constraint.
+
+\cite{Hewamalage2021} describes in great detail the different architectures used,
+but they do not explisitly reveal how they handle initializing and reseting
+of hidden states.
+
+We found one papers wich explisitly names reseting hidden states
+as a tool \cite{Smyl2020}, but explenation of how this was done.
+
