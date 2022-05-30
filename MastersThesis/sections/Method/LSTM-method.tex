@@ -208,10 +208,11 @@ the test set. In MAS-396 we used the exact same setup, but with resetting states
 before the test set. MAS-396 achieved a MAS score of $1.67$.
 
 \textbf{Global models}
+
 For global models, we followed the concept presented by \cite{Smyl2020},
 with global weights, but local states.
 
-As described in [TODO: WHere we describe the pipeline behind the global models]
+As described in \Cref*{section:method:experiment-framework}
 we concatenate multiple time series after one another during the training of a global model.
 This means we have to reset the hidden state during the training of a global model
 or else we will give our model a false sense of dependencies between
