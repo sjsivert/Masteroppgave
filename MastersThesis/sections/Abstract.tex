@@ -23,12 +23,9 @@ Additionally, a SARIMA model is used as a predictive baseline for forecasting.
 
 The experiment results show that for the application of the e-commerce data from ``Prisguiden.no'',
 the local multivariate LSTM model is the most accurate.
-The use of the CNN-AE-LSTM model was explored in comparison with the LSTM model,
-showing the model's dependence on the characteristics defining the dataset on which the model is applied.
-The model achieves poor performance on data with low levels of noise in the data.
-However, predictions made on data with high levels of noise, the CNN-AE-LSTM model achieves
-improvements in predictive performance compared to the LSTM model.
-
+The results indicate that the CNN-AE-LSTM performance is conditionally dependent on datasets with high levels of noise in order to outperform the LSTM.
+The model achieves a small performance increase on datasets with high noise, but predictions will suffer
+on data with low levels of noise.
 
 The CNN-AE-LSTM model is not well suited for applications with the use of product category trend data from ``Prisguiden.no'',
 while the local multivariate LSTM is the model best suited for such predictions.
