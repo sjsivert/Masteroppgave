@@ -4,11 +4,12 @@
 The complete dataset supplied by "Prisguiden.no" contains over 1300 unique product categories.
 To achieve product trend predictions of categories the dataset is split into smaller subsets of data to be analyzed.
 These datasets create the basis for the experiments to be conducted.
-Initially, 4 datasets were selected, each with its properties and connectivity.
+Initially, 3 datasets were selected, each with its properties and connectivity.
 The first two datasets are created based on correlation.
 The first dataset is defined with 20 highly correlating categories.
 Dataset 2 is comprised of 20 categories with very little correlation among them.
-This is done to evaluate the machine learning methods on whether or not predictions can be improved using correlating data.
+This is done to evaluate if a global model will improve
+predictions when trained across related time series.
 
 Dataset 3 contains 8 categories picked by domain experts at Priguiden.no, and it contains highly seasonal data with high extreme values.
 %Lastly, dataset 4 is comprised of a set of completely random categories.
@@ -62,27 +63,27 @@ The selected categories are:
   \caption{Selected categories comprising dataset 1 - Correlating categories}
   \label{table:dataset1}
   \begin{tabular}{|c|l|}\hline
-    Category ID & Name(Norwegian) \\ \hline
-    2           & Bærbar PC    \\ \hline
-    6           & Digitalkamera     \\ \hline
-    9           & Harddisk og SSD      \\ \hline
-    10          & Hovedkort     \\ \hline
-    11          & PC-høytaler     \\ \hline
-    13          & Kabinett     \\ \hline
-    20          & MP3-Spiller      \\ \hline
-    22          & Mus      \\ \hline
-    24          & Objektir     \\ \hline
-    26          & Prosjektor      \\ \hline
-    27          & Minne (RAM)      \\ \hline
-    28          & Skanner   \\ \hline
-    29          & PC-skjerm    \\ \hline
-    32          & Spill      \\ \hline
-    33          & Tastatur     \\ \hline
-    34          & Videokamera     \\ \hline
-    39          & Diverse spillutstyr     \\ \hline
-    41          & Programvare     \\ \hline
-    51          & Hodetelefoner    \\ \hline
-    54          & Systemkamera     \\ \hline
+    Category ID & Name(Norwegian)     \\ \hline
+    2           & Bærbar PC           \\ \hline
+    6           & Digitalkamera       \\ \hline
+    9           & Harddisk og SSD     \\ \hline
+    10          & Hovedkort           \\ \hline
+    11          & PC-høytaler         \\ \hline
+    13          & Kabinett            \\ \hline
+    20          & MP3-Spiller         \\ \hline
+    22          & Mus                 \\ \hline
+    24          & Objektir            \\ \hline
+    26          & Prosjektor          \\ \hline
+    27          & Minne (RAM)         \\ \hline
+    28          & Skanner             \\ \hline
+    29          & PC-skjerm           \\ \hline
+    32          & Spill               \\ \hline
+    33          & Tastatur            \\ \hline
+    34          & Videokamera         \\ \hline
+    39          & Diverse spillutstyr \\ \hline
+    41          & Programvare         \\ \hline
+    51          & Hodetelefoner       \\ \hline
+    54          & Systemkamera        \\ \hline
   \end{tabular}
 \end{table}
 
@@ -122,27 +123,27 @@ The selected categories are:
   \caption{Selected categories comprising dataset 2 - Non- correlating categories}
   \label{table:dataset2}
   \begin{tabular}{|c|l|}\hline
-    Category ID & Name(Norwegian)  \\ \hline
-    12532       & Hodetelefoner    \\ \hline
-    11694       & Diverse måleapparater    \\ \hline
-    11716       & Bærplukker     \\ \hline
-    11950       & Garasjetelt    \\ \hline
-    11988       & Aircondition   \\ \hline
-    11998       & Hjertestarter   \\ \hline
-    274         & Bord- og gulvvifte    \\ \hline
-    11407       & Vinterlek     \\ \hline
-    46          & Mobilkamera og tilbehør     \\ \hline
-    11326       & Myggjager og myggfelle   \\ \hline
-    11335       & Komfyrvakt   \\ \hline
-    12197       & Mosefjerner og plenlufter       \\ \hline
-    11693       & Febertermometer      \\ \hline
-    11780       & Skredutstyr      \\ \hline
-    12502       & Stikk og bitt     \\ \hline
-    11866       & Klister     \\ \hline
-    11400       & Truger    \\ \hline
-    12256       & Terrassebord     \\ \hline
-    10320       & Skøyter     \\ \hline
-    10030       & Digitale bilderammer     \\ \hline
+    Category ID & Name(Norwegian)           \\ \hline
+    12532       & Hodetelefoner             \\ \hline
+    11694       & Diverse måleapparater     \\ \hline
+    11716       & Bærplukker                \\ \hline
+    11950       & Garasjetelt               \\ \hline
+    11988       & Aircondition              \\ \hline
+    11998       & Hjertestarter             \\ \hline
+    274         & Bord- og gulvvifte        \\ \hline
+    11407       & Vinterlek                 \\ \hline
+    46          & Mobilkamera og tilbehør   \\ \hline
+    11326       & Myggjager og myggfelle    \\ \hline
+    11335       & Komfyrvakt                \\ \hline
+    12197       & Mosefjerner og plenlufter \\ \hline
+    11693       & Febertermometer           \\ \hline
+    11780       & Skredutstyr               \\ \hline
+    12502       & Stikk og bitt             \\ \hline
+    11866       & Klister                   \\ \hline
+    11400       & Truger                    \\ \hline
+    12256       & Terrassebord              \\ \hline
+    10320       & Skøyter                   \\ \hline
+    10030       & Digitale bilderammer      \\ \hline
   \end{tabular}
 \end{table}
 
@@ -167,15 +168,15 @@ A list of the time-series contained in dataset 3 can be found in \Cref{table:dat
   \caption{Selected categories comprising dataset 3}
   \label{table:dataset3}
   \begin{tabular}{|c|l|}\hline
-    Category ID & Name(Norwegian)  \\ \hline
-    \textbf{12322  } & Vinterjakke      \\ \hline
-    \textbf{11428  } & Vintersko      \\ \hline
-    \textbf{11850  } & Langrennski      \\ \hline
-    \textbf{11852  } & Skisko     \\ \hline
-    \textbf{273    } & Varmeovn     \\ \hline
-    \textbf{11036  } & Snøfreser     \\ \hline
-    \textbf{11213  } & Snøskuffe     \\ \hline
-    \textbf{12532  } & Varmepumpe     \\ \hline
+    Category ID      & Name(Norwegian) \\ \hline
+    \textbf{12322  } & Vinterjakke     \\ \hline
+    \textbf{11428  } & Vintersko       \\ \hline
+    \textbf{11850  } & Langrennski     \\ \hline
+    \textbf{11852  } & Skisko          \\ \hline
+    \textbf{273    } & Varmeovn        \\ \hline
+    \textbf{11036  } & Snøfreser       \\ \hline
+    \textbf{11213  } & Snøskuffe       \\ \hline
+    \textbf{12532  } & Varmepumpe      \\ \hline
   \end{tabular}
 \end{table}
 
