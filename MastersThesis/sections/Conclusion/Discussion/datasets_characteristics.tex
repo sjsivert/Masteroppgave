@@ -23,16 +23,15 @@ of $0.93$. There is also a relatively strong correlation between the 1-day MASE 
 from the local univariate LSTM method and the time series autocorrelation.
 
 \begin{table}[htbp]
-  \begin{center}
-    \begin{tabular}{|c|c|c|}\hline\hline
-      Dataset & Mean Autocorrelation & Autocorrelation correlation with MASE \\\hline
-      1       & 0.753                & 0.229                                 \\\hline
-      2       & 0.775                & 0.295                                 \\\hline
-      3       & 0.930                & 0.304                                 \\\hline
-    \end{tabular}
-    \caption{Mean autocorrelation and the correlation of the MASE results from Local Univariate LSTM and the autocorrelation.}
-  \end{center}
+  \caption{Mean autocorrelation and the correlation of the MASE results from Local Univariate LSTM and the autocorrelation.}
+  \centering
   \label{tab:datasets-autocorrelation}
+  \begin{tabular}{|c|c|c|}\hline\hline
+    Dataset & Mean Autocorrelation & Autocorrelation correlation with MASE \\\hline
+    1       & 0.753                & 0.229                                 \\\hline
+    2       & 0.775                & 0.295                                 \\\hline
+    3       & 0.930                & 0.304                                 \\\hline
+  \end{tabular}
 \end{table}%
 
 \todo[inline]{Fetch autocorrelation for the different datasets and check our guesses.}
