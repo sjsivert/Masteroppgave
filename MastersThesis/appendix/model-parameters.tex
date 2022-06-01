@@ -1,0 +1,177 @@
+\section{Model parameters}
+\label{appendix:Model-Parameters}
+
+
+\subsection{SARIMA model}
+
+\begin{table}[h]
+  \centering
+  \caption{Auro-Arima parameters}
+  \label{table:auto-arima-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter              & value   \\ \hline
+    \hline
+    start\_p               & 1       \\ \hline
+    d                      & 1       \\ \hline
+    start\_q               & 1       \\ \hline
+    max\_p                 & 7       \\ \hline
+    max\_d                 & 7       \\ \hline
+    max\_q                 & 7       \\ \hline
+    start\_P               & 0       \\ \hline
+    D                      & None    \\ \hline
+    start\_Q               & 0       \\ \hline
+    max\_P                 & 5       \\ \hline
+    max\_D                 & 5       \\ \hline
+    max\_Q                 & 5       \\ \hline
+    max\_order             & 5       \\ \hline
+    m                      & 12      \\ \hline
+    seasonal               & True    \\ \hline
+    stationary             & False   \\ \hline
+    information\_criterion & 'bic'   \\ \hline
+    alpha                  & 0.05    \\ \hline
+    test                   & 'kpss'  \\ \hline
+    seasonal\_test         & 'ocsb'  \\ \hline
+    stepwise               & True    \\ \hline
+    n\_jobs                & 1       \\ \hline
+    start\_params          & None    \\ \hline
+    trend                  & None    \\ \hline
+    method                 & 'lbfgs' \\ \hline
+    maxiter                & 50      \\ \hline
+    offset\_test\_args     & None    \\ \hline
+    seasonal\_test\_args   & None    \\ \hline
+    suppress\_warnings     & True    \\ \hline
+    error\_action          & 'warn' \\ \hline
+    trace                  & True   \\ \hline
+    random                 & False   \\ \hline
+    random\_state          & 40    \\ \hline
+    n\_fits                & 50      \\ \hline
+    return\_valid\_fits    & False   \\ \hline
+    out\_of\_sample\_size  & 0       \\ \hline
+    scoring                & 'mae'   \\ \hline
+    scoring\_args          & None    \\ \hline
+    with\_intercept        & 'auto'  \\ \hline
+    sarimax\_kwargs        & None    \\ \hline
+  \end{tabular}
+\end{table}
+
+
+\subsection{LSTM}
+
+\begin{table}[h]
+  \centering
+  \caption{LSTM cell parameters. Values with a T value was tuned}
+  \label{table:LSTM-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter              & value             \\ \hline
+    \hline
+    units,                 & T                 \\
+    activation             & "tanh"            \\
+    recurrent\_activation  & "sigmoid"         \\
+    use\_bias              & True              \\
+    kernel\_initializer    & "glorot\_uniform" \\
+    recurrent\_initializer & "orthogonal"      \\
+    bias\_initializer      & "zeros"           \\
+    unit\_forget\_bias     & True              \\
+    kernel\_regularizer    & None              \\
+    recurrent\_regularizer & None              \\
+    bias\_regularizer      & None              \\
+    activity\_regularizer  & None              \\
+    kernel\_constraint     & None              \\
+    recurrent\_constraint  & None              \\
+    bias\_constraint       & None              \\
+    dropout                & T                 \\
+    recurrent\_dropout     & T                 \\
+    return\_sequences      & False             \\
+    return\_state          & False             \\
+    go\_backwards          & False             \\
+    stateful               & True              \\
+    time\_major            & False             \\
+    unroll                 & False             \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{LSTM dense parameters}
+  \label{table:LSTM-dense-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter             & value                \\ \hline
+    \hline
+    units                 & outout\_window\_size \\
+    activation            & None                 \\
+    use\_bias             & True                 \\
+    kernel\_initializer   & "glorot\_uniform"    \\
+    bias\_initializer     & "zeros"              \\
+    kernel\_regularizer   & None                 \\
+    bias\_regularizer     & None                 \\
+    activity\_regularizer & None                 \\
+    kernel\_constraint    & None                 \\
+    bias\_constraint      & None                 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+
+
+
+\subsection{Autoencoder}
+
+\begin{table}[h]
+  \centering
+  \caption{Conv1d cell parameters}
+  \label{table:Conv1d-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter             & value             \\ \hline
+    \hline
+    filters               & 16, 32            \\ \hline
+    kernel\_size          & 3, 5              \\ \hline
+    strides               & 1                 \\ \hline
+    padding               & "valid"           \\ \hline
+    data\_format          & "channels\_last"  \\ \hline
+    dilation\_rate        & 1                 \\ \hline
+    groups                & 1                 \\ \hline
+    activation            & "relu"            \\ \hline
+    use\_bias             & True              \\ \hline
+    kernel\_initializer   & "glorot\_uniform" \\ \hline
+    bias\_initializer     & "zeros"           \\ \hline
+    kernel\_regularizer   & None              \\ \hline
+    bias\_regularizer     & None              \\ \hline
+    activity\_regularizer & None              \\ \hline
+    kernel\_constraint    & None              \\ \hline
+    bias\_constraint      & None              \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+  \centering
+  \caption{Conv1DTranspose cell parameters}
+  \label{table:conv1dtranspose-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter             & value                    \\ \hline
+    \hline
+    filters               & 32, number\_of\_features \\ \hline
+    kernel\_size          & 5, 3                     \\ \hline
+    strides               & 1                        \\ \hline
+    padding               & "valid"                  \\ \hline
+    data\_format          & "channels\_last"         \\ \hline
+    dilation\_rate        & 1                        \\ \hline
+    groups                & 1                        \\ \hline
+    activation            & "relu", None             \\ \hline
+    use\_bias             & True                     \\ \hline
+    kernel\_initializer   & "glorot\_uniform"        \\ \hline
+    bias\_initializer     & "zeros"                  \\ \hline
+    kernel\_regularizer   & None                     \\ \hline
+    bias\_regularizer     & None                     \\ \hline
+    activity\_regularizer & None                     \\ \hline
+    kernel\_constraint    & None                     \\ \hline
+    bias\_constraint      & None                     \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
+
+
+

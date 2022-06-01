@@ -20,62 +20,9 @@
 The LSTM consists of stacked layers of LSTM cells followed by a
 dense layer with the same output size as our forecast horizon.
 The parameters used for the LSTM cells are listed in \Cref{table:LSTM-cell-parameters}
-and the parameters used in the dense layer are listed in \Cref{table:LSTM-dense-cell-parameters}.
+and the parameters used in the dense layer are listed in \Cref{table:LSTM-dense-cell-parameters}, both found in the appendix \Cref{appendix:Model-Parameters}.
 
-\begin{table}[h]
-  \centering
-  \caption{LSTM cell parameters. Values with a T value was tuned}
-  \label{table:LSTM-cell-parameters}
-  \begin{tabular}{|l|l|}\hline
-    Parameter              & value             \\ \hline
-    \hline
-    units,                 & T                 \\
-    activation             & "tanh"            \\
-    recurrent\_activation  & "sigmoid"         \\
-    use\_bias              & True              \\
-    kernel\_initializer    & "glorot\_uniform" \\
-    recurrent\_initializer & "orthogonal"      \\
-    bias\_initializer      & "zeros"           \\
-    unit\_forget\_bias     & True              \\
-    kernel\_regularizer    & None              \\
-    recurrent\_regularizer & None              \\
-    bias\_regularizer      & None              \\
-    activity\_regularizer  & None              \\
-    kernel\_constraint     & None              \\
-    recurrent\_constraint  & None              \\
-    bias\_constraint       & None              \\
-    dropout                & T                 \\
-    recurrent\_dropout     & T                 \\
-    return\_sequences      & False             \\
-    return\_state          & False             \\
-    go\_backwards          & False             \\
-    stateful               & True              \\
-    time\_major            & False             \\
-    unroll                 & False             \\
-    \hline
-  \end{tabular}
-\end{table}
 
-\begin{table}[h]
-  \centering
-  \caption{LSTM dense parameters}
-  \label{table:LSTM-dense-cell-parameters}
-  \begin{tabular}{|l|l|}\hline
-    Parameter             & value                \\ \hline
-    \hline
-    units                 & outout\_window\_size \\
-    activation            & None                 \\
-    use\_bias             & True                 \\
-    kernel\_initializer   & "glorot\_uniform"    \\
-    bias\_initializer     & "zeros"              \\
-    kernel\_regularizer   & None                 \\
-    bias\_regularizer     & None                 \\
-    activity\_regularizer & None                 \\
-    kernel\_constraint    & None                 \\
-    bias\_constraint      & None                 \\
-    \hline
-  \end{tabular}
-\end{table}
 
 \subsubsection{LSTM Tuning}
 The hyperparameters of the LSTM are tuned with the Optuna Python package

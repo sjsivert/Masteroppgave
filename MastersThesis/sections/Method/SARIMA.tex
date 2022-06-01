@@ -1,4 +1,3 @@
-% TODO: Add reference to the goals pressented in the introduction, and evaluate if the experiments here is used to ansewer some of the research questions 
 
 \section{SARIMA baseline}
 \label{section:Method:SARIMA}
@@ -11,63 +10,24 @@ Due to the inherent seasonal component present in the e-commerce data available 
 the seasonal SARIMA model is selected in favor of the non-seasonal ARIMA model.
 
 The SARIMA parameter values are shown in the appendix in table \Cref{table:auto-arima-parameters}.
-\todo[inline]{Sander: Se over verdier? + putte i appendix?}
-\begin{table}[h]
-  \centering
-  \caption{Auro-Arima parameters}
-  \label{table:auto-arima-parameters}
-  \begin{tabular}{|l|l|}\hline
-    Parameter              & value   \\ \hline
-    \hline
-    start\_p               & 1       \\ \hline
-    d                      & 1       \\ \hline
-    start\_q               & 1       \\ \hline
-    max\_p                 & 7       \\ \hline
-    max\_d                 & 7       \\ \hline
-    max\_q                 & 7       \\ \hline
-    start\_P               & 0       \\ \hline
-    D                      & None    \\ \hline
-    start\_Q               & 0       \\ \hline
-    max\_P                 & 5       \\ \hline
-    max\_D                 & 5       \\ \hline
-    max\_Q                 & 5       \\ \hline
-    max\_order             & 5       \\ \hline
-    m                      & 12      \\ \hline
-    seasonal               & True    \\ \hline
-    stationary             & False   \\ \hline
-    information\_criterion & 'aic'   \\ \hline
-    alpha                  & 0.05    \\ \hline
-    test                   & 'kpss'  \\ \hline
-    seasonal\_test         & 'ocsb'  \\ \hline
-    stepwise               & True    \\ \hline
-    n\_jobs                & 1       \\ \hline
-    start\_params          & None    \\ \hline
-    trend                  & None    \\ \hline
-    method                 & 'lbfgs' \\ \hline
-    maxiter                & 50      \\ \hline
-    offset\_test\_args     & None    \\ \hline
-    seasonal\_test\_args   & None    \\ \hline
-    suppress\_warnings     & True    \\ \hline
-    error\_action          & 'trace' \\ \hline
-    trace                  & False   \\ \hline
-    random                 & False   \\ \hline
-    random\_state          & None    \\ \hline
-    n\_fits                & 10      \\ \hline
-    return\_valid\_fits    & False   \\ \hline
-    out\_of\_sample\_size  & 0       \\ \hline
-    scoring                & 'mse'   \\ \hline
-    scoring\_args          & None    \\ \hline
-    with\_intercept        & 'auto'  \\ \hline
-    sarimax\_kwargs        & None    \\ \hline
-  \end{tabular}
-\end{table}
 
-\subsection{SARIMA Data preprocessing}
-TODO: Write about what was done to with the data before SARIMA...
-The SARIMA
+% --- No preprocessing was done for SARIMA
+%\subsection{SARIMA Data preprocessing}
+% Write about what was done to with the data before SARIMA...
+%The SARIMA
+
 \subsubsection{SARIMA Train, Test splitting}
-TODO: Write how the data was splitted with SARIMA
-The SARIMA
+Using the auto-arima method supplied by the pmdarima python library,
+there was no need for splitting training data into a training set and validation set.
+The auto-arima method requires only the input of one training set.
+
+However, the creation of a test set is required.
+After the models are created and tuned, they are used to make predictions,
+which is then compared to the test set.
+The test set is then used to measure the predictive error and accuracy of the models.
+
+
+
 
 \subsection{SARIMA Tuning}
 Model tuning of the SARIMA model is done with the auto-arima framework.
@@ -93,7 +53,13 @@ The parameter search space used during the tuning is defined in \Cref{table:meth
   \end{tabular}
 \end{table}
 
-\todo[inline]{Why was these tuning parameter ranges chosen?}
+
+Through testing of the SARIMA model, the parameter range of 0 to 7 for values p,q, and d was found.
+The same is the case for the P, D, and Q values with the range from 0 to 5.
+In order to counteract the likelihood of creating a highly overfitted model,
+the values were limited to a range of 7 and 5 due to results from testing the models.
+
+The seasonal component S is selected to be 12, assuming a monthly seasonality.
 
 
 
