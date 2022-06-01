@@ -218,7 +218,8 @@ In the and all added features are scaled between [0.1, 1] as described above.
 \label{section:Data:Preprocessing:moving-window-approach}
 When creating the datasets, we apply the same moving window approach as applied by \cite{Bandara2019} and \cite{Hewamalage2021}.
 This strategy transforms a time series $X_i$ into pairs of $<input, output>$ patches.
-In other words, we transform the problem into a supervised learning problem [\Cref{fig:dataset:moving_window_scheme}].
+In other words, we transform the problem into a supervised learning problem.
+  [\Cref{fig:dataset:moving_window_scheme}] show an illustration of the moving window approach.
 
 Given a time series $X_i = \{x_1, ..., x_K\} \in \mathbb{R}^K$ of length $K$ a mowing
 window algorithm will convert the time series $X_i$ into $K-n-m$ number of patches,
