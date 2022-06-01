@@ -99,30 +99,15 @@ The first one is the ``config.yaml'' file.
 This contains information that is shared among all of the different experiments,
 such as the selected data files, random seeds, logged error metrics etc.
 Secondly, a separate configuration file contains the information more relevant to the specific experiment.
-These configuration files are contained within the ``config'' folder
-and contain information such as the selected predictive model for the experiment,
+These configuration files contain information such as
+the selected predictive model for the experiment,
 as well as the model hyperparameters and tuning parameters.
 
 During runtime, the two configuration files are merged, adding the information from the model configuration to the more general experiment configuration.
-The config is parsed through at runtime reading the needed information when it becomes relevant.
-An example of config is in the appendix at \Cref{cha:experiment-framework-example-config}, but is also available with the project source code.
+The config is parsed through at runtime, accessing the needed information when it becomes relevant.
+A config example is available in the appendix at \Cref{cha:experiment-framework-example-config}.
+Configs are also available in the source code.
 
-
-% Old text
-\iffalse
-  The configuration module is to keep everything which is configurable and relevant
-  for the experiment in one place. This helps keeping code changes down to a minumum,
-  and it's easy to go back in time and check details of a ran experiment at a glans.
-
-  The experiment pipeline contains multiple paramteres that can be adjusted and configured to alter the experiments.
-  Configuration is done through the use of the ``config.yaml'' file defined in the project source code.
-  This config file is used to configure the different aspects of the projects to be run.
-  Ranging from the selected dataset and data files to be used, to the selected model and model structure, with model parameters and random seed.
-
-  The config is parsed through at runtime reading the needed information when it becomes relevant.
-  The file can be found in the source code at ``./config.yaml''.
-  An example of a config is in the appendix at \Cref{cha:experiment-framework-example-config}.
-\fi
 
 
 
