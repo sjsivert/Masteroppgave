@@ -185,8 +185,8 @@ ended up setting batch size 32 for all experiments.
 
 \subsubsection{Reset states}
 \label{section:Method:lstm-reset-hidden-states}
-Since  the hidden states are never reset automatically in Keras stateful LSTM
-we had to do it ourselves.
+Since  the hidden states are never reset automatically in Keras stateful LSTM models.
+Therefore, we had to do it ourselves.
 
 \textbf{Local models}
 
@@ -223,19 +223,20 @@ the independent time series.
 
 %Our fix to this solution is not perfect, and might be an area worth critique.
 As described in \Cref{section:Method:stateful-lstm-and-hidden-states} all
-batches had to be the same size. Our time series were concatenated one after
-each other into one large time series.
-Our fix was to pass in a lambda callback to Keras which ran after each batch.
-We counted how many batches it would need to fit each time series.
-We counted how many batches it had run. When the number of batches ran equals
-the number of batches in a time series we reset the hidden state.
-One flaw, however, is that since it is possible for one batch to
-contain two time series, it might not reset the hidden state at the exact
+batches had to be of equal size. Our time series were concatenated one after
+another into one large time series.
+Our solution was to pass in a lambda callback to Keras which ran after each batch.
+The number of batched needed to fit each time series was counted.
+We then counted how many batches it had executed.
+When the number of batches executed equals the number of batches in a time series we reset the hidden state.
+However, this created a flaw in experiments with more than one time series.
+Hidden states might not reset at the exact
 right time, but in the worst-case scenario, a $batch\_size - 1$ number of
-samples is too late. Still, this technique did prove to be successful.
+samples too late.
+Still, this technique did prove to be successful.
 Neptun experiment \textit{MAS-491} achieved a MASE metric of \textbf{19.61}
 without resetting states during training.
-Neptum experiment \textit{MAS-492} achieved a MASE metric of \textbf{2.36}.
+Neptune experiment \textit{MAS-492} achieved a MASE metric of \textbf{2.36}.
 
 Below is a simplified pseudo code for the algorithm which resets hidden states
 during training.
