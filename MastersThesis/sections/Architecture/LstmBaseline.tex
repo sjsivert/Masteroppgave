@@ -6,13 +6,13 @@ The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state 
 Comparing new models against the current state-of-the-art models serves as a good measure for weither or not the new models is usefull.
 
 \subsection{Global and local methods}
-Unline the ARIMA and SARIMA models serving as the first baseline,
+Unlike the SARIMA model serving as the initial baseline,
 the LSTM model is able to work both as a local and a global methods.
 
-First a local model is created. This can be directly compared agains the ARIMA model described in the previous section.
-This model only use one time series as data for training, validation and testing, similar to the ARIMA model.
+First a local model is created. This can be directly compared agains the SARIMA model described in the previous section.
+This model only use one time series as data for training, validation and testing, similar to the SARIMA model.
 
-However, the LSTM model differs vastly from the ARIMA model in that it is able to be used as a global model.
+However, the LSTM model differs vastly from the SARIMA model in that it is able to be used as a global model.
 Unlike the local method using only one time series for training and testing,
 a global model is able to use multiple time series.
 Using a set of time-series both for training, validation and testing,
