@@ -21,13 +21,14 @@ We use MASE with 1-day naive forecast, as well as MASE with a 7-day
 naive forecast. This is because the 1-day naive forecast is a regular metric used
 and can give a good impression of how the model performs.
 However, a 7-day naive forecast will more closely represent a real-world application measure,
-in reality, we do not have the information available to make a MASE measurement for a 7-day prediction.
+because if a model gets a score higher than $1$, it means that it has no real world application,
+and it's better to use the previous week as a forecast for the next week.
 
 A problem with MASE is that if a time series follows a random walk
 then the best forecast will always be the naive forecast. MASE is therefore dependent on
 how good the naive prediction is.
-Therefore we also include sMASE as a metric.
-sMASE will give a better impression of how well our predicted forecasts fit the target values,
+Therefore we also include sMAPE as a metric.
+sMAPE will give a better impression of how well our predicted forecasts fit the target values,
 independently of the naive forecast.
 In the chosen datasets zero values rarely occur so we can use sMAPE without
 being afraid of division by zero [\Cref{section:BT:Loss}].
