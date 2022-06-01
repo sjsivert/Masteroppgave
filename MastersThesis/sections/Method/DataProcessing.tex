@@ -83,6 +83,12 @@ one batch size $V=batch\_size$. So during tuning, the size of the training data 
 $T = L - (V + T)$. During testing the validation set $V$ is re-added to the training set,
 making the training set $T = L - T$.
 
+The exact time procedure is done when training global models across multiple time series.
+The train-val-test-split process is repeated for each time series in the set, and then the
+training data for the different time series are concatenated into one long training sequence.
+The same is done to the validation data and test data respectively.
+\Cref{fig:global-time-series} show how time series are concatenated.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{./figs/illustrations/illustration_global_time_series.png}
