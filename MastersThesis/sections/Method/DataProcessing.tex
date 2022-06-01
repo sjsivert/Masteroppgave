@@ -27,17 +27,22 @@ Thus, the models will be trained on all available data, excluding only the selec
 We did however make some modifications to the approach presented by \cite{Hewamalage2021}.
 Initially, the complete dataset is available.
 A test set, consisting of the last $m$ points of the sequence, is then manually split from the complete dataset.
-After this, the training set is used to define both the used training set and the validation set.
+After this, the training set is split again to define both the used training set and the validation set.
 For the SARIMA method, a validation split is not needed.
 However, the use of an LSTM, specifically a stateful LSTM, causes restrictions to the creation of the validation set.
 Due to the use of stateful LSTM modules, the validation set has to be the same batch size as the training set.
 This, in turn, means that using a validation set equal to the forecasting window $m$ would limit the available batch size for the model
 used on the training set.
+
+Using a validation set equal to one forecasting window, also means that if the model is only trained on one-time series, the validation
+set would have exactly one sample in it. This might not be problematic if the time series is homogeneous, but if the pattern in a time s
+series varies it can, because the one validation sample might not be representable for the whole series.
+
 \cite{Bandara2019} would always train their models on multiple time series,
 which meant that their validation set would be $validation\_size = m * number\_of\_series$.
-In contrast, we would also train models on a single time series at a time.
-In this case, the validation set size would be equal to one forecasting window.
-During development and testing, it was found that a validation set size of only one forecasting window is exceedingly small.
+% In contrast, we would also train models on a single time series at a time.
+% In this case, the validation set size would be equal to one forecasting window.
+During development and testing, it was found that a validation set size of only one forecasting window is exceedingly small, in our case.
 Tuning on validation error would be severely limited and would produce models with less optimal hyperparameters.
 
 As a result of these findings, we selected a batch size for the training set beforehand, then
@@ -45,7 +50,7 @@ used the chosen batch size as a validation set size.
 
 This, however, means that we are not able to conduct a hyperparameter search for an optimal batch size
 because that would change the validation set as well.
-When we tried this, the model would almost always prefer the smallest possible batch size because that meant
+When we tried to tune the batch size with a variable validation set, the model would almost always prefer the smallest possible batch size because that meant
 it would get a small validation set, which also reduced the number of possible errors it could make.
 
 When tuning the models, the validation set is actively used as a measurement of the predictive ability of the model.
