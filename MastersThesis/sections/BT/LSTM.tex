@@ -10,6 +10,7 @@ This connection works as a short-term memory for the recurrent layers, saving in
 In the basic RNN, these memory cells retain minimal information, saving data only from the previous instance.
 As the RNN memory cell is defined by the newest data introduced to the cell, previous information is encoded only in its effect on that data.
 Due to this, information is not stored for long in these memory cells, only retaining short-term memory data.
+The RNN memory cell is illustrated in \Cref*{fig:rnn-cell}.
 
 The RNN is able to process data of arbitrary length, meaning that it is well suited for natural language processing, time-series analysis, and similar problems.
 In addition, the memory retained in the RNN makes it well suited to extract temporal relations in the data.
@@ -37,9 +38,10 @@ The LSTM introduces a new memory cell, adding Long-term memory to the network.
 
 The LSTM memory cells are comprised of two vectors, one for long-term and one for short-term memory,
 as well as an input gate (\Cref{eq:lstm:input_gate}), output gate (\Cref{eq:lstm:output-gate}),
-and a forget gate (\Cref{eq:lstm:forget-gate}). The
+and a forget gate (\Cref{eq:lstm:forget-gate}).
 The forget gate allows for the memory cell to remove unneeded parts of the memory in order to replace it with new data from the input gate.
 The long-term memory retains some of its information while replacing other parts.
+A illustration of the LSTM cell is shown in \Cref*{fig:lstm-memory-cell}.
 
 The long-term memory of the LSTM enables it to solve the RNN problem of vanishing gradients.
 The long-term memory enables the LSTM to store data at arbitrary intervals, as well as to detect long-term dependencies in the data.
@@ -84,15 +86,15 @@ natural language processing, and more
 
 \subsection*{Stateful and stateless LSTMs}
 \label{section:BT:stateful-vs-stateless}
-An LSTM takes three vectors as input. The hidden previous hidden state $H_{t-t}$
+An LSTM takes three vectors as input. The previous hidden state $H_{t-1}$
 which is the short term vector described above, the previous cell state
 $C_{t-1}$ which is the long-term vector, and the input vector $X_t$.
 These are not to be confused with the cells internal weights $W_i$
 which is the weight matrix for the hidden state vector, and $U_i$,
 the weight matrix for the input $X_t$.
 
-During training these weight matrixes are shaped by backpropagation.
-The hidden state and internal state vectors are not touched by backpropagation,
+During training, these weight matrixes are shaped by backpropagation.
+The hidden state and internal state vectors are not touched by backpropagation
 but will constantly be changing during forward passes through the network.
 
 A stateful LSTM refers to an architecture where the hidden state and cell state
