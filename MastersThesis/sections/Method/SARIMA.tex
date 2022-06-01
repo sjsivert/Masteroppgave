@@ -10,7 +10,17 @@ thus limiting the number of experiments that can be run.
 Due to the inherent seasonal component present in the e-commerce data available in this thesis,
 the seasonal SARIMA model is selected in favor of the non-seasonal ARIMA model.
 
-\subsubsection{SARIMA Tuning}
+The SARIMA parameter values are shown in
+\todo[inline]{Add SARIMA parameter values. Same as done in the LSTM method section.}
+
+\subsection{SARIMA Data preprocessing}
+TODO: Write about what was done to with the data before SARIMA...
+The SARIMA
+\subsubsection{SARIMA Train, Test splitting}
+TODO: Write how the data was splitted with SARIMA
+The SARIMA
+
+\subsection{SARIMA Tuning}
 Model tuning of the SARIMA model is done with the auto-arima framework.
 Auto-arima utilizes Bayesian optimization to find a well-suited set of hyperparameters to use,
 within a defined search space for parameters.
@@ -34,173 +44,170 @@ The parameter search space used during the tuning is defined in \Cref{table:meth
   \end{tabular}
 \end{table}
 
+\todo[inline]{Why was these tuning parameter ranges chosen?}
 
 
 
 
+% \iffalse
+%   % --------------------------------------------
+%   % __ Contents __
+%   % What model is used?
+%   % What dataset is used? (Is there a split?)
+%   % Error metrics used and recorded?
+%   % Tuning method used
+%   % Experiments run after tuning
+%   % Expectations from experiments
+%   % Add which resarch questions this answers or helps to answer
+%   % --------------------------------------------
 
 
 
+%   % Model
+%   The first experiments conducted are done in order to create a SARIMA baseline.
+%   The SARIMA model is used to make multi-step predictions that are going to be used as a reference for other models.
 
-\iffalse
-  % --------------------------------------------
-  % __ Contents __
-  % What model is used?
-  % What dataset is used? (Is there a split?)
-  % Error metrics used and recorded?
-  % Tuning method used
-  % Experiments run after tuning
-  % Expectations from experiments
-  % Add which resarch questions this answers or helps to answer
-  % --------------------------------------------
+%   % Dataset
+%   Using the datasets defined in \Cref{section:Data:Dataset} SARIMA models are created.
+%   A model with a connected set of hyperparameters is selected for each of the time series in the 3 datasets used in this thesis.
+%   Due to the inherent seasonality in the e-commerce data, as explored in \Cref{section:Data:DataAnalysis},
+%   the SARIMA model is selected due to the seasonal component.
+%   It is the addition of this seasonal component that warrants the use of the SARIMA model over the simpler ARIMA model.
 
+%   % Error metrics
+%   In order to measure the accuracy of the model's predictions, multiple error metrics are utilized.
+%   Primarily, the measure of MASE is used in order to measure accuracy.
+%   As presented in \Cref{section:BT:Loss}, the MASE metric is used to measure the predictive accuracy
+%   compared to a naive forecast.
+%   However, during tuning of the models the MAE error metric is used, as this is the basis for the MAPE metrics we wish to use as a measure.
+%   Additionally, error metrics such as MSE, SMAPE, and MAPE are used to measure the accuracy of the completed models.
 
+%   % Tuning
+%   \subsection{Tuning Arima}
+%   Model tuning of the SARIMA model is done with the auto-arima framework.
+%   Auto-arima utilizes Bayesian optimization to find a well-suited set of hyperparameters to use,
+%   within a defined search space for parameters.
+%   Using the MAE metric as a measure of performance, auto arima search for a set of parameters for each individual time-series
+%   in the datasets defined in \Cref{section:Data:Dataset}.
+%   The parameter search space used during the tuning is defined in \Cref{table:method:arima-tuning} with the range of parameter values.
 
-  % Model
-  The first experiments conducted are done in order to create a SARIMA baseline.
-  The SARIMA model is used to make multi-step predictions that are going to be used as a reference for other models.
-
-  % Dataset
-  Using the datasets defined in \Cref{section:Data:Dataset} SARIMA models are created.
-  A model with a connected set of hyperparameters is selected for each of the time series in the 3 datasets used in this thesis.
-  Due to the inherent seasonality in the e-commerce data, as explored in \Cref{section:Data:DataAnalysis},
-  the SARIMA model is selected due to the seasonal component.
-  It is the addition of this seasonal component that warrants the use of the SARIMA model over the simpler ARIMA model.
-
-  % Error metrics
-  In order to measure the accuracy of the model's predictions, multiple error metrics are utilized.
-  Primarily, the measure of MASE is used in order to measure accuracy.
-  As presented in \Cref{section:BT:Loss}, the MASE metric is used to measure the predictive accuracy
-  compared to a naive forecast.
-  However, during tuning of the models the MAE error metric is used, as this is the basis for the MAPE metrics we wish to use as a measure.
-  Additionally, error metrics such as MSE, SMAPE, and MAPE are used to measure the accuracy of the completed models.
-
-  % Tuning
-  \subsection{Tuning Arima}
-  Model tuning of the SARIMA model is done with the auto-arima framework.
-  Auto-arima utilizes Bayesian optimization to find a well-suited set of hyperparameters to use,
-  within a defined search space for parameters.
-  Using the MAE metric as a measure of performance, auto arima search for a set of parameters for each individual time-series
-  in the datasets defined in \Cref{section:Data:Dataset}.
-  The parameter search space used during the tuning is defined in \Cref{table:method:arima-tuning} with the range of parameter values.
-
-  \begin{table}[h]
-    \centering
-    \caption{Parameter search space auto-arima, SARIMA tuning}
-    \label{table:method:arima-tuning}
-    \begin{tabular}{|c|l|l|}\hline
-      Parameter & Min & Max \\ \hline
-      p         & 0   & 7   \\ \hline
-      q         & 0   & 7   \\ \hline
-      d         & 0   & 7   \\ \hline
-      P         & 0   & 5   \\ \hline
-      Q         & 0   & 5   \\ \hline
-      D         & 0   & 5   \\ \hline
-      S         & 12  & 12  \\ \hline
-    \end{tabular}
-  \end{table}
+%   \begin{table}[h]
+%     \centering
+%     \caption{Parameter search space auto-arima, SARIMA tuning}
+%     \label{table:method:arima-tuning}
+%     \begin{tabular}{|c|l|l|}\hline
+%       Parameter & Min & Max \\ \hline
+%       p         & 0   & 7   \\ \hline
+%       q         & 0   & 7   \\ \hline
+%       d         & 0   & 7   \\ \hline
+%       P         & 0   & 5   \\ \hline
+%       Q         & 0   & 5   \\ \hline
+%       D         & 0   & 5   \\ \hline
+%       S         & 12  & 12  \\ \hline
+%     \end{tabular}
+%   \end{table}
 
 
-  \subsection{Models}
+%   \subsection{Models}
 
-  After the tuning of each model, the recorded hyperparameters are used to create predictive models for each time series.
-  The models are then trained on the available training data, resulting in a trained model.
-  Each model is then used to make a 7-day prediction forward in time.
-  This 7-day prediction is then compared to the 7-day-ahead test-set used to measure the true predictive ability of the trained models.
-  These predictions are then used in order to measure the predictive error using the defined error metrics above.
+%   After the tuning of each model, the recorded hyperparameters are used to create predictive models for each time series.
+%   The models are then trained on the available training data, resulting in a trained model.
+%   Each model is then used to make a 7-day prediction forward in time.
+%   This 7-day prediction is then compared to the 7-day-ahead test-set used to measure the true predictive ability of the trained models.
+%   These predictions are then used in order to measure the predictive error using the defined error metrics above.
 
 
 
-\fi
+% \fi
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% OLD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%% OLD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iffalse
-  The SARIMA model is a univariate method only supporting predictions made on individual time-series.
-  A model is created for each of the time-series in the datasets defined in \Cref{section:Data:Dataset}.
-  The model is created with the intension of creating 7 day predictions.
-  Predictive accuracy is therefor measured based on the models 7 day predictions.
+% \iffalse
+%   The SARIMA model is a univariate method only supporting predictions made on individual time-series.
+%   A model is created for each of the time-series in the datasets defined in \Cref{section:Data:Dataset}.
+%   The model is created with the intension of creating 7 day predictions.
+%   Predictive accuracy is therefor measured based on the models 7 day predictions.
 
-  Experiments with the ARIMA model is done on each time-series in the datasets introduced in \Cref{section:Data:Dataset}.
-  A number of experiments are therefor ran on each time-series in both \textit{dataset 1} and \textit{dataset 2}.
-
-
-  \iffalse
-    ARIMA models are first tuned on each time-series in order to make predicitons.
-    The hyper-parmeters fond after the tuning is then used in order to created models capable of making predictions.
-    The model attempts to make a 7 day ahead prediction.
-    % TODO: Add more about the 7 day prediction?
-  \fi
-
-  \subsection{Tuning of parameters}
-  Hyper-parmeter tuning for ARIMA is done in two different ways.
-  The first one is through the parameter search method \textit{Grid search},
-  while the second approach used \textit{Bayesian optimization} with the \textit{auto\_arima} framework.
-
-  \subsubsection*{Grid search}
-  Using the parameter tuning method of the grid search, a well-suited ARIMA model is searched for.
-  Grid search is an excessive search method where each parameter composion is tested.
-  Each set of parameters is used to define a model, train it using the training dataset,
-  and then validate it against the validation set.
-  With the goal of making a 7-day prediction, a 7-day forecast is compared to the validation data,
-  so that the 7-day prediction error is measured.
-  The model with the best 7-day prediction resulted in the lowest validation error,
-  is then selected as the best model found after parameter tuning.
-  The prediction error is measured in each of the loss functions \textit{MAE, MSE, MASE and SMAPE}.
-
-  \subsubsection{Auto ARIMA}
-  The second method used for parameter tuning is the Auto ARIMA method from the \textit{pmdarima} python library.
-  %% TODO: Add "pmdarima" reference
-  This method utilizes Bayesian optimization for search in the search space for hyperparameters.
-  Evaluating models using cross-validation and error metrics such as the "MSE",
-  the auto\_arima method finds a well-suited hyperparameter set in a fraction of the time used by the exhaustive grid search.
-
-  \subsection{Trained models}
-  When the models are tuned through Grid search and auto\_arima,
-  the searched hyperparameters are applied to models in order to run predictions.
-  While the tuning trains the ARIMA model on the training data, while validating it on the validation data,
-  it still runs the risk of overfitting the model.
-  The tuning may select a model with such high complexity that while it fits the validation data well,
-  but do not generalize enough to be usable on an unseen test set.
-  The tuned models are therefore trained using both the training data and validation data for training,
-  before it is used to predict the next 7 values coinciding with the test set.
-  The predictive capability of the resulting models serves as a benchmark for the actual prediction
-  of unknown data as it is not possible to tune models on data that have not yet been recorded.
-  Therefore, this is the true measure of the predictive capability of the ARIMA model.
+%   Experiments with the ARIMA model is done on each time-series in the datasets introduced in \Cref{section:Data:Dataset}.
+%   A number of experiments are therefor ran on each time-series in both \textit{dataset 1} and \textit{dataset 2}.
 
 
-  \subsection{Expected results}
+%   \iffalse
+%     ARIMA models are first tuned on each time-series in order to make predicitons.
+%     The hyper-parmeters fond after the tuning is then used in order to created models capable of making predictions.
+%     The model attempts to make a 7 day ahead prediction.
+%     % TODO: Add more about the 7 day prediction?
+%   \fi
 
-  Using the ARIMA model for creating a 7-day multi-step ahead prediction is not expected to yield very good results.
-  The ARIMA model has problems with data where there is high volatility in the data, with a high standard variation.
-  The data available, as described in \Cref{section:Data:DataAnalysis},
-  is highly volatile and thus makes the predictions more difficult for the ARIMA model.
+%   \subsection{Tuning of parameters}
+%   Hyper-parmeter tuning for ARIMA is done in two different ways.
+%   The first one is through the parameter search method \textit{Grid search},
+%   while the second approach used \textit{Bayesian optimization} with the \textit{auto\_arima} framework.
 
-  We expect the model to show the underlying trends in the dataset, but to
-  undershoot its predictions.
-  It is also expected that the ARIMA model is going to have a larger problem with making predictions on data with high seasonality.
-  Because of this, the SARIMA model will also serve as a baseline.
+%   \subsubsection*{Grid search}
+%   Using the parameter tuning method of the grid search, a well-suited ARIMA model is searched for.
+%   Grid search is an excessive search method where each parameter composion is tested.
+%   Each set of parameters is used to define a model, train it using the training dataset,
+%   and then validate it against the validation set.
+%   With the goal of making a 7-day prediction, a 7-day forecast is compared to the validation data,
+%   so that the 7-day prediction error is measured.
+%   The model with the best 7-day prediction resulted in the lowest validation error,
+%   is then selected as the best model found after parameter tuning.
+%   The prediction error is measured in each of the loss functions \textit{MAE, MSE, MASE and SMAPE}.
+
+%   \subsubsection{Auto ARIMA}
+%   The second method used for parameter tuning is the Auto ARIMA method from the \textit{pmdarima} python library.
+%   %% TODO: Add "pmdarima" reference
+%   This method utilizes Bayesian optimization for search in the search space for hyperparameters.
+%   Evaluating models using cross-validation and error metrics such as the "MSE",
+%   the auto\_arima method finds a well-suited hyperparameter set in a fraction of the time used by the exhaustive grid search.
+
+%   \subsection{Trained models}
+%   When the models are tuned through Grid search and auto\_arima,
+%   the searched hyperparameters are applied to models in order to run predictions.
+%   While the tuning trains the ARIMA model on the training data, while validating it on the validation data,
+%   it still runs the risk of overfitting the model.
+%   The tuning may select a model with such high complexity that while it fits the validation data well,
+%   but do not generalize enough to be usable on an unseen test set.
+%   The tuned models are therefore trained using both the training data and validation data for training,
+%   before it is used to predict the next 7 values coinciding with the test set.
+%   The predictive capability of the resulting models serves as a benchmark for the actual prediction
+%   of unknown data as it is not possible to tune models on data that have not yet been recorded.
+%   Therefore, this is the true measure of the predictive capability of the ARIMA model.
 
 
-  \section{Experiment 2 - SARIMA baselin}
-  \label{section:Method:Experiment2}
+%   \subsection{Expected results}
 
-  The second experiment conducted is done with the SARIMA model.
-  Just like the ARIMA model from experiment 1, the SARIMA model is used on the datasets defined in \Cref{section:Data:Dataset}.
-  Experiment 2 shares the same method for tuning the model as in experiment 1,
-  as well as using the same method for evaluating the tuned models.
-  Se experiment 1 for reference \Cref{section:Method:Experiment1}.
+%   Using the ARIMA model for creating a 7-day multi-step ahead prediction is not expected to yield very good results.
+%   The ARIMA model has problems with data where there is high volatility in the data, with a high standard variation.
+%   The data available, as described in \Cref{section:Data:DataAnalysis},
+%   is highly volatile and thus makes the predictions more difficult for the ARIMA model.
 
-  \subsection{Expected results}
-  As with the ARIMA model, the SARIMA is not expected to yield great results either as it suffers from the same problems as the ARIMA model.
-  However, the SARIMA model is expected to be an improvement to the ARIMA model for data with high seasonality.
+%   We expect the model to show the underlying trends in the dataset, but to
+%   undershoot its predictions.
+%   It is also expected that the ARIMA model is going to have a larger problem with making predictions on data with high seasonality.
+%   Because of this, the SARIMA model will also serve as a baseline.
 
-  With the available data, seasonality differs from dataset to dataset. While some time series have a high seasonal component,
-  others have little to no seasonality.
-  The SARIMA model is therefore only expected to outperform the ARIMA model on time-series with seasonality.
 
-\fi
+%   \section{Experiment 2 - SARIMA baselin}
+%   \label{section:Method:Experiment2}
+
+%   The second experiment conducted is done with the SARIMA model.
+%   Just like the ARIMA model from experiment 1, the SARIMA model is used on the datasets defined in \Cref{section:Data:Dataset}.
+%   Experiment 2 shares the same method for tuning the model as in experiment 1,
+%   as well as using the same method for evaluating the tuned models.
+%   Se experiment 1 for reference \Cref{section:Method:Experiment1}.
+
+%   \subsection{Expected results}
+%   As with the ARIMA model, the SARIMA is not expected to yield great results either as it suffers from the same problems as the ARIMA model.
+%   However, the SARIMA model is expected to be an improvement to the ARIMA model for data with high seasonality.
+
+%   With the available data, seasonality differs from dataset to dataset. While some time series have a high seasonal component,
+%   others have little to no seasonality.
+%   The SARIMA model is therefore only expected to outperform the ARIMA model on time-series with seasonality.
+
+% \fi
