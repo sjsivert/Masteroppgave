@@ -2,13 +2,14 @@
 \section{Loss function and Metrics}
 \label{section:Method:Metrics}
 
-Here we describe which loss function and metrics we use.
+Here the used loss function and metrics are described.
 
 \subsection*{Loss function}
 Since our datasets often contain a lot of outliers we decided not to use the well known
 Mean Squared Error (MSE) [\Cref{section:BT:Loss}].
-We used Mean Absolute Error (MAE) while training the neural networks. We can use the MAE during training because our data-preprocessing,
-normalizes all the time series to be on the same scale.
+Instead, we used Mean Absolute Error (MAE) while training the neural networks.
+We can use the MAE during training because of the data-preprocessing,
+which normalizes the time series values.
 Some experiments were done using both MASE and sMASE, but MAE did perform better.
 
 \subsection*{Metrics}
@@ -30,6 +31,6 @@ how good the naive prediction is.
 Therefore we also include sMAPE as a metric.
 sMAPE will give a better impression of how well our predicted forecasts fit the target values,
 independently of the naive forecast.
-In the chosen datasets zero values rarely occur so we can use sMAPE without
-being afraid of division by zero [\Cref{section:BT:Loss}].
+In the chosen datasets zero values rarely occur.
+Therefore, the sMAPE metric can be used without worrying about zero divisions [\Cref{section:BT:Loss}].
 
