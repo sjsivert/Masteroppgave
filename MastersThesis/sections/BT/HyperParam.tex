@@ -18,12 +18,12 @@ In order to tune models, the range of parameters to be selected must be specifie
 
 
 \subsubsection{Randomized search}
-In cases where the number of parameter combinations is limited, Grid search is a fitting approach.
-However, when the range of parameter combinations is large, resulting in high time consumption in order to fit all the different combinations,
-other methods are often more relevant to utilize.
+In cases where the number of parameter combinations are limited, grid search is a fitting approach.
+However, when the range of parameter combinations is large, it will result in high time consumption in order to fit all the different combinations.
+Other methods are therefore often more relevant.
 One such method is \textit{Randomized search} or \textit{Random search}.
 Randomized search reduces the parameter search space by selecting only a limited number of parameter combinations at random.
-In contrast to Grid-search where the range of values for each parameter is limited as to not create a too large parameter search space,
+In contrast to grid search where the range of values for each parameter is limited as to not create a too large parameter search space,
 random search does not share this problem.
 The random search method runs only a selected number of iterations before completing, disregarding the range of the search space.
 Thus the computational budget of the parameter search is determined by the number of iterations, not by the size of the parameter search space.
@@ -38,9 +38,9 @@ The next step is therefore to consider a more informed search of parameters.
 One such approach is to use \textit{Bayesian Optimization} or \textit{Bayesian search}.
 
 Bayesian optimization is an optimization method constructing a probabilistic model in order to evaluate parameter selections.
-When a sets of parameters are selected, these are compared and the results are observed.
+When sets of parameters are selected, these are compared and the results are observed.
 The observed results are used as a measure of generalization of the model performance with the selected hyperparameters.
 The method then attempts to optimize the selection of parameters in order to improve the model.
 
-The Bayesian optimization method thusly reduces the search space of hyperparameters using information available from previous evaluations of the model. 
-
+The Bayesian optimization method thusly reduces the search space of hyperparameters using information available from previous evaluations of the model
+\cite{Snoek2012}.
