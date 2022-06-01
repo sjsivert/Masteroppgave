@@ -21,6 +21,8 @@ The second part of the architecture is the LSTM module.
 This module is intended to extract the temporal features of the dataset
 to predict future values in the time-series.
 
+An illustration of the described model is shown in \Cref*{fig:cnn-ae+lstm-network}.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{./figs/illustrations/CNN-AE-LSTM.png}
@@ -64,26 +66,28 @@ while still removing noise from the dataset.
 Due to the fact that all the data in the different datasets share similar characteristics
 a shared autoencoder model is developed.
 
-The autoencoder consists of 4 layers, 2 encoder layers, and 2 decoder layers.
-The encoder is created as two 1-dimensional convolutional layers with an increasing number of filters.
-With a kernel size of [3, 5], and filter size if [16, 32].
-The decoder is constructed similarly with two layers, where both are 1-dimensional trans-convolutional layers
-with kernel size [5, 3] and a number of filters [16, 1].
-The autoencoder layers do not contain any dropout.
+
+% -----> This is also described in the method section
+%The autoencoder consists of 4 layers, 2 encoder layers, and 2 decoder layers.
+%The encoder is created as two 1-dimensional convolutional layers with an increasing number of filters.
+%With a kernel size of [3, 5], and filter size if [16, 32].
+%The decoder is constructed similarly with two layers, where both are 1-dimensional trans-convolutional layers
+%with kernel size [5, 3] and a number of filters [16, 1].
+%The autoencoder layers do not contain any dropout.
 
 
-While the autoencoder does contain convolutional and trans convolutional layers,
-there are other aspects of the model that are not used.
-Methods such as batch-normalization and MaxPooling is not used.
-This is because adding these measures results in quite poor reconstructive results.
-This is likely because of the high volatility of the data.
-Other layers, such as the dense, fully connected layers, which often represent the coding in the autoencoder,
+The autoencoder consists of convolutional and trans-convolutional layers.
+There are however other layers and methods that are not used in the autoencoder design.
+Methods such as batch-normalization and MaxPooling are not used.
+This is because adding these measures results in quite poor reconstructive results,
+likely due to the high volatility of the data.
+Other layers, such as dense, fully connected layers, which often represent the coding in the autoencoder,
 is not used either.
 This is because it was found to be an unneeded increase in the complexity of the model,
 as the convolutional layers were well suited to solve the task on their own.
 
 
-There are two reasons for this.
+There are two reasons for using a shared model design.
 Primarily this is due to the fact that during experimentation with the autoencoder models architecture,
 it was found that the same autoencoder performed similarly on each of the individual time series.
 Secondly, this was a decision that was made in connection with the limited time available for experimentation and optimization of models.
@@ -95,6 +99,11 @@ Secondly, this was a decision that was made in connection with the limited time 
 The second part of the hybrid model is the LSTM model.
 This model is attached at the end of the autoencoder,
 using the reconstructed values from the autoencoder as input data.
+
+
+Like the LSTM described in \Cref*{section:Architecture:Baselines:LSTM},
+global, local, multivariate, and univariate models are explored.
+
 
 % What can be said about the LSTM?
 % Add use of local and global methods such as the with the LSTM model
