@@ -24,12 +24,12 @@ applying the methods and models presented in \Cref*{section:Method}.
 \label{section:results:experimentPlan:Experiment-0}
 This experiment will serve as a measurement for the predictive accuracy of other predictive methods.
 The SARIMA baseline will be used to compare the other methods applied in later experiments.
-This experiment will therefore help with answering RQ \Cref{G&R:RQ-LSTM-baseline}.
+This experiment will not answer any research questions.
 
 \begin{description}
   \item[Outline]{
               Tune, train and test a seasonal SARIMA method on dataset 1, dataset 2,
-              and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast horizon.
+              and dataset 3 using MASE and sMAPE as metrics on a 7-day forecast horizon.
         }
 \end{description}
 
@@ -77,7 +77,7 @@ using multivariate and global methods.
 The experiments are designed to create models with the aim of outperforming the baseline
 SARIMA and Local univariate LSTM models created in \Cref{section:results:experimentPlan:Experiment-1} and \Cref{section:results:experimentPlan:Experiment-0}.
 This experiment aims to answer RQ4.1 [\Cref{G&R:RQ-LSTM-baseline}],
-inn through the exploration of the questions outlined below.
+through the exploration of the questions outlined below.
 
 \begin{itemize}
   \item {Will additional information, such as day of the week, month and season help an LSTM to make better predictions?}
@@ -88,7 +88,7 @@ inn through the exploration of the questions outlined below.
   \item[Outline]{
               Tune, train and test a local multivariate LSTM, a global univariate LSTM,
               and a global multivariate LSTM on dataset 1,
-              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7 day forecast.
+              dataset 2, and dataset 3 using MASE and sMAPE as metrics on a 7-day forecast.
               Compare the results against the SARIMA and LSTM baseline.
         }
 \end{description}
@@ -114,30 +114,30 @@ inn through the exploration of the questions outlined below.
 \subsection{Experiment 3 - Convolutional Autoencoder LSTM}
 This experiment focuses on the proposed hybrid Convolutional Autoencoder and LSTM model.
 As this method has yet to be tested on a commercial dataset,
-the experiment aims to improve accuracy of the correlating LSTM models.
-The hybrid model is explored on each of the experiments ran on the LSTM,
+the experiment aims to improve the accuracy of the correlating LSTM models.
+The hybrid model is explored in each of the experiments ran on the LSTM,
 including all combinations of Local vs Global methods, and univariate vs multivariate.
 
-This experiment aims to answer RQ5 [\Cref{G&R:RQ-CNN-AE-LSTM}] through applying the Hybrid method
-to the experiment datasets.
+This experiment aims to answer RQ5 [\Cref{G&R:RQ-CNN-AE-LSTM}] by applying the Hybrid method
+to the datasets.
 
 
 \begin{description}
   \item[Outline]{
               Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
               created in \Cref{section:results:experimentPlan:Experiment-1} and \Cref{section:results:experimentPlan:Experiment-2}.
-              Creating a local-univariate model, local-multivariate model, global-univariate model, and global-multivariate model.
-              All these models are applied to each of dataset 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
+              Creating a local univariate model, local multivariate model, global univariate model, and global multivariate model.
+              All these models are applied to each of datasets 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
               The results are compared against the SARIMA and LSTM models defined in previous experiments.
         }
 \end{description}
 
 \begin{description}
   \item[Expectations]{
-              The Convolutional Autoencoder and LSTM model is expected to performe better than the correlating LSTM model
+              The Convolutional Autoencoder and LSTM model is expected to perform better than the correlating LSTM model
               due to the high volatility and noise in the available datasets.
-              The multivariate models are expected to performe better than the univariate models.
-              However, the global models are expected to performe well on dataset 1 due to the highly correlating data,
-              while preforming worse on dataset 2 and 3.
+              The multivariate models are expected to perform better than the univariate models.
+              However, the global models are expected to perform well on dataset 1 due to the highly correlating data,
+              while performing worse on datasets 2 and 3.
         }
 \end{description}
