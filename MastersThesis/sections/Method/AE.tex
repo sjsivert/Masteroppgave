@@ -31,7 +31,7 @@ encoding the spacial data from the time series.
 In order to find a well-suited autoencoder design, manual tuning of the model was conducted.
 Tuning of the model was done incrementally, with different compositions of layer types and sizes.
 Using layers such as the convolutional 1-dimensional layer, dense layers, MinMaxPooling, BatchNormalization, and different dropouts,
-an ideal model architecture was attempted.
+an ideal model architecture was tested.
 
 After tuning the autoencoder on the different datasets with both local, global, univariate and multivariate experiments,
 a shared model design was reached.
@@ -122,10 +122,10 @@ All the chosen parameters are shown in \Cref{table:Conv1d-cell-parameters},
 \subsubsection{Performance metric}
 Due to the fact that the only aim for the autoencoder is to construct a recreation of the time series data,
 it has no need for the same measure of accuracies as the SARIMA model and the LSTM model.
-This is because it does not perform future predictions, and it is therefore not compared to the other models.
+This is because it does not perform future predictions, and it is therefore not compared to the predictive models.
 However, it has its own goals, which it aims to achieve.
 In order to tune the autoencoder, a loss function is selected to be used during the training process.
-Taking inspiration from \cite{Zhao2019}, the error metrics MAPE was selected attempted.
+Taking inspiration from \cite{Zhao2019}, the error metrics MAPE was tested.
 However, during tuning and testing of the models, the MAPE metric was found to make predictions with extremely high error values.
 The same goes for the MSE metric.
 Therefore, based on experimentation and results from tuning,
@@ -135,23 +135,23 @@ the MAE metric was found to be the best match for the autoencoder.
 \subsubsection{Local and global models}
 With the current design of the autoencoder, the aim was to find an autoencoder that works well with both local and global models.
 Even though the global models are tasked with encoding more data, this was not a clear problem with the design, although there are limitations.
-With highly correlating data, such as dataset 1, less data is needed to encode because partial data is shared across the different time series.
+With highly correlating data, such as dataset 1, less data is required to be coded within the model because partial data is shared across the different time series.
 However, this is not the case for non-correlating data, such as with dataset 2.
 With this, more data is needed to be encoded with the same model as above.
 Although this impaired the performance of the autoencoder to some degree, testing and tuning of models found that there are minimal difference in performance between the global and local models.
 Therefore, both due to limitations with time and with the results from model selection and tuning,
-the same model was selected as a good fit for all cases and therefore shared across all the models.
+the same model was selected as a good fit for all model structures.
+The same autoencoder model architecture is therefore shared across all explored models.
 
 \subsubsection{Univariate and multivariate}
 Same as with the use of local and global models,
 the use of univariate and multivariate models with the autoencoder served as a challenge.
 The selected model needed to be able to encode and reconstruct data for both univariate and multivariate data sources.
 
-The same autoencoder model as described above is still used for both of these cases.
-Although more data is in need of encoding and reconstruction,
+Although multivariate models require more data to be encoded and reconstructed,
 the current autoencoder design works well.
 Due to experimentation with univariate and multivariate models,
-it is found that the model works well and can be used on all methods regardless of univariate or multivariate.
+it is found that the model works well and can be used on all methods regardless of univariate or multivariate model structure.
 
 
 
