@@ -2,7 +2,7 @@
 \section{LSTM Baseline}
 \label{section:Architecture:Baselines:LSTM}
 
-The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state-of-the-art method for making time-series predictions.
+The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state-of-the-art method for making time series predictions.
 Comparing new models against the current state-of-the-art models serves as a good measure of whether or not the new models are useful.
 
 \subsection{Global and local methods}
@@ -15,9 +15,9 @@ This model only uses one time series as data for training, validation and testin
 However, the LSTM model differs vastly from the SARIMA model in that it is able to be used as a global model.
 Unlike the local method using only one time series for training and testing,
 a global model is able to use multiple time series.
-Using a set of time-series both for training, validation and testing,
+Using a set of time series both for training, validation and testing,
 the LSTM should be able to increase the predictive ability and accuracy by increasing the amount of data available.
-Additionally, the use of a global model enables the LSTM to extract features from different time-series that hopefully can be used to make more accurate predictions on the original dataset.
+Additionally, the use of a global model enables the LSTM to extract features from different time series that hopefully can be used to make more accurate predictions on the original dataset.
 
 \subsection{Univariate and Multivariate}
 The LSTM model is configurable as both a univariate and a multivariate model.

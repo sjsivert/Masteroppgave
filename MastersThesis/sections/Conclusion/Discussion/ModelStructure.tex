@@ -5,8 +5,8 @@ there are many possible ways of constructing a model.
 The four main categories we have discussed are: many local univariate models \Cref{fig:model-example-local-univariate},
 a global univariate model \Cref{fig:model-example-global-univariate},
 a local multivariate model \Cref{fig:model-example-local-multivariate}, and a global univariate model.
-\Cref{fig:model-structure-examples} shows three example-models for forecasting a set of $n$ time-series.
-In the figure, each arrow indicates a time-series.
+\Cref{fig:model-structure-examples} shows three example-models for forecasting a set of $n$ time series.
+In the figure, each arrow indicates a time series.
 
 A local univariate approach would be similar to how an ARIMA model would work.
 It would benefit from being simple, but to forecast $n$ product categories,
@@ -19,7 +19,7 @@ would be limited but would gradually improve as more data accumulated.
 
 \begin{figure}[h!]
   \centering
-  \caption{Three model-structure examples. Each arrow is representing a time-series.}
+  \caption{Three model-structure examples. Each arrow is representing a time series.}
   \label{fig:model-structure-examples}
   \begin{subfigure}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{./figs/illustrations/illustration_local_univariate.png}
@@ -49,8 +49,8 @@ A multivariate approach will capture these relationships.
 However, one needs a thorough understanding of the underlying data to build meaningful models.
 A thorough covariance analysis to identify correlating groups of product categories would be best.
 %However, this might be outside of scope(?).
-The work proposed by \cite{Sen2019} has the advantage of capturing interdependent time-series features and dealing with
-some of the drawbacks of a multivariate model. However, their model is intended for as many time-series as up to millions.
+The work proposed by \cite{Sen2019} has the advantage of capturing interdependent time series features and dealing with
+some of the drawbacks of a multivariate model. However, their model is intended for as many time series as up to millions.
 This is to vastly over-engineer our problem.
 %They solution is also based on a temoral convolution network.
 
@@ -60,7 +60,7 @@ amount of history data would amount to many null values.
 Second, each time a category is added or changed, a covariance analysis has to be done to identify
 which covariance group the category belongs to. Then that model has to be retrained.
 % Depending on the number of changes to the category tree, this might hinder.
-\Cref{fig:model-example-local-multivariate} shows an example model where the time-series set is split into two arbitrary buckets,
+\Cref{fig:model-example-local-multivariate} shows an example model where the time series set is split into two arbitrary buckets,
 and one multivariate model is made for each bucket.
 
 The univariate global approach, which is shown in \Cref{fig:model-example-global-univariate}, has the benefit of overcoming many of the hindrances of a multivariate model.
@@ -71,9 +71,9 @@ states that a single global model might be detrimental to overall accuracy, but 
 \cite{Rabanser2020}
 shows that global models will improve accuracy, even if the global model assumption is not satisfied.
 
-If grouping time-series together in clusters, another question is how this similarity function should look like.
+If grouping time series together in clusters, another question is how this similarity function should look like.
 \cite{Bandara2017} suggests a K-means clustering technique
-which looks at several time-series characteristics, such as
+which looks at several time series characteristics, such as
 strength of a trend, the strength of spikiness, strength of curvature,
 and sales quantile.
 
@@ -86,8 +86,8 @@ overfitting.
 % Should this be under multi vs univariate section?
 % Currently it does not have any references
 One last approach is to build a multivariate model which only forecasts a single product category at the time.
-The input to such a model might be a decomposition of the target time-series.
-For example, decomposing a time-series into a component that shows how the series's trend behaves over time,
+The input to such a model might be a decomposition of the target time series.
+For example, decomposing a time series into a component that shows how the series's trend behaves over time,
 one component for the cycles, and one for noise.
 Another option is to rely on external data sources which correlate with the target series.
 For example, it is to be expected that if a product category group suddenly spikes in interest at Prisguiden.no,

@@ -1,10 +1,10 @@
 \section{Statistical methods versus Neural Nets*}
 \label{section:RelatedWork:Statistical-NN}
 
-Statistical methods like ARIMA and exponential smoothing were once the state-of-the-art methods for forecasting time-series.
+Statistical methods like ARIMA and exponential smoothing were once the state-of-the-art methods for forecasting time series.
 In recent years Deep Neural Networks have attracted more attention.
 \cite{Makridakis2018} wanted to objectively test these up-and-coming machine learning models to compare with old state-of-the-art methods.
-Performance was evaluated across multiple forecasting horizons using a large subset of 1045 monthly time-series.
+Performance was evaluated across multiple forecasting horizons using a large subset of 1045 monthly time series.
 Among the evaluated machine learning methods are:
 \textit{Bayesian Neural Network (BNN)},
 \textit{Multi-Layer Perceptron (MLP)},
@@ -24,10 +24,10 @@ The paper \cite{Makridakis2018} highlights some of the drawbacks of ML methods. 
 their lack of explainability and their inability to show certainty in their predictions.
 However, the study has gotten some well-defined criticism. The authors \citeauthor*{Cerqueira2019} points
 out that \cite{Makridakis2018} does their experiments on datasets of too-small sample size.
-Their largest time-series sample size among the 1045 datasets contained only 144 data points, while the smallest contained 118.
+Their largest time series sample size among the 1045 datasets contained only 144 data points, while the smallest contained 118.
 They hypothesize that these datasets are too small for an ML method to generalize correctly.
 
-\cite{Cerqueira2019} therefor conduct a similar study on 90 univariate time-series, in which
+\cite{Cerqueira2019} therefor conduct a similar study on 90 univariate time series, in which
 all the datasets have a sample size above 1000.
 Statistical methods are evaluated against machine learning methods at different sample sizes,
 in order to test whether the sample size has an impact on performance.
@@ -45,10 +45,10 @@ Complex deep learning methods now have benefits over simpler statistical methods
 Although such statistical methods are reliable and produce a relevant explainable predictive baseline,
 modern deep learning methods can accomplish higher predictive accuracy.
 
-The papers presented above show the relevance of exploring new and more complex methods to improve time-series prediction.
+The papers presented above show the relevance of exploring new and more complex methods to improve time series prediction.
 Deep learning methods such as LSTMs have high predictive accuracy,
 and exploring these methods further may prove to be advantageous.
-Nevertheless, statistical methods supply a well-defined predictive baseline for a time-series.
+Nevertheless, statistical methods supply a well-defined predictive baseline for a time series.
 Additionally, statistical methods have the advantage of improved explainability,
 making these methods more readily understandable.
 With this in mind, using well-defined statistical methods as a baseline prediction to evaluate new predictive methods should be considered.

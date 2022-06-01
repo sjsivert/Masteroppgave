@@ -1,8 +1,8 @@
 \section{Model Structure*}
 \label{section:RelatedWork:Model-structure}
 The structure of the forecasting model is an important aspect when the goal is to forecast
-multiple time-series.
-A simple approach would be to make one model for each time-series.
+multiple time series.
+A simple approach would be to make one model for each time series.
 One could assume that each series are independent, but this assumption will probably not hold water for all domains.
 For example, in the E-commerce domain,
 people who buy shaving cream probably also buy a razer, as shaving cream will not have much use of its own.
@@ -11,11 +11,11 @@ This section will explore different state-of-the-art model structure approaches.
 
 \subsection{Global versus Local methods}
 \label{section:RelatedWork:Model-structure:local-vs-global}
-On the topic of having to forecast many time-series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
+On the topic of having to forecast many time series as a group, the paper from \cite{Montero-Manso2021} provides a good overview.
 The article points to two significant disadvantages for univariate models on a cluster of series.
 The number one shortcoming is the sample size. The second is scalability.
-Scalability is a problem when a group of time-series each requires a separate model
-that requires human intervention. Forecasting a cluster of time-series in this manner is called
+Scalability is a problem when a group of time series each requires a separate model
+that requires human intervention. Forecasting a cluster of time series in this manner is called
 \textit{the local approach.}
 
 A univariate alternative to a local approach is \textit{the global approach}
@@ -25,36 +25,36 @@ The global approach works by pooling all series data together, fitting a single 
 The global method has been introduced to exploit the natural scenario where all series
 in the set are similar or related. An example given by the authors is the demand for fictional
 books follows a similar pattern for all subgenres, stores, or cover designs.
-The idea behind this is the strong assumption that all the time-series in the set
+The idea behind this is the strong assumption that all the time series in the set
 come from the same process.
 
 This exact method was used by \cite{Bandara2017}.
 Their domain has similarities to ours.
-They want to forecast a database of E-commerce time-series
+They want to forecast a database of E-commerce time series
 from Walmart.com.
-They argue that when building global models for a time-series database, the models are
+They argue that when building global models for a time series database, the models are
 potentially trained across disparate series, which may be detrimental to the overall accuracy.
-They suggest building separate models for subgroups of time-series.
+They suggest building separate models for subgroups of time series.
 These groups can be selected based on domain knowledge, which proved to be the best option. With the absence of
 domain knowledge, they propose an automatic grouping mechanism to cluster series together.
 Their method achieves consistent improvements over the baseline LSTM model.
-And conclude that exploiting similarities of multiple time-series in one model is a competitive method.
+And conclude that exploiting similarities of multiple time series in one model is a competitive method.
 
 %The paper tests their model on two competition datasets, and achieves competitive results.
 %On the CIF2016 dataset, the model outperforms all other models.
 %On the NN5 competition it ranks 6th overall, and achieves consistent improvements over the baseline LSTM model.
-%They conclude that exploiting similarities of multiple time-series in one model
+%They conclude that exploiting similarities of multiple time series in one model
 %is a competitive method.
 
 
-%As recent studies show puzzlingly good performance of time-series that cannot be considered related.
+%As recent studies show puzzlingly good performance of time series that cannot be considered related.
 
-\cite{Montero-Manso2021} show that even if the strong assumption that the same process generates all the time-series analyzed by a global
+\cite{Montero-Manso2021} show that even if the strong assumption that the same process generates all the time series analyzed by a global
 the method is false; the global method will pay off in forecasting accuracy.
 The paper argues that global and local methods for forecasting
-sets of time-series are equally general. The global method is neither restrictive nor requires
+sets of time series are equally general. The global method is neither restrictive nor requires
 similarity or relatedness in the set.
-But they point out that generalization of global models assumes groups of independent time-series.
+But they point out that generalization of global models assumes groups of independent time series.
 Under heavy dependence, global models lose their beneficial performance guarantees.
 
 The paper \cite{Hewamalage2021} comes to the same conclusion. Stating that
@@ -62,22 +62,22 @@ even on datasets that involve many heterogeneous series, the strong modeling cap
 them to perform competitively in forecasting accuracy.
 %\todo[]{Skrive om paperet hvor klustering er gjort på tidsserier}
 
-\subsection{Univariate or Multivariate time-series}
+\subsection{Univariate or Multivariate time series}
 %In the previes section we discussed how statistical methods can outperform ML methods on
-%time-series without a large enough sample size.
+%time series without a large enough sample size.
 \cite{Bandara2017} points out that statistical methods, like ARIMA, are bound to
-univariate time-series. In the world of Big Data and lots of time-series that correlate with each other,
-treating each time-series separately and forecasting each in isolation could isolate information regarding big picture trends.
+univariate time series. In the world of Big Data and lots of time series that correlate with each other,
+treating each time series separately and forecasting each in isolation could isolate information regarding big picture trends.
 \cite{Bandara2017} argues that the ability to make models that can be trained globally across all series
 holds a competitive advantage over models like ARIMA and ETS.
-Such a model would simultaneously use multiple time-series as input to predict future values for the time-series.
+Such a model would simultaneously use multiple time series as input to predict future values for the time series.
 
 The paper \cite{Rabanser2020} has some good arguments when comparing univariate versus multivariate models.
-Both multivariate and global univariate methods work on groups of time-series.
+Both multivariate and global univariate methods work on groups of time series.
 However, global methods
 have the advantage of being more applicable because it does not require observations of multiple
-time-series at the time of forecasting.
-Also, multivariate time-series models work on groups that are supposed to have some form of
+time series at the time of forecasting.
+Also, multivariate time series models work on groups that are supposed to have some form of
 dependence between them, while global models work on any group.
 When such a dependency exists, global method will not capture it directly, unlike multivariate models.
 \cite{Hewamalage2021} states in their ``\textit{7. Future directions}'' chapter that complex
@@ -86,8 +86,8 @@ may be interdependent.
 Forecasting in such a context could require a multivariate model.
 
 % What did they do?
-\cite{Laptev} wanted to make a single time-series model to
-accurately make time-series predictions during special events.
+\cite{Laptev} wanted to make a single time series model to
+accurately make time series predictions during special events.
 Extreme event prediction depends on numerous external factors, including weather, city population growth, or marketing
 changes.
 \cite{Laptev} propose a global, multivariate, autoencoder, LSTM network.
@@ -98,39 +98,39 @@ but then testing it on the public M3 dataset, where they achieve an above-averag
 % Discussion
 In \cite{Laptev} discussion, they point out three criteria for
 choosing a neural network over a statistical method:
-(a) number of time-series to the model is high, (b) Length of the
-times series are high, and (c) correlation among the time-series.
+(a) number of time series to the model is high, (b) Length of the
+times series are high, and (c) correlation among the time series.
 Our problem domain meets all these criteria.
 The third (c) criteria are worth mentioning because it directly
 contradicts the argument proposed by \cite{Montero-Manso2021}%\cite{Hewamalage2021}
-which states that in a set of interdependent time-series,
+which states that in a set of interdependent time series,
 a global model lose their beneficial performance guarantees,
 because a global model assumes independence.
 This again contradicts \cite{Hewamalage2021}, which explicitly states
 retail forecasts, which, as argued, is similar to E-commerce,
 as a perfect example for a global model.
 Of all the papers we found, none of them concluded that a global method
-on time-series that have some form of interdependency would directly hurt the model.
+on time series that have some form of interdependency would directly hurt the model.
 
 
 %Our problem is similar to the DeepGLO model made by \cite{Sen2019}. 
 
-\cite{Sen2019} proposes a method to handle predictions of thousands of interdependent correlating time-series.
+\cite{Sen2019} proposes a method to handle predictions of thousands of interdependent correlating time series.
 Their proposed method is largely based on two components. The first component is based on the work of
-\cite{Yu}, which proposes a Temporal regularized matrix factorization (TRM) for high-dimensional time-series prediction.
-The idea is that the TRM can look at all the time-series and capture the global patterns during prediction.
-The TRM can supposedly handle as much as 50.000 time-series.
+\cite{Yu}, which proposes a Temporal regularized matrix factorization (TRM) for high-dimensional time series prediction.
+The idea is that the TRM can look at all the time series and capture the global patterns during prediction.
+The TRM can supposedly handle as much as 50.000 time series.
 %The drawback of the TRM is that it only captures linear dependencies between the series.
 % In order to capture non-linear depndencies 
 The output of the global model is used as a covariate to a final, local temporal convolution network. This final model
-will then focus on local per time-series properties, as well as properties from the global dataset.
+will then focus on local per time series properties, as well as properties from the global dataset.
 
 
 
 %% Statistical vs nn
 %\cite{Laptev}  points out that 
 %%[ original source: Ye & Keogh, 2009 ]
-%classical statistical time-series models usually require manual tuning
+%classical statistical time series models usually require manual tuning
 %to set seasonality and other parameters.
 %A LSTM will 
 
@@ -138,16 +138,16 @@ will then focus on local per time-series properties, as well as properties from 
 %\subsubsection{Limitations of statistical methods}
 %\todo[inline]{Skrive om limitations til statistiske metoder and
 %* Univariate
-%* stationary time-series
+%* stationary time series
 %* Dealing with extreme values
 %https://towardsdatascience.com/limitations-of-arima-dealing-with-outliers-30cc0c6ddf33
 %}
 %Pro ML: size matters \cite{Cerqueira2019}
 %
 %From \cite{Guen2019}:
-%Traditional methods for time-series forecasting include linear autoregressive models, such as
+%Traditional methods for time series forecasting include linear autoregressive models, such as
 %ARIMA odel, and exponential smoothing, which both fall into the broad category of of linear 
 %state space models (SSMs). These methods handle linear
-%dynamics and stationary time-series (or made stationary by temporal differences).
+%dynamics and stationary time series (or made stationary by temporal differences).
 %However the stationarity assumption is not satisfied for many real world tmie series that can present
 %abrupt changes of distribution...

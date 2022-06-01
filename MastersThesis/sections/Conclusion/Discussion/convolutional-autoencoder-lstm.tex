@@ -71,8 +71,8 @@ we hoped to uncover cases where the model performance is increased over the stan
 \subsubsection{Local multivariate models}
 
 After the use of global models, a configuration of multivariate models was attempted.
-Unlike the global models, the amount of data is increased not through the addition of other time-series to the model,
-but by decomposing the information within each time-series.
+Unlike the global models, the amount of data is increased not through the addition of other time series to the model,
+but by decomposing the information within each time series.
 By decomposing information such as day of the week, or season, the amount of data supplied to the models is increased.
 
 
@@ -125,7 +125,7 @@ This could imply that the selected dataset is less suited for using the autoenco
 This could then again imply that the convolutional autoencoder is heavily influenced by the nature of the data that is used.
 The implications of the dataset's characteristics are explored further later when the use of noisy data is discussed.
 However, if this is the case, the lack of data could explain the poor performance of dataset 2.
-The multivariate model would have the same number of time-steps in each time-series but would be required to encode four times the data per time-step.
+The multivariate model would have the same number of time-steps in each time series but would be required to encode four times the data per time-step.
 Therefore, the autoencoder is more likely to perform worse in reconstructing the input data,
 thus contributing to a worse performance by the LSTM component.
 
@@ -162,12 +162,12 @@ of NNs. LSTMs ability to learn across multiple time series can be attributed to 
 of how the LSTM works. \cite{Zhao2019} discusses previous work that concludes that
 the LSTMs memory cell is mainly responsible for the performance of the LSTM.
 When training the LSTM on multiple time series, this memory cell is local to each
-time-series and resets before each new time series are fed through the network.
+time series and resets before each new time series are fed through the network.
 The LSTM weights, on the other hand, are global across all the series.
 These local and global characteristics are unique to RNNs, and can explain
 why the Convolutional Autoencoder does not see the same benefits when trained on multiple
 time series.
-In order for the autoencoder to work well on such time-series data,
+In order for the autoencoder to work well on such time series data,
 there is a prerequisite that the data is connected and that information from one set can be applied to the others.
 If this is not the case, the use of global models increasing the amount of independent data would only serve to decrease the performance of the autoencoder.
 

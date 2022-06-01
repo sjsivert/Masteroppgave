@@ -1,9 +1,9 @@
 % -----------OLD-----------
 \subsection{Error metric}
 \todo[inline]{TODO: Remove this sections. It is copied to experimental plan}
-Since we are working with multiple time-series and each time-series might differ in scale.
+Since we are working with multiple time series and each time series might differ in scale.
 When choosing an error metric, we have to accommodate a number of factors.
-Since our time-series are of different scales, we cannot use a scale-dependent metric
+Since our time series are of different scales, we cannot use a scale-dependent metric
 like MSE or MAE.
 
 Our data consists of positive integers. The possibility of zero-values does exist,
@@ -11,7 +11,7 @@ so SMAPE with the division-by-zero-fix as described in \Cref{section:BT:Loss} is
 But SMAPE lacks interpretability and has a high skewness.
 
 Together with SMAPE we suggest using the Seasonal MASE because it seems to be the
-state-of-the-art error metric for multiple time-series forecasting.
+state-of-the-art error metric for multiple time series forecasting.
 
 Because we use both MASE and SMAPE we can combine them to one score, like
 they do in the M4 competition.
