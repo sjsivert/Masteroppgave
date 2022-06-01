@@ -1,10 +1,13 @@
 \subsection{Loss functions*}
 \label{section:BT:Loss}
 \citeauthor{Russel2012}  defines loss functions as such:
-A \textit{loss function} $L(x, y, \hat{y})$ is defined as the amount of utility lost by predicting
-$h(x)=\hat{y}$ when the correct answer is $f(x) = y$ and $h$ is the heuristic function.
-This is the most general formulation of the loss function. Often a simplified version is used,
-$L(y, \hat{y})$, that is independent of x \cite[p. 710-711]{Russel2012}.
+
+\begin{quotation}
+  A \textit{loss function} $L(x, y, \hat{y})$ is defined as the amount of utility lost by predicting
+  $h(x)=\hat{y}$ when the correct answer is $f(x) = y$ and $h$ is the heuristic function.
+  This is the most general formulation of the loss function. Often a simplified version is used,
+  $L(y, \hat{y})$, that is independent of x \cite[p. 710-711]{Russel2012}. 
+\end{quotation}
 
 This means that the loss function is the function that calculates the error between the
 models prediction, and the actual target value.
@@ -48,7 +51,7 @@ A percentage is also easily explainable.
 \end{equation}
 
 A significant shortcoming of MAPE is that it is undefined when the actual value $y$ is 0.
-It will also take extreme values if the value is close to 0.
+It will also produce extreme values if the value is close to 0.
 
 MAPE is also asymmetric and puts a higher penalty on errors where the predicted
 $\hat{y}$ is higher than the actual value $y$.
@@ -84,11 +87,13 @@ constant for the denominator when the forecasting values are too small.
   SMAPE_{ALT} = \frac{1}{n} \sum_{t=1}^n \frac{|\hat{y_t} - y_t|}{max(|y| + |\hat{y}| + \epsilon, 0.5 + \epsilon)}
 \end{equation}
 
+
+
 \subsubsection{MASE*}
 The Mean Absolute Scaled Error \textbf{MASE}
-proposed by \cite{Hyndman2006}, is scale-free
-error metric that compares the predictions with
-the output to the Naive Forecast.
+proposed by \cite{Hyndman2006}, is a scale-free
+error metric that compares predictions with
+the output of a Naive Forecast.
 
 
 \begin{displaymath}
