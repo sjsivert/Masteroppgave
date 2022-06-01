@@ -127,6 +127,7 @@ An example of config is in the appendix at \Cref{cha:experiment-framework-exampl
 
 
 \subsection{Save Experiment module}
+\label{section:method:experiment-framework:save-experiment-module}
 
 The save source module handled everything related to logging and saving an experiment.
 Each experiment is associated with a unique descriptive ID and a description text to easily
@@ -135,7 +136,10 @@ Each experiment saves trained models, configs, the dataset used, stdout logs, tr
 testing metrics and figures.
 
 Everything is save to the local ``./models/`` folder, and to an exernal ML experiment tracking tool
-named \textit{neptune.ai}
+named \textit{neptune.ai}. The Neptune experiments are public and can be
+seen at \textit{https://app.neptune.ai/sjsivertandsanderkk/Masteroppgave/}.
+The local folder structure of a saved experiment is shown below.
+
 \dirtree{%
   .1 arima-predict-cat-11037-7-days .
   .2 Arima-11037.pkl .

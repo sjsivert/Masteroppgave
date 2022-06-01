@@ -201,11 +201,14 @@ the validation set through the networks prediction loop before predicting the te
 set and calculate test metrics.
 This is for the model to "see" the whole picture and have the correct
 internal state before predicting the test set.
+
+Since we track all experiments we ran, as described in \Cref{section:method:experiment-framework:save-experiment-module},
+we can reference some of our testing results to back up our choices.
 Neptune experiment \textit{MAS-396} and \textit{MAS-397} confirms
-that this tactic pay off. MAS-397 achieved a MAS score of $2.00$ on the test set
+that this tactic pay off. \textit{MAS-397} achieved a MASE score of $2.00$ on the test set
 without resetting states and passing through training and validation data before
-the test set. In MAS-396 we used the exact same setup, but with resetting states
-before the test set. MAS-396 achieved a MAS score of $1.67$.
+the test set. In \textit{MAS-396} we used the exact same setup, but with resetting states
+before the test set. MAS-396 achieved a MASE score of $1.67$.
 
 \textbf{Global models}
 
