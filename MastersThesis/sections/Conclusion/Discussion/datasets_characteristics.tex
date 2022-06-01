@@ -1,18 +1,18 @@
 
 \subsection{Datasets Characteristics}
-The results we get reveals a lot of information about the Characteristics of the different datasets.
+The results reveal a lot of information about the Characteristics of the different datasets.
 The sMAPE is our best indicator for how well the prediction graph fits the target graph.
-The 1-day MASE gives us an indicator for how well our predictions are compared to the naive
-prediction. It is worth noting that how good the naive prediction is differs from time series
-to time series. In a random-walk the naive prediction will be the best possible prediction.
+The 1-day MASE gives us an indicator of how well our predictions are compared to the naive
+prediction. It is worth noting how well the naive prediction differs
+for each time series. In a random-walk the naive prediction will be the best possible prediction.
 This is also true for time series with a high autocorrelation coefficient.
 The same is true for the 7-day MASE. A time series with a strong weekly seasonality will
 give a higher MASE compared to a time series with a low weekly seasonality.
 Therefore comparing MASEs from different datasets can be misleading without knowledge of
 the underlying characteristics of these series.
 
-Looking at the results we can make some educated guesses of these time series characteristics.
-We get the best forecasts fits from dataset 1, which has a mean sMAPE of $0.2034$.
+Looking at the results we can make some educated guesses about these time series characteristics.
+We get the best forecast fits from dataset 1, which has a mean sMAPE of $0.2034$.
 Second comes dataset 3 with a sMAPE of $0.4362$. The hardest dataset to forecast was dataset 2 with a
 sMAPE of $0.697$. Looking at the 1-day MASE we can expect the mean autocorrelation coefficient for
 dataset 3 to be the highest among the three, with a MASE of $2.009$.
