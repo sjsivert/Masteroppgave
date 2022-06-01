@@ -117,29 +117,38 @@ with the equation defined in \Cref{eq:interest}.
 \subsection{Value Scaling}
 \label{section:Data:Preprocessing:value-scaling}
 Deep learning models require appropriate scaling to converge properly.
-For the neural networks, we scaled the data using standardization.
+For the neural networks, we scale the data using standardization
+as shown in \Cref*{eq:standardization}.
 
 \begin{equation}
   z = \frac{x - \mu}{\sigma}
+  \label{eq:standardization}
 \end{equation}
 Where $\mu$ is the mean and $\sigma$ is the standard deviation.
 
-\begin{equation}
-  x\_std = \frac{x - x.min()}{x.max() - x.min()}
-  x\_scaled = x\_std * (h - l) + l
-\end{equation}
-where $h$ is the max feature range and $l$ is the min.
 
-For scaling data, two different approaches were explored.
-Both normalization and standardization were explored.
-As the data distribution is not known before the scaling, normalization ensures a known value range for scaling.
-For the neural net models, we scale using normalization for the ranges to be in the range [0.1, 1].
-The unconventional choice of having 0.1 as our lower bound is because the matric SMAPE
-is vulnerable to zero values, as described in \Cref{eq:sMape}.
 
+% For scaling data, two different approaches were explored.
+% Both normalization and standardization were explored.
+% As the data distribution is not known before the scaling we tried normalization ensures a known value range for scaling.
+% For the neural net models, we scale using normalization for the ranges to be in the range [0.1, 1].
+% The unconventional choice of having 0.1 as our lower bound is because the matric SMAPE
+% is vulnerable to zero values, as described in \Cref{eq:sMape}.
+We also tried to normalize the the data by scaling the values down to a predefined fixed range
+  [0.1, 1] using \Cref*{eq:normalization}.
 However, during experimentation and testing, it was found that scaling with standardization
 outperformed the predictions made with a normalization scaling.
 Both methods were explored, but at last, standardization was selected as the scaling method.
+
+\begin{equation}
+  x\_std = \frac{x - x.min()}{x.max() - x.min()} \newline
+  \label{eq:normalization}
+\end{equation}
+\begin{equation}
+  x\_scaled = x\_std * (h - l) + l
+  \label{eq:normalization2}
+\end{equation}
+where $h$ is the max feature range and $l$ is the min.
 
 
 
