@@ -2,22 +2,22 @@
 \section{LSTM Baseline}
 \label{section:Architecture:Baselines:LSTM}
 
-The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state of the art method for making time series predictions.
-Comparing new models against the current state-of-the-art models serves as a good measure for weither or not the new models is usefull.
+The LSTM model is described in \Cref{section:BT:LSTM}, and is the current state-of-the-art method for making time-series predictions.
+Comparing new models against the current state-of-the-art models serves as a good measure of whether or not the new models are useful.
 
 \subsection{Global and local methods}
 Unlike the SARIMA model serving as the initial baseline,
 the LSTM model is able to work both as a local and a global methods.
 
-First a local model is created. This can be directly compared agains the SARIMA model described in the previous section.
-This model only use one time series as data for training, validation and testing, similar to the SARIMA model.
+First, a local model is created. This can be directly compared against the SARIMA model described in the previous section.
+This model only uses one time series as data for training, validation and testing, similar to the SARIMA model.
 
 However, the LSTM model differs vastly from the SARIMA model in that it is able to be used as a global model.
 Unlike the local method using only one time series for training and testing,
 a global model is able to use multiple time series.
 Using a set of time-series both for training, validation and testing,
-the LSTM should be able to increase the predictive ability and accuracy by increasing the ammount of data available.
-Additonaly, the use of a global model enables the LSTM to extract features from different time-series that hopefully can be used to make more accurate predictions on the original dataset.
+the LSTM should be able to increase the predictive ability and accuracy by increasing the amount of data available.
+Additionally, the use of a global model enables the LSTM to extract features from different time-series that hopefully can be used to make more accurate predictions on the original dataset.
 
 \subsection{Univariate and Multivariate}
 The LSTM model is configurable as both a univariate and a multivariate model.
@@ -25,12 +25,12 @@ While the univariate model only uses one input variable per time-step, a multiva
 For seasonal data, one could then extract information from the dataset, adding multiple new values per time-step in order to encode information such as season or month.
 
 \subsection{Model selection}
-In order to find a fitting LSTM model, hyper parameters are tuned.
+In order to find a fitting LSTM model, hyperparameters are tuned.
 With the use of the \textit{optuna framework} % TODO: Add reference to optuna framework
-we are able to tune the hyper parameters of our models.
+we are able to tune the hyperparameters of our models.
 The \textit{optuna} framework applies Bayesian optimization as described in \Cref{section:BT:Hyperparameters}.
 
-This approach of hyper parameter tuning is used with each of the LSTM version.
-The tuning of the univariate and multivariate, and local and global are all done through the use of Bayesian optimization using optuna.
+This approach of hyperparameter tuning is used with each of the LSTM versions.
+The tuning of the univariate and multivariate and local and global are all done through the use of Bayesian optimization using optuna.
 
 
