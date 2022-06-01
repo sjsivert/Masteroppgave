@@ -18,16 +18,16 @@ This thesis explores the use of a convolutional autoencoder and LSTM model for m
 forecasts on product category trend data supplied by ``Prisguiden.no''.
 The use of the CNN-AE-LSTM model is expanded by applying a local univariate, global univariate, local univariate and global multivariate model.
 Results are compared with an LSTM baseline model applying the same model types as the CNN-AE-LSTM model.
-Additionally, a SARIMA model is used as a predictive baseline for forecasting.
+Additionally, a SARIMA model is used as a statistical baseline for forecasting.
 
 
-The experiment results show that for the application of the e-commerce data from ``Prisguiden.no'',
+The experiment results show that with the e-commerce data from ``Prisguiden.no'',
 the local multivariate LSTM model is the most accurate.
 The results indicate that the CNN-AE-LSTM performance is conditionally dependent on datasets with high levels of noise in order to outperform the LSTM.
 The model achieves a small performance increase on datasets with high noise, but predictions will suffer
 on data with low levels of noise.
 
-The CNN-AE-LSTM model is not well suited for applications with the use of product category trend data from ``Prisguiden.no'',
+The CNN-AE-LSTM model is not well suited for applications with the use of trend data from ``Prisguiden.no'',
 while the local multivariate LSTM is the model best suited for such predictions.
 
 
