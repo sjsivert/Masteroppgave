@@ -21,13 +21,14 @@ The autoencoder is intended to encode and reconstruct the input values of a time
 before the reconstructed values can be used as input for the LSTM model.
 
 The model is created using 1D convolutional and trans-convolutional layers,
-encoding the spacial data from the time-series.
+encoding the spacial data from the time series.
+
 
 
 % Model selection
 \subsubsection{Model selection}
 
-In order to find a well-suited autoencoder design manual tuning of the model was conducted.
+In order to find a well-suited autoencoder design, manual tuning of the model was conducted.
 Tuning of the model was done incrementally, with different compositions of layer types and sizes.
 Using layers such as the convolutional 1-dimensional layer, dense layers, MinMaxPooling, BatchNormalization, and different dropouts,
 an ideal model architecture was attempted.
@@ -42,6 +43,79 @@ while the multivariate model has 4.
 
 This model architecture ensures the data is well reconstructed,
 and can be shared across all the different models.
+All the chosen parameters are shown in \Cref{table:Conv1d-cell-parameters},
+\Cref{table:MaxPooling1D-cell-parameters}, and
+\Cref{table:conv1dtranspose-cell-parameters}.
+
+\todo[inline]{Sander gå over verdier og sjekke at alt er riktig?}
+
+\begin{table}[h]
+  \centering
+  \caption{Conv1d cell parameters}
+  \label{table:Conv1d-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter             & value             \\ \hline
+    \hline
+    filters               & 16, 32            \\ \hline
+    kernel\_size          & 3, 5              \\ \hline
+    strides               & 1                 \\ \hline
+    padding               & "valid"           \\ \hline
+    data\_format          & "channels\_last"  \\ \hline
+    dilation\_rate        & 1                 \\ \hline
+    groups                & 1                 \\ \hline
+    activation            & "relu"            \\ \hline
+    use\_bias             & True              \\ \hline
+    kernel\_initializer   & "glorot\_uniform" \\ \hline
+    bias\_initializer     & "zeros"           \\ \hline
+    kernel\_regularizer   & None              \\ \hline
+    bias\_regularizer     & None              \\ \hline
+    activity\_regularizer & None              \\ \hline
+    kernel\_constraint    & None              \\ \hline
+    bias\_constraint      & None              \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{MaxPooling1D cell parameters}
+  \label{table:MaxPooling1D-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter    & value            \\ \hline
+    \hline
+    pool\_size   & ??               \\ \hline
+    strides      & ??               \\ \hline
+    padding      & "valid"          \\ \hline
+    date\_format & "channels\_last" \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \centering
+  \caption{Conv1DTranspose cell parameters}
+  \label{table:conv1dtranspose-cell-parameters}
+  \begin{tabular}{|l|l|}\hline
+    Parameter             & value                    \\ \hline
+    \hline
+    filters               & 32, number\_of\_features \\ \hline
+    kernel\_size          & 5, 3                     \\ \hline
+    strides               & 1                        \\ \hline
+    padding               & "valid"                  \\ \hline
+    data\_format          & "channels\_last"         \\ \hline
+    dilation\_rate        & 1                        \\ \hline
+    groups                & 1                        \\ \hline
+    activation            & "relu"                   \\ \hline
+    use\_bias             & True                     \\ \hline
+    kernel\_initializer   & "glorot\_uniform"        \\ \hline
+    bias\_initializer     & "zeros"                  \\ \hline
+    kernel\_regularizer   & None                     \\ \hline
+    bias\_regularizer     & None                     \\ \hline
+    activity\_regularizer & None                     \\ \hline
+    kernel\_constraint    & None                     \\ \hline
+    bias\_constraint      & None                     \\ \hline
+    \hline
+  \end{tabular}
+\end{table}
 
 
 
