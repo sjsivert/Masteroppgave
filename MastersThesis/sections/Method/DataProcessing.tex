@@ -1,6 +1,6 @@
 \section{Data preprocessing}
 \label{section:Method:Preprocessing}
-This section briefly describes all the data processing done.
+This section briefly describes all of the data processing done on the datasets defined in \Cref*{section:Data:Dataset}.
 
 \subsection{Train, validation, test splitting}
 % The training and validation datasets were seperated in a manner similar
@@ -50,8 +50,9 @@ used the chosen batch size as a validation set size.
 
 This, however, means that we are not able to conduct a hyperparameter search for an optimal batch size
 because that would change the validation set as well.
-When we tried to tune the batch size with a variable validation set, the model would almost always prefer the smallest possible batch size because that meant
-it would get a small validation set, which also reduced the number of possible errors it could make.
+When we tried to tune the batch size with a variable validation set, the model would almost always prefer the smallest possible batch size.
+This is because it would result in a small validation set,
+thus reducing the number of possible errors.
 
 When tuning the models, the validation set is actively used as a measurement of the predictive ability of the model.
 However, when conducting final experiments with well-defined models and parameters,
@@ -134,11 +135,11 @@ Where $\mu$ is the mean and $\sigma$ is the standard deviation.
 % For the neural net models, we scale using normalization for the ranges to be in the range [0.1, 1].
 % The unconventional choice of having 0.1 as our lower bound is because the matric SMAPE
 % is vulnerable to zero values, as described in \Cref{eq:sMape}.
-We also tried to normalize the the data by scaling the values down to a predefined fixed range
+We also tried to normalize the data by scaling the values down to a predefined fixed range
   [0.1, 1] using \Cref*{eq:normalization}.
 However, during experimentation and testing, it was found that scaling with standardization
 outperformed the predictions made with a normalization scaling.
-Both methods were explored, but at last, standardization was selected as the scaling method.
+Both methods were tested, but at last, standardization was selected as the preferred scaling method.
 
 \begin{equation}
   x\_std = \frac{x - x.min()}{x.max() - x.min()} \newline
@@ -228,7 +229,7 @@ and $m$ is the size of the output window.
 
 This thesis will primarily work with output window $m$ for size 7.
 This is because it is safe to assume that the E-commerce domain consists of weekly patterns.
-7 days is short enough that we should be able accurately to forecast something meaningful
+7 days is short enough that we should be able to forecast something meaningful accurately
 but long enough to have some commercial value.
 
 \cite{Hewamalage2021} suggests setting the input window size $n$ to be slightly
