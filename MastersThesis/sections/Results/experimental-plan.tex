@@ -49,9 +49,9 @@ These experiments will serve as the baseline metric for comparison with later ex
 \subsection{Experiment 1 - LSTM Baseline}
 \label{section:results:experimentPlan:Experiment-1}
 This experiment will serve as a baseline created using a currently state of the art predictive method
-for e-commerce prediction as pressented in \Cref{section:Architecture:Baselines:LSTM}.
-By comparing the results achieved in this experiment with the ones from \Cref{section:results:experimentPlan:Experiment-0}.
-This experiment serves to answer RQ4 \Cref{G&R:RQ-LSTM-baseline}.
+for e-commerce future prediction, as pressented in \Cref{section:Architecture:Baselines:LSTM}.
+By comparing the results achieved in this experiment with the ones from \Cref{section:results:experimentPlan:Experiment-0},
+this experiment serves to answer RQ4 \Cref{G&R:RQ-LSTM-baseline}.
 
 \begin{description}
   \item[Outline]{
@@ -100,7 +100,7 @@ through the exploration of the questions outlined below.
               It should not impair the model accuracy.
 
               Following the works of \cite{Montero-Manso2021} described in \Cref{section:RelatedWork:Model-structure:local-vs-global}
-              the global models are expected to outperform at worst, equal to the local models, on all the datasets, and at best outperform the local models.
+              the global models are expected to perform, at worst, equal to the local model on all datasets, while at best outperforming the local models.
 
               %  the local models primarily on dataset 2.
               % This is because dataset 2 consists of independent time series.
@@ -116,7 +116,7 @@ This experiment focuses on the proposed hybrid Convolutional Autoencoder and LST
 As this method has yet to be tested on a commercial dataset,
 the experiment aims to improve the accuracy of the correlating LSTM models.
 The hybrid model is explored in each of the experiments ran on the LSTM,
-including all combinations of Local vs Global methods, and univariate vs multivariate.
+including all combinations of Local vs Global models, and univariate vs multivariate models.
 
 This experiment aims to answer RQ5 [\Cref{G&R:RQ-CNN-AE-LSTM}] by applying the Hybrid method
 to the datasets.
@@ -127,7 +127,7 @@ to the datasets.
               Tune, train and test a CNN-AE and LSTM models to compare to the LSTM models
               created in \Cref{section:results:experimentPlan:Experiment-1} and \Cref{section:results:experimentPlan:Experiment-2}.
               Creating a local univariate model, local multivariate model, global univariate model, and global multivariate model.
-              All these models are applied to each of datasets 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
+              All these models are applied to datasets 1, 2 and 3, using MASE and sMAPE metrics on a 7 day forecast.
               The results are compared against the SARIMA and LSTM models defined in previous experiments.
         }
 \end{description}

@@ -161,8 +161,8 @@ The p-values are in \Cref{table:ttest-p-values-lstm-experiments-sMAPE} and
 On dataset 3 SARIMA, again, outperforms the purely local univariate LSTM baseline.
 Many of the same patterns repeats on dataset 3 as with dataset 1 and 2, multivariate beats univariate,
 global unviariate beats local univariate.
-On dataset 3 it seems that the CNN-AE-LSTMs outperform the LSTMs once again, except for the
-best perfoming model, which is the local multivariate LSTM.
+On dataset 3 it seems that the CNN-AE-LSTMs outperform the LSTMs once again.
+% except for the best perfoming model, which is the local multivariate LSTM.
 
 
 % Is this needed? What does this tell us? Is this something we comment on later?
@@ -269,8 +269,8 @@ as well as the tables for t-test values, \Cref*{table:ttest-p-values-main-experi
 \label{section:discussion&results:experiment-results:CNN-AE-LSTM:Local-Univariate}
 The local univariate LSTM and the local univariate convolutional autoencoder and LSTM are one of the model-configurations
 that offer rather similar results across datasets.
-While the hybrid model performance is more or less equal, predictions made on datasets 2 and 3 vary a bit more
-with the basic LSTM model performs 4.6\% and 1.25\% better on average.
+While the hybrid model performance is more or less equal, predictions made on datasets 2 and 3 vary a bit more.
+The basic local univariate LSTM model performs 4.6\% and 1.25\% better on average than the local univariate CNN-AE-LSTM model.
 However, in addition to these similarities in average performance, the T-test conducted on the experiments reveals the same outcome.
 The t-test Resultsults shown in \Cref{table:ttest-p-values-main-experiments-sMAPE} infer that the predictions made by the two local univariate models
 are from the same group, and there is no significant difference in their distribution.
@@ -283,7 +283,7 @@ are from the same group, and there is no significant difference in their distrib
 % Global univariate
 The global univariate CNN-AE-LSTM model is, on average, an improvement over the local univariate CNN-AE-LSTM model.
 The model outperforms the local univariate model on datasets 2 and 3, but not on dataset 1.
-However, the global model performs better than the local model for all datasets with
+However, the global model performs better than the local model on average over all datasets with
 a $5.5\%$ lower sMAPE error metric.
 The global univaraite CNN-AE-LSTM model is not able to outperforme the global univariate LSTM model.
 The global univariate LSTM model generally performed better than the hybrid model.
