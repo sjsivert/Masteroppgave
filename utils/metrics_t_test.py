@@ -158,7 +158,7 @@ test_significanse_each_experiment_appended(
     [projects_1, projects_2, projects_3],
     "MASE",
     name="lstm-experiments-MASE-all-datasets",
-    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models all dataset, statistic value. MASE error",
+    tabel_text="Student t-test, measuring confidence of significant difference between LSTM models all dataset, statistic value. MASE error. l-u = local univariate, l-m= local multivariate, g-u = global univariate etc.",
     table_save_path=table_save_path
 )
 
