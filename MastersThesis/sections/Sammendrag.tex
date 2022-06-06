@@ -1,0 +1,23 @@
+\section*{Sammendrag}
+\label{section:Sammendrag}
+
+
+Denne masteroppgaven utforsker bruk av en convolutions-autoencoder og LSTM modell for å gjennomføre
+tidsserie prediksjon av produkt kategori trend data fra ``Prisguiden.no''.
+Denne masteroppgaven arbeider mot å utvide den teoretiske kunnskapen om bruk av denne CNN-AE-LSTM modellen
+ved å lage modeller som er både lokale og globale, samt ved bruk av en univariabel og multivariabel modell.
+Resultatene fra disse eksperimentene er sammenlignet med resultater fra LSTM modeller av samme type, globale og lokale, univariable og multivariabel modeller.
+I tillegg er disse modellene sammenlignet med en statistisk "baseline" ved bruk av den statistiske modellen SARIMA.
+
+
+Resultatene fra disse eksperimentene viser at bruk av en lokal multivariabel LSTM modell er det som er best egnet for å gjennomføre
+prediksjoner på dataen fra ``Prisguiden.no''.
+Eksperimentene indikerer at CNN-AE-LSTM modellene er sterkt avhengig av type data som som skal predikeres,
+og er spesielt egnet til bruk på data med store mengder støy.
+Ved bruk av et datasett med mye støy indikerer eksperiment resultatene at CNN-AE-LSTM modellene utkonkurrerer LSTM modellen.
+CNN-AE-LSTM modellen gjør det hakket bedre på data med mye støy, men er svært mye dårligere enn LSTM modellen på datasett med lite eller ingen datastøy.
+
+
+CNN-AE-LSTM modellen er ikke velegnet for bruk til tidsserie prediksjoner på data fra ``Prisguiden.no''.
+En lokal multivariabel LSTM modell er derimot bedre egnet for slike prediksjoner.
+
