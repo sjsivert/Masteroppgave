@@ -17,6 +17,24 @@ Lastly, \Cref{section:Method:Statistical-t-test} discusses the use of the t-test
 \import{./sections/Method/}{Hardware&Software.tex}
 \import{./sections/Method/}{Metrics.tex}
 \import{./sections/Method/}{Experiment-framework.tex}
+
+\section{Locking Random Seed for reproducability}
+In order to make our experiments reproducible, the first code that runs at the beginning of each experiment
+is the code that locks a pre-defined random seed number on all our packages that have
+stochastic functions.
+The random seed is defined in our config [\Cref{section:method:experiment-framework:config-module}],
+and was always set to $42$.
+
+The list of packages we lock the random seed on are as follows:
+\begin{itemize}
+  \item \textit{random.seed}
+  \item \textit{os.environment}
+  \item \textit{np.random.seed}
+  \item \textit{torch.manual\_seed}
+  \item \textit{torch.cuda.manual\_seed}
+  \item \textit{torch.backends.cuddn.deteriministic}
+  \item \textit{tf.random.set\_seed}
+\end{itemize}
 %\import{./sections/Method/}{pytorch-vs-keras.tex}
 
 \import{./sections/Method/}{DataProcessing.tex}
