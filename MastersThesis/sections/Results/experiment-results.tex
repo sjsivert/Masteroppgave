@@ -69,9 +69,9 @@ who beat the naive 7-day prediction. The best performing model is the local mult
 
 % Is this needed? What does this tell us? Is this something we comment on later?
 \iffalse
-The mean MASE dataset across all models on dataset 1 is $0.971$,
-the mean sMAPE is $0.2034$,
-and the mean MASE 7-day is $0.9976$.
+  The mean MASE dataset across all models on dataset 1 is $0.971$,
+  the mean sMAPE is $0.2034$,
+  and the mean MASE 7-day is $0.9976$.
 \fi
 
 
@@ -119,9 +119,9 @@ and $0.697$.
 
 % Is this needed? What does this tell us? Is this something we comment on later?
 \iffalse
-The mean MASE across dataset 2 is $1.652$,
-the mean sMAPE is $0.697$,
-and the mean MASE 7-day is  $0.7306$.
+  The mean MASE across dataset 2 is $1.652$,
+  the mean sMAPE is $0.697$,
+  and the mean MASE 7-day is  $0.7306$.
 \fi
 
 
@@ -167,10 +167,10 @@ On dataset 3 it seems that the CNN-AE-LSTMs outperform the LSTMs once again.
 
 % Is this needed? What does this tell us? Is this something we comment on later?
 \iffalse
-% These values are not updated. It should be updated if we consider using it in the text.
-The mean MASE for dataset 3 is $1.957$,
-the mean sMAPE data set 3 is $0.431$,
-and the mean MASE 7-day is $1.111$.
+  % These values are not updated. It should be updated if we consider using it in the text.
+  The mean MASE for dataset 3 is $1.957$,
+  the mean sMAPE data set 3 is $0.431$,
+  and the mean MASE 7-day is $1.111$.
 \fi
 
 
@@ -186,7 +186,8 @@ and the mean MASE 7-day is $1.111$.
 Due to the low sample size of the available datasets,
 proving the statistical significance of model performance proves to be a difficult task.
 However, aggregating the results across the 3 datasets will increase the sample size of the predictions.
-This will, in turn, improve the basis for doing statistical tests on the model predictions. 
+This will, in turn, improve the basis for doing statistical tests on the model predictions.
+The results are shown in \Cref*{fig:results:barplot-average-all-datasets}
 
 %Our results suffer from low sample size and high variance, so it isn't easy
 %to prove anything statistically. Aggregating the results across the datasets
@@ -195,19 +196,21 @@ This will, in turn, improve the basis for doing statistical tests on the model p
 \import{./tables/results/}{Average-metric-all-datasets.tex}
 \import{./tables/results/ttest}{ttest-p-values-lstm-experiments-sMAPE-all-dataset.tex}
 \begin{figure}
+  \caption{Barplot comparing average model perfomance across all datasets}
   \begin{subfigure}[b]{0.49\textwidth}
     \includegraphics[width=\textwidth]{./figs/results/barplot/MASE-all-dataset.png}
     \hfill
-    \caption{Boxplot of predictions made on seasonal dataset}
+    \caption{Average MASE metrics across all datasets}
     % \label{fig:results:boxplot-mase-dataset-3}
   \end{subfigure}
   \begin{subfigure}[b]{0.49\textwidth}
     \includegraphics[width=\textwidth]{./figs/results/barplot/sMAPE-all-dataset.png}
     \hfill
-    \caption{Boxplot of predictions made on seasonal dataset}
+    \caption{Average sMAPE metrics across all datasets}
     % \label{fig:results:boxplot-mase-dataset-3}
 
   \end{subfigure}
+  \label{fig:results:barplot-average-all-datasets}
 \end{figure}
 
 \subsubsection{LSTM models}
