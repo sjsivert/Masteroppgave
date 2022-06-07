@@ -29,7 +29,7 @@ Initially, the complete dataset is available.
 A test set, consisting of the last $m$ points of the sequence, is then manually split from the complete dataset.
 After this, the training set is split again to define both the used training set and the validation set.
 For the SARIMA method, a validation split is not needed.
-However, the use of an LSTM, specifically a stateful LSTM, causes restrictions to the creation of the validation set.
+However, the use of a LSTM, specifically a stateful LSTM, causes restrictions to the creation of the validation set.
 Due to the use of stateful LSTM modules, the validation set has to be the same batch size as the training set.
 This, in turn, means that using a validation set equal to the forecasting window $m$ would limit the available batch size for the model
 used on the training set.
