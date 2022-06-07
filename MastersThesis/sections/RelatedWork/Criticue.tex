@@ -3,12 +3,12 @@
 \label{section:RelatedWork:Criticue}
 The book \cite{Bharadi2021} describes the decoupling of resetting hidden
 states during training of LSTM, and describes the issue of
-needing a fixed batch size. We found countless of internet forum posts
-and some articles that touched on this issue, few good solutions
+needing a fixed batch size. We found countless internet forum posts
+and some articles that touched on this issue, a few good solutions
 to the problem were found.
 
 The literature seems to give few answers for how they handle hidden state
-resets if their models are stateful or stateless. And if stateful,
+resets, if they are using stateful or stateless, and if stateful,
 and how they handle the fixed batch size problem.
 %When working with RNNs and long sequences of time series it is important
 %to be transparent with how resetting of hidden states are done.
